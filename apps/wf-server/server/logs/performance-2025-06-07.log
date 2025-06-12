@@ -1,0 +1,146 @@
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 16:09:25"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 16:09:26"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 16:09:26"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 16:09:26"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 16:09:26"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 16:09:26"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 16:09:47"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 16:09:47"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 16:09:47"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 16:09:47"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 16:09:47"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 16:10:11"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 16:10:11"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 16:10:11"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 16:10:11"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 16:10:11"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 16:10:14"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 16:10:14"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 16:10:14"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 16:10:14"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 16:10:14"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 16:10:14"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-07 16:25:14"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 17:08:51"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 17:08:51"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 17:08:51"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 17:08:51"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 17:08:51"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 17:09:15"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 17:09:15"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 17:09:15"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 17:09:15"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 17:09:15"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 17:11:31"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 17:11:31"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 17:11:31"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 17:11:31"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 17:11:31"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 17:11:55"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 17:11:55"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 17:11:55"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 17:11:55"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 17:11:55"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 17:12:07"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 17:12:07"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 17:12:07"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 17:12:07"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 17:12:07"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-07 17:12:31"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-07 17:12:31"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-07 17:12:31"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-07 17:12:31"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-07 17:12:31"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-07 17:12:31"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-07 17:27:31"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-07 18:27:31"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-07 19:27:31"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-07 21:42:53"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-07 22:52:20"}

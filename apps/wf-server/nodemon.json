@@ -1,0 +1,9 @@
+{
+  "watch": ["server"], 
+  "ignore": ["node_modules", "logs", "*.log",
+   "registry","server/middleware/eventTypes.js", "server/middleware/apiColumns.js"],
+  "ext": "js,json",
+  "exec": "node server/server.js",
+  "delay": "10",
+  "signal": "SIGTERM"
+}

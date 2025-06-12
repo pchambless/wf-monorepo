@@ -1,0 +1,30 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo\\apps\\wf-server\\server\\logs\\.7023e0c6c2d9bf47ef603e0e0801af5e8029af2f-audit.json",
+    "files": [
+        {
+            "date": 1748901085353,
+            "name": "C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo\\apps\\wf-server\\server\\logs\\application-2025-06-02.log",
+            "hash": "a6c3a29fe7865991d2ed32a4ab1a4767c017ecf40d10182f4cbf52b49e5bd150"
+        },
+        {
+            "date": 1749041213538,
+            "name": "C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo\\apps\\wf-server\\server\\logs\\application-2025-06-04.log",
+            "hash": "d2b972bf5729537ac91540eda8fc94af1a37e531ce58cb8ad505a82327243af2"
+        },
+        {
+            "date": 1749144827113,
+            "name": "C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo\\apps\\wf-server\\server\\logs\\application-2025-06-05.log",
+            "hash": "81f92d9e7ba159ad897658e89c88461e44f64570227919f61644a77484b37a92"
+        },
+        {
+            "date": 1749195104469,
+            "name": "C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo\\apps\\wf-server\\server\\logs\\application-2025-06-06.log",
+            "hash": "a3c70a09d5e32b0ae0eea079f8d4237697e6fa05328568a601613d4889d2ac10"
+        }
+    ],
+    "hashType": "sha256"
+}

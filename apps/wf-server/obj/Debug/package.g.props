@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <PackageJsonName Condition="$(PackageJsonName) == ''">wf-server</PackageJsonName>
+    <PackageJsonVersion Condition="$(PackageJsonVersion) == ''">1.0.0</PackageJsonVersion>
+    <PackageJsonMain Condition="$(PackageJsonMain) == ''">index.js</PackageJsonMain>
+    <PackageJsonLicense Condition="$(PackageJsonLicense) == ''">MIT</PackageJsonLicense>
+    <PackageJsonDependenciesAxios Condition="$(PackageJsonDependenciesAxios) == ''">^1.7.8</PackageJsonDependenciesAxios>
+    <PackageJsonDependenciesBcrypt Condition="$(PackageJsonDependenciesBcrypt) == ''">^5.1.1</PackageJsonDependenciesBcrypt>
+    <PackageJsonDependenciesCors Condition="$(PackageJsonDependenciesCors) == ''">^2.8.5</PackageJsonDependenciesCors>
+    <PackageJsonDependenciesDepcheck Condition="$(PackageJsonDependenciesDepcheck) == ''">^1.4.7</PackageJsonDependenciesDepcheck>
+    <PackageJsonDependenciesDependencyCruiser Condition="$(PackageJsonDependenciesDependencyCruiser) == ''">^16.8.0</PackageJsonDependenciesDependencyCruiser>
+    <PackageJsonDependenciesDotenv Condition="$(PackageJsonDependenciesDotenv) == ''">^16.4.5</PackageJsonDependenciesDotenv>
+    <PackageJsonDependenciesExpress Condition="$(PackageJsonDependenciesExpress) == ''">^4.21.1</PackageJsonDependenciesExpress>
+    <PackageJsonDependenciesJsonwebtoken Condition="$(PackageJsonDependenciesJsonwebtoken) == ''">^9.0.2</PackageJsonDependenciesJsonwebtoken>
+    <PackageJsonDependenciesModuleAlias Condition="$(PackageJsonDependenciesModuleAlias) == ''">^2.2.2</PackageJsonDependenciesModuleAlias>
+    <PackageJsonDependenciesMorgan Condition="$(PackageJsonDependenciesMorgan) == ''">^1.10.0</PackageJsonDependenciesMorgan>
+    <PackageJsonDependenciesMysql2 Condition="$(PackageJsonDependenciesMysql2) == ''">^3.11.5</PackageJsonDependenciesMysql2>
+    <PackageJsonScriptsStart Condition="$(PackageJsonScriptsStart) == ''">nodemon server/server.js</PackageJsonScriptsStart>
+    <PackageJsonScriptsDev Condition="$(PackageJsonScriptsDev) == ''">nodemon server/server.js</PackageJsonScriptsDev>
+    <PackageJsonModulealiasesRoot Condition="$(PackageJsonModulealiasesRoot) == ''">.</PackageJsonModulealiasesRoot>
+    <PackageJsonModulealiasesApi Condition="$(PackageJsonModulealiasesApi) == ''">api</PackageJsonModulealiasesApi>
+    <PackageJsonModulealiasesApitemplates Condition="$(PackageJsonModulealiasesApitemplates) == ''">apiTemplates</PackageJsonModulealiasesApitemplates>
+    <PackageJsonModulealiasesMiddleware Condition="$(PackageJsonModulealiasesMiddleware) == ''">server/middleware</PackageJsonModulealiasesMiddleware>
+    <PackageJsonModulealiasesController Condition="$(PackageJsonModulealiasesController) == ''">server/controller</PackageJsonModulealiasesController>
+    <PackageJsonModulealiasesEvents Condition="$(PackageJsonModulealiasesEvents) == ''">server/events</PackageJsonModulealiasesEvents>
+    <PackageJsonModulealiasesRoutes Condition="$(PackageJsonModulealiasesRoutes) == ''">server/routes</PackageJsonModulealiasesRoutes>
+    <PackageJsonModulealiasesUtils Condition="$(PackageJsonModulealiasesUtils) == ''">server/utils</PackageJsonModulealiasesUtils>
+    <PackageJsonModulealiasesDb Condition="$(PackageJsonModulealiasesDb) == ''">server/utils/db.js</PackageJsonModulealiasesDb>
+    <PackageJsonDevdependenciesEslint Condition="$(PackageJsonDevdependenciesEslint) == ''">^9.19.0</PackageJsonDevdependenciesEslint>
+    <PackageJsonDevdependenciesNodemon Condition="$(PackageJsonDevdependenciesNodemon) == ''">^3.1.7</PackageJsonDevdependenciesNodemon>
+  </PropertyGroup>
+</Project>

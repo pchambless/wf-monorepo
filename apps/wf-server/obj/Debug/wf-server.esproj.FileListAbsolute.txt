@@ -1,0 +1,2 @@
+C:\Users\pc790\whatsfresh\wf-server\obj\Debug\wf-server.esproj.CoreCompileInputs.cache
+C:\Users\pc790\whatsfresh\Projects\wf-server\obj\Debug\wf-server.esproj.CoreCompileInputs.cache

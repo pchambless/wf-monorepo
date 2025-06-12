@@ -1,0 +1,259 @@
+flowchart LR
+
+subgraph 0["apps"]
+subgraph 1["wf-client"]
+subgraph 2["src"]
+3["App.jsx"]
+subgraph 4["actions"]
+5["ActionHandlerContext.jsx"]
+8["actionHandlers.js"]
+9["actionStore.js"]
+subgraph B["handlers"]
+C["navigation.js"]
+F["selection.js"]
+end
+M["ActionProvider.jsx"]
+N["TrackingProvider.jsx"]
+O["tracker.js"]
+P["hooks.js"]
+Q["store.js"]
+subgraph R["tracker"]
+subgraph S["components"]
+T["MetricsTable.jsx"]
+V["TrackerTable.jsx"]
+end
+end
+end
+subgraph 6["utils"]
+7["logger.js"]
+A["externalStoreDel.js"]
+L["fetchLogHelper.js"]
+1H["navigationHelper.js"]
+subgraph 1R["DML"]
+1S["buildRequest.js"]
+1T["buildSql.js"]
+1U["crudDML.jsx"]
+1V["previewSql.jsx"]
+1W["index.js"]
+subgraph 1X["store"]
+1Y["dmlStore.jsx"]
+end
+end
+1Z["MinViableProd.js"]
+20["accountManager.js"]
+21["acctLists.js"]
+22["dataFetcher.js"]
+23["debugPageMap.js"]
+subgraph 24["deprecated"]
+25["ColMapBuild.js"]
+subgraph 26["debug"]
+27["checkPageMapColumns.js"]
+end
+subgraph 28["tracker"]
+29["actions.js"]
+end
+subgraph 2A["validation"]
+2B["validatePageMap.js"]
+end
+end
+2C["entityHelpers.js"]
+2D["mobxHelpers.js"]
+subgraph 2E["pageMapBuild"]
+2F["ColumnMapBuilder.js"]
+2G["PageConfigBuilder.js"]
+2H["PageMapBuilder.js"]
+2I["index.js"]
+end
+end
+subgraph D["stores"]
+E["pageStore.js"]
+I["eventStore.js"]
+19["index.js"]
+1D["navigationStore.js"]
+1O["breadcrumbStore.js"]
+1P["paramStore.js"]
+1Q["sessionStore.js"]
+end
+subgraph G["contexts"]
+H["BreadcrumbContext.jsx"]
+16["AppStateContext.js"]
+end
+subgraph J["api"]
+K["api.js"]
+end
+U["tracker.js"]
+subgraph W["auth"]
+X["AuthProvider.js"]
+end
+subgraph Y["components"]
+subgraph Z["2-form"]
+10["DatePick.js"]
+11["Select.js"]
+end
+12["ProtectedRoute.js"]
+end
+subgraph 13["context"]
+14["EventTypeContext.js"]
+15["GlobalContext.js"]
+end
+subgraph 17["hooks"]
+18["useEntityNames.js"]
+end
+subgraph 1A["pages"]
+subgraph 1B["0-Login"]
+1C["Presenter.js"]
+1E["index.js"]
+end
+subgraph 1F["1-Dashboard"]
+1G["index.js"]
+end
+end
+subgraph 1I["routes"]
+1J["account.js"]
+1K["dashboard.js"]
+1L["ingredients.js"]
+1M["products.js"]
+1N["index.js"]
+end
+end
+end
+end
+3-->5
+3-->H
+3-->I
+3-->A
+3-->L
+3-->7
+5-->7
+5-->8
+8-->7
+8-->9
+9-->A
+9-->7
+9-->8
+A-->7
+C-->E
+C-->7
+E-->A
+E-->7
+F-->A
+F-->7
+F-->9
+H-->7
+I-->K
+I-->7
+K-->7
+L-->7
+M-->7
+M-->9
+N-->7
+N-->O
+O-->A
+O-->7
+P-->7
+P-->9
+Q-->7
+T-->U
+T-->A
+U-->7
+V-->A
+X-->8
+X-->7
+10-->A
+10-->7
+11-->A
+11-->7
+12-->A
+12-->7
+14-->K
+14-->15
+14-->A
+14-->7
+15-->A
+15-->7
+16-->7
+18-->19
+18-->7
+19-->I
+19-->I
+19-->E
+1C-->19
+1C-->1D
+1C-->7
+1D-->7
+1E-->7
+1E-->1C
+1G-->1H
+1H-->1J
+1H-->1K
+1H-->1L
+1H-->1M
+1H-->7
+1J-->7
+1K-->7
+1N-->1E
+1N-->7
+1N-->1J
+1N-->1K
+1N-->1L
+1N-->1M
+1O-->7
+1P-->7
+1Q-->A
+1Q-->7
+1Q-->I
+1S-->7
+1T-->7
+1U-->7
+1U-->1S
+1U-->1T
+1U-->1V
+1V-->7
+1W-->7
+1W-->1S
+1W-->1T
+1W-->1V
+1Y-->1W
+1Z-->7
+20-->9
+20-->E
+20-->7
+21-->7
+21-->A
+22-->K
+22-->7
+23-->7
+2C-->A
+2H-->19
+2H-->7
+2H-->2F
+2H-->2G
+2I-->2F
+2I-->2G
+2I-->2H
+
+style 7 fill:lime,color:black
+style A fill:lime,color:black
+style L fill:lime,color:black
+style 1H fill:lime,color:black
+style 1S fill:lime,color:black
+style 1T fill:lime,color:black
+style 1U fill:lime,color:black
+style 1V fill:lime,color:black
+style 1W fill:lime,color:black
+style 1Y fill:lime,color:black
+style 1Z fill:lime,color:black
+style 20 fill:lime,color:black
+style 21 fill:lime,color:black
+style 22 fill:lime,color:black
+style 23 fill:lime,color:black
+style 25 fill:lime,color:black
+style 27 fill:lime,color:black
+style 29 fill:lime,color:black
+style 2B fill:lime,color:black
+style 2C fill:lime,color:black
+style 2D fill:lime,color:black
+style 2F fill:lime,color:black
+style 2G fill:lime,color:black
+style 2H fill:lime,color:black
+style 2I fill:lime,color:black

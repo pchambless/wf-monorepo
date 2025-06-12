@@ -1,0 +1,11 @@
+{
+  "name": "@whatsfresh/shared-config",
+  "version": "0.1.0",
+  "description": "Shared configuration for WhatsFresh applications",
+  "main": "index.js",
+  "files": [
+    "src",
+    "index.js"
+  ],
+  "private": true
+}

@@ -1,0 +1,110 @@
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-10 02:31:49"}
+{"level":"info","message":"Log file rotated","newFilename":"C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo-new\\apps\\wf-server\\server\\logs\\application-2025-06-10.log","oldFilename":"C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo-new\\apps\\wf-server\\server\\logs\\application-2025-06-09.log","timestamp":"2025-06-10 02:31:49"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-10 04:03:03"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-10 06:09:53"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-10 07:41:34"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-06-10 08:26:55"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-06-10 08:26:55"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-06-10 08:26:55"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-06-10 08:26:55"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-06-10 08:26:55"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":750.5791,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (763ms)","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":762.9605,"method":"POST","operation":"http_request","path":"/api/execEventType","status":200},"timestamp":"2025-06-10 08:26:56"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":111.6135,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (127ms)","timestamp":"2025-06-10 08:26:56"}
+{"contentType":"application/json","eventType":"ingrTypeList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{":acctID":25,"level":"debug","message":"[execEventType.js] Event: ingrTypeList, Params:","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":acctID":25},"qrySQL":"\n      SELECT *\n      FROM api_wf.ingrTypeList\n      WHERE acctID = :acctID\n      ORDER BY ingrTypeName\n    ","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-06-10 08:26:56"}
+{"contentType":"application/json","eventType":"prodTypeList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{":acctID":25,"level":"debug","message":"[execEventType.js] Event: prodTypeList, Params:","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":acctID":25},"qrySQL":"\n      SELECT *\n      FROM api_wf.prodTypeList\n      WHERE acctID = :acctID\n      ORDER BY prodTypeName\n    ","timestamp":"2025-06-10 08:26:56"}
+{"contentType":"application/json","eventType":"measList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{":acctID":25,"level":"debug","message":"[execEventType.js] Event: measList, Params:","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":acctID":25},"qrySQL":"\n      SELECT *\n      FROM api_wf.measList\n      WHERE acctID = :acctID\n      ORDER BY name\n    ","timestamp":"2025-06-10 08:26:56"}
+{"contentType":"application/json","eventType":"brndList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{":acctID":25,"level":"debug","message":"[execEventType.js] Event: brndList, Params:","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":acctID":25},"qrySQL":"\n      SELECT *\n      FROM api_wf.brndList\n      WHERE acctID = :acctID\n      ORDER BY brndName\n    ","timestamp":"2025-06-10 08:26:56"}
+{"contentType":"application/json","eventType":"vndrList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{":acctID":25,"level":"debug","message":"[execEventType.js] Event: vndrList, Params:","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":acctID":25},"qrySQL":"\n      SELECT *\n      FROM api_wf.vndrList\n      WHERE acctID = :acctID\n      ORDER BY vndrName\n    ","timestamp":"2025-06-10 08:26:56"}
+{"contentType":"application/json","eventType":"wrkrList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-06-10 08:26:56"}
+{":acctID":25,"level":"debug","message":"[execEventType.js] Event: wrkrList, Params:","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":acctID":25},"qrySQL":"\n      SELECT *\n      FROM api_wf.wrkrList\n      WHERE acctID = :acctID\n      ORDER BY wrkrName\n    ","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 4","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":237.5961,"method":"GET","operation":"database_query","rowCount":4,"success":true},"timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for ingrTypeList","timestamp":"2025-06-10 08:26:56"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (249ms)","timestamp":"2025-06-10 08:26:56"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 2","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":503.9009,"method":"GET","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for brndList","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (523ms)","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":522.7522,"method":"POST","operation":"http_request","path":"/api/execEventType","status":200},"timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 3","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":549.6706,"method":"GET","operation":"database_query","rowCount":3,"success":true},"timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for prodTypeList","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (577ms)","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":576.5603,"method":"POST","operation":"http_request","path":"/api/execEventType","status":200},"timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 2","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":499.8782,"method":"GET","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for wrkrList","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (516ms)","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":516.4834,"method":"POST","operation":"http_request","path":"/api/execEventType","status":200},"timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 6","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":562.1592,"method":"GET","operation":"database_query","rowCount":6,"success":true},"timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for measList","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (577ms)","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":576.5483,"method":"POST","operation":"http_request","path":"/api/execEventType","status":200},"timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":543.8756,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for vndrList","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (564ms)","timestamp":"2025-06-10 08:26:57"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":564.3361,"method":"POST","operation":"http_request","path":"/api/execEventType","status":200},"timestamp":"2025-06-10 08:26:57"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-10 08:56:34"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-10 16:31:49"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-10 21:33:49"}

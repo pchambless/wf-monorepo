@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>dependency-cruiser output</title>
+  <style media="screen">
+    html {
+      font-family: sans-serif;
+      font-size: 10pt;
+    }
+
+    table {
+      overflow: hidden;
+    }
+
+    table,
+    td.controls {
+      transition-duration: 0.3s;
+    }
+
+    table,
+    th,
+    td {
+      border: solid black 1px;
+      border-collapse: collapse;
+      font-size: inherit;
+    }
+
+    td,
+    th {
+      position: relative;
+    }
+
+    th {
+      text-align: start;
+      vertical-align: bottom;
+      max-width: 1em;
+      max-height: 30em;
+      height: 20em;
+      font-weight: normal;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    th div {
+      transform: rotateZ(-90deg);
+      transform-origin: 0.5em;
+      text-align: start;
+      height: 1em;
+      width: 30em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    td.first-cell {
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    td.top-left {
+      border-top: solid 1px transparent;
+      border-left: solid 1px transparent;
+    }
+
+    td.top-right {
+      border-top: solid 1px transparent;
+      border-right: solid 1px transparent;
+    }
+
+    td.bottom-left {
+      border-bottom: solid 1px transparent;
+      border-left: solid 1px transparent;
+    }
+
+    td.bottom-right {
+      border-bottom: solid 1px transparent;
+      border-right: solid 1px transparent;
+    }
+
+    tbody tr:hover {
+      background-color: lightgrey;
+    }
+
+    td:hover::after,
+    td:focus::after,
+    th:hover::after,
+    th:focus::after {
+      background-color: #00000077;
+      content: "";
+      height: 5000px;
+      left: 0;
+      position: absolute;
+      top: -2500px;
+      width: 100%;
+      z-index: -1;
+    }
+
+    #table-rotated:target {
+      transform: rotateZ(45deg);
+      transform-origin: bottom left;
+    }
+
+    #table-rotated:target #unrotate {
+      opacity: 1;
+    }
+
+    #table-rotated:target #rotate {
+      opacity: 0;
+    }
+
+    #unrotate {
+      opacity: 0;
+    }
+
+    #rotate {
+      opacity: 1;
+    }
+
+    .controls {
+      opacity: 0.2;
+      vertical-align: bottom;
+      padding: 0.5em;
+    }
+
+    .controls:hover {
+      opacity: 1;
+    }
+
+    .controls a {
+      font-style: normal;
+      text-decoration: none;
+      background-color: #eee;
+      padding: 0.2em 0.5em 0.2em 0.5em;
+    }
+
+    .cell-core-module {
+      color: grey;
+      font-style: italic;
+    }
+
+    .cell-unresolvable-module {
+      color: red;
+      font-style: italic;
+    }
+
+    .cell-true {
+      background-color: black;
+      opacity: 0.5;
+    }
+
+    .cell-false {
+      background-color: white;
+      opacity: 0.5;
+    }
+
+    .cell-error {
+      background-color: red;
+      opacity: 0.5;
+    }
+
+    .cell-warn {
+      background-color: orange;
+      opacity: 0.5;
+    }
+
+    .cell-info {
+      background-color: blue;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <table id="table-rotated">
+    <thead>
+      <tr>
+        <td class="controls top-left">
+          <a id="rotate" href="#table-rotated">rotate</a>
+          <a id="unrotate" href="#">rotate back</a>
+        </td>
+        <th><div>apps/wf-client/src/utils/DML/buildRequest.js</div></th><th><div>apps/wf-client/src/utils/DML/buildSql.js</div></th><th><div>apps/wf-client/src/utils/DML/crudDML.jsx</div></th><th><div>apps/wf-client/src/utils/DML/index.js</div></th><th><div>apps/wf-client/src/utils/DML/previewSql.jsx</div></th><th><div>apps/wf-client/src/utils/DML/store/dmlStore.jsx</div></th><th><div>apps/wf-client/src/utils/MinViableProd.js</div></th><th><div>apps/wf-client/src/utils/accountManager.js</div></th><th><div>apps/wf-client/src/utils/acctLists.js</div></th><th><div>apps/wf-client/src/utils/dataFetcher.js</div></th><th><div>apps/wf-client/src/utils/debugPageMap.js</div></th><th><div>apps/wf-client/src/utils/deprecated/ColMapBuild.js</div></th><th><div>apps/wf-client/src/utils/deprecated/debug/checkPageMapColumns.js</div></th><th><div>apps/wf-client/src/utils/deprecated/tracker/actions.js</div></th><th><div>apps/wf-client/src/utils/deprecated/validation/validatePageMap.js</div></th><th><div>apps/wf-client/src/utils/entityHelpers.js</div></th><th><div>apps/wf-client/src/utils/externalStoreDel.js</div></th><th><div>apps/wf-client/src/utils/fetchLogHelper.js</div></th><th><div>apps/wf-client/src/utils/logger.js</div></th><th><div>apps/wf-client/src/utils/mobxHelpers.js</div></th><th><div>apps/wf-client/src/utils/navigationHelper.js</div></th><th><div>apps/wf-client/src/utils/pageMapBuild/ColumnMapBuilder.js</div></th><th><div>apps/wf-client/src/utils/pageMapBuild/PageConfigBuilder.js</div></th><th><div>apps/wf-client/src/utils/pageMapBuild/PageMapBuilder.js</div></th><th><div>apps/wf-client/src/utils/pageMapBuild/index.js</div></th>
+        <td class="top-right"></td>
+      </tr>
+    </thead>
+    <tbody>
+    
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/DML/buildRequest.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/buildRequest.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/DML/buildRequest.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/DML/buildSql.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/buildSql.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/DML/buildSql.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/DML/crudDML.jsx</td>
+        <td class="cell cell-true" title="apps/wf-client/src/utils/DML/crudDML.jsx -> apps/wf-client/src/utils/DML/buildRequest.js"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/crudDML.jsx -> apps/wf-client/src/utils/DML/buildSql.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/crudDML.jsx -> apps/wf-client/src/utils/DML/previewSql.jsx"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/crudDML.jsx -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/DML/crudDML.jsx</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/DML/index.js</td>
+        <td class="cell cell-true" title="apps/wf-client/src/utils/DML/index.js -> apps/wf-client/src/utils/DML/buildRequest.js"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/index.js -> apps/wf-client/src/utils/DML/buildSql.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/index.js -> apps/wf-client/src/utils/DML/previewSql.jsx"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/index.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/DML/index.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/DML/previewSql.jsx</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/previewSql.jsx -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/DML/previewSql.jsx</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/DML/store/dmlStore.jsx</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/DML/store/dmlStore.jsx -> apps/wf-client/src/utils/DML/index.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/DML/store/dmlStore.jsx</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/MinViableProd.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/MinViableProd.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/MinViableProd.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/accountManager.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/accountManager.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/accountManager.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/acctLists.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/acctLists.js -> apps/wf-client/src/utils/externalStoreDel.js"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/acctLists.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/acctLists.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/dataFetcher.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/dataFetcher.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/dataFetcher.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/debugPageMap.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/debugPageMap.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/debugPageMap.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/deprecated/ColMapBuild.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/deprecated/ColMapBuild.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/deprecated/debug/checkPageMapColumns.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/deprecated/debug/checkPageMapColumns.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/deprecated/tracker/actions.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/deprecated/tracker/actions.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/deprecated/validation/validatePageMap.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/deprecated/validation/validatePageMap.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/entityHelpers.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/entityHelpers.js -> apps/wf-client/src/utils/externalStoreDel.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/entityHelpers.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/externalStoreDel.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/externalStoreDel.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/externalStoreDel.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/fetchLogHelper.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/fetchLogHelper.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/fetchLogHelper.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/logger.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/logger.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/mobxHelpers.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/mobxHelpers.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/navigationHelper.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/navigationHelper.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/navigationHelper.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/pageMapBuild/ColumnMapBuilder.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/pageMapBuild/ColumnMapBuilder.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/pageMapBuild/PageConfigBuilder.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/pageMapBuild/PageConfigBuilder.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/pageMapBuild/PageMapBuilder.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/pageMapBuild/PageMapBuilder.js -> apps/wf-client/src/utils/logger.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/pageMapBuild/PageMapBuilder.js -> apps/wf-client/src/utils/pageMapBuild/ColumnMapBuilder.js"></td><td class="cell cell-true" title="apps/wf-client/src/utils/pageMapBuild/PageMapBuilder.js -> apps/wf-client/src/utils/pageMapBuild/PageConfigBuilder.js"></td><td class="cell cell-false"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/pageMapBuild/PageMapBuilder.js</td>
+      </tr>
+      <tr>
+        <td class="first-cell">apps/wf-client/src/utils/pageMapBuild/index.js</td>
+        <td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-false"></td><td class="cell cell-true" title="apps/wf-client/src/utils/pageMapBuild/index.js -> apps/wf-client/src/utils/pageMapBuild/ColumnMapBuilder.js"></td><td class="cell cell-true" title="apps/wf-client/src/utils/pageMapBuild/index.js -> apps/wf-client/src/utils/pageMapBuild/PageConfigBuilder.js"></td><td class="cell cell-true" title="apps/wf-client/src/utils/pageMapBuild/index.js -> apps/wf-client/src/utils/pageMapBuild/PageMapBuilder.js"></td><td class="cell cell-false"></td>
+        <td class="first-cell">apps/wf-client/src/utils/pageMapBuild/index.js</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="bottom-left"></td>
+        <th><div>apps/wf-client/src/utils/DML/buildRequest.js</div></th><th><div>apps/wf-client/src/utils/DML/buildSql.js</div></th><th><div>apps/wf-client/src/utils/DML/crudDML.jsx</div></th><th><div>apps/wf-client/src/utils/DML/index.js</div></th><th><div>apps/wf-client/src/utils/DML/previewSql.jsx</div></th><th><div>apps/wf-client/src/utils/DML/store/dmlStore.jsx</div></th><th><div>apps/wf-client/src/utils/MinViableProd.js</div></th><th><div>apps/wf-client/src/utils/accountManager.js</div></th><th><div>apps/wf-client/src/utils/acctLists.js</div></th><th><div>apps/wf-client/src/utils/dataFetcher.js</div></th><th><div>apps/wf-client/src/utils/debugPageMap.js</div></th><th><div>apps/wf-client/src/utils/deprecated/ColMapBuild.js</div></th><th><div>apps/wf-client/src/utils/deprecated/debug/checkPageMapColumns.js</div></th><th><div>apps/wf-client/src/utils/deprecated/tracker/actions.js</div></th><th><div>apps/wf-client/src/utils/deprecated/validation/validatePageMap.js</div></th><th><div>apps/wf-client/src/utils/entityHelpers.js</div></th><th><div>apps/wf-client/src/utils/externalStoreDel.js</div></th><th><div>apps/wf-client/src/utils/fetchLogHelper.js</div></th><th><div>apps/wf-client/src/utils/logger.js</div></th><th><div>apps/wf-client/src/utils/mobxHelpers.js</div></th><th><div>apps/wf-client/src/utils/navigationHelper.js</div></th><th><div>apps/wf-client/src/utils/pageMapBuild/ColumnMapBuilder.js</div></th><th><div>apps/wf-client/src/utils/pageMapBuild/PageConfigBuilder.js</div></th><th><div>apps/wf-client/src/utils/pageMapBuild/PageMapBuilder.js</div></th><th><div>apps/wf-client/src/utils/pageMapBuild/index.js</div></th>
+        <td class="bottom-right"></td>
+      </tr>
+    </tfoot>
+  </table>
+
+</body>
+</html>

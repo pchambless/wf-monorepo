@@ -1,0 +1,5 @@
+{
+  "ignores": [ "webpack", "babel-*", "eslint", "jest" ],
+  "skipMissing": true
+}
+   

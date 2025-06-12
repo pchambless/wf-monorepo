@@ -1,0 +1,143 @@
+// modalStore.js - MobX Conversion with backward compatibility
+import { makeAutoObservable } from 'mobx';
+import createLogger from '@utils/logger';
+import { useContext, createContext } from 'react'; // Remove unused React import
+
+const log = createLogger('ModalStore');
+
+/**
+ * Modal Store - handles modal display logic
+ */
+class ModalStore {
+  isOpen = false;
+  content = null;
+  title = '';
+  actions = [];
+  size = 'md';
+  
+  constructor() {
+    makeAutoObservable(this);
+    this.log = createLogger('ModalStore');
+  }
+  
+  /**
+   * Show a modal with custom content
+   */
+  showModal({ title, content, actions = [], size = 'md' }) {
+    this.log.debug('Showing modal:', { title });
+    this.title = title;
+    this.content = content;
+    this.actions = actions;
+    this.size = size;
+    this.isOpen = true;
+    
+    // Use the top-level logger too
+    log.info(`Modal opened: ${title}`); 
+  }
+  
+  /**
+   * Close the modal
+   */
+  closeModal() {
+    this.isOpen = false;
+  }
+  
+  /**
+   * Show a confirmation dialog
+   * @param {string|React.Element} message - Message to display
+   * @param {Function} onConfirm - Callback when confirmed
+   * @param {Function} onCancel - Callback when cancelled
+   * @param {Object} options - Additional options
+   */
+  showConfirmation(message, onConfirm, onCancel, options = {}) {
+    this.showModal({
+      title: options.title || 'Confirm',
+      content: message,
+      actions: [
+        {
+          label: options.cancelText || 'Cancel',
+          onClick: () => {
+            this.closeModal();
+            if (onCancel) onCancel();
+          }
+        },
+        {
+          label: options.confirmText || 'Confirm',
+          onClick: () => {
+            this.closeModal();
+            if (onConfirm) onConfirm();
+          },
+          color: options.confirmColor || 'primary'
+        }
+      ],
+      size: options.size || 'sm'
+    });
+  }
+  
+  /**
+   * Show an error dialog
+   * @param {string|React.Element} message - Error message
+   * @param {Object} options - Additional options
+   */
+  showError(message, options = {}) {
+    this.showModal({
+      title: options.title || 'Error',
+      content: message,
+      actions: [
+        {
+          label: 'OK',
+          onClick: () => {
+            this.closeModal();
+            if (options.onClose) options.onClose();
+          }
+        }
+      ],
+      size: options.size || 'sm'
+    });
+  }
+}
+
+const modalStore = new ModalStore();
+
+// Create a React context for legacy code that uses hooks
+const ModalContext = createContext(modalStore);
+
+/**
+ * Legacy hook for accessing modal store
+ * @returns {ModalStore} The modal store instance
+ */
+export const useModalStore = () => {
+  return useContext(ModalContext);
+};
+
+/**
+ * Legacy function for opening a modal
+ */
+export const openModal = (config) => {
+  modalStore.showModal(config);
+};
+
+/**
+ * Legacy function for closing the modal
+ */
+export const closeModal = () => {
+  modalStore.closeModal();
+};
+
+/**
+ * Legacy function for showing confirmation
+ */
+export const showConfirmation = (message, onConfirm, onCancel, options) => {
+  modalStore.showConfirmation(message, onConfirm, onCancel, options);
+};
+
+/**
+ * Legacy function for showing error
+ */
+export const showError = (message, options) => {
+  modalStore.showError(message, options);
+};
+
+// Export the store instance as default and named export
+export default modalStore;
+export { modalStore };

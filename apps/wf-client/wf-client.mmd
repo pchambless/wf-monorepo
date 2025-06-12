@@ -1,0 +1,150 @@
+flowchart LR
+
+subgraph 0["src"]
+1["App.js"]
+subgraph 2["components"]
+3["Container.js"]
+subgraph 6["page"]
+7["PageHeader.js"]
+11["PageTemplate.js"]
+12["Form.js"]
+13["Table.js"]
+1C["Select.js"]
+end
+subgraph C["modal"]
+D["MessageModal.js"]
+E["TableModal.js"]
+1B["CustomModal.js"]
+end
+N["AppNav.js"]
+O["ErrorBoundary.js"]
+subgraph T["debug"]
+U["DebugPanel.js"]
+V["VariableTable.js"]
+17["DebugLog.js"]
+18["DebugStateTable.js"]
+1A["VariableList.js"]
+end
+15["ProductForm.js"]
+16["Registration.js"]
+end
+subgraph 4["styles"]
+5["tailwind.css"]
+1J["modal.css"]
+end
+subgraph 8["assets"]
+9["wf-icon.png"]
+end
+subgraph A["context"]
+B["ModalContext.js"]
+F["EventTypeContext.js"]
+M["PageContext.js"]
+P["DebugContext.js"]
+Q["GlobalContext.js"]
+W["IngredientsContext.js"]
+X["UserContext.js"]
+19["SelectContext.js"]
+1D["AccountContext.js"]
+1E["MapRouterContext.js"]
+end
+subgraph G["api"]
+H["api.js"]
+end
+subgraph I["hooks"]
+J["useLogger.js"]
+1G["useFetchFormColumns.js"]
+1H["useFetchTableList.js"]
+end
+subgraph K["utils"]
+L["externalStore.js"]
+1F["mapRouter.js"]
+1M["pageUtils.js"]
+end
+subgraph R["pages"]
+S["Dashboard.js"]
+Y["Login.js"]
+subgraph Z["ingredients"]
+10["IngrTypes.js"]
+end
+end
+14["App.test.js"]
+1I["index.js"]
+1K["reportWebVitals.js"]
+1L["setupTests.js"]
+end
+1-->3
+1-->O
+1-->P
+1-->F
+1-->Q
+1-->W
+1-->B
+1-->M
+1-->X
+1-->S
+1-->10
+1-->Y
+1-->L
+3-->7
+3-->5
+7-->9
+7-->B
+7-->M
+7-->J
+7-->L
+7-->N
+B-->D
+B-->E
+B-->L
+D-->B
+E-->F
+E-->J
+E-->L
+F-->H
+F-->J
+F-->L
+M-->F
+N-->5
+Q-->S
+S-->U
+S-->B
+S-->M
+S-->J
+U-->F
+U-->B
+U-->V
+V-->L
+W-->L
+X-->Y
+X-->L
+Y-->H
+Y-->9
+Y-->F
+Y-->J
+Y-->L
+10-->11
+10-->J
+11-->M
+11-->J
+11-->12
+11-->13
+12-->F
+12-->J
+12-->L
+13-->F
+13-->J
+13-->L
+14-->1
+17-->P
+18-->19
+19-->J
+19-->F
+1E-->1F
+1F-->L
+1G-->F
+1H-->F
+1I-->1
+1I-->1J
+1I-->5
+1M-->F
+1M-->J

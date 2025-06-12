@@ -1,0 +1,112 @@
+[
+  {
+    "prodBtchID": 2889,
+    "btchNbr": "63232",
+    "btchStart": "2024-05-31",
+    "btchLoc": "NSQ",
+    "btchQty": 300,
+    "measID": 25,
+    "bestByDate": "2026-11-30",
+    "comments": "",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2851,
+    "btchNbr": "63231",
+    "btchStart": "2024-04-25",
+    "btchLoc": "NSQ",
+    "btchQty": 150,
+    "measID": 25,
+    "bestByDate": "2025-10-25",
+    "comments": "",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2842,
+    "btchNbr": "63230",
+    "btchStart": "2024-04-17",
+    "btchLoc": "NSQ",
+    "btchQty": 390,
+    "measID": 25,
+    "bestByDate": "2025-10-17",
+    "comments": "",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2827,
+    "btchNbr": "63229",
+    "btchStart": "2024-03-25",
+    "btchLoc": "NSQ",
+    "btchQty": 345,
+    "measID": 25,
+    "bestByDate": "2025-09-25",
+    "comments": "",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2825,
+    "btchNbr": "63228",
+    "btchStart": "2024-03-21",
+    "btchLoc": "NSQ",
+    "btchQty": 330,
+    "measID": 25,
+    "bestByDate": "2025-09-21",
+    "comments": "",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2820,
+    "btchNbr": "63227",
+    "btchStart": "2024-03-14",
+    "btchLoc": "NSQ",
+    "btchQty": 68,
+    "measID": 25,
+    "bestByDate": "2025-09-14",
+    "comments": "",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2813,
+    "btchNbr": "63226",
+    "btchStart": "2024-03-12",
+    "btchLoc": "NSQ",
+    "btchQty": 165,
+    "measID": 25,
+    "bestByDate": "2025-09-12",
+    "comments": "",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2760,
+    "btchNbr": "63225",
+    "btchStart": "2024-01-31",
+    "btchLoc": "NSQ",
+    "btchQty": 495,
+    "measID": 25,
+    "bestByDate": "2025-07-31",
+    "comments": "Used Part Brine from 1/17/24",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2736,
+    "btchNbr": "63224",
+    "btchStart": "2024-01-17",
+    "btchLoc": "NSQ",
+    "btchQty": 240,
+    "measID": 25,
+    "bestByDate": "2026-06-17",
+    "comments": "",
+    "prodID": 3
+  },
+  {
+    "prodBtchID": 2730,
+    "btchNbr": "63223",
+    "btchStart": "2024-01-10",
+    "btchLoc": "NSQ",
+    "btchQty": 507,
+    "measID": 25,
+    "bestByDate": "2026-06-10",
+    "comments": "",
+    "prodID": 3
+  }
+]

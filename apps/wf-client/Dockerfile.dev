@@ -1,0 +1,12 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package.json yarn.lock* ./
+RUN yarn install
+
+# Remove this line - source code will be mounted as a volume
+
+EXPOSE 3000
+
+CMD ["yarn", "start"]
