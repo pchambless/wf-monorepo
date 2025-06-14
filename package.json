@@ -10,13 +10,26 @@
     "generate-samples": "node tools/data-generator/genSampleData.js",
     "dev": "yarn workspace @whatsfresh/wf-client dev",
     "server": "yarn workspace wf-server dev",
-    "build": "yarn workspaces run build",
+    "build": "yarn generate-page-maps && yarn generate-docs && yarn generate-visuals && yarn workspaces run build",
     "test": "yarn workspaces run test",
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "generate-page-maps": "node tools/page-generator/genPageMaps.js",
+    "generate-docs": "node tools/page-generator/genDocs.js",
+    "generate-visuals": "node tools/page-generator/genVisualDocs.js"
   },
   "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@storybook/addon-essentials": "^9.0.0-alpha.12",
+    "@storybook/react": "^9.0.9",
+    "@storybook/react-webpack5": "^9.0.9",
+    "babel-loader": "^10.0.0",
     "dependency-cruiser": "^16.10.2",
-    "module-alias": "^2.2.3"
+    "module-alias": "^2.2.3",
+    "storybook": "^9.0.9"
   },
   "_moduleAliases": {
     "@packages": "./packages",

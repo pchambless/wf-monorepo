@@ -1,0 +1,49 @@
+{
+  "viewName": "brndList",
+  "entityName": "brndlist",
+  "lastExtracted": "2025-06-14T20:11:23.054Z",
+  "columns": {
+    "brndID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "brndName": {
+      "directives": {
+        "req": true,
+        "type": "text",
+        "label": "Brand Name",
+        "width": "200",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "brndComments": {
+      "directives": {
+        "type": "multiline",
+        "label": "Comments",
+        "tableHide": true
+      }
+    },
+    "brndURL": {
+      "directives": {
+        "type": "text",
+        "label": "Website",
+        "width": "200",
+        "grp": "2"
+      }
+    },
+    "acctID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "entity": "acctList",
+        "valField": "acctID",
+        "dispField": "acctName"
+      }
+    }
+  }
+}

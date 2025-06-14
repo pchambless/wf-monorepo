@@ -8,6 +8,10 @@ export default {
   "color": "pink",
   "parentIdField": "ingrID",
   "keyField": "ingrBtchID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "btchID": {
       "id": 1,
@@ -15,7 +19,7 @@ export default {
       "db_column": "id",
       "headerName": "ID",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -35,7 +39,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "vndrID": {
       "id": 3,
@@ -43,16 +47,13 @@ export default {
       "db_column": "vendor_id",
       "headerName": "Vendor",
       "width": 180,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "vndrList",
-      "valueField": "vndrID",
-      "displayField": "vndrName"
+      "searchable": false
     },
     "brndID": {
       "id": 4,
@@ -60,16 +61,13 @@ export default {
       "db_column": "brand_id",
       "headerName": "Brand",
       "width": 150,
-      "type": "select",
-      "group": 2,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "brndList",
-      "valueField": "brndID",
-      "displayField": "brndName"
+      "searchable": false
     },
     "unitQty": {
       "id": 5,
@@ -77,8 +75,8 @@ export default {
       "db_column": "unit_quantity",
       "headerName": "Unit Qty",
       "width": 80,
-      "type": "decimal",
-      "group": 3,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -91,8 +89,8 @@ export default {
       "db_column": "unit_price",
       "headerName": "Unit Price",
       "width": 100,
-      "type": "decimal",
-      "group": 3,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -105,8 +103,8 @@ export default {
       "db_column": "purchase_quantity",
       "headerName": "Purchase Qty",
       "width": 100,
-      "type": "decimal",
-      "group": 3,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -119,16 +117,13 @@ export default {
       "db_column": "global_measure_unit_id",
       "headerName": "Measure",
       "width": 120,
-      "type": "select",
-      "group": 3,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "measList",
-      "valueField": "measID",
-      "displayField": "name"
+      "searchable": false
     },
     "lotNbr": {
       "id": 9,
@@ -137,7 +132,7 @@ export default {
       "headerName": "Lot Number",
       "width": 150,
       "type": "text",
-      "group": 4,
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -150,9 +145,9 @@ export default {
       "db_column": "comments",
       "headerName": "Comments",
       "width": 150,
-      "type": "multiline",
+      "type": "text",
       "group": 1,
-      "hidden": true,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
@@ -164,16 +159,13 @@ export default {
       "db_column": "ingredient_id",
       "headerName": "ID",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "ingrList",
-      "valueField": "ingrID",
-      "displayField": "ingrName"
+      "searchable": false
     }
   }
 };

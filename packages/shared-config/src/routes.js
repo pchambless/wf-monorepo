@@ -85,13 +85,13 @@ export const ROUTES = {
   
   // Maps section (green)
   BATCH_MAP: {
-    path: '/products/:prodID/batch-map',
+    path: '/products/:prodBtchID/batch-map',
     label: 'Batch Map',
     icon: 'Map',
     section: 'maps',
     sectionOrder: 40,
     itemOrder: 10,
-    requiredParams: ['acctID', 'prodID']
+    requiredParams: ['prodBtchID']
   },
   RECIPES: {
     path: '/products/:prodID/recipes',
@@ -100,7 +100,7 @@ export const ROUTES = {
     section: 'maps',
     listEvent: 'rcpeList',
     itemOrder: 20,
-    requiredParams: ['acctID', 'prodID']
+    requiredParams: ['prodID']
   },
   BATCH_TASKS: {
     path: '/products/:prodTypeID/prod-type-tasks',
@@ -109,7 +109,7 @@ export const ROUTES = {
     section: 'maps',
     listEvent: 'taskList',
     itemOrder: 30,
-    requiredParams: ['acctID', 'prodTypeID']
+    requiredParams: ['prodTypeID']
   },
   
   // Reference section (grey)
@@ -158,13 +158,16 @@ export const SECTIONS = {
     id: 'dashboard',
     label: 'Dashboard',
     icon: 'Dashboard',
-    color: '#FFFFFF' // White/default
+    color: '#FFFFFF', // White/default
+    showInSidebar: true  // Show in sidebar
   },
   ingredients: {
     id: 'ingredients',
     label: 'Ingredients',
     icon: 'Restaurant',
-    color: '#FBD3E9' // Pink color from your diagram
+    color: '#FBD3E9', // Pink color from your diagram
+    showInSidebar: true,  // Show in sidebar
+    defaultRoute: 'INGREDIENT_TYPES'  // Navigate here when clicked
   },
   products: {
     id: 'products',

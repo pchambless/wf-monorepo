@@ -8,6 +8,10 @@ export default {
   "color": "gray",
   "parentIdField": "acctID",
   "keyField": "measID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "measID": {
       "id": 1,
@@ -15,7 +19,7 @@ export default {
       "db_column": "id",
       "headerName": "ID",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -35,7 +39,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "abbrev": {
       "id": 3,
@@ -57,16 +61,13 @@ export default {
       "db_column": "account_id",
       "headerName": "ID",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "acctList",
-      "valueField": "acctID",
-      "displayField": "acctName"
+      "searchable": false
     }
   }
 };

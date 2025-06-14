@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { 
   BrowserRouter as Router, 
   Routes, 
   Route, 
   Navigate,
-  useNavigate  // Add this import
+  useNavigate
 } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CircularProgress, Box, Typography } from '@mui/material';
+import { ROUTES } from '@whatsfresh/shared-config/src/routes'; // Move this up here
+import { entityRegistry } from '@whatsfresh/shared-config/pageMapRegistry';
 
 // Utilities and contexts
 import createLogger, { configureLogger } from './utils/logger';
@@ -26,18 +28,54 @@ import { initEventTypeService } from './stores/eventStore';
 import { useAccountStore } from '@stores/accountStore';
 import navService from './services/navService';
 
-// Layouts and pages
-import MainLayout from 'layouts/MainLayout';
-import LoginLayout from '@layout/AuthLayout';
-import Login from '@pages/0-Auth/01-Login';
-import Dashboard from '@pages/1-Dashboard';
-// import ForgotPassword from '@pages/2-ForgotPassword'; // Import ForgotPassword
+// Base layouts
+const MainLayout = lazy(() => import('./layouts/MainLayout'));
+const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
 
-// Add this import at the top
-import { ROUTES } from '@whatsfresh/shared-config/src/routes';
+// Always import these core components
+const Dashboard = lazy(() => import('./pages/1-Dashboard'));
+const Login = lazy(() => import('./pages/0-Auth/01-Login'));
 
-// REMOVE THIS DUPLICATE IMPORT
-// import Modal from './components/Modal'; 
+// Map of lazy-loaded components
+const lazyPages = new Map();
+
+// Function to get a lazy-loaded component if ready
+const getLazyComponent = (config) => {
+  if (!config || !config.pageIndexPath || !config.import) return null;
+  
+  const cacheKey = config.pageIndexPath;
+  
+  // Return from cache if already created
+  if (lazyPages.has(cacheKey)) {
+    return lazyPages.get(cacheKey);
+  }
+  
+  // Define a mapping of known paths to imports
+  // This makes webpack happy because it can see all possible imports
+  try {
+    let component;
+    
+    // Replace with a switch statement based on pageIndexPath
+    switch (config.pageIndexPath) {
+      case "2-Ingredient/01-ingrTypeList/index.jsx":
+        component = lazy(() => import('./pages/2-Ingredient/01-ingrTypeList'));
+        break;
+      case "3-Product/01-prodTypeList/index.jsx":
+        component = lazy(() => import('./pages/3-Product/01-prodTypeList'));
+        break;
+      // Add other cases as needed
+      default:
+        console.warn(`No static import mapping for: ${config.pageIndexPath}`);
+        return null;
+    }
+    
+    lazyPages.set(cacheKey, component);
+    return component;
+  } catch (error) {
+    console.error(`Failed to load component: ${config.pageIndexPath}`, error);
+    return null;
+  }
+};
 
 const log = createLogger('App');
 console.log('App.js is being executed');
@@ -104,19 +142,48 @@ const App = () => {
             {/* <BreadcrumbProvider> */}
               <Routes>
                 {/* Auth routes */}
-                <Route path="/login" element={
-                  <LoginLayout title="Sign In">
+                <Route path={ROUTES.LOGIN.path} element={
+                  <AuthLayout title="Sign In">
                     <Login />
-                  </LoginLayout>
+                  </AuthLayout>
                 } />
                 
-                                
-                {/* Protected app routes */}
-                <Route path="/" element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  {/* Other protected routes */}
-                </Route>
+                {/* Special non-registry routes */}
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                
+                {/* Generated routes from registry */}
+                {Object.entries(entityRegistry).map(([eventName, config]) => {
+                  // Skip if not ready to import
+                  if (!config.import || !config.routeKey) return null;
+                  
+                  const routeInfo = ROUTES[config.routeKey];
+                  if (!routeInfo) return null;
+                  
+                  // Try to get component
+                  const PageComponent = getLazyComponent(config);
+                  if (!PageComponent) {
+                    console.log(`Skipping route ${config.routeKey} - component not available`);
+                    return null;
+                  }
+                  
+                  // Create route with proper layout
+                  return (
+                    <Route 
+                      key={config.routeKey}
+                      path={routeInfo.path}
+                      element={
+                        <Suspense fallback={<CircularProgress />}>
+                          <MainLayout>
+                            <PageComponent />
+                          </MainLayout>
+                        </Suspense>
+                      }
+                    />
+                  );
+                })}
+                
+                {/* Catch-all route */}
+                <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </Routes>
               
               {/* IMPORTANT: Modal must be at root level */}

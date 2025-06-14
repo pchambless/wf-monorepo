@@ -10,6 +10,10 @@ export default {
   "childEntity": "ingrBtchList",
   "childIdField": "ingrID",
   "keyField": "ingrID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "ingrID": {
       "id": 1,
@@ -17,7 +21,7 @@ export default {
       "db_column": "id",
       "headerName": "ID",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -37,7 +41,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "ingrCode": {
       "id": 3,
@@ -59,9 +63,9 @@ export default {
       "db_column": "description",
       "headerName": "Description",
       "width": 150,
-      "type": "multiline",
+      "type": "text",
       "group": 1,
-      "hidden": true,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
@@ -73,16 +77,13 @@ export default {
       "db_column": "default_measure_unit",
       "headerName": "Default Measure",
       "width": 120,
-      "type": "select",
-      "group": 2,
-      "hidden": true,
+      "type": "text",
+      "group": 1,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "measList",
-      "valueField": "measID",
-      "displayField": "name"
+      "searchable": false
     },
     "vndrID": {
       "id": 6,
@@ -90,16 +91,13 @@ export default {
       "db_column": "default_vendor",
       "headerName": "Default Vendor",
       "width": 150,
-      "type": "select",
-      "group": 2,
-      "hidden": true,
+      "type": "text",
+      "group": 1,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "vndrList",
-      "valueField": "vndrID",
-      "displayField": "vndrName"
+      "searchable": false
     },
     "ingrGrmsPerOz": {
       "id": 7,
@@ -107,8 +105,8 @@ export default {
       "db_column": "grams_per_ounce",
       "headerName": "Grams/Oz",
       "width": 100,
-      "type": "decimal",
-      "group": 3,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -121,16 +119,13 @@ export default {
       "db_column": "ingredient_type_id",
       "headerName": "Type I D",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "ingrTypeList",
-      "valueField": "ingrTypeID",
-      "displayField": "ingrTypeName"
+      "searchable": false
     }
   }
 };

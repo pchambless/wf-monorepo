@@ -1,6 +1,6 @@
 export default {
   "id": "taskList",
-  "title": "Tasks",
+  "title": "Product Type Tasks",
   "schema": "whatsfresh",
   "table": "tasks",
   "section": "maps",
@@ -8,6 +8,10 @@ export default {
   "color": "green",
   "parentIdField": "prodTypeID",
   "keyField": "taskID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "taskID": {
       "id": 1,
@@ -15,7 +19,7 @@ export default {
       "db_column": "id",
       "headerName": "ID",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -35,7 +39,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "taskDesc": {
       "id": 3,
@@ -43,9 +47,9 @@ export default {
       "db_column": "description",
       "headerName": "Description",
       "width": 150,
-      "type": "multiline",
+      "type": "text",
       "group": 1,
-      "hidden": true,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
@@ -57,7 +61,7 @@ export default {
       "db_column": "ordr",
       "headerName": "Order",
       "width": 80,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": false,
       "required": false,
@@ -71,16 +75,13 @@ export default {
       "db_column": "product_type_id",
       "headerName": "Type I D",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "prodTypeList",
-      "valueField": "prodTypeID",
-      "displayField": "prodTypeName"
+      "searchable": false
     }
   }
 };

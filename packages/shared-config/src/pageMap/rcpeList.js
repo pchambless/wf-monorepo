@@ -1,6 +1,6 @@
 export default {
   "id": "rcpeList",
-  "title": "Recipes",
+  "title": "Product Recipes",
   "schema": "whatsfresh",
   "table": "product_recipes",
   "section": "maps",
@@ -8,6 +8,10 @@ export default {
   "color": "green",
   "parentIdField": "prodID",
   "keyField": "rcpeID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "rcpeID": {
       "id": 1,
@@ -15,7 +19,7 @@ export default {
       "db_column": "prd_rcpe_id",
       "headerName": "ID",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -29,7 +33,7 @@ export default {
       "db_column": "ingr_ordr",
       "headerName": "Order",
       "width": 80,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": false,
       "required": false,
@@ -49,7 +53,7 @@ export default {
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "qtyMeas": {
       "id": 4,
@@ -58,7 +62,7 @@ export default {
       "headerName": "Quantity & Measure",
       "width": 150,
       "type": "text",
-      "group": 2,
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -71,16 +75,13 @@ export default {
       "db_column": "prd_id",
       "headerName": "ID",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "prodList",
-      "valueField": "prodID",
-      "displayField": "prodName"
+      "searchable": false
     },
     "ingrTypeSel": {
       "id": 6,
@@ -88,16 +89,13 @@ export default {
       "db_column": "ingr_type_id",
       "headerName": "Ingredient Type",
       "width": 150,
-      "type": "select",
-      "group": 3,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "ingrTypeList",
-      "valueField": "ingrTypeID",
-      "displayField": "ingrTypeName"
+      "searchable": false
     },
     "ingrSel": {
       "id": 7,
@@ -105,16 +103,13 @@ export default {
       "db_column": "ingr_id",
       "headerName": "Ingredient",
       "width": 180,
-      "type": "select",
-      "group": 3,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "ingrList",
-      "valueField": "ingrID",
-      "displayField": "ingrName"
+      "searchable": false
     },
     "measID": {
       "id": 8,
@@ -122,16 +117,13 @@ export default {
       "db_column": "ingr_meas_id",
       "headerName": "Measure",
       "width": 120,
-      "type": "select",
-      "group": 2,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "measList",
-      "valueField": "measID",
-      "displayField": "name"
+      "searchable": false
     },
     "Qty": {
       "id": 9,
@@ -139,8 +131,8 @@ export default {
       "db_column": "ingr_qty",
       "headerName": "Quantity",
       "width": 100,
-      "type": "decimal",
-      "group": 2,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -153,9 +145,9 @@ export default {
       "db_column": "prd_ingr_desc",
       "headerName": "Comments",
       "width": 150,
-      "type": "multiline",
+      "type": "text",
       "group": 1,
-      "hidden": true,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,

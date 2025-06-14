@@ -8,6 +8,10 @@ export default {
   "color": "blue",
   "parentIdField": "prodID",
   "keyField": "prodBtchID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "prodBtchID": {
       "id": 1,
@@ -15,7 +19,7 @@ export default {
       "db_column": "id",
       "headerName": "Btch I D",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -35,7 +39,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "btchLoc": {
       "id": 3,
@@ -44,7 +48,7 @@ export default {
       "headerName": "Location",
       "width": 150,
       "type": "text",
-      "group": 2,
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -57,8 +61,8 @@ export default {
       "db_column": "batch_quantity",
       "headerName": "Quantity",
       "width": 100,
-      "type": "decimal",
-      "group": 2,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -71,16 +75,13 @@ export default {
       "db_column": "global_measure_unit_id",
       "headerName": "Measure",
       "width": 120,
-      "type": "select",
-      "group": 2,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
-      "searchable": false,
-      "entity": "measList",
-      "valueField": "measID",
-      "displayField": "name"
+      "searchable": false
     },
     "comments": {
       "id": 6,
@@ -88,9 +89,9 @@ export default {
       "db_column": "comments",
       "headerName": "Comments",
       "width": 150,
-      "type": "multiline",
+      "type": "text",
       "group": 1,
-      "hidden": true,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
@@ -102,16 +103,13 @@ export default {
       "db_column": "product_id",
       "headerName": "ID",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "prodList",
-      "valueField": "prodID",
-      "displayField": "prodName"
+      "searchable": false
     }
   }
 };

@@ -1,0 +1,180 @@
+{
+  "id": "prodBtchList",
+  "title": "Product Batches",
+  "systemConfig": {
+    "schema": "whatsfresh",
+    "table": "product_batches",
+    "primaryKey": "prodBtchID",
+    "parentIdField": "prodID"
+  },
+  "uiConfig": {
+    "section": "products",
+    "icon": "Inventory",
+    "color": "blue",
+    "actions": {
+      "rowActions": [],
+      "tableActions": []
+    }
+  },
+  "tableConfig": {
+    "columns": [
+      {
+        "field": "btchNbr",
+        "headerName": "Batch Number",
+        "width": 120,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "btchLoc",
+        "headerName": "Location",
+        "width": 150,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "btchQty",
+        "headerName": "Quantity",
+        "width": 100,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "measID",
+        "headerName": "Measure",
+        "width": 120,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "comments",
+        "headerName": "Comments",
+        "width": 150,
+        "type": "text",
+        "editable": true
+      }
+    ]
+  },
+  "formConfig": {
+    "groups": [
+      {
+        "id": 1,
+        "fields": [
+          {
+            "field": "btchNbr",
+            "label": "Batch Number",
+            "type": "text",
+            "required": true,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "btchLoc",
+            "label": "Location",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "btchQty",
+            "label": "Quantity",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "measID",
+            "label": "Measure",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "comments",
+            "label": "Comments",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          }
+        ]
+      }
+    ],
+    "hiddenFields": [
+      {
+        "field": "prodBtchID",
+        "type": "hidden"
+      },
+      {
+        "field": "prodID",
+        "type": "hidden"
+      }
+    ],
+    "fields": [
+      {
+        "field": "prodBtchID",
+        "label": "Btch I D",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "btchNbr",
+        "label": "Batch Number",
+        "required": true,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "btchLoc",
+        "label": "Location",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "btchQty",
+        "label": "Quantity",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "measID",
+        "label": "Measure",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "comments",
+        "label": "Comments",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "prodID",
+        "label": "ID",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      }
+    ]
+  }
+}

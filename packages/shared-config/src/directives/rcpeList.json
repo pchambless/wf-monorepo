@@ -1,0 +1,98 @@
+{
+  "viewName": "rcpeList",
+  "entityName": "rcpelist",
+  "lastExtracted": "2025-06-14T20:11:23.074Z",
+  "columns": {
+    "rcpeID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "ingrOrdr": {
+      "directives": {
+        "type": "number",
+        "label": "Order",
+        "width": "80",
+        "grp": "1"
+      }
+    },
+    "ingrName": {
+      "directives": {
+        "type": "text",
+        "label": "Ingredient Name",
+        "width": "200",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "qtyMeas": {
+      "directives": {
+        "type": "text",
+        "label": "Quantity & Measure",
+        "width": "150",
+        "grp": "2"
+      }
+    },
+    "prodID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "entity": "prodList",
+        "valField": "prodID",
+        "dispField": "prodName"
+      }
+    },
+    "ingrTypeSel": {
+      "directives": {
+        "type": "select",
+        "label": "Ingredient Type",
+        "width": "150",
+        "entity": "ingrTypeList",
+        "valField": "ingrTypeID",
+        "dispField": "ingrTypeName",
+        "grp": "3"
+      }
+    },
+    "ingrSel": {
+      "directives": {
+        "type": "select",
+        "label": "Ingredient",
+        "width": "180",
+        "entity": "ingrList",
+        "valField": "ingrID",
+        "dispField": "ingrName",
+        "grp": "3"
+      }
+    },
+    "measID": {
+      "directives": {
+        "type": "select",
+        "label": "Measure",
+        "width": "120",
+        "entity": "measList",
+        "valField": "measID",
+        "dispField": "name",
+        "grp": "2"
+      }
+    },
+    "Qty": {
+      "directives": {
+        "type": "decimal",
+        "label": "Quantity",
+        "width": "100",
+        "dec": "10,2",
+        "grp": "2"
+      }
+    },
+    "Comments": {
+      "directives": {
+        "type": "multiline",
+        "label": "Comments",
+        "tableHide": true
+      }
+    }
+  }
+}

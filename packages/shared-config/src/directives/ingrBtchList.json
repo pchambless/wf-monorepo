@@ -1,0 +1,109 @@
+{
+  "viewName": "ingrBtchList",
+  "entityName": "ingrbtchlist",
+  "lastExtracted": "2025-06-14T20:11:23.058Z",
+  "columns": {
+    "btchID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "btchNbr": {
+      "directives": {
+        "req": true,
+        "type": "text",
+        "label": "Batch Number",
+        "width": "120",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "vndrID": {
+      "directives": {
+        "type": "select",
+        "label": "Vendor",
+        "width": "180",
+        "entity": "vndrList",
+        "valField": "vndrID",
+        "dispField": "vndrName",
+        "grp": "1"
+      }
+    },
+    "brndID": {
+      "directives": {
+        "type": "select",
+        "label": "Brand",
+        "width": "150",
+        "entity": "brndList",
+        "valField": "brndID",
+        "dispField": "brndName",
+        "grp": "2"
+      }
+    },
+    "unitQty": {
+      "directives": {
+        "type": "decimal",
+        "label": "Unit Qty",
+        "width": "80",
+        "dec": "10,2",
+        "grp": "3"
+      }
+    },
+    "unitPrice": {
+      "directives": {
+        "type": "decimal",
+        "label": "Unit Price",
+        "width": "100",
+        "dec": "10,2",
+        "grp": "3"
+      }
+    },
+    "purchQty": {
+      "directives": {
+        "type": "decimal",
+        "label": "Purchase Qty",
+        "width": "100",
+        "dec": "10,2",
+        "grp": "3"
+      }
+    },
+    "measID": {
+      "directives": {
+        "type": "select",
+        "label": "Measure",
+        "width": "120",
+        "entity": "measList",
+        "valField": "measID",
+        "dispField": "name",
+        "grp": "3"
+      }
+    },
+    "lotNbr": {
+      "directives": {
+        "type": "text",
+        "label": "Lot Number",
+        "width": "150",
+        "grp": "4"
+      }
+    },
+    "comments": {
+      "directives": {
+        "type": "multiline",
+        "label": "Comments",
+        "tableHide": true
+      }
+    },
+    "ingrID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "entity": "ingrList",
+        "valField": "ingrID",
+        "dispField": "ingrName"
+      }
+    }
+  }
+}

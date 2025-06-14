@@ -14,8 +14,15 @@ const AccountSelector = observer(({ onClose }) => {
   
   const accountStore = useAccountStore();
   const currentAccount = accountStore.currentAcctID;
-  const accountList = accountStore.userAccounts || [];
+  const accountList = accountStore.userAcctList || [];
   
+  // Log rendering details
+  log.info('AccountSelector rendering', { 
+    accountListLength: accountList.length, 
+    accounts: accountList, 
+    currentId: currentAccount 
+  });
+
   // Handle account switching
   const handleAccountChange = async (event) => {
     const newAccountId = event.target.value;

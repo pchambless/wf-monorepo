@@ -10,6 +10,10 @@ export default {
   "childEntity": "prodBtchList",
   "childIdField": "prodID",
   "keyField": "prodID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "prodID": {
       "id": 1,
@@ -17,7 +21,7 @@ export default {
       "db_column": "id",
       "headerName": "ID",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -37,7 +41,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "prodCode": {
       "id": 3,
@@ -60,7 +64,7 @@ export default {
       "headerName": "Default Location",
       "width": 120,
       "type": "text",
-      "group": 2,
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -73,8 +77,8 @@ export default {
       "db_column": "best_by_days",
       "headerName": "Best By Days",
       "width": 80,
-      "type": "number",
-      "group": 2,
+      "type": "text",
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -87,9 +91,9 @@ export default {
       "db_column": "description",
       "headerName": "Description",
       "width": 150,
-      "type": "multiline",
+      "type": "text",
       "group": 1,
-      "hidden": true,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
@@ -102,7 +106,7 @@ export default {
       "headerName": "UPC Reference",
       "width": 120,
       "type": "text",
-      "group": 3,
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -116,7 +120,7 @@ export default {
       "headerName": "UPC Check Digit",
       "width": 80,
       "type": "text",
-      "group": 3,
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -129,16 +133,13 @@ export default {
       "db_column": "product_type_id",
       "headerName": "Type I D",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "prodTypeList",
-      "valueField": "prodTypeID",
-      "displayField": "prodTypeName"
+      "searchable": false
     }
   }
 };

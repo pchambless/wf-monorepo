@@ -1,0 +1,42 @@
+{
+  "viewName": "measList",
+  "entityName": "measlist",
+  "lastExtracted": "2025-06-14T20:11:23.064Z",
+  "columns": {
+    "measID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "name": {
+      "directives": {
+        "req": true,
+        "type": "text",
+        "label": "Name",
+        "width": "200",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "abbrev": {
+      "directives": {
+        "type": "text",
+        "label": "Abbreviation",
+        "width": "100",
+        "grp": "1"
+      }
+    },
+    "acctID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "entity": "acctList",
+        "valField": "acctID",
+        "dispField": "acctName"
+      }
+    }
+  }
+}

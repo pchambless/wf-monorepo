@@ -1,0 +1,110 @@
+{
+  "id": "ingrTypeList",
+  "title": "Ingredient Types",
+  "systemConfig": {
+    "schema": "whatsfresh",
+    "table": "ingredient_types",
+    "primaryKey": "ingrTypeID",
+    "parentIdField": "acctID",
+    "childEntity": "ingrList",
+    "childIdField": "ingrTypeID"
+  },
+  "uiConfig": {
+    "section": "ingredients",
+    "icon": "Category",
+    "color": "pink",
+    "actions": {
+      "rowActions": [],
+      "tableActions": []
+    }
+  },
+  "tableConfig": {
+    "columns": [
+      {
+        "field": "ingrTypeName",
+        "headerName": "Type Name",
+        "width": 200,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "ingrTypeDesc",
+        "headerName": "Description",
+        "width": 150,
+        "type": "text",
+        "editable": true
+      }
+    ]
+  },
+  "formConfig": {
+    "groups": [
+      {
+        "id": 1,
+        "fields": [
+          {
+            "field": "ingrTypeName",
+            "label": "Type Name",
+            "type": "text",
+            "required": true,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "ingrTypeDesc",
+            "label": "Description",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          }
+        ]
+      }
+    ],
+    "hiddenFields": [
+      {
+        "field": "ingrTypeID",
+        "type": "hidden"
+      },
+      {
+        "field": "acctID",
+        "type": "hidden"
+      }
+    ],
+    "fields": [
+      {
+        "field": "ingrTypeID",
+        "label": "Type I D",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "ingrTypeName",
+        "label": "Type Name",
+        "required": true,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "ingrTypeDesc",
+        "label": "Description",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "acctID",
+        "label": "ID",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      }
+    ]
+  }
+}

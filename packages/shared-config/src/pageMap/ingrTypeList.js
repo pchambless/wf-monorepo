@@ -10,6 +10,10 @@ export default {
   "childEntity": "ingrList",
   "childIdField": "ingrTypeID",
   "keyField": "ingrTypeID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "ingrTypeID": {
       "id": 1,
@@ -17,7 +21,7 @@ export default {
       "db_column": "id",
       "headerName": "Type I D",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -37,7 +41,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "ingrTypeDesc": {
       "id": 3,
@@ -45,9 +49,9 @@ export default {
       "db_column": "description",
       "headerName": "Description",
       "width": 150,
-      "type": "multiline",
+      "type": "text",
       "group": 1,
-      "hidden": true,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
@@ -59,16 +63,13 @@ export default {
       "db_column": "account_id",
       "headerName": "ID",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "acctList",
-      "valueField": "acctID",
-      "displayField": "acctName"
+      "searchable": false
     }
   }
 };

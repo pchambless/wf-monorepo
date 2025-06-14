@@ -1,0 +1,63 @@
+const fs = require('fs').promises;
+const path = require('path');
+const { directiveMap } = require('./directiveMap');
+
+async function generateDirectiveReference() {
+  // Create docs directory if it doesn't exist
+  const docsDir = path.resolve(__dirname, '../../docs');
+  await fs.mkdir(docsDir, { recursive: true });
+  
+  const outputPath = path.resolve(docsDir, 'sql-directives-reference.md');
+  
+  let content = `# WhatsFresh SQL Directive Reference\n\n`;
+  content += `_Generated on ${new Date().toLocaleDateString()}_\n\n`;
+  content += `This document describes all available directives you can use in SQL view comments.\n\n`;
+  
+  // Group directives by category
+  const categories = {
+    'Field Identity': ['PK', 'sys', 'parentKey'],
+    'Display Types': ['type'],
+    'Validation': ['req', 'unique', 'min', 'max'],
+    'Layout': ['label', 'grp', 'width', 'tableHide', 'formHide'],
+    'Select Fields': ['entity', 'valField', 'dispField', 'options']
+  };
+  
+  // Generate documentation for each category
+  for (const [category, directives] of Object.entries(categories)) {
+    content += `## ${category}\n\n`;
+    
+    for (const directive of directives) {
+      const mapping = directiveMap[directive];
+      if (mapping) {
+        content += `### \`${directive}\`\n\n`;
+        content += `${mapping.description || 'No description available'}\n\n`;
+        
+        if (directive === 'type') {
+          content += "**Values:** `text`, `multiLine`, `number`, `select`, `date`, `boolean`, `hidden`\n\n";
+        }
+        
+        content += "**Example:**\n";
+        if (directive === 'PK') {
+          content += "```sql\nid AS userId -- PK; sys; type:number\n```\n\n";
+        } else if (directive === 'type') {
+          content += "```sql\nname AS userName -- type:text; label:Full Name\n```\n\n";
+        } else if (directive === 'entity') {
+          content += "```sql\ntype_id AS typeId -- type:select; entity:typeList; valField:typeID; dispField:typeName\n```\n\n";
+        } else {
+          // Check if this is a flag directive (no value needed) or a value directive
+          const isFlag = ['PK', 'sys', 'req', 'tableHide', 'formHide', 'searchable', 'parentKey'].includes(directive);
+          content += "```sql\nfield AS alias -- " + directive + (isFlag ? "" : ":value") + "\n```\n\n";
+        }
+      } else {
+        content += `### \`${directive}\`\n\n`;
+        content += `*Documentation pending*\n\n`;
+        content += "```sql\nfield AS alias -- " + directive + "\n```\n\n";
+      }
+    }
+  }
+  
+  await fs.writeFile(outputPath, content, 'utf8');
+  console.log(`Documentation generated at ${outputPath}`);
+}
+
+generateDirectiveReference();

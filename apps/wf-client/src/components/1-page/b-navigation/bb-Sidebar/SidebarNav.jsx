@@ -1,20 +1,45 @@
 import React from 'react';
-import { List } from '@mui/material';
-import SidebarNavItem from './SidebarNavItem';
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import navService from '@services/navService';
+import * as MuiIcons from '@mui/icons-material';
 
-import { useNav } from '@nav/useNav';
-
-const SidebarNav = ({ onClose }) => {
-  const { navigation } = useNav();
+// Add the missing getIcon function
+const getIcon = (iconName) => {
+  if (!iconName) return null;
   
+  // Try to get the icon component using the standard naming convention
+  const IconComponent = MuiIcons[`${iconName}Icon`];
+  
+  // If found, return the component
+  if (IconComponent) {
+    return <IconComponent />;
+  }
+  
+  // Fallback for debugging
+  return <span style={{fontSize: '10px'}}>{iconName}</span>;
+};
+
+const SidebarNav = ({ sections, onClose }) => {
+  // Only show top-level sections in sidebar
   return (
     <List>
-      {navigation.map((item) => (
-        <SidebarNavItem 
-          key={item.title}
-          item={item}
-          onClose={onClose}
-        />
+      {sections?.map((section) => (
+        <ListItem key={section.id} disablePadding>
+          <ListItemButton 
+            onClick={() => {
+              // Navigate to default route for this section
+              if (section.defaultRoute) {
+                navService.byRouteKey(section.defaultRoute);
+              } else if (section.items?.[0]?.listEvent) {
+                navService.byListEvent(section.items[0].listEvent);
+              }
+              onClose();
+            }}
+          >
+            <ListItemIcon>{getIcon(section.icon)}</ListItemIcon>
+            <ListItemText primary={section.label} />
+          </ListItemButton>
+        </ListItem>
       ))}
     </List>
   );

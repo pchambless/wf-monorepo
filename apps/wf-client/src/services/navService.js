@@ -79,16 +79,26 @@ const navService = {
     return this.byListEvent('ingrTypeList', { acctID: accountStore.currentAcctID });
   },
   
-  toIngredientsSection() {
-    return this.byListEvent('ingrTypeList', { acctID: accountStore.currentAcctID });
-  },
-  
   toProductsSection() {
     return this.byListEvent('prodTypeList', { acctID: accountStore.currentAcctID });
   },
   
   toReferenceSection() {
     return this.byListEvent('brndList', { acctID: accountStore.currentAcctID });
+  },
+  
+  /**
+   * Logout the user and navigate to the login page
+   */
+  logout() {
+    // Clear auth data
+    sessionStorage.removeItem('auth_token');
+    localStorage.removeItem('refresh_token');
+    
+    log.info('User logged out');
+    
+    // Navigate by listEvent - this is the clean way!
+    return this.byListEvent('loginList', {}, { replace: true });
   }
 };
 

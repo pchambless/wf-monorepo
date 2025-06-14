@@ -34,6 +34,11 @@
             "date": 1749733647992,
             "name": "C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo-new\\apps\\wf-server\\server\\logs\\application-2025-06-12.log",
             "hash": "1355bee4df3cd3815190d5b0a6d423f500db1b92f50569f3bc0c0c5d70b3b0be"
+        },
+        {
+            "date": 1749795119119,
+            "name": "C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo-new\\apps\\wf-server\\server\\logs\\application-2025-06-13.log",
+            "hash": "1f2afeb5ee406a75091cbe795d5eaa6015eec1d6937f51295155edb5473e3690"
         }
     ],
     "hashType": "sha256"

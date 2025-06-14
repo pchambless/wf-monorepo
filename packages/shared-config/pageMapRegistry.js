@@ -26,7 +26,8 @@ const entityRegistry = {
       { id: "alertsWidget", size: "small", position: 3 },
       { id: "quickLinks", size: "small", position: 4 }
     ],
-    color: "teal"
+    color: "teal",
+    import: true // Enable this route
   },
   
   // Auth flow - special handling
@@ -42,6 +43,7 @@ const entityRegistry = {
     pageType: "authForm",  // Keep existing pageType
     authFlow: true,
     nextRoute: "SELECT_ACCOUNT",
+    import: true,
     formFields: [
       { name: "username", label: "Username", type: "text", required: true },
       { name: "password", label: "Password", type: "password", required: true }
@@ -82,7 +84,8 @@ const entityRegistry = {
     parentIdField: "acctID",
     keyField: "ingrTypeID",
     nameField: "ingrTypeName",
-    color: "pink"
+    color: "pink",
+    import: true // Enable this route
   },
   "ingrList": {
     pageIndexPath: "2-Ingredient/02-ingrList/index.jsx",
@@ -101,7 +104,8 @@ const entityRegistry = {
     parentIdField: "ingrTypeID",
     keyField: "ingrID",
     nameField: "ingrName",
-    color: "pink"
+    color: "pink",
+    import: false // Not ready yet
   },
   "ingrBtchList": {
     pageIndexPath: "2-Ingredient/03-ingrBtchList/index.jsx",
@@ -118,7 +122,8 @@ const entityRegistry = {
     parentIdField: "ingrID",
     keyField: "ingrBtchID",
     nameField: "ingrBtchCode",
-    color: "pink"
+    color: "pink",
+    import: false // Not ready yet
   },
   
   "prodTypeList": {
@@ -138,7 +143,8 @@ const entityRegistry = {
     parentIdField: "acctID",
     keyField: "prodTypeID",
     nameField: "prodTypeName",
-    color: "blue"
+    color: "blue",
+    import: true // Enable this route
   },
   "prodList": {
     pageIndexPath: "3-Product/02-prodList/index.jsx",
@@ -157,7 +163,8 @@ const entityRegistry = {
     parentIdField: "prodTypeID",
     keyField: "prodID",
     nameField: "prodName",
-    color: "blue"
+    color: "blue",
+    import: false // Not ready yet
   },
   "prodBtchList": {
     pageIndexPath: "3-Product/03-prodBtchList/index.jsx",
@@ -174,7 +181,8 @@ const entityRegistry = {
     parentIdField: "prodID",
     keyField: "prodBtchID",
     nameField: "prodBtchCode",
-    color: "blue"
+    color: "blue",
+    import: false // Not ready yet
   },
   
   // Reference section (gray in diagram) - including measList
@@ -193,7 +201,8 @@ const entityRegistry = {
     parentIdField: "acctID",
     keyField: "brndID",
     nameField: "brndName",
-    color: "gray"
+    color: "gray",
+    import: true // Enable this route
   },
   "vndrList": {
     pageIndexPath: "4-Reference/02-vndrList/index.jsx",
@@ -209,7 +218,8 @@ const entityRegistry = {
     parentIdField: "acctID",
     keyField: "vndrID",
     nameField: "vndrName",
-    color: "gray"
+    color: "gray",
+    import: true // Enable this route
   },
   "wrkrList": {
     pageIndexPath: "4-Reference/03-wrkrList/index.jsx",
@@ -225,7 +235,8 @@ const entityRegistry = {
     parentIdField: "acctID",
     keyField: "wrkrID",
     nameField: "wrkrName",
-    color: "gray"
+    color: "gray",
+    import: true // Enable this route
   },
   "measList": {
     pageIndexPath: "4-Reference/04-measList/index.jsx",
@@ -241,7 +252,8 @@ const entityRegistry = {
     parentIdField: "acctID", // This makes it account-specific
     keyField: "measID",
     nameField: "measName",
-    color: "gray" 
+    color: "gray",
+    import: false // Not ready yet
   },
   
   // Mapping section (green in diagram)
@@ -260,7 +272,8 @@ const entityRegistry = {
     parentEntity: "prodList",
     parentIdField: "prodBtchID",
     keyField: "btchMapID",
-    color: "green"
+    color: "green",
+    import: true // Enable this route
   },
   "taskList": {
     pageIndexPath: "5-Mapping/02-taskList/index.jsx",
@@ -277,7 +290,8 @@ const entityRegistry = {
     parentIdField: "prodTypeID",
     keyField: "taskID",
     nameField: "taskName",
-    color: "green"
+    color: "green",
+    import: false // Not ready yet
   },
   "rcpeList": {
     pageIndexPath: "5-Mapping/03-rcpeList/index.jsx",
@@ -294,7 +308,8 @@ const entityRegistry = {
     parentIdField: "prodID",
     keyField: "rcpeID", 
     nameField: "rcpeName",
-    color: "green"
+    color: "green",
+    import: false // Not ready yet
   },
   
   // Admin/utility items
@@ -312,7 +327,8 @@ const entityRegistry = {
     itemOrder: 10,
     keyField: "acctID",
     nameField: "acctName",
-    color: "purple"
+    color: "purple",
+    import: false // Enable this route
   },
   "userList": {
     pageIndexPath: "9-Admin/02-userList/index.jsx",
@@ -327,7 +343,8 @@ const entityRegistry = {
     itemOrder: 20,
     keyField: "userID",
     nameField: "userName",
-    color: "purple"
+    color: "purple",
+    import: false // Enable this route
   }
 };
 

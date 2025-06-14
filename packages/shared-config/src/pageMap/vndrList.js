@@ -8,6 +8,10 @@ export default {
   "color": "gray",
   "parentIdField": "acctID",
   "keyField": "vndrID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "vndrID": {
       "id": 1,
@@ -15,7 +19,7 @@ export default {
       "db_column": "id",
       "headerName": "ID",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -35,7 +39,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "vndrContactName": {
       "id": 3,
@@ -58,7 +62,7 @@ export default {
       "headerName": "Phone",
       "width": 120,
       "type": "text",
-      "group": 2,
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -72,7 +76,7 @@ export default {
       "headerName": "Email",
       "width": 180,
       "type": "text",
-      "group": 2,
+      "group": 1,
       "hidden": false,
       "required": false,
       "primaryKey": false,
@@ -85,9 +89,9 @@ export default {
       "db_column": "comments",
       "headerName": "Comments",
       "width": 150,
-      "type": "multiline",
+      "type": "text",
       "group": 1,
-      "hidden": true,
+      "hidden": false,
       "required": false,
       "primaryKey": false,
       "editable": true,
@@ -99,16 +103,13 @@ export default {
       "db_column": "account_id",
       "headerName": "ID",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "acctList",
-      "valueField": "acctID",
-      "displayField": "acctName"
+      "searchable": false
     }
   }
 };

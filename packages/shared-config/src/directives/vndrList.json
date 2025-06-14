@@ -1,0 +1,65 @@
+{
+  "viewName": "vndrList",
+  "entityName": "vndrlist",
+  "lastExtracted": "2025-06-14T20:11:23.080Z",
+  "columns": {
+    "vndrID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "vndrName": {
+      "directives": {
+        "req": true,
+        "type": "text",
+        "label": "Vendor Name",
+        "width": "200",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "vndrContactName": {
+      "directives": {
+        "type": "text",
+        "label": "Contact Name",
+        "width": "150",
+        "grp": "1"
+      }
+    },
+    "vndrContactPhone": {
+      "directives": {
+        "type": "text",
+        "label": "Phone",
+        "width": "120",
+        "grp": "2"
+      }
+    },
+    "vndrContactEmail": {
+      "directives": {
+        "type": "text",
+        "label": "Email",
+        "width": "180",
+        "grp": "2"
+      }
+    },
+    "vndrComments": {
+      "directives": {
+        "type": "multiline",
+        "label": "Comments",
+        "tableHide": true
+      }
+    },
+    "acctID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "entity": "acctList",
+        "valField": "acctID",
+        "dispField": "acctName"
+      }
+    }
+  }
+}

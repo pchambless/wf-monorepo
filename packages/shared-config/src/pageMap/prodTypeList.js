@@ -10,6 +10,10 @@ export default {
   "childEntity": "prodList",
   "childIdField": "prodTypeID",
   "keyField": "prodTypeID",
+  "actions": {
+    "rowActions": [],
+    "tableActions": []
+  },
   "columns": {
     "prodTypeID": {
       "id": 1,
@@ -17,7 +21,7 @@ export default {
       "db_column": "id",
       "headerName": "Type I D",
       "width": 150,
-      "type": "number",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
@@ -37,7 +41,7 @@ export default {
       "required": true,
       "primaryKey": false,
       "editable": true,
-      "searchable": true
+      "searchable": false
     },
     "acctID": {
       "id": 3,
@@ -45,16 +49,13 @@ export default {
       "db_column": "account_id",
       "headerName": "ID",
       "width": 150,
-      "type": "select",
+      "type": "text",
       "group": 1,
       "hidden": true,
       "required": false,
       "primaryKey": false,
       "editable": false,
-      "searchable": false,
-      "entity": "acctList",
-      "valueField": "acctID",
-      "displayField": "acctName"
+      "searchable": false
     }
   }
 };

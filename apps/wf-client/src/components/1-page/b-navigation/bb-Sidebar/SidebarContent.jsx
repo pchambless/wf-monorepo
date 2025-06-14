@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider } from '@mui/material'; // Removed Typography, List, ListItem
+// Removed the Link import as well
 import SidebarHeader from './SidebarHeader';
 import AccountSelector from './components/AccountSelector';
 import SidebarNav from './SidebarNav';
@@ -8,7 +9,7 @@ import createLogger from '@utils/logger';
 
 const log = createLogger('SidebarContent.MobX');
 
-const SidebarContent = observer(({ onClose }) => {
+const SidebarContent = observer(({ sections, onNavItemClick }) => {
   log.debug('Rendering MobX SidebarContent');
   
   return (
@@ -19,13 +20,16 @@ const SidebarContent = observer(({ onClose }) => {
       <Divider />
       
       {/* Account Selector */}
-      <AccountSelector onClose={onClose} />
+      <AccountSelector onClose={onNavItemClick} />
       
       <Divider sx={{ my: 1 }} />
       
       {/* Main Navigation */}
       <Box sx={{ flexGrow: 1, overflow: 'auto', px: 2, py: 1 }}>
-        <SidebarNav onClose={onClose} />
+        {/* Pass the processed sections to SidebarNav */}
+        <SidebarNav sections={sections} onClose={onNavItemClick} />
+        
+        
       </Box>
     </Box>
   );

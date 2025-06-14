@@ -6,6 +6,7 @@ import {
   initEventTypeService,
   isEventTypeServiceInitialized  // Add this import
 } from '../../../stores';
+import accountService from '../../../services/accountService';
 
 export class LoginPresenter {
   constructor() {
@@ -135,10 +136,10 @@ export class LoginPresenter {
       });
       this.log.info('User accounts loaded', { count: accounts.length });
       
-      // Initialize the application state
+      // CHANGE THIS LINE to use accountService instead of initApplicationState
       this.log.info('Initializing application state');
-      const stateInitialized = await this.initApplicationState(userData, accounts);
-      this.log.info('Application state initialized', { success: stateInitialized });
+      const success = await accountService.initializeAfterLogin(userData, accounts);
+      this.log.info('Application state initialized', { success });
       
       return result;
     } catch (error) {

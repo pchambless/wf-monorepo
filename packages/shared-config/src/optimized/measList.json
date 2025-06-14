@@ -1,0 +1,108 @@
+{
+  "id": "measList",
+  "title": "Measures",
+  "systemConfig": {
+    "schema": "whatsfresh",
+    "table": "measures",
+    "primaryKey": "measID",
+    "parentIdField": "acctID"
+  },
+  "uiConfig": {
+    "section": "reference",
+    "icon": "Scale",
+    "color": "gray",
+    "actions": {
+      "rowActions": [],
+      "tableActions": []
+    }
+  },
+  "tableConfig": {
+    "columns": [
+      {
+        "field": "name",
+        "headerName": "Name",
+        "width": 200,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "abbrev",
+        "headerName": "Abbreviation",
+        "width": 100,
+        "type": "text",
+        "editable": true
+      }
+    ]
+  },
+  "formConfig": {
+    "groups": [
+      {
+        "id": 1,
+        "fields": [
+          {
+            "field": "name",
+            "label": "Name",
+            "type": "text",
+            "required": true,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "abbrev",
+            "label": "Abbreviation",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          }
+        ]
+      }
+    ],
+    "hiddenFields": [
+      {
+        "field": "measID",
+        "type": "hidden"
+      },
+      {
+        "field": "acctID",
+        "type": "hidden"
+      }
+    ],
+    "fields": [
+      {
+        "field": "measID",
+        "label": "ID",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "name",
+        "label": "Name",
+        "required": true,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "abbrev",
+        "label": "Abbreviation",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "acctID",
+        "label": "ID",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      }
+    ]
+  }
+}

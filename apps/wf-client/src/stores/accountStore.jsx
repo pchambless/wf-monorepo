@@ -2,6 +2,7 @@
 import { makeAutoObservable } from 'mobx';
 import React from 'react';
 import createLogger from '@utils/logger';
+import { execEvent } from './eventStore';
 
 const log = createLogger('AccountStore');
 const STORAGE_KEY = 'whatsfresh_account_state';
@@ -209,7 +210,54 @@ class AccountStore {
   setVndrList(data) { this.vndrList = data || []; }
   setWrkrList(data) { this.wrkrList = data || []; }
   
- 
+  // Load all reference data for an account
+  async loadAllReferenceData(acctID) {
+    try {
+      const acctIdToUse = acctID || this.currentAcctID;
+      if (!acctIdToUse) {
+        log.error('Cannot load reference data: No account ID');
+        return false;
+      }
+      
+      log.info('Loading reference data for account', { acctID: acctIdToUse });
+      
+      // Load each reference list (using your existing event execution)
+      const [ingrTypeList, prodTypeList, measList, brndList, vndrList, wrkrList] = await Promise.all([
+        execEvent('ingrTypeList', { ':acctID': acctIdToUse }),
+        execEvent('prodTypeList', { ':acctID': acctIdToUse }),
+        execEvent('measList', { ':acctID': acctIdToUse }),
+        execEvent('brndList', { ':acctID': acctIdToUse }),
+        execEvent('vndrList', { ':acctID': acctIdToUse }),
+        execEvent('wrkrList', { ':acctID': acctIdToUse })
+      ]);
+      
+      // Update store in one batch - CORRECTED NAMING
+      this.setReferenceData({
+        ingrTypeList, 
+        prodTypeList, 
+        measList, 
+        brndList, 
+        vndrList, 
+        wrkrList
+      });
+      
+      log.info('Reference data loaded successfully');
+      return true;
+    } catch (error) {
+      log.error('Failed to load reference data', error);
+      return false;
+    }
+  }
+
+  // Update all reference lists at once (batch update)
+  setReferenceData({ ingrTypeList, prodTypeList, measList, brndList, vndrList, wrkrList }) {
+    if (ingrTypeList) this.setIngrTypeList(ingrTypeList);
+    if (prodTypeList) this.setProdTypeList(prodTypeList);
+    if (measList) this.setMeasList(measList);
+    if (brndList) this.setBrndList(brndList);
+    if (vndrList) this.setVndrList(vndrList);
+    if (wrkrList) this.setWrkrList(wrkrList);
+  }
 }
 
 const accountStore = new AccountStore();

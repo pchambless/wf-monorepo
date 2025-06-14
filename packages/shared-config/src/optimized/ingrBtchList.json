@@ -1,0 +1,276 @@
+{
+  "id": "ingrBtchList",
+  "title": "Ingredient Batches",
+  "systemConfig": {
+    "schema": "whatsfresh",
+    "table": "ingredient_batches",
+    "primaryKey": "ingrBtchID",
+    "parentIdField": "ingrID"
+  },
+  "uiConfig": {
+    "section": "ingredients",
+    "icon": "Inventory",
+    "color": "pink",
+    "actions": {
+      "rowActions": [],
+      "tableActions": []
+    }
+  },
+  "tableConfig": {
+    "columns": [
+      {
+        "field": "btchNbr",
+        "headerName": "Batch Number",
+        "width": 120,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "vndrID",
+        "headerName": "Vendor",
+        "width": 180,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "brndID",
+        "headerName": "Brand",
+        "width": 150,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "unitQty",
+        "headerName": "Unit Qty",
+        "width": 80,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "unitPrice",
+        "headerName": "Unit Price",
+        "width": 100,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "purchQty",
+        "headerName": "Purchase Qty",
+        "width": 100,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "measID",
+        "headerName": "Measure",
+        "width": 120,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "lotNbr",
+        "headerName": "Lot Number",
+        "width": 150,
+        "type": "text",
+        "editable": true
+      },
+      {
+        "field": "comments",
+        "headerName": "Comments",
+        "width": 150,
+        "type": "text",
+        "editable": true
+      }
+    ]
+  },
+  "formConfig": {
+    "groups": [
+      {
+        "id": 1,
+        "fields": [
+          {
+            "field": "btchNbr",
+            "label": "Batch Number",
+            "type": "text",
+            "required": true,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "vndrID",
+            "label": "Vendor",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "brndID",
+            "label": "Brand",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "unitQty",
+            "label": "Unit Qty",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "unitPrice",
+            "label": "Unit Price",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "purchQty",
+            "label": "Purchase Qty",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "measID",
+            "label": "Measure",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "lotNbr",
+            "label": "Lot Number",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          },
+          {
+            "field": "comments",
+            "label": "Comments",
+            "type": "text",
+            "required": false,
+            "editable": true,
+            "component": "TextField",
+            "componentProps": {}
+          }
+        ]
+      }
+    ],
+    "hiddenFields": [
+      {
+        "field": "btchID",
+        "type": "hidden"
+      },
+      {
+        "field": "ingrID",
+        "type": "hidden"
+      }
+    ],
+    "fields": [
+      {
+        "field": "btchID",
+        "label": "ID",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "btchNbr",
+        "label": "Batch Number",
+        "required": true,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "vndrID",
+        "label": "Vendor",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "brndID",
+        "label": "Brand",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "unitQty",
+        "label": "Unit Qty",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "unitPrice",
+        "label": "Unit Price",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "purchQty",
+        "label": "Purchase Qty",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "measID",
+        "label": "Measure",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "lotNbr",
+        "label": "Lot Number",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "comments",
+        "label": "Comments",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      },
+      {
+        "field": "ingrID",
+        "label": "ID",
+        "required": false,
+        "type": "text",
+        "component": "TextField",
+        "componentProps": {}
+      }
+    ]
+  }
+}

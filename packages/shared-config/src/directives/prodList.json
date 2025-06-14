@@ -1,0 +1,81 @@
+{
+  "viewName": "prodList",
+  "entityName": "prodlist",
+  "lastExtracted": "2025-06-14T20:11:23.069Z",
+  "columns": {
+    "prodID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "prodName": {
+      "directives": {
+        "req": true,
+        "type": "text",
+        "label": "Product Name",
+        "width": "200",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "prodCode": {
+      "directives": {
+        "type": "text",
+        "label": "Code",
+        "width": "100",
+        "grp": "1"
+      }
+    },
+    "prodDfltLoc": {
+      "directives": {
+        "type": "text",
+        "label": "Default Location",
+        "width": "120",
+        "grp": "2"
+      }
+    },
+    "prodDfltBestBy": {
+      "directives": {
+        "type": "number",
+        "label": "Best By Days",
+        "width": "80",
+        "grp": "2"
+      }
+    },
+    "prodDesc": {
+      "directives": {
+        "type": "multiline",
+        "label": "Description",
+        "tableHide": true
+      }
+    },
+    "prodUpcItemRef": {
+      "directives": {
+        "type": "text",
+        "label": "UPC Reference",
+        "width": "120",
+        "grp": "3"
+      }
+    },
+    "prodUpcChkDgt": {
+      "directives": {
+        "type": "text",
+        "label": "UPC Check Digit",
+        "width": "80",
+        "grp": "3"
+      }
+    },
+    "prodTypeID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "entity": "prodTypeList",
+        "valField": "prodTypeID",
+        "dispField": "prodTypeName"
+      }
+    }
+  }
+}
