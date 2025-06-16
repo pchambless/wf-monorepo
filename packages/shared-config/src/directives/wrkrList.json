@@ -12,7 +12,7 @@
     },
     "wrkrName": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Worker Name",
         "width": "200",
@@ -23,11 +23,7 @@
     "acctID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "acctList",
-        "valField": "acctID",
-        "dispField": "acctName"
+        "sys": true
       }
     }
   }

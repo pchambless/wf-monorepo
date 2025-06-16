@@ -8,7 +8,7 @@ CREATE OR REPLACE VIEW api_wf.acctList AS
 SELECT 
   a.id AS acctID, -- PK; sys; type:number
   a.name AS acctName, -- req; type:text; label:Account Name; width:200; grp:1; searchable
-  a.description AS acctDesc, -- type:multiline; label:Description; tableHide
+  a.description AS acctDesc, -- type:multiLine; label:Description; tableHide
   a.street_address AS acctAddr, -- type:text; label:Address; width:200; grp:2
   a.city AS acctCity, -- type:text; label:City; width:150; grp:3
   a.state_code AS acctState, -- type:text; label:State; width:60; grp:3

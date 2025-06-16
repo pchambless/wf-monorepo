@@ -163,15 +163,15 @@ export const themeOptions = {
             height: '40px',
             padding: '4px 8px'
           },
-          // Multiline field styling
-          '&.multiline-field': {
+          // multiLine field styling
+          '&.multiLine-field': {
             width: '100%',
             '& .MuiInputBase-root': {
               height: 'auto',
               minHeight: '100px',
               backgroundColor: '#f5f5f5'
             },
-            '& .MuiInputBase-inputMultiline': {
+            '& .MuiInputBase-inputmultiLine': {
               position: 'static',
               padding: '8px',
               minHeight: '80px'

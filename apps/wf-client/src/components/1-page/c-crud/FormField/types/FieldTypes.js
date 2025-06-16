@@ -5,7 +5,7 @@
 // Field type constants
 export const FIELD_TYPES = {
   TEXT: 'text',
-  MULTILINE: 'multiLine',
+  multiLine: 'multiLine',
   NUMBER: 'number',
   SELECT: 'select',
   DATE: 'date',

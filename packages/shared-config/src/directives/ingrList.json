@@ -12,7 +12,7 @@
     },
     "ingrName": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Ingredient Name",
         "width": "200",
@@ -22,6 +22,7 @@
     },
     "ingrCode": {
       "directives": {
+        "required": true,
         "type": "text",
         "label": "Code",
         "width": "100",
@@ -31,9 +32,10 @@
     },
     "ingrDesc": {
       "directives": {
-        "type": "multiline",
+        "type": "multiLine",
         "label": "Description",
-        "tableHide": true
+        "tableHide": true,
+        "grp": 4
       }
     },
     "measID": {
@@ -41,11 +43,9 @@
         "type": "select",
         "label": "Default Measure",
         "width": "120",
-        "entity": "measList",
-        "valField": "measID",
-        "dispField": "name",
+        "selList": "measList",
         "tableHide": true,
-        "grp": "2"
+        "grp": 2
       }
     },
     "vndrID": {
@@ -53,11 +53,9 @@
         "type": "select",
         "label": "Default Vendor",
         "width": "150",
-        "entity": "vndrList",
-        "valField": "vndrID",
-        "dispField": "vndrName",
+        "selList": "vndrList",
         "tableHide": true,
-        "grp": "2"
+        "grp": 2
       }
     },
     "ingrGrmsPerOz": {
@@ -66,17 +64,13 @@
         "label": "Grams/Oz",
         "width": "100",
         "dec": "10,2",
-        "grp": "3"
+        "grp": 3
       }
     },
     "ingrTypeID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "ingrTypeList",
-        "valField": "ingrTypeID",
-        "dispField": "ingrTypeName"
+        "sys": true      
       }
     }
   }

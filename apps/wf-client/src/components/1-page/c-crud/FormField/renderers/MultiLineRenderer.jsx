@@ -5,7 +5,7 @@ import React from 'react';
 import { TextField } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
-class MultiLineRenderer {
+class multiLineRenderer {
   /**
    * Render a multi-line text field
    */
@@ -26,7 +26,7 @@ class MultiLineRenderer {
         margin="normal"
         variant="outlined"
         size="small"
-        multiline
+        multiLine
         minRows={3}
         maxRows={8}
         sx={{
@@ -40,4 +40,4 @@ class MultiLineRenderer {
   });
 }
 
-export default MultiLineRenderer;
+export default multiLineRenderer;

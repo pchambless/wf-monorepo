@@ -50,7 +50,7 @@ export const ActionColumns = {
       width: 300,
       dataType: "OBJECT",
       formatter: (value) => JSON.stringify(value?.args || value, null, 2),
-      multiline: true
+      multiLine: true
     }
   ]
 };

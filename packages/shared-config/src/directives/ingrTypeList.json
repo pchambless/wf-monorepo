@@ -12,7 +12,7 @@
     },
     "ingrTypeName": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Type Name",
         "width": "200",
@@ -22,7 +22,7 @@
     },
     "ingrTypeDesc": {
       "directives": {
-        "type": "multiline",
+        "type": "multiLine",
         "label": "Description",
         "tableHide": true
       }
@@ -30,11 +30,7 @@
     "acctID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "acctList",
-        "valField": "acctID",
-        "dispField": "acctName"
+        "sys": true
       }
     }
   }

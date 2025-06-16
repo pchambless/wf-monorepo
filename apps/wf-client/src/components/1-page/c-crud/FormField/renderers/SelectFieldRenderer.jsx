@@ -2,34 +2,55 @@
  * Select Field Renderer Implementation
  */
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem, FormHelperText, CircularProgress } from '@mui/material';
+import { FormControl, FormHelperText, CircularProgress, TextField } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 import { observer } from 'mobx-react-lite';
 
 class SelectFieldRenderer {
   /**
-   * Render a select field
+   * Render a select field with search capability
    */
   render = observer(({ field, store, disabled }) => {
-    const labelId = `label-${field.field}`;
-    
     // Handle empty options state
     if (store.loading) {
       return (
         <FormControl fullWidth margin="normal" variant="outlined" size="small">
-          <InputLabel id={labelId}>{field.label}</InputLabel>
-          <Select
-            labelId={labelId}
+          <Autocomplete
             id={`field-${field.field}`}
-            label={field.label}
+            options={[]}
+            loading={true}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={field.label}
+                variant="outlined"
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <React.Fragment>
+                      <CircularProgress color="inherit" size={20} />
+                      {params.InputProps.endAdornment}
+                    </React.Fragment>
+                  ),
+                }}
+              />
+            )}
             disabled
-          >
-            <MenuItem value="">
-              <CircularProgress size={20} /> Loading...
-            </MenuItem>
-          </Select>
+          />
         </FormControl>
       );
     }
+    
+    // Convert options to Autocomplete format
+    const autocompleteOptions = store.options.map(option => ({
+      value: option.value,
+      label: option.label,
+    }));
+    
+    // Find the current selected option
+    const selectedOption = autocompleteOptions.find(
+      option => String(option.value) === String(store.value)
+    ) || null;
     
     return (
       <FormControl 
@@ -39,26 +60,30 @@ class SelectFieldRenderer {
         size="small"
         error={!!store.error}
         required={field.required}
-        disabled={disabled || !field.editable}
       >
-        <InputLabel id={labelId}>{field.label}</InputLabel>
-        <Select
-          labelId={labelId}
+        <Autocomplete
           id={`field-${field.field}`}
-          value={store.value ?? ''}
-          label={field.label}
-          onChange={(e) => store.setValue(e.target.value)}
+          options={autocompleteOptions}
+          getOptionLabel={(option) => option.label}
+          value={selectedOption}
+          onChange={(_, newValue) => {
+            store.setValue(newValue ? newValue.value : '');
+          }}
           onBlur={() => store.setTouched()}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {store.options.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </Select>
+          disabled={disabled || !field.editable}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={field.label}
+              variant="outlined"
+              error={!!store.error}
+              required={field.required}
+            />
+          )}
+          isOptionEqualToValue={(option, value) => 
+            option.value === value.value
+          }
+        />
         {store.error && <FormHelperText>{store.error}</FormHelperText>}
       </FormControl>
     );

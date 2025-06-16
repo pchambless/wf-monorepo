@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { entityRegistry } = require('../../packages/shared-config/pageMapRegistry');
+const { entityRegistry } = require('../../packages/shared-config/src/pageMapRegistry');
 
 /**
  * Page Index Generator for WhatsFresh
@@ -68,37 +68,20 @@ function generateIndexFile(entityName) {
   const indexContent = `import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import CrudLayout from '@crud/CrudLayout';
-// Use package import for shared config
+// Same import path, but now contains the optimized structure
 import pageMap from '@whatsfresh/shared-config/src/pageMap/${entityName}';
 import navigationStore from '@stores/navigationStore';
 import accountStore from '@stores/accountStore';
 import createLogger from '@utils/logger';
-// Only import ROUTES if we're using it
-${parentEntity ? "import { ROUTES } from '@whatsfresh/shared-config/src/routes';" : ''}
 
 const log = createLogger('${loggerName}');
 
 const ${componentName} = observer(() => {
   useEffect(() => {
-    log.debug('Component mounted');
-    // Set breadcrumbs if parent entity exists
-    ${parentEntity ? `
-    if (navigationStore.parentId) {
-      navigationStore.setBreadcrumbs([
-        {
-          label: '${parentEntity.title}',
-          path: ROUTES.${parentEntity.routeKey}.path
-        },
-        { label: '${entity.title}', path: null }
-      ]);
-    } else {
-      navigationStore.setBreadcrumbs([
-        { label: '${entity.title}', path: null }
-      ]);
-    }` : `
+    // Set breadcrumbs
     navigationStore.setBreadcrumbs([
-      { label: '${entity.title}', path: null }
-    ]);`}
+      { label: pageMap.title, path: null }
+    ]);
   }, []);
 
   return (

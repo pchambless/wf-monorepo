@@ -4,7 +4,7 @@
  */
 
 // Import routes to ensure consistency
-const routes = require('./src/routes');
+const routes = require('./routes');
 
 /**
  * Comprehensive entity registry that defines the entire application structure
@@ -14,7 +14,7 @@ const entityRegistry = {
   "dashboard": {
     pageIndexPath: "0-Dashboard/dashboard/index.jsx",
     title: "Dashboard",
-    layout: "DashboardLayout", // Add layout attribute
+    layout: "MainLayout", // Add layout attribute
     routeKey: "DASHBOARD",
     icon: "Dashboard",
     section: "main",

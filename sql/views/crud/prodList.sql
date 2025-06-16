@@ -11,7 +11,7 @@ SELECT
   a.code AS prodCode, -- type:text; label:Code; width:100; grp:1
   a.location AS prodDfltLoc, -- type:text; label:Default Location; width:120; grp:2
   a.best_by_days AS prodDfltBestBy, -- type:number; label:Best By Days; width:80; grp:2
-  a.description AS prodDesc, -- type:multiline; label:Description; tableHide
+  a.description AS prodDesc, -- type:multiLine; label:Description; tableHide
   a.upc_item_reference AS prodUpcItemRef, -- type:text; label:UPC Reference; width:120; grp:3
   a.upc_check_digit AS prodUpcChkDgt, -- type:text; label:UPC Check Digit; width:80; grp:3
   a.product_type_id AS prodTypeID -- parentKey; sys; type:select; entity:prodTypeList; valField:prodTypeID; dispField:prodTypeName

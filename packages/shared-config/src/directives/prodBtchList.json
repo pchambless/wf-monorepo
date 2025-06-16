@@ -12,7 +12,7 @@
     },
     "btchNbr": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Batch Number",
         "width": "120",
@@ -22,6 +22,7 @@
     },
     "btchLoc": {
       "directives": {
+        "required": true,
         "type": "text",
         "label": "Location",
         "width": "150",
@@ -30,6 +31,7 @@
     },
     "btchQty": {
       "directives": {
+        "required": true,
         "type": "decimal",
         "label": "Quantity",
         "width": "100",
@@ -39,18 +41,17 @@
     },
     "measID": {
       "directives": {
+        "required": true,
         "type": "select",
         "label": "Measure",
         "width": "120",
-        "entity": "measList",
-        "valField": "measID",
-        "dispField": "name",
+        "selList": "measList",
         "grp": "2"
       }
     },
     "comments": {
       "directives": {
-        "type": "multiline",
+        "type": "multiLine",
         "label": "Comments",
         "tableHide": true
       }
@@ -60,9 +61,7 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
-        "entity": "prodList",
-        "valField": "prodID",
-        "dispField": "prodName"
+        "selList": "prodList"
       }
     }
   }

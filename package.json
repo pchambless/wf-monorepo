@@ -17,7 +17,9 @@
     "build-storybook": "storybook build",
     "generate-page-maps": "node tools/page-generator/genPageMaps.js",
     "generate-docs": "node tools/page-generator/genDocs.js",
-    "generate-visuals": "node tools/page-generator/genVisualDocs.js"
+    "generate-visuals": "node tools/page-generator/genVisualDocs.js",
+    "generate:all": "yarn generate-page-maps && yarn generate-docs && yarn generate-visuals",
+    "generate:optimized": "node tools/page-generator/genOptimizedConfigs.js"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",

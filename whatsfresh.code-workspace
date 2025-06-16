@@ -1,0 +1,17 @@
+{
+  "folders": [
+    { "name": "⚙️ Monorepo", "path": "." },
+    { "name": "📱 Docs", "path": "./Docs" },
+    { "name": "📱 Client", "path": "./apps/wf-client" },
+    { "name": "🖥️ Server", "path": "./apps/wf-server" },
+    { "name": "📦 DB Connect", "path": "./packages/db-connect" },
+    { "name": "📦 Views - Crud", "path": "./sql/views/crud" },
+    { "name": "📦 Views - Admin", "path": "./sql/views/admin" },
+    { "name": "📦 Shared Config", "path": "./packages/shared-config" },
+    { "name": "📦 Shared Events", "path": "./packages/shared-events" },
+    { "name": "🛠️ Tools", "path": "./tools" }
+  ],
+  "settings": {
+    "editor.formatOnSave": true
+  }
+}

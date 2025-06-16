@@ -12,7 +12,7 @@
     },
     "brndName": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Brand Name",
         "width": "200",
@@ -22,7 +22,7 @@
     },
     "brndComments": {
       "directives": {
-        "type": "multiline",
+        "type": "multiLine",
         "label": "Comments",
         "tableHide": true
       }
@@ -31,18 +31,14 @@
       "directives": {
         "type": "text",
         "label": "Website",
-        "width": "200",
+        "tableHide": true,
         "grp": "2"
       }
     },
     "acctID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "acctList",
-        "valField": "acctID",
-        "dispField": "acctName"
+        "sys": true
       }
     }
   }

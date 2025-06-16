@@ -56,8 +56,8 @@ const CheckboxRenderer = ({ field, value, onChange, disabled }) => (
   />
 );
 
-// Add MultiLine renderer
-const MultiLineRenderer = ({ field, value, onChange, error, disabled }) => (
+// Add multiLine renderer
+const multiLineRenderer = ({ field, value, onChange, error, disabled }) => (
   <TextField
     label={field?.label}
     name={field?.id}
@@ -67,13 +67,13 @@ const MultiLineRenderer = ({ field, value, onChange, error, disabled }) => (
     helperText={error}
     disabled={disabled}
     fullWidth
-    multiline
+    multiLine
     minRows={3}
     maxRows={10}
     size="small"
     sx={{ 
       width: '100%',
-      // Add specific styling for multiline fields
+      // Add specific styling for multiLine fields
       '& .MuiInputBase-root': {
         padding: '8px 12px',
         alignItems: 'flex-start'
@@ -89,9 +89,9 @@ const renderers = {
   select: SelectFieldRenderer,
   checkbox: CheckboxRenderer,
   boolean: CheckboxRenderer,
-  multiline: MultiLineRenderer, // Add this
-  multiLine: MultiLineRenderer,  // Add both cases for case-insensitive matching
-  textarea: MultiLineRenderer,   // Alternative name
+  multiLine: multiLineRenderer, // Add this
+  multiLine: multiLineRenderer,  // Add both cases for case-insensitive matching
+  textarea: multiLineRenderer,   // Alternative name
   // Add more as needed
 };
 

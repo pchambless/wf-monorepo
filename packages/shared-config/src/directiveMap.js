@@ -50,7 +50,7 @@
 // Field types used throughout the system
 const FIELD_TYPES = {
   TEXT: 'text',
-  MULTILINE: 'multiLine',
+  multiLine: 'multiLine',
   NUMBER: 'number',
   DECIMAL: 'decimal',
   SELECT: 'select',
@@ -84,7 +84,7 @@ const directiveMap = {
       // Map SQL types to UI field types (preserve mapping logic)
       switch (val.toLowerCase()) {
         case 'text': return FIELD_TYPES.TEXT;
-        case 'multiline': return FIELD_TYPES.MULTILINE;
+        case 'multiLine': return FIELD_TYPES.multiLine;
         case 'number': return FIELD_TYPES.NUMBER;
         case 'decimal': return FIELD_TYPES.DECIMAL; // Added decimal type
         case 'float': return FIELD_TYPES.DECIMAL;
@@ -203,8 +203,8 @@ function processDirectives(directives) {
     console.warn('Warning: Select field missing entity directive');
   }
   
-  // MultiLine fields should typically be hidden in tables
-  if (result.type === FIELD_TYPES.MULTILINE && result.tableHide === undefined) {
+  // multiLine fields should typically be hidden in tables
+  if (result.type === FIELD_TYPES.multiLine && result.tableHide === undefined) {
     result.tableHide = true;
   }
   

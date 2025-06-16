@@ -12,7 +12,7 @@
     },
     "prodTypeName": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Type Name",
         "width": "200",
@@ -23,11 +23,7 @@
     "acctID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "acctList",
-        "valField": "acctID",
-        "dispField": "acctName"
+        "sys": true
       }
     }
   }

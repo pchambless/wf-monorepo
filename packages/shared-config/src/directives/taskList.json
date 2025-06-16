@@ -12,7 +12,7 @@
     },
     "taskName": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Task Name",
         "width": "200",
@@ -22,13 +22,14 @@
     },
     "taskDesc": {
       "directives": {
-        "type": "multiline",
+        "type": "multiLine",
         "label": "Description",
         "tableHide": true
       }
     },
     "taskOrder": {
       "directives": {
+        "required": true,
         "type": "number",
         "label": "Order",
         "width": "80",
@@ -38,11 +39,7 @@
     "prodTypeID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "prodTypeList",
-        "valField": "prodTypeID",
-        "dispField": "prodTypeName"
+        "sys": true
       }
     }
   }

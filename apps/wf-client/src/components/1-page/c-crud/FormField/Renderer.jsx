@@ -17,7 +17,7 @@ class FormFieldRenderer {
     
     switch (displayType) {
       case 'multiLine':
-        return this.renderMultilineField(field, value, onChange, disabled);
+        return this.rendermultiLineField(field, value, onChange, disabled);
       
       case 'select':
         return this.renderSelectField(field, value, onChange, disabled);
@@ -30,11 +30,11 @@ class FormFieldRenderer {
     }
   }
   
-  renderMultilineField(field, value, onChange, disabled) {
+  rendermultiLineField(field, value, onChange, disabled) {
     return (
       <TextField
         fullWidth
-        multiline
+        multiLine
         minRows={3}
         maxRows={8}
         label={field.label}

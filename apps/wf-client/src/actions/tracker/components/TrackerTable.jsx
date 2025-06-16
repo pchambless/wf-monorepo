@@ -55,7 +55,7 @@ const TrackerTable = () => {
                   <TableCell 
                     key={col.field}
                     align={col.align}
-                    sx={col.multiline ? { whiteSpace: 'pre-wrap' } : undefined}
+                    sx={col.multiLine ? { whiteSpace: 'pre-wrap' } : undefined}
                   >
                     {col.formatter 
                       ? col.formatter(action[col.field])

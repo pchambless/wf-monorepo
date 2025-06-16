@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import Table from '@crud/Table';  // Adjusted import path for Table component
+import Table from '@crud/Table';
 import AddButton from './AddButton';
 import dataStore from '@stores/dataStore';
 import createLogger from '@utils/logger';
@@ -8,26 +8,30 @@ import createLogger from '@utils/logger';
 const log = createLogger('TableSection');
 
 /**
- * TableSection component - Handles the table display and add button
+ * TableSection component - Handles the table display using the new config structure
  * 
  * @param {Object} props - Component props
- * @param {Object} props.pageMap - Page configuration object
+ * @param {Object} props.config - Table configuration object
  * @param {Function} props.onRowSelect - Handler for row selection
  * @param {Function} props.onAddNew - Handler for adding new items
  * @param {Function} props.onDelete - Handler for deleting items
+ * @param {boolean} props.canAdd - Whether add button should be shown
  */
 const TableSection = ({ 
-  pageMap,
+  config,
+  systemConfig,
   onRowSelect,
   onAddNew,
   onDelete,
   canAdd = true
 }) => {
-  const { pageConfig } = pageMap || {};
-  const idField = pageConfig?.idField || 'id';
-  
-  // Debug log to verify actions are present
-  log.debug('Table actions:', pageMap?.actions?.rowActions);
+  if (!config) {
+    log.warn('No table configuration provided');
+    return null;
+  }
+
+  const idField = systemConfig?.primaryKey || 'id';
+  const rowActions = config.rowActions || [];
   
   return (
     <>
@@ -38,17 +42,14 @@ const TableSection = ({
       )}
       
       <Table 
-        pageMap={pageMap}
-        tableConfig={{
-          data: dataStore.tableData,
-          selectedId: dataStore.selectedId,
-          idField: idField,
-          onRowClick: onRowSelect,
-          onDeleteClick: onDelete,
-          loading: dataStore.loading,
-          // Be more specific about what actions we're passing
-          rowActions: pageMap?.actions?.rowActions || []
-        }}
+        config={config}
+        data={dataStore.tableData}
+        selectedId={dataStore.selectedId}
+        idField={idField}
+        onRowClick={onRowSelect}
+        onDeleteClick={onDelete}
+        loading={dataStore.loading}
+        rowActions={rowActions}
       />
     </>
   );

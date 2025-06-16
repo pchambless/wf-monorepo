@@ -379,7 +379,7 @@ class FormStore {
     // We've already filtered in the constructor, so we can use displayColumns directly
     const groups = this.displayColumns.reduce((acc, column) => {
       const groupKey = column.displayType === 'multiLine' ? 
-        `multiline-${column.field}` : 
+        `multiLine-${column.field}` : 
         (column.group?.toString() || '0');
       
       if (!acc[groupKey]) acc[groupKey] = [];

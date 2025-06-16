@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Product Batches Preview</title>
+  <title>Users Preview</title>
   <style>
   /* Base styles */
   body { font-family: Arial, sans-serif; margin: 20px; color: #333; line-height: 1.5; }
@@ -99,7 +99,7 @@
   </script>
 </head>
 <body>
-  <h1>Product Batches Component Preview</h1>
+  <h1>Users Component Preview</h1>
   <p><em>Visual preview based on pageMap configuration - Generated on 6/15/2025</em></p>
   
   <div class="controls">
@@ -112,53 +112,19 @@
   <div class="directive-list">
     <h3>Entity Configuration Overview</h3>
     <p><strong>Schema:</strong> whatsfresh</p>
-    <p><strong>Table:</strong> product_batches</p>
-    <p><strong>Primary Key:</strong> prodBtchID</p>
+    <p><strong>Table:</strong> users</p>
+    <p><strong>Primary Key:</strong> userID</p>
   </div>
   
   <div class="preview-container">
     <div id="table-section" class="preview-section">
       <h2>Table View</h2>
-      
-<table>
-  <thead>
-    <tr><th>Batch Number</th><th>Location</th><th>Quantity</th><th>Measure</th></tr>
-  </thead>
-  <tbody><tr><td>63232</td><td>NSQ</td><td>300</td><td>25</td></tr><tr><td>63231</td><td>NSQ</td><td>150</td><td>25</td></tr><tr><td>63230</td><td>NSQ</td><td>390</td><td>25</td></tr></tbody>
-</table>
+      <p><em>No table configuration available for this entity</em></p>
     </div>
     
     <div id="form-section" class="preview-section" style="display: none;">
       <h2>Form View</h2>
-      <div class="form-container">
-        <div class="form-group">
-          <div class="group-header">Group 1</div>
-          <div class="form-row">
-          <div class="form-field">
-            <label>Batch Number<span class="required-marker">*</span> <span class="field-type">[text]</span></label>
-            <div class="field-preview">63232</div>
-          </div>
-          <div class="form-field">
-            <label>Comments <span class="field-type">[multiLine]</span></label>
-            <div class="field-preview multiLine-field"></div>
-          </div></div>
-        </div>
-        <div class="form-group">
-          <div class="group-header">Group 2</div>
-          <div class="form-row">
-          <div class="form-field">
-            <label>Location<span class="required-marker">*</span> <span class="field-type">[text]</span></label>
-            <div class="field-preview">NSQ</div>
-          </div>
-          <div class="form-field">
-            <label>Quantity<span class="required-marker">*</span> <span class="field-type">[decimal]</span></label>
-            <div class="field-preview number-field">300</div>
-          </div>
-          <div class="form-field">
-            <label>Measure<span class="required-marker">*</span> <span class="field-type">[select]</span></label>
-            <div class="field-preview select-field">25</div>
-          </div></div>
-        </div></div>
+      <p><em>No form fields defined for this entity</em></p>
     </div>
     
     <div id="dml-section" class="preview-section" style="display: none;">
@@ -177,41 +143,6 @@
       </thead>
       <tbody>
         
-          <tr>
-            <td>prodBtchID</td>
-            <td>id</td>
-          </tr>
-        
-          <tr>
-            <td>btchNbr</td>
-            <td>batch_number</td>
-          </tr>
-        
-          <tr>
-            <td>btchLoc</td>
-            <td>location</td>
-          </tr>
-        
-          <tr>
-            <td>btchQty</td>
-            <td>batch_quantity</td>
-          </tr>
-        
-          <tr>
-            <td>measID</td>
-            <td>global_measure_unit_id</td>
-          </tr>
-        
-          <tr>
-            <td>comments</td>
-            <td>comments</td>
-          </tr>
-        
-          <tr>
-            <td>prodID</td>
-            <td>product_id</td>
-          </tr>
-        
       </tbody>
     </table>
   </div>
@@ -220,10 +151,10 @@
   <div class="dml-operation">
     <h3>INSERT Example</h3>
     <pre class="sql-preview">
-INSERT INTO whatsfresh.product_batches
-(id, batch_number, location, batch_quantity, global_measure_unit_id, comments, product_id)
+INSERT INTO whatsfresh.users
+()
 VALUES
-(2889, '63232', 'NSQ', 300, 25, '', 3);
+();
     </pre>
   </div>
   
@@ -231,16 +162,11 @@ VALUES
   <div class="dml-operation">
     <h3>UPDATE Example</h3>
     <pre class="sql-preview">
-UPDATE whatsfresh.product_batches
+UPDATE whatsfresh.users
 SET 
-  batch_number = '63232',
-  location = 'NSQ',
-  batch_quantity = 300,
-  global_measure_unit_id = 25,
-  comments = '',
-  product_id = 3
+  
 WHERE 
-  id = 2889;
+  undefined = 1;
     </pre>
   </div>
   
@@ -248,9 +174,9 @@ WHERE
   <div class="dml-operation">
     <h3>DELETE Example</h3>
     <pre class="sql-preview">
-DELETE FROM whatsfresh.product_batches
+DELETE FROM whatsfresh.users
 WHERE 
-  id = 2889;
+  undefined = 1;
     </pre>
   </div>
 </div>

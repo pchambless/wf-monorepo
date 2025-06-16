@@ -4,7 +4,8 @@ import { Box, Grid } from '@mui/material';
 import TableSection from './components/TableSection';
 import FormSection from './components/FormSection';
 import PageMapError from './components/PageMapError';
-import usePageMapValidation from './hooks/usePageMapValidation';
+import ConfigError from './components/ConfigError';
+import useOptimizedConfigValidation from './hooks/useOptimizedConfigValidation';
 import useParentID from './hooks/useParentID';
 import useCrudActions from './hooks/useCrudActions';
 import dataStore from '@stores/dataStore';
@@ -14,8 +15,8 @@ const log = createLogger('CrudLayout');
 
 const CrudLayout = observer(({ pageMap }) => {
   const formRef = useRef(null);
-  const { isValid, errors } = usePageMapValidation(pageMap);
-  const { parentId } = useParentID(pageMap);
+  const { isValid, errors } = useOptimizedConfigValidation(pageMap); // Update validator
+  const { parentId } = useParentID(pageMap.systemConfig); // Updated hook
   const { 
     handleRowSelect, 
     handleAddNew, 
@@ -24,14 +25,12 @@ const CrudLayout = observer(({ pageMap }) => {
     canDelete 
   } = useCrudActions(pageMap, formRef, parentId);
   
-  // Validate pageMap configuration
+  // Validate configuration
   if (!isValid) {
-    return <PageMapError errors={errors} />;
+    return <ConfigError errors={errors} />;
   }
 
-  // Extract configuration
-  const { pageConfig } = pageMap || {};
-  const listEvent = pageConfig?.listEvent;
+  const { systemConfig, tableConfig, formConfig } = pageMap;
   
   // Initialize page when component mounts
   useEffect(() => {
@@ -39,32 +38,33 @@ const CrudLayout = observer(({ pageMap }) => {
     dataStore.setPageMap(pageMap);
     
     // Fetch data using the centralized fetchData method
-    if (listEvent) {
-      dataStore.fetchData(listEvent, pageMap);
+    if (systemConfig.listEvent) {
+      dataStore.fetchData(systemConfig.listEvent, pageMap);
     } else {
-      log.warn('No listEvent configured in pageMap');
+      log.warn('No listEvent configured in systemConfig');
     }
-  }, [pageMap, listEvent]);
+  }, [pageMap, systemConfig.listEvent]);
   
-  // Check if we have required configuration
-  if (!pageMap || !pageMap.columnMap || !listEvent) {
+  // Simplified validation check - no need to reference legacy properties
+  if (!pageMap || !tableConfig || !systemConfig.listEvent) {
     log.warn('Missing required configuration');
     return (
       <PageMapError errors={[
         'Missing configuration for CRUD layout.',
         !pageMap ? 'No pageMap provided.' : '',
-        pageMap && !pageMap.columnMap ? 'No columnMap defined in pageMap.' : '',
-        !listEvent ? 'No listEvent provided in pageConfig.' : ''
+        !tableConfig ? 'No tableConfig defined in pageMap.' : '',
+        !systemConfig.listEvent ? 'No listEvent provided in systemConfig.' : ''
       ].filter(Boolean)} />
     );
   }
   
+  // Clean, forward-looking return structure
   return (
     <Box display="flex" flexDirection="column" gap={2}>
       <Grid container spacing={2}>
         <Grid item xs={7}>
           <TableSection 
-            pageMap={pageMap}
+            config={tableConfig}
             onRowSelect={handleRowSelect}
             onAddNew={handleAddNew}
             onDelete={handleDelete}
@@ -76,7 +76,7 @@ const CrudLayout = observer(({ pageMap }) => {
         <Grid item xs={5}>
           <FormSection 
             ref={formRef}
-            pageMap={pageMap}
+            config={formConfig}
           />
         </Grid>
       </Grid>

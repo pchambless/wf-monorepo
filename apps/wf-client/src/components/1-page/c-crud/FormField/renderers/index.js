@@ -5,7 +5,7 @@ import TextFieldRenderer from './TextFieldRenderer';
 import NumberFieldRenderer from './NumberFieldRenderer';
 import BooleanFieldRenderer from './BooleanFieldRenderer';
 import SelectFieldRenderer from './SelectFieldRenderer';
-import MultiLineRenderer from './MultiLineRenderer';
+import multiLineRenderer from './multiLineRenderer';
 import DateFieldRenderer from './DateFieldRenderer';
 import HiddenFieldRenderer from './HiddenFieldRenderer';
 
@@ -17,8 +17,8 @@ const renderers = {
   // Handle all display types and field types
   text: TextFieldRenderer,
   number: NumberFieldRenderer,
-  multiLine: MultiLineRenderer,
-  multiline: MultiLineRenderer, // Handle both casing variants
+  multiLine: multiLineRenderer,
+  multiLine: multiLineRenderer, // Handle both casing variants
   select: SelectFieldRenderer,
   boolean: BooleanFieldRenderer,
   checkbox: BooleanFieldRenderer,

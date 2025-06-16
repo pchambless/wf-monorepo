@@ -30,7 +30,7 @@ The Table component in the CrudLayout will present the Table data for all the li
 
 
 ## Notes
-**Hidden Columns**:  ColumnMap.MultiLine: true, ColumnMap.selList is populated, columnMap.group <=0. 
+**Hidden Columns**:  ColumnMap.multiLine: true, ColumnMap.selList is populated, columnMap.group <=0. 
 
 
 Issue #29 - Created by pchambless on 4/13/2025

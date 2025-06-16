@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import Form from '@crud/Form';
 import dataStore from '@stores/dataStore';
 import createLogger from '@utils/logger';
@@ -6,43 +6,17 @@ import createLogger from '@utils/logger';
 const log = createLogger('FormSection');
 
 /**
- * FormSection component - Handles the form display and interactions
+ * FormSection component - Handles the form display using the new config structure
  * 
  * @param {Object} props - Component props
- * @param {Object} props.pageMap - Page configuration object
+ * @param {Object} props.config - Form configuration object
  */
-const FormSection = forwardRef(({ pageMap }, ref) => {
-  const { pageConfig } = pageMap || {};
-  const formTitle = pageConfig?.title || 'Form';
-  
-  // Use useMemo to enhance columns with labels
-  const enhancedPageMap = useMemo(() => {
-    if (!pageMap || !Array.isArray(pageMap.columnMap)) {
-      return pageMap;
-    }
-    
-    log.debug('Original columns:', pageMap.columnMap.map(col => ({
-      field: col.field,
-      label: col.label,
-      headerName: col.headerName
-    })));
-    
-    // Create a new pageMap with enhanced columns
-    return {
-      ...pageMap,
-      columnMap: pageMap.columnMap.map(col => ({
-        ...col,
-        // Ensure each column has a label property
-        label: col.label || col.headerName || col.field
-      }))
-    };
-  }, [pageMap]);
-  
-  // Log the enhanced columns
-  log.debug('Enhanced columns:', enhancedPageMap?.columnMap?.map(col => ({
-    field: col.field,
-    label: col.label
-  })));
+const FormSection = forwardRef(({ config }, ref) => {
+  // Config is now directly the formConfig section
+  if (!config) {
+    log.warn('No form configuration provided');
+    return null;
+  }
   
   // Handle successful form submission
   const handleFormSave = () => {
@@ -58,10 +32,9 @@ const FormSection = forwardRef(({ pageMap }, ref) => {
   return (
     <Form 
       ref={ref}
-      pageMap={enhancedPageMap}
+      config={config}
       data={dataStore.selectedRow || {}}
       mode={dataStore.formMode}
-      formTitle={formTitle}
       onSave={handleFormSave}
       onCancel={handleFormCancel}
     />

@@ -23,7 +23,7 @@ SELECT
     ' per ', a.unit_quantity, ' ', 
     (SELECT gmu.value FROM whatsfresh.global_measure_units gmu WHERE gmu.id = a.global_measure_unit_id)
   ) AS purch_dtl, -- type:text; label:Purchase Detail; width:200; tableHide; grp:5
-  a.comments AS comments, -- type:multiline; label:Comments; tableHide
+  a.comments AS comments, -- type:multiLine; label:Comments; tableHide
   a.ingredient_id AS ingrID -- parentKey; sys; type:select; entity:ingrList; valField:ingrID; dispField:ingrName
 FROM whatsfresh.ingredient_batches a
 ORDER BY a.purchase_date DESC;

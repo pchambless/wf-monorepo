@@ -12,7 +12,7 @@
     },
     "name": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Name",
         "width": "200",
@@ -22,6 +22,7 @@
     },
     "abbrev": {
       "directives": {
+        "required": true,
         "type": "text",
         "label": "Abbreviation",
         "width": "100",
@@ -31,11 +32,7 @@
     "acctID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "acctList",
-        "valField": "acctID",
-        "dispField": "acctName"
+        "sys": true
       }
     }
   }

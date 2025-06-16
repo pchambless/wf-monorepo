@@ -38,11 +38,7 @@
     "prodID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "prodList",
-        "valField": "prodID",
-        "dispField": "prodName"
+        "sys": true
       }
     },
     "ingrTypeSel": {
@@ -50,9 +46,7 @@
         "type": "select",
         "label": "Ingredient Type",
         "width": "150",
-        "entity": "ingrTypeList",
-        "valField": "ingrTypeID",
-        "dispField": "ingrTypeName",
+        "selList": "ingrTypeList",
         "grp": "3"
       }
     },
@@ -61,9 +55,7 @@
         "type": "select",
         "label": "Ingredient",
         "width": "180",
-        "entity": "ingrList",
-        "valField": "ingrID",
-        "dispField": "ingrName",
+        "selList": "ingrList",
         "grp": "3"
       }
     },
@@ -72,9 +64,7 @@
         "type": "select",
         "label": "Measure",
         "width": "120",
-        "entity": "measList",
-        "valField": "measID",
-        "dispField": "name",
+        "selList": "measList",
         "grp": "2"
       }
     },
@@ -89,7 +79,7 @@
     },
     "Comments": {
       "directives": {
-        "type": "multiline",
+        "type": "multiLine",
         "label": "Comments",
         "tableHide": true
       }

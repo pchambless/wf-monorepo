@@ -1,7 +1,7 @@
 // Master script to run both generators
 
 // First generate optimized configs
-require('./genOptimizedConfigs').generateOptimizedConfigs()
+require('./adhoc-obsolete/genOptimizedConfigs').generateOptimizedConfigs()
   .then(() => {
     console.log('\n-------------------\n');
     // Then generate visual docs

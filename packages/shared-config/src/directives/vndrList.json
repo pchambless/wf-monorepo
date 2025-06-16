@@ -12,7 +12,7 @@
     },
     "vndrName": {
       "directives": {
-        "req": true,
+        "required": true,
         "type": "text",
         "label": "Vendor Name",
         "width": "200",
@@ -46,7 +46,7 @@
     },
     "vndrComments": {
       "directives": {
-        "type": "multiline",
+        "type": "multiLine",
         "label": "Comments",
         "tableHide": true
       }
@@ -54,11 +54,7 @@
     "acctID": {
       "directives": {
         "parentKey": true,
-        "sys": true,
-        "type": "select",
-        "entity": "acctList",
-        "valField": "acctID",
-        "dispField": "acctName"
+        "sys": true
       }
     }
   }
