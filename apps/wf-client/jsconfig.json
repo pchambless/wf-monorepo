@@ -29,5 +29,5 @@
       "@actions/*": ["actions/*"]
     }
   },
-  "include": ["src", "../../packages/shared-config/src/abbreviationMap.js"]
+  "include": ["src", "../../packages/shared-config/src/common/abbreviationMap.js"]
 }

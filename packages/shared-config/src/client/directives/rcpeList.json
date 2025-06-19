@@ -1,0 +1,88 @@
+{
+  "viewName": "rcpeList",
+  "entityName": "rcpelist",
+  "lastExtracted": "2025-06-14T20:11:23.074Z",
+  "columns": {
+    "rcpeID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "ingrOrdr": {
+      "directives": {
+        "type": "number",
+        "label": "Order",
+        "width": "80",
+        "grp": "1"
+      }
+    },
+    "ingrName": {
+      "directives": {
+        "type": "text",
+        "label": "Ingredient Name",
+        "width": "200",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "qtyMeas": {
+      "directives": {
+        "type": "text",
+        "label": "Quantity & Measure",
+        "width": "150",
+        "grp": "2"
+      }
+    },
+    "prodID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true
+      }
+    },
+    "ingrTypeSel": {
+      "directives": {
+        "type": "select",
+        "label": "Ingredient Type",
+        "width": "150",
+        "selList": "ingrTypeList",
+        "grp": "3"
+      }
+    },
+    "ingrSel": {
+      "directives": {
+        "type": "select",
+        "label": "Ingredient",
+        "width": "180",
+        "selList": "ingrList",
+        "grp": "3"
+      }
+    },
+    "measID": {
+      "directives": {
+        "type": "select",
+        "label": "Measure",
+        "width": "120",
+        "selList": "measList",
+        "grp": "2"
+      }
+    },
+    "Qty": {
+      "directives": {
+        "type": "decimal",
+        "label": "Quantity",
+        "width": "100",
+        "dec": "10,2",
+        "grp": "2"
+      }
+    },
+    "Comments": {
+      "directives": {
+        "type": "multiLine",
+        "label": "Comments",
+        "tableHide": true
+      }
+    }
+  }
+}

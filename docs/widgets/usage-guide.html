@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <title>Widget Usage Guide - WhatsFresh</title>
+    <style>
+      body { font-family: system-ui, sans-serif; line-height: 1.5; padding: 2rem; max-width: 800px; margin: 0 auto; }
+      pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow: auto; }
+      code { font-family: monospace; }
+      .nav { margin-bottom: 20px; padding: 10px; background-color: #f8f8f8; border-radius: 5px; }
+      h2 { border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <a href="../index.html">Home</a> | 
+      <a href="./index.html">Widget Registry</a>
+    </div>
+
+    <h1>Widget Usage Guide</h1>
+    <p>This guide explains how to use the WhatsFresh widget system in your applications.</p>
+    
+    <h2>Basic Widget Usage</h2>
+    <p>To use a widget in your component:</p>
+    <pre><code>import { SelVndr } from '@whatsfresh/shared-ui';
+
+function MyComponent() {
+  const handleVendorChange = (newVendorId) => {
+    console.log('Selected vendor:', newVendorId);
+  };
+  
+  return (
+    &lt;SelVndr 
+      onChange={handleVendorChange}
+      required={true}
+    /&gt;
+  );
+}</code></pre>
+  </body>
+  </html>

@@ -2,6 +2,7 @@
   "folders": [
     { "name": "⚙️ Monorepo", "path": "." },
     { "name": "📱 Docs", "path": "./Docs" },
+    { "name": "📱 Admin", "path": "./apps/wf-admin" },
     { "name": "📱 Client", "path": "./apps/wf-client" },
     { "name": "🖥️ Server", "path": "./apps/wf-server" },
     { "name": "📦 DB Connect", "path": "./packages/db-connect" },
@@ -9,6 +10,7 @@
     { "name": "📦 Views - Admin", "path": "./sql/views/admin" },
     { "name": "📦 Shared Config", "path": "./packages/shared-config" },
     { "name": "📦 Shared Events", "path": "./packages/shared-events" },
+    { "name": "📦 Shared UI", "path": "./packages/shared-ui" },
     { "name": "🛠️ Tools", "path": "./tools" }
   ],
   "settings": {

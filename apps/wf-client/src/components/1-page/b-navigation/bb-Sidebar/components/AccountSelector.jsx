@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Box, Typography, FormControl, Select, MenuItem, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { SelAcct } from '@whatsfresh/shared-ui';
 import { useAccountStore } from '@stores/accountStore';
 import createLogger from '@utils/logger';
 import { ROUTES } from '@whatsfresh/shared-config/src/routes';
@@ -24,9 +24,8 @@ const AccountSelector = observer(({ onClose }) => {
   });
 
   // Handle account switching
-  const handleAccountChange = async (event) => {
-    const newAccountId = event.target.value;
-    log.debug(`Changing account to: ${newAccountId}`);
+  const handleAccountChange = async (newAccountId, account) => {
+    log.debug(`Changing account to: ${newAccountId} (${account?.acctName})`);
     setIsLoading(true);
     
     try {
@@ -41,43 +40,13 @@ const AccountSelector = observer(({ onClose }) => {
   };
 
   return (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-        ACCOUNT
-      </Typography>
-      
-      <FormControl fullWidth size="small">
-        <Select
-          value={currentAccount || ''}
-          onChange={handleAccountChange}
-          sx={{ bgcolor: 'background.paper' }}
-          displayEmpty
-          disabled={isLoading}
-          renderValue={() => {
-            if (isLoading) {
-              return (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <CircularProgress size={20} sx={{ mr: 1 }} />
-                  Switching...
-                </Box>
-              );
-            }
-            
-            // Find current account name
-            const account = accountList.find(a => 
-              String(a.acctID) === String(currentAccount)
-            );
-            return account ? account.acctName : "Select Account";
-          }}
-        >
-          {accountList.map(account => (
-            <MenuItem key={account.acctID} value={account.acctID}>
-              {account.acctName}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Box>
+    <SelAcct
+      selectedAccountId={currentAccount}
+      accounts={accountList}
+      onChange={handleAccountChange}
+      loading={isLoading}
+      size="SM"
+    />
   );
 });
 

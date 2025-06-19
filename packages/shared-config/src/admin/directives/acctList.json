@@ -1,0 +1,104 @@
+{
+  "viewName": "acctList",
+  "entityName": "acctlist",
+  "columns": {
+    "acctID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "acctName": {
+      "directives": {
+        "req": true,
+        "type": "text",
+        "label": "Account Name",
+        "width": 200,
+        "grp": 1,
+        "searchable": true
+      }
+    },
+    "acctDesc": {
+      "directives": {
+        "type": "multiLine",
+        "label": "Description",
+        "tableHide": true
+      }
+    },
+    "acctAddr": {
+      "directives": {
+        "type": "text",
+        "label": "Address",
+        "width": 200,
+        "grp": 2
+      }
+    },
+    "acctCity": {
+      "directives": {
+        "type": "text",
+        "label": "City",
+        "width": 150,
+        "grp": 3
+      }
+    },
+    "acctState": {
+      "directives": {
+        "type": "text",
+        "label": "State",
+        "width": 60,
+        "grp": 3
+      }
+    },
+    "acctZipCode": {
+      "directives": {
+        "type": "text",
+        "label": "ZIP",
+        "width": 80,
+        "grp": 3
+      }
+    },
+    "acctCompCode": {
+      "directives": {
+        "type": "text",
+        "label": "Company Code",
+        "width": 120,
+        "grp": 4
+      }
+    },
+    "acctDfltLoc": {
+      "directives": {
+        "type": "text",
+        "label": "Default Location",
+        "width": 150,
+        "grp": 4
+      }
+    },
+    "acctURL": {
+      "directives": {
+        "type": "text",
+        "label": "Website URL",
+        "width": 200,
+        "grp": 5
+      }
+    },
+    "acctPayCustCode": {
+      "directives": {
+        "type": "text",
+        "label": "Customer Code",
+        "width": 150,
+        "tableHide": true,
+        "grp": 6
+      }
+    },
+    "acctSubsptnCode": {
+      "directives": {
+        "type": "text",
+        "label": "Subscription Code",
+        "width": 150,
+        "tableHide": true,
+        "grp": 6
+      }
+    }
+  }
+}

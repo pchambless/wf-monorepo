@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+      <title>crudTbl Widget - WhatsFresh</title>
+      <style>
+        body { font-family: system-ui, sans-serif; line-height: 1.5; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+        th, td { text-align: left; padding: 0.5rem; border: 1px solid #ddd; }
+        th { background: #f5f5f5; width: 30%; }
+        pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow: auto; }
+        code { font-family: monospace; }
+        .back { margin-bottom: 1rem; }
+      </style>
+    </head>
+    <body>
+      <div class="back"><a href="./index.html">← Back to Widget Registry</a></div>
+      <h1>crudTbl Widget</h1>
+      <p>Data table with CRUD operations</p>
+      
+      <h2>Properties</h2>
+      <table>
+        <tr><th>ID</th><td>crudTbl</td></tr>
+        <tr><th>Component</th><td>CrudTable</td></tr>
+        <tr><th>Type</th><td>data</td></tr>
+        <tr><th>Data Source</th><td>None</td></tr>
+        <tr><th>Default Size</th><td>large</td></tr>
+        <tr><th>Used In</th><td>client, admin</td></tr>
+      </table>
+      
+      <h2>Usage Example</h2>
+      <pre><code>import { CrudTable } from '@whatsfresh/shared-ui';
+import { useAccountStore } from '../stores/accountStore';
+
+function MyComponent() {
+  const accountStore = useAccountStore();
+  
+  // Basic usage
+  return &lt;CrudTable /&gt;;
+  
+  // With store data
+  return &lt;CrudTable
+    
+    onChange={handleChange}
+  /&gt;;
+}</code></pre>
+    </body>
+    </html>

@@ -1,0 +1,46 @@
+{
+  "viewName": "taskList",
+  "entityName": "tasklist",
+  "lastExtracted": "2025-06-14T20:11:23.077Z",
+  "columns": {
+    "taskID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "taskName": {
+      "directives": {
+        "required": true,
+        "type": "text",
+        "label": "Task Name",
+        "width": "200",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "taskDesc": {
+      "directives": {
+        "type": "multiLine",
+        "label": "Description",
+        "tableHide": true
+      }
+    },
+    "taskOrder": {
+      "directives": {
+        "required": true,
+        "type": "number",
+        "label": "Order",
+        "width": "80",
+        "grp": "1"
+      }
+    },
+    "prodTypeID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true
+      }
+    }
+  }
+}

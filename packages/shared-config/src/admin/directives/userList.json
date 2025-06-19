@@ -1,0 +1,68 @@
+{
+  "viewName": "userList",
+  "entityName": "userlist",
+  "columns": {
+    "userID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "lastName": {
+      "directives": {
+        "type": "text",
+        "label": "Last Name",
+        "req": true,
+        "grp": 1
+      }
+    },
+    "firstName": {
+      "directives": {
+        "type": "text",
+        "label": "First Name",
+        "req": true,
+        "grp": 1
+      }
+    },
+    "userEmail": {
+      "directives": {
+        "type": "text",
+        "label": "Email",
+        "req": true,
+        "grp": 2
+      }
+    },
+    "password": {
+      "directives": {
+        "type": "hidden",
+        "label": "Password",
+        "grp": 2
+      }
+    },
+    "roleID": {
+      "directives": {
+        "type": "select",
+        "label": "Role",
+        "selList": "userRoleList",
+        "grp": 3
+      }
+    },
+    "dfltAcctID": {
+      "directives": {
+        "type": "select",
+        "label": "Default Account",
+        "selList": "acctList",
+        "grp": 3
+      }
+    },
+    "lastLogin": {
+      "directives": {
+        "type": "date",
+        "label": "Last Login",
+        "readonly": true,
+        "grp": 4
+      }
+    }
+  }
+}

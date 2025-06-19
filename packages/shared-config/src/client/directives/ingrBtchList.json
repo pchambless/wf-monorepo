@@ -1,0 +1,106 @@
+{
+  "viewName": "ingrBtchList",
+  "entityName": "ingrbtchlist",
+  "lastExtracted": "2025-06-14T20:11:23.058Z",
+  "columns": {
+    "btchID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number"
+      }
+    },
+    "btchNbr": {
+      "directives": {
+        "required": true,
+        "type": "text",
+        "label": "Batch Number",
+        "width": "120",
+        "grp": "1",
+        "searchable": true
+      }
+    },
+    "vndrID": {
+      "directives": {
+        "required": true,  
+        "type": "select",
+        "label": "Vendor",
+        "width": "180",
+        "selList": "vndrList",
+        "grp": "1",
+        "tableHide": true
+      }
+    },
+    "brndID": {
+      "directives": {
+        "type": "select",
+        "label": "Brand",
+        "width": "150",
+        "selList": "brndList",
+        "grp": "2",
+        "tableHide": true
+      }
+    },
+    "unitQty": {
+      "directives": {
+        "required": true,
+        "type": "decimal",
+        "label": "Unit Qty",
+        "width": "80",
+        "dec": "10,2",
+        "grp": "3"
+      }
+    },
+    "unitPrice": {
+      "directives": {
+        "type": "decimal",
+        "label": "Unit Price",
+        "width": "100",
+        "dec": "10,2",
+        "grp": "3"
+      }
+    },
+    "purchQty": {
+      "directives": {
+        "required": true,
+        "type": "decimal",
+        "label": "Purchase Qty",
+        "width": "100",
+        "dec": "10,2",
+        "grp": "3"
+      }
+    },
+    "measID": {
+      "directives": {
+        "required": true,
+        "type": "select",
+        "label": "Measure",
+        "selList": "measList",
+        "grp": "3",
+        "tableHide": true
+      }
+    },
+    "lotNbr": {
+      "directives": {
+        "type": "text",
+        "label": "Lot Number",
+        "width": "150",
+        "grp": "4"
+      }
+    },
+    "comments": {
+      "directives": {
+        "type": "multiLine",
+        "label": "Comments",
+        "tableHide": true,
+        "grp": 5
+      }
+    },
+    "ingrID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true
+      }
+    }
+  }
+}

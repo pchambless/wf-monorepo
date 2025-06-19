@@ -1,0 +1,26 @@
+{
+  "name": "wf-admin",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@craco/craco": "^7.1.0",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-scripts": "^5.0.1",
+    "@whatsfresh/shared-config": "file:../../packages/shared-config",
+    "@whatsfresh/shared-events": "file:../../packages/shared-events",
+    "@whatsfresh/shared-ui": "file:../../packages/shared-ui"
+  }
+}
