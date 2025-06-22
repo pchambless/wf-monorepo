@@ -1,0 +1,58 @@
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { genEntityHtml } from '../render/genEntityHtml.js';
+import { getSampleDataFromDb } from '../data/genSampleData.js';
+import { entityRegistry } from '@whatsfresh/shared-config/src/pageMapRegistry.js';
+
+// ESM-compatible dirname shim
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function genVisualDocs() {
+  console.log('Starting visual documentation generation...');
+  
+  try {
+    // Create output directory if it doesn't exist
+    const outputDir = path.join(__dirname, '../../Docs/pagePreviews');
+    await fs.mkdir(outputDir, { recursive: true });
+    console.log(`Output directory created/verified: ${outputDir}`);
+    
+    // Load entity registry
+    const { entityRegistry } = require('@whatsfresh/shared-config/src/pageMapRegistry.js');
+    console.log(`Loaded entity registry with ${Object.keys(entityRegistry).length} entities`);
+    
+    // Process each entity
+    for (const [entityName, entity] of Object.entries(entityRegistry)) {
+      try {
+        console.log(`Processing ${entityName}...`);
+        
+        // Load the pageMap configuration
+        const pageMapPath = path.resolve(__dirname, `../../packages/shared-config/src/pageMap/${entityName}.js`);
+        const pageMap = require(pageMapPath).default;
+        
+        // Generate sample data
+        const sampleData = await getSampleData(entityName, pageMap) || [];
+        
+        // Generate HTML for this entity
+        const html = genEntityHtml(entityName, pageMap, sampleData);
+        
+        // Save HTML file
+        const outputPath = path.join(outputDir, `${entityName}.html`);
+        await fs.writeFile(outputPath, html);
+        console.log(`✅ Generated ${entityName}.html`);
+      } catch (err) {
+        console.error(`❌ Error generating ${entityName}.html: ${err.message}`);
+      }
+    }
+    
+    console.log('✅ Visual documentation generation complete!');
+  } catch (err) {
+    console.error('❌ Fatal error in documentation generation:', err);
+  }
+}
+
+// Run the generator
+genVisualDocs().catch(err => {
+  console.error('Fatal error:', err);
+});

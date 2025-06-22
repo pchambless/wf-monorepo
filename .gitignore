@@ -10,6 +10,12 @@ coverage
 build
 dist
 
+# Devtools output
+docs/*.componentInventory.csv
+/docs/graph/out/*.json
+/packages/devtools/.cache/
+/packages/devtools/temp/
+
 # misc
 .DS_Store
 .env.local

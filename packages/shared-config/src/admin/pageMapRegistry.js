@@ -3,7 +3,7 @@ export const entityRegistry = {
     pageIndexPath: "01-acctList/index.jsx",
     title: "Accounts",
     layout: "CrudLayout",
-    routeKey: "ADMIN_ACCOUNTS",
+    routeKey: "ADMIN_ACCOUNTS", 
     icon: "AccountBox",
     section: "admin",
     sectionOrder: 1,

@@ -1,0 +1,11 @@
+{
+  "name": "@whatsfresh/shared-api",
+  "version": "0.1.0",
+  "description": "Shared API for WhatsFresh apps",
+  "main": "index.js",
+  "files": [
+    "src",
+    "index.js"
+  ],
+  "private": true
+}

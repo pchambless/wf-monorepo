@@ -1,0 +1,22 @@
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-06-19 12:14:23"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-06-19 12:14:24"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-06-19 12:14:24"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-06-19 12:14:24"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-06-19 12:14:24"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-06-19 12:14:24"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-06-19 12:14:24"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-06-19 12:14:24"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-06-19 12:14:24"}
+{"count":21,"level":"info","message":"[fetchApiColumns.js] API columns loaded from database","timestamp":"2025-06-19 12:14:24"}
+{"level":"info","message":"[fetchApiColumns.js] apiColumns.js file generated successfully","timestamp":"2025-06-19 12:14:24"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-06-19 12:14:24"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-06-19 12:14:24"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-06-19 12:14:24"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-19 12:29:23"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-19 13:29:23"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-19 14:29:23"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-19 15:29:23"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-19 16:29:23"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-19 17:36:05"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-19 18:36:05"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-19 19:36:05"}

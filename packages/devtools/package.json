@@ -1,0 +1,20 @@
+{
+  "name": "@whatsfresh/devtools",
+  "version": "0.1.0",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    "./render": "./src/render/index.js",
+    "./dml": "./src/dml/index.js",
+    "./utils": "./src/utils/index.js"
+  },
+  "scripts": {
+    "test:render": "node ./src/docs/graph/testGenRender.js"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.6.0"
+  },
+  "dependencies": {
+    "puppeteer": "^24.10.2"
+  }
+}

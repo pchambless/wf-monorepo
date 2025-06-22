@@ -1,64 +1,50 @@
 /**
  * WhatsFresh Shared Events
- * Main entry point that aggregates all event types and helper functions
+ * Central export for all event types and utilities
  */
 
-// Import modules
-const crudEvents = require('./crudEvents');
-const mapEvents = require('./mapEvents');
-const adminEvents = require('./adminEvents');
+// Import client and admin events
+const { 
+  CLIENT_EVENTS, 
+  getEventType: getClientEventType,
+  getChildEntities: getClientChildEntities,
+  getEventParams: getClientEventParams,
+  getClientSafeEventTypes 
+} = require('./src/client/eventTypes');
 
-// Destructure what we need
-const { CRUD_EVENTS, getEventType, getParentEntity, getChildEntities, 
-        getEventParams, getClientSafeEventTypes } = crudEvents;
-const { MAP_EVENTS } = mapEvents;
-const { ADMIN_EVENTS } = adminEvents;
+const { ADMIN_EVENTS, getAdminSafeEventTypes } = require('./src/admin/eventTypes');
 
-// Create CLIENT_EVENTS for regular client applications
-const CLIENT_EVENTS = [...CRUD_EVENTS, ...MAP_EVENTS];
-
-// ALL_EVENTS includes everything (for documentation purposes)
+// Combined events for server-side use
 const ALL_EVENTS = [...CLIENT_EVENTS, ...ADMIN_EVENTS];
 
 /**
- * Get an event by type from client events
+ * Get an event by type from any collection
  */
-function getClientEventType(eventType) {
-  return CLIENT_EVENTS.find(e => e.eventType === eventType);
+function getEventType(eventType) {
+  return ALL_EVENTS.find(e => e.eventType === eventType) || 
+         getClientEventType(eventType);
 }
 
 /**
- * Get an event by type from any collection (including admin)
+ * Get all event types (with SQL) for server
  */
-function getAllEventType(eventType) {
-  return ALL_EVENTS.find(e => e.eventType === eventType);
+function getAllEventTypes() {
+  return ALL_EVENTS;
 }
 
-// Re-export everything
+// Export everything with backward compatibility
 module.exports = {
-  // Individual event collections
-  CRUD_EVENTS,
-  MAP_EVENTS,
+  // Raw event collections
+  CLIENT_EVENTS,
   ADMIN_EVENTS,
+  ALL_EVENTS,
   
-  // Combined collections
-  CLIENT_EVENTS,    // Regular client events (CRUD + MAP)
-  ALL_EVENTS,       // Everything including admin events (for documentation)
   
-  // Functions for working with events
-  getEventType,     // For CRUD events only
-  getClientEventType, // For client events (CRUD + MAP)
-  getAllEventType,  // For any event including admin
-  getParentEntity,
-  getChildEntities,
-  getEventParams,
+  // Helper functions
   getClientSafeEventTypes,
-  
-  // Admin functions
-  getAdminEventType: adminEvents.getAdminEventType,
-  
-  // Submodules for direct imports
-  crudEvents,
-  mapEvents,
-  adminEvents
+  getAdminSafeEventTypes,
+  getAllEventTypes,
+  getEventType,
+  getEventParams: getClientEventParams,
+  getChildEntities: getClientChildEntities,
 };
