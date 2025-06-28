@@ -1,4 +1,4 @@
-export default async function getSampleData(entityName, pageMap) {
+export async function getSampleData(entityName, pageMap) {
   const fs = require('fs').promises;
   const path = require('path');
   

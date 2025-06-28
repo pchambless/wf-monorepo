@@ -1,3 +1,9 @@
+import { ensureGraphStub } from '../../graph/utils/ensureGraphStub.js';
+import generateWidgetDocumentation from './source/index.js';
+
 export async function genSection() {
-  return '_This section is under construction._';
+  await ensureGraphStub(sectionConfig);
+  await generateWidgetDocumentation();
+  return '_Generated HTML documentation for all WhatsFresh widgets._';
 }
+

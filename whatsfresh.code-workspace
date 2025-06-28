@@ -2,7 +2,6 @@
   "folders": [
     { "name": "⚙️ Monorepo", "path": "." },
     { "name": "📱 Docs", "path": "./Docs" },
-
     { "name": "📱 Admin", "path": "./apps/wf-admin" },
     { "name": "📱 Client", "path": "./apps/wf-client" },
     { "name": "🖥️ Server", "path": "./apps/wf-server" },

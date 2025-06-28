@@ -4,7 +4,7 @@ import genFormHtml from './genFormHtml.js';
 import genDmlHtml from './genDmlHtml.js';
 
 
-export default function genEntityHtml(entityName, pageMap, sampleData) {
+export function genEntityHtml(entityName, pageMap, sampleData) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,102 +1,88 @@
+import { getClientSafeEventTypes } from '../../shared-events/src/client/eventTypes.js';
+
 /**
- * GENERATED FILE - DO NOT EDIT DIRECTLY
- * Generated from event type relationships and pageMapRegistry
+ * Generate routes configuration from event types
  */
-
-// Route definitions with simplified structure
-export const ROUTES = {
-  "DASHBOARD": {
-    "path": "/dashboard",
-    "listEvent": "dashboard"
-  },
-  "LOGIN": {
-    "path": "/login",
-    "listEvent": "userLogin"
-  },
-  "SELECT_ACCOUNT": {
-    "path": "/select-account",
-    "listEvent": "userAcctList"
-  },
-  "INGREDIENT_TYPES": {
-    "path": "/ingredients/:acctID/ingrTypeList",
-    "listEvent": "ingrTypeList"
-  },
-  "INGREDIENTS": {
-    "path": "/ingredients/:ingrTypeID/ingrList",
-    "listEvent": "ingrList"
-  },
-  "INGREDIENT_BATCHES": {
-    "path": "/ingredients/:ingrID/ingrBtchList",
-    "listEvent": "ingrBtchList"
-  },
-  "PRODUCT_TYPES": {
-    "path": "/products/:acctID/prodTypeList",
-    "listEvent": "prodTypeList"
-  },
-  "PRODUCTS": {
-    "path": "/products/:prodTypeID/prodList",
-    "listEvent": "prodList"
-  },
-  "PRODUCT_BATCHES": {
-    "path": "/products/:prodID/prodBtchList",
-    "listEvent": "prodBtchList"
-  },
-  "BRANDS": {
-    "path": "/reference/:acctID/brndList",
-    "listEvent": "brndList"
-  },
-  "VENDORS": {
-    "path": "/reference/:acctID/vndrList",
-    "listEvent": "vndrList"
-  },
-  "WORKERS": {
-    "path": "/reference/:acctID/wrkrList",
-    "listEvent": "wrkrList"
-  },
-  "MEASURES": {
-    "path": "/reference/:acctID/measList",
-    "listEvent": "measList"
-  },
-  "BATCH_MAP": {
-    "path": "/maps/btchMap",
-    "listEvent": "btchMap"
-  },
-  "BATCH_TASKS": {
-    "path": "/maps/:prodTypeID/taskList",
-    "listEvent": "taskList"
-  },
-  "RECIPES": {
-    "path": "/maps/:prodID/rcpeList",
-    "listEvent": "rcpeList"
-  }
-};
+export function getRoutes() {
+  const events = getClientSafeEventTypes();
+  const routes = {};
+  
+  // Start with any static routes that don't directly map to events
+  routes.DASHBOARD = {
+    path: "/dashboard",
+    listEvent: "dashboard"
+  };
+  
+  // Process events with routePaths
+  events.forEach(event => {
+    if (event.routePath) {
+      // Get or create the route key
+      const routeKey = getRouteKeyForEvent(event.eventType);
+      
+      routes[routeKey] = {
+        path: event.routePath,
+        listEvent: event.eventType
+      };
+    }
+  });
+  
+  return routes;
+}
 
 /**
- * Helper to resolve parameterized routes with actual values
+ * Map eventType to route key
+ */
+function getRouteKeyForEvent(eventType) {
+  // Direct mappings for events with non-standard keys
+  const specialCases = {
+    "userLogin": "LOGIN",
+    "userAcctList": "SELECT_ACCOUNT"
+  };
+  
+  if (specialCases[eventType]) {
+    return specialCases[eventType];
+  }
+  
+  // Standard conversion: ingrTypeList -> INGREDIENT_TYPES
+  return eventType
+    .replace(/List$/, '') // Remove "List" suffix
+    .replace(/([A-Z])/g, '_$1') // Add underscore before capital letters
+    .toUpperCase() // Convert to uppercase
+    .replace(/^_/, ''); // Remove leading underscore if present
+}
+
+// Export static routes for direct usage
+export const ROUTES = getRoutes();
+
+/**
+ * Resolve a route with parameters
  */
 export function resolveRoute(routeKey, params = {}) {
   const route = ROUTES[routeKey];
-  if (!route) {
-    console.error(`Route key not found: ${routeKey}`);
-    return '/';
-  }
+  if (!route) return '/';
   
-  let resolvedPath = route.path;
-  Object.entries(params).forEach(([key, value]) => {
-    resolvedPath = resolvedPath.replace(`:${key}`, value);
+  let path = route.path;
+  Object.entries(params).forEach(([param, value]) => {
+    path = path.replace(`:${param}`, value);
   });
-  return resolvedPath;
+  
+  return path;
 }
 
 /**
- * Get route key by listEvent
+ * Get route key for an event
  */
 export function getRouteKeyByEvent(listEvent) {
-  if (!listEvent) return null;
-  
-  const entry = Object.entries(ROUTES).find(([_, route]) => 
+  return Object.entries(ROUTES).find(([_, route]) => 
     route.listEvent === listEvent
-  );
-  
-  return entry ? entry[0] : null;
+  )?.[0] || null;
 }
+
+// Check a few conversions
+console.log(getRouteKeyForEvent('ingrTypeList')); // Should output: INGREDIENT_TYPES
+console.log(getRouteKeyForEvent('prodBtchList')); // Should output: PRODUCT_BATCHES
+console.log(getRouteKeyForEvent('measList'));     // Should output: MEASURES
+
+// Check that all current routes are covered
+const generatedRoutes = getRoutes();
+console.log('Generated routes:', Object.keys(generatedRoutes).length);

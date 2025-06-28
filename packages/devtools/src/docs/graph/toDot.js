@@ -1,4 +1,5 @@
 export function toDot(graph, options = {}) {
+  console.log('[toDot] Generating DOT format');
   const { nodes, edges } = graph;
   const lines = [];
 

@@ -4,6 +4,7 @@ import { ThemeProvider, CssBaseline, CircularProgress } from '@mui/material';
 
 import theme from './theme';
 import { ROUTES } from '@whatsfresh/shared-config/src/admin/routes';
+import StudioApp from '@whatsfresh/shared-ui/src/studio/StudioApp'; 
 import { pageMapRegistry } from '@whatsfresh/shared-config/src/admin/pageMapRegistry';
 import { createApiClient, createEventService } from '@whatsfresh/shared-api';
 
@@ -52,6 +53,7 @@ const App = () => {
               path={ROUTES.userList.path}
               element={<CrudLayout pageMap={pageMapRegistry.userList} PageComponent={UserList} />}
             />
+            <Route path="/studio" element={<StudioApp />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>

@@ -14,7 +14,7 @@ SELECT
   a.unit_quantity AS unitQty, -- type:decimal; label:Unit Qty; width:80; dec:10,2; grp:3
   a.unit_price AS unitPrice, -- type:decimal; label:Unit Price; width:100; dec:10,2; grp:3
   a.purchase_quantity AS purchQty, -- type:decimal; label:Purchase Qty; width:100; dec:10,2; grp:3
-  a.global_measure_unit_id AS measID, -- type:select; label:Measure; width:120; entity:measList; valField:measID; dispField:name; grp:3
+  a.measure_id AS measID, -- type:select; label:Measure; width:120; entity:measList; valField:measID; dispField:name; grp:3
   a.lot_number AS lotNbr, -- type:text; label:Lot Number; width:150; grp:4
   DATE_FORMAT(a.best_by_date, '%Y-%m-%d') AS bestByDate, -- type:date; label:Best By Date; width:120; grp:4
   CONCAT(

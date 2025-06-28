@@ -7,5 +7,6 @@
     "src",
     "index.js"
   ],
-  "private": true
+  "private": true,
+  "type": "module"
 }

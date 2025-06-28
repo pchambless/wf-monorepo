@@ -9,7 +9,7 @@
     "./utils": "./src/utils/index.js"
   },
   "scripts": {
-    "test:render": "node ./src/docs/graph/testGenRender.js"
+    "test:render": "node ./src/docs/genDocs.js"
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^11.6.0"

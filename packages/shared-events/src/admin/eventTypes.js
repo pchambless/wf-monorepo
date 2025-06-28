@@ -7,12 +7,18 @@
 /**
  * All admin event definitions
  */
+import { EVENT_CATEGORIES } from './eventCategory';
+
 const ADMIN_EVENTS = [
   // Root entity (virtual) to organize hierarchy
   // Auth events
   {
     eventID: 1,
     eventType: "userLogin",
+    category: "page:Login", 
+    cluster: "AUTH", 
+    dbTable: "users", 
+    routePath: "/login",
     children: ["acctList", "userList"], // Login leads to account selection
     method: "GET",
     qrySQL: `
@@ -26,9 +32,11 @@ const ADMIN_EVENTS = [
   {
     eventID: 61,
     eventType: "acctList",
+    category: "page:Crud",
+    cluster: "ADMIN",
     dbTable: "accounts", // Add this line
-    selWidget: "SelAcct", // Add this line
-    parent: ["userLogin"],
+    routePath: "/acctList",
+    selWidget: "SelAcct",
     method: "GET",
     qrySQL: `
       SELECT *
@@ -41,8 +49,11 @@ const ADMIN_EVENTS = [
   {
     eventID: 62,
     eventType: "userList",
+    category: "page:Crud",
+    cluster: "ADMIN",
     dbTable: "users", // Add this line
-    parent: "userLogin",
+    routePath: "/userList",
+    selWidget: "SelUser",
     method: "GET",
     qrySQL: `
       SELECT *

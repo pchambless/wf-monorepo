@@ -4,6 +4,7 @@
   "description": "Shared UI components and widget registry for WhatsFresh apps",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
+  "type": "module",
   "files": [
     "dist"
   ],

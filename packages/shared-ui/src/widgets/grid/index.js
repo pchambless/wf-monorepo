@@ -1,7 +1,7 @@
 /**
  * Grid widgets export file
  */
-import { DataGridWidget } from './DataGridWidget';
+import { DataGridWidget } from './DataGrid';
 
 // Export named components
 export { DataGridWidget };

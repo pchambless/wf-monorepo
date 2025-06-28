@@ -1,38 +1,31 @@
-import sectionConfig from './sectionConfig.js';
+import { sections } from './sections/index.js';
+import { DOCS_ROOT } from './graph/utils/paths.js';
 import fs from 'fs/promises';
 import path from 'path';
 
-// Use absolute path instead of relative path
-const DOCS_DIR = 'C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo-new\\Docs';
+console.log(`[genDocs] Initializing WhatsFresh Docs...`);
+const onboardingParts = [
+  '# WhatsFresh Onboarding',
+  '',
+  '## Table of Contents'
+];
 
-const genAllSections = async () => {
-  const docParts = [];
+const activeSections = sections.filter(s => s.active);
 
-  try {
-    for (const { title, generator } of sectionConfig) {
-      console.log(`Generating section: ${title}`);
-      const gen = await import(generator);
-      const content = await gen.genSection(); 
-      docParts.push(`# ${title}\n\n${content}`);
-    }
+for (const { key, config } of activeSections) {
+  console.log(`[genDocs] Building "${key}"...`);
 
-    const fullDoc = docParts.join('\n\n---\n\n');
-    
-    // Ensure directory exists
-    await fs.mkdir(DOCS_DIR, { recursive: true });
-    
-    // Write to the correct path
-    const outputPath = path.join(DOCS_DIR, 'onboarding.md');
-    await fs.writeFile(outputPath, fullDoc);
-    
-    console.log(`Documentation generated at: ${outputPath}`);
-  } catch (err) {
-    console.error('Error generating documentation:', err);
-    throw err;
+  // Let the section handle all its outputs internally
+  if (typeof config.buildDocs === 'function') {
+    console.log(`[genDocs] Directing to "${key}"...`);
+    await config.buildDocs();
   }
-};
 
-genAllSections().catch(err => {
-  console.error('Doc generation failed:', err);
-  process.exit(1);
-});
+  // Just track the ToC for onboarding summary
+  console.log(`[genDocs] Adding TOC summary for "${key}" to onboarding...`);
+  onboardingParts.push(`- [${config.title}](./sections/${key}/${key}.md)`);
+}
+
+// Write onboarding summary
+const onboardingMd = onboardingParts.join('\n') + '\n\n---\n\n_More details coming soon..._';
+await fs.writeFile(path.join(DOCS_ROOT, 'onboarding.md'), onboardingMd);

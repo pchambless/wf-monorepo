@@ -18,7 +18,9 @@
     "generate-docs": "node tools/page-generator/genDocs.js",
     "generate-visuals": "node tools/page-generator/genVisualDocs.js",
     "generate:all": "yarn generate-page-maps && yarn generate-docs && yarn generate-visuals",
-    "generate:optimized": "node tools/page-generator/genOptimizedConfigs.js"
+    "generate:optimized": "node tools/page-generator/genOptimizedConfigs.js",
+    "scaffold:section": "node packages/devtools/src/docs/sections/scaffoldRun.js",
+    "run:section": "node packages/devtools/src/docs/sections/sectionRun.js"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",

@@ -125,6 +125,24 @@ const entityRegistry = {
     color: "blue",
     import: false
   },
+  "prodBtchDetail": {
+    pageIndexPath: "3-Product/04-BatchDetail/index.jsx",
+    title: "Product Batch Details",
+    layout: "DetailLayout",
+    routeKey: "PRODUCT_BATCH_DETAIL",
+    type: "detail",  // Special type for detail pages 
+    icon: "Assignment",
+    section: "products",
+    itemOrder: 35,
+    color: "blue",
+    import: false,
+    showInNav: false,  // Hide from navigation
+    tabs: [
+      { id: "mapping", label: "Mapping", default: true },
+      { id: "tasks", label: "Tasks" },
+      { id: "worksheet", label: "Worksheet" }
+    ]
+  },
   
   // Reference section
   "brndList": {
