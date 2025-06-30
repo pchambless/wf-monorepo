@@ -1,10 +1,10 @@
-import { getClientSafeEventTypes } from '../../shared-events/src/client/eventTypes.js';
+import { getSafeEventTypes } from '@whatsfresh/shared-events/src/client/eventTypes.js';
 
 /**
  * Generate routes configuration from event types
  */
 export function getRoutes() {
-  const events = getClientSafeEventTypes();
+  const events = getSafeEventTypes();
   const routes = {};
   
   // Start with any static routes that don't directly map to events
@@ -53,6 +53,7 @@ function getRouteKeyForEvent(eventType) {
 
 // Export static routes for direct usage
 export const ROUTES = getRoutes();
+console.log('Client routes:', ROUTES);
 
 /**
  * Resolve a route with parameters

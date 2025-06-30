@@ -8,7 +8,7 @@
  */
 import { EVENT_CATEGORIES } from './eventCategory';
 
-const CLIENT_EVENTS = [
+const EVENTS = [
   // Root entity (virtual) to organize hierarchy
   
   // LOGIN
@@ -373,7 +373,7 @@ const CLIENT_EVENTS = [
  * Get an event by type
  */
 function getEventType(eventType) {
-  return CLIENT_EVENTS.find(e => e.eventType === eventType); // Changed from EVENT_TYPES
+  return EVENTS.find(e => e.eventType === eventType); // Changed from EVENT_TYPES
 }
 
 /**
@@ -393,17 +393,17 @@ function getEventParams(eventType) {
 /**
  * Get client-safe event types (without SQL)
  */
-function getClientSafeEventTypes() {
-  return CLIENT_EVENTS.map(event => { // Changed from EVENT_TYPES
+function getSafeEventTypes() {
+  return EVENTS.map(event => {
     const { qrySQL, ...clientSafeEvent } = event;
     return clientSafeEvent;
   });
 }
 
 module.exports = {
-  CLIENT_EVENTS,
+  EVENTS,
   getEventType,
   getChildEntities,
   getEventParams,
-  getClientSafeEventTypes
+  getSafeEventTypes
 };

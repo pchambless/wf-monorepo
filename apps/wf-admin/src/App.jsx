@@ -3,15 +3,16 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { ThemeProvider, CssBaseline, CircularProgress } from '@mui/material';
 
 import theme from './theme';
-import { ROUTES } from '@whatsfresh/shared-config/src/admin/routes';
-import StudioApp from '@whatsfresh/shared-ui/src/studio/StudioApp'; 
-import { pageMapRegistry } from '@whatsfresh/shared-config/src/admin/pageMapRegistry';
-import { createApiClient, createEventService } from '@whatsfresh/shared-api';
+import { ROUTES } from '@shared-config/src/admin/routes';
+import StudioApp from '@shared-ui/src/studio/StudioApp'; 
+import { pageMapRegistry } from '@shared-config/src/admin/pageMapRegistry';
+import CrudLayout from '@shared-ui/src/components/1-page/c-crud/CrudLayout.jsx'; 
+import { createApiClient, createEventService } from '@shared-api';
 
 // TEMP: Direct import until you're ready for dynamic loading
 import AcctList from './pages/acctList';
 import UserList from './pages/userList';
-import CrudLayout from '@crud/Layout'; // or wherever your CrudLayout lives
+
 
 const eventService = createEventService();
 

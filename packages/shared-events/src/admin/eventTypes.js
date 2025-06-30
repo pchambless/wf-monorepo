@@ -7,9 +7,9 @@
 /**
  * All admin event definitions
  */
-import { EVENT_CATEGORIES } from './eventCategory';
+i// import { EVENT_CATEGORIES } from './eventCategory';
 
-const ADMIN_EVENTS = [
+const EVENTS = [
   // Root entity (virtual) to organize hierarchy
   // Auth events
   {
@@ -69,46 +69,38 @@ const ADMIN_EVENTS = [
 /**
  * Get an admin event by type
  */
-function getAdminEventType(eventType) {
-  return ADMIN_EVENTS.find(e => e.eventType === eventType);
-}
-
-/**
- * Get parent entity for an admin event type
- */
-function getAdminParentEntity(eventType) {
-  return getAdminEventType(eventType)?.parent;
+function getEventType(eventType) {
+  return EVENTS.find(e => e.eventType === eventType);
 }
 
 /**
  * Get child entities for an admin event type
  */
-function getAdminChildEntities(eventType) {
-  return getAdminEventType(eventType)?.children || [];
+function getChildEntities(eventType) {
+  return getEventType(eventType)?.children || [];
 }
 
 /**
  * Get parameters for an admin event
  */
-function getAdminEventParams(eventType) {
-  return getAdminEventType(eventType)?.params || [];
+function getEventParams(eventType) {
+  return getEventType(eventType)?.params || [];
 }
 
 /**
- * Get client-safe admin event types (without SQL)
+ * Get safe admin event types (without SQL)
  */
-function getClientSafeAdminEventTypes() {
-  return ADMIN_EVENTS.map(event => {
-    const { qrySQL, ...clientSafeEvent } = event;
-    return clientSafeEvent;
+function getSafeEventTypes() {
+  return EVENTS.map(event => {
+    const { qrySQL, ...safeEvent } = event;
+    return safeEvent;
   });
 }
 
 module.exports = {
-  ADMIN_EVENTS,
-  getAdminEventType,
-  getAdminParentEntity,
-  getAdminChildEntities,
-  getAdminEventParams,
-  getClientSafeAdminEventTypes
+  EVENTS,
+  getEventType,
+  getChildEntities,
+  getEventParams,
+  getSafeEventTypes
 };

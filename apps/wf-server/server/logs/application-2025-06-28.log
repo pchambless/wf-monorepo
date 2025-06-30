@@ -1,0 +1,12 @@
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 00:33:35"}
+{"level":"info","message":"Log file rotated","newFilename":"C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo-new\\apps\\wf-server\\server\\logs\\application-2025-06-28.log","oldFilename":"C:\\Users\\pc790\\whatsfresh\\Projects\\wf-monorepo-new\\apps\\wf-server\\server\\logs\\application-2025-06-27.log","timestamp":"2025-06-28 00:33:35"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 01:34:07"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 03:05:03"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 06:55:36"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 07:55:36"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 08:55:36"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 09:55:36"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 10:55:36"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 11:55:37"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 12:55:37"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-06-28 14:33:35"}
