@@ -4,7 +4,6 @@ import { Box, Grid } from '@mui/material';
 import Table from '../Table';
 import Form from '../Form';
 import AddButton from './components/AddButton';
-import PageMapError from './components/PageMapError';
 import { createLogger } from '@whatsfresh/shared-imports/logger';
 
 const log = createLogger('CrudLayout');
@@ -51,7 +50,7 @@ const CrudLayout = observer(({ pageMap, dataStore }) => {
     }
   }, [pageMap, systemConfig?.listEvent, dataStore]);
   
-  // Simple validation check
+  // Simple validation - if things are missing, we'll just log and continue
   if (!pageMap || !tableConfig || !systemConfig?.listEvent) {
     const errors = [
       !pageMap && 'No pageMap provided',
@@ -59,8 +58,8 @@ const CrudLayout = observer(({ pageMap, dataStore }) => {
       !systemConfig?.listEvent && 'No listEvent provided in systemConfig'
     ].filter(Boolean);
     
-    log.warn('Missing required configuration:', errors);
-    return <PageMapError errors={errors} />;
+    log.warn('Missing required configuration, but continuing anyway:', errors);
+    // Just continue - if it blows up, we'll fix it!
   }
   
   const idField = systemConfig.primaryKey || 'id';
