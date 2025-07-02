@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Paper, Grid, Typography, Tabs, Tab } from '@mui/material';
 import { DataGridWidget } from '@whatsfresh/shared-ui/src/widgets/grid/DataGridWidget';
-import { execEvent } from '@whatsfresh/shared-events';
+import { execEvent } from '@whatsfresh/shared-api';
 import CrudTable from '@whatsfresh/shared-ui/src/widgets/data/CrudTable';
 import SelProd from '@whatsfresh/shared-ui/src/widgets/selection/SelProd';
 import { getWidgetById } from '@whatsfresh/shared-ui/src/registry';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, FormControl, Select, MenuItem, CircularProgress, Typography } from '@mui/material';
 // Removed useAccountStore - widgets should be self-contained with explicit params
-import { execEvent } from '@whatsfresh/shared-events';
+import { execEvent } from '@whatsfresh/shared-api';
 
 /**
  * Base component for all selection widgets

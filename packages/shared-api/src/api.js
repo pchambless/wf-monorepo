@@ -4,6 +4,60 @@
  */
 
 /**
+ * Default API configuration
+ */
+const DEFAULT_CONFIG = {
+  baseUrl: process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001',
+  logger: console
+};
+
+/**
+ * Standalone execEvent function that can be used directly
+ */
+export async function execEvent(eventType, params = {}, config = {}) {
+  const { baseUrl, logger } = { ...DEFAULT_CONFIG, ...config };
+  
+  try {
+    logger.debug(`Executing event: ${eventType}`, params);
+    
+    // Import event validation (dynamic import to avoid circular deps)
+    const { getEventType } = await import('@whatsfresh/shared-events');
+    
+    // Validate event exists in our definitions
+    const eventDef = getEventType(eventType);
+    if (!eventDef) {
+      logger.error(`Unknown event type: ${eventType}`);
+      throw new Error(`Unknown event type: ${eventType}`);
+    }
+    
+    // Basic headers
+    const headers = {
+      'Content-Type': 'application/json'
+    };
+    
+    // Call the execEventType endpoint with credentials
+    const response = await fetch(`${baseUrl}/api/execEventType`, {
+      method: 'POST',
+      headers,
+      credentials: 'include', // Important for session cookies
+      body: JSON.stringify({ eventType, params })
+    });
+
+    if (!response.ok) {
+      throw new Error(`API call failed: ${response.status} ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    logger.debug(`Event ${eventType} completed successfully`);
+    return result;
+
+  } catch (error) {
+    logger.error(`Event ${eventType} failed:`, error);
+    throw error;
+  }
+}
+
+/**
  * Create an API client for WhatsFresh applications
  */
 export function createApi(options = {}) {
@@ -13,11 +67,21 @@ export function createApi(options = {}) {
   } = options;
 
   /**
-   * Execute an event type against the API
+   * Execute an event type against the API with validation
    */
   async function execEvent(eventType, params = {}) {
     try {
       logger.debug(`Executing event: ${eventType}`, params);
+      
+      // Import event validation (dynamic import to avoid circular deps)
+      const { getEventType } = await import('@whatsfresh/shared-events');
+      
+      // Validate event exists in our definitions
+      const eventDef = getEventType(eventType);
+      if (!eventDef) {
+        logger.error(`Unknown event type: ${eventType}`);
+        throw new Error(`Unknown event type: ${eventType}`);
+      }
       
       // Basic headers - no auth token
       const headers = {

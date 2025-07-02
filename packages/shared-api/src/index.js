@@ -1,9 +1,10 @@
-import { createApiClient } from './apiClient';
-import { createEventService } from './eventService';
-import { useAuth } from './auth';
+import { createApi, execEvent } from './api.js';
+import { createEventService } from './events.js';
+import { useAuth } from './auth.js';
 
 export { 
-  createApiClient,
+  createApi,
+  execEvent,
   createEventService,
   useAuth
 };
