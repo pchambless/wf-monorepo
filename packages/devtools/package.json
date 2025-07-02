@@ -15,6 +15,7 @@
     "@mermaid-js/mermaid-cli": "^11.6.0"
   },
   "dependencies": {
+    "@whatsfresh/shared-imports": "file:../shared-imports",
     "puppeteer": "^24.10.2"
   }
 }

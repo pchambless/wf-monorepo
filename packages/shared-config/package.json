@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "Shared configuration for WhatsFresh applications",
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./pageMapRegistry": "./src/client/pageMapRegistry.js",
+    "./src/routes": "./src/routes.js",
+    "./src/pageMap": "./src/client/pageMap/index.js",
+    "./src/pageMap/*": "./src/client/pageMap/*.js",
+    "./src/common/abbreviationMap": "./src/common/abbreviationMap.js"
+  },
   "files": [
     "src",
     "index.js"

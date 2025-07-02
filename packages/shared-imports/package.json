@@ -1,0 +1,21 @@
+{
+  "name": "@whatsfresh/shared-imports",
+  "version": "0.1.0",
+  "description": "Shared utilities, import aliases, and common functions for WhatsFresh monorepo",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./paths": "./src/paths.js",
+    "./imports": "./src/imports.js",
+    "./logger": "./src/utils/logger.js",
+    "./utils": "./src/utils/index.js"
+  },
+  "files": [
+    "src/**/*"
+  ],
+  "scripts": {
+    "test": "echo \"No tests yet\""
+  },
+  "private": true
+}
