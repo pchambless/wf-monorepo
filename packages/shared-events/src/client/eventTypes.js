@@ -5,8 +5,8 @@
 
 /**
  * All event definitions including SQL and relationships
+ * Using cluster attribute instead of separate eventCategory
  */
-import { EVENT_CATEGORIES } from './eventCategory';
 
 const EVENTS = [
   // Root entity (virtual) to organize hierarchy
@@ -400,7 +400,8 @@ function getSafeEventTypes() {
   });
 }
 
-module.exports = {
+// ES module exports
+export {
   EVENTS,
   getEventType,
   getChildEntities,

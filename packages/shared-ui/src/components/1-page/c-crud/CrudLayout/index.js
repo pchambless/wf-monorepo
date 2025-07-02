@@ -1,4 +1,4 @@
-import CrudLayout from './CrudLayout';
+import CrudLayout from './CrudLayout.jsx';
 
 // Debug logs after imports
 console.log('CrudLayout/index.js loaded');

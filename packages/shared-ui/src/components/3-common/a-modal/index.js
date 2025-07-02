@@ -1,7 +1,7 @@
-import Modal from './Modal';
-import modalStore from './modalStore';
-import { useModal } from './useModal';
-import { useModalStore } from './useModalStore';
+import Modal from './Modal.js';
+import modalStore from './modalStore.js';
+import { useModal } from './useModal.js';
+import { useModalStore } from './useModalStore.js';
 
 // Direct component and store exports
 export { Modal, modalStore, useModal, useModalStore };

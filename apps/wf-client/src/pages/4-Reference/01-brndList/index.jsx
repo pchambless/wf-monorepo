@@ -1,30 +1,35 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import CrudLayout from '@crud/CrudLayout';
-// Use package import for shared config
+import { CrudLayout } from '@whatsfresh/shared-ui';
 import pageMap from '@whatsfresh/shared-config/src/pageMap/brndList';
+import dataStore from '@stores/dataStore';
 import navigationStore from '@stores/navigationStore';
-import accountStore from '@stores/accountStore';
 import createLogger from '@utils/logger';
-// Only import ROUTES if we're using it
-
 
 const log = createLogger('Brands');
 
 const brndListPage = observer(() => {
   useEffect(() => {
-    log.debug('Component mounted');
-    // Set breadcrumbs if parent entity exists
+    log.debug('brndListPage component mounted');
     
+    // Set breadcrumbs and fetch data
     navigationStore.setBreadcrumbs([
-      { label: 'Brands', path: null }
+      { label: pageMap.title, path: null }
     ]);
+    
+    // Fetch data using the listEvent from pageMap
+    if (pageMap.systemConfig?.listEvent) {
+      log.debug('Fetching data for:', pageMap.systemConfig.listEvent);
+      dataStore.fetchData(pageMap.systemConfig.listEvent);
+    } else {
+      log.warn('No listEvent configured for brndListPage');
+    }
   }, []);
 
   return (
     <CrudLayout
       pageMap={pageMap}
-      accountId={accountStore.currentAccountId}
+      dataStore={dataStore}
     />
   );
 });

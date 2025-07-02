@@ -111,10 +111,10 @@ const directiveMap = {
     description: "Column width" 
   },
   
-  // Select field properties
-  "entity": { 
+  // Widget directive - replaces selList/entity
+  "widget": { 
     transform: (val) => val,
-    description: "Related entity for select fields" 
+    description: "Specific widget component (e.g. selVndr, crudTbl, rcntIngrBtch)" 
   },
   "valField": { 
     transform: (val) => val,
@@ -123,6 +123,10 @@ const directiveMap = {
   "dispField": { 
     transform: (val) => val,
     description: "Display field for select options" 
+  },
+  "BI": { 
+    transform: () => true,
+    description: "Business Intelligence field (excluded from CRUD operations)" 
   },
   
   // Number field properties
@@ -198,9 +202,16 @@ function processDirectives(directives) {
     result.formHide = true;
   }
   
-  // Select fields need entity
-  if (result.type === FIELD_TYPES.SELECT && !result.entity) {
-    console.warn('Warning: Select field missing entity directive');
+  // Select fields need widget
+  if (result.type === FIELD_TYPES.SELECT && !result.widget) {
+    console.warn('Warning: Select field missing widget directive');
+  }
+  
+  // BI fields auto-hide from tables, forms, and DML
+  if (result.BI) {
+    result.tableHide = true;
+    result.formHide = true;
+    result.excludeFromDML = true;
   }
   
   // multiLine fields should typically be hidden in tables

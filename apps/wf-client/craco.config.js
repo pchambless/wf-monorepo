@@ -19,7 +19,7 @@ module.exports = {
       // App Components 
       '@layout': path.resolve(__dirname, 'src/layouts'),
       '@navigation': path.resolve(__dirname, 'src/components/1-page/b-navigation'),
-      '@crud': path.resolve(__dirname, 'src/components/1-page/c-crud'),
+      // '@crud': removed - using @whatsfresh/shared-ui package imports
       '@appbar': path.resolve(__dirname, 'src/components/1-page/b-navigation/aa-AppBar'),
       '@sidebar': path.resolve(__dirname, 'src/components/1-page/b-navigation/bb-Sidebar'),
       '@pageheader': path.resolve(__dirname, 'src/components/1-page/b-navigation/cc-PageHeader'),
@@ -28,7 +28,7 @@ module.exports = {
       '@form': path.resolve(__dirname, 'src/components/2-form'),
       '@table': path.resolve(__dirname, 'src/components/2-form/a-table'),
       '@common': path.resolve(__dirname, 'src/components/3-common'),
-      '@modal': path.resolve(__dirname, 'src/components/3-common/a-modal'),
+      // '@modal': removed - using @whatsfresh/shared-ui package imports
       
       // Routes 
       '@route': path.resolve(__dirname, 'src/routes'),

@@ -1,105 +1,280 @@
 {
   "viewName": "ingrBtchList",
   "entityName": "ingrbtchlist",
-  "lastExtracted": "2025-06-14T20:11:23.058Z",
+  "lastGenerated": "2025-07-01T13:11:31.660Z",
   "columns": {
-    "btchID": {
+    "ingrBtchID": {
       "directives": {
         "PK": true,
         "sys": true,
-        "type": "number"
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "label": "Ingr Btch I D"
       }
     },
     "btchNbr": {
       "directives": {
-        "required": true,
         "type": "text",
         "label": "Batch Number",
-        "width": "120",
         "grp": "1",
-        "searchable": true
+        "required": true,
+        "width": "120"
       }
     },
     "vndrID": {
       "directives": {
-        "required": true,  
         "type": "select",
+        "widget": "selVndr",
         "label": "Vendor",
-        "width": "180",
-        "selList": "vndrList",
         "grp": "1",
-        "tableHide": true
+        "width": "180",
+        "tableHide": true,
+        "required": true
       }
     },
     "brndID": {
       "directives": {
         "type": "select",
+        "widget": "selBrnd",
         "label": "Brand",
-        "width": "150",
-        "selList": "brndList",
         "grp": "2",
+        "width": "150",
         "tableHide": true
+      }
+    },
+    "purchDate": {
+      "directives": {
+        "type": "date",
+        "grp": "4",
+        "label": "Purch Date",
+        "width": 100
       }
     },
     "unitQty": {
       "directives": {
-        "required": true,
         "type": "decimal",
+        "dec": "10,2",
+        "grp": "3",
         "label": "Unit Qty",
         "width": "80",
-        "dec": "10,2",
-        "grp": "3"
+        "required": true
       }
     },
     "unitPrice": {
       "directives": {
         "type": "decimal",
-        "label": "Unit Price",
-        "width": "100",
         "dec": "10,2",
-        "grp": "3"
+        "grp": "3",
+        "label": "Unit Price",
+        "width": "100"
       }
     },
     "purchQty": {
       "directives": {
-        "required": true,
         "type": "decimal",
+        "dec": "10,2",
+        "grp": "3",
         "label": "Purchase Qty",
         "width": "100",
-        "dec": "10,2",
-        "grp": "3"
+        "required": true
       }
     },
     "measID": {
       "directives": {
-        "required": true,
         "type": "select",
+        "widget": "selMeas",
         "label": "Measure",
-        "selList": "measList",
         "grp": "3",
-        "tableHide": true
+        "width": 120,
+        "tableHide": true,
+        "required": true
       }
     },
     "lotNbr": {
       "directives": {
         "type": "text",
         "label": "Lot Number",
-        "width": "150",
-        "grp": "4"
+        "grp": "4",
+        "width": "150"
+      }
+    },
+    "bestByDate": {
+      "directives": {
+        "type": "date",
+        "grp": "4",
+        "label": "Best By Date",
+        "width": 100
       }
     },
     "comments": {
       "directives": {
         "type": "multiLine",
+        "grp": 5,
         "label": "Comments",
-        "tableHide": true,
-        "grp": 5
+        "width": 200,
+        "tableHide": true
       }
     },
     "ingrID": {
       "directives": {
         "parentKey": true,
-        "sys": true
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "label": "Ingredient"
+      }
+    },
+    "DECIMAL": {
+      "directives": {
+        "type": "text",
+        "label": "D E C I M A L",
+        "grp": "1",
+        "width": 120
+      }
+    },
+    "purch_dtl": {
+      "directives": {
+        "type": "text",
+        "label": "Purch_dtl",
+        "grp": "1",
+        "width": 120
+      }
+    },
+    "ingrName": {
+      "directives": {
+        "type": "text",
+        "width": "150",
+        "BI": true,
+        "label": "Ingr Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "ingrCode": {
+      "directives": {
+        "type": "text",
+        "width": "100",
+        "BI": true,
+        "label": "Ingr Code",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "ingrType": {
+      "directives": {
+        "type": "text",
+        "width": "150",
+        "BI": true,
+        "label": "Ingr Type",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "vndrName": {
+      "directives": {
+        "type": "text",
+        "width": "150",
+        "BI": true,
+        "label": "Vndr Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "brndName": {
+      "directives": {
+        "type": "text",
+        "width": "150",
+        "BI": true,
+        "label": "Brnd Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "unitRate": {
+      "directives": {
+        "type": "decimal",
+        "width": "100",
+        "dec": "13,4",
+        "BI": true,
+        "label": "Unit Rate",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "purchAmt": {
+      "directives": {
+        "type": "decimal",
+        "width": "100",
+        "dec": "13,4",
+        "BI": true,
+        "label": "Purch Amt",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "usageCount": {
+      "directives": {
+        "type": "number",
+        "width": "80",
+        "BI": true,
+        "label": "Usage Count",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "batchStatus": {
+      "directives": {
+        "type": "text",
+        "width": "120",
+        "BI": true,
+        "label": "Batch Status",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "shopEventRef": {
+      "directives": {
+        "type": "text",
+        "width": "150",
+        "BI": true,
+        "label": "Shop Event Ref",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
+      }
+    },
+    "acctID": {
+      "directives": {
+        "type": "select",
+        "widget": "selAcct",
+        "label": "Account",
+        "grp": "1",
+        "width": 120,
+        "tableHide": true
+      }
+    },
+    "productBatchCount": {
+      "directives": {
+        "type": "number",
+        "width": "80",
+        "BI": true,
+        "label": "Product Batch Count",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true
       }
     }
   }

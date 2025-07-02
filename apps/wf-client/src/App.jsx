@@ -15,17 +15,16 @@ import { entityRegistry } from '@whatsfresh/shared-config/pageMapRegistry';
 // Utilities and contexts
 import createLogger, { configureLogger } from './utils/logger';
 import { disableBrowserFetchLogs } from './utils/fetchLogHelper';
-import { ActionHandlerProvider } from './actions/ActionHandlerContext';
+// Removed ActionHandlerProvider - no longer needed
 // import { BreadcrumbProvider } from './contexts/BreadcrumbContext';
 import theme from './theme';
 
 // Components
 import ErrorBoundary from './components/ErrorBoundary';
-import { Modal, useModalStore } from '@modal'; // Keep only this Modal import
+import { Modal, useModalStore } from '@whatsfresh/shared-ui'; // Proper workspace import
 
 // Services
 import { initEventTypeService } from './stores/eventStore';
-import { useAccountStore } from '@stores/accountStore';
 import navService from './services/navService';
 
 // Base layouts
@@ -137,9 +136,8 @@ const App = () => {
           {/* Add the initializer right after Router */}
           <NavServiceInitializer />
           
-          <ActionHandlerProvider options={{ executeHandlers: true, logOnly: false }}>
-            {/* Temporarily comment out BreadcrumbProvider */}
-            {/* <BreadcrumbProvider> */}
+          {/* Temporarily comment out BreadcrumbProvider */}
+          {/* <BreadcrumbProvider> */}
               <Routes>
                 {/* Auth routes */}
                 <Route path={ROUTES.LOGIN.path} element={
@@ -148,11 +146,20 @@ const App = () => {
                   </AuthLayout>
                 } />
                 
+                {/* Dashboard route */}
+                <Route path="/dashboard" element={
+                  <MainLayout>
+                    <Suspense fallback={<CircularProgress />}>
+                      <Dashboard />
+                    </Suspense>
+                  </MainLayout>
+                } />
+                
                 {/* Special non-registry routes */}
                 <Route path="/" element={<Navigate to="/dashboard" replace />} />
                 
                 {/* Generated routes from registry */}
-                {Object.entries(entityRegistry).map(([eventName, config]) => {
+                {Object.entries(entityRegistry).map(([_eventName, config]) => {
                   // Skip if not ready to import
                   if (!config.import || !config.routeKey) return null;
                   
@@ -189,7 +196,7 @@ const App = () => {
               {/* IMPORTANT: Modal must be at root level */}
               <ModalContainer />
             {/* </BreadcrumbProvider> */}
-          </ActionHandlerProvider>
+          {/* Removed ActionHandlerProvider */}
         </ErrorBoundary>
       </ThemeProvider>
     </Router>
@@ -218,41 +225,6 @@ const ModalContainer = () => {
   
   // Return modal component
   return <Modal {...modalProps} />;
-};
-
-// Add a ProtectedRoute component for authentication check
-const ProtectedRoute = ({ children }) => {
-  const accountStore = useAccountStore();
-  
-  // Check if store itself is null or undefined first
-  if (!accountStore) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress />
-        <Typography variant="body2" sx={{ ml: 2 }}>Initializing account...</Typography>
-      </Box>
-    );
-  }
-  
-  // Now we can safely destructure properties
-  const { isAuthenticated, isLoading } = accountStore;
-  
-  // Show loading if checking auth status
-  if (isLoading) {
-    return (
-      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
-  
-  // Redirect to login if not authenticated
-  if (!isAuthenticated) {
-    return <Navigate to={ROUTES.LOGIN.path} replace />;
-  }
-  
-  // If authenticated, render children
-  return children;
 };
 
 // Add this component inside App.jsx

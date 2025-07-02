@@ -4,20 +4,36 @@
  * This utility reads SQL view files with comment directives and generates
  * configuration files for frontend components.
  */
-const fs = require('fs');
-const fsPromises = require('fs').promises;
-const path = require('path');
-const minimist = require('minimist');
-const { getToolConfig } = require('../../toolConfig');
+import fs from 'fs';
+import fsPromises from 'fs/promises';
+import path from 'path';
+import minimist from 'minimist';
+import { fileURLToPath } from 'url';
+import { getToolConfig } from '@whatsfresh/shared-imports';
+import { sharedConfig, sharedUI, createLogger } from '@whatsfresh/shared-imports';
 
-const args = minimist(process.argv.slice(2));
-const app = args.app || 'client';
-const config = getToolConfig(app);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const { entityRegistry } = require(config.registryPath);
-const { FIELD_TYPES } = require('@whatsfresh/shared-config/src/common/directiveMap');
+// Create logger for this component
+const log = createLogger('genPageMaps');
 
-async function generatePageMaps() {
+async function main() {
+  const args = minimist(process.argv.slice(2));
+  const app = args.app || 'client';
+  const config = getToolConfig(app);
+
+  log.info(`Generating page maps for ${app} app`);
+
+  // Use clean imports from shared-imports
+  const { entityRegistry } = await sharedConfig[app].pageMapRegistry();
+  const { FIELD_TYPES } = await sharedConfig.common.directiveMap();
+  const { WIDGET_REGISTRY } = await sharedUI.registry();
+
+  await generatePageMaps(config, entityRegistry, FIELD_TYPES, WIDGET_REGISTRY);
+}
+
+async function generatePageMaps(config, entityRegistry, FIELD_TYPES, WIDGET_REGISTRY) {
   // Set paths
   const outputDir = config.outputDir;
   const directivesDir = config.directivesDir;
@@ -83,11 +99,14 @@ async function generatePageMaps() {
 }
 
 // Helper functions for generating configs from directives
-// For table config - include sys fields but mark as hidden
+// For table config - include sys fields but mark as hidden, exclude BI fields
 function generateTableConfig(directives) {
   // Transform directive columns into tableConfig columns
   const columns = Object.entries(directives.columns || {})
-    .filter(([_, col]) => !col.directives.tableHide || col.directives.sys)
+    .filter(([_, col]) => {
+      // Exclude BI fields from tables, include if: not hidden OR is system field
+      return !col.directives.BI && (!col.directives.tableHide || col.directives.sys);
+    })
     .map(([field, col]) => {
       const isSystem = col.directives.sys === true;
       
@@ -110,7 +129,7 @@ function generateFormConfig(directives) {
   const fieldsByGroup = {};
   
   Object.entries(directives.columns || {})
-    .filter(([_, col]) => !col.directives.formHide || col.directives.sys)
+    .filter(([_, col]) => !col.directives.BI && (!col.directives.formHide || col.directives.sys))
     .forEach(([field, col]) => {
       const directives = col.directives;
       const isSystem = directives.sys === true;
@@ -130,13 +149,19 @@ function generateFormConfig(directives) {
         hidden: isSystem || directives.formHide === true
       };
       
-      // Handle select fields correctly
+      // Handle select fields with widget directive
       if (directives.type === 'select') {
-        // Check for selList directive
-        if (directives.selList) {
-          formField.selList = directives.selList;
+        // Check for widget directive
+        if (directives.widget) {
+          formField.widget = directives.widget;
+          
+          // Validate widget exists in registry
+          const widgetDef = WIDGET_REGISTRY[directives.widget];
+          if (!widgetDef) {
+            console.warn(`Warning: Widget ${directives.widget} not found in registry for field ${field}`);
+          }
         } else {
-          console.warn(`Warning: Select field ${field} missing selList directive`);
+          console.warn(`Warning: Select field ${field} missing widget directive`);
         }
         
         // Handle display field if specified
@@ -182,15 +207,14 @@ function generateFieldMappings(directives) {
 // Add this function to your file, near the top with other imports/utilities
 async function extractDirectives(entityName) {
   // Change parameter from entity to entityName
-  const fs = require('fs').promises;
-  const path = require('path');
+  // fs and path already imported at top
   
   // Path to directive file - use entityName directly
   const directivePath = path.join(config.directivesDir, `${entityName}.json`);
   
   try {
     // Read and parse the directive file
-    const directiveContent = await fs.readFile(directivePath, 'utf8');
+    const directiveContent = await fsPromises.readFile(directivePath, 'utf8');
     return JSON.parse(directiveContent);
   } catch (error) {
     console.error(`Error reading directive file for ${entityName}: ${error.message}`);
@@ -200,26 +224,24 @@ async function extractDirectives(entityName) {
 
 // New function to write output files
 async function writeOutput(entityName, pageMap) {
-  const fs = require('fs').promises;
-  const path = require('path');
+  // fs and path already imported at top
   
   const outputPath = path.join(config.outputDir, `${entityName}.js`);
   
   const content = `// Auto-generated by genPageMaps.js
 export default ${JSON.stringify(pageMap, null, 2)};`;
 
-  await fs.writeFile(outputPath, content, 'utf8');
+  await fsPromises.writeFile(outputPath, content, 'utf8');
 }
 
 // Add this function to parse SQL view definitions
 async function extractColumnMappingsFromView(viewName) {
   try {
-    const fs = require('fs').promises;
-    const path = require('path');
+    // fs and path already imported at top
     
     // Locate the SQL file for this view
     const sqlPath = path.join(__dirname, `../../sql/views/crud/${viewName}.sql`);
-    const sqlContent = await fs.readFile(sqlPath, 'utf-8');
+    const sqlContent = await fsPromises.readFile(sqlPath, 'utf-8');
     
     const mappings = {};
     
@@ -262,8 +284,11 @@ async function generateDmlConfig(directives, viewName) {
   const fieldMappings = {};
   const pkField = findPrimaryKeyField(directives);
   
-  // Create mappings using the SQL view information when available
+  // Create mappings using the SQL view information when available, exclude BI fields
   Object.entries(directives.columns || {}).forEach(([field, col]) => {
+    // Skip BI fields - they don't participate in DML operations
+    if (col.directives.BI) return;
+    
     // Use SQL mapping if available, otherwise use the field name
     fieldMappings[field] = sqlMappings[field] || field;
   });
@@ -292,6 +317,6 @@ function findPrimaryKeyField(directives) {
 }
 
 // Run the generator
-generatePageMaps().catch(console.error);
+main().catch(console.error);
 
-module.exports = { generatePageMaps };
+export { generatePageMaps };

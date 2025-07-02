@@ -1,6 +1,11 @@
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export async function getSampleData(entityName, pageMap) {
-  const fs = require('fs').promises;
-  const path = require('path');
   
   // First try to load real sample data
   const samplePath = path.join(__dirname, '../../samples', `${entityName}.json`);
@@ -21,4 +26,8 @@ export async function getSampleData(entityName, pageMap) {
     console.log(`No sample file found at ${samplePath}, generating mock data`);
   }
   
+  // If no sample data, return empty array for now
+  return [];
 }
+
+export default getSampleData;

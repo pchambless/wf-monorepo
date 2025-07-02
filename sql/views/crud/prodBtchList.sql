@@ -1,20 +1,30 @@
 /*
 * @view prodBtchList
-* @description Product batch listing for WhatsFresh
-* @schema whatsfresh
+* @description Product batch listing for WhatsFresh CRUD operations
+* @schema api_wf
 * @table product_batches
 */
 CREATE OR REPLACE VIEW api_wf.prodBtchList AS
 SELECT 
-  a.id AS prodBtchID, -- PK; sys; type:number
-  a.batch_number AS btchNbr, -- req; type:text; label:Batch Number; width:120; grp:1; searchable
-  DATE_FORMAT(a.batch_start, '%Y-%m-%d') AS btchStart, -- type:date; label:Start Date; width:120; grp:1
-  a.location AS btchLoc, -- type:text; label:Location; width:150; grp:2
-  a.batch_quantity AS btchQty, -- type:decimal; label:Quantity; width:100; dec:10,2; grp:2
-  a.global_measure_unit_id AS measID, -- type:select; label:Measure; width:120; entity:measList; valField:measID; dispField:name; grp:2
-  DATE_FORMAT(a.best_by_date, '%Y-%m-%d') AS bestByDate, -- type:date; label:Best By Date; width:120; grp:3
-  a.comments AS comments, -- type:multiLine; label:Comments; tableHide
-  a.product_id AS prodID -- parentKey; sys; type:select; entity:prodList; valField:prodID; dispField:prodName
-FROM whatsfresh.product_batches a
-WHERE a.active = 'Y'
-ORDER BY a.product_id, a.batch_start DESC;
+  pb.id AS prodBtchID,
+  pb.batch_number AS btchNbr,
+  DATE_FORMAT(pb.batch_start, '%Y-%m-%d') AS btchStart,
+  pb.location AS btchLoc,
+  pb.batch_quantity AS btchQty,
+  pb.global_measure_unit_id AS measID,
+  DATE_FORMAT(pb.best_by_date, '%Y-%m-%d') AS bestByDate,
+  pb.comments AS comments,
+  pb.product_id AS prodID,
+  
+  -- Context BI fields (no duplicated rows)
+  p.name AS prodName,
+  pt.name AS prodType,
+  p.account_id AS acctID
+
+FROM whatsfresh.product_batches pb
+  INNER JOIN whatsfresh.products p ON pb.product_id = p.id
+  INNER JOIN whatsfresh.product_types pt ON p.product_type_id = pt.id
+WHERE pb.active = 1 
+  AND p.active = 1 
+  AND pt.active = 1
+ORDER BY pb.batch_start DESC, pb.batch_number;

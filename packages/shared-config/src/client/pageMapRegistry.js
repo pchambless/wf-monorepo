@@ -337,7 +337,7 @@ function getEntityRoute(entityKey, routes) {
   return routes[entityRegistry[entityKey].routeKey];
 }
 
-module.exports = {
+export {
   entityRegistry,
   eventToPageMap,
   getPageMapForEvent,

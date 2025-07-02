@@ -1,7 +1,8 @@
 import React from 'react';
 import { Box, Drawer, Toolbar } from '@mui/material';
 import SidebarContent from './SidebarContent';
-import { resolveRoute, getNavSections } from '@whatsfresh/shared-config/src/routes';
+import { resolveRoute, getRouteKeyByEvent } from '@whatsfresh/shared-config/src/routes';
+import { getNavSections } from '../../../../navigation/sidebar';
 import { useAccountStore } from '@stores/accountStore';
 import createLogger from '@utils/logger';
 
@@ -22,7 +23,9 @@ const Sidebar = ({ width, open, mobileOpen, handleDrawerToggle, onClose }) => {
     return sections.map(section => ({
       ...section,
       items: section.items.map(item => {
-        const path = resolveRoute(item.id, { acctID: String(accountId) });
+        // Get route key from eventType
+        const routeKey = getRouteKeyByEvent(item.eventType);
+        const path = routeKey ? resolveRoute(routeKey, { acctID: String(accountId) }) : '#';
         return { ...item, path };
       })
     }));

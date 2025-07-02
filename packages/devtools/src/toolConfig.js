@@ -1,16 +1,16 @@
-const path = require('path');
+import { packagePaths, resolvePackage } from '@whatsfresh/shared-imports/paths';
+import path from 'path';
 
-function getToolConfig(app = 'client') {
-  const base = path.resolve(process.cwd(), 'packages', 'shared-config', 'src');
+export function getToolConfig(app = 'client') {
+  // Use shared-imports for clean path resolution
+  const base = packagePaths.sharedConfig;
 
-    console.log(`base`, base);
+  console.log(`🔧 Config for ${app}:`, base);
   return {
     app,
     directivesDir: path.join(base, app, 'directives'),
     outputDir: path.join(base, app, 'pageMap'),
-    registryPath: path.join(base, app, 'pageMapRegistry.js'),
-    routesPath: path.join(base, app, 'routes.js'),
+    registryPath: resolvePackage('sharedConfig', app, 'pageMapRegistry.js'),
+    routesPath: resolvePackage('sharedConfig', app, 'routes.js'),
   };
 }
-
-module.exports = { getToolConfig };

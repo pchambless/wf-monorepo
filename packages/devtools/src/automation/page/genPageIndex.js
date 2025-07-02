@@ -1,6 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const { entityRegistry } = require('../../packages/shared-config/src/pageMapRegistry');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { entityRegistry } from '../../../../shared-config/src/client/pageMapRegistry.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Page Index Generator for WhatsFresh
@@ -58,36 +62,45 @@ function generateIndexFile(entityName) {
   const parentEntity = entity.parentEntity ? entityRegistry[entity.parentEntity] : null;
   
   // Create the target directory
-  const targetDir = path.resolve(__dirname, '../../apps/wf-client/src/pages', dirPath);
+  const targetDir = path.resolve(__dirname, '../../../../../apps/wf-client/src/pages', dirPath);
   if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
     console.log(`Created directory: ${targetDir}`);
   }
   
-  // Create the index.js content
+  // Create the index.js content - simplified with singleton stores
   const indexContent = `import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import CrudLayout from '@crud/CrudLayout';
-// Same import path, but now contains the optimized structure
+import { CrudLayout } from '@whatsfresh/shared-ui';
 import pageMap from '@whatsfresh/shared-config/src/pageMap/${entityName}';
+import dataStore from '@stores/dataStore';
 import navigationStore from '@stores/navigationStore';
-import accountStore from '@stores/accountStore';
 import createLogger from '@utils/logger';
 
 const log = createLogger('${loggerName}');
 
 const ${componentName} = observer(() => {
   useEffect(() => {
-    // Set breadcrumbs
+    log.debug('${componentName} component mounted');
+    
+    // Set breadcrumbs and fetch data
     navigationStore.setBreadcrumbs([
       { label: pageMap.title, path: null }
     ]);
+    
+    // Fetch data using the listEvent from pageMap
+    if (pageMap.systemConfig?.listEvent) {
+      log.debug('Fetching data for:', pageMap.systemConfig.listEvent);
+      dataStore.fetchData(pageMap.systemConfig.listEvent);
+    } else {
+      log.warn('No listEvent configured for ${componentName}');
+    }
   }, []);
 
   return (
     <CrudLayout
       pageMap={pageMap}
-      accountId={accountStore.currentAccountId}
+      dataStore={dataStore}
     />
   );
 });

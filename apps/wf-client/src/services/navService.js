@@ -1,4 +1,5 @@
-import { resolveRoute, getRoute } from '@whatsfresh/shared-config/src/routes';
+import { resolveRoute, getRouteKeyByEvent } from '@whatsfresh/shared-config/src/routes';
+// Removed unused getRoute import
 import accountStore from '@stores/accountStore';
 import createLogger from '@utils/logger';
 
@@ -43,28 +44,20 @@ const navService = {
    * @param {Object} options - Navigation options (replace, state)
    */
   byListEvent(listEvent, params = {}, options = {}) {
-    const routeInfo = getRoute(listEvent);
+    // Get the route key for this event
+    const routeKey = getRouteKeyByEvent(listEvent);
     
-    if (!routeInfo) {
+    if (!routeKey) {
       log.error(`No route found for list event: ${listEvent}`);
       return false;
     }
     
     // Auto-inject accountId if needed and available
-    if (routeInfo.route.requiredParams?.includes('acctID') && !params.acctID) {
+    if (!params.acctID && accountStore.currentAcctID) {
       params.acctID = accountStore.currentAcctID;
     }
     
-    // Check for missing required params
-    const missingParams = (routeInfo.route.requiredParams || [])
-      .filter(param => !params[param]);
-      
-    if (missingParams.length > 0) {
-      log.error(`Missing required params for route ${routeInfo.key}:`, missingParams);
-      return false;
-    }
-    
-    const resolvedPath = resolveRoute(routeInfo.key, params);
+    const resolvedPath = resolveRoute(routeKey, params);
     return this.navigate(resolvedPath, options);
   },
   

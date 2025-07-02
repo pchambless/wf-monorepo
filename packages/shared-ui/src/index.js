@@ -6,13 +6,21 @@ export {
   getWidgetById,
   getWidgetsByApp,
   getWidgetDisplayName
-} from './registry';
+} from './registry.js';
 
 // Widget exports
-export { default as SelAcct } from './widgets/acct/SelAcct';
+export { default as SelAcct } from './widgets/acct/SelAcct.js';
+
 // App-level components
-export { default as StudioApp } from './studio/StudioApp';
-export { default as CrudLayout } from './components/1-page/c-crud/CrudLayout';
+export { default as CrudLayout } from './components/1-page/c-crud/CrudLayout/index.js';
+
+// Modal components
+export { 
+  default as Modal, 
+  modalStore, 
+  useModalStore, 
+  useModal 
+} from './components/3-common/a-modal/index.js';
 
 // Placeholder exports - add implementations later
 export const RcntIngrBtch = () => null;

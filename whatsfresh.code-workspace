@@ -6,14 +6,14 @@
     { "name": "📱 Client", "path": "./apps/wf-client" },
     { "name": "🖥️ Server", "path": "./apps/wf-server" },
     { "name": "📦 DB Connect", "path": "./packages/db-connect" },
-    { "name": "📦 Views - Crud", "path": "./sql/views/crud" },
-    { "name": "📦 Views - Admin", "path": "./sql/views/admin" },
+    { "name": "📦 Shared Imports", "path": "./packages/shared-imports" },
     { "name": "📦 Shared Config", "path": "./packages/shared-config" },
     { "name": "📦 Shared Events", "path": "./packages/shared-events/src" },
     { "name": "📦 Shared UI", "path": "./packages/shared-ui" },
     { "name": "📦 Shared API", "path": "./packages/shared-api" },
     { "name": "📦 DevTools", "path": "./packages/devtools" },
-    { "name": "🛠️ Tools", "path": "./tools" }
+    { "name": "📦 Views - Crud", "path": "./sql/views/crud" },
+    { "name": "📦 Views - Admin", "path": "./sql/views/admin" }
   ],
   "settings": {
     "editor.formatOnSave": true

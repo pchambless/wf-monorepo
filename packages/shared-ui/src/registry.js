@@ -2,7 +2,7 @@
  * WhatsFresh Widget Registry
  * Central registry for all reusable UI components across applications
  */
-import { abbreviationMap } from '@whatsfresh/shared-config/src/common/abbreviationMap.js';
+import { abbreviationMap } from '@whatsfresh/shared-config/src/common/abbreviationMap';
 
 /**
  * Widget type constants
