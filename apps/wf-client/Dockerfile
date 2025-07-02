@@ -3,15 +3,20 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
+# Copy the packages directory first (for monorepo shared dependencies)
+COPY ../../packages ./packages
+
+# Copy package.json for the client
+COPY package.json package-lock.json* ./
+
 # Install dependencies
-COPY package.json yarn.lock* ./
-RUN yarn install --frozen-lockfile
+RUN npm ci
 
 # Copy source files
 COPY . .
 
 # Build the application
-RUN yarn build
+RUN npm run build
 
 # Production stage - uses nginx to serve static files
 FROM nginx:alpine

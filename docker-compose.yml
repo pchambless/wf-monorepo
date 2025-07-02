@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   wf-server:
     build: 
@@ -17,3 +15,28 @@ services:
       - NODE_ENV=development
     # Restart container if it crashes
     restart: unless-stopped
+
+  wf-client:
+    build: 
+      context: ./apps/wf-client
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount packages for shared dependencies
+      - ./packages:/app/packages
+      # Mount only source code for live development
+      - ./apps/wf-client/src:/app/src
+      - ./apps/wf-client/public:/app/public
+      # Preserve container's node_modules and package.json
+      - wf_client_node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true  # For hot reload in Docker
+    # Restart container if it crashes
+    restart: unless-stopped
+    depends_on:
+      - wf-server
+
+volumes:
+  wf_client_node_modules:
