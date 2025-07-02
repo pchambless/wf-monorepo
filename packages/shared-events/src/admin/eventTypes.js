@@ -7,7 +7,7 @@
 /**
  * All admin event definitions
  */
-i// import { EVENT_CATEGORIES } from './eventCategory';
+// Note: Using cluster attribute in events instead of separate eventCategory
 
 const EVENTS = [
   // Root entity (virtual) to organize hierarchy
