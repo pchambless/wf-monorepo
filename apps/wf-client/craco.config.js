@@ -55,6 +55,23 @@ module.exports = {
     configure: (webpackConfig) => {
       // Properly resolve workspace packages
       webpackConfig.resolve.symlinks = true;
+      
+      // Configure babel-loader to process JSX in shared packages
+      const oneOfRule = webpackConfig.module.rules.find((rule) => rule.oneOf);
+      if (oneOfRule) {
+        const tsxRule = oneOfRule.oneOf.find(
+          (rule) => rule.test && rule.test.toString().includes('tsx')
+        );
+        if (tsxRule) {
+          // Extend the include to process our shared packages
+          tsxRule.include = [
+            tsxRule.include,
+            path.resolve(__dirname, '../../packages/shared-ui/src'),
+            path.resolve(__dirname, '../../packages/shared-config/src'),
+          ].filter(Boolean);
+        }
+      }
+      
       return webpackConfig;
     }
   },
