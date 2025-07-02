@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Paper, Grid, Typography, Tabs, Tab } from '@mui/material';
 import { DataGridWidget } from '@whatsfresh/shared-ui/src/widgets/grid/DataGridWidget';
-import { execEvent } from '@whatsfresh/shared-api';
+import { execEvent } from '../stores/eventStore.js';
 import CrudTable from '@whatsfresh/shared-ui/src/widgets/data/CrudTable';
 import SelProd from '@whatsfresh/shared-ui/src/widgets/selection/SelProd';
 import { getWidgetById } from '@whatsfresh/shared-ui/src/registry';
@@ -82,7 +82,7 @@ const BatchMapping = ({ prodID, prodBtchID }) => {
               <DataGridWidget
                 id="recipe-grid"
                 eventName="btchMapIngrList"
-                params={{ prodID: productId }}
+                params={{ prodID: prodID }}
                 height={400}
                 onSelectionChange={rows => setSelectedIngredient(rows[0])}
                 columns={[
@@ -101,7 +101,7 @@ const BatchMapping = ({ prodID, prodBtchID }) => {
                 id="mapped-grid"
                 eventName="btchMapMapped"
                 params={{ 
-                  prodBtchID: batchId,
+                  prodBtchID: prodBtchID,
                   ingrID: selectedIngredient?.ingr_id
                 }}
                 height={400}
@@ -130,7 +130,7 @@ const BatchMapping = ({ prodID, prodBtchID }) => {
                 id="available-grid"
                 eventName="btchMapAvailable"
                 params={{ 
-                  prodBtchID: batchId,
+                  prodBtchID: prodBtchID,
                   ingrID: selectedIngredient?.ingr_id
                 }}
                 height={400}
@@ -157,7 +157,7 @@ const BatchMapping = ({ prodID, prodBtchID }) => {
         <TabPanel value={tabIndex} index={2}>
           <CrudTable
             eventName="prodBtchTaskList"
-            params={{ prodBtchID: batchId }}
+            params={{ prodBtchID: prodBtchID }}
             height={500}
             title="Batch Tasks"
           />

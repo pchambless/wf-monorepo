@@ -4,9 +4,6 @@ export default {
   "title": "Brands",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "brands",
-    "primaryKey": "brndID",
-    "parentIdField": "acctID",
     "listEvent": "brndList"
   },
   "uiConfig": {
@@ -99,11 +96,11 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "brndID": "id",
-      "brndName": "name",
-      "brndComments": "comments",
-      "brndURL": "url",
-      "acctID": "account_id"
+      "brndID": "brndID",
+      "brndName": "brndName",
+      "brndComments": "brndComments",
+      "brndURL": "brndURL",
+      "acctID": "acctID"
     },
     "operations": {
       "insert": {

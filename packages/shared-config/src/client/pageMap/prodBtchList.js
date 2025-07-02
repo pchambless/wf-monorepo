@@ -4,9 +4,6 @@ export default {
   "title": "Product Batches",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "product_batches",
-    "primaryKey": "prodBtchID",
-    "parentIdField": "prodID",
     "listEvent": "prodBtchList"
   },
   "uiConfig": {
@@ -102,8 +99,7 @@ export default {
             "label": "prodID",
             "type": "select",
             "required": false,
-            "hidden": true,
-            "selList": "prodList"
+            "hidden": true
           }
         ]
       },
@@ -130,8 +126,7 @@ export default {
             "label": "Measure",
             "type": "select",
             "required": true,
-            "hidden": false,
-            "selList": "measList"
+            "hidden": false
           }
         ]
       }
@@ -139,13 +134,13 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "prodBtchID": "id",
-      "btchNbr": "batch_number",
-      "btchLoc": "location",
-      "btchQty": "batch_quantity",
-      "measID": "global_measure_unit_id",
+      "prodBtchID": "prodBtchID",
+      "btchNbr": "btchNbr",
+      "btchLoc": "btchLoc",
+      "btchQty": "btchQty",
+      "measID": "measID",
       "comments": "comments",
-      "prodID": "product_id"
+      "prodID": "prodID"
     },
     "operations": {
       "insert": {

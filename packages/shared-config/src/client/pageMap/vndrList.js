@@ -4,9 +4,6 @@ export default {
   "title": "Vendors",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "vendors",
-    "primaryKey": "vndrID",
-    "parentIdField": "acctID",
     "listEvent": "vndrList"
   },
   "uiConfig": {
@@ -137,13 +134,13 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "vndrID": "id",
-      "vndrName": "name",
-      "vndrContactName": "contact_name",
-      "vndrContactPhone": "contact_phone",
-      "vndrContactEmail": "contact_email",
-      "vndrComments": "comments",
-      "acctID": "account_id"
+      "vndrID": "vndrID",
+      "vndrName": "vndrName",
+      "vndrContactName": "vndrContactName",
+      "vndrContactPhone": "vndrContactPhone",
+      "vndrContactEmail": "vndrContactEmail",
+      "vndrComments": "vndrComments",
+      "acctID": "acctID"
     },
     "operations": {
       "insert": {

@@ -4,11 +4,6 @@ export default {
   "title": "Product Types",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "product_types",
-    "primaryKey": "prodTypeID",
-    "parentIdField": "acctID",
-    "childEntity": "prodList",
-    "childIdField": "prodTypeID",
     "listEvent": "prodTypeList"
   },
   "uiConfig": {
@@ -81,9 +76,9 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "prodTypeID": "id",
-      "prodTypeName": "name",
-      "acctID": "account_id"
+      "prodTypeID": "prodTypeID",
+      "prodTypeName": "prodTypeName",
+      "acctID": "acctID"
     },
     "operations": {
       "insert": {

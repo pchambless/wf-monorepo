@@ -9,7 +9,7 @@
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
     "dev": "npm run --workspace=wf-client start",
     "server": "npm run --workspace=wf-server dev",
-    "build": "npm run generate-page-maps && npm run generate-docs && npm run generate-visuals && npm run --workspaces build",
+    "build": "npm run generate-page-maps && npm run generate-docs && npm run --workspaces build",
     "test": "npm run --workspaces test",
     "lint": "npm run --workspaces lint",
     "storybook": "storybook dev -p 6006",

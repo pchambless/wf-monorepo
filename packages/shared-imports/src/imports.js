@@ -28,7 +28,7 @@ export const sharedConfig = {
  * Clean imports for shared-ui package
  */
 export const sharedUI = {
-  registry: () => import(path.join(packagePaths.sharedUI, 'registry/index.js')),
+  registry: () => import(path.join(packagePaths.sharedUI, 'widgets/index.js')),
   components: (name) => import(path.join(packagePaths.sharedUI, `components/${name}/index.js`)),
   widgets: (name) => import(path.join(packagePaths.sharedUI, `widgets/${name}/index.js`))
 };

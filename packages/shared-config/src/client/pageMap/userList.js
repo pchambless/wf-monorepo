@@ -4,8 +4,6 @@ export default {
   "title": "Users",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "users",
-    "primaryKey": "userID",
     "listEvent": "userList"
   },
   "uiConfig": {

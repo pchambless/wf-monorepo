@@ -4,8 +4,6 @@ export default {
   "title": "Accounts",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "accounts",
-    "primaryKey": "acctID",
     "listEvent": "acctList"
   },
   "uiConfig": {

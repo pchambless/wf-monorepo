@@ -4,9 +4,6 @@ export default {
   "title": "Measures",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "measures",
-    "primaryKey": "measID",
-    "parentIdField": "acctID",
     "listEvent": "measList"
   },
   "uiConfig": {
@@ -94,10 +91,10 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "measID": "id",
+      "measID": "measID",
       "name": "name",
       "abbrev": "abbrev",
-      "acctID": "account_id"
+      "acctID": "acctID"
     },
     "operations": {
       "insert": {

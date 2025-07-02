@@ -50,7 +50,7 @@ async function generatePageMaps(config, entityRegistry, FIELD_TYPES, WIDGET_REGI
     
     try {
       // Extract directives from SQL or separate JSON files
-      const directives = await extractDirectives(entityName);
+      const directives = await extractDirectives(entityName, config);
       
       // Generate optimized structure as the new pageMap format
       const pageMap = {
@@ -82,14 +82,14 @@ async function generatePageMaps(config, entityRegistry, FIELD_TYPES, WIDGET_REGI
         
         // Generate table and form configs from directives
         tableConfig: generateTableConfig(directives),
-        formConfig: generateFormConfig(directives),
+        formConfig: generateFormConfig(directives, WIDGET_REGISTRY),
         
         // Add DML configuration
         dmlConfig: await generateDmlConfig(directives, entityName)
       };
       
       // Output as a JS module (to replace old pageMap)
-      await writeOutput(entityName, pageMap);
+      await writeOutput(entityName, pageMap, config);
       console.log(`✅ Generated pageMap for ${entityName}`);
       
     } catch (err) {
@@ -124,7 +124,7 @@ function generateTableConfig(directives) {
 }
 
 // Update the form generation function
-function generateFormConfig(directives) {
+function generateFormConfig(directives, WIDGET_REGISTRY) {
   // First collect all fields with their group info
   const fieldsByGroup = {};
   
@@ -205,7 +205,7 @@ function generateFieldMappings(directives) {
 }
 
 // Add this function to your file, near the top with other imports/utilities
-async function extractDirectives(entityName) {
+async function extractDirectives(entityName, config) {
   // Change parameter from entity to entityName
   // fs and path already imported at top
   
@@ -223,7 +223,7 @@ async function extractDirectives(entityName) {
 }
 
 // New function to write output files
-async function writeOutput(entityName, pageMap) {
+async function writeOutput(entityName, pageMap, config) {
   // fs and path already imported at top
   
   const outputPath = path.join(config.outputDir, `${entityName}.js`);

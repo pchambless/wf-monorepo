@@ -21,9 +21,9 @@ export const initEventTypeService = () => {
     // Use conditional to handle possible import differences
     if (typeof sharedEvents.getClientSafeEventTypes === 'function') {
       eventTypes = sharedEvents.getClientSafeEventTypes();
-    } else if (Array.isArray(sharedEvents.EVENT_TYPES)) {
+    } else if (Array.isArray(sharedEvents.CLIENT_EVENTS)) {
       // Fallback: Create client-safe events directly
-      eventTypes = sharedEvents.EVENT_TYPES.map(event => {
+      eventTypes = sharedEvents.CLIENT_EVENTS.map(event => {
         const { qrySQL: _qrySQL, ...clientSafeEvent } = event; // Rename with underscore
         return clientSafeEvent;
       });

@@ -15,8 +15,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@whatsfresh/shared-config": "0.1.0",
-    "@whatsfresh/shared-events": "0.1.0"
+    "@whatsfresh/shared-api": "file:../shared-api",
+    "@whatsfresh/shared-config": "file:../shared-config",
+    "@whatsfresh/shared-events": "file:../shared-events"
   },
   "peerDependencies": {
     "@emotion/react": "^11.0.0",

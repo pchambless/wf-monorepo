@@ -4,9 +4,6 @@ export default {
   "title": "Workers",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "workers",
-    "primaryKey": "wrkrID",
-    "parentIdField": "acctID",
     "listEvent": "wrkrList"
   },
   "uiConfig": {
@@ -79,9 +76,9 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "wrkrID": "id",
-      "wrkrName": "name",
-      "acctID": "account_id"
+      "wrkrID": "wrkrID",
+      "wrkrName": "wrkrName",
+      "acctID": "acctID"
     },
     "operations": {
       "insert": {

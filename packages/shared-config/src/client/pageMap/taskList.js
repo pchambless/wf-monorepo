@@ -4,9 +4,6 @@ export default {
   "title": "Product Type Tasks",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "tasks",
-    "primaryKey": "taskID",
-    "parentIdField": "prodTypeID",
     "listEvent": "taskList"
   },
   "uiConfig": {
@@ -101,11 +98,11 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "taskID": "id",
-      "taskName": "name",
-      "taskDesc": "description",
-      "taskOrder": "ordr",
-      "prodTypeID": "product_type_id"
+      "taskID": "taskID",
+      "taskName": "taskName",
+      "taskDesc": "taskDesc",
+      "taskOrder": "taskOrder",
+      "prodTypeID": "prodTypeID"
     },
     "operations": {
       "insert": {

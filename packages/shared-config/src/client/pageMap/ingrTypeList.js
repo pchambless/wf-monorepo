@@ -4,11 +4,6 @@ export default {
   "title": "Ingredient Types",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "ingredient_types",
-    "primaryKey": "ingrTypeID",
-    "parentIdField": "acctID",
-    "childEntity": "ingrList",
-    "childIdField": "ingrTypeID",
     "listEvent": "ingrTypeList"
   },
   "uiConfig": {
@@ -88,10 +83,10 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "ingrTypeID": "id",
-      "ingrTypeName": "name",
-      "ingrTypeDesc": "description",
-      "acctID": "account_id"
+      "ingrTypeID": "ingrTypeID",
+      "ingrTypeName": "ingrTypeName",
+      "ingrTypeDesc": "ingrTypeDesc",
+      "acctID": "acctID"
     },
     "operations": {
       "insert": {

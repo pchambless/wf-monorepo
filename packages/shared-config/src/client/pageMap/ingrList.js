@@ -4,11 +4,6 @@ export default {
   "title": "Ingredients",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "ingredients",
-    "primaryKey": "ingrID",
-    "parentIdField": "ingrTypeID",
-    "childEntity": "ingrBtchList",
-    "childIdField": "ingrID",
     "listEvent": "ingrList"
   },
   "uiConfig": {
@@ -109,16 +104,14 @@ export default {
             "label": "Default Measure",
             "type": "select",
             "required": false,
-            "hidden": false,
-            "selList": "measList"
+            "hidden": false
           },
           {
             "field": "vndrID",
             "label": "Default Vendor",
             "type": "select",
             "required": false,
-            "hidden": false,
-            "selList": "vndrList"
+            "hidden": false
           }
         ]
       },
@@ -152,14 +145,14 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "ingrID": "id",
-      "ingrName": "name",
-      "ingrCode": "code",
-      "ingrDesc": "description",
-      "measID": "default_measure_unit",
-      "vndrID": "default_vendor",
-      "ingrGrmsPerOz": "grams_per_ounce",
-      "ingrTypeID": "ingredient_type_id"
+      "ingrID": "ingrID",
+      "ingrName": "ingrName",
+      "ingrCode": "ingrCode",
+      "ingrDesc": "ingrDesc",
+      "measID": "measID",
+      "vndrID": "vndrID",
+      "ingrGrmsPerOz": "ingrGrmsPerOz",
+      "ingrTypeID": "ingrTypeID"
     },
     "operations": {
       "insert": {

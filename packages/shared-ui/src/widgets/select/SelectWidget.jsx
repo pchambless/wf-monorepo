@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Box, FormControl, Select, MenuItem, CircularProgress, Typography } from '@mui/material';
 // Removed useAccountStore - widgets should be self-contained with explicit params
-import { execEvent } from '@whatsfresh/shared-api';
+// TODO: Import from shared-api once monorepo linking is fixed
+// import { execEvent } from '@whatsfresh/shared-api';
+
+// Temporary placeholder until monorepo linking is fixed
+const execEvent = async (eventName, params) => {
+  console.warn('execEvent placeholder - monorepo linking needed');
+  return [];
+};
 
 /**
  * Base component for all selection widgets
@@ -65,7 +72,6 @@ export const SelectWidget = ({
   }, [
     data, 
     eventName, 
-    accountStore.currentAcctID,
     // Stringify params to react properly to object changes
     JSON.stringify(params) 
   ]);

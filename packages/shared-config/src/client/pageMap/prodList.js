@@ -4,11 +4,6 @@ export default {
   "title": "Products",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "products",
-    "primaryKey": "prodID",
-    "parentIdField": "prodTypeID",
-    "childEntity": "prodBtchList",
-    "childIdField": "prodID",
     "listEvent": "prodList"
   },
   "uiConfig": {
@@ -128,7 +123,6 @@ export default {
             "type": "select",
             "required": false,
             "hidden": true,
-            "selList": "prodTypeList",
             "dispField": "prodTypeName"
           }
         ]
@@ -177,15 +171,15 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "prodID": "id",
-      "prodName": "name",
-      "prodCode": "code",
-      "prodDfltLoc": "location",
-      "prodDfltBestBy": "best_by_days",
-      "prodDesc": "description",
-      "prodUpcItemRef": "upc_item_reference",
-      "prodUpcChkDgt": "upc_check_digit",
-      "prodTypeID": "product_type_id"
+      "prodID": "prodID",
+      "prodName": "prodName",
+      "prodCode": "prodCode",
+      "prodDfltLoc": "prodDfltLoc",
+      "prodDfltBestBy": "prodDfltBestBy",
+      "prodDesc": "prodDesc",
+      "prodUpcItemRef": "prodUpcItemRef",
+      "prodUpcChkDgt": "prodUpcChkDgt",
+      "prodTypeID": "prodTypeID"
     },
     "operations": {
       "insert": {

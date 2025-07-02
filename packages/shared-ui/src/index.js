@@ -6,7 +6,7 @@ export {
   getWidgetById,
   getWidgetsByApp,
   getWidgetDisplayName
-} from './registry.js';
+} from './widgets/index.js';
 
 // Widget exports
 export { default as SelAcct } from './widgets/acct/SelAcct.js';
