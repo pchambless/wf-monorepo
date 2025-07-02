@@ -1,8 +1,6 @@
-require('module-alias/register');
 const codeName = `[listRegisteredRoutes.js] `;
 
-module.exports = {
-  listRoutes: (app) => (_, res) => {
+const listRoutes = (app) => (_, res) => {
     console.log('Entering listRoutes function'); // Log entry point
     const routes = [];
     app._router.stack.forEach((middleware, index) => {
@@ -29,5 +27,6 @@ module.exports = {
     console.log(codeName, 'Completed processing routes'); // Log completion
     res.json({ routes });
     console.log(codeName,'Response sent'); // Log response sent
-  }
 };
+
+export default { listRoutes };

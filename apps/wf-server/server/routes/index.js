@@ -1,7 +1,7 @@
-require('module-alias/register');
+import logger from '../utils/logger.js';
+import router from './registerRoutes.js';
+
 const codeName = `[index.js] `;
-const logger = require('@utils/logger');
-const router = require('@routes/registerRoutes');
 
 const initializeRoutes = (app) => {
   logger.debug(`${codeName} Initializing routes`);
@@ -13,4 +13,4 @@ const initializeRoutes = (app) => {
   logger.debug(`${codeName} Routes initialized`);
 };
 
-module.exports = initializeRoutes;  
+export default initializeRoutes;  

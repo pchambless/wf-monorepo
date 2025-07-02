@@ -1,6 +1,7 @@
-require('module-alias/register');
-const { EVENT_TYPES } = require('@whatsfresh/shared-events');
-const logger = require('@utils/logger');
+import sharedEventsPkg from '@whatsfresh/shared-events';
+const { EVENT_TYPES } = sharedEventsPkg;
+import logger from '../utils/logger.js';
+
 const codeName = '[fetchEventTypes.js]';
 
 async function fetchEventTypes(req, res) {
@@ -20,6 +21,6 @@ async function fetchEventTypes(req, res) {
   }
 }
 
-module.exports = {
+export {
   fetchEventTypes
 };

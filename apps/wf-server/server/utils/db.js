@@ -1,5 +1,5 @@
-const mysql = require('mysql2/promise');
-const { host, user, password, database, port, charset } = require('./dbConfig');
+import mysql from 'mysql2/promise';
+import { host, user, password, database, port, charset } from './dbConfig.js';
 const codeName = `[db.js] `;
 
 // Create a connection pool using the extracted properties
@@ -12,7 +12,7 @@ const pool = mysql.createPool({
   charset
 });
 
-module.exports = {
+export default {
   getConnection: async () => {
     return await pool.getConnection();
   },

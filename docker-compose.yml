@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  wf-server:
+    build: 
+      context: .
+      dockerfile: apps/wf-server/Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      # Mount packages for live development
+      - ./packages:/app/packages
+      # Mount server source for live development  
+      - ./apps/wf-server:/app
+      - /app/node_modules  # Prevent overwriting container's node_modules
+    environment:
+      - NODE_ENV=development
+    # Restart container if it crashes
+    restart: unless-stopped

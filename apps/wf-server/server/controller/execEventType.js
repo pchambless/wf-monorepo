@@ -1,10 +1,12 @@
-const { createRequestBody } = require('@utils/queryResolver');
-const { executeQuery } = require('@utils/dbUtils');
-const logger = require('@utils/logger');
-const { EVENT_TYPES, getEventType } = require('@whatsfresh/shared-events');
+import { createRequestBody } from '../utils/queryResolver.js';
+import { executeQuery } from '../utils/dbUtils.js';
+import logger from '../utils/logger.js';
+import sharedEventsPkg from '@whatsfresh/shared-events';
+const { EVENT_TYPES, getEventType } = sharedEventsPkg;
+
 const codeName = `[execEventType.js]`;
 
-module.exports = async (req, res) => {
+const execEventType = async (req, res) => {
   // Log minimal request info - just the essentials
   logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
@@ -44,3 +46,5 @@ module.exports = async (req, res) => {
     });
   }
 };
+
+export default execEventType;

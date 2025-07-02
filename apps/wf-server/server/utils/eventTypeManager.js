@@ -1,5 +1,7 @@
-const { EVENT_TYPES, getEventType } = require('@whatsfresh/shared-events');
-const logger = require('./logger');
+import sharedEventsPkg from '@whatsfresh/shared-events';
+const { EVENT_TYPES, getEventType } = sharedEventsPkg;
+import logger from './logger.js';
+
 const codeName = '[eventTypeManager.js]';
 
 /**
@@ -37,7 +39,7 @@ function validateEventParams(event, params = {}) {
 }
 
 // Simple module with the essential functions
-module.exports = {
+const eventTypeManager = {
   getEventConfig,
   validateEventParams,
   eventTypes: EVENT_TYPES,
@@ -46,3 +48,5 @@ module.exports = {
   getEventTypes: () => Promise.resolve(EVENT_TYPES),
   findEventType: (eventType) => Promise.resolve(getEventType(eventType))
 };
+
+export default eventTypeManager;

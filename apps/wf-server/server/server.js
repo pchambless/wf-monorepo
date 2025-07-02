@@ -1,25 +1,12 @@
-// This must be the very first line
-const moduleAlias = require('module-alias');
+// ES module imports
+import dotenv from 'dotenv';
+import { app } from './app.js';
+import logger from './utils/logger.js';
+import initializeRoutes from './routes/index.js';
+import dbManager from './utils/dbManager.js';
 
-// Register aliases based on the actual root directory
-moduleAlias.addAliases({
-  '@root': __dirname,
-  '@utils': __dirname + '/utils',
-  '@routes': __dirname + '/routes',
-  '@controller': __dirname + '/controller',
-  '@services': __dirname + '/services', 
-  '@models': __dirname + '/models',
-  '@middleware': __dirname + '/middleware',
-  '@shared-config': '../../packages/shared-config'
-});
-
-// Then other imports
-require('dotenv').config();
-const { app } = require('./app');
-const logger = require('@utils/logger');
-const initializeRoutes = require('@routes/index');
-const { genApiColumnFile } = require('@controller/fetchApiColumns');
-const dbManager = require('@utils/dbManager');
+// Configure environment variables
+dotenv.config();
 const codeName = '[server.js]';
 
 // Simple test route to verify routing
@@ -51,12 +38,8 @@ async function startServer() {
         initializeRoutes(app);
         logger.info(`${codeName} Routes initialized`);
 
-        // Generate necessary files
-        await dbManager.executeWithRetry(async () => {
-            // Remove genEventTypeFile call - we're now using shared-events package
-            console.log('Using event types from shared-events package');
-            await genApiColumnFile(pool);
-        });
+        // Using shared-events package for event types
+        console.log('Using event types from shared-events package');
 
         // Handle 404 - Register after all routes
         app.use((req, res) => {

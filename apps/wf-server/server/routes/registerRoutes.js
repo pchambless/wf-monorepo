@@ -1,16 +1,16 @@
-require('module-alias/register');
-const express = require('express');
-const execEventType = require('@controller/execEventType');
-const initializeController = require('@controller/initialize');
-const listRoutesController = require('@controller/listRegisteredRoutes');
-const restartServerController = require('@controller/restartServer');
-const { fetchEventTypes } = require('@controller/fetchEventTypes');
-const userLogin = require('@controller/userLogin'); // Import userLogin controller
-const eventTypeManager = require('@utils/eventTypeManager');
-const logger = require('@utils/logger');
+import express from 'express';
+import execEventType from '../controller/execEventType.js';
+import initializeController from '../controller/initialize.js';
+import listRoutesController from '../controller/listRegisteredRoutes.js';
+import restartServerController from '../controller/restartServer.js';
+import { fetchEventTypes } from '../controller/fetchEventTypes.js';
+import userLogin from '../controller/userLogin.js';
+import eventTypeManager from '../utils/eventTypeManager.js';
+import logger from '../utils/logger.js';
+
 const codeName = `[registerRoutes.js]`;
 
-module.exports = (app) => {
+const registerRoutes = (app) => {
   logger.info(`${codeName} Started registering routes`);
   const router = express.Router();
   const routes = [];
@@ -44,3 +44,5 @@ module.exports = (app) => {
 
   return router;  // Return the router so it can be mounted
 };
+
+export default registerRoutes;

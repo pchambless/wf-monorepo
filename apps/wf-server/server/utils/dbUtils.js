@@ -1,6 +1,7 @@
-require('module-alias/register');
-const logger = require('./logger');
-const { createPool } = require('@whatsfresh/db-connect');
+import logger from './logger.js';
+import pkg from '@whatsfresh/db-connect';
+const { createPool } = pkg;
+
 const fileName = '[dbUtils.js]';
 
 // Initialize the connection pool using db-connect package
@@ -97,4 +98,4 @@ async function executeQuery(query, method = 'GET') {
     }
 }
 
-module.exports = { executeQuery };
+export { executeQuery };

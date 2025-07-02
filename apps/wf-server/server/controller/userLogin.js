@@ -1,10 +1,10 @@
-require('module-alias/register');
+import bcrypt from 'bcrypt';
+import { createRequestBody } from '../utils/queryResolver.js';
+import { executeQuery } from '../utils/dbUtils.js';
+import logger from '../utils/logger.js';
+import sharedEventsPkg from '@whatsfresh/shared-events';
+const { getEventType } = sharedEventsPkg;
 
-const bcrypt = require('bcrypt');
-const { createRequestBody } = require('@utils/queryResolver');
-const { executeQuery } = require('@utils/dbUtils');
-const logger = require('@utils/logger');
-const { getEventType } = require('@whatsfresh/shared-events');
 const codeName = '[userLogin.js]';
 
 // Remove cache clearing - no longer needed with package-based approach
@@ -100,4 +100,4 @@ async function login(req, res) {
     }
 }
 
-module.exports = login;
+export default login;

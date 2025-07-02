@@ -1,5 +1,6 @@
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+
 const codeName = '[security.js]';
 
 // Rate limiting configuration
@@ -36,24 +37,19 @@ const helmetConfig = {
 };
 
 // Export middleware functions
-module.exports = {
-    // General rate limiter
-    rateLimiter: limiter,
-    
-    // Authentication rate limiter
-    authRateLimiter: authLimiter,
-    
-    // Security headers
-    securityHeaders: helmet(helmetConfig),
-    
-    // CORS configuration
-    corsOptions: {
-        origin: ['http://localhost:3000', 
-          'https://crisp-sharply-mutt.ngrok-free.app', 
-          'https://wf.new.whatsfresh.app'],
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        credentials: true,
-        maxAge: 86400 // 24 hours
-    }
+export {
+    limiter as rateLimiter,
+    authLimiter as authRateLimiter,
+};
+
+export const securityHeaders = helmet(helmetConfig);
+
+export const corsOptions = {
+    origin: ['http://localhost:3000', 
+      'https://crisp-sharply-mutt.ngrok-free.app', 
+      'https://wf.new.whatsfresh.app'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    maxAge: 86400 // 24 hours
 };

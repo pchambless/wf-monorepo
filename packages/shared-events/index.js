@@ -47,3 +47,14 @@ export {
   getClientEventParams as getEventParams,
   getClientChildEntities as getChildEntities,
 };
+
+// Default export for compatibility with server imports
+export default {
+  CLIENT_EVENTS,
+  ADMIN_EVENTS,
+  EVENT_TYPES: ALL_EVENTS,
+  getEventType,
+  getEventParams: getClientEventParams,
+  getChildEntities: getClientChildEntities,
+  getSafeEventTypes: getClientSafeEventTypes
+};

@@ -1,18 +1,23 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const path = require('path');
-const { 
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Create __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import { 
   rateLimiter, 
   authRateLimiter, 
   securityHeaders, 
   corsOptions 
-} = require('./middleware/security');
-const errorHandler = require('@middleware/errorHandler');
-const logger = require('@utils/logger');
-const userLogin = require('@controller/userLogin'); // Import the userLogin controller
-const execEventType = require('@controller/execEventType');
+} from './middleware/security.js';
+import errorHandler from './middleware/errorHandler.js';
+import logger from './utils/logger.js';
+import userLogin from './controller/userLogin.js';
+import execEventType from './controller/execEventType.js';
 const codeName = `[app.js] `;
 
 dotenv.config();
@@ -165,7 +170,7 @@ app.get('/', (req, res) => {
 // Error handling middleware
 app.use(errorHandler);
 
-module.exports = {
+export {
   app,
   port
 };

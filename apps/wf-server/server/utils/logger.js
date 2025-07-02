@@ -1,7 +1,13 @@
 // server/utils/logger.js
-const winston = require('winston');
-require('winston-daily-rotate-file');
-const path = require('path');
+import winston from 'winston';
+import 'winston-daily-rotate-file';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// Get __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const LOG_DIR = path.join(__dirname, '../logs');
 const LOG_LEVEL = process.env.NODE_ENV === 'production' ? 'info' : 'debug';
@@ -138,7 +144,7 @@ function sanitizeLogData(data) {
 }
 
 // Export a wrapper with additional context methods
-module.exports = {
+export default {
   error: (message, ...args) => logger.error(message, ...args),
   warn: (message, ...args) => logger.warn(message, ...args),
   info: (message, ...args) => logger.info(message, ...args),

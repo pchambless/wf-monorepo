@@ -1,6 +1,6 @@
-require('module-alias/register');
-const { exec } = require('child_process');
-const logger = require('@utils/logger');
+import { exec } from 'child_process';
+import logger from '../utils/logger.js';
+
 const codeName = '[restartServer.js]';
 
 /**
@@ -43,36 +43,36 @@ const execWithTimeout = (command, timeout) => {
   });
 };
 
-module.exports = {
-  /**
-   * Restarts the server using PM2
-   * @param {import('express').Request} req - Express request object
-   * @param {import('express').Response} res - Express response object
-   * @returns {Promise<void>}
-   */
-  restartServer: (req, res) => {
-    logger.info(`${codeName} Received request to restart the server.`);
-    
-    exec('pm2 restart wf-server', (error, stdout, stderr) => {
-      if (error) {
-        logger.error(`${codeName} Error restarting server:`, error);
-        return res.status(500).json({
-          success: false,
-          message: 'Failed to restart the server',
-          error: error.message
-        });
-      }
-      
-      if (stderr) {
-        logger.warn(`${codeName} Server restart warning:`, stderr);
-      }
-      
-      logger.info(`${codeName} Server restart output:`, stdout);
-      res.json({
-        success: true,
-        message: 'Server restarted successfully',
-        output: stdout
+/**
+ * Restarts the server using PM2
+ * @param {import('express').Request} req - Express request object
+ * @param {import('express').Response} res - Express response object
+ * @returns {Promise<void>}
+ */
+const restartServer = (req, res) => {
+  logger.info(`${codeName} Received request to restart the server.`);
+  
+  exec('pm2 restart wf-server', (error, stdout, stderr) => {
+    if (error) {
+      logger.error(`${codeName} Error restarting server:`, error);
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to restart the server',
+        error: error.message
       });
+    }
+    
+    if (stderr) {
+      logger.warn(`${codeName} Server restart warning:`, stderr);
+    }
+    
+    logger.info(`${codeName} Server restart output:`, stdout);
+    res.json({
+      success: true,
+      message: 'Server restarted successfully',
+      output: stdout
     });
-  }
+  });
 };
+
+export default { restartServer };

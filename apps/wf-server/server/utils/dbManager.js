@@ -1,5 +1,6 @@
-const logger = require('./logger');
-const { createPool, getConfig } = require('@whatsfresh/db-connect');
+import logger from './logger.js';
+import dbConnectPkg from '@whatsfresh/db-connect';
+const { createPool, getConfig } = dbConnectPkg;
 const codeName = '[dbManager.js]';
 
 class DatabaseManager {
@@ -180,4 +181,4 @@ class DatabaseManager {
 
 // Export singleton instance
 const dbManager = new DatabaseManager();
-module.exports = dbManager;
+export default dbManager;

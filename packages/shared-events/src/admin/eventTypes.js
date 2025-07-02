@@ -97,7 +97,7 @@ function getSafeEventTypes() {
   });
 }
 
-module.exports = {
+export {
   EVENTS,
   getEventType,
   getChildEntities,

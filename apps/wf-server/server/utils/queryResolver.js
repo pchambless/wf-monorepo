@@ -1,4 +1,5 @@
-const logger = require('./logger');
+import logger from './logger.js';
+
 const codeName = '[queryResolver.js]';
 
 const replacePlaceholder = (qrySQL, paramName, paramValue) => {
@@ -37,4 +38,4 @@ const createRequestBody = (qrySQL, params) => {
   return qryMod;
 };
 
-module.exports = { createRequestBody };
+export { createRequestBody };
