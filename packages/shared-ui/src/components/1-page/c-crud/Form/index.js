@@ -1,4 +1,4 @@
 /**
  * Form module exports
  */
-export { default } from './Form';
+export { default } from './Form.jsx';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Box, FormControl, Select, MenuItem, CircularProgress, Typography } from '@mui/material';
-import { useAccountStore } from '../../hooks/useAccountStore';
+// Removed useAccountStore - widgets should be self-contained with explicit params
 import { execEvent } from '@whatsfresh/shared-events';
 
 /**
@@ -24,8 +24,7 @@ export const SelectWidget = ({
   disabled = false,
   ...props
 }) => {
-  // Get account store for current account ID
-  const accountStore = useAccountStore();
+  // Note: accountStore removed - widgets should pass all required params explicitly
   
   // Component state
   const [selectedId, setSelectedId] = useState(value);
@@ -43,19 +42,10 @@ export const SelectWidget = ({
     }
     
     const loadData = async () => {
-      // Don't try to load if no account selected yet
-      if (!accountStore.currentAcctID && params[':acctID'] === undefined) {
-        setLoading(false);
-        return;
-      }
-      
       setLoading(true);
       try {
-        // Build parameters with account ID and any parent params
-        const eventParams = { 
-          ':acctID': accountStore.currentAcctID,
-          ...params
-        };
+        // Use only the params passed to the widget - no auto-injection
+        const eventParams = { ...params };
         
         const result = await execEvent(eventName, eventParams);
         

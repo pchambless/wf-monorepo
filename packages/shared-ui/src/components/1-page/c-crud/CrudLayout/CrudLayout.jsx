@@ -4,7 +4,7 @@ import { Box, Grid } from '@mui/material';
 import Table from '../Table';
 import Form from '../Form';
 import AddButton from './components/AddButton';
-import { createLogger } from '@whatsfresh/shared-imports/logger';
+import createLogger from '@whatsfresh/shared-imports/logger';
 
 const log = createLogger('CrudLayout');
 
