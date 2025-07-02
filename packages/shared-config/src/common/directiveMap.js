@@ -222,7 +222,7 @@ function processDirectives(directives) {
   return result;
 }
 
-module.exports = {
+export {
   directiveMap,
   processDirectives,
   FIELD_TYPES

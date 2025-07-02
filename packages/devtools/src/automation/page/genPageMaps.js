@@ -9,7 +9,7 @@ import fsPromises from 'fs/promises';
 import path from 'path';
 import minimist from 'minimist';
 import { fileURLToPath } from 'url';
-import { getToolConfig } from '@whatsfresh/shared-imports';
+import { getToolConfig } from '../../toolConfig.js';
 import { sharedConfig, sharedUI, createLogger } from '@whatsfresh/shared-imports';
 
 const __filename = fileURLToPath(import.meta.url);

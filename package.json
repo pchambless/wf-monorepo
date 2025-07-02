@@ -7,18 +7,18 @@
   ],
   "scripts": {
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
-    "dev": "yarn workspace wf-client start",
-    "server": "yarn workspace wf-server dev",
-    "build": "yarn generate-page-maps && yarn generate-docs && yarn generate-visuals && yarn workspaces run build",
-    "test": "yarn workspaces run test",
-    "lint": "yarn workspaces run lint",
+    "dev": "npm run --workspace=wf-client start",
+    "server": "npm run --workspace=wf-server dev",
+    "build": "npm run generate-page-maps && npm run generate-docs && npm run generate-visuals && npm run --workspaces build",
+    "test": "npm run --workspaces test",
+    "lint": "npm run --workspaces lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "generate-directives": "node packages/devtools/src/automation/page/genDirectives.js",
     "generate-page-maps": "node packages/devtools/src/automation/page/genPageMaps.js",
     "generate-docs": "node packages/devtools/src/docs/automation/genMasterDocs.js",
     "generate-visuals": "node tools/page-generator/genVisualDocs.js",
-    "generate:all": "yarn generate-samples && yarn generate-directives && yarn generate-page-maps && yarn generate-docs && yarn generate-visuals",
+    "generate:all": "npm run generate-samples && npm run generate-directives && npm run generate-page-maps && npm run generate-docs && npm run generate-visuals",
     "generate:optimized": "node tools/page-generator/genOptimizedConfigs.js",
     "scaffold:section": "node packages/devtools/src/docs/sections/scaffoldRun.js",
     "run:section": "node packages/devtools/src/docs/sections/sectionRun.js"
@@ -40,6 +40,5 @@
   "_moduleAliases": {
     "@packages": "./packages",
     "@apps": "./apps"
-  },
-  "packageManager": "yarn@4.9.2"
+  }
 }
