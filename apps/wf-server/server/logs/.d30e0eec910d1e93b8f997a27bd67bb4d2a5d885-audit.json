@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/.d30e0eec910d1e93b8f997a27bd67bb4d2a5d885-audit.json",
+    "files": [
+        {
+            "date": 1751466906451,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-07-02.log",
+            "hash": "6230485c4a089c19d9747aff19594fdff06112925dde684474af1be3bd7f5cd8"
+        }
+    ],
+    "hashType": "sha256"
+}

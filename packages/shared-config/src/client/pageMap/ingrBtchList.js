@@ -4,9 +4,6 @@ export default {
   "title": "Ingredient Batches",
   "systemConfig": {
     "schema": "whatsfresh",
-    "table": "ingredient_batches",
-    "primaryKey": "ingrBtchID",
-    "parentIdField": "ingrID",
     "listEvent": "ingrBtchList"
   },
   "uiConfig": {
@@ -21,9 +18,9 @@ export default {
   "tableConfig": {
     "columns": [
       {
-        "field": "btchID",
-        "label": "btchID",
-        "width": 150,
+        "field": "ingrBtchID",
+        "label": "Ingr Btch I D",
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
@@ -33,6 +30,14 @@ export default {
         "label": "Batch Number",
         "width": "120",
         "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "purchDate",
+        "label": "Purch Date",
+        "width": 100,
+        "type": "date",
         "editable": true,
         "hidden": false
       },
@@ -69,12 +74,36 @@ export default {
         "hidden": false
       },
       {
+        "field": "bestByDate",
+        "label": "Best By Date",
+        "width": 100,
+        "type": "date",
+        "editable": true,
+        "hidden": false
+      },
+      {
         "field": "ingrID",
-        "label": "ingrID",
-        "width": 150,
-        "type": "text",
+        "label": "Ingredient",
+        "width": 120,
+        "type": "select",
         "editable": false,
         "hidden": true
+      },
+      {
+        "field": "DECIMAL",
+        "label": "D E C I M A L",
+        "width": 120,
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "purch_dtl",
+        "label": "Purch_dtl",
+        "width": 120,
+        "type": "text",
+        "editable": true,
+        "hidden": false
       }
     ]
   },
@@ -85,8 +114,8 @@ export default {
         "title": "Group 1",
         "fields": [
           {
-            "field": "btchID",
-            "label": "btchID",
+            "field": "ingrBtchID",
+            "label": "Ingr Btch I D",
             "type": "number",
             "required": false,
             "hidden": true
@@ -104,21 +133,36 @@ export default {
             "type": "select",
             "required": true,
             "hidden": false,
-            "selList": "vndrList"
+            "widget": "selVndr"
           },
           {
-            "field": "comments",
-            "label": "Comments",
-            "type": "multiLine",
+            "field": "ingrID",
+            "label": "Ingredient",
+            "type": "select",
+            "required": false,
+            "hidden": true
+          },
+          {
+            "field": "DECIMAL",
+            "label": "D E C I M A L",
+            "type": "text",
             "required": false,
             "hidden": false
           },
           {
-            "field": "ingrID",
-            "label": "ingrID",
+            "field": "purch_dtl",
+            "label": "Purch_dtl",
             "type": "text",
             "required": false,
-            "hidden": true
+            "hidden": false
+          },
+          {
+            "field": "acctID",
+            "label": "Account",
+            "type": "select",
+            "required": false,
+            "hidden": false,
+            "widget": "selAcct"
           }
         ]
       },
@@ -132,7 +176,7 @@ export default {
             "type": "select",
             "required": false,
             "hidden": false,
-            "selList": "brndList"
+            "widget": "selBrnd"
           }
         ]
       },
@@ -167,7 +211,7 @@ export default {
             "type": "select",
             "required": true,
             "hidden": false,
-            "selList": "measList"
+            "widget": "selMeas"
           }
         ]
       },
@@ -176,9 +220,36 @@ export default {
         "title": "Group 4",
         "fields": [
           {
+            "field": "purchDate",
+            "label": "Purch Date",
+            "type": "date",
+            "required": false,
+            "hidden": false
+          },
+          {
             "field": "lotNbr",
             "label": "Lot Number",
             "type": "text",
+            "required": false,
+            "hidden": false
+          },
+          {
+            "field": "bestByDate",
+            "label": "Best By Date",
+            "type": "date",
+            "required": false,
+            "hidden": false
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "title": "Group 5",
+        "fields": [
+          {
+            "field": "comments",
+            "label": "Comments",
+            "type": "multiLine",
             "required": false,
             "hidden": false
           }
@@ -188,22 +259,27 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "btchID": "id",
-      "btchNbr": "batch_number",
-      "vndrID": "vendor_id",
-      "brndID": "brand_id",
-      "unitQty": "unit_quantity",
-      "unitPrice": "unit_price",
-      "purchQty": "purchase_quantity",
-      "measID": "global_measure_unit_id",
-      "lotNbr": "lot_number",
+      "ingrBtchID": "ingrBtchID",
+      "btchNbr": "btchNbr",
+      "vndrID": "vndrID",
+      "brndID": "brndID",
+      "purchDate": "purchDate",
+      "unitQty": "unitQty",
+      "unitPrice": "unitPrice",
+      "purchQty": "purchQty",
+      "measID": "measID",
+      "lotNbr": "lotNbr",
+      "bestByDate": "bestByDate",
       "comments": "comments",
-      "ingrID": "ingredient_id"
+      "ingrID": "ingrID",
+      "DECIMAL": "DECIMAL",
+      "purch_dtl": "purch_dtl",
+      "acctID": "acctID"
     },
     "operations": {
       "insert": {
         "excludeFields": [
-          "btchID"
+          "ingrBtchID"
         ]
       },
       "update": {},

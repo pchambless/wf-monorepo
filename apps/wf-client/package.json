@@ -13,6 +13,7 @@
     "@mui/system": "^5.15.11",
     "@mui/x-data-grid": "^7.26.0",
     "@mui/x-date-pickers": "^7.0.0",
+    "@mui/x-internals": "^8.6.0",
     "@reduxjs/toolkit": "^2.5.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
