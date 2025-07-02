@@ -1,5 +1,5 @@
 import createLogger from '../logger';
-import { modalStore } from '@modal';
+import { modalStore } from '@whatsfresh/shared-ui';
 import React from 'react';
 import { toJS } from 'mobx';
 import SQLPreviewContent from '@components/dml/SQLPreviewContent'; // Import the component

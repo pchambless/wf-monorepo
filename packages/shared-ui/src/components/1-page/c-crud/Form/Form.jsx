@@ -5,7 +5,8 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'rea
 import { observer } from 'mobx-react-lite';
 import FormStore from './stores/FormStore';
 import createLogger from '@utils/logger';
-import FormField from '../FormField';
+// FormField removed - using modern widgets system
+// TODO: Replace with modern field widgets when form rendering is implemented
 import { 
   Paper, Grid, Button, Typography, Box, Alert, CircularProgress
 } from '@mui/material';
@@ -177,13 +178,12 @@ const Form = observer(forwardRef(({
           <Grid container spacing={2} key={groupId} sx={{ mb: 2 }}>
             {columns.map(column => (
               <Grid item xs={column.displayType === 'multiLine' ? 12 : 6} key={column.field}>
-                <FormField 
-                  column={safeProp(column)}
-                  value={safeProp(formStore.formData[column.field])}
-                  error={safeProp(formStore.errors[column.field])}
-                  onChange={(value) => formStore.setFieldValue(column.field, value)}
-                  disabled={formStore.formMode === 'SELECT'}
-                />
+                {/* TODO: Replace with modern widget system */}
+                <Box p={2} border="1px dashed #ccc">
+                  <Typography variant="caption">
+                    Field: {column.field} (Legacy FormField removed - implement with modern widgets)
+                  </Typography>
+                </Box>
               </Grid>
             ))}
           </Grid>
