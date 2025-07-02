@@ -1,0 +1,14 @@
+[
+  {
+    "name": "acctList",
+    "title": "Accounts",
+    "schema": "whatsfresh",
+    "table": "accounts"
+  },
+  {
+    "name": "userList",
+    "title": "Users",
+    "schema": "whatsfresh",
+    "table": "users"
+  }
+]

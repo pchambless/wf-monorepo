@@ -1,0 +1,18 @@
+CREATE TABLE `measures` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`account_id` INT UNSIGNED NOT NULL,
+	`name` VARCHAR(30) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`abbrev` VARCHAR(250) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`oldID` INT UNSIGNED NOT NULL DEFAULT '0',
+	`created_at` TIMESTAMP NULL DEFAULT NULL,
+	`created_by` INT UNSIGNED NULL DEFAULT NULL,
+	`deleted_at` TIMESTAMP NULL DEFAULT NULL,
+	`deleted_by` INT UNSIGNED NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `acctIDX` (`account_id`) USING BTREE,
+	CONSTRAINT `FK_measures_accounts` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+)
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=128
+;

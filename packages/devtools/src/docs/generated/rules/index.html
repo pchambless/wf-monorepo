@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture Rules - WhatsFresh Documentation</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <!-- WhatsFresh Documentation Navigation Template -->
+<nav class="nav">
+  <div class="nav-content">
+    <h1>WhatsFresh Documentation</h1>
+    <div class="nav-links">
+      <a href="../index.html" >Home</a>
+      <a href="../widgets/index.html" >Widgets</a>
+      <a href="../pages/index.html" >Pages</a>
+      <a href="../events/index.html" >Events</a>
+      <a href="../directives/index.html" >Directives</a>
+      <a href="../api/index.html" >API</a>
+      <a href="../rules/index.html" class="active">Rules</a>
+    </div>
+  </div>
+</nav>
+  
+  <div class="container">
+    <div class="content">
+      <h1>WhatsFresh Development Rules Collection</h1><p></p>
+<p></p><p></p>
+<p><em>Capturing architectural decisions and development standards as they emerge.</em></p><p></p>
+<p></p><p></p>
+<p>---</p><p></p>
+<p></p><p></p>
+<h2>Database Design Rules</h2><p></p>
+<p></p><p></p>
+<h3>[CRUD-VIEWS] One Entity Per Row</h3><p></p>
+<p><strong>Rule:</strong> All CRUD views must return exactly one row per entity instance.</p><p></p>
+<ul><li>✅ **Correct:** <code>prodBtchList</code> returns one row per product batch</li></p><p></p>
+<p><li>❌ **Incorrect:** Including ingredient details that create multiple rows per product batch</li></p><p></p>
+<p><li>**Reason:** Essential for clean table displays, edit/delete operations, predictable API responses</li></p><p></p>
+<p><li>**Exception:** Reporting views can have complex relationships (separate from CRUD)</li></p><p></p>
+<p></p><p></p>
+<h3>[LEGACY-FOUNDATION] Use Proven Legacy Views</h3><p></p>
+<p><strong>Rule:</strong> Leverage existing legacy views as foundation where they exist, don't rebuild proven business logic.</p><p></p>
+<p><li>**Approach:** Create clean API mapping layer on top of legacy views</li></p><p></p>
+<p><li>**Example:** <code>rcpeList</code> uses <code>v_prd_rcpe_dtl</code> foundation</li></p><p></p>
+<p><li>**Benefit:** Proven business logic, complex joins already solved, consistent calculations</li></p><p></p>
+<p></p><p></p>
+<h3>[VIEW-SEPARATION] CRUD vs Reporting Views</h3><p></p>
+<p><strong>Rule:</strong> Separate CRUD operations from complex reporting requirements.</p><p></p>
+<p><li>**CRUD Views:** Clean, one-entity-per-row, optimized for operations</li></p><p></p>
+<p><li>**Reporting Views:** Complex relationships, analytics, detailed traceability</li></p><p></p>
+<p><li>**Implementation:** Use different view names (e.g., <code>prodBtchList</code> vs <code>prodBtchTraceList</code>)</li></p><p></p>
+<p></p><p></p>
+<p>---</p><p></p>
+<p></p><p></p>
+<h2>UI/Frontend Rules</h2><p></p>
+<p></p><p></p>
+<h3>[TABLE-HIDE] Auto-Hide Patterns</h3><p></p>
+<p><strong>Rule:</strong> Certain field types are automatically hidden in table views.</p><p></p>
+<p><li>**Always Hidden:** System fields (<code>sys: true</code>, <code>PK: true</code>, <code>parentKey: true</code>)</li></p><p></p>
+<p><li>**Always Hidden:** Select widgets (<code>type: 'select'</code>) - keep tables clean</li></p><p></p>
+<p><li>**Always Hidden:** Multi-line text (<code>type: 'multiLine'</code>) - too large for tables</li></p><p></p>
+<p><li>**Always Hidden:** BI fields (<code>BI: true</code>) - reporting only, not operational</li></p><p></p>
+<p></p><p></p>
+<h3>[SYSTEM-FIELDS] No Groups for Hidden Fields</h3><p></p>
+<p><strong>Rule:</strong> System and BI fields don't get <code>grp</code> assignments since they're hidden.</p><p></p>
+<p><li>**System fields:** <code>PK</code>, <code>sys</code>, <code>parentKey</code> → no <code>grp</code> needed</li></p><p></p>
+<p><li>**BI fields:** <code>BI: true</code> → no <code>grp</code> needed  </li></p><p></p>
+<p><li>**Reason:** Hidden fields don't participate in form layout grouping</li></p><p></p>
+<p></p><p></p>
+<h3>[WIDTH-STRATEGY] Smart Table Width Allocation</h3><p></p>
+<p><strong>Rule:</strong> Optimize table widths for scanning, not data extremes.</p><p></p>
+<p><li>**Reserve space:** ~80px for action buttons (delete, drill-down)</li></p><p></p>
+<p><li>**Field types:** Text(120px), Number(80px), Decimal(100px), Date(100px), Boolean(60px)</li></p><p></p>
+<p><li>**Avoid outliers:** Don't size for "Organic Extra Virgin Olive Oil" - use reasonable defaults</li></p><p></p>
+<p><li>**Long content:** Belongs in <code>comments/description</code> fields, not display fields</li></p><p></p>
+<p></p><p></p>
+<p>---</p><p></p>
+<p></p><p></p>
+<h2>Directive System Rules</h2><p></p>
+<p></p><p></p>
+<h3>[WIDGET-SIMPLIFICATION] Direct Widget Mapping</h3><p></p>
+<p><strong>Rule:</strong> Use <code>widget</code> directive directly, eliminate <code>selList</code> redundancy.</p><p></p>
+<p><li>✅ **New way:** <code>{ type: 'select', widget: 'selVndr' }</code></li></p><p></p>
+<p><li>❌ **Old way:** <code>{ type: 'select', selList: 'vndrList', widget: 'selVndr' }</code></li></p><p></p>
+<p><li>**Reason:** Widget registry already has dataSource mappings, no need for both</li></p><p></p>
+<p></p><p></p>
+<h3>[FIELD-AUTO-MAPPING] Type-Based Widget Resolution</h3><p></p>
+<p><strong>Rule:</strong> Standard field types auto-map to widgets, only specify widget for specialized components.</p><p></p>
+<p><li>**Auto-mapped:** <code>type: 'text'</code> → <code>TextField</code>, <code>type: 'date'</code> → <code>DateField</code></li></p><p></p>
+<p><li>**Explicit widget:** Only for specialized components (<code>selVndr</code>, <code>crudTbl</code>, <code>rcntIngrBtch</code>)</li></p><p></p>
+<p><li>**Result:** Less redundancy, system "just works" for 90% of fields</li></p><p></p>
+<p></p><p></p>
+<h3>[MANUAL-OVERRIDES] Preserve User Customizations</h3><p></p>
+<p><strong>Rule:</strong> Never overwrite manual customizations during directive generation.</p><p></p>
+<p><li>**Protected:** <code>label</code>, <code>width</code>, <code>grp</code>, <code>required</code>, <code>tableHide</code>, <code>formHide</code></li></p><p></p>
+<p><li>**Approach:** Generate smart defaults, but preserve existing manual values</li></p><p></p>
+<p><li>**Reason:** Respect developer judgment and customizations</li></p><p></p>
+<p></p><p></p>
+<h3>[BI-EXCLUSION] Business Intelligence Field Handling</h3><p></p>
+<p><strong>Rule:</strong> BI fields are automatically excluded from CRUD operations.</p><p></p>
+<p><li>**Streamlined:** <code>BI: true</code> automatically implies exclusion from tables, forms, and DML</li></p><p></p>
+<p><li>**No redundancy:** Don't specify <code>tableHide: true</code>, <code>formHide: true</code>, <code>excludeFromDML: true</code> when <code>BI: true</code></li></p><p></p>
+<p><li>**Purpose:** Reporting/analytics only, not for user interaction</li></p><p></p>
+<p><li>**Examples:** Calculated totals, status summaries, derived analytics</li></p><p></p>
+<p></p><p></p>
+<h3>[POSITIVE-ATTRIBUTES] Only Specify True Values</h3><p></p>
+<p><strong>Rule:</strong> Only include boolean attributes when they are true, omit when false.</p><p></p>
+<p><li>✅ **Clean:** <code>{ "required": true, "tableHide": true }</code></li></p><p></p>
+<p><li>❌ **Verbose:** <code>{ "required": true, "tableHide": true, "formHide": false, "searchable": false }</code></li></p><p></p>
+<p><li>**Logic:** Absence implies false for boolean attributes</li></p><p></p>
+<p><li>**Exception:** Document any cases where <code>attribute: false</code> is explicitly needed</li></p><p></p>
+<p></p><p></p>
+<h3>[REQUIRED-DETECTION] Auto-Detect from Database Schema</h3><p></p>
+<p><strong>Rule:</strong> Use database schema as source of truth for required field detection.</p><p></p>
+<p><li>**Method:** <code>NOT NULL</code> columns → <code>required: true</code></li></p><p></p>
+<p><li>**Override:** Manual override still possible for business logic requirements  </li></p><p></p>
+<p><li>**Benefit:** Stays in sync with database, reduces manual directive maintenance</li></p><p></p>
+<p></p><p></p>
+<p>---</p><p></p>
+<p></p><p></p>
+<h2>API/Integration Rules</h2><p></p>
+<p></p><p></p>
+<h3>[FIELD-NAMING] Consistent API Conventions</h3><p></p>
+<p><strong>Rule:</strong> Maintain consistent field naming patterns across views.</p><p></p>
+<p><li>**Primary Keys:** Follow entity-specific patterns (see PRIMARY-KEY-PATTERNS)</li></p><p></p>
+<p><li>**Names:** <code>btchNbr</code>, <code>ingrName</code>, <code>prodName</code>, <code>vndrName</code></li></p><p></p>
+<p><li>**Abbreviations:** Follow established patterns (<code>btch</code>, <code>ingr</code>, <code>prod</code>, <code>vndr</code>, <code>brnd</code>, <code>meas</code>)</li></p><p></p>
+<p></p><p></p>
+<h3>[PRIMARY-KEY-PATTERNS] Primary Key Naming Rules</h3><p></p>
+<p><strong>Rule:</strong> Primary key field names follow predictable patterns to eliminate hardcoding.</p><p></p>
+<p></p><p></p>
+<p>#### **CRUD View Primary Keys:**</p><p></p>
+<p><li>**<code>ingrBtchList</code>** → <code>ingrBtchID</code> (ingredient batch primary key)</li></p><p></p>
+<p><li>**<code>prodBtchList</code>** → <code>prodBtchID</code> (product batch primary key)  </li></p><p></p>
+<p><li>**<code>ingrList</code>** → <code>ingrID</code> (ingredient master primary key)</li></p><p></p>
+<p><li>**<code>prodList</code>** → <code>prodID</code> (product master primary key)</li></p><p></p>
+<p><li>**<code>vndrList</code>** → <code>vndrID</code> (vendor primary key)</li></p><p></p>
+<p><li>**<code>brndList</code>** → <code>brndID</code> (brand primary key)</li></p><p></p>
+<p><li>**<code>measList</code>** → <code>measID</code> (measure primary key)</li></p><p></p>
+<p><li>**<code>wrkrList</code>** → <code>wrkrID</code> (worker primary key)</li></p><p></p>
+<p><li>**<code>taskList</code>** → <code>taskID</code> (task primary key)</li></p><p></p>
+<p><li>**<code>rcpeList</code>** → <code>rcpeID</code> (recipe primary key)</li></p><p></p>
+<p><li>**<code>ingrTypeList</code>** → <code>ingrTypeID</code> (ingredient type primary key)</li></p><p></p>
+<p><li>**<code>prodTypeList</code>** → <code>prodTypeID</code> (product type primary key)</li></p><p></p>
+<p></p><p></p>
+<p>#### **Admin View Primary Keys:**</p><p></p>
+<p><li>**<code>acctList</code>** → <code>acctID</code> (account primary key)</li></p><p></p>
+<p><li>**<code>userList</code>** → <code>userID</code> (user primary key)</li></p><p></p>
+<p></p><p></p>
+<p>#### **Pattern Rules:**</p><p></p>
+<p>1. **Entity-specific prefixes:** Batch entities use full context (<code>ingrBtch</code>, <code>prodBtch</code>)</p><p></p>
+<p>2. **Master entity keys:** Use entity abbreviation (<code>ingr</code>, <code>prod</code>, <code>vndr</code>, <code>brnd</code>)</p><p></p>
+<p>3. **Type classifications:** Include "Type" in name (<code>ingrType</code>, <code>prodType</code>)</p><p></p>
+<p>4. **Consistent suffix:** Always end with <code>ID</code></p><p></p>
+<p></p><p></p>
+<p>#### **Implementation Benefits:**</p><p></p>
+<p><li>**Auto-detection:** System can determine primary key from view name</li></p><p></p>
+<p><li>**DML operations:** Automatic field mapping without hardcoding</li></p><p></p>
+<p><li>**Form generation:** Automatic hidden field handling</li></p><p></p>
+<p><li>**API consistency:** Predictable field names across all endpoints</li></p><p></p>
+<p></p><p></p>
+<p>---</p><p></p>
+<p></p><p></p>
+<h2>Development Process Rules</h2><p></p>
+<p></p><p></p>
+<h3>[SIMPLIFICATION-PRIORITY] Eliminate Redundancy</h3><p></p>
+<p><strong>Rule:</strong> Always look for opportunities to simplify and eliminate redundant patterns.</p><p></p>
+<p><li>**Question:** "Do we need both X and Y, or can one handle both cases?"</li></p><p></p>
+<p><li>**Examples:** Eliminated <code>selList</code> + <code>widget</code> redundancy</li></p><p></p>
+<p><li>**Benefit:** Less cognitive load, fewer moving parts, easier maintenance</li></p><p></p>
+<p></p><p></p>
+<h3>[RULE-CAPTURE] Document Decisions as They Emerge</h3><p></p>
+<p><strong>Rule:</strong> Capture architectural decisions immediately when agreed upon.</p><p></p>
+<p><li>**Why:** Prevents inconsistency as system grows</li></p><p></p>
+<p><li>**When:** During code reviews, architecture discussions, problem-solving</li></p><p></p>
+<p><li>**Format:** Rule name, description, examples, reasoning</li></ul><p></p>
+<p></p><p></p>
+<p>---</p><p></p>
+<p></p><p></p>
+<p><em>This document will be reorganized into proper sections once development patterns stabilize.</em></p>
+    </div>
+  </div>
+  
+  <footer class="text-center text-muted" style="padding: 2rem;">
+    <p>Generated by WhatsFresh DevTools • 7/1/2025</p>
+  </footer>
+</body>
+</html>

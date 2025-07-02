@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+      <title>selIngr Widget - WhatsFresh</title>
+      <style>
+        body { font-family: system-ui, sans-serif; line-height: 1.5; padding: 2rem; max-width: 800px; margin: 0 auto; }
+        table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+        th, td { text-align: left; padding: 0.5rem; border: 1px solid #ddd; }
+        th { background: #f5f5f5; width: 30%; }
+        pre { background: #f5f5f5; padding: 1rem; border-radius: 4px; overflow: auto; }
+        code { font-family: monospace; }
+        .back { margin-bottom: 1rem; }
+      </style>
+    </head>
+    <body>
+      <div class="back"><a href="./index.html">← Back to Widget Registry</a></div>
+      <h1>selIngr Widget</h1>
+      <p>Ingredient selection dropdown</p>
+      
+      <h2>Properties</h2>
+      <table>
+        <tr><th>ID</th><td>selIngr</td></tr>
+        <tr><th>Component</th><td>SelIngr</td></tr>
+        <tr><th>Type</th><td>selection</td></tr>
+        <tr><th>Data Source</th><td>ingrList</td></tr>
+        <tr><th>Default Size</th><td>small</td></tr>
+        <tr><th>Used In</th><td>client</td></tr>
+      </table>
+      
+      <h2>Usage Example</h2>
+      <pre><code>import { SelIngr } from '@whatsfresh/shared-ui';
+import { useAccountStore } from '../stores/accountStore';
+
+function MyComponent() {
+  const accountStore = useAccountStore();
+  
+  // Basic usage
+  return &lt;SelIngr /&gt;;
+  
+  // With store data
+  return &lt;SelIngr
+    data={accountStore.ingrList}
+    onChange={handleChange}
+  /&gt;;
+}</code></pre>
+    </body>
+    </html>

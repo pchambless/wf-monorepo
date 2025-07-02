@@ -1,0 +1,363 @@
+{
+  "nodes": [
+    {
+      "id": "userLogin",
+      "label": "page:Login<br>userLogin<br>[::userEmail, ::enteredPassword]",
+      "category": "page:Login",
+      "meta": {
+        "cluster": "AUTH",
+        "method": "GET",
+        "purpose": "Authenticate user login",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "userAcctList",
+      "label": "ui:select<br>userAcctList<br>[::userID]",
+      "category": "ui:select",
+      "meta": {
+        "cluster": "AUTH",
+        "selWidget": "SelUserAcct",
+        "method": "GET",
+        "purpose": "Get accounts accessible to user",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "ingrTypeList",
+      "label": "page:Crud<br>ingrTypeList<br>[::acctID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredient_types",
+        "selWidget": "SelIngrType",
+        "method": "GET",
+        "purpose": "Get ingredient types for an account",
+        "primaryKey": "ingrTypeID"
+      }
+    },
+    {
+      "id": "ingrList",
+      "label": "page:Crud<br>ingrList<br>[::acctID, ::ingrTypeID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredients",
+        "selWidget": "SelIngr",
+        "method": "GET",
+        "purpose": "Get ingredients for an account",
+        "primaryKey": "ingrID"
+      }
+    },
+    {
+      "id": "ingrBtchList",
+      "label": "page:Crud<br>ingrBtchList<br>[::ingrID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredient_batches",
+        "selWidget": "SelIngrBtch",
+        "method": "GET",
+        "purpose": "Get ingredient batches for a product",
+        "primaryKey": "ingrBtchID"
+      }
+    },
+    {
+      "id": "prodTypeList",
+      "label": "page:Crud<br>prodTypeList<br>[::acctID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_types",
+        "selWidget": "SelProdType",
+        "method": "GET",
+        "purpose": "Get product types for an account",
+        "primaryKey": "prodTypeID"
+      }
+    },
+    {
+      "id": "prodList",
+      "label": "page:Crud<br>prodList<br>[::acctID, ::prodTypeID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "products",
+        "selWidget": "SelProd",
+        "method": "GET",
+        "purpose": "Get products for an account",
+        "primaryKey": "prodID"
+      }
+    },
+    {
+      "id": "taskList",
+      "label": "page:Crud<br>taskList<br>[::prodTypeID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "tasks",
+        "method": "GET",
+        "purpose": "Get tasks for batches",
+        "primaryKey": "taskID"
+      }
+    },
+    {
+      "id": "prodBtchList",
+      "label": "page:Crud<br>prodBtchList<br>[::prodID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_batches",
+        "selWidget": "SelProdBtch",
+        "method": "GET",
+        "purpose": "Get product batches for a product",
+        "primaryKey": "prodBtchID"
+      }
+    },
+    {
+      "id": "brndList",
+      "label": "page:Crud<br>brndList<br>[::acctID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "brands",
+        "selWidget": "SelBrnd",
+        "method": "GET",
+        "purpose": "Get brands for an account",
+        "primaryKey": "brndID"
+      }
+    },
+    {
+      "id": "vndrList",
+      "label": "page:Crud<br>vndrList<br>[::acctID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "vendors",
+        "selWidget": "SelVndr",
+        "method": "GET",
+        "purpose": "Get vendors for an account",
+        "primaryKey": "vndrID"
+      }
+    },
+    {
+      "id": "wrkrList",
+      "label": "page:Crud<br>wrkrList<br>[::acctID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "workers",
+        "selWidget": "SelWrkr",
+        "method": "GET",
+        "purpose": "Get workers for an account",
+        "primaryKey": "wrkrID"
+      }
+    },
+    {
+      "id": "measList",
+      "label": "page:Crud<br>measList<br>[::acctID]",
+      "category": "page:Crud",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "measures",
+        "method": "GET",
+        "purpose": "Get measurement units",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "rcpeList",
+      "label": "page:Recipe<br>rcpeList<br>[::prodID]",
+      "category": "page:Recipe",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_recipes",
+        "method": "GET",
+        "purpose": "Get recipes for an account",
+        "primaryKey": "rcpeID"
+      }
+    },
+    {
+      "id": "btchMapDetail",
+      "label": "page:Mapping<br>btchMapDetail<br>[::prodBtchID]",
+      "category": "page:Mapping",
+      "meta": {
+        "cluster": "MAPPING",
+        "purpose": "Main batch mapping page",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "btchMapRcpeList",
+      "label": "data:Grid<br>btchMapRcpeList<br>[::prodID]",
+      "category": "data:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Get recipe ingredients for a product",
+        "primaryKey": "rcpeID"
+      }
+    },
+    {
+      "id": "btchMapMapped",
+      "label": "data:Grid<br>btchMapMapped<br>[::prodBtchID, ::ingrID]",
+      "category": "data:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Ingr batches mapped to an ingredient for a product batch",
+        "primaryKey": "mapID"
+      }
+    },
+    {
+      "id": "btchMapAvailable",
+      "label": "data:Grid<br>btchMapAvailable<br>[::prodBtchID, ::ingrID]",
+      "category": "data:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Ingr batches available for mapping to a product batch",
+        "primaryKey": "ingrBtchID"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "userLogin",
+      "to": "userAcctList",
+      "label": "",
+      "type": "ui:select"
+    },
+    {
+      "from": "userAcctList",
+      "to": "ingrTypeList",
+      "label": "",
+      "type": "page:Crud"
+    },
+    {
+      "from": "userAcctList",
+      "to": "prodTypeList",
+      "label": "",
+      "type": "page:Crud"
+    },
+    {
+      "from": "userAcctList",
+      "to": "brndList",
+      "label": "",
+      "type": "page:Crud"
+    },
+    {
+      "from": "userAcctList",
+      "to": "vndrList",
+      "label": "",
+      "type": "page:Crud"
+    },
+    {
+      "from": "userAcctList",
+      "to": "wrkrList",
+      "label": "",
+      "type": "page:Crud"
+    },
+    {
+      "from": "userAcctList",
+      "to": "measList",
+      "label": "",
+      "type": "page:Crud"
+    },
+    {
+      "from": "ingrTypeList",
+      "to": "ingrList",
+      "label": "ingrTypeID",
+      "type": "page:Crud"
+    },
+    {
+      "from": "ingrList",
+      "to": "ingrBtchList",
+      "label": "ingrID",
+      "type": "page:Crud"
+    },
+    {
+      "from": "ingrBtchList",
+      "to": "btchMapAvailable",
+      "label": "ingrBtchID",
+      "type": "data:Grid"
+    },
+    {
+      "from": "ingrBtchList",
+      "to": "btchMapMapped",
+      "label": "ingrBtchID",
+      "type": "data:Grid"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "prodList",
+      "label": "prodTypeID",
+      "type": "page:Crud"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "taskList",
+      "label": "prodTypeID",
+      "type": "page:Crud"
+    },
+    {
+      "from": "prodList",
+      "to": "prodBtchList",
+      "label": "prodID",
+      "type": "page:Crud"
+    },
+    {
+      "from": "prodList",
+      "to": "rcpeList",
+      "label": "prodID",
+      "type": "page:Recipe"
+    },
+    {
+      "from": "prodList",
+      "to": "btchMapRcpeList",
+      "label": "prodID",
+      "type": "data:Grid"
+    },
+    {
+      "from": "prodBtchList",
+      "to": "btchMapDetail",
+      "label": "prodBtchID",
+      "type": "page:Mapping"
+    },
+    {
+      "from": "brndList",
+      "to": "ingrBtchList",
+      "label": "brndID",
+      "type": "page:Crud"
+    },
+    {
+      "from": "vndrList",
+      "to": "ingrBtchList",
+      "label": "vndrID",
+      "type": "page:Crud"
+    },
+    {
+      "from": "rcpeList",
+      "to": "btchMapRcpeList",
+      "label": "rcpeID",
+      "type": "data:Grid"
+    },
+    {
+      "from": "btchMapDetail",
+      "to": "btchMapRcpeList",
+      "label": "",
+      "type": "data:Grid"
+    },
+    {
+      "from": "btchMapDetail",
+      "to": "btchMapMapped",
+      "label": "",
+      "type": "data:Grid"
+    },
+    {
+      "from": "btchMapDetail",
+      "to": "btchMapAvailable",
+      "label": "",
+      "type": "data:Grid"
+    }
+  ]
+}
