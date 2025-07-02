@@ -1,6 +1,5 @@
 import { makeAutoObservable } from 'mobx';
 import createLogger from '@utils/logger';
-import { Typography } from '@mui/material';
 
 /**
  * MobX store for managing modal state
@@ -110,11 +109,7 @@ class ModalStore {
     
     this.showModal({
       title,
-      content: (
-        <div>
-          <Typography>{message}</Typography>
-        </div>
-      ),
+      content: message, // Just pass the message string, let the Modal component handle rendering
       actions: [
         {
           label: options.confirmText || 'Confirm',
@@ -178,18 +173,14 @@ class ModalStore {
     this.isOpen = true;
     this.title = options.title || 'An Error Occurred';
     
-    // Use ErrorModal component
-    const ErrorModal = require('./ErrorModal').default;
-    this.content = (
-      <ErrorModal
-        title={options.title || 'An Error Occurred'}
-        message={options.message || 'Something went wrong.'}
-        details={options.details}
-        stack={options.stack}
-        timestamp={options.timestamp || new Date().toISOString()}
-        onClose={() => this.closeModal()}
-      />
-    );
+    // Just pass the error data - let the Modal component handle error rendering
+    this.content = {
+      type: 'error',
+      message: options.message || 'Something went wrong.',
+      details: options.details,
+      stack: options.stack,
+      timestamp: options.timestamp || new Date().toISOString()
+    };
     
     // No actions since ErrorModal handles its own buttons
     this.actions = [];

@@ -1,4 +1,4 @@
-import modalStore from './modalStore';
+import modalStore from './modalStore.js';
 
 /**
  * Custom hook for using the modal system

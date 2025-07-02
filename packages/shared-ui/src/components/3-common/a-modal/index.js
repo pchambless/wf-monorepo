@@ -1,4 +1,4 @@
-import Modal from './Modal.js';
+import Modal from './Modal.jsx';
 import modalStore from './modalStore.js';
 import { useModal } from './useModal.js';
 import { useModalStore } from './useModalStore.js';

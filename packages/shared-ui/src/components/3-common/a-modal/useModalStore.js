@@ -1,4 +1,4 @@
-import modalStore from './modalStore';
+import modalStore from './modalStore.js';
 
 /**
  * Hook to access modalStore with reactive properties
