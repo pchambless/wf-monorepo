@@ -1,6 +1,6 @@
 // Central barrel file for exporting all store functions
 // Import modalStore from new location
-import { modalStore } from '@whatsfresh/shared-ui';
+import { modalStore } from '@whatsfresh/shared-imports';
 
 // From eventStore
 export {

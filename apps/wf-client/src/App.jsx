@@ -9,8 +9,7 @@ import {
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CircularProgress, Box, Typography } from '@mui/material';
-import { ROUTES } from '@whatsfresh/shared-config/src/routes'; // Move this up here
-import { entityRegistry } from '@whatsfresh/shared-config/pageMapRegistry';
+import { ROUTES, entityRegistry } from '@whatsfresh/shared-config';
 
 // Utilities and contexts
 import createLogger, { configureLogger } from './utils/logger';

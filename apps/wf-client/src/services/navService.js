@@ -1,7 +1,7 @@
-import { resolveRoute, getRouteKeyByEvent } from '@whatsfresh/shared-config/src/routes';
+import { resolveRoute, getRouteKeyByEvent } from '@whatsfresh/shared-imports';
 // Removed unused getRoute import
 import accountStore from '@stores/accountStore';
-import createLogger from '@utils/logger';
+import createLogger from '@whatsfresh/shared-imports';
 
 const log = createLogger('NavService');
 

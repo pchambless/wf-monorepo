@@ -18,16 +18,15 @@ services:
 
   wf-client:
     build: 
-      context: ./apps/wf-client
-      dockerfile: ../../Dockerfile.react-app
+      context: .
+      dockerfile: Dockerfile.react-app
       args:
         APP_NAME: client
+        APP_DIR: apps/wf-client
     ports:
       - "3000:3000"
     volumes:
-      # Mount packages for shared dependencies
-      - ./packages:/app/packages
-      # Mount only source code for live development
+      # Mount only source code for live development  
       - ./apps/wf-client/src:/app/src
       - ./apps/wf-client/public:/app/public
       # Preserve container's node_modules and package.json
@@ -42,15 +41,14 @@ services:
 
   wf-admin:
     build: 
-      context: ./apps/wf-admin
-      dockerfile: ../../Dockerfile.react-app
+      context: .
+      dockerfile: Dockerfile.react-app
       args:
         APP_NAME: admin
+        APP_DIR: apps/wf-admin
     ports:
       - "3002:3000"
     volumes:
-      # Mount packages for shared dependencies
-      - ./packages:/app/packages
       # Mount only source code for live development
       - ./apps/wf-admin/src:/app/src
       - ./apps/wf-admin/public:/app/public

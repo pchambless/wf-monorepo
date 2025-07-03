@@ -72,7 +72,7 @@ function generateIndexFile(entityName) {
   const indexContent = `import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { CrudLayout } from '@whatsfresh/shared-ui';
-import pageMap from '@whatsfresh/shared-config/src/pageMap/${entityName}';
+import pageMap from './pageMap';
 import dataStore from '@stores/dataStore';
 import navigationStore from '@stores/navigationStore';
 import createLogger from '@utils/logger';

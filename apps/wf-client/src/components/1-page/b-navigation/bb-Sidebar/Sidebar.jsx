@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box, Drawer, Toolbar } from '@mui/material';
 import SidebarContent from './SidebarContent';
-import { resolveRoute, getRouteKeyByEvent } from '@whatsfresh/shared-config/src/routes';
+import { resolveRoute, getRouteKeyByEvent } from '@whatsfresh/shared-config';
 import { getNavSections } from '../../../../navigation/sidebar';
 import { useAccountStore } from '@stores/accountStore';
-import createLogger from '@utils/logger';
+import createLogger from '@whatsfresh/shared-imports';
 
 const log = createLogger('Sidebar');
 

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { CrudLayout } from '@whatsfresh/shared-ui';
-import pageMap from '@whatsfresh/shared-config/src/pageMap/ingrTypeList';
+import { CrudLayout } from '@whatsfresh/shared-imports';
+import pageMap from './pageMap';
 import dataStore from '@stores/dataStore';
 import navigationStore from '@stores/navigationStore';
-import createLogger from '@utils/logger';
+import createLogger from '@whatsfresh/shared-imports';
 
 const log = createLogger('Ingredient Types');
 

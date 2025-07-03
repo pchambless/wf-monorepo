@@ -2,7 +2,19 @@
  * WhatsFresh Widget Registry
  * Central registry for all reusable UI components across applications
  */
-import { abbreviationMap } from '@whatsfresh/shared-config/src/common/abbreviationMap';
+// Local abbreviation map to avoid circular dependencies
+const abbreviationMap = {
+  'acct': 'Account',
+  'btch': 'Batch',
+  'brnd': 'Brand',
+  'ingr': 'Ingredient',
+  'prod': 'Product',
+  'meas': 'Measurement',
+  'vndr': 'Vendor',
+  'wrkr': 'Worker',
+  'rcpe': 'Recipe',
+  'sel': 'Select'
+};
 
 /**
  * Widget type constants

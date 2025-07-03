@@ -1,5 +1,11 @@
 import { makeAutoObservable } from 'mobx';
-import createLogger from '@utils/logger';
+// Simple console logger for shared packages to avoid circular dependencies
+const createLogger = (name) => ({
+  debug: (msg, ...args) => console.debug(`[${name}] ${msg}`, ...args),
+  info: (msg, ...args) => console.info(`[${name}] ${msg}`, ...args),
+  warn: (msg, ...args) => console.warn(`[${name}] ${msg}`, ...args),
+  error: (msg, ...args) => console.error(`[${name}] ${msg}`, ...args)
+});
 
 /**
  * MobX store for managing modal state

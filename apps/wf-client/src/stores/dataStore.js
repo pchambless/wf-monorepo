@@ -1,10 +1,10 @@
 // src/stores/dataStore.js
 import { makeAutoObservable, runInAction } from 'mobx';
-import createLogger from '@utils/logger';
+import createLogger from '@whatsfresh/shared-imports';
 import { execEvent } from '@stores/eventStore';
 import accountStore from '@stores/accountStore';
 // Import all pageMap files
-import * as pageMapCollection from '@whatsfresh/shared-config/src/pageMap';
+import * as pageMapCollection from '@whatsfresh/shared-imports';
 
 /**
  * DataStore Class - handles all data operations for CRUD interfaces

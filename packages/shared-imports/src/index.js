@@ -1,33 +1,32 @@
 /**
  * WhatsFresh Shared Imports Package
  * 
- * Provides:
- * 1. Clean import aliases (no more ../../../../)
- * 2. Shared utilities (logger, etc.)
- * 3. Centralized path resolution
+ * Centralized import hub for the entire monorepo.
+ * All shared packages are re-exported here for clean, single-source imports.
  * 
- * Usage Examples:
- * 
- * // Import aliases for cleaner code:
- * import { sharedConfig, sharedUI } from '@whatsfresh/shared-imports';
- * const { entityRegistry } = await sharedConfig.client.pageMapRegistry();
- * 
- * // Shared utilities:
- * import { createLogger, debounce } from '@whatsfresh/shared-imports';
- * const log = createLogger('MyComponent');
- * 
- * // Path utilities:
- * import { packagePaths, resolvePackage } from '@whatsfresh/shared-imports/paths';
- * const configPath = resolvePackage('sharedConfig', 'client/routes.js');
+ * Usage:
+ * import { ROUTES, CrudLayout, execEvent, createLogger } from '@whatsfresh/shared-imports';
  */
 
-// Re-export everything for convenience
-export * from './imports.js';
-export * from './paths.js';
-export * from './utils/index.js';
+// === SHARED CONFIG EXPORTS ===
+export * from '../../shared-config/index.js';
 
-// Default exports for common patterns
+// === SHARED UI EXPORTS ===
+export * from '../../shared-ui/src/index.js';
+
+// === SHARED EVENTS EXPORTS ===
+export * from '../../shared-events/index.js';
+
+// === SHARED API EXPORTS ===
+export * from '../../shared-api/src/index.js';
+
+// === UTILITIES FROM THIS PACKAGE ===
+export * from './utils/index.js';
 export { default as createLogger } from './utils/logger.js';
+
+// === LEGACY DYNAMIC IMPORT SUPPORT ===
+// Note: imports.js and paths.js excluded from browser exports (use Node.js modules)
+// These are available for build tools that import directly from those files
 
 /**
  * Package metadata

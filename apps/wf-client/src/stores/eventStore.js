@@ -1,5 +1,5 @@
-import * as sharedEvents from '@whatsfresh/shared-events';
-import createLogger from '../utils/logger';
+import * as sharedEvents from '@whatsfresh/shared-imports';
+import { createLogger } from '@whatsfresh/shared-imports';
 import { execEventType } from '../api/api';
 
 const log = createLogger('EventStore');

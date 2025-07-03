@@ -1,7 +1,7 @@
 // accountStore.js - Clean MobX implementation with correct naming
 import { makeAutoObservable } from 'mobx';
 import React from 'react';
-import createLogger from '@utils/logger';
+import createLogger from '@whatsfresh/shared-imports';
 import { execEvent } from './eventStore';
 
 const log = createLogger('AccountStore');
