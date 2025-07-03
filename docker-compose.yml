@@ -19,7 +19,9 @@ services:
   wf-client:
     build: 
       context: ./apps/wf-client
-      dockerfile: Dockerfile.dev
+      dockerfile: ../../Dockerfile.react-app
+      args:
+        APP_NAME: client
     ports:
       - "3000:3000"
     volumes:
@@ -38,5 +40,31 @@ services:
     depends_on:
       - wf-server
 
+  wf-admin:
+    build: 
+      context: ./apps/wf-admin
+      dockerfile: ../../Dockerfile.react-app
+      args:
+        APP_NAME: admin
+    ports:
+      - "3002:3000"
+    volumes:
+      # Mount packages for shared dependencies
+      - ./packages:/app/packages
+      # Mount only source code for live development
+      - ./apps/wf-admin/src:/app/src
+      - ./apps/wf-admin/public:/app/public
+      # Preserve container's node_modules and package.json
+      - wf_admin_node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true  # For hot reload in Docker
+      - APP_NAME=admin
+    # Restart container if it crashes
+    restart: unless-stopped
+    depends_on:
+      - wf-server
+
 volumes:
   wf_client_node_modules:
+  wf_admin_node_modules:
