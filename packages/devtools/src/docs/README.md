@@ -72,6 +72,45 @@ Open `packages/devtools/src/docs/generated/index.html` in your browser.
 | **🌐 API Documentation** | 🔄 Planned | REST API endpoints and data contracts | *Coming Soon* |
 
 
+## 🐳 Docker Development Environment
+
+The entire monorepo is dockerized for consistent development across environments:
+
+### Quick Start with Docker
+
+```bash
+# Start both server and client in development mode
+docker-compose up
+
+# Or start individually
+docker-compose up wf-server   # Backend API (port 3001)
+docker-compose up wf-client   # React frontend (port 3000)
+
+# Rebuild containers after dependency changes
+docker-compose build --no-cache
+```
+
+### Docker Services
+
+| Service | Port | Description | Hot Reload |
+|---------|------|-------------|------------|
+| **wf-server** | 3001 | Node.js/Express API server with ES modules | ✅ Source changes |
+| **wf-client** | 3000 | React development server | ✅ Source changes |
+
+### Docker Features
+
+- **🔄 Live Reload**: Both services support hot reload for development
+- **📦 Dependency Isolation**: Each service has isolated node_modules
+- **🔗 Shared Packages**: Monorepo packages mounted for cross-service dependencies
+- **⚡ Fast Rebuilds**: Optimized Dockerfiles with layer caching
+- **🛠️ Development Ready**: Pre-configured for immediate development
+
+### Docker Volume Strategy
+
+- **Source Code**: Mounted for live editing (`./apps/*/src` → `/app/src`)
+- **Dependencies**: Named volumes preserve `node_modules` installations
+- **Shared Packages**: Mounted for monorepo package sharing (`./packages` → `/app/packages`)
+
 ## 📦 Integration with Build Process
 
 The documentation generation is integrated into the monorepo build process:
