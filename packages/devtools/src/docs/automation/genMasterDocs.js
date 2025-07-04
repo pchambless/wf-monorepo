@@ -49,6 +49,7 @@ export class TemplateEngine {
     const variables = {
       baseUrl,
       homeActive: activeSection === 'home' ? 'class="active"' : '',
+      overviewActive: activeSection === 'overview' ? 'class="active"' : '',
       widgetsActive: activeSection === 'widgets' ? 'class="active"' : '',
       pagesActive: activeSection === 'pages' ? 'class="active"' : '',
       eventsActive: activeSection === 'events' ? 'class="active"' : '',
@@ -127,6 +128,9 @@ export class MasterDocGenerator {
       // Generate main index
       await this.generateMainIndex();
       
+      // Generate overview documentation
+      await this.generateOverviewDocs();
+      
       // Generate widgets documentation
       await this.generateWidgetsDocs();
       
@@ -145,6 +149,9 @@ export class MasterDocGenerator {
       
       console.log('✅ Master documentation generation complete!');
       console.log(`📖 Documentation available at: ${this.outputDir}/index.html`);
+      
+      // Auto-launch documentation in browser
+      await this.launchDocumentation();
       
     } catch (error) {
       console.error('❌ Error generating documentation:', error);
@@ -173,6 +180,11 @@ export class MasterDocGenerator {
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td><a href="./overview/index.html">Developer Overview</a></td>
+              <td>Architecture improvements, Docker setup, development guide</td>
+              <td>✅ Available</td>
+            </tr>
             <tr>
               <td><a href="./widgets/index.html">Widget Registry</a></td>
               <td>Complete catalog of UI widgets and components</td>
@@ -227,6 +239,19 @@ export class MasterDocGenerator {
     
     await fs.writeFile(path.join(this.outputDir, 'index.html'), html);
     console.log('✅ Main index generated');
+  }
+
+  /**
+   * Generate overview documentation section
+   */
+  async generateOverviewDocs() {
+    console.log('📋 Generating overview documentation...');
+    
+    const { OverviewDocGenerator } = await import('../sections/overview/genOverviewDocs.js');
+    const overviewGenerator = new OverviewDocGenerator(this.templateEngine);
+    
+    await overviewGenerator.generateDocs(this.outputDir);
+    console.log('✅ Overview documentation generated');
   }
 
   /**
@@ -350,6 +375,64 @@ export class MasterDocGenerator {
       .replace(/<\/h([1-6])><\/p>/g, '</h$1>')
       .replace(/<p><ul>/g, '<ul>')
       .replace(/<\/ul><\/p>/g, '</ul>');
+  }
+
+  /**
+   * Auto-launch documentation in browser
+   */
+  async launchDocumentation() {
+    try {
+      const { exec } = await import('child_process');
+      const path = await import('path');
+      const fs = await import('fs');
+      
+      const docsPath = path.join(this.outputDir, 'index.html');
+      
+      // Check if docs were generated successfully
+      if (!fs.existsSync(docsPath)) {
+        console.log('⚠️  Documentation file not found, skipping auto-launch');
+        return;
+      }
+      
+      console.log('🚀 Launching documentation in browser...');
+      
+      // Detect environment and use appropriate command
+      const platform = process.platform;
+      let command;
+      
+      if (platform === 'linux') {
+        // Check if we're in WSL
+        try {
+          const { execSync } = await import('child_process');
+          execSync('which wslview', { stdio: 'ignore' });
+          command = `wslview "${docsPath}"`;
+        } catch {
+          // Not in WSL, use regular Linux browser
+          command = `xdg-open "${docsPath}"`;
+        }
+      } else if (platform === 'darwin') {
+        command = `open "${docsPath}"`;
+      } else if (platform === 'win32') {
+        command = `start "" "${docsPath}"`;
+      } else {
+        console.log('ℹ️  Platform not recognized, skipping auto-launch');
+        console.log(`   You can manually open: ${docsPath}`);
+        return;
+      }
+      
+      exec(command, (error) => {
+        if (error) {
+          console.log('ℹ️  Could not auto-launch browser');
+          console.log(`   You can manually open: ${docsPath}`);
+        } else {
+          console.log('✅ Documentation opened in browser');
+        }
+      });
+      
+    } catch (error) {
+      console.log('ℹ️  Auto-launch unavailable');
+      console.log(`   You can manually open: ${this.outputDir}/index.html`);
+    }
   }
 }
 

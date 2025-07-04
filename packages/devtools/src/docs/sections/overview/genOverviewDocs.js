@@ -1,0 +1,366 @@
+/**
+ * Overview Documentation Generator
+ * Converts the comprehensive DevTools README content into HTML documentation
+ */
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export class OverviewDocGenerator {
+  constructor(templateEngine) {
+    this.templateEngine = templateEngine;
+  }
+
+  async generateDocs(outputDir) {
+    console.log('📋 Generating overview documentation...');
+    
+    const overviewDir = path.join(outputDir, 'overview');
+    await fs.mkdir(overviewDir, { recursive: true });
+
+    // Generate main overview page
+    await this.generateOverviewPage(overviewDir);
+    
+    console.log('✅ Overview documentation generated');
+  }
+
+  async generateOverviewPage(outputDir) {
+    const content = `
+      <div class="overview-container">
+        <h1>🏗️ WhatsFresh Developer Documentation</h1>
+        
+        <div class="intro-section">
+          <p class="lead">
+            Comprehensive technical documentation for the WhatsFresh monorepo architecture, 
+            development tools, and recent improvements. This documentation is designed for 
+            developers working on the project.
+          </p>
+        </div>
+
+        <h2>🎯 Recent Architecture Improvements (2025)</h2>
+        
+        <div class="improvement-grid">
+          <div class="improvement-card">
+            <h3>Centralized Shared-Imports Architecture</h3>
+            <p>Eliminated duplicate dependencies with a centralized import system:</p>
+            <pre><code>// Before: Multiple import sources
+import createLogger from '../utils/logger';
+import { execEvent } from '../stores/eventStore';
+import accountStore from '../stores/accountStore';
+
+// After: Single centralized import
+import { 
+  createLogger, 
+  execEvent, 
+  accountStore 
+} from '@whatsfresh/shared-imports';</code></pre>
+            
+            <div class="benefits">
+              <h4>Key Benefits:</h4>
+              <ul>
+                <li>✅ <strong>DRY Principle</strong>: No duplicate utilities across apps</li>
+                <li>✅ <strong>Consistent APIs</strong>: Same function signatures everywhere</li>
+                <li>✅ <strong>Easy Maintenance</strong>: Update once, applied everywhere</li>
+                <li>✅ <strong>Type Safety</strong>: Centralized TypeScript definitions</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="improvement-card">
+            <h3>Shared UI Component Library</h3>
+            <p>Migrated authentication and core UI components to reusable shared packages:</p>
+            <pre><code>// Login component now shared between Admin and Client apps
+import { LoginForm } from '@whatsfresh/shared-ui';
+
+&lt;LoginForm 
+  appName="WhatsFresh Client"
+  logoSrc={logo}
+  onLoginSuccess={handleSuccess}
+  navigateToApp={navigateToApp}
+/&gt;</code></pre>
+          </div>
+
+          <div class="improvement-card">
+            <h3>Modular DML System</h3>
+            <p>Built a clean, modular system for Data Manipulation Language operations:</p>
+            <pre><code>// Simple DML execution with preview
+import { executeDML } from '@whatsfresh/shared-ui';
+
+const result = await executeDML(pageMap, formData, 'INSERT');</code></pre>
+            
+            <div class="architecture">
+              <h4>Architecture:</h4>
+              <ul>
+                <li><code>sqlFormatter.js</code> - Pure SQL generation functions</li>
+                <li><code>dmlBuilder.js</code> - Data transformation logic</li>
+                <li><code>dmlPreview.jsx</code> - Modal UI components</li>
+                <li><code>index.js</code> - Main orchestrator</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="improvement-card">
+            <h3>Store Simplification</h3>
+            <p>Simplified client stores using MVP approach:</p>
+            <ul>
+              <li>✅ <strong>Removed over-engineered caching</strong> (reference data lists)</li>
+              <li>✅ <strong>Deleted legacy stores</strong> (5 unused/duplicate stores)</li>
+              <li>✅ <strong>Simplified accountStore</strong> (280 → 146 lines)</li>
+              <li>✅ <strong>Self-sufficient components</strong> (no external store dependencies)</li>
+            </ul>
+          </div>
+
+          <div class="improvement-card">
+            <h3>SQL Organization Improvements</h3>
+            <p>Renamed sql/views/crud/ → sql/views/client/ for better semantic organization:</p>
+            <pre><code>sql/views/
+├── admin/     # Admin app views
+├── client/    # Client app views (formerly 'crud')  
+└── domain/    # Domain-specific views</code></pre>
+          </div>
+        </div>
+
+        <h2>🐳 Docker Development Environment</h2>
+        
+        <div class="docker-section">
+          <p>The entire monorepo is containerized for consistent development across environments:</p>
+          
+          <h3>Quick Start with Docker</h3>
+          <pre><code># Start both server and client in development mode
+docker-compose up
+
+# Or start individually
+docker-compose up wf-server   # Backend API (port 3001)
+docker-compose up wf-client   # React frontend (port 3000)
+
+# Rebuild containers after dependency changes
+docker-compose build --no-cache</code></pre>
+
+          <h3>Docker Services</h3>
+          <table class="docker-services">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Port</th>
+                <th>Description</th>
+                <th>Hot Reload</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>wf-server</strong></td>
+                <td>3001</td>
+                <td>Node.js/Express API server with ES modules</td>
+                <td>✅ Source changes</td>
+              </tr>
+              <tr>
+                <td><strong>wf-client</strong></td>
+                <td>3000</td>
+                <td>React development server</td>
+                <td>✅ Source changes</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Docker Features</h3>
+          <ul>
+            <li>🔄 <strong>Live Reload</strong>: Both services support hot reload for development</li>
+            <li>📦 <strong>Dependency Isolation</strong>: Each service has isolated node_modules</li>
+            <li>🔗 <strong>Shared Packages</strong>: Monorepo packages mounted for cross-service dependencies</li>
+            <li>⚡ <strong>Fast Rebuilds</strong>: Optimized Dockerfiles with layer caching</li>
+            <li>🛠️ <strong>Development Ready</strong>: Pre-configured for immediate development</li>
+          </ul>
+        </div>
+
+        <h2>📦 Monorepo Structure</h2>
+        
+        <div class="structure-section">
+          <h3>Modern Monorepo Architecture</h3>
+          <pre><code>├── apps/
+│   ├── wf-client/          # React frontend (Client app)
+│   ├── wf-admin/           # React frontend (Admin app)
+│   └── wf-server/          # Node.js/Express API
+├── packages/
+│   ├── shared-imports/     # Centralized utilities & dependencies
+│   ├── shared-ui/          # Reusable React components
+│   ├── shared-config/      # Configuration management
+│   └── devtools/           # Development automation & docs
+└── sql/views/              # Database views organized by app</code></pre>
+        </div>
+
+        <h2>🔧 Development Workflow</h2>
+        
+        <div class="workflow-section">
+          <h3>Package Scripts</h3>
+          <pre><code>npm run dev              # Start all development servers
+npm run build            # Build all apps for production
+npm run generate-docs    # Generate development documentation
+npm run generate-pages   # Generate page configurations</code></pre>
+
+          <h3>Documentation Generation</h3>
+          <p>The documentation system automatically generates unified HTML documentation from various sources:</p>
+          <ul>
+            <li><strong>Widget Registry</strong> - Complete catalog of UI components</li>
+            <li><strong>Page Previews</strong> - Visual previews of generated pages</li>
+            <li><strong>Architecture Rules</strong> - Development standards</li>
+            <li><strong>Event Types Flow</strong> - Complete event system relationships</li>
+          </ul>
+        </div>
+
+        <h2>🚀 Getting Started</h2>
+        
+        <div class="getting-started">
+          <ol>
+            <li><strong>Clone the repository</strong> and navigate to the project directory</li>
+            <li><strong>Start with Docker</strong>: <code>docker-compose up</code></li>
+            <li><strong>Generate documentation</strong>: <code>npm run generate-docs</code></li>
+            <li><strong>Explore the codebase</strong> using the documentation sections</li>
+            <li><strong>Follow development guidelines</strong> in the Architecture Rules section</li>
+          </ol>
+        </div>
+
+        <div class="next-steps">
+          <h3>Next Steps</h3>
+          <p>Explore the detailed documentation sections:</p>
+          <ul>
+            <li><a href="../widgets/index.html">🔧 Widget Registry</a> - UI component documentation</li>
+            <li><a href="../pages/index.html">📄 Page Previews</a> - Visual page documentation</li>
+            <li><a href="../events/index.html">🔄 Event Types Flow</a> - System event relationships</li>
+            <li><a href="../rules/index.html">📋 Architecture Rules</a> - Development standards</li>
+          </ul>
+        </div>
+      </div>
+
+      <style>
+        .overview-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 2rem;
+        }
+        
+        .lead {
+          font-size: 1.2em;
+          color: #666;
+          margin-bottom: 2rem;
+          line-height: 1.6;
+        }
+        
+        .improvement-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+          gap: 2rem;
+          margin: 2rem 0;
+        }
+        
+        .improvement-card {
+          border: 1px solid #e0e0e0;
+          border-radius: 8px;
+          padding: 1.5rem;
+          background: #f9f9f9;
+        }
+        
+        .improvement-card h3 {
+          color: #2c3e50;
+          margin-bottom: 1rem;
+        }
+        
+        .benefits, .architecture {
+          margin-top: 1rem;
+        }
+        
+        .benefits h4, .architecture h4 {
+          color: #27ae60;
+          margin-bottom: 0.5rem;
+        }
+        
+        .docker-services {
+          width: 100%;
+          border-collapse: collapse;
+          margin: 1rem 0;
+        }
+        
+        .docker-services th,
+        .docker-services td {
+          border: 1px solid #ddd;
+          padding: 0.75rem;
+          text-align: left;
+        }
+        
+        .docker-services th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+        }
+        
+        .workflow-section,
+        .docker-section,
+        .structure-section {
+          margin: 2rem 0;
+        }
+        
+        .getting-started ol {
+          font-size: 1.1em;
+          line-height: 1.8;
+        }
+        
+        .next-steps {
+          background: #e8f4f8;
+          padding: 1.5rem;
+          border-radius: 8px;
+          margin-top: 2rem;
+        }
+        
+        .next-steps ul {
+          list-style: none;
+          padding: 0;
+        }
+        
+        .next-steps li {
+          margin: 0.5rem 0;
+        }
+        
+        .next-steps a {
+          text-decoration: none;
+          color: #2980b9;
+          font-weight: 500;
+        }
+        
+        .next-steps a:hover {
+          text-decoration: underline;
+        }
+        
+        pre {
+          background: #f8f8f8;
+          border: 1px solid #e0e0e0;
+          border-radius: 4px;
+          padding: 1rem;
+          overflow-x: auto;
+          font-family: 'Consolas', 'Monaco', monospace;
+          font-size: 0.9em;
+        }
+        
+        code {
+          background: #f0f0f0;
+          padding: 0.2rem 0.4rem;
+          border-radius: 3px;
+          font-family: 'Consolas', 'Monaco', monospace;
+          font-size: 0.9em;
+        }
+        
+        pre code {
+          background: none;
+          padding: 0;
+        }
+      </style>
+    `;
+
+    const html = await this.templateEngine.generatePage({
+      title: 'Developer Overview - WhatsFresh Documentation',
+      content,
+      activeSection: 'overview'
+    });
+
+    await fs.writeFile(path.join(outputDir, 'index.html'), html);
+  }
+}
