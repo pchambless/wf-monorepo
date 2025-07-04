@@ -14,6 +14,13 @@ export { default as SelAcct } from './widgets/acct/SelAcct.js';
 // App-level components
 export { default as CrudLayout } from './components/1-page/c-crud/CrudLayout/index.js';
 
+// Auth components
+export { 
+  LoginForm, 
+  LoginView, 
+  LoginPresenter 
+} from './components/auth/LoginForm/index.js';
+
 // Modal components
 export { 
   default as Modal, 
