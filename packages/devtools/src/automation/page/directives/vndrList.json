@@ -1,0 +1,84 @@
+{
+  "viewName": "vndrList",
+  "entityName": "vndrlist",
+  "lastGenerated": "2025-07-04T17:15:54.262Z",
+  "columns": {
+    "vndrID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "id"
+      }
+    },
+    "vndrName": {
+      "directives": {
+        "type": "text",
+        "width": "200",
+        "BI": true,
+        "label": "Vendor Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "vndrContactName": {
+      "directives": {
+        "type": "text",
+        "width": "150",
+        "BI": true,
+        "label": "Contact Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "contact_name",
+        "grp": "1"
+      }
+    },
+    "vndrContactPhone": {
+      "directives": {
+        "type": "text",
+        "label": "Phone",
+        "grp": "2",
+        "width": "120",
+        "dbColumn": "contact_phone"
+      }
+    },
+    "vndrContactEmail": {
+      "directives": {
+        "type": "text",
+        "label": "Email",
+        "grp": "2",
+        "width": "180",
+        "dbColumn": "contact_email"
+      }
+    },
+    "vndrComments": {
+      "directives": {
+        "type": "multiLine",
+        "grp": "5",
+        "label": "Comments",
+        "width": 200,
+        "tableHide": true,
+        "dbColumn": "comments"
+      }
+    },
+    "acctID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "account_id"
+      }
+    }
+  }
+}

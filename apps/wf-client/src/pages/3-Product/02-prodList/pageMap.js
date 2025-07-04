@@ -20,26 +20,10 @@ export default {
       {
         "field": "prodID",
         "label": "prodID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
-      },
-      {
-        "field": "prodName",
-        "label": "Product Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "prodCode",
-        "label": "Code",
-        "width": "100",
-        "type": "text",
-        "editable": true,
-        "hidden": false
       },
       {
         "field": "prodDfltLoc",
@@ -53,14 +37,6 @@ export default {
         "field": "prodDfltBestBy",
         "label": "Best By Days",
         "width": "80",
-        "type": "number",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "prodUpcItemRef",
-        "label": "UPC Reference",
-        "width": "120",
         "type": "text",
         "editable": true,
         "hidden": false
@@ -76,7 +52,7 @@ export default {
       {
         "field": "prodTypeID",
         "label": "prodTypeID",
-        "width": 150,
+        "width": 120,
         "type": "select",
         "editable": false,
         "hidden": true
@@ -97,23 +73,9 @@ export default {
             "hidden": true
           },
           {
-            "field": "prodName",
-            "label": "Product Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "prodCode",
-            "label": "Code",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
             "field": "prodDesc",
             "label": "Description",
-            "type": "multiLine",
+            "type": "text",
             "required": false,
             "hidden": false
           },
@@ -122,8 +84,7 @@ export default {
             "label": "prodTypeID",
             "type": "select",
             "required": false,
-            "hidden": true,
-            "dispField": "prodTypeName"
+            "hidden": true
           }
         ]
       },
@@ -141,7 +102,7 @@ export default {
           {
             "field": "prodDfltBestBy",
             "label": "Best By Days",
-            "type": "number",
+            "type": "text",
             "required": false,
             "hidden": false
           }
@@ -151,13 +112,6 @@ export default {
         "id": "3",
         "title": "Group 3",
         "fields": [
-          {
-            "field": "prodUpcItemRef",
-            "label": "UPC Reference",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          },
           {
             "field": "prodUpcChkDgt",
             "label": "UPC Check Digit",
@@ -171,15 +125,12 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "prodID": "prodID",
-      "prodName": "prodName",
-      "prodCode": "prodCode",
-      "prodDfltLoc": "prodDfltLoc",
-      "prodDfltBestBy": "prodDfltBestBy",
-      "prodDesc": "prodDesc",
-      "prodUpcItemRef": "prodUpcItemRef",
-      "prodUpcChkDgt": "prodUpcChkDgt",
-      "prodTypeID": "prodTypeID"
+      "prodID": "id",
+      "prodDfltLoc": "location",
+      "prodDfltBestBy": "best_by_days",
+      "prodDesc": "description",
+      "prodUpcChkDgt": "upc_check_digit",
+      "prodTypeID": "product_type_id"
     },
     "operations": {
       "insert": {

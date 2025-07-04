@@ -20,24 +20,16 @@ export default {
       {
         "field": "ingrTypeID",
         "label": "ingrTypeID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
       },
       {
-        "field": "ingrTypeName",
-        "label": "Type Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
         "field": "acctID",
         "label": "acctID",
-        "width": 150,
-        "type": "text",
+        "width": 120,
+        "type": "select",
         "editable": false,
         "hidden": true
       }
@@ -57,23 +49,16 @@ export default {
             "hidden": true
           },
           {
-            "field": "ingrTypeName",
-            "label": "Type Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
             "field": "ingrTypeDesc",
             "label": "Description",
-            "type": "multiLine",
+            "type": "text",
             "required": false,
             "hidden": false
           },
           {
             "field": "acctID",
             "label": "acctID",
-            "type": "text",
+            "type": "select",
             "required": false,
             "hidden": true
           }
@@ -83,10 +68,9 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "ingrTypeID": "ingrTypeID",
-      "ingrTypeName": "ingrTypeName",
-      "ingrTypeDesc": "ingrTypeDesc",
-      "acctID": "acctID"
+      "ingrTypeID": "id",
+      "ingrTypeDesc": "description",
+      "acctID": "account_id"
     },
     "operations": {
       "insert": {

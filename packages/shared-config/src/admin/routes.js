@@ -1,31 +1,31 @@
-import { getSafeEventTypes } from '@whatsfresh/shared-events/src/admin/eventTypes.js';
+import { getAdminSafeEventTypes } from '@whatsfresh/shared-imports';
 
 /**
  * Generate routes configuration from event types
  */
 export function getRoutes() {
-  const events = getSafeEventTypes();
+  const events = getAdminSafeEventTypes();
   const routes = {};
-  
+
   // Start with any static routes that don't directly map to events
   routes.DASHBOARD = {
     path: "/dashboard",
     listEvent: "dashboard"
   };
-  
+
   // Process events with routePaths
   events.forEach(event => {
     if (event.routePath) {
       // Get or create the route key
       const routeKey = getRouteKeyForEvent(event.eventType);
-      
+
       routes[routeKey] = {
         path: event.routePath,
         listEvent: event.eventType
       };
     }
   });
-  
+
   return routes;
 }
 
@@ -38,11 +38,11 @@ function getRouteKeyForEvent(eventType) {
     "userLogin": "LOGIN",
     "userAcctList": "SELECT_ACCOUNT"
   };
-  
+
   if (specialCases[eventType]) {
     return specialCases[eventType];
   }
-  
+
   // Standard conversion: ingrTypeList -> INGREDIENT_TYPES
   return eventType
     .replace(/List$/, '') // Remove "List" suffix
@@ -60,12 +60,12 @@ console.log('Admin routes:', ROUTES);
 export function resolveRoute(routeKey, params = {}) {
   const route = ROUTES[routeKey];
   if (!route) return '/';
-  
+
   let path = route.path;
   Object.entries(params).forEach(([param, value]) => {
     path = path.replace(`:${param}`, value);
   });
-  
+
   return path;
 }
 
@@ -73,14 +73,14 @@ export function resolveRoute(routeKey, params = {}) {
  * Get route key for an event
  */
 export function getRouteKeyByEvent(listEvent) {
-  return Object.entries(ROUTES).find(([_, route]) => 
+  return Object.entries(ROUTES).find(([_, route]) =>
     route.listEvent === listEvent
   )?.[0] || null;
 }
 
 // Check a few conversions
-console.log(getRouteKeyForEvent('acctList')); 
-console.log(getRouteKeyForEvent('userList')); 
+console.log(getRouteKeyForEvent('acctList'));
+console.log(getRouteKeyForEvent('userList'));
 
 // Check that all current routes are covered
 const generatedRoutes = getRoutes();

@@ -1,15 +1,15 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// Import the function directly
-import { getClientSafeEventTypes } from '../../../../../../../shared-events/src/client/eventTypes.js';
+// Import the function directly from shared-events to avoid loading UI components
+import { getClientSafeEventTypes } from '@whatsfresh/shared-events';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const outputPath = path.resolve(__dirname, '../../../eventTypes/generated/graphData.json');
 
 export default async function genEventTypes() {
   console.log('[genEventTypes] 🛠 Generating eventTypes graph data...');
-  
+
   // Get events directly - no more parsing needed!
   const events = getClientSafeEventTypes();
   console.log(`📊 Processing ${events.length} event types...`);

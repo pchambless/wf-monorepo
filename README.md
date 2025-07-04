@@ -23,17 +23,19 @@ WhatsFresh helps food producers manage their entire operation from ingredients t
 ├── packages/
 │   ├── shared-imports/     # Centralized utilities & dependencies
 │   ├── shared-ui/          # Reusable React components
-│   ├── shared-config/      # Configuration management
-│   └── devtools/           # Development automation & docs
+│   ├── shared-api/         # Server utilities & API helpers
+│   ├── shared-events/      # Event definitions & handlers
+│   └── devtools/           # Code generation & documentation
 └── sql/views/              # Database views organized by app
 ```
 
 ### Key Features (2025 Updates)
-- ✅ **Centralized Shared-Imports** - DRY principle across all apps
+- ✅ **Generation-First Architecture** - All configs generated from SQL views
+- ✅ **Centralized DevTools** - Single source of truth for code generation
+- ✅ **App-Specific Configs** - No shared artifacts, only app-specific code
 - ✅ **Shared UI Components** - Reusable authentication & forms
-- ✅ **Modular DML System** - Clean data manipulation with previews
+- ✅ **Clean Import Hub** - shared-imports package for monorepo coordination
 - ✅ **Docker Development** - Consistent environment with hot reload
-- ✅ **Simplified Stores** - MVP approach, self-sufficient components
 
 ## 🚀 Quick Start
 
@@ -85,12 +87,15 @@ npm run dev:server    # Node.js server (port 3001)
 
 ## 🧑‍💻 Development
 
-### Package Scripts
+### Development Scripts
 ```bash
 npm run dev              # Start all development servers
 npm run build            # Build all apps for production
-npm run generate-docs    # Generate development documentation
-npm run generate-pages   # Generate page configurations
+
+# Code Generation (DevTools)
+npm run generate-client  # Generate all client app configs
+npm run generate-admin   # Generate all admin app configs
+npm run generate-docs    # Generate comprehensive documentation
 ```
 
 ### Docker Commands
@@ -104,15 +109,19 @@ docker-compose logs      # View service logs
 
 **For comprehensive technical documentation, architecture details, and development guides:**
 
-### 🔗 **[Developer Documentation](./packages/devtools/src/docs/README.md)**
+### 🔗 **[DevTools Documentation](./packages/devtools/README.md)**
 
-The detailed docs include:
-- **Architecture Deep Dive** - Recent improvements, shared-imports, DML system
-- **Component Library** - Widget registry, UI components
-- **Docker Setup** - Container configuration, development workflow  
-- **Development Guidelines** - React patterns, conventions, best practices
-- **API Documentation** - Event types, database operations
-- **Visual Previews** - Generated page documentation
+The DevTools package contains all generation logic and comprehensive docs:
+- **Generation Workflow** - SQL views → UI configs → App-specific code
+- **Architecture Overview** - Generation-first philosophy and benefits
+- **CLI Commands** - Complete guide to code generation tools
+- **Developer Workflow** - When and how to regenerate configurations
+- **Visual Documentation** - Generated page previews and system docs
+
+### 🔗 **[Generated Documentation](./packages/devtools/docs/generated/index.html)**
+- **Live Page Previews** - See exactly how your pages will look
+- **Widget Gallery** - Browse all available UI components  
+- **System Architecture** - Visual overview of the entire system
 
 ## 🐳 Docker Development
 
@@ -127,9 +136,10 @@ The entire monorepo is containerized for consistent development:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feat/amazing-feature`)
-3. Make your changes following our [development guidelines](./packages/devtools/src/docs/README.md#development-guidelines)
-4. Commit with conventional commits (`feat:`, `fix:`, `docs:`, etc.)
-5. Push and create a Pull Request
+3. Make your changes following our [DevTools documentation](./packages/devtools/README.md)
+4. Regenerate configs if needed (`npm run generate-client`)
+5. Commit with conventional commits (`feat:`, `fix:`, `docs:`, etc.)
+6. Push and create a Pull Request
 
 ## 📄 License
 
@@ -137,10 +147,10 @@ The entire monorepo is containerized for consistent development:
 
 ## 🆘 Support
 
-- **Documentation**: [Developer Docs](./packages/devtools/src/docs/README.md)
-- **Issues**: [GitHub Issues](../../issues)
+- **Documentation**: [DevTools README](./packages/devtools/README.md)
+- **Issues**: [GitHub Issues](../../issues)  
 - **Discussions**: [GitHub Discussions](../../discussions)
 
 ---
 
-**💡 New to the project?** Start with the [Developer Documentation](./packages/devtools/src/docs/README.md) for a comprehensive overview of the architecture and development setup.
+**💡 New to the project?** Start with the [DevTools Documentation](./packages/devtools/README.md) for a comprehensive overview of the generation-first architecture and development workflow.

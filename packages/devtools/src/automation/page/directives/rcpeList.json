@@ -1,0 +1,109 @@
+{
+  "viewName": "rcpeList",
+  "entityName": "rcpelist",
+  "lastGenerated": "2025-07-04T17:15:54.272Z",
+  "columns": {
+    "rcpeID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "prd_rcpe_id"
+      }
+    },
+    "ingrOrdr": {
+      "directives": {
+        "type": "text",
+        "label": "Order",
+        "grp": "1",
+        "width": "80",
+        "dbColumn": "ingr_ordr"
+      }
+    },
+    "ingrName": {
+      "directives": {
+        "type": "text",
+        "width": "200",
+        "BI": true,
+        "label": "Ingredient Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "ingr_name",
+        "grp": "1"
+      }
+    },
+    "qtyMeas": {
+      "directives": {
+        "type": "text",
+        "label": "Quantity & Measure",
+        "grp": "2",
+        "width": "150",
+        "dbColumn": "ingr_qty_meas"
+      }
+    },
+    "prodID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "prd_id"
+      }
+    },
+    "ingrTypeSel": {
+      "directives": {
+        "type": "text",
+        "label": "Ingredient Type",
+        "grp": "3",
+        "width": "150",
+        "dbColumn": "ingr_type_id"
+      }
+    },
+    "ingrSel": {
+      "directives": {
+        "type": "text",
+        "label": "Ingredient",
+        "grp": "3",
+        "width": "180",
+        "dbColumn": "ingr_id"
+      }
+    },
+    "measID": {
+      "directives": {
+        "type": "select",
+        "widget": "selMeas",
+        "label": "Measure",
+        "grp": "2",
+        "width": "120",
+        "tableHide": true,
+        "dbColumn": "ingr_meas_id"
+      }
+    },
+    "Qty": {
+      "directives": {
+        "type": "decimal",
+        "dec": "10,2",
+        "grp": "2",
+        "label": "Quantity",
+        "width": "100",
+        "dbColumn": "ingr_qty"
+      }
+    },
+    "Comments": {
+      "directives": {
+        "type": "multiLine",
+        "grp": "5",
+        "label": "Comments",
+        "width": 200,
+        "tableHide": true,
+        "dbColumn": "prd_ingr_desc"
+      }
+    }
+  }
+}

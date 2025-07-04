@@ -1,4 +1,4 @@
-import { getNavSections } from '../routes';
+import { getNavSections } from '../routes.js';
 
 /**
  * Navigation configuration for the application sidebar
@@ -8,9 +8,9 @@ export const navigationConfig = (acctID) => {
   // Get sections with their items from routes
   const sections = getNavSections();
   const result = [];
-  
+
   // Process each section from the configuration
-  sections.forEach(section => {    
+  sections.forEach(section => {
     // For reference section, create a dropdown with children
     if (section.id === 'reference') {
       result.push({
@@ -24,7 +24,7 @@ export const navigationConfig = (acctID) => {
       });
       return;
     }
-    
+
     // For all other sections (including dashboard), use first item as entry point
     if (section.items.length > 0) {
       const firstItem = section.items[0];
@@ -35,6 +35,6 @@ export const navigationConfig = (acctID) => {
       });
     }
   });
-  
+
   return result;
 };

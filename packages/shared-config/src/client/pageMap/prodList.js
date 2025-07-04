@@ -171,15 +171,15 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "prodID": "prodID",
-      "prodName": "prodName",
-      "prodCode": "prodCode",
-      "prodDfltLoc": "prodDfltLoc",
-      "prodDfltBestBy": "prodDfltBestBy",
-      "prodDesc": "prodDesc",
-      "prodUpcItemRef": "prodUpcItemRef",
-      "prodUpcChkDgt": "prodUpcChkDgt",
-      "prodTypeID": "prodTypeID"
+      "prodID": "id",
+      "prodName": "name",
+      "prodCode": "code",
+      "prodDfltLoc": "location",
+      "prodDfltBestBy": "best_by_days",
+      "prodDesc": "description",
+      "prodUpcItemRef": "upc_item_reference",
+      "prodUpcChkDgt": "upc_check_digit",
+      "prodTypeID": "product_type_id"
     },
     "operations": {
       "insert": {

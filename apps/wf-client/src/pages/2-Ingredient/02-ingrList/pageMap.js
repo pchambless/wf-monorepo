@@ -20,40 +20,24 @@ export default {
       {
         "field": "ingrID",
         "label": "ingrID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
       },
       {
-        "field": "ingrName",
-        "label": "Ingredient Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "ingrCode",
-        "label": "Code",
-        "width": "100",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
         "field": "ingrGrmsPerOz",
         "label": "Grams/Oz",
         "width": "100",
-        "type": "decimal",
+        "type": "text",
         "editable": true,
         "hidden": false
       },
       {
         "field": "ingrTypeID",
         "label": "ingrTypeID",
-        "width": 150,
-        "type": "text",
+        "width": 120,
+        "type": "select",
         "editable": false,
         "hidden": true
       }
@@ -73,23 +57,9 @@ export default {
             "hidden": true
           },
           {
-            "field": "ingrName",
-            "label": "Ingredient Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "ingrCode",
-            "label": "Code",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
             "field": "ingrTypeID",
             "label": "ingrTypeID",
-            "type": "text",
+            "type": "select",
             "required": false,
             "hidden": true
           }
@@ -104,14 +74,16 @@ export default {
             "label": "Default Measure",
             "type": "select",
             "required": false,
-            "hidden": false
+            "hidden": false,
+            "widget": "selMeas"
           },
           {
             "field": "vndrID",
             "label": "Default Vendor",
             "type": "select",
             "required": false,
-            "hidden": false
+            "hidden": false,
+            "widget": "selVndr"
           }
         ]
       },
@@ -122,7 +94,7 @@ export default {
           {
             "field": "ingrGrmsPerOz",
             "label": "Grams/Oz",
-            "type": "decimal",
+            "type": "text",
             "required": false,
             "hidden": false
           }
@@ -135,7 +107,7 @@ export default {
           {
             "field": "ingrDesc",
             "label": "Description",
-            "type": "multiLine",
+            "type": "text",
             "required": false,
             "hidden": false
           }
@@ -145,14 +117,12 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "ingrID": "ingrID",
-      "ingrName": "ingrName",
-      "ingrCode": "ingrCode",
-      "ingrDesc": "ingrDesc",
-      "measID": "measID",
-      "vndrID": "vndrID",
-      "ingrGrmsPerOz": "ingrGrmsPerOz",
-      "ingrTypeID": "ingrTypeID"
+      "ingrID": "id",
+      "ingrDesc": "description",
+      "measID": "default_measure_unit",
+      "vndrID": "default_vendor",
+      "ingrGrmsPerOz": "grams_per_ounce",
+      "ingrTypeID": "ingredient_type_id"
     },
     "operations": {
       "insert": {

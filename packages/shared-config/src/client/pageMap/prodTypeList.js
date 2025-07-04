@@ -76,9 +76,9 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "prodTypeID": "prodTypeID",
-      "prodTypeName": "prodTypeName",
-      "acctID": "acctID"
+      "prodTypeID": "id",
+      "prodTypeName": "name",
+      "acctID": "account_id"
     },
     "operations": {
       "insert": {

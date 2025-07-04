@@ -20,32 +20,24 @@ export default {
       {
         "field": "taskID",
         "label": "taskID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
       },
       {
-        "field": "taskName",
-        "label": "Task Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
         "field": "taskOrder",
         "label": "Order",
         "width": "80",
-        "type": "number",
+        "type": "text",
         "editable": true,
         "hidden": false
       },
       {
         "field": "prodTypeID",
         "label": "prodTypeID",
-        "width": 150,
-        "type": "text",
+        "width": 120,
+        "type": "select",
         "editable": false,
         "hidden": true
       }
@@ -65,30 +57,23 @@ export default {
             "hidden": true
           },
           {
-            "field": "taskName",
-            "label": "Task Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
             "field": "taskDesc",
             "label": "Description",
-            "type": "multiLine",
+            "type": "text",
             "required": false,
             "hidden": false
           },
           {
             "field": "taskOrder",
             "label": "Order",
-            "type": "number",
+            "type": "text",
             "required": true,
             "hidden": false
           },
           {
             "field": "prodTypeID",
             "label": "prodTypeID",
-            "type": "text",
+            "type": "select",
             "required": false,
             "hidden": true
           }
@@ -98,11 +83,10 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "taskID": "taskID",
-      "taskName": "taskName",
-      "taskDesc": "taskDesc",
-      "taskOrder": "taskOrder",
-      "prodTypeID": "prodTypeID"
+      "taskID": "id",
+      "taskDesc": "description",
+      "taskOrder": "ordr",
+      "prodTypeID": "product_type_id"
     },
     "operations": {
       "insert": {

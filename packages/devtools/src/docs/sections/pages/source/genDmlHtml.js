@@ -1,15 +1,36 @@
-export default function genDmlHtml(systemConfig, dmlConfig, sampleData) {
+export default function genDmlHtml(metadata, dmlConfig, sampleData) {
   if (!dmlConfig || !dmlConfig.fieldMappings) {
     return '<p><em>No DML configuration available for this entity</em></p>';
   }
-  
-  if (!sampleData || !sampleData.length) {
-    return '<p><em>No sample data available for DML preview</em></p>';
-  }
-  
-  const sampleRecord = sampleData[0];
-  const primaryKey = systemConfig?.primaryKey;
-  
+
+  const sampleRecord = sampleData?.[0] || {};
+  const primaryKey = metadata?.primaryKey;
+  const schema = metadata?.schema || 'whatsfresh';
+  const tableName = metadata?.tableName || 'table';
+
+  // Filter out invalid and duplicate field mappings
+  const validFieldMappings = {};
+  const usedDbColumns = new Set();
+
+  Object.entries(dmlConfig.fieldMappings).forEach(([field, dbColumn]) => {
+    // Skip invalid database columns
+    if (!dbColumn ||
+      dbColumn === 'END' ||
+      dbColumn.includes(')') ||
+      dbColumn.includes('COUNT(') ||
+      usedDbColumns.has(dbColumn)) {
+      return;
+    }
+
+    validFieldMappings[field] = dbColumn;
+    usedDbColumns.add(dbColumn);
+  });
+
+  // Find the correct primary key mapping
+  const primaryKeyDbColumn = validFieldMappings[primaryKey] ||
+    Object.values(validFieldMappings).find(col => col === 'id') ||
+    'id';
+
   return `
 <div class="dml-preview">
   <!-- Field Mappings -->
@@ -23,7 +44,7 @@ export default function genDmlHtml(systemConfig, dmlConfig, sampleData) {
         </tr>
       </thead>
       <tbody>
-        ${Object.entries(dmlConfig.fieldMappings).map(([field, dbColumn]) => `
+        ${Object.entries(validFieldMappings).map(([field, dbColumn]) => `
           <tr>
             <td>${field}</td>
             <td>${dbColumn}</td>
@@ -37,16 +58,16 @@ export default function genDmlHtml(systemConfig, dmlConfig, sampleData) {
   <div class="dml-operation">
     <h3>INSERT Example</h3>
     <pre class="sql-preview">
-INSERT INTO ${systemConfig?.schema || 'schema'}.${systemConfig?.table || 'table'}
-(${Object.entries(dmlConfig.fieldMappings)
-    .filter(([field]) => !(dmlConfig.operations?.insert?.excludeFields || []).includes(field))
-    .map(([_, dbCol]) => dbCol)
-    .join(', ')})
+INSERT INTO ${schema}.${tableName}
+(${Object.entries(validFieldMappings)
+      .filter(([field]) => !(dmlConfig.operations?.insert?.excludeFields || []).includes(field))
+      .map(([_, dbCol]) => dbCol)
+      .join(', ')})
 VALUES
-(${Object.entries(dmlConfig.fieldMappings)
-    .filter(([field]) => !(dmlConfig.operations?.insert?.excludeFields || []).includes(field))
-    .map(([field]) => formatSqlValue(sampleRecord[field]))
-    .join(', ')});
+(${Object.entries(validFieldMappings)
+      .filter(([field]) => !(dmlConfig.operations?.insert?.excludeFields || []).includes(field))
+      .map(([field]) => formatSqlValue(sampleRecord[field]))
+      .join(', ')});
     </pre>
   </div>
   
@@ -54,14 +75,14 @@ VALUES
   <div class="dml-operation">
     <h3>UPDATE Example</h3>
     <pre class="sql-preview">
-UPDATE ${systemConfig?.schema || 'schema'}.${systemConfig?.table || 'table'}
+UPDATE ${schema}.${tableName}
 SET 
-  ${Object.entries(dmlConfig.fieldMappings)
-    .filter(([field]) => field !== primaryKey)
-    .map(([field, dbCol]) => `${dbCol} = ${formatSqlValue(sampleRecord[field])}`)
-    .join(',\n  ')}
+  ${Object.entries(validFieldMappings)
+      .filter(([field]) => field !== primaryKey)
+      .map(([field, dbCol]) => `${dbCol} = ${formatSqlValue(sampleRecord[field])}`)
+      .join(',\n  ')}
 WHERE 
-  ${dmlConfig.fieldMappings[primaryKey]} = ${formatSqlValue(sampleRecord[primaryKey])};
+  ${primaryKeyDbColumn} = ${formatSqlValue(sampleRecord[primaryKey] || 1)};
     </pre>
   </div>
   
@@ -69,9 +90,9 @@ WHERE
   <div class="dml-operation">
     <h3>DELETE Example</h3>
     <pre class="sql-preview">
-DELETE FROM ${systemConfig?.schema || 'schema'}.${systemConfig?.table || 'table'}
+DELETE FROM ${schema}.${tableName}
 WHERE 
-  ${dmlConfig.fieldMappings[primaryKey]} = ${formatSqlValue(sampleRecord[primaryKey])};
+  ${primaryKeyDbColumn} = ${formatSqlValue(sampleRecord[primaryKey] || 1)};
     </pre>
   </div>
 </div>`;

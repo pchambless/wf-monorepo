@@ -1,6 +1,6 @@
 import { createSelectWidget } from './createSelectWidget';
 import { SelectWidget } from './SelectWidget';
-import { getClientSafeEventTypes } from '@whatsfresh/shared-events';
+import { getClientSafeEventTypes } from '@whatsfresh/shared-imports';
 
 // Create components for common selectors
 export const SelBrnd = createSelectWidget('brndList');

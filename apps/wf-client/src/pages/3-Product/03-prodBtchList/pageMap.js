@@ -20,7 +20,7 @@ export default {
       {
         "field": "prodBtchID",
         "label": "prodBtchID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
@@ -29,6 +29,14 @@ export default {
         "field": "btchNbr",
         "label": "Batch Number",
         "width": "120",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "btchStart",
+        "label": "Btch Start",
+        "width": 120,
         "type": "text",
         "editable": true,
         "hidden": false
@@ -50,17 +58,17 @@ export default {
         "hidden": false
       },
       {
-        "field": "measID",
-        "label": "Measure",
-        "width": "120",
-        "type": "select",
+        "field": "bestByDate",
+        "label": "Best By Date",
+        "width": 100,
+        "type": "date",
         "editable": true,
         "hidden": false
       },
       {
         "field": "prodID",
         "label": "prodID",
-        "width": 150,
+        "width": 120,
         "type": "select",
         "editable": false,
         "hidden": true
@@ -88,9 +96,9 @@ export default {
             "hidden": false
           },
           {
-            "field": "comments",
-            "label": "Comments",
-            "type": "multiLine",
+            "field": "btchStart",
+            "label": "Btch Start",
+            "type": "text",
             "required": false,
             "hidden": false
           },
@@ -100,6 +108,14 @@ export default {
             "type": "select",
             "required": false,
             "hidden": true
+          },
+          {
+            "field": "acctID",
+            "label": "Account",
+            "type": "select",
+            "required": false,
+            "hidden": false,
+            "widget": "selAcct"
           }
         ]
       },
@@ -126,6 +142,33 @@ export default {
             "label": "Measure",
             "type": "select",
             "required": true,
+            "hidden": false,
+            "widget": "selMeas"
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "title": "Group 4",
+        "fields": [
+          {
+            "field": "bestByDate",
+            "label": "Best By Date",
+            "type": "date",
+            "required": false,
+            "hidden": false
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "title": "Group 5",
+        "fields": [
+          {
+            "field": "comments",
+            "label": "Comments",
+            "type": "multiLine",
+            "required": false,
             "hidden": false
           }
         ]
@@ -134,13 +177,16 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "prodBtchID": "prodBtchID",
-      "btchNbr": "btchNbr",
-      "btchLoc": "btchLoc",
-      "btchQty": "btchQty",
-      "measID": "measID",
+      "prodBtchID": "id",
+      "btchNbr": "batch_number",
+      "btchStart": "'%Y-%m-%d')",
+      "btchLoc": "location",
+      "btchQty": "batch_quantity",
+      "measID": "global_measure_unit_id",
+      "bestByDate": "'%Y-%m-%d')",
       "comments": "comments",
-      "prodID": "prodID"
+      "prodID": "product_id",
+      "acctID": "account_id"
     },
     "operations": {
       "insert": {

@@ -2,7 +2,7 @@ export default function genTableHtml(tableConfig, sampleData) {
   if (!tableConfig) {
     return '<p><em>No table configuration available for this entity</em></p>';
   }
-  
+
   // Show table configuration details even if columns are empty
   const configInfo = `
     <div class="table-config-info" style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
@@ -32,34 +32,34 @@ export default function genTableHtml(tableConfig, sampleData) {
       ` : '<p><em>No columns defined in tableConfig</em></p>'}
     </div>
   `;
-  
+
   if (!tableConfig.columns || tableConfig.columns.length === 0) {
     return configInfo + '<p><em>Cannot preview table: no columns configured</em></p>';
   }
-  
+
   if (!sampleData || sampleData.length === 0) {
     return configInfo + '<p><em>No sample data available for table preview</em></p>';
   }
-  
+
   // Generate table headers
   const headers = tableConfig.columns
     .filter(col => !col.hidden)
     .map(col => `<th>${col.label || col.field}</th>`)
     .join('');
-  
+
   // Generate table rows
   const rows = sampleData.map(record => {
     const cells = tableConfig.columns
       .filter(col => !col.hidden)
       .map(col => {
-        const value = record[col.field] !== undefined && record[col.field] !== null 
-          ? record[col.field] 
+        const value = record[col.field] !== undefined && record[col.field] !== null
+          ? record[col.field]
           : '';
         return `<td>${value}</td>`;
       }).join('');
     return `<tr>${cells}</tr>`;
   }).join('');
-  
+
   return configInfo + `
 <table>
   <thead>

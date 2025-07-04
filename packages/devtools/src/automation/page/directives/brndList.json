@@ -1,0 +1,63 @@
+{
+  "viewName": "brndList",
+  "entityName": "brndlist",
+  "lastGenerated": "2025-07-04T17:15:54.259Z",
+  "columns": {
+    "brndID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "id"
+      }
+    },
+    "brndName": {
+      "directives": {
+        "type": "text",
+        "width": "200",
+        "BI": true,
+        "label": "Brand Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "brndComments": {
+      "directives": {
+        "type": "multiLine",
+        "grp": "5",
+        "label": "Comments",
+        "width": 200,
+        "tableHide": true,
+        "dbColumn": "comments"
+      }
+    },
+    "brndURL": {
+      "directives": {
+        "type": "text",
+        "label": "Website",
+        "grp": "2",
+        "width": 120,
+        "dbColumn": "url",
+        "tableHide": true
+      }
+    },
+    "acctID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "account_id"
+      }
+    }
+  }
+}

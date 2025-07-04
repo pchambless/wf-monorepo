@@ -43,9 +43,12 @@
   
   <div class="directive-list">
     <h3>Entity Configuration Overview</h3>
-    <p><strong>Schema:</strong> Not specified</p>
-    <p><strong>Table:</strong> Not specified</p>
-    <p><strong>Primary Key:</strong> Not specified</p>
+    <p><strong>Schema:</strong> whatsfresh</p>
+    <p><strong>Table:</strong> recipes</p>
+    <p><strong>Primary Key:</strong> rcpeID</p>
+    <p><strong>List Event:</strong> Not specified</p>
+    <p><strong>Columns Defined:</strong> 0</p>
+    <p><strong>Form Groups:</strong> 0</p>
   </div>
   
   <div class="preview-container">
@@ -65,6 +68,46 @@
     </div>
   </div>
 
+            <script>
+              
+    function toggleView(view) {
+      const tableSection = document.getElementById('table-section');
+      const formSection = document.getElementById('form-section');
+      const dmlSection = document.getElementById('dml-section');
+      
+      const tableBtn = document.querySelector('.table-btn');
+      const formBtn = document.querySelector('.form-btn');
+      const dmlBtn = document.querySelector('.dml-btn');
+      
+      // Hide all sections
+      tableSection.style.display = 'none';
+      formSection.style.display = 'none';
+      dmlSection.style.display = 'none';
+      
+      // Remove active class from all buttons
+      tableBtn.classList.remove('active');
+      formBtn.classList.remove('active');
+      dmlBtn.classList.remove('active');
+      
+      // Show selected section and activate button
+      if (view === 'table') {
+        tableSection.style.display = 'block';
+        tableBtn.classList.add('active');
+      } else if (view === 'form') {
+        formSection.style.display = 'block';
+        formBtn.classList.add('active');
+      } else if (view === 'dml') {
+        dmlSection.style.display = 'block';
+        dmlBtn.classList.add('active');
+      } else if (view === 'all') {
+        tableSection.style.display = 'block';
+        formSection.style.display = 'block';
+        dmlSection.style.display = 'block';
+      }
+    }
+  
+            </script>
+          
     </div>
   </div>
   

@@ -1,0 +1,53 @@
+{
+  "viewName": "measList",
+  "entityName": "measlist",
+  "lastGenerated": "2025-07-04T17:15:54.267Z",
+  "columns": {
+    "measID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "id"
+      }
+    },
+    "name": {
+      "directives": {
+        "type": "text",
+        "width": "200",
+        "BI": true,
+        "label": "Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "abbrev": {
+      "directives": {
+        "type": "text",
+        "label": "Abbreviation",
+        "grp": "1",
+        "width": "100",
+        "dbColumn": "abbrev",
+        "required": true
+      }
+    },
+    "acctID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "account_id"
+      }
+    }
+  }
+}

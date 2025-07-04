@@ -15,6 +15,7 @@ docs/*.componentInventory.csv
 /docs/graph/out/*.json
 /packages/devtools/.cache/
 /packages/devtools/temp/
+/packages/devtools/samples/*.json
 
 # misc
 .DS_Store

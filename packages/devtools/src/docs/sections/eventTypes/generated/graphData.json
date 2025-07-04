@@ -6,6 +6,7 @@
       "category": "page:Login",
       "meta": {
         "cluster": "AUTH",
+        "dbTable": "users",
         "method": "GET",
         "purpose": "Authenticate user login",
         "primaryKey": null

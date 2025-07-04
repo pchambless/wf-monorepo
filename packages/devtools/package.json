@@ -9,7 +9,10 @@
     "./utils": "./src/utils/index.js"
   },
   "scripts": {
-    "test:render": "node ./src/docs/genDocs.js"
+    "test:render": "node ./src/docs/genDocs.js",
+    "generate:config": "node ./src/generators/generateAppConfig.js",
+    "generate:client": "node ./src/generators/generateAppConfig.js client",
+    "generate:admin": "node ./src/generators/generateAppConfig.js admin"
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^11.6.0"

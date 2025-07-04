@@ -1,0 +1,43 @@
+{
+  "viewName": "wrkrList",
+  "entityName": "wrkrlist",
+  "lastGenerated": "2025-07-04T17:15:54.264Z",
+  "columns": {
+    "wrkrID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "id"
+      }
+    },
+    "wrkrName": {
+      "directives": {
+        "type": "text",
+        "width": "200",
+        "BI": true,
+        "label": "Worker Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "acctID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "account_id"
+      }
+    }
+  }
+}

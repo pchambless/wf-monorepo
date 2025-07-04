@@ -2,9 +2,12 @@ import getCSS from './getCss.js';
 import genTableHtml from './genTableHtml.js';
 import genFormHtml from './genFormHtml.js';
 import genDmlHtml from './genDmlHtml.js';
+import { extractEnhancedPageMetadata } from './extractPageMetadata.js';
 
 
-export function genEntityHtml(entityName, pageMap, sampleData) {
+export async function genEntityHtml(entityName, pageMap, sampleData) {
+  // Extract enhanced metadata that might be missing from pageMap
+  const metadata = await extractEnhancedPageMetadata(entityName, pageMap);
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,9 +70,12 @@ export function genEntityHtml(entityName, pageMap, sampleData) {
   
   <div class="directive-list">
     <h3>Entity Configuration Overview</h3>
-    <p><strong>Schema:</strong> ${pageMap.systemConfig?.schema || 'Not specified'}</p>
-    <p><strong>Table:</strong> ${pageMap.systemConfig?.table || 'Not specified'}</p>
-    <p><strong>Primary Key:</strong> ${pageMap.systemConfig?.primaryKey || 'Not specified'}</p>
+    <p><strong>Schema:</strong> ${metadata.schema}</p>
+    <p><strong>Table:</strong> ${metadata.tableName}</p>
+    <p><strong>Primary Key:</strong> ${metadata.primaryKey}</p>
+    <p><strong>List Event:</strong> ${pageMap.systemConfig?.listEvent || 'Not specified'}</p>
+    <p><strong>Columns Defined:</strong> ${pageMap.tableConfig?.columns?.length || 0}</p>
+    <p><strong>Form Groups:</strong> ${pageMap.formConfig?.groups?.length || 0}</p>
   </div>
   
   <div class="preview-container">
@@ -85,7 +91,7 @@ export function genEntityHtml(entityName, pageMap, sampleData) {
     
     <div id="dml-section" class="preview-section" style="display: none;">
       <h2>DML Preview</h2>
-      ${genDmlHtml(pageMap.systemConfig, pageMap.dmlConfig, sampleData)}
+      ${genDmlHtml(metadata, pageMap.dmlConfig, sampleData)}
     </div>
   </div>
 </body>

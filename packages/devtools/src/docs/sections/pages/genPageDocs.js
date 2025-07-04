@@ -7,6 +7,7 @@ import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { genEntityHtml } from './source/genEntityHtml.js';
 import getSampleData from './source/getSampleData.js';
+import { getPageMap, getAllPageMaps } from '@whatsfresh/shared-imports';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,7 +26,7 @@ export class PageDocGenerator {
    */
   async generatePagesIndex(outputDir, pageManifest = []) {
     console.log('📄 Generating pages documentation index...');
-    
+
     // Generate the page list table HTML
     let pageListTable = '';
     if (pageManifest.length === 0) {
@@ -39,7 +40,7 @@ export class PageDocGenerator {
           <td><a href="./${page.name}.html">View Preview</a></td>
         </tr>
       `).join('');
-      
+
       pageListTable = `
         <table>
           <thead>
@@ -56,7 +57,7 @@ export class PageDocGenerator {
         </table>
       `;
     }
-    
+
     const content = `
       <h1>Page Previews</h1>
       <p>Visual previews of generated pages and layouts based on pageMap configurations.</p>
@@ -75,16 +76,16 @@ export class PageDocGenerator {
         {{pageListTable}}
       </div>
     `;
-    
+
     const finalContent = content.replace('{{pageListTable}}', pageListTable);
-    
+
     const html = await this.templateEngine.generatePage({
       title: 'Page Previews',
       content: finalContent,
       activeSection: 'pages',
       baseUrl: '..'
     });
-    
+
     await fs.writeFile(path.join(outputDir, 'index.html'), html);
     console.log('✅ Pages index generated');
   }
@@ -94,20 +95,20 @@ export class PageDocGenerator {
    */
   async generatePagePreviews(outputDir) {
     console.log('🎨 Generating individual page previews...');
-    
+
     try {
       // Try different pageMap registry locations
       let entityRegistry = null;
       const possiblePaths = [
         '../../../../../../packages/shared-config/src/client/pageMapRegistry.js'
       ];
-      
+
       for (const registryPath of possiblePaths) {
         try {
           const registryModulePath = pathToFileURL(
             path.resolve(__dirname, registryPath)
           ).href;
-          
+
           const module = await import(registryModulePath);
           entityRegistry = module.entityRegistry;
           if (entityRegistry) {
@@ -119,63 +120,58 @@ export class PageDocGenerator {
           continue;
         }
       }
-      
+
       if (!entityRegistry) {
         throw new Error('Could not find pageMapRegistry in any expected location');
       }
       console.log(`🔎 Loaded ${Object.keys(entityRegistry).length} entities`);
-      
+
       const pageManifest = [];
-      
+
       for (const [entityName] of Object.entries(entityRegistry)) {
         try {
-          // Try different pageMap locations
-          let pageMap = null;
-          const possibleMapPaths = [
-            `../../../../../../packages/shared-config/src/client/pageMap/${entityName}.js`,
-            `../../../../../../packages/shared-config/src/admin/pageMap/${entityName}.js`,
-            `../../../../../../packages/shared-config/src/pageMap/${entityName}.js`
-          ];
-          
-          for (const mapPath of possibleMapPaths) {
-            try {
-              const mapModulePath = pathToFileURL(
-                path.resolve(__dirname, mapPath)
-              ).href;
-              
-              const module = await import(mapModulePath);
-              pageMap = module.default;
-              if (pageMap) break;
-            } catch (err) {
-              continue;
-            }
-          }
-          
+          // Determine app based on entity section or default to client
+          const entity = entityRegistry[entityName];
+          const app = entity?.section === 'admin' ? 'admin' : 'client';
+
+          // Use the clean API to get pageMap
+          const pageMap = await getPageMap(app, entityName);
+
           if (!pageMap) {
-            throw new Error(`Could not find pageMap for ${entityName}`);
+            throw new Error(`Could not find pageMap for ${entityName} in ${app} app`);
           }
-          
+
+          console.log(`🎯 Loaded pageMap for ${entityName} from ${app} app`);
+
           const sampleData = await getSampleData(entityName, pageMap) || [];
-          
+
           // Generate the enhanced HTML with our template navigation
-          const entityHtml = genEntityHtml(entityName, pageMap, sampleData);
-          
+          const entityHtml = await genEntityHtml(entityName, pageMap, sampleData);
+
+          // Extract the JavaScript from the head section
+          const scriptMatch = entityHtml.match(/<script[^>]*>([\s\S]*?)<\/script>/i);
+          const scriptContent = scriptMatch ? scriptMatch[1] : '';
+
           // Extract the body content and wrap it with our template
           const bodyMatch = entityHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
           const bodyContent = bodyMatch ? bodyMatch[1] : entityHtml;
-          
+
           // The genEntityHtml already includes a back link, so don't add another one
-          const enhancedContent = bodyContent;
-          
+          const enhancedContent = bodyContent + (scriptContent ? `
+            <script>
+              ${scriptContent}
+            </script>
+          ` : '');
+
           const html = await this.templateEngine.generatePage({
             title: `${pageMap.title || entityName} Preview`,
             content: enhancedContent,
             activeSection: 'pages',
             baseUrl: '..'
           });
-          
+
           await fs.writeFile(path.join(outputDir, `${entityName}.html`), html);
-          
+
           // Add to manifest
           pageManifest.push({
             name: entityName,
@@ -183,22 +179,22 @@ export class PageDocGenerator {
             schema: pageMap.systemConfig?.schema,
             table: pageMap.systemConfig?.table
           });
-          
+
           console.log(`✅ ${entityName}.html`);
         } catch (err) {
           console.warn(`⚠️  Skipping ${entityName}: ${err.message}`);
         }
       }
-      
+
       // Write page manifest for the index
       await fs.writeFile(
         path.join(outputDir, 'pages.json'),
         JSON.stringify(pageManifest, null, 2)
       );
-      
+
       console.log('🎉 Finished page preview generation');
       return pageManifest;
-      
+
     } catch (error) {
       console.error('❌ Error generating page previews:', error);
       return [];

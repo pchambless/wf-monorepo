@@ -20,24 +20,16 @@ export default {
       {
         "field": "brndID",
         "label": "brndID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
       },
       {
-        "field": "brndName",
-        "label": "Brand Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
         "field": "acctID",
         "label": "acctID",
-        "width": 150,
-        "type": "text",
+        "width": 120,
+        "type": "select",
         "editable": false,
         "hidden": true
       }
@@ -57,23 +49,9 @@ export default {
             "hidden": true
           },
           {
-            "field": "brndName",
-            "label": "Brand Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "brndComments",
-            "label": "Comments",
-            "type": "multiLine",
-            "required": false,
-            "hidden": false
-          },
-          {
             "field": "acctID",
             "label": "acctID",
-            "type": "text",
+            "type": "select",
             "required": false,
             "hidden": true
           }
@@ -91,16 +69,28 @@ export default {
             "hidden": false
           }
         ]
+      },
+      {
+        "id": "5",
+        "title": "Group 5",
+        "fields": [
+          {
+            "field": "brndComments",
+            "label": "Comments",
+            "type": "multiLine",
+            "required": false,
+            "hidden": false
+          }
+        ]
       }
     ]
   },
   "dmlConfig": {
     "fieldMappings": {
-      "brndID": "brndID",
-      "brndName": "brndName",
-      "brndComments": "brndComments",
-      "brndURL": "brndURL",
-      "acctID": "acctID"
+      "brndID": "id",
+      "brndComments": "comments",
+      "brndURL": "url",
+      "acctID": "account_id"
     },
     "operations": {
       "insert": {

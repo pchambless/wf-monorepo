@@ -1,0 +1,63 @@
+{
+  "viewName": "taskList",
+  "entityName": "tasklist",
+  "lastGenerated": "2025-07-04T17:15:54.270Z",
+  "columns": {
+    "taskID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "id"
+      }
+    },
+    "taskName": {
+      "directives": {
+        "type": "text",
+        "width": "200",
+        "BI": true,
+        "label": "Task Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "taskDesc": {
+      "directives": {
+        "type": "text",
+        "label": "Description",
+        "grp": "1",
+        "width": 120,
+        "dbColumn": "description",
+        "tableHide": true
+      }
+    },
+    "taskOrder": {
+      "directives": {
+        "type": "text",
+        "label": "Order",
+        "grp": "1",
+        "width": "80",
+        "dbColumn": "ordr",
+        "required": true
+      }
+    },
+    "prodTypeID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "product_type_id"
+      }
+    }
+  }
+}

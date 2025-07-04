@@ -20,24 +20,16 @@ export default {
       {
         "field": "prodTypeID",
         "label": "prodTypeID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
       },
       {
-        "field": "prodTypeName",
-        "label": "Type Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
         "field": "acctID",
         "label": "acctID",
-        "width": 150,
-        "type": "text",
+        "width": 120,
+        "type": "select",
         "editable": false,
         "hidden": true
       }
@@ -57,16 +49,9 @@ export default {
             "hidden": true
           },
           {
-            "field": "prodTypeName",
-            "label": "Type Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
             "field": "acctID",
             "label": "acctID",
-            "type": "text",
+            "type": "select",
             "required": false,
             "hidden": true
           }
@@ -76,9 +61,8 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "prodTypeID": "prodTypeID",
-      "prodTypeName": "prodTypeName",
-      "acctID": "acctID"
+      "prodTypeID": "id",
+      "acctID": "account_id"
     },
     "operations": {
       "insert": {

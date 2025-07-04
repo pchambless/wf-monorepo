@@ -20,18 +20,10 @@ export default {
       {
         "field": "measID",
         "label": "measID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
-      },
-      {
-        "field": "name",
-        "label": "Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
       },
       {
         "field": "abbrev",
@@ -44,8 +36,8 @@ export default {
       {
         "field": "acctID",
         "label": "acctID",
-        "width": 150,
-        "type": "text",
+        "width": 120,
+        "type": "select",
         "editable": false,
         "hidden": true
       }
@@ -65,13 +57,6 @@ export default {
             "hidden": true
           },
           {
-            "field": "name",
-            "label": "Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
             "field": "abbrev",
             "label": "Abbreviation",
             "type": "text",
@@ -81,7 +66,7 @@ export default {
           {
             "field": "acctID",
             "label": "acctID",
-            "type": "text",
+            "type": "select",
             "required": false,
             "hidden": true
           }
@@ -91,10 +76,9 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "measID": "measID",
-      "name": "name",
+      "measID": "id",
       "abbrev": "abbrev",
-      "acctID": "acctID"
+      "acctID": "account_id"
     },
     "operations": {
       "insert": {

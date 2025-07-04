@@ -1,0 +1,107 @@
+{
+  "viewName": "prodList",
+  "entityName": "prodlist",
+  "lastGenerated": "2025-07-04T17:15:54.254Z",
+  "columns": {
+    "prodID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "id"
+      }
+    },
+    "prodName": {
+      "directives": {
+        "type": "text",
+        "width": "200",
+        "BI": true,
+        "label": "Product Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "prodCode": {
+      "directives": {
+        "type": "text",
+        "width": "100",
+        "BI": true,
+        "label": "Code",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "code",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "prodDfltLoc": {
+      "directives": {
+        "type": "text",
+        "label": "Default Location",
+        "grp": "2",
+        "width": "120",
+        "dbColumn": "location"
+      }
+    },
+    "prodDfltBestBy": {
+      "directives": {
+        "type": "text",
+        "label": "Best By Days",
+        "grp": "2",
+        "width": "80",
+        "dbColumn": "best_by_days"
+      }
+    },
+    "prodDesc": {
+      "directives": {
+        "type": "text",
+        "label": "Description",
+        "grp": "1",
+        "width": 120,
+        "dbColumn": "description",
+        "tableHide": true
+      }
+    },
+    "prodUpcItemRef": {
+      "directives": {
+        "type": "text",
+        "width": "120",
+        "BI": true,
+        "label": "UPC Reference",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "upc_item_reference",
+        "grp": "3"
+      }
+    },
+    "prodUpcChkDgt": {
+      "directives": {
+        "type": "text",
+        "label": "UPC Check Digit",
+        "grp": "3",
+        "width": "80",
+        "dbColumn": "upc_check_digit"
+      }
+    },
+    "prodTypeID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "product_type_id"
+      }
+    }
+  }
+}

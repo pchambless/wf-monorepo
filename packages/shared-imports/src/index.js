@@ -5,11 +5,8 @@
  * All shared packages are re-exported here for clean, single-source imports.
  * 
  * Usage:
- * import { ROUTES, CrudLayout, execEvent, createLogger } from '@whatsfresh/shared-imports';
+ * import { CrudLayout, execEvent, createLogger } from '@whatsfresh/shared-imports';
  */
-
-// === SHARED CONFIG EXPORTS ===
-export * from '../../shared-config/index.js';
 
 // === SHARED UI EXPORTS ===
 export * from '../../shared-ui/src/index.js';
@@ -18,11 +15,15 @@ export * from '../../shared-ui/src/index.js';
 export * from '../../shared-events/index.js';
 
 // === SHARED API EXPORTS ===
-export * from '../../shared-api/src/index.js';
+// Use server-safe exports to avoid JSX parsing issues in Node.js
+export * from '../../shared-api/src/server.js';
 
 // === UTILITIES FROM THIS PACKAGE ===
 export * from './utils/index.js';
 export { default as createLogger } from './utils/logger.js';
+
+// === DEVTOOLS UTILITIES ===
+export * from './devtools/pageMapAccess.js';
 
 // === LEGACY DYNAMIC IMPORT SUPPORT ===
 // Note: imports.js and paths.js excluded from browser exports (use Node.js modules)
@@ -41,23 +42,23 @@ export const packageInfo = {
  * Quick setup function for apps
  */
 export function setupSharedImports(options = {}) {
-  const { 
+  const {
     logLevel = 'info',
     showTimestamps = true,
     component = 'APP'
   } = options;
-  
+
   // Configure logger with app-specific defaults
   import('./utils/logger.js').then(({ configureLogger }) => {
     configureLogger({
-      defaultLevel: typeof logLevel === 'string' ? 
+      defaultLevel: typeof logLevel === 'string' ?
         { error: 1, warn: 2, info: 3, debug: 4 }[logLevel] : logLevel,
       showTimestamps
     });
   });
-  
+
   // Return a pre-configured logger for the app
-  return import('./utils/logger.js').then(({ default: createLogger }) => 
+  return import('./utils/logger.js').then(({ default: createLogger }) =>
     createLogger(component, logLevel)
   );
 }

@@ -1,0 +1,98 @@
+{
+  "viewName": "ingrList",
+  "entityName": "ingrlist",
+  "lastGenerated": "2025-07-04T17:15:54.246Z",
+  "columns": {
+    "ingrID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "id"
+      }
+    },
+    "ingrName": {
+      "directives": {
+        "type": "text",
+        "width": "200",
+        "BI": true,
+        "label": "Ingredient Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "ingrCode": {
+      "directives": {
+        "type": "text",
+        "width": "100",
+        "BI": true,
+        "label": "Code",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "code",
+        "grp": "1",
+        "required": true
+      }
+    },
+    "ingrDesc": {
+      "directives": {
+        "type": "text",
+        "label": "Description",
+        "grp": 4,
+        "width": 120,
+        "dbColumn": "description",
+        "tableHide": true
+      }
+    },
+    "measID": {
+      "directives": {
+        "type": "select",
+        "widget": "selMeas",
+        "label": "Default Measure",
+        "grp": 2,
+        "width": "120",
+        "tableHide": true,
+        "dbColumn": "default_measure_unit"
+      }
+    },
+    "vndrID": {
+      "directives": {
+        "type": "select",
+        "widget": "selVndr",
+        "label": "Default Vendor",
+        "grp": 2,
+        "width": "150",
+        "tableHide": true,
+        "dbColumn": "default_vendor"
+      }
+    },
+    "ingrGrmsPerOz": {
+      "directives": {
+        "type": "text",
+        "label": "Grams/Oz",
+        "grp": 3,
+        "width": "100",
+        "dbColumn": "grams_per_ounce"
+      }
+    },
+    "ingrTypeID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "ingredient_type_id"
+      }
+    }
+  }
+}

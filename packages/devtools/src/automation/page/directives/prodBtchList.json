@@ -1,0 +1,135 @@
+{
+  "viewName": "prodBtchList",
+  "entityName": "prodbtchlist",
+  "lastGenerated": "2025-07-04T17:15:54.256Z",
+  "columns": {
+    "prodBtchID": {
+      "directives": {
+        "PK": true,
+        "sys": true,
+        "type": "number",
+        "width": 80,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "id"
+      }
+    },
+    "btchNbr": {
+      "directives": {
+        "type": "text",
+        "label": "Batch Number",
+        "grp": "1",
+        "required": true,
+        "width": "120",
+        "dbColumn": "batch_number"
+      }
+    },
+    "btchStart": {
+      "directives": {
+        "type": "text",
+        "label": "Btch Start",
+        "grp": "1",
+        "width": 120,
+        "dbColumn": "'%Y-%m-%d')"
+      }
+    },
+    "btchLoc": {
+      "directives": {
+        "type": "text",
+        "label": "Location",
+        "grp": "2",
+        "width": "150",
+        "dbColumn": "location",
+        "required": true
+      }
+    },
+    "btchQty": {
+      "directives": {
+        "type": "decimal",
+        "dec": "10,2",
+        "grp": "2",
+        "label": "Quantity",
+        "width": "100",
+        "dbColumn": "batch_quantity",
+        "required": true
+      }
+    },
+    "measID": {
+      "directives": {
+        "type": "select",
+        "widget": "selMeas",
+        "label": "Measure",
+        "grp": "2",
+        "width": "120",
+        "tableHide": true,
+        "dbColumn": "global_measure_unit_id",
+        "required": true
+      }
+    },
+    "bestByDate": {
+      "directives": {
+        "type": "date",
+        "grp": "4",
+        "label": "Best By Date",
+        "width": 100,
+        "dbColumn": "'%Y-%m-%d')"
+      }
+    },
+    "comments": {
+      "directives": {
+        "type": "multiLine",
+        "grp": "5",
+        "label": "Comments",
+        "width": 200,
+        "tableHide": true,
+        "dbColumn": "comments"
+      }
+    },
+    "prodID": {
+      "directives": {
+        "parentKey": true,
+        "sys": true,
+        "type": "select",
+        "width": 120,
+        "tableHide": true,
+        "formHide": true,
+        "dbColumn": "product_id"
+      }
+    },
+    "prodName": {
+      "directives": {
+        "type": "text",
+        "width": "150",
+        "BI": true,
+        "label": "Prod Name",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name"
+      }
+    },
+    "prodType": {
+      "directives": {
+        "type": "text",
+        "width": "150",
+        "BI": true,
+        "label": "Prod Type",
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "name"
+      }
+    },
+    "acctID": {
+      "directives": {
+        "type": "select",
+        "widget": "selAcct",
+        "label": "Account",
+        "grp": "1",
+        "width": 120,
+        "tableHide": true,
+        "dbColumn": "account_id"
+      }
+    }
+  }
+}

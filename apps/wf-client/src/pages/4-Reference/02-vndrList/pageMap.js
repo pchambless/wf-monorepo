@@ -20,26 +20,10 @@ export default {
       {
         "field": "vndrID",
         "label": "vndrID",
-        "width": 150,
+        "width": 80,
         "type": "number",
         "editable": false,
         "hidden": true
-      },
-      {
-        "field": "vndrName",
-        "label": "Vendor Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "vndrContactName",
-        "label": "Contact Name",
-        "width": "150",
-        "type": "text",
-        "editable": true,
-        "hidden": false
       },
       {
         "field": "vndrContactPhone",
@@ -60,8 +44,8 @@ export default {
       {
         "field": "acctID",
         "label": "acctID",
-        "width": 150,
-        "type": "text",
+        "width": 120,
+        "type": "select",
         "editable": false,
         "hidden": true
       }
@@ -81,30 +65,9 @@ export default {
             "hidden": true
           },
           {
-            "field": "vndrName",
-            "label": "Vendor Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "vndrContactName",
-            "label": "Contact Name",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          },
-          {
-            "field": "vndrComments",
-            "label": "Comments",
-            "type": "multiLine",
-            "required": false,
-            "hidden": false
-          },
-          {
             "field": "acctID",
             "label": "acctID",
-            "type": "text",
+            "type": "select",
             "required": false,
             "hidden": true
           }
@@ -129,18 +92,29 @@ export default {
             "hidden": false
           }
         ]
+      },
+      {
+        "id": "5",
+        "title": "Group 5",
+        "fields": [
+          {
+            "field": "vndrComments",
+            "label": "Comments",
+            "type": "multiLine",
+            "required": false,
+            "hidden": false
+          }
+        ]
       }
     ]
   },
   "dmlConfig": {
     "fieldMappings": {
-      "vndrID": "vndrID",
-      "vndrName": "vndrName",
-      "vndrContactName": "vndrContactName",
-      "vndrContactPhone": "vndrContactPhone",
-      "vndrContactEmail": "vndrContactEmail",
-      "vndrComments": "vndrComments",
-      "acctID": "acctID"
+      "vndrID": "id",
+      "vndrContactPhone": "contact_phone",
+      "vndrContactEmail": "contact_email",
+      "vndrComments": "comments",
+      "acctID": "account_id"
     },
     "operations": {
       "insert": {

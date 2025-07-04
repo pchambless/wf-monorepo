@@ -44,8 +44,11 @@
   <div class="directive-list">
     <h3>Entity Configuration Overview</h3>
     <p><strong>Schema:</strong> whatsfresh</p>
-    <p><strong>Table:</strong> Not specified</p>
-    <p><strong>Primary Key:</strong> Not specified</p>
+    <p><strong>Table:</strong> ingredient_batches</p>
+    <p><strong>Primary Key:</strong> ingrBtchID</p>
+    <p><strong>List Event:</strong> ingrBtchList</p>
+    <p><strong>Columns Defined:</strong> 11</p>
+    <p><strong>Form Groups:</strong> 5</p>
   </div>
   
   <div class="preview-container">
@@ -168,7 +171,13 @@
         </details>
       
     </div>
-  <p><em>No sample data available for table preview</em></p>
+  
+<table>
+  <thead>
+    <tr><th>Batch Number</th><th>Purch Date</th><th>Unit Qty</th><th>Unit Price</th><th>Purchase Qty</th><th>Lot Number</th><th>Best By Date</th><th>D E C I M A L</th><th>Purch_dtl</th></tr>
+  </thead>
+  <tbody><tr><td>CC0656</td><td>2024-07-23</td><td>1</td><td>26.7500</td><td>5</td><td></td><td></td><td></td><td>5 @ $26.75 per 1 Case</td></tr><tr><td>CC0655</td><td>2024-07-16</td><td>1</td><td>0.2890</td><td>432</td><td></td><td></td><td></td><td>432 @ $0.29 per 1 Item</td></tr><tr><td>CC0654</td><td>2024-07-09</td><td>1</td><td>0.2554</td><td>432</td><td></td><td></td><td></td><td>432 @ $0.26 per 1 Case</td></tr></tbody>
+</table>
     </div>
     
     <div id="form-section" class="preview-section" style="display: none;">
@@ -183,15 +192,15 @@
           </div>
           <div class="form-field">
             <label>Batch Number<span class="required-marker">*</span> <span class="field-type">[text]</span></label>
-            <div class="field-preview"></div>
+            <div class="field-preview">CC0656</div>
           </div>
           <div class="form-field">
             <label>Vendor<span class="required-marker">*</span> <span class="field-type">[select]</span></label>
-            <div class="field-preview select-field"></div>
+            <div class="field-preview select-field">170</div>
           </div>
           <div class="form-field">
             <label>Ingredient <span class="field-type">[select]</span></label>
-            <div class="field-preview select-field"></div>
+            <div class="field-preview select-field">4</div>
           </div>
           <div class="form-field">
             <label>D E C I M A L <span class="field-type">[text]</span></label>
@@ -199,7 +208,7 @@
           </div>
           <div class="form-field">
             <label>Purch_dtl <span class="field-type">[text]</span></label>
-            <div class="field-preview"></div>
+            <div class="field-preview">5 @ $26.75 per 1 Case</div>
           </div>
           <div class="form-field">
             <label>Account <span class="field-type">[select]</span></label>
@@ -211,7 +220,7 @@
           <div class="form-row">
           <div class="form-field">
             <label>Brand <span class="field-type">[select]</span></label>
-            <div class="field-preview select-field"></div>
+            <div class="field-preview select-field">678</div>
           </div></div>
         </div>
         <div class="form-group">
@@ -219,19 +228,19 @@
           <div class="form-row">
           <div class="form-field">
             <label>Unit Qty<span class="required-marker">*</span> <span class="field-type">[decimal]</span></label>
-            <div class="field-preview number-field"></div>
+            <div class="field-preview number-field">1</div>
           </div>
           <div class="form-field">
             <label>Unit Price <span class="field-type">[decimal]</span></label>
-            <div class="field-preview number-field"></div>
+            <div class="field-preview number-field">26.7500</div>
           </div>
           <div class="form-field">
             <label>Purchase Qty<span class="required-marker">*</span> <span class="field-type">[decimal]</span></label>
-            <div class="field-preview number-field"></div>
+            <div class="field-preview number-field">5</div>
           </div>
           <div class="form-field">
             <label>Measure<span class="required-marker">*</span> <span class="field-type">[select]</span></label>
-            <div class="field-preview select-field"></div>
+            <div class="field-preview select-field">55</div>
           </div></div>
         </div>
         <div class="form-group">
@@ -239,7 +248,7 @@
           <div class="form-row">
           <div class="form-field">
             <label>Purch Date <span class="field-type">[date]</span></label>
-            <div class="field-preview"></div>
+            <div class="field-preview">2024-07-23</div>
           </div>
           <div class="form-field">
             <label>Lot Number <span class="field-type">[text]</span></label>
@@ -255,17 +264,201 @@
           <div class="form-row">
           <div class="form-field">
             <label>Comments <span class="field-type">[multiLine]</span></label>
-            <div class="field-preview multiLine-field"></div>
+            <div class="field-preview multiLine-field">DID NOT GIVE ME COUNT PER CASE....</div>
           </div></div>
         </div></div>
     </div>
     
     <div id="dml-section" class="preview-section" style="display: none;">
       <h2>DML Preview</h2>
-      <p><em>No sample data available for DML preview</em></p>
+      
+<div class="dml-preview">
+  <!-- Field Mappings -->
+  <div class="mapping-section">
+    <h3>Field Mappings</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>UI Field</th>
+          <th>Database Column</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td>ingrBtchID</td>
+            <td>id</td>
+          </tr>
+        
+          <tr>
+            <td>btchNbr</td>
+            <td>batch_number</td>
+          </tr>
+        
+          <tr>
+            <td>vndrID</td>
+            <td>vendor_id</td>
+          </tr>
+        
+          <tr>
+            <td>brndID</td>
+            <td>brand_id</td>
+          </tr>
+        
+          <tr>
+            <td>purchDate</td>
+            <td>purchase_date</td>
+          </tr>
+        
+          <tr>
+            <td>unitQty</td>
+            <td>unit_quantity</td>
+          </tr>
+        
+          <tr>
+            <td>unitPrice</td>
+            <td>unit_price</td>
+          </tr>
+        
+          <tr>
+            <td>purchQty</td>
+            <td>purchase_quantity</td>
+          </tr>
+        
+          <tr>
+            <td>measID</td>
+            <td>global_measure_unit_id</td>
+          </tr>
+        
+          <tr>
+            <td>lotNbr</td>
+            <td>lot_number</td>
+          </tr>
+        
+          <tr>
+            <td>bestByDate</td>
+            <td>best_by_date</td>
+          </tr>
+        
+          <tr>
+            <td>comments</td>
+            <td>comments</td>
+          </tr>
+        
+          <tr>
+            <td>ingrID</td>
+            <td>ingredient_id</td>
+          </tr>
+        
+          <tr>
+            <td>DECIMAL</td>
+            <td>unit_quantity</td>
+          </tr>
+        
+          <tr>
+            <td>purch_dtl</td>
+            <td>END</td>
+          </tr>
+        
+          <tr>
+            <td>acctID</td>
+            <td>account_id</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- INSERT Example -->
+  <div class="dml-operation">
+    <h3>INSERT Example</h3>
+    <pre class="sql-preview">
+INSERT INTO whatsfresh.ingredient_batches
+(batch_number, vendor_id, brand_id, purchase_date, unit_quantity, unit_price, purchase_quantity, global_measure_unit_id, lot_number, best_by_date, comments, ingredient_id, unit_quantity, END, account_id)
+VALUES
+('CC0656', 170, 678, '2024-07-23', 1, '26.7500', 5, 55, '', NULL, 'DID NOT GIVE ME COUNT PER CASE....', 4, NULL, '5 @ $26.75 per 1 Case', NULL);
+    </pre>
+  </div>
+  
+  <!-- UPDATE Example -->
+  <div class="dml-operation">
+    <h3>UPDATE Example</h3>
+    <pre class="sql-preview">
+UPDATE whatsfresh.ingredient_batches
+SET 
+  batch_number = 'CC0656',
+  vendor_id = 170,
+  brand_id = 678,
+  purchase_date = '2024-07-23',
+  unit_quantity = 1,
+  unit_price = '26.7500',
+  purchase_quantity = 5,
+  global_measure_unit_id = 55,
+  lot_number = '',
+  best_by_date = NULL,
+  comments = 'DID NOT GIVE ME COUNT PER CASE....',
+  ingredient_id = 4,
+  unit_quantity = NULL,
+  END = '5 @ $26.75 per 1 Case',
+  account_id = NULL
+WHERE 
+  id = NULL;
+    </pre>
+  </div>
+  
+  <!-- DELETE Example -->
+  <div class="dml-operation">
+    <h3>DELETE Example</h3>
+    <pre class="sql-preview">
+DELETE FROM whatsfresh.ingredient_batches
+WHERE 
+  id = NULL;
+    </pre>
+  </div>
+</div>
     </div>
   </div>
 
+            <script>
+              
+    function toggleView(view) {
+      const tableSection = document.getElementById('table-section');
+      const formSection = document.getElementById('form-section');
+      const dmlSection = document.getElementById('dml-section');
+      
+      const tableBtn = document.querySelector('.table-btn');
+      const formBtn = document.querySelector('.form-btn');
+      const dmlBtn = document.querySelector('.dml-btn');
+      
+      // Hide all sections
+      tableSection.style.display = 'none';
+      formSection.style.display = 'none';
+      dmlSection.style.display = 'none';
+      
+      // Remove active class from all buttons
+      tableBtn.classList.remove('active');
+      formBtn.classList.remove('active');
+      dmlBtn.classList.remove('active');
+      
+      // Show selected section and activate button
+      if (view === 'table') {
+        tableSection.style.display = 'block';
+        tableBtn.classList.add('active');
+      } else if (view === 'form') {
+        formSection.style.display = 'block';
+        formBtn.classList.add('active');
+      } else if (view === 'dml') {
+        dmlSection.style.display = 'block';
+        dmlBtn.classList.add('active');
+      } else if (view === 'all') {
+        tableSection.style.display = 'block';
+        formSection.style.display = 'block';
+        dmlSection.style.display = 'block';
+      }
+    }
+  
+            </script>
+          
     </div>
   </div>
   

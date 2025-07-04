@@ -34,14 +34,6 @@ export default {
         "hidden": false
       },
       {
-        "field": "purchDate",
-        "label": "Purch Date",
-        "width": 100,
-        "type": "date",
-        "editable": true,
-        "hidden": false
-      },
-      {
         "field": "unitQty",
         "label": "Unit Qty",
         "width": "80",
@@ -74,36 +66,12 @@ export default {
         "hidden": false
       },
       {
-        "field": "bestByDate",
-        "label": "Best By Date",
-        "width": 100,
-        "type": "date",
-        "editable": true,
-        "hidden": false
-      },
-      {
         "field": "ingrID",
         "label": "Ingredient",
         "width": 120,
         "type": "select",
         "editable": false,
         "hidden": true
-      },
-      {
-        "field": "DECIMAL",
-        "label": "D E C I M A L",
-        "width": 120,
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "purch_dtl",
-        "label": "Purch_dtl",
-        "width": 120,
-        "type": "text",
-        "editable": true,
-        "hidden": false
       }
     ]
   },
@@ -141,20 +109,6 @@ export default {
             "type": "select",
             "required": false,
             "hidden": true
-          },
-          {
-            "field": "DECIMAL",
-            "label": "D E C I M A L",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          },
-          {
-            "field": "purch_dtl",
-            "label": "Purch_dtl",
-            "type": "text",
-            "required": false,
-            "hidden": false
           },
           {
             "field": "acctID",
@@ -220,23 +174,9 @@ export default {
         "title": "Group 4",
         "fields": [
           {
-            "field": "purchDate",
-            "label": "Purch Date",
-            "type": "date",
-            "required": false,
-            "hidden": false
-          },
-          {
             "field": "lotNbr",
             "label": "Lot Number",
             "type": "text",
-            "required": false,
-            "hidden": false
-          },
-          {
-            "field": "bestByDate",
-            "label": "Best By Date",
-            "type": "date",
             "required": false,
             "hidden": false
           }
@@ -259,22 +199,18 @@ export default {
   },
   "dmlConfig": {
     "fieldMappings": {
-      "ingrBtchID": "ingrBtchID",
-      "btchNbr": "btchNbr",
-      "vndrID": "vndrID",
-      "brndID": "brndID",
-      "purchDate": "purchDate",
-      "unitQty": "unitQty",
-      "unitPrice": "unitPrice",
-      "purchQty": "purchQty",
-      "measID": "measID",
-      "lotNbr": "lotNbr",
-      "bestByDate": "bestByDate",
+      "ingrBtchID": "id",
+      "btchNbr": "batch_number",
+      "vndrID": "vendor_id",
+      "brndID": "brand_id",
+      "unitQty": "unit_quantity",
+      "unitPrice": "unit_price",
+      "purchQty": "purchase_quantity",
+      "measID": "global_measure_unit_id",
+      "lotNbr": "lot_number",
       "comments": "comments",
-      "ingrID": "ingrID",
-      "DECIMAL": "DECIMAL",
-      "purch_dtl": "purch_dtl",
-      "acctID": "acctID"
+      "ingrID": "ingredient_id",
+      "acctID": "account_id"
     },
     "operations": {
       "insert": {
