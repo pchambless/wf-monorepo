@@ -72,6 +72,84 @@ Open `packages/devtools/src/docs/generated/index.html` in your browser.
 | **🌐 API Documentation** | 🔄 Planned | REST API endpoints and data contracts | *Coming Soon* |
 
 
+## 🏗️ Recent Architecture Improvements (2025)
+
+### Centralized Shared-Imports Architecture
+
+We've implemented a centralized import system that eliminates duplicate dependencies and provides consistent access to core functionality:
+
+```javascript
+// Before: Multiple import sources
+import createLogger from '../utils/logger';
+import { execEvent } from '../stores/eventStore';
+import accountStore from '../stores/accountStore';
+
+// After: Single centralized import
+import { 
+  createLogger, 
+  execEvent, 
+  accountStore 
+} from '@whatsfresh/shared-imports';
+```
+
+**Key Benefits:**
+- ✅ **DRY Principle**: No duplicate utilities across apps
+- ✅ **Consistent APIs**: Same function signatures everywhere
+- ✅ **Easy Maintenance**: Update once, applied everywhere
+- ✅ **Type Safety**: Centralized TypeScript definitions
+
+### Shared UI Component Library
+
+Migrated authentication and core UI components to reusable shared packages:
+
+```javascript
+// Login component now shared between Admin and Client apps
+import { LoginForm } from '@whatsfresh/shared-ui';
+
+<LoginForm 
+  appName="WhatsFresh Client"
+  logoSrc={logo}
+  onLoginSuccess={handleSuccess}
+  navigateToApp={navigateToApp}
+/>
+```
+
+### Modular DML System
+
+Built a clean, modular system for Data Manipulation Language operations:
+
+```javascript
+// Simple DML execution with preview
+import { executeDML } from '@whatsfresh/shared-ui';
+
+const result = await executeDML(pageMap, formData, 'INSERT');
+```
+
+**Architecture:**
+- `sqlFormatter.js` - Pure SQL generation functions
+- `dmlBuilder.js` - Data transformation logic  
+- `dmlPreview.jsx` - Modal UI components
+- `index.js` - Main orchestrator
+
+### Store Simplification
+
+Simplified client stores using MVP approach:
+- ✅ **Removed over-engineered caching** (reference data lists)
+- ✅ **Deleted legacy stores** (5 unused/duplicate stores)
+- ✅ **Simplified accountStore** (280 → 146 lines)
+- ✅ **Self-sufficient components** (no external store dependencies)
+
+### SQL Organization Improvements
+
+Renamed `sql/views/crud/` → `sql/views/client/` for better semantic organization:
+
+```
+sql/views/
+├── admin/     # Admin app views
+├── client/    # Client app views (formerly 'crud')  
+└── domain/    # Domain-specific views
+```
+
 ## 🐳 Docker Development Environment
 
 The entire monorepo is dockerized for consistent development across environments:
