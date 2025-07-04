@@ -16,13 +16,13 @@ export class OverviewDocGenerator {
 
   async generateDocs(outputDir) {
     console.log('📋 Generating overview documentation...');
-    
+
     const overviewDir = path.join(outputDir, 'overview');
     await fs.mkdir(overviewDir, { recursive: true });
 
     // Generate main overview page
     await this.generateOverviewPage(overviewDir);
-    
+
     console.log('✅ Overview documentation generated');
   }
 
@@ -358,7 +358,8 @@ npm run generate-pages   # Generate page configurations</code></pre>
     const html = await this.templateEngine.generatePage({
       title: 'Developer Overview - WhatsFresh Documentation',
       content,
-      activeSection: 'overview'
+      activeSection: 'overview',
+      baseUrl: '..'
     });
 
     await fs.writeFile(path.join(outputDir, 'index.html'), html);

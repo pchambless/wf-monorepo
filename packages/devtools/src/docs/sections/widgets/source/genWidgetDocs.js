@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { WIDGET_REGISTRY, WIDGET_TYPES } from '@whatsfresh/shared-ui/src/widgets/index.js';
-import { abbreviationMap } from '@whatsfresh/shared-config/src/common/abbreviationMap.js';
+import { abbreviationMap } from '@whatsfresh/shared-config/src/common/abbreviationMap';
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
