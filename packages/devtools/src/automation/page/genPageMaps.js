@@ -262,7 +262,7 @@ async function extractColumnMappingsFromView(viewName) {
     // fs and path already imported at top
     
     // Locate the SQL file for this view
-    const sqlPath = path.join(__dirname, `../../sql/views/crud/${viewName}.sql`);
+    const sqlPath = path.join(__dirname, `../../sql/views/client/${viewName}.sql`);
     const sqlContent = await fsPromises.readFile(sqlPath, 'utf-8');
     
     const mappings = {};

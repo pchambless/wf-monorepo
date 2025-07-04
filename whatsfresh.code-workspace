@@ -12,7 +12,7 @@
     { "name": "📦 Shared UI", "path": "./packages/shared-ui" },
     { "name": "📦 Shared API", "path": "./packages/shared-api" },
     { "name": "📦 DevTools", "path": "./packages/devtools" },
-    { "name": "📦 Views - Crud", "path": "./sql/views/crud" },
+    { "name": "📦 Views - Client", "path": "./sql/views/client" },
     { "name": "📦 Views - Admin", "path": "./sql/views/admin" }
   ],
   "settings": {

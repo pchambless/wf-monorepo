@@ -345,7 +345,7 @@ function cleanBooleanAttributes(directives) {
  * Extract field names from enhanced SQL view
  */
 async function extractViewFields(viewName) {
-  const sqlPath = path.join(__dirname, `../../../../../sql/views/crud/${viewName}.sql`);
+  const sqlPath = path.join(__dirname, `../../../../../sql/views/client/${viewName}.sql`);
   
   try {
     const sqlContent = await fs.readFile(sqlPath, 'utf8');
