@@ -22,6 +22,18 @@ export {
   useModal 
 } from './components/3-common/a-modal/index.js';
 
+// DML utilities
+export { 
+  executeDML,
+  insertRecord,
+  updateRecord,
+  deleteRecord,
+  previewDML,
+  buildDMLData,
+  buildSQLPreview,
+  showDMLPreview
+} from './utils/dml/index.js';
+
 // Placeholder exports - add implementations later
 export const RcntIngrBtch = () => null;
 export const RcntProdBtch = () => null;

@@ -1,35 +1,63 @@
-import React, { useEffect, useRef } from 'react';
-import { observer } from 'mobx-react-lite';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import Table from '../Table';
 import Form from '../Form';
 import AddButton from './components/AddButton';
-import createLogger from '@whatsfresh/shared-imports/logger';
+import { execEvent, createLogger } from '@whatsfresh/shared-imports';
 
 const log = createLogger('CrudLayout');
 
-const CrudLayout = observer(({ pageMap, dataStore }) => {
+const CrudLayout = ({ pageMap }) => {
   const formRef = useRef(null);
   
-  // Simple CRUD handlers using direct MobX calls
+  // Internal state - no external dataStore needed!
+  const [tableData, setTableData] = useState([]);
+  const [selectedRow, setSelectedRow] = useState(null);
+  const [formMode, setFormMode] = useState('SELECT');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
+  // Fetch data using execEvent from shared-imports
+  const fetchData = async (listEvent, params = {}) => {
+    if (!listEvent) return;
+    
+    try {
+      setLoading(true);
+      setError(null);
+      log.debug('Fetching data for:', listEvent);
+      
+      const data = await execEvent(listEvent, params);
+      setTableData(data || []);
+      log.debug('Data loaded:', data?.length || 0, 'rows');
+      
+    } catch (err) {
+      log.error('Failed to fetch data:', err);
+      setError(err.message);
+      setTableData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  // CRUD handlers with internal state
   const handleRowSelect = (row) => {
-    dataStore.selectRow(row);
-    dataStore.setFormMode('EDIT');
+    setSelectedRow(row);
+    setFormMode('EDIT');
     log.debug('Row selected:', row);
   };
   
   const handleAddNew = () => {
-    dataStore.selectRow(null);
-    dataStore.setFormMode('ADD');
+    setSelectedRow(null);
+    setFormMode('ADD');
     log.debug('Add new item initiated');
   };
   
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
-      dataStore.deleteItem(id).then(() => {
-        dataStore.refreshData();
-        log.debug('Item deleted:', id);
-      });
+      // TODO: Implement delete via execEvent when delete events are available
+      log.debug('Delete requested for:', id);
+      // For now, just refresh data
+      fetchData(systemConfig.listEvent);
     }
   };
   
@@ -39,16 +67,14 @@ const CrudLayout = observer(({ pageMap, dataStore }) => {
 
   const { systemConfig, tableConfig, formConfig } = pageMap;
   
-  // Initialize page when component mounts
+  // Fetch data when component mounts or listEvent changes
   useEffect(() => {
     if (systemConfig?.listEvent) {
-      dataStore.setPageMap(pageMap);
-      dataStore.fetchData(systemConfig.listEvent, pageMap);
-      log.debug('Fetching data for:', systemConfig.listEvent);
+      fetchData(systemConfig.listEvent);
     } else {
       log.warn('No listEvent configured in systemConfig');
     }
-  }, [pageMap, systemConfig?.listEvent, dataStore]);
+  }, [systemConfig?.listEvent]);
   
   // Simple validation - if things are missing, we'll just log and continue
   if (!pageMap || !tableConfig || !systemConfig?.listEvent) {

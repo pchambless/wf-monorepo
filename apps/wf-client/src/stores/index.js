@@ -1,8 +1,7 @@
-// Central barrel file for exporting all store functions
-// Import modalStore from new location
+// Clean, focused store exports for new architecture
 import { modalStore } from '@whatsfresh/shared-imports';
 
-// From eventStore
+// Event handling for API calls
 export {
   execEvent,
   getEventType,
@@ -12,33 +11,14 @@ export {
   resetEventTypeService
 } from './eventStore';
 
-
-// Add this missing function export
-export const getEventTypeConfig = (eventTypeId) => {
-  const { getEventType } = require('./eventStore');
-  const eventType = getEventType(eventTypeId);
-  return eventType ? {
-    eventType: eventType.eventType,
-    method: eventType.method,
-    params: eventType.params || []
-  } : null;
-};
-
-// From accountStore (much simpler!)
+// Simple auth and account selection
 export {
   default as accountStore,
   useAccountStore,
   AccountContext
 } from './accountStore';
 
-
-
-// Export modalStore directly without trying to access non-existent methods
-export { 
-  modalStore,
-};
-
-// From pageStore
+// Page state and breadcrumbs
 export {
   setCurrentPage,
   getCurrentPage,
@@ -49,4 +29,7 @@ export {
   usePageStore,
   initPageStore
 } from './pageStore';
+
+// Modal management (from shared-ui)
+export { modalStore };
 
