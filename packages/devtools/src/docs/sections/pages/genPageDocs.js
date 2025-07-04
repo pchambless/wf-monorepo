@@ -99,9 +99,7 @@ export class PageDocGenerator {
       // Try different pageMap registry locations
       let entityRegistry = null;
       const possiblePaths = [
-        '../../../../../../packages/shared-config/src/client/pageMapRegistry.js',
-        '../../../../../../packages/shared-config/src/admin/pageMapRegistry.js',
-        '../../../../../../packages/shared-config/src/pageMapRegistry.js'
+        '../../../../../../packages/shared-config/src/client/pageMapRegistry.js'
       ];
       
       for (const registryPath of possiblePaths) {

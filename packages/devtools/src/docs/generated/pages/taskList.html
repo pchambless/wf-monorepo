@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Users Preview - WhatsFresh Documentation</title>
+  <title>Product Type Tasks Preview - WhatsFresh Documentation</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -35,7 +35,7 @@
     <a href="./index.html" style="text-decoration: none; font-size: 0.95rem;">&larr; Back to Pages</a>
   </div>
 
-  <h1>Users Component Preview</h1>
+  <h1>Product Type Tasks Component Preview</h1>
   <p><em>Visual preview based on pageMap configuration - Generated on 7/4/2025</em></p>
   
   <div class="controls">
@@ -55,12 +55,36 @@
   <div class="preview-container">
     <div id="table-section" class="preview-section">
       <h2>Table View</h2>
-      <p><em>No table configuration available for this entity</em></p>
+      <p><em>No sample data available for table preview</em></p>
     </div>
     
     <div id="form-section" class="preview-section" style="display: none;">
       <h2>Form View</h2>
-      <p><em>No form fields defined for this entity</em></p>
+      <div class="form-container">
+        <div class="form-group">
+          <div class="group-header">Group 1</div>
+          <div class="form-row">
+          <div class="form-field">
+            <label>taskID <span class="field-type">[number]</span></label>
+            <div class="field-preview number-field"></div>
+          </div>
+          <div class="form-field">
+            <label>Task Name<span class="required-marker">*</span> <span class="field-type">[text]</span></label>
+            <div class="field-preview"></div>
+          </div>
+          <div class="form-field">
+            <label>Description <span class="field-type">[multiLine]</span></label>
+            <div class="field-preview multiLine-field"></div>
+          </div>
+          <div class="form-field">
+            <label>Order<span class="required-marker">*</span> <span class="field-type">[number]</span></label>
+            <div class="field-preview number-field"></div>
+          </div>
+          <div class="form-field">
+            <label>prodTypeID <span class="field-type">[text]</span></label>
+            <div class="field-preview"></div>
+          </div></div>
+        </div></div>
     </div>
     
     <div id="dml-section" class="preview-section" style="display: none;">

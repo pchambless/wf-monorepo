@@ -260,31 +260,112 @@ export class MasterDocGenerator {
   async generateWidgetsDocs() {
     console.log('🔧 Generating widgets documentation...');
     
-    // Import and run the existing widget generator
-    const { default: generateWidgetDocumentation } = await import('../sections/widgets/source/genWidgetDocs.js');
-    
-    // Create widgets output directory
-    const widgetsOutputDir = path.join(this.outputDir, 'widgets');
-    await fs.mkdir(widgetsOutputDir, { recursive: true });
-    
-    // Run the widget generator (we'll refactor this to use our templates)
-    // For now, just create a placeholder
-    const content = `
-      <h1>Widget Registry</h1>
-      <p>The WhatsFresh widget system provides reusable UI components across applications.</p>
-      <p><em>Widget documentation is being refactored to use the new template system...</em></p>
-      <p><a href="../index.html">← Back to Documentation Home</a></p>
-    `;
-    
-    const html = await this.templateEngine.generatePage({
-      title: 'Widget Registry',
-      content,
-      activeSection: 'widgets',
-      baseUrl: '..'
-    });
-    
-    await fs.writeFile(path.join(widgetsOutputDir, 'index.html'), html);
-    console.log('✅ Widgets documentation generated');
+    try {
+      // Create widgets output directory
+      const widgetsOutputDir = path.join(this.outputDir, 'widgets');
+      await fs.mkdir(widgetsOutputDir, { recursive: true });
+      
+      // Import widget registry directly
+      const { WIDGET_REGISTRY } = await import('../../../../shared-ui/src/widgets/index.js');
+      
+      // Generate widget content
+      let content = `
+        <h1>Widget Registry</h1>
+        <p>The WhatsFresh widget system provides ${Object.keys(WIDGET_REGISTRY).length} reusable UI components across applications.</p>
+        
+        <div class="widget-categories">
+      `;
+      
+      // Group widgets by category
+      const categories = {};
+      Object.entries(WIDGET_REGISTRY).forEach(([key, widget]) => {
+        const category = widget.category || 'Other';
+        if (!categories[category]) categories[category] = [];
+        categories[category].push({ key, ...widget });
+      });
+      
+      // Generate category sections
+      Object.entries(categories).forEach(([category, widgets]) => {
+        content += `
+          <div class="category-section">
+            <h2>${category} Widgets</h2>
+            <div class="widget-grid">
+        `;
+        
+        widgets.forEach(widget => {
+          content += `
+            <div class="widget-card">
+              <h3>${widget.displayName || widget.key}</h3>
+              <p><strong>Type:</strong> ${widget.type}</p>
+              <p><strong>Size:</strong> ${widget.size?.default || 'medium'}</p>
+              <p><strong>Apps:</strong> ${widget.targetApps?.join(', ') || 'All'}</p>
+              ${widget.description ? `<p>${widget.description}</p>` : ''}
+            </div>
+          `;
+        });
+        
+        content += `
+            </div>
+          </div>
+        `;
+      });
+      
+      content += `
+        </div>
+        
+        <style>
+          .widget-categories { margin: 2rem 0; }
+          .category-section { margin-bottom: 3rem; }
+          .widget-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 1rem; 
+            margin: 1rem 0; 
+          }
+          .widget-card { 
+            border: 1px solid #ddd; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            background: #f9f9f9; 
+          }
+          .widget-card h3 { margin: 0 0 0.5rem 0; color: #2c3e50; }
+          .widget-card p { margin: 0.25rem 0; font-size: 0.9rem; }
+        </style>
+      `;
+      
+      const html = await this.templateEngine.generatePage({
+        title: 'Widget Registry',
+        content,
+        activeSection: 'widgets',
+        baseUrl: '..'
+      });
+      
+      await fs.writeFile(path.join(widgetsOutputDir, 'index.html'), html);
+      console.log(`✅ Widgets documentation generated (${Object.keys(WIDGET_REGISTRY).length} widgets)`);
+      
+    } catch (error) {
+      console.log('⚠️ Widget generation failed, creating placeholder:', error.message);
+      
+      // Fallback to placeholder
+      const content = `
+        <h1>Widget Registry</h1>
+        <p>Widget documentation is currently unavailable.</p>
+        <p>Error: ${error.message}</p>
+        <p><a href="../index.html">← Back to Documentation Home</a></p>
+      `;
+      
+      const html = await this.templateEngine.generatePage({
+        title: 'Widget Registry',
+        content,
+        activeSection: 'widgets',
+        baseUrl: '..'
+      });
+      
+      const widgetsOutputDir = path.join(this.outputDir, 'widgets');
+      await fs.mkdir(widgetsOutputDir, { recursive: true });
+      await fs.writeFile(path.join(widgetsOutputDir, 'index.html'), html);
+      console.log('✅ Widgets placeholder generated');
+    }
   }
 
   /**
