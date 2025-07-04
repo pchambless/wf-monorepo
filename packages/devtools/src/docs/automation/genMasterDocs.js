@@ -70,7 +70,7 @@ export class TemplateEngine {
       content = '',
       activeSection = 'home',
       baseUrl = '.',
-      cssPath = '.'
+      cssPath = baseUrl // Default cssPath to baseUrl
     } = options;
 
     const pageTemplate = await this.loadTemplate('page-template.html');
@@ -481,7 +481,8 @@ export class MasterDocGenerator {
         title: `${widget.displayName || key} Widget`,
         content,
         activeSection: 'widgets',
-        baseUrl: '../..'
+        baseUrl: '../..',
+        cssPath: '../..'
       });
 
       await fs.writeFile(path.join(detailDir, `${key}.html`), html);

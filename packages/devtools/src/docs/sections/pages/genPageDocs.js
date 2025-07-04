@@ -164,13 +164,8 @@ export class PageDocGenerator {
           const bodyMatch = entityHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
           const bodyContent = bodyMatch ? bodyMatch[1] : entityHtml;
           
-          // Add back to main pages navigation
-          const enhancedContent = `
-            <div class="back-link" style="margin-bottom: 1rem;">
-              <a href="./index.html" style="text-decoration: none; font-size: 0.95rem;">&larr; Back to Pages</a>
-            </div>
-            ${bodyContent}
-          `;
+          // The genEntityHtml already includes a back link, so don't add another one
+          const enhancedContent = bodyContent;
           
           const html = await this.templateEngine.generatePage({
             title: `${pageMap.title || entityName} Preview`,

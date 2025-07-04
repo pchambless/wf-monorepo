@@ -30,6 +30,13 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   margin: 2rem 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Improved UX and transitions */
+.content.loading {
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 /* Navigation */
@@ -181,6 +188,98 @@ a {
 a:hover {
   color: #2980b9;
   text-decoration: underline;
+}
+
+/* Back links styling */
+.back-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.back-link a:hover {
+  color: #2980b9;
+  text-decoration: none;
+}
+
+/* Details/summary improvements */
+details {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+summary:hover {
+  background: #e9ecef;
+}
+
+/* Table configuration info styling */
+.table-config-info {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #3498db;
+}
+
+.table-config-info h4 {
+  margin: 0 0 0.5rem 0;
+  color: #2c3e50;
+}
+
+/* Page preview controls */
+.controls {
+  margin: 1.5rem 0;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.toggle-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+  background: #f0f0f0;
+  border-color: #bbb;
+}
+
+.toggle-btn.active {
+  background: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+/* Preview sections */
+.preview-section {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+}
+
+.preview-container {
+  margin-top: 2rem;
 }
 
 /* Responsive */

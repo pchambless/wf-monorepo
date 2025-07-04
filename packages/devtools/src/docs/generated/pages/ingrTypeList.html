@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ingredient Types Preview - WhatsFresh Documentation</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <!-- WhatsFresh Documentation Navigation Template -->
@@ -27,10 +27,6 @@
   <div class="container">
     <div class="content">
       
-            <div class="back-link" style="margin-bottom: 1rem;">
-              <a href="./index.html" style="text-decoration: none; font-size: 0.95rem;">&larr; Back to Pages</a>
-            </div>
-            
   <div class="back-link" style="margin-bottom: 1rem;">
     <a href="./index.html" style="text-decoration: none; font-size: 0.95rem;">&larr; Back to Pages</a>
   </div>
@@ -55,7 +51,52 @@
   <div class="preview-container">
     <div id="table-section" class="preview-section">
       <h2>Table View</h2>
-      <p><em>No sample data available for table preview</em></p>
+      
+    <div class="table-config-info" style="background: #f8f9fa; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
+      <h4>Table Configuration</h4>
+      <p><strong>Columns defined:</strong> 3</p>
+      
+        <details>
+          <summary>Column Details</summary>
+          <table style="margin: 0.5rem 0; font-size: 0.9em;">
+            <thead>
+              <tr><th>Field</th><th>Label</th><th>Type</th><th>Width</th><th>Editable</th><th>Hidden</th></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td><code>ingrTypeID</code></td>
+                  <td>ingrTypeID</td>
+                  <td>number</td>
+                  <td>150</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                </tr>
+              
+                <tr>
+                  <td><code>ingrTypeName</code></td>
+                  <td>Type Name</td>
+                  <td>text</td>
+                  <td>200</td>
+                  <td>Yes</td>
+                  <td>No</td>
+                </tr>
+              
+                <tr>
+                  <td><code>acctID</code></td>
+                  <td>acctID</td>
+                  <td>text</td>
+                  <td>150</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                </tr>
+              
+            </tbody>
+          </table>
+        </details>
+      
+    </div>
+  <p><em>No sample data available for table preview</em></p>
     </div>
     
     <div id="form-section" class="preview-section" style="display: none;">
@@ -89,7 +130,6 @@
     </div>
   </div>
 
-          
     </div>
   </div>
   
