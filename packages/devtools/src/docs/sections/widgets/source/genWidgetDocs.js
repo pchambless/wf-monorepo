@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { WIDGET_REGISTRY, WIDGET_TYPES } from '@whatsfresh/shared-ui/src/widgets/index.js';
 import { abbreviationMap } from '@whatsfresh/shared-config/src/common/abbreviationMap';
+import { generateEnhancedWidgetDocs } from '../enhancedWidgetDocs.js';
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -13,23 +14,27 @@ const __dirname = path.dirname(__filename);
  */
 async function generateWidgetDocumentation() {
   console.log('Generating widget documentation...');
-  
+
+  // Generate enhanced widget docs with usage analysis
+  console.log('🚀 Generating enhanced widget documentation with usage analysis...');
+  await generateEnhancedWidgetDocs();
+
   // Create docs directory if not exists
   const docsDir = path.resolve(__dirname, '../../Docs/widgets');
   if (!fs.existsSync(docsDir)) {
     fs.mkdirSync(docsDir, { recursive: true });
   }
-  
+
   try {
     // Generate widget registry overview
     await generateRegistryOverview();
-    
+
     // Generate individual widget documentation
     await generateIndividualWidgetDocs();
-    
+
     // Generate widget usage guide
     await generateWidgetUsageGuide();
-    
+
     console.log('Widget documentation completed successfully');
   } catch (error) {
     console.error('Error generating widget documentation:', error);
@@ -91,12 +96,12 @@ async function generateRegistryOverview() {
     <p>This documentation provides an overview of all registered widgets in the WhatsFresh system.</p>
     
     ${Object.entries(WIDGET_TYPES).map(([typeKey, typeValue]) => {
-      const widgetsOfType = Object.entries(WIDGET_REGISTRY)
-        .filter(([_, widget]) => widget.type === typeValue);
-        
-      if (widgetsOfType.length === 0) return '';
-      
-      return `<div class="widget-group">
+    const widgetsOfType = Object.entries(WIDGET_REGISTRY)
+      .filter(([_, widget]) => widget.type === typeValue);
+
+    if (widgetsOfType.length === 0) return '';
+
+    return `<div class="widget-group">
         <h2>${typeKey} Widgets</h2>
         <table>
           <thead>
@@ -119,16 +124,16 @@ async function generateRegistryOverview() {
           </tbody>
         </table>
       </div>`;
-    }).join('')}
+  }).join('')}
   </body>
   </html>`;
 
   // Write the file
   fs.writeFileSync(
-    path.resolve(__dirname, '../../Docs/widgets/index.html'), 
+    path.resolve(__dirname, '../../Docs/widgets/index.html'),
     html
   );
-  
+
   console.log('Generated widget registry overview');
 }
 
@@ -138,7 +143,7 @@ async function generateRegistryOverview() {
 async function generateIndividualWidgetDocs() {
   // Implementation will go here
   console.log('Generating individual widget documentation...');
-  
+
   // Create a doc file for each widget
   for (const [id, widget] of Object.entries(WIDGET_REGISTRY)) {
     const html = `<!DOCTYPE html>
@@ -188,13 +193,13 @@ function MyComponent() {
 }</code></pre>
     </body>
     </html>`;
-    
+
     fs.writeFileSync(
-      path.resolve(__dirname, `../../Docs/widgets/${id}.html`), 
+      path.resolve(__dirname, `../../Docs/widgets/${id}.html`),
       html
     );
   }
-  
+
   console.log(`Generated individual documentation for ${Object.keys(WIDGET_REGISTRY).length} widgets`);
 }
 
@@ -203,7 +208,7 @@ function MyComponent() {
  */
 async function generateWidgetUsageGuide() {
   console.log('Generating widget usage guide...');
-  
+
   const html = `<!DOCTYPE html>
   <html>
   <head>
@@ -245,10 +250,10 @@ function MyComponent() {
   </html>`;
 
   fs.writeFileSync(
-    path.resolve(__dirname, '../../Docs/widgets/usage-guide.html'), 
+    path.resolve(__dirname, '../../Docs/widgets/usage-guide.html'),
     html
   );
-  
+
   console.log('Generated widget usage guide');
 }
 

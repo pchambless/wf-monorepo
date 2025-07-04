@@ -1,7 +1,7 @@
 {
   "viewName": "vndrList",
   "entityName": "vndrlist",
-  "lastGenerated": "2025-07-04T17:15:54.262Z",
+  "lastGenerated": "2025-07-04T20:47:29.122Z",
   "columns": {
     "vndrID": {
       "directives": {

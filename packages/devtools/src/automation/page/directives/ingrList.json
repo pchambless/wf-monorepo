@@ -1,7 +1,7 @@
 {
   "viewName": "ingrList",
   "entityName": "ingrlist",
-  "lastGenerated": "2025-07-04T17:15:54.246Z",
+  "lastGenerated": "2025-07-04T20:19:24.885Z",
   "columns": {
     "ingrID": {
       "directives": {

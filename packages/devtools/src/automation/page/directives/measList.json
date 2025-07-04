@@ -1,7 +1,7 @@
 {
   "viewName": "measList",
   "entityName": "measlist",
-  "lastGenerated": "2025-07-04T17:15:54.267Z",
+  "lastGenerated": "2025-07-04T20:19:24.880Z",
   "columns": {
     "measID": {
       "directives": {

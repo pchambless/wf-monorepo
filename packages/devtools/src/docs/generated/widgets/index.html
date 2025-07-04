@@ -4,327 +4,117 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Widget Registry - WhatsFresh Documentation</title>
-  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; background: #f8f9fa; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .header { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+    .widget-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .widget-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .widget-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem; color: #2c3e50; }
+    .widget-description { color: #6c757d; margin-bottom: 1rem; }
+    .usage-stats { background: #e3f2fd; padding: 0.75rem; border-radius: 4px; margin-bottom: 1rem; }
+    .usage-count { font-weight: bold; color: #1976d2; }
+    .views-list { margin-top: 0.5rem; }
+    .view-tag { background: #f8f9fa; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem; margin-right: 0.5rem; margin-bottom: 0.25rem; display: inline-block; }
+    .category { text-transform: uppercase; font-size: 0.75rem; color: #6c757d; letter-spacing: 0.5px; }
+    .no-usage { color: #dc3545; font-style: italic; }
+  </style>
 </head>
 <body>
-  <!-- WhatsFresh Documentation Navigation Template -->
-<nav class="nav">
-  <div class="nav-content">
-    <h1>WhatsFresh Documentation</h1>
-    <div class="nav-links">
-      <a href="../index.html" >Home</a>
-      <a href="../overview/index.html" >Overview</a>
-      <a href="../widgets/index.html" class="active">Widgets</a>
-      <a href="../pages/index.html" >Pages</a>
-      <a href="../events/index.html" >Events</a>
-      <a href="../directives/index.html" >Directives</a>
-      <a href="../api/index.html" >API</a>
-      <a href="../rules/index.html" >Rules</a>
-    </div>
-  </div>
-</nav>
-  
   <div class="container">
-    <div class="content">
+    <div class="header">
+      <h1>Widget Registry</h1>
+      <p>WhatsFresh UI components and their usage across views. Generated from directive files on 7/4/2025.</p>
+      <p><strong>4</strong> widgets in active use across <strong>4</strong> views.</p>
+    </div>
+    
+    <div class="widget-grid">
       
-        <h1>Widget Registry</h1>
-        <p>The WhatsFresh widget system provides 22 reusable UI components across applications.</p>
-        
-        <div class="widget-categories">
-      
-          <div class="category-section">
-            <h2>Other Widgets</h2>
-            <div class="widget-grid">
-        
-            <div class="widget-card">
-              <h3>selAcct</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Account selection dropdown</p>
-              <div class="widget-actions">
-                <a href="./detail/selAcct.html" class="detail-link">View Details</a>
-              </div>
-            </div>
+        <div class="widget-card">
+          <div class="category">select</div>
+          <div class="widget-title">SelMeas</div>
+          <div class="widget-description">Measurement selector</div>
           
-            <div class="widget-card">
-              <h3>selBrnd</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Brand selection dropdown</p>
-              <div class="widget-actions">
-                <a href="./detail/selBrnd.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>selVndr</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Vendor selection dropdown</p>
-              <div class="widget-actions">
-                <a href="./detail/selVndr.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>selWrkr</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Worker selection dropdown</p>
-              <div class="widget-actions">
-                <a href="./detail/selWrkr.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>selMeas</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Measurement unit selection</p>
-              <div class="widget-actions">
-                <a href="./detail/selMeas.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>selIngrType</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Ingredient type selection</p>
-              <div class="widget-actions">
-                <a href="./detail/selIngrType.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>selIngr</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Ingredient selection dropdown</p>
-              <div class="widget-actions">
-                <a href="./detail/selIngr.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>selProdType</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Product type selection dropdown</p>
-              <div class="widget-actions">
-                <a href="./detail/selProdType.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>selProd</h3>
-              <p><strong>Type:</strong> selection</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Product selection dropdown</p>
-              <div class="widget-actions">
-                <a href="./detail/selProd.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>crudTbl</h3>
-              <p><strong>Type:</strong> data</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Data table with CRUD operations</p>
-              <div class="widget-actions">
-                <a href="./detail/crudTbl.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>crudForm</h3>
-              <p><strong>Type:</strong> form</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Form for creating and editing entities</p>
-              <div class="widget-actions">
-                <a href="./detail/crudForm.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>dtlView</h3>
-              <p><strong>Type:</strong> data</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Detail view of an entity</p>
-              <div class="widget-actions">
-                <a href="./detail/dtlView.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>dataFltr</h3>
-              <p><strong>Type:</strong> form</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Filter controls for data tables</p>
-              <div class="widget-actions">
-                <a href="./detail/dataFltr.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>rcntIngrBtch</h3>
-              <p><strong>Type:</strong> dashboard</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Recent ingredient batches</p>
-              <div class="widget-actions">
-                <a href="./detail/rcntIngrBtch.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>rcntProdBtch</h3>
-              <p><strong>Type:</strong> dashboard</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Recent product batches</p>
-              <div class="widget-actions">
-                <a href="./detail/rcntProdBtch.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>btchSumm</h3>
-              <p><strong>Type:</strong> dashboard</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Batch production summary</p>
-              <div class="widget-actions">
-                <a href="./detail/btchSumm.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>invChart</h3>
-              <p><strong>Type:</strong> dashboard</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Inventory levels visualization</p>
-              <div class="widget-actions">
-                <a href="./detail/invChart.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>qckLinks</h3>
-              <p><strong>Type:</strong> navigation</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Quick access links</p>
-              <div class="widget-actions">
-                <a href="./detail/qckLinks.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>alerts</h3>
-              <p><strong>Type:</strong> dashboard</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>System alerts and notifications</p>
-              <div class="widget-actions">
-                <a href="./detail/alerts.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>fileUpld</h3>
-              <p><strong>Type:</strong> utility</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>File upload component</p>
-              <div class="widget-actions">
-                <a href="./detail/fileUpld.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>dateRng</h3>
-              <p><strong>Type:</strong> form</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Date range selection</p>
-              <div class="widget-actions">
-                <a href="./detail/dateRng.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            <div class="widget-card">
-              <h3>rcpeSteps</h3>
-              <p><strong>Type:</strong> form</p>
-              <p><strong>Size:</strong> medium</p>
-              <p><strong>Apps:</strong> All</p>
-              <p>Recipe steps editor</p>
-              <div class="widget-actions">
-                <a href="./detail/rcpeSteps.html" class="detail-link">View Details</a>
-              </div>
-            </div>
-          
-            </div>
+          <div class="usage-stats">
+            <div class="usage-count">4 usages</div>
+            <div>Used in 4 views</div>
           </div>
-        
+          
+          <div class="views-list">
+            <strong>Views:</strong><br>
+            <span class="view-tag">ingrBtchList</span><span class="view-tag">ingrList</span><span class="view-tag">prodBtchList</span><span class="view-tag">rcpeList</span>
+          </div>
+          
+          <div style="margin-top: 1rem;">
+            <a href="./selmeas.html" style="color: #1976d2; text-decoration: none;">View Details →</a>
+          </div>
         </div>
-        
-        <style>
-          .widget-categories { margin: 2rem 0; }
-          .category-section { margin-bottom: 3rem; }
-          .widget-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 1rem; 
-            margin: 1rem 0; 
-          }
-          .widget-card { 
-            border: 1px solid #ddd; 
-            padding: 1rem; 
-            border-radius: 8px; 
-            background: #f9f9f9; 
-          }
-          .widget-card h3 { margin: 0 0 0.5rem 0; color: #2c3e50; }
-          .widget-card p { margin: 0.25rem 0; font-size: 0.9rem; }
-          .widget-actions { 
-            margin-top: 1rem; 
-            padding-top: 0.5rem; 
-            border-top: 1px solid #eee; 
-          }
-          .detail-link { 
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            transition: background-color 0.2s;
-          }
-          .detail-link:hover { 
-            background: #2980b9; 
-          }
-        </style>
+      
+        <div class="widget-card">
+          <div class="category">select</div>
+          <div class="widget-title">SelVndr</div>
+          <div class="widget-description">Vendor selector</div>
+          
+          <div class="usage-stats">
+            <div class="usage-count">2 usages</div>
+            <div>Used in 2 views</div>
+          </div>
+          
+          <div class="views-list">
+            <strong>Views:</strong><br>
+            <span class="view-tag">ingrBtchList</span><span class="view-tag">ingrList</span>
+          </div>
+          
+          <div style="margin-top: 1rem;">
+            <a href="./selvndr.html" style="color: #1976d2; text-decoration: none;">View Details →</a>
+          </div>
+        </div>
+      
+        <div class="widget-card">
+          <div class="category">select</div>
+          <div class="widget-title">SelAcct</div>
+          <div class="widget-description">Account selector</div>
+          
+          <div class="usage-stats">
+            <div class="usage-count">2 usages</div>
+            <div>Used in 2 views</div>
+          </div>
+          
+          <div class="views-list">
+            <strong>Views:</strong><br>
+            <span class="view-tag">ingrBtchList</span><span class="view-tag">prodBtchList</span>
+          </div>
+          
+          <div style="margin-top: 1rem;">
+            <a href="./selacct.html" style="color: #1976d2; text-decoration: none;">View Details →</a>
+          </div>
+        </div>
+      
+        <div class="widget-card">
+          <div class="category">select</div>
+          <div class="widget-title">SelBrnd</div>
+          <div class="widget-description">Brand selector</div>
+          
+          <div class="usage-stats">
+            <div class="usage-count">1 usage</div>
+            <div>Used in 1 view</div>
+          </div>
+          
+          <div class="views-list">
+            <strong>Views:</strong><br>
+            <span class="view-tag">ingrBtchList</span>
+          </div>
+          
+          <div style="margin-top: 1rem;">
+            <a href="./selbrnd.html" style="color: #1976d2; text-decoration: none;">View Details →</a>
+          </div>
+        </div>
       
     </div>
+    
+    <div style="margin-top: 3rem; text-align: center; color: #6c757d;">
+      <p>Generated by WhatsFresh DevTools • 2025-07-04</p>
+    </div>
   </div>
-  
-  <footer class="text-center text-muted" style="padding: 2rem;">
-    <p>Generated by WhatsFresh DevTools • 7/4/2025</p>
-  </footer>
 </body>
 </html>

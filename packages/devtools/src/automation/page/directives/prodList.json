@@ -1,7 +1,7 @@
 {
   "viewName": "prodList",
   "entityName": "prodlist",
-  "lastGenerated": "2025-07-04T17:15:54.254Z",
+  "lastGenerated": "2025-07-04T20:19:24.889Z",
   "columns": {
     "prodID": {
       "directives": {

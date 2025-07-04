@@ -6,8 +6,8 @@
 */
 CREATE OR REPLACE VIEW api_wf.wrkrList AS
 SELECT 
-  a.id AS wrkrID, -- PK; sys; type:number
-  a.name AS wrkrName, -- req; type:text; label:Worker Name; width:200; grp:1; searchable
-  a.account_id AS acctID -- parentKey; sys; type:select; entity:acctList; valField:acctID; dispField:acctName
+  a.id AS wrkrID,
+  a.name AS wrkrName,
+  a.account_id AS acctID
 FROM whatsfresh.workers a
 WHERE a.active = 'y';

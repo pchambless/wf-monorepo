@@ -12,7 +12,9 @@
     "test:render": "node ./src/docs/genDocs.js",
     "generate:config": "node ./src/generators/generateAppConfig.js",
     "generate:client": "node ./src/generators/generateAppConfig.js client",
-    "generate:admin": "node ./src/generators/generateAppConfig.js admin"
+    "generate:admin": "node ./src/generators/generateAppConfig.js admin",
+    "docs:widgets": "node ./src/docs/sections/widgets/source/genWidgetDocs.js",
+    "docs:widgets:directive": "node -e \"import('./src/docs/sections/widgets/directiveBasedWidgetDocs.js').then(m => m.generateDirectiveBasedWidgetDocs())\""
   },
   "devDependencies": {
     "@mermaid-js/mermaid-cli": "^11.6.0"
