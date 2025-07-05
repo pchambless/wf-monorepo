@@ -5,7 +5,7 @@
 
 import { getClientSafeEventTypes, getAdminSafeEventTypes } from '@whatsfresh/shared-events';
 import { clientEntityRegistry } from '../registries/clientEntityRegistry.js';
-import { adminEntityRegistry } from '../registries/adminEntityRegistry.js';
+import { pageMapRegistry as adminEntityRegistry } from '../registries/admin/pageMapRegistry.js';
 
 /**
  * Generate routes configuration for a specific app
@@ -75,6 +75,8 @@ export function generateRoutes(appType = 'client') {
  */
 export function generateRoutesFile(appType = 'client') {
     const { routes, sections } = generateRoutes(appType);
+    const isAdmin = appType === 'admin';
+    const registry = isAdmin ? adminEntityRegistry : clientEntityRegistry;
 
     return `/**
  * Generated Routes Configuration for ${appType}
@@ -84,6 +86,8 @@ export function generateRoutesFile(appType = 'client') {
 export const ROUTES = ${JSON.stringify(routes, null, 2)};
 
 export const SECTIONS = ${JSON.stringify(sections, null, 2)};
+
+export const entityRegistry = ${JSON.stringify(registry, null, 2)};
 
 export function getNavSections() {
   return Object.values(SECTIONS).sort((a, b) => (a.order || 999) - (b.order || 999));
@@ -95,6 +99,11 @@ export function getRoute(routeKey) {
 
 export function resolveRoute(eventType) {
   return Object.values(ROUTES).find(route => route.eventType === eventType);
+}
+
+export function getRouteKeyByEvent(eventType) {
+  const entry = Object.entries(ROUTES).find(([_, route]) => route.eventType === eventType);
+  return entry ? entry[0] : null;
 }
 
 // Generated on: ${new Date().toISOString()}

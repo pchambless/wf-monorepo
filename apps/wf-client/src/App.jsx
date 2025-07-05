@@ -1,15 +1,15 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react';
-import { 
-  BrowserRouter as Router, 
-  Routes, 
-  Route, 
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
   Navigate,
   useNavigate
 } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CircularProgress, Box, Typography } from '@mui/material';
-import { ROUTES, entityRegistry } from '@whatsfresh/shared-config';
+import { ROUTES, entityRegistry } from './config/routes.js';
 
 // Utilities and contexts
 import createLogger, { configureLogger } from './utils/logger';
@@ -20,7 +20,7 @@ import theme from './theme';
 
 // Components
 import ErrorBoundary from './components/ErrorBoundary';
-import { Modal, useModalStore } from '@whatsfresh/shared-ui'; // Proper workspace import
+import { Modal, useModalStore } from '@whatsfresh/shared-imports'; // Updated to use shared-imports
 
 // Services
 import { initEventTypeService } from './stores/eventStore';
@@ -40,19 +40,19 @@ const lazyPages = new Map();
 // Function to get a lazy-loaded component if ready
 const getLazyComponent = (config) => {
   if (!config || !config.pageIndexPath || !config.import) return null;
-  
+
   const cacheKey = config.pageIndexPath;
-  
+
   // Return from cache if already created
   if (lazyPages.has(cacheKey)) {
     return lazyPages.get(cacheKey);
   }
-  
+
   // Define a mapping of known paths to imports
   // This makes webpack happy because it can see all possible imports
   try {
     let component;
-    
+
     // Replace with a switch statement based on pageIndexPath
     switch (config.pageIndexPath) {
       case "2-Ingredient/01-ingrTypeList/index.jsx":
@@ -66,7 +66,7 @@ const getLazyComponent = (config) => {
         console.warn(`No static import mapping for: ${config.pageIndexPath}`);
         return null;
     }
-    
+
     lazyPages.set(cacheKey, component);
     return component;
   } catch (error) {
@@ -87,12 +87,12 @@ configureLogger({
 // Log at the top-level App mounting
 const App = () => {
   const [eventTypesLoaded, setEventTypesLoaded] = useState(false);
-  
+
   useEffect(() => {
     // Filter out noisy browser fetch logs
     disableBrowserFetchLogs();
     log.debug('App component mounted');
-    
+
     // Initialize event types synchronously from the shared package
     try {
       initEventTypeService();
@@ -103,16 +103,16 @@ const App = () => {
       setEventTypesLoaded(false);
     }
   }, []);
-  
+
   console.log('App: Rendering');
-  
+
   // Show loading screen until event types are loaded
   if (!eventTypesLoaded) {
     return (
       <ThemeProvider theme={theme}>
-        <Box 
-          sx={{ 
-            display: 'flex', 
+        <Box
+          sx={{
+            display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             height: '100vh',
@@ -126,7 +126,7 @@ const App = () => {
       </ThemeProvider>
     );
   }
-  
+
   return (
     <Router>
       <ThemeProvider theme={theme}>
@@ -134,67 +134,67 @@ const App = () => {
         <ErrorBoundary>
           {/* Add the initializer right after Router */}
           <NavServiceInitializer />
-          
+
           {/* Temporarily comment out BreadcrumbProvider */}
           {/* <BreadcrumbProvider> */}
-              <Routes>
-                {/* Auth routes */}
-                <Route path={ROUTES.LOGIN.path} element={
-                  <AuthLayout title="Sign In">
-                    <Login />
-                  </AuthLayout>
-                } />
-                
-                {/* Dashboard route */}
-                <Route path="/dashboard" element={
-                  <MainLayout>
+          <Routes>
+            {/* Auth routes */}
+            <Route path="/login" element={
+              <AuthLayout title="Sign In">
+                <Login />
+              </AuthLayout>
+            } />
+
+            {/* Dashboard route */}
+            <Route path="/dashboard" element={
+              <MainLayout>
+                <Suspense fallback={<CircularProgress />}>
+                  <Dashboard />
+                </Suspense>
+              </MainLayout>
+            } />
+
+            {/* Special non-registry routes */}
+            <Route path="/" element={<Navigate to="/login" replace />} />
+
+            {/* Generated routes from registry */}
+            {Object.entries(entityRegistry).map(([_eventName, config]) => {
+              // Skip if not ready to import
+              if (!config.import || !config.routeKey) return null;
+
+              const routeInfo = ROUTES[config.routeKey];
+              if (!routeInfo) return null;
+
+              // Try to get component
+              const PageComponent = getLazyComponent(config);
+              if (!PageComponent) {
+                console.log(`Skipping route ${config.routeKey} - component not available`);
+                return null;
+              }
+
+              // Create route with proper layout
+              return (
+                <Route
+                  key={config.routeKey}
+                  path={routeInfo.path}
+                  element={
                     <Suspense fallback={<CircularProgress />}>
-                      <Dashboard />
+                      <MainLayout>
+                        <PageComponent />
+                      </MainLayout>
                     </Suspense>
-                  </MainLayout>
-                } />
-                
-                {/* Special non-registry routes */}
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                
-                {/* Generated routes from registry */}
-                {Object.entries(entityRegistry).map(([_eventName, config]) => {
-                  // Skip if not ready to import
-                  if (!config.import || !config.routeKey) return null;
-                  
-                  const routeInfo = ROUTES[config.routeKey];
-                  if (!routeInfo) return null;
-                  
-                  // Try to get component
-                  const PageComponent = getLazyComponent(config);
-                  if (!PageComponent) {
-                    console.log(`Skipping route ${config.routeKey} - component not available`);
-                    return null;
                   }
-                  
-                  // Create route with proper layout
-                  return (
-                    <Route 
-                      key={config.routeKey}
-                      path={routeInfo.path}
-                      element={
-                        <Suspense fallback={<CircularProgress />}>
-                          <MainLayout>
-                            <PageComponent />
-                          </MainLayout>
-                        </Suspense>
-                      }
-                    />
-                  );
-                })}
-                
-                {/* Catch-all route */}
-                <Route path="*" element={<Navigate to="/dashboard" replace />} />
-              </Routes>
-              
-              {/* IMPORTANT: Modal must be at root level */}
-              <ModalContainer />
-            {/* </BreadcrumbProvider> */}
+                />
+              );
+            })}
+
+            {/* Catch-all route */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+
+          {/* IMPORTANT: Modal must be at root level */}
+          <ModalContainer />
+          {/* </BreadcrumbProvider> */}
           {/* Removed ActionHandlerProvider */}
         </ErrorBoundary>
       </ThemeProvider>
@@ -205,10 +205,10 @@ const App = () => {
 const ModalContainer = () => {
   // Use modal store to get modal state
   const { isOpen, config, closeModal } = useModalStore();
-  
+
   // Add safety check for undefined onRowClick
-  const handleRowClick = config?.onRowClick || (() => {});
-  
+  const handleRowClick = config?.onRowClick || (() => { });
+
   // Build modal props
   const modalProps = {
     isOpen,  // Fix: simplified property assignment
@@ -221,7 +221,7 @@ const ModalContainer = () => {
     } : null,
     onRowClick: handleRowClick
   };
-  
+
   // Return modal component
   return <Modal {...modalProps} />;
 };
@@ -229,13 +229,13 @@ const ModalContainer = () => {
 // Add this component inside App.jsx
 const NavServiceInitializer = () => {
   const navigate = useNavigate();
-  
+
   // Initialize navigation service when component mounts
   useEffect(() => {
     navService.init(navigate);
     log.debug('Navigation service initialized');
   }, [navigate]);
-  
+
   return null; // This component doesn't render anything
 };
 

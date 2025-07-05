@@ -9,6 +9,7 @@
       "@hooks/*": ["hooks/*"],
       "@styles/*": ["styles/*"],
       "@stores/*": ["stores/*"],
+      "@assets/*": ["assets/*"],
       
 
       "@layout/*": ["components/1-page/a-layout/*"],
@@ -30,5 +31,5 @@
       "@actions/*": ["actions/*"]
     }
   },
-  "include": ["src", "../../packages/shared-config/src/common/abbreviationMap.js"]
+  "include": ["src"]
 }

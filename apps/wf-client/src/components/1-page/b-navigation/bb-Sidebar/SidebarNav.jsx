@@ -1,31 +1,35 @@
 import React from 'react';
 import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import navService from '@services/navService';
-import * as MuiIcons from '@mui/icons-material';
+// import * as MuiIcons from '@mui/icons-material';
 
-// Add the missing getIcon function
+// Simplified icon function that avoids React component object issues
 const getIcon = (iconName) => {
-  if (!iconName) return null;
-  
-  // Try to get the icon component using the standard naming convention
-  const IconComponent = MuiIcons[`${iconName}Icon`];
-  
-  // If found, return the component
-  if (IconComponent) {
-    return <IconComponent />;
-  }
-  
-  // Fallback for debugging
-  return <span style={{fontSize: '10px'}}>{iconName}</span>;
+  // Return a simple text placeholder instead of trying to render Material-UI icons
+  if (!iconName) return '📁'; // Default folder icon
+
+  // Simple emoji/text mappings for common icons
+  const iconMap = {
+    'Kitchen': '🍽️',
+    'Inventory': '📦',
+    'Settings': '⚙️',
+    'Map': '🗺️',
+    'List': '📋',
+    'Category': '📂',
+    'Product': '🏷️',
+    'Ingredient': '🥄'
+  };
+
+  return iconMap[iconName] || '📄'; // Default document icon
 };
 
 const SidebarNav = ({ sections, onClose }) => {
   // Only show top-level sections in sidebar
   return (
     <List>
-      {sections?.map((section) => (
-        <ListItem key={section.id} disablePadding>
-          <ListItemButton 
+      {sections?.map((section, index) => (
+        <ListItem key={section.id || section.title || `section-${index}`} disablePadding>
+          <ListItemButton
             onClick={() => {
               // Navigate to default route for this section
               if (section.defaultRoute) {
@@ -33,14 +37,18 @@ const SidebarNav = ({ sections, onClose }) => {
               } else if (section.items?.[0]?.listEvent) {
                 navService.byListEvent(section.items[0].listEvent);
               }
-              onClose();
+              if (onClose) onClose();
             }}
           >
-            <ListItemIcon>{getIcon(section.icon)}</ListItemIcon>
-            <ListItemText primary={section.label} />
+            <ListItemIcon>
+              <span style={{ fontSize: '20px' }}>
+                {getIcon(section.icon?.name || section.title)}
+              </span>
+            </ListItemIcon>
+            <ListItemText primary={section.title || 'Unnamed Section'} />
           </ListItemButton>
         </ListItem>
-      ))}
+      )) || []}
     </List>
   );
 };

@@ -1,6 +1,6 @@
 /**
- * Client Entity Registry - Generation Templates
- * These are templates used to generate app-specific page maps
+ * Client Entity Registry
+ * Maps entities to their page configurations and navigation structure
  */
 
 export const clientEntityRegistry = {
@@ -13,7 +13,7 @@ export const clientEntityRegistry = {
         icon: "Dashboard",
         section: "main",
         sectionOrder: 10,
-        type: "dashboard",
+        type: "dashboard",  // Changed from pageType
         widgets: [
             { id: "recentIngrBtchList", size: "medium", position: 1 },
             { id: "recentProdBtchList", size: "medium", position: 2 },
@@ -32,8 +32,223 @@ export const clientEntityRegistry = {
         routeKey: "LOGIN",
         icon: "Login",
         section: "auth",
-        type: "authForm",
+        type: "authForm",  // Changed from pageType
+        authFlow: true,
+        nextRoute: "SELECT_ACCOUNT",
+        import: true,
+        formFields: [
+            { name: "username", label: "Username", type: "text", required: true },
+            { name: "password", label: "Password", type: "password", required: true }
+        ]
+    },
+
+    "userAcctList": {
+        pageMapPath: "0-Auth/userAcctList/config.js",
+        layout: "SelectorLayout",
+        routeKey: "SELECT_ACCOUNT",
+        icon: "AccountBalance",
+        section: "auth",
+        type: "widget",  // Changed from pageType
+        widgetId: "accountSelect",
+        widgetType: "selector",
+        listEvent: "userAcctList"  // Event for data fetching
+    },
+
+    // Ingredients section
+    "ingrTypeList": {
+        pageIndexPath: "2-Ingredient/01-ingrTypeList/index.jsx",
+        title: "Ingredient Types",
+        layout: "CrudLayout",
+        routeKey: "INGREDIENT_TYPES",
+        icon: "Category",
+        section: "ingredients",
+        sectionOrder: 20,
+        itemOrder: 10,
+        color: "pink",
+        import: true
+    },
+    "ingrList": {
+        pageIndexPath: "2-Ingredient/02-ingrList/index.jsx",
+        title: "Ingredients",
+        layout: "CrudLayout",
+        routeKey: "INGREDIENTS",
+        icon: "ListAlt",
+        section: "ingredients",
+        itemOrder: 20,
+        color: "pink",
+        import: false
+    },
+    "ingrBtchList": {
+        pageIndexPath: "2-Ingredient/03-ingrBtchList/index.jsx",
+        title: "Ingredient Batches",
+        layout: "CrudLayout",
+        routeKey: "INGREDIENT_BATCHES",
+        icon: "Inventory",
+        section: "ingredients",
+        itemOrder: 30,
+        color: "pink",
+        import: false
+    },
+
+    // Products section
+    "prodTypeList": {
+        pageIndexPath: "3-Product/01-prodTypeList/index.jsx",
+        title: "Product Types",
+        layout: "CrudLayout",
+        routeKey: "PRODUCT_TYPES",
+        icon: "Category",
+        section: "products",
+        sectionOrder: 30,
+        itemOrder: 10,
         color: "blue",
         import: true
     },
+    "prodList": {
+        pageIndexPath: "3-Product/02-prodList/index.jsx",
+        title: "Products",
+        layout: "CrudLayout",
+        routeKey: "PRODUCTS",
+        icon: "Fastfood",
+        section: "products",
+        itemOrder: 20,
+        color: "blue",
+        import: false
+    },
+    "prodBtchList": {
+        pageIndexPath: "3-Product/03-prodBtchList/index.jsx",
+        title: "Product Batches",
+        layout: "CrudLayout",
+        routeKey: "PRODUCT_BATCHES",
+        icon: "Inventory",
+        section: "products",
+        itemOrder: 30,
+        color: "blue",
+        import: false
+    },
+    "prodBtchDetail": {
+        pageIndexPath: "3-Product/04-BatchDetail/index.jsx",
+        title: "Product Batch Details",
+        layout: "DetailLayout",
+        routeKey: "PRODUCT_BATCH_DETAIL",
+        type: "detail",  // Special type for detail pages 
+        icon: "Assignment",
+        section: "products",
+        itemOrder: 35,
+        color: "blue",
+        import: false,
+        showInNav: false,  // Hide from navigation
+        tabs: [
+            { id: "mapping", label: "Mapping", default: true },
+            { id: "tasks", label: "Tasks" },
+            { id: "worksheet", label: "Worksheet" }
+        ]
+    },
+
+    // Reference section
+    "brndList": {
+        pageIndexPath: "4-Reference/01-brndList/index.jsx",
+        title: "Brands",
+        layout: "CrudLayout",
+        routeKey: "BRANDS",
+        icon: "Branding",
+        section: "reference",
+        sectionOrder: 50,
+        itemOrder: 10,
+        color: "gray",
+        import: true
+    },
+    "vndrList": {
+        pageIndexPath: "4-Reference/02-vndrList/index.jsx",
+        title: "Vendors",
+        layout: "CrudLayout",
+        routeKey: "VENDORS",
+        icon: "Business",
+        section: "reference",
+        itemOrder: 20,
+        color: "gray",
+        import: true
+    },
+    "wrkrList": {
+        pageIndexPath: "4-Reference/03-wrkrList/index.jsx",
+        title: "Workers",
+        layout: "CrudLayout",
+        routeKey: "WORKERS",
+        icon: "Person",
+        section: "reference",
+        itemOrder: 30,
+        color: "gray",
+        import: true
+    },
+    "measList": {
+        pageIndexPath: "4-Reference/04-measList/index.jsx",
+        title: "Measures",
+        layout: "CrudLayout",
+        routeKey: "MEASURES",
+        icon: "Scale",
+        section: "reference",
+        itemOrder: 40,
+        color: "gray",
+        import: false
+    },
+
+    // Mapping section
+    "btchMap": {
+        pageIndexPath: "5-Mapping/01-btchMap/index.jsx",
+        title: "Batch Mapping",
+        layout: "BatchMapLayout",
+        routeKey: "BATCH_MAP",
+        icon: "Map",
+        section: "maps",
+        sectionOrder: 40,
+        itemOrder: 10,
+        color: "green",
+        import: true
+    },
+    "taskList": {
+        pageIndexPath: "5-Mapping/02-taskList/index.jsx",
+        title: "Product Type Tasks",
+        layout: "CrudLayout",
+        routeKey: "BATCH_TASKS",
+        icon: "Assignment",
+        section: "maps",
+        itemOrder: 30,
+        color: "green",
+        import: false
+    },
+    "rcpeList": {
+        pageIndexPath: "5-Mapping/03-rcpeList/index.jsx",
+        title: "Product Recipes",
+        layout: "RecipeLayout",
+        routeKey: "RECIPES",
+        icon: "MenuBook",
+        section: "maps",
+        itemOrder: 20,
+        color: "green",
+        import: false
+    },
+
+    // Admin/utility items
+    "acctList": {
+        pageIndexPath: "9-Admin/01-acctList/index.jsx",
+        title: "Accounts",
+        layout: "CrudLayout",
+        routeKey: null,
+        icon: "AccountBox",
+        section: "admin",
+        sectionOrder: 90,
+        itemOrder: 10,
+        color: "purple",
+        import: false
+    },
+    "userList": {
+        pageIndexPath: "9-Admin/02-userList/index.jsx",
+        title: "Users",
+        layout: "CrudLayout",
+        routeKey: null,
+        icon: "People",
+        section: "admin",
+        itemOrder: 20,
+        color: "purple",
+        import: false
+    }
 };

@@ -1,7 +1,7 @@
 // accountStore.js - Simplified MobX store focused on auth and account selection only
 import { makeAutoObservable } from 'mobx';
 import React from 'react';
-import createLogger from '@whatsfresh/shared-imports';
+import { createLogger } from '@whatsfresh/shared-imports';
 
 const log = createLogger('AccountStore');
 const STORAGE_KEY = 'whatsfresh_account_state';

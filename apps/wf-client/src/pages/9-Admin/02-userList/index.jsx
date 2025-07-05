@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { CrudLayout } from '@whatsfresh/shared-ui';
+import { CrudLayout } from '@whatsfresh/shared-imports';
 import pageMap from '@whatsfresh/shared-config/src/pageMap/userList';
 import dataStore from '@stores/dataStore';
 import navigationStore from '@stores/navigationStore';

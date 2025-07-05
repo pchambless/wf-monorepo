@@ -1,41 +1,42 @@
 import React from 'react';
 import { Box, Drawer, Toolbar } from '@mui/material';
 import SidebarContent from './SidebarContent';
-import { resolveRoute, getRouteKeyByEvent } from '@whatsfresh/shared-config';
-import { getNavSections } from '../../../../navigation/sidebar';
-import { useAccountStore } from '@stores/accountStore';
-import createLogger from '@whatsfresh/shared-imports';
+import { getNavigationSections } from '@config/navigation';
+import { getRouteKeyByEvent } from '@config/routes';
+import { accountStore, createLogger } from '@whatsfresh/shared-imports';
 
 const log = createLogger('Sidebar');
 
 const Sidebar = ({ width, open, mobileOpen, handleDrawerToggle, onClose }) => {
-  const accountStore = useAccountStore();
-  const accountId = accountStore.currentAcctID;
-  
-  // Generate navigation sections
-  const sections = getNavSections();
-  
+  const accountId = accountStore.currentAccountId;
+
+  // Get navigation sections from app config
+  const sections = getNavigationSections();
+
   // Process sections to resolve route parameters
   const processedSections = React.useMemo(() => {
     log.info(`sections: `, sections, `accountId: `, accountId);
-    if (!sections || !accountId) return sections || [];
-    
+    if (!sections) return [];
+
     return sections.map(section => ({
       ...section,
-      items: section.items.map(item => {
+      items: section.items ? section.items.map(item => {
         // Get route key from eventType
         const routeKey = getRouteKeyByEvent(item.eventType);
-        const path = routeKey ? resolveRoute(routeKey, { acctID: String(accountId) }) : '#';
+        // For now, use simple paths until we implement account-based routing
+        const path = routeKey ? `/${item.eventType}` : '#';
         return { ...item, path };
-      })
+      }) : [],
+      // Handle top-level sections without items
+      path: section.eventType ? `/${section.eventType}` : undefined
     }));
   }, [sections, accountId]);
 
   // Sidebar content to reuse
   const sidebarContent = (
-    <SidebarContent 
-      sections={processedSections} 
-      onNavItemClick={onClose} 
+    <SidebarContent
+      sections={processedSections}
+      onNavItemClick={onClose}
     />
   );
 
@@ -58,7 +59,7 @@ const Sidebar = ({ width, open, mobileOpen, handleDrawerToggle, onClose }) => {
         <Toolbar /> {/* Spacer for AppBar */}
         {sidebarContent}
       </Drawer>
-      
+
       {/* Desktop drawer */}
       <Drawer
         variant="persistent"

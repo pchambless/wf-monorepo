@@ -11,6 +11,10 @@ export {
 // Widget exports
 export { default as SelAcct } from './widgets/acct/SelAcct.js';
 
+// Navigation components
+export { default as AppBar } from './components/1-page/b-navigation/aa-AppBar/AppBar.jsx';
+export { default as Sidebar } from './components/1-page/b-navigation/bb-Sidebar/Sidebar.jsx';
+
 // App-level components
 export { default as CrudLayout } from './components/1-page/c-crud/CrudLayout/index.js';
 

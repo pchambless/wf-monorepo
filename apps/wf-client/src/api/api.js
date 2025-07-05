@@ -1,6 +1,6 @@
-import createLogger from '../utils/logger';
+import { createLogger } from '@whatsfresh/shared-imports';
 import { useCallback } from 'react';
-import { getClientSafeEventTypes } from '@whatsfresh/shared-events';
+import { getClientSafeEventTypes } from '@whatsfresh/shared-imports';
 
 const log = createLogger('API');
 
@@ -39,18 +39,18 @@ const callApi = async (endpoint, options = {}) => {
 export const execEventType = async (eventType, params = {}) => {
   try {
     log.debug(`Execute: ${eventType}`, { params });
-    
+
     const response = await callApi('/api/execEventType', {
       method: 'POST',
       body: JSON.stringify({ eventType, params })
     });
-    
+
     log.debug(`Response received for ${eventType}`);
-    
+
     if (!Array.isArray(response) && typeof response !== 'object') {
       log.warn(`Unexpected response type from ${eventType}:`, typeof response);
     }
-    
+
     return response;
   } catch (error) {
     log.error(`Error: ${eventType}`, { error: error.message });
@@ -91,11 +91,11 @@ export const useApi = () => {
  * Uses the requestBody parameter to satisfy linting rules
  */
 export const execDmlRequest = async (requestBody) => {
-  log.info('DML request stub called', { 
+  log.info('DML request stub called', {
     requestType: requestBody?.type || 'unknown',
     entityCount: requestBody?.entities?.length || 0
   });
-  
+
   // Return a mock response that includes some info from the requestBody
   return {
     success: true,

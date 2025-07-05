@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { createLogger } from '@whatsfresh/shared-imports';
-import { useModal } from '@whatsfresh/shared-ui';
+import { useModal } from '@whatsfresh/shared-imports';
 import usePageHeader from '../../hooks/usePageHeader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 

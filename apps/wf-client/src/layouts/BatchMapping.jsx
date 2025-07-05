@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Paper, Grid, Typography, Tabs, Tab } from '@mui/material';
-import { DataGridWidget } from '@whatsfresh/shared-ui/src/widgets/grid/DataGridWidget';
+import { DataGridWidget } from '@whatsfresh/shared-imports/src/widgets/grid/DataGridWidget';
 import { execEvent } from '../stores/eventStore.js';
-import CrudTable from '@whatsfresh/shared-ui/src/widgets/data/CrudTable';
-import SelProd from '@whatsfresh/shared-ui/src/widgets/selection/SelProd';
-import { getWidgetById } from '@whatsfresh/shared-ui/src/registry';
+import CrudTable from '@whatsfresh/shared-imports/src/widgets/data/CrudTable';
+import SelProd from '@whatsfresh/shared-imports/src/widgets/selection/SelProd';
+import { getWidgetById } from '@whatsfresh/shared-imports/src/registry';
 
 /**
  * BatchMapping layout - implements the batch mapping interface with four tabs
