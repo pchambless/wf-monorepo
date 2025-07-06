@@ -11,23 +11,23 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { CircularProgress, Box, Typography } from '@mui/material';
 import { ROUTES, entityRegistry } from './config/routes.js';
 
-// Utilities and contexts
-import createLogger, { configureLogger } from './utils/logger';
-import { disableBrowserFetchLogs } from './utils/fetchLogHelper';
+// Utilities and contexts from shared-imports
+import { createLogger, configureLogger } from '@whatsfresh/shared-imports';
+import { disableBrowserFetchLogs } from '@whatsfresh/shared-imports/utils';
 // Removed ActionHandlerProvider - no longer needed
 // import { BreadcrumbProvider } from './contexts/BreadcrumbContext';
 import theme from './theme';
+import { getNavigationSections } from './config/navigation';
 
-// Components
+// Components - JSX imports
+import { Modal, useModalStore, MainLayout } from '@whatsfresh/shared-imports/jsx';
 import ErrorBoundary from './components/ErrorBoundary';
-import { Modal, useModalStore } from '@whatsfresh/shared-imports'; // Updated to use shared-imports
 
 // Services
 import { initEventTypeService } from './stores/eventStore';
 import navService from './services/navService';
 
-// Base layouts
-const MainLayout = lazy(() => import('./layouts/MainLayout'));
+// Base layouts - now from shared-imports/jsx
 const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
 
 // Always import these core components
@@ -147,7 +147,11 @@ const App = () => {
 
             {/* Dashboard route */}
             <Route path="/dashboard" element={
-              <MainLayout>
+              <MainLayout
+                navigationSections={getNavigationSections()}
+                appName="WhatsFresh Client"
+                onLogout={() => navService.logout()}
+              >
                 <Suspense fallback={<CircularProgress />}>
                   <Dashboard />
                 </Suspense>
@@ -178,11 +182,15 @@ const App = () => {
                   key={config.routeKey}
                   path={routeInfo.path}
                   element={
-                    <Suspense fallback={<CircularProgress />}>
-                      <MainLayout>
+                    <MainLayout
+                      navigationSections={getNavigationSections()}
+                      appName="WhatsFresh Client"
+                      onLogout={() => navService.logout()}
+                    >
+                      <Suspense fallback={<CircularProgress />}>
                         <PageComponent />
-                      </MainLayout>
-                    </Suspense>
+                      </Suspense>
+                    </MainLayout>
                   }
                 />
               );

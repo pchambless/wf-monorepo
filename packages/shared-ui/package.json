@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "description": "Shared UI components and widget registry for WhatsFresh apps",
   "main": "src/index.js",
-  "module": "src/index.js",
-  "type": "module",
   "files": [
     "src",
     "dist"

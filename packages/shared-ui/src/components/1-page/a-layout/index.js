@@ -1,6 +1,6 @@
-// Make sure this file exists with the correct exports:
+// Layout component exports
 
-import MainLayout from '../../../layouts/MainLayout';
+import MainLayout from '../../../layouts/MainLayout.jsx';
 import PageHeader from './PageHeader';
 import PageContent from './PageContent';
 import PageFooter from './PageFooter';

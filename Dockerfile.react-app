@@ -21,9 +21,16 @@ RUN npm install --include=dev --legacy-peer-deps
 # Explicitly install react-scripts to ensure it's available
 RUN npm install react-scripts --save-dev --legacy-peer-deps
 
-# AFTER all npm installs: Create single symlink to shared-imports (which re-exports all other packages)
-RUN rm -rf node_modules/@whatsfresh/* && \
-    ln -sf ../../packages/shared-imports node_modules/@whatsfresh/shared-imports
+# AFTER all npm installs: Create symlinks to all shared packages
+RUN mkdir -p node_modules/@whatsfresh && \
+    ln -sf ../../packages/shared-imports node_modules/@whatsfresh/shared-imports && \
+    ln -sf ../../packages/shared-ui node_modules/@whatsfresh/shared-ui && \
+    ln -sf ../../packages/shared-api node_modules/@whatsfresh/shared-api && \
+    ln -sf ../../packages/shared-events node_modules/@whatsfresh/shared-events && \
+    ln -sf ../../packages/shared-config node_modules/@whatsfresh/shared-config
+
+# Install Babel plugins explicitly to handle JSX in shared packages
+RUN npm install --save-dev @babel/preset-react @babel/preset-env @babel/plugin-transform-runtime @babel/core
 
 # Copy source code from the specific app directory
 COPY ${APP_DIR}/src ./src

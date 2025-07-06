@@ -26,9 +26,11 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      # Mount only source code for live development  
+      # Mount source code for live development  
       - ./apps/wf-client/src:/app/src
       - ./apps/wf-client/public:/app/public
+      # Mount packages for live development
+      - ./packages:/app/packages
       # Preserve container's node_modules and package.json
       - wf_client_node_modules:/app/node_modules
     environment:

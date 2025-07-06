@@ -1,19 +1,57 @@
 {
   "folders": [
-    { "name": "⚙️ Monorepo", "path": "." },
-    { "name": "📱 Docs", "path": "./Docs" },
-    { "name": "📱 Admin", "path": "./apps/wf-admin" },
-    { "name": "📱 Client", "path": "./apps/wf-client" },
-    { "name": "🖥️ Server", "path": "./apps/wf-server" },
-    { "name": "📦 DB Connect", "path": "./packages/db-connect" },
-    { "name": "📦 Shared Imports", "path": "./packages/shared-imports" },
-    { "name": "📦 Shared Config", "path": "./packages/shared-config" },
-    { "name": "📦 Shared Events", "path": "./packages/shared-events/src" },
-    { "name": "📦 Shared UI", "path": "./packages/shared-ui" },
-    { "name": "📦 Shared API", "path": "./packages/shared-api" },
-    { "name": "📦 DevTools", "path": "./packages/devtools" },
-    { "name": "📦 Views - Client", "path": "./sql/views/client" },
-    { "name": "📦 Views - Admin", "path": "./sql/views/admin" }
+    {
+      "name": "⚙️ Monorepo",
+      "path": "."
+    },
+    {
+      "name": "📱 Docs",
+      "path": "./Docs"
+    },
+    {
+      "name": "📱 Admin",
+      "path": "./apps/wf-admin"
+    },
+    {
+      "name": "📱 Client",
+      "path": "./apps/wf-client"
+    },
+    {
+      "name": "🖥️ Server",
+      "path": "./apps/wf-server"
+    },
+    {
+      "name": "📦 DB Connect",
+      "path": "./packages/db-connect"
+    },
+    {
+      "name": "📦 Shared Imports",
+      "path": "./packages/shared-imports"
+    },
+    {
+      "name": "📦 Shared Events",
+      "path": "./packages/shared-events/src"
+    },
+    {
+      "name": "📦 Shared UI",
+      "path": "./packages/shared-ui"
+    },
+    {
+      "name": "📦 Shared API",
+      "path": "./packages/shared-api"
+    },
+    {
+      "name": "📦 DevTools",
+      "path": "./packages/devtools"
+    },
+    {
+      "name": "📦 Views - Client",
+      "path": "./sql/views/client"
+    },
+    {
+      "name": "📦 Views - Admin",
+      "path": "./sql/views/admin"
+    }
   ],
   "settings": {
     "editor.formatOnSave": true

@@ -43,19 +43,19 @@ export class OverviewDocGenerator {
         
         <div class="improvement-grid">
           <div class="improvement-card">
-            <h3>Centralized Shared-Imports Architecture</h3>
-            <p>Eliminated duplicate dependencies with a centralized import system:</p>
-            <pre><code>// Before: Multiple import sources
-import createLogger from '../utils/logger';
-import { execEvent } from '../stores/eventStore';
-import accountStore from '../stores/accountStore';
+            <h3>Consolidated Shared-Imports Architecture</h3>
+            <p>Eliminated duplicate dependencies with a consolidated import system:</p>
+            <pre><code>// Before: Multiple import sources from different packages
+import createLogger from '@whatsfresh/shared-imports';
+import { LoginForm } from '@whatsfresh/shared-ui';
+import { apiClient } from '@whatsfresh/shared-api';
+import { eventTypes } from '@whatsfresh/shared-events';
 
-// After: Single centralized import
-import { 
-  createLogger, 
-  execEvent, 
-  accountStore 
-} from '@whatsfresh/shared-imports';</code></pre>
+// After: Single consolidated package with clean paths
+import { createLogger } from '@whatsfresh/shared-imports';
+import { LoginForm } from '@whatsfresh/shared-imports/jsx';
+import { apiClient } from '@whatsfresh/shared-imports/api';
+import { eventTypes } from '@whatsfresh/shared-imports/events';</code></pre>
             
             <div class="benefits">
               <h4>Key Benefits:</h4>
@@ -63,16 +63,17 @@ import {
                 <li>✅ <strong>DRY Principle</strong>: No duplicate utilities across apps</li>
                 <li>✅ <strong>Consistent APIs</strong>: Same function signatures everywhere</li>
                 <li>✅ <strong>Easy Maintenance</strong>: Update once, applied everywhere</li>
+                <li>✅ <strong>Clean Imports</strong>: Organized subpaths for different types of imports</li>
                 <li>✅ <strong>Type Safety</strong>: Centralized TypeScript definitions</li>
               </ul>
             </div>
           </div>
 
           <div class="improvement-card">
-            <h3>Shared UI Component Library</h3>
-            <p>Migrated authentication and core UI components to reusable shared packages:</p>
-            <pre><code>// Login component now shared between Admin and Client apps
-import { LoginForm } from '@whatsfresh/shared-ui';
+            <h3>Simplified Component Library</h3>
+            <p>Consolidated UI components into a single package with clean import paths:</p>
+            <pre><code>// Login component now available through shared-imports/jsx
+import { LoginForm } from '@whatsfresh/shared-imports/jsx';
 
 &lt;LoginForm 
   appName="WhatsFresh Client"
@@ -86,7 +87,7 @@ import { LoginForm } from '@whatsfresh/shared-ui';
             <h3>Modular DML System</h3>
             <p>Built a clean, modular system for Data Manipulation Language operations:</p>
             <pre><code>// Simple DML execution with preview
-import { executeDML } from '@whatsfresh/shared-ui';
+import { executeDML } from '@whatsfresh/shared-imports/jsx';
 
 const result = await executeDML(pageMap, formData, 'INSERT');</code></pre>
             
@@ -183,8 +184,11 @@ docker-compose build --no-cache</code></pre>
 │   ├── wf-admin/           # React frontend (Admin app)
 │   └── wf-server/          # Node.js/Express API
 ├── packages/
-│   ├── shared-imports/     # Centralized utilities & dependencies
-│   ├── shared-ui/          # Reusable React components
+│   ├── shared-imports/     # Consolidated shared package
+│   │   ├── src/
+│   │   │   ├── components/ # UI components (moved from shared-ui)
+│   │   │   ├── server/     # API utilities (moved from shared-api)
+│   │   │   └── events/     # Event definitions (moved from shared-events)
 │   ├── shared-config/      # Configuration management
 │   └── devtools/           # Development automation & docs
 └── sql/views/              # Database views organized by app</code></pre>

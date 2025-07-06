@@ -2,7 +2,7 @@ import React from 'react';
 import { createLogger } from '@whatsfresh/shared-imports';
 // Temporarily use stub until webpack config is fixed
 // import { LoginForm } from '@whatsfresh/shared-ui';
-import { useAccountStore } from '@stores/accountStore';
+import { useAccountStore } from '../../../stores/accountStore';
 import navService from '../../../services/navService';
 // TODO: Fix assets path after resolving main compilation issues
 // import logo from '@assets/wf-icon.png';

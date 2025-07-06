@@ -31,9 +31,10 @@ WhatsFresh helps food producers manage their entire operation from ingredients t
 
 ### Key Features (2025 Updates)
 - ✅ **Generation-First Architecture** - All configs generated from SQL views
+- ✅ **EventType-Driven Navigation** - Dynamic routing & components from database events
 - ✅ **Centralized DevTools** - Single source of truth for code generation
 - ✅ **App-Specific Configs** - No shared artifacts, only app-specific code
-- ✅ **Shared UI Components** - Reusable authentication & forms
+- ✅ **Shared UI Components** - Reusable navigation, authentication & forms
 - ✅ **Clean Import Hub** - shared-imports package for monorepo coordination
 - ✅ **Docker Development** - Consistent environment with hot reload
 

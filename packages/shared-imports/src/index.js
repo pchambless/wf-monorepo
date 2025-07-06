@@ -3,20 +3,23 @@
  * 
  * This file exports only JavaScript utilities and functions.
  * For JSX components, use '@whatsfresh/shared-imports/jsx'
+ * For API utilities, use '@whatsfresh/shared-imports/api'
+ * For event definitions, use '@whatsfresh/shared-imports/events'
  * 
  * Usage:
- * import { execEvent, createLogger, buildDMLData } from '@whatsfresh/shared-imports';
- * import { LoginForm, CrudLayout, Modal } from '@whatsfresh/shared-imports/jsx';
+ * import { createLogger } from '@whatsfresh/shared-imports';
+ * import { LoginForm } from '@whatsfresh/shared-imports/jsx';
+ * import { apiClient } from '@whatsfresh/shared-imports/api';
+ * import { eventTypes } from '@whatsfresh/shared-imports/events';
  */
 
 import React from 'react';
 
-// === SHARED EVENTS EXPORTS ===
-export * from '../../shared-events/index.js';
+// Core utilities
+export * from './utils/index.js';
 
-// === SHARED API EXPORTS ===
-// Use server-safe exports to avoid JSX parsing issues in Node.js
-export * from '../../shared-api/src/server.js';
+// Re-export commonly used utilities
+export { default as createLogger } from './utils/logger.js';
 
 // === UTILITIES FROM THIS PACKAGE ===
 export * from './utils/index.js';
