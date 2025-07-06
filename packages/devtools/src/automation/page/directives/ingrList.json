@@ -1,7 +1,7 @@
 {
   "viewName": "ingrList",
   "entityName": "ingrlist",
-  "lastGenerated": "2025-07-04T20:19:24.885Z",
+  "lastGenerated": "2025-07-06T20:06:30.978Z",
   "columns": {
     "ingrID": {
       "directives": {
@@ -55,7 +55,7 @@
     "measID": {
       "directives": {
         "type": "select",
-        "widget": "selMeas",
+        "widget": "SelMeas",
         "label": "Default Measure",
         "grp": 2,
         "width": "120",
@@ -66,7 +66,7 @@
     "vndrID": {
       "directives": {
         "type": "select",
-        "widget": "selVndr",
+        "widget": "SelVndr",
         "label": "Default Vendor",
         "grp": 2,
         "width": "150",

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { Box, Divider } from '@mui/material'; // Removed Typography, List, ListItem
 // Removed the Link import as well
 import SidebarHeader from './SidebarHeader';
-import AccountSelector from './components/AccountSelector';
+import SelAcct from '../../selectors/SelAcct.js';
 import SidebarNav from './SidebarNav';
 import createLogger from '@utils/logger';
 
@@ -20,7 +20,15 @@ const SidebarContent = observer(({ sections, onNavItemClick }) => {
       <Divider />
       
       {/* Account Selector */}
-      <AccountSelector onClose={onNavItemClick} />
+      <SelAcct 
+        params={{ ":userID": 1 }} // TODO: Get userID from auth context
+        placeholder="Select Account..."
+        onChange={(acctID, account) => {
+          log.info('Account changed:', { acctID, account });
+          // TODO: Handle account switching logic
+          if (onNavItemClick) onNavItemClick();
+        }}
+      />
       
       <Divider sx={{ my: 1 }} />
       

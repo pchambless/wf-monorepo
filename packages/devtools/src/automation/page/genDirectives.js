@@ -119,37 +119,37 @@ const FIELD_PATTERNS = {
   // Specific widget mappings (selects auto-hide in tables)
   VendorID: {
     pattern: /vndrID$/i,
-    directives: { type: 'select', widget: 'selVndr', label: 'Vendor', grp: '1' }
+    directives: { type: 'select', widget: 'SelVndr', label: 'Vendor', grp: '1' }
   },
 
   BrandID: {
     pattern: /brndID$/i,
-    directives: { type: 'select', widget: 'selBrnd', label: 'Brand', grp: '2' }
+    directives: { type: 'select', widget: 'SelBrnd', label: 'Brand', grp: '2' }
   },
 
   MeasureID: {
     pattern: /measID$/i,
-    directives: { type: 'select', widget: 'selMeas', label: 'Measure', grp: '3' }
+    directives: { type: 'select', widget: 'SelMeas', label: 'Measure', grp: '3' }
   },
 
   IngredientID: {
     pattern: /ingrID$/i,
-    directives: { type: 'select', widget: 'selIngr', label: 'Ingredient', sys: true }
+    directives: { type: 'select', widget: 'SelIngr', label: 'Ingredient', sys: true }
   },
 
   ProductID: {
     pattern: /prodID$/i,
-    directives: { type: 'select', widget: 'selProd', label: 'Product', grp: '1' }
+    directives: { type: 'select', widget: 'SelProd', label: 'Product', grp: '1' }
   },
 
   WorkerID: {
     pattern: /wrkrID$/i,
-    directives: { type: 'select', widget: 'selWrkr', label: 'Worker', grp: '1' }
+    directives: { type: 'select', widget: 'SelWrkr', label: 'Worker', grp: '1' }
   },
 
   AccountID: {
     pattern: /acctID$/i,
-    directives: { type: 'select', widget: 'selAcct', label: 'Account', grp: '1' }
+    directives: { type: 'select', widget: 'SelAcct', label: 'Account', grp: '1' }
   },
 
   // Comments/Description fields

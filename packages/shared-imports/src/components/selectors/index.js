@@ -1,5 +1,5 @@
-import { createSelectWidget } from './createSelectWidget';
-import { SelectWidget } from './SelectWidget';
+import { createSelectWidget } from './createSelectWidget.jsx';
+import { SelectWidget } from './SelectWidget.jsx';
 import { getClientSafeEventTypes } from '@whatsfresh/shared-imports';
 
 // Create components for common selectors

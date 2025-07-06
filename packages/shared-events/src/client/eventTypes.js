@@ -10,16 +10,16 @@
 
 const EVENTS = [
   // Root entity (virtual) to organize hierarchy
-  
+
   // LOGIN
   {
     eventID: 1,
     eventType: "userLogin",
-    category: "page:Login", 
-    cluster: "AUTH", 
+    category: "page:Login",
+    cluster: "AUTH",
     routePath: "/login",
     dbTable: "users", // Add this line
-    children: ["userAcctList"], 
+    children: ["userAcctList"],
     method: "GET",
     qrySQL: `
       SELECT *, :enteredPassword
@@ -36,13 +36,13 @@ const EVENTS = [
     cluster: "AUTH",
     children: [
       "ingrTypeList",
-      "prodTypeList", 
-      "brndList", 
-      "vndrList", 
-      "wrkrList", 
+      "prodTypeList",
+      "brndList",
+      "vndrList",
+      "wrkrList",
       "measList"
     ],
-    selWidget: "SelUserAcct", 
+    selWidget: "SelUserAcct",
     method: "GET",
     qrySQL: `
       SELECT *
@@ -54,7 +54,7 @@ const EVENTS = [
     primaryKey: "",
     purpose: "Get accounts accessible to user"
   },
-  
+
   // INGREDIENTS
   {
     eventID: 10,
@@ -63,8 +63,8 @@ const EVENTS = [
     cluster: "INGREDIENTS",
     routePath: "/ingredients/:acctID/ingrTypeList",
     dbTable: "ingredient_types",
-    selWidget: "SelIngrType",  
-    children: ["ingrList"], 
+    selWidget: "SelIngrType",
+    children: ["ingrList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -83,8 +83,8 @@ const EVENTS = [
     cluster: "INGREDIENTS",
     routePath: "/ingredients/:ingrTypeID/ingrList",
     dbTable: "ingredients",
-    selWidget: "SelIngr",  
-    children: ["ingrBtchList"], 
+    selWidget: "SelIngr",
+    children: ["ingrBtchList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -104,7 +104,7 @@ const EVENTS = [
     routePath: "/ingredients/:ingrID/ingrBtchList",
     dbTable: "ingredient_batches",
     children: ["btchMapAvailable", "btchMapMapped"],
-    selWidget: "SelIngrBtch",  
+    selWidget: "SelIngrBtch",
     method: "GET",
     qrySQL: `
       SELECT *
@@ -116,7 +116,7 @@ const EVENTS = [
     primaryKey: "ingrBtchID",
     purpose: "Get ingredient batches for a product"
   },
-  
+
   // PRODUCTS
   {
     eventID: 20,
@@ -125,8 +125,8 @@ const EVENTS = [
     cluster: "PRODUCTS",
     routePath: "/products/:acctID/prodTypeList",
     dbTable: "product_types",
-    selWidget: "SelProdType",  
-    children: ["prodList", "taskList"], 
+    selWidget: "SelProdType",
+    children: ["prodList", "taskList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -145,27 +145,27 @@ const EVENTS = [
     cluster: "PRODUCTS",
     routePath: "/products/:prodTypeID/prodList",
     dbTable: "products",
-    selWidget: "SelProd", 
-    children: ["prodBtchList", "rcpeList", "btchMapRcpeList"], 
+    selWidget: "SelProd",
+    children: ["prodBtchList", "rcpeList", "btchMapRcpeList"],
     method: "GET",
     qrySQL: `
       SELECT *
       FROM api_wf.prodList
-      (prodTypeID = :prodTypeID OR :prodTypeID IS NULL)
-      and acctID = :acctID
+      WHERE (prodTypeID = :prodTypeID OR :prodTypeID IS NULL)
+      AND acctID = :acctID
     `,
     params: [":acctID", ":prodTypeID"],
     primaryKey: "prodID",
     purpose: "Get products for an account"
   },
-   {
+  {
     eventID: 41,
     eventType: "taskList",
     category: "page:Crud",
     cluster: "PRODUCTS",
     routePath: "/products/:prodTypeID/taskList",
     dbTable: "tasks",
-    children: ["prodBtchTaskList"], 
+    children: ["prodBtchTaskList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -185,7 +185,7 @@ const EVENTS = [
     routePath: "/products/:prodID/prodBtchList",
     dbTable: "product_batches",
     children: ["btchMapDetail"],
-    selWidget: "SelProdBtch", 
+    selWidget: "SelProdBtch",
     method: "GET",
     qrySQL: `
       SELECT *
@@ -197,7 +197,7 @@ const EVENTS = [
     primaryKey: "prodBtchID",
     purpose: "Get product batches for a product"
   },
-  
+
   // REFERENCE
   {
     eventID: 30,
@@ -206,8 +206,8 @@ const EVENTS = [
     cluster: "REFERENCE",
     routePath: "/brands/:acctID/brndList",
     dbTable: "brands",
-    selWidget: "SelBrnd",  
-    children: ["ingrBtchList"], 
+    selWidget: "SelBrnd",
+    children: ["ingrBtchList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -226,8 +226,8 @@ const EVENTS = [
     cluster: "REFERENCE",
     routePath: "/vendors/:acctID/vndrList",
     dbTable: "vendors",
-    selWidget: "SelVndr", 
-    children: ["ingrBtchList"], 
+    selWidget: "SelVndr",
+    children: ["ingrBtchList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -246,8 +246,8 @@ const EVENTS = [
     cluster: "REFERENCE",
     routePath: "/workers/:acctID/wrkrList",
     dbTable: "workers",
-    selWidget: "SelWrkr",  
-    children: ["prodBtchTaskList"], 
+    selWidget: "SelWrkr",
+    children: ["prodBtchTaskList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -266,7 +266,7 @@ const EVENTS = [
     cluster: "REFERENCE",
     routePath: "/measures/:acctID/measList",
     dbTable: "measures",
-    children: [], 
+    children: [],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -298,7 +298,7 @@ const EVENTS = [
     primaryKey: "rcpeID",
     purpose: "Get recipes for an account"
   },
-    // MAPPING DETAIL
+  // MAPPING DETAIL
   {
     eventID: 100,
     eventType: "btchMapDetail",
@@ -362,7 +362,7 @@ const EVENTS = [
       )
       ORDER BY ingr_btch_id DESC
     `,
-    params: [ ":prodBtchID", ":ingrID"],
+    params: [":prodBtchID", ":ingrID"],
     primaryKey: "ingrBtchID",
     purpose: "Ingr batches available for mapping to a product batch"
   },

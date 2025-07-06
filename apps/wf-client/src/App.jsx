@@ -21,7 +21,7 @@ import { getNavigationSections } from './config/navigation';
 
 // Components - JSX imports
 import { Modal, useModalStore, MainLayout } from '@whatsfresh/shared-imports/jsx';
-import ErrorBoundary from './components/ErrorBoundary';
+import { ErrorBoundary } from '@whatsfresh/shared-imports/jsx';
 
 // Services
 import { initEventTypeService } from './stores/eventStore';

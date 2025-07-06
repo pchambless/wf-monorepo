@@ -1,7 +1,7 @@
 {
   "viewName": "ingrBtchList",
   "entityName": "ingrbtchlist",
-  "lastGenerated": "2025-07-04T20:19:24.855Z",
+  "lastGenerated": "2025-07-06T20:26:03.451Z",
   "columns": {
     "ingrBtchID": {
       "directives": {
@@ -28,7 +28,7 @@
     "vndrID": {
       "directives": {
         "type": "select",
-        "widget": "selVndr",
+        "widget": "SelVndr",
         "label": "Vendor",
         "grp": "1",
         "width": "180",
@@ -40,7 +40,7 @@
     "brndID": {
       "directives": {
         "type": "select",
-        "widget": "selBrnd",
+        "widget": "SelBrnd",
         "label": "Brand",
         "grp": "2",
         "width": "150",
@@ -96,7 +96,7 @@
     "measID": {
       "directives": {
         "type": "select",
-        "widget": "selMeas",
+        "widget": "SelMeas",
         "label": "Measure",
         "grp": "3",
         "width": 120,
@@ -299,7 +299,7 @@
     "acctID": {
       "directives": {
         "type": "select",
-        "widget": "selAcct",
+        "widget": "SelAcct",
         "label": "Account",
         "grp": "1",
         "width": 120,

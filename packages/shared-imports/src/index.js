@@ -24,21 +24,21 @@ export { default as createLogger } from './utils/logger.js';
 // === UTILITIES FROM THIS PACKAGE ===
 export * from './utils/index.js';
 
-// === SHARED UI EXPORTS (JavaScript utilities only) ===
-export {
-  WIDGET_REGISTRY,
-  WIDGET_TYPES,
-  WIDGET_SIZES,
-  getWidgetById,
-  getWidgetsByApp,
-  getWidgetDisplayName
-} from '../../shared-ui/src/widgets/index.js';
+// === WIDGET UTILITIES (Placeholder - implement when needed) ===
+// export {
+//   WIDGET_REGISTRY,
+//   WIDGET_TYPES, 
+//   WIDGET_SIZES,
+//   getWidgetById,
+//   getWidgetsByApp,
+//   getWidgetDisplayName
+// } from './widgets/index.js';
 
-// Export DML utilities (non-JSX parts only)
-export {
-  buildDMLData,
-  buildSQLPreview
-} from '../../shared-ui/src/utils/dml/dmlBuilder.js';
+// === DML UTILITIES (Placeholder - implement when needed) ===
+// export {
+//   buildDMLData,
+//   buildSQLPreview
+// } from './utils/dml/dmlBuilder.js';
 
 // === DEVTOOLS UTILITIES ===
 // Note: pageMapAccess.js excluded from browser builds (Node.js only)

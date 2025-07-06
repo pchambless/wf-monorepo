@@ -36,9 +36,21 @@ export { useModal } from './components/modals/useModal.js';
 export { default as DatePick } from './components/forms/DatePick.jsx';
 export { default as Select } from './components/forms/Select.jsx';
 
-// Export selector components
-export { default as SelAcct } from './components/selectors/SelAcct.js';
-export { default as SelectWidget } from './components/selectors/SelectWidget.jsx';
+// Export selector components (PascalCase names)
+export {
+  SelAcct,
+  SelBrnd,
+  SelVndr,
+  SelMeas,
+  SelProd,
+  SelProdType,
+  SelIngr,
+  SelIngrType,
+  SelWrkr,
+  SelUserAcct,
+  SelectWidget,
+  createSelectWidget
+} from './components/selectors/index.js';
 
 // Export grid components
 export { default as DataGrid } from './components/grids/DataGrid.jsx';

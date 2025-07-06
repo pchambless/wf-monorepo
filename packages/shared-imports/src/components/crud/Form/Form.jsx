@@ -5,25 +5,101 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'rea
 import { observer } from 'mobx-react-lite';
 import FormStore from './stores/FormStore';
 import createLogger from '@utils/logger';
-// FormField removed - using modern widgets system
-// TODO: Replace with modern field widgets when form rendering is implemented
-import { 
+// Import field widgets and selector components
+import { FIELD_WIDGETS } from '../../forms/index.js';
+import {
+  SelAcct, SelBrnd, SelVndr, SelMeas, SelProd, SelProdType,
+  SelIngr, SelIngrType, SelWrkr, SelUserAcct
+} from '../../selectors/index.js';
+import {
   Paper, Grid, Button, Typography, Box, Alert, CircularProgress
 } from '@mui/material';
 import { safeProp } from '@utils/mobxHelpers';
 
 const log = createLogger('Form');
 
-const Form = observer(forwardRef(({ 
-  pageMap, data, 
-  onSave, 
+// Widget registry for selector components
+const SELECTOR_WIDGETS = {
+  SelAcct: SelAcct,
+  SelBrnd: SelBrnd,
+  SelVndr: SelVndr,
+  SelMeas: SelMeas,
+  SelProd: SelProd,
+  SelProdType: SelProdType,
+  SelIngr: SelIngr,
+  SelIngrType: SelIngrType,
+  SelWrkr: SelWrkr,
+  SelUserAcct: SelUserAcct
+};
+
+/**
+ * Renders a form field based on its configuration
+ */
+const renderFormField = (field, formData, setFormData, formStore) => {
+  const value = formData[field.field] || '';
+
+  const handleFieldChange = (newValue) => {
+    const updatedData = { ...formData, [field.field]: newValue };
+    setFormData(updatedData);
+    // Also update the form store
+    if (formStore && formStore.setFieldValue) {
+      formStore.setFieldValue(field.field, newValue);
+    }
+  };
+
+  // Handle selector widgets (fields with widget property)
+  if (field.widget && SELECTOR_WIDGETS[field.widget]) {
+    const SelectorComponent = SELECTOR_WIDGETS[field.widget];
+    return (
+      <SelectorComponent
+        value={value}
+        onChange={handleFieldChange}
+        label={field.label}
+        required={field.required}
+        disabled={field.disabled}
+        fullWidth
+      />
+    );
+  }
+
+  // Handle basic field types
+  if (field.type && FIELD_WIDGETS[field.type]) {
+    const FieldComponent = FIELD_WIDGETS[field.type];
+    return (
+      <FieldComponent
+        value={value}
+        onChange={handleFieldChange}
+        label={field.label}
+        required={field.required}
+        disabled={field.disabled}
+        fullWidth
+      />
+    );
+  }
+
+  // Fallback for unknown field types
+  return (
+    <Box p={2} border="1px solid #ddd" borderRadius={1} bgcolor="#fafafa">
+      <Typography variant="caption" color="text.secondary">
+        Unknown field type: {field.type || 'undefined'} / widget: {field.widget || 'none'}
+      </Typography>
+      <Typography variant="body2">
+        Field: {field.field} = {value}
+      </Typography>
+    </Box>
+  );
+};
+
+const Form = observer(forwardRef(({
+  pageMap, data,
+  onSave,
   formTitle = 'Form',
   mode = 'view',
   onCancel
 }, ref) => {
   // Track whether we have a valid pageMap
   const hasValidPageMap = !!pageMap && !!pageMap.id;
-  
+
   console.log('Form received props:', {
     hasPageMap: hasValidPageMap,
     pageMapId: pageMap?.id,
@@ -34,29 +110,29 @@ const Form = observer(forwardRef(({
   // Create formStore (MUST do this for hook rules)
   const [formStore] = useState(() => {
     console.log('Creating FormStore with pageMap:', pageMap);
-    return new FormStore({ 
+    return new FormStore({
       pageMap
     }, data || {});
   });
-  
+
   // Always use effect (for hook rules) but check validity
   useEffect(() => {
     if (!hasValidPageMap) {
       console.error('ERROR: Form cannot function without a valid pageMap');
       return;
     }
-    
+
     if (data) {
       formStore.setFormData(data);
     }
     formStore.setFormMode(mode);
   }, [data, mode, pageMap, formStore, hasValidPageMap]);
-  
+
   // Always use imperative handle
   useImperativeHandle(ref, () => ({
     refresh: (newMode, newData) => {
       if (!hasValidPageMap) return; // Don't operate on invalid store
-      
+
       formStore.setFormMode(newMode || mode);
       if (newData) {
         formStore.setFormData(newData);
@@ -68,7 +144,7 @@ const Form = observer(forwardRef(({
     setFormData: (newData) => formStore.setFormData(newData),
     setParentId: (id) => formStore.setParentId(id)
   }));
-  
+
   // Show error state if pageMap is missing
   if (!hasValidPageMap) {
     return (
@@ -97,7 +173,7 @@ const Form = observer(forwardRef(({
       </Paper>
     );
   }
-  
+
   // Log formStore state after initialization
   console.log('FormStore state after initialization:', {
     formData: safeProp(formStore.formData),
@@ -105,16 +181,16 @@ const Form = observer(forwardRef(({
     columnMap: safeProp(formStore.columnMap),
     pageMap: safeProp(formStore.pageMap)
   });
-  
+
   // Form submission - actual save
   const handleSubmit = async () => {
     try {
       // Convert form data to plain JS objects BEFORE saving
       formStore.prepareForSave();
-      
+
       // Then save
       const result = await formStore.save(false);
-      
+
       if (result.success) {
         if (onSave) {
           onSave(result);
@@ -124,13 +200,13 @@ const Form = observer(forwardRef(({
       // Handle error
     }
   };
-  
+
   // Preview handler
   const handlePreview = async () => {
     try {
       // Use the save method with previewOnly=true, no saveEvent
       const result = await formStore.save(true);
-      
+
       if (!result.success) {
         log('Preview error:', result.error);
       }
@@ -138,78 +214,81 @@ const Form = observer(forwardRef(({
       log('Preview error:', error);
     }
   };
-  
+
   // Handle cancel
   const handleCancel = () => {
     formStore.setFormMode('SELECT');
     if (onCancel) onCancel();
   };
-  
-  // Get columns grouped for display
-  const groupedColumns = formStore.getDisplayColumns() || {};
-  
+
+  // Get form groups from pageMap
+  const formGroups = pageMap?.formConfig?.groups || [];
+
   // Debug log
-  console.log('Form rendering with grouped columns:', {
-    groupCount: Object.keys(groupedColumns).length,
-    columnGroups: Object.entries(groupedColumns).map(([groupId, columns]) => ({
-      groupId,
-      columnCount: columns.length,
-      columnFields: columns.map(c => c.field)
+  console.log('Form rendering with form groups:', {
+    groupCount: formGroups.length,
+    groups: formGroups.map(group => ({
+      groupId: group.id,
+      title: group.title,
+      fieldCount: group.fields?.length || 0,
+      fields: group.fields?.map(f => f.field) || []
     }))
   });
-  
+
   // Finally add the return statement with form rendering
   return (
     <Paper elevation={2} sx={{ p: 3, mb: 3 }}>
       <Box mb={2}>
         <Typography variant="h5">{formTitle}</Typography>
       </Box>
-      
+
       {/* Show error message if present */}
       {formStore.formError && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {formStore.formError}
         </Alert>
       )}
-      
+
       <form>
-        {/* Render columns */}
-        {Object.entries(groupedColumns).map(([groupId, columns]) => (
-          <Grid container spacing={2} key={groupId} sx={{ mb: 2 }}>
-            {columns.map(column => (
-              <Grid item xs={column.displayType === 'multiLine' ? 12 : 6} key={column.field}>
-                {/* TODO: Replace with modern widget system */}
-                <Box p={2} border="1px dashed #ccc">
-                  <Typography variant="caption">
-                    Field: {column.field} (Legacy FormField removed - implement with modern widgets)
-                  </Typography>
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
+        {/* Render form groups */}
+        {formGroups.map(group => (
+          <Box key={group.id} sx={{ mb: 3 }}>
+            {group.title && (
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                {group.title}
+              </Typography>
+            )}
+            <Grid container spacing={2}>
+              {group.fields?.filter(field => !field.hidden).map(field => (
+                <Grid item xs={field.type === 'multiLine' ? 12 : 6} key={field.field}>
+                  {renderFormField(field, formStore.formData, (data) => formStore.setFormData(data), formStore)}
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
         ))}
-        
+
         {/* Buttons */}
         <Box mt={3} display="flex" justifyContent="flex-end">
           {formStore.formMode !== 'SELECT' && (
             <>
-              <Button 
-                onClick={handleCancel} 
+              <Button
+                onClick={handleCancel}
                 sx={{ mr: 1 }}
                 disabled={formStore.isSubmitting}
               >
                 Cancel
               </Button>
-              
-              <Button 
-                onClick={handlePreview} 
-                color="secondary" 
+
+              <Button
+                onClick={handlePreview}
+                color="secondary"
                 sx={{ mr: 1 }}
                 disabled={formStore.isSubmitting}
               >
                 Preview
               </Button>
-              
+
               <Button
                 onClick={() => {
                   console.log('Create/Update button clicked!');
@@ -217,7 +296,7 @@ const Form = observer(forwardRef(({
                   console.log('Form mode:', formStore.formMode);
                   handleSubmit(); // Change to handleSubmit
                 }}
-                variant="contained" 
+                variant="contained"
                 color="primary"
                 disabled={formStore.isSubmitting || !formStore.isValid}
                 startIcon={formStore.isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
@@ -226,9 +305,9 @@ const Form = observer(forwardRef(({
               </Button>
             </>
           )}
-          
+
           {formStore.formMode === 'SELECT' && onCancel && (
-            <Button 
+            <Button
               onClick={onCancel}
               variant="outlined"
             >

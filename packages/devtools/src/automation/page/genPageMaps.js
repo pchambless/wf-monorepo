@@ -25,10 +25,10 @@ const workspaceRoot = path.resolve(__dirname, '../../../../../');
 
 // Dynamic imports to avoid module conflicts
 async function getDirectImports(app) {
-  const clientRegistryPath = path.join(workspaceRoot, 'packages/shared-config/src/client/pageMapRegistry.js');
-  const adminRegistryPath = path.join(workspaceRoot, 'packages/shared-config/src/admin/pageMapRegistry.js');
+  const clientRegistryPath = path.join(workspaceRoot, 'packages/devtools/src/registries/client/pageMapRegistry.js');
+  const adminRegistryPath = path.join(workspaceRoot, 'packages/devtools/src/registries/admin/pageMapRegistry.js');
   const directiveMapPath = path.join(workspaceRoot, 'packages/shared-config/src/common/directiveMap.js');
-  const widgetRegistryPath = path.join(workspaceRoot, 'packages/shared-ui/src/widgets/index.js');
+  const widgetRegistryPath = path.join(workspaceRoot, 'packages/shared-imports/src/components/selectors/index.js');
 
   const registryPath = app === 'admin' ? adminRegistryPath : clientRegistryPath;
 

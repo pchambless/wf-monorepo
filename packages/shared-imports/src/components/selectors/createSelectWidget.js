@@ -1,5 +1,5 @@
 import React from 'react';
-import { SelectWidget } from './SelectWidget.jsx';
+import { SelectWidget } from './SelectWidget.js';
 import { getEventType } from '@whatsfresh/shared-events';
 
 /**

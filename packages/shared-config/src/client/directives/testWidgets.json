@@ -1,0 +1,20 @@
+{
+    "vndrID": {
+        "type": "select",
+        "widget": "SelVndr",
+        "label": "Vendor",
+        "grp": "1"
+    },
+    "measID": {
+        "type": "select",
+        "widget": "SelMeas",
+        "label": "Measure",
+        "grp": "3"
+    },
+    "brndID": {
+        "type": "select",
+        "widget": "SelBrnd",
+        "label": "Brand",
+        "grp": "2"
+    }
+}

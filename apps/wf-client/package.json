@@ -20,7 +20,6 @@
     "@whatsfresh/shared-api": "file:../../packages/shared-api",
     "@whatsfresh/shared-events": "file:../../packages/shared-events",
     "@whatsfresh/shared-imports": "file:../../packages/shared-imports",
-    "@whatsfresh/shared-ui": "file:../../packages/shared-ui",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",
     "date-fns": "^2.30.0",

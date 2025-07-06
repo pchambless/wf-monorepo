@@ -29,18 +29,6 @@
       "path": "./packages/shared-imports"
     },
     {
-      "name": "📦 Shared Events",
-      "path": "./packages/shared-events/src"
-    },
-    {
-      "name": "📦 Shared UI",
-      "path": "./packages/shared-ui"
-    },
-    {
-      "name": "📦 Shared API",
-      "path": "./packages/shared-api"
-    },
-    {
       "name": "📦 DevTools",
       "path": "./packages/devtools"
     },

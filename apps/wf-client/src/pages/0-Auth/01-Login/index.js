@@ -23,7 +23,7 @@ const SimpleLoginForm = ({ onLoginSuccess, navigateToApp, appName }) => {
 
     try {
       // Import the login presenter directly to avoid JSX issues
-      const { LoginPresenter } = await import('@whatsfresh/shared-ui/src/components/auth/LoginForm/LoginPresenter.js');
+      const { LoginPresenter } = await import('@whatsfresh/shared-imports/src/components/auth/LoginForm/LoginPresenter.js');
       const presenter = new LoginPresenter();
 
       const result = await presenter.handleLogin({ email, password });

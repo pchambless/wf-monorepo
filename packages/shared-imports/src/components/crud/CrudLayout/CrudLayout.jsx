@@ -93,12 +93,16 @@ const CrudLayout = ({ pageMap }) => {
   
   // Handle form events
   const handleFormSave = () => {
-    dataStore.refreshData();
+    // Refresh data after save
+    const listEvent = pageMap?.eventConfig?.listEvent;
+    if (listEvent) {
+      fetchData(listEvent);
+    }
   };
   
   const handleFormCancel = () => {
-    dataStore.selectRow(null);
-    dataStore.setFormMode('SELECT');
+    setSelectedRow(null);
+    setFormMode('SELECT');
   };
 
   return (
@@ -113,12 +117,12 @@ const CrudLayout = ({ pageMap }) => {
           
           <Table 
             config={tableConfig}
-            data={dataStore.tableData}
-            selectedId={dataStore.selectedId}
+            data={tableData}
+            selectedId={selectedRow?.[idField]}
             idField={idField}
             onRowClick={handleRowSelect}
             onDeleteClick={handleDelete}
-            loading={dataStore.loading}
+            loading={loading}
             rowActions={rowActions}
           />
         </Grid>
@@ -127,8 +131,8 @@ const CrudLayout = ({ pageMap }) => {
           <Form 
             ref={formRef}
             config={formConfig}
-            data={dataStore.selectedRow || {}}
-            mode={dataStore.formMode}
+            data={selectedRow || {}}
+            mode={formMode}
             onSave={handleFormSave}
             onCancel={handleFormCancel}
           />
@@ -136,6 +140,6 @@ const CrudLayout = ({ pageMap }) => {
       </Grid>
     </Box>
   );
-});
+};
 
 export default CrudLayout;
