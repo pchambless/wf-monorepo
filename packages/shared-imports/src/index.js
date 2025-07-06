@@ -23,7 +23,6 @@ export { default as createLogger } from './utils/logger.js';
 
 // === UTILITIES FROM THIS PACKAGE ===
 export * from './utils/index.js';
-export { default as createLogger } from './utils/logger.js';
 
 // === SHARED UI EXPORTS (JavaScript utilities only) ===
 export {
@@ -90,6 +89,9 @@ export const accountStore = {
 /**
  * Package metadata
  */
+// === EVENT UTILITIES ===
+export { getClientSafeEventTypes, CLIENT_EVENTS, execEvent } from './events/index.js';
+
 export const packageInfo = {
   name: '@whatsfresh/shared-imports',
   version: '0.1.0',

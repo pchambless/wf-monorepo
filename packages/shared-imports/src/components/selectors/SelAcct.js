@@ -1,5 +1,5 @@
 import React from 'react';
-import { createSelectWidget } from '../select/createSelectWidget.jsx';
+import { createSelectWidget } from './createSelectWidget.jsx';
 
 /**
  * Account selector widget

@@ -30,7 +30,7 @@ export { default as Table } from './components/crud/Table/Table.jsx';
 export { default as Modal } from './components/modals/Modal.jsx';
 export { default as useModalStore } from './components/modals/useModalStore.js';
 export { default as modalStore } from './components/modals/modalStore.js';
-export { default as useModal } from './components/modals/useModal.js';
+export { useModal } from './components/modals/useModal.js';
 
 // Export form components
 export { default as DatePick } from './components/forms/DatePick.jsx';
@@ -44,7 +44,7 @@ export { default as SelectWidget } from './components/selectors/SelectWidget.jsx
 export { default as DataGrid } from './components/grids/DataGrid.jsx';
 
 // Export common components
-export { default as Logo } from './components/common/Logo/index.js';
+export { default as Logo } from './components/common/Logo/index.jsx';
 export { default as ErrorBoundary } from './components/common/ErrorBoundary.jsx';
 export { default as EntitySelector } from './components/common/EntitySelector.jsx';
 
