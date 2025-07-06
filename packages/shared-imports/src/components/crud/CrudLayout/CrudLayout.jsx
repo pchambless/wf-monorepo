@@ -9,27 +9,27 @@ const log = createLogger('CrudLayout');
 
 const CrudLayout = ({ pageMap }) => {
   const formRef = useRef(null);
-  
+
   // Internal state - no external dataStore needed!
   const [tableData, setTableData] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [formMode, setFormMode] = useState('SELECT');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+
   // Fetch data using execEvent from shared-imports
   const fetchData = async (listEvent, params = {}) => {
     if (!listEvent) return;
-    
+
     try {
       setLoading(true);
       setError(null);
       log.debug('Fetching data for:', listEvent);
-      
+
       const data = await execEvent(listEvent, params);
       setTableData(data || []);
       log.debug('Data loaded:', data?.length || 0, 'rows');
-      
+
     } catch (err) {
       log.error('Failed to fetch data:', err);
       setError(err.message);
@@ -38,20 +38,20 @@ const CrudLayout = ({ pageMap }) => {
       setLoading(false);
     }
   };
-  
+
   // CRUD handlers with internal state
   const handleRowSelect = (row) => {
     setSelectedRow(row);
     setFormMode('EDIT');
     log.debug('Row selected:', row);
   };
-  
+
   const handleAddNew = () => {
     setSelectedRow(null);
     setFormMode('ADD');
     log.debug('Add new item initiated');
   };
-  
+
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
       // TODO: Implement delete via execEvent when delete events are available
@@ -60,13 +60,13 @@ const CrudLayout = ({ pageMap }) => {
       fetchData(systemConfig.listEvent);
     }
   };
-  
+
   // Simple permission checks
   const canAdd = pageMap.systemConfig?.permissions?.create !== false;
   const canDelete = pageMap.systemConfig?.permissions?.delete !== false;
 
   const { systemConfig, tableConfig, formConfig } = pageMap;
-  
+
   // Fetch data when component mounts or listEvent changes
   useEffect(() => {
     if (systemConfig?.listEvent) {
@@ -75,22 +75,22 @@ const CrudLayout = ({ pageMap }) => {
       log.warn('No listEvent configured in systemConfig');
     }
   }, [systemConfig?.listEvent]);
-  
+
   // Simple validation - if things are missing, we'll just log and continue
   if (!pageMap || !tableConfig || !systemConfig?.listEvent) {
     const errors = [
       !pageMap && 'No pageMap provided',
-      !tableConfig && 'No tableConfig defined in pageMap', 
+      !tableConfig && 'No tableConfig defined in pageMap',
       !systemConfig?.listEvent && 'No listEvent provided in systemConfig'
     ].filter(Boolean);
-    
+
     log.warn('Missing required configuration, but continuing anyway:', errors);
     // Just continue - if it blows up, we'll fix it!
   }
-  
+
   const idField = systemConfig.primaryKey || 'id';
   const rowActions = tableConfig.rowActions || [];
-  
+
   // Handle form events
   const handleFormSave = () => {
     // Refresh data after save
@@ -99,7 +99,7 @@ const CrudLayout = ({ pageMap }) => {
       fetchData(listEvent);
     }
   };
-  
+
   const handleFormCancel = () => {
     setSelectedRow(null);
     setFormMode('SELECT');
@@ -114,8 +114,8 @@ const CrudLayout = ({ pageMap }) => {
               <AddButton onClick={handleAddNew} />
             </Box>
           )}
-          
-          <Table 
+
+          <Table
             config={tableConfig}
             data={tableData}
             selectedId={selectedRow?.[idField]}
@@ -126,9 +126,9 @@ const CrudLayout = ({ pageMap }) => {
             rowActions={rowActions}
           />
         </Grid>
-        
+
         <Grid item xs={5}>
-          <Form 
+          <Form
             ref={formRef}
             config={formConfig}
             data={selectedRow || {}}
