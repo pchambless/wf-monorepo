@@ -13,7 +13,7 @@ import { ROUTES, entityRegistry } from './config/routes.js';
 
 // Utilities and contexts from shared-imports
 import { createLogger, configureLogger } from '@whatsfresh/shared-imports';
-import { disableBrowserFetchLogs } from '@whatsfresh/shared-imports/utils';
+// import { disableBrowserFetchLogs } from '@whatsfresh/shared-imports/utils'; // Not available
 // Removed ActionHandlerProvider - no longer needed
 // import { BreadcrumbProvider } from './contexts/BreadcrumbContext';
 import theme from './theme';
@@ -90,7 +90,7 @@ const App = () => {
 
   useEffect(() => {
     // Filter out noisy browser fetch logs
-    disableBrowserFetchLogs();
+    // disableBrowserFetchLogs(); // Not available
     log.debug('App component mounted');
 
     // Initialize event types synchronously from the shared package

@@ -116,24 +116,9 @@ module.exports = {
       // Define shared-imports package path
       const sharedPackagePath = path.resolve(__dirname, '../../packages/shared-imports');
 
-      // Create function to check if a file is from shared-imports package
-      const isFromSharedPackage = (filePath) => {
-        return path.normalize(filePath).includes(path.normalize(sharedPackagePath));
-      };
-
-      // Add a rule that explicitly excludes shared-imports package from source-map-loader
-      // This must come BEFORE any source-map-loader rules
-      const excludeSourceMapRule = {
-        test: /\.(js|jsx|ts|tsx)$/,
-        include: [sharedPackagePath],
-        enforce: 'pre',
-        loader: 'null-loader' // This prevents any other pre-loaders from processing these files
-      };
-
-      // Completely remove source-map-loader rules for shared packages
+      // COMPLETELY REMOVE source-map-loader to avoid JSX parsing conflicts
       webpackConfig.module.rules = webpackConfig.module.rules.filter(rule => {
-        // Remove any pre-loader rules that contain source-map-loader for shared packages
-        if (rule.enforce === 'pre' && rule.test && rule.use) {
+        if (rule.enforce === 'pre' && rule.use) {
           const hasSourceMapLoader = rule.use.some(loader => {
             if (typeof loader === 'string') {
               return loader.includes('source-map-loader');
@@ -143,13 +128,13 @@ module.exports = {
             }
             return false;
           });
-
+          
           if (hasSourceMapLoader) {
-            console.log('Completely removing source-map-loader rule to prevent JSX parsing conflicts');
+            console.log('Completely removing source-map-loader rule');
             return false; // Remove this rule entirely
           }
         }
-        return true; // Keep all other rules
+        return true;
       });
 
       // Debug: Log the path we're trying to include
@@ -181,9 +166,6 @@ module.exports = {
           }
         }
       };
-
-      // Add the source-map exclusion rule at the very beginning for highest priority
-      webpackConfig.module.rules.unshift(excludeSourceMapRule);
 
       // Add the babel rule for processing shared-imports package
       webpackConfig.module.rules.unshift(sharedPackageRule);
