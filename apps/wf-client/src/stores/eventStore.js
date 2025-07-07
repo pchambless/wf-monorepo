@@ -1,4 +1,4 @@
-import * as sharedEvents from '@whatsfresh/shared-imports';
+import { getClientSafeEventTypes } from '@whatsfresh/shared-events';
 import { createLogger } from '@whatsfresh/shared-imports';
 import { execEventType } from '../api/api';
 
@@ -18,18 +18,17 @@ export const initEventTypeService = () => {
 
   try {
     log.info('Loading event types from shared package');
-    // Use conditional to handle possible import differences
-    if (typeof sharedEvents.getClientSafeEventTypes === 'function') {
-      eventTypes = sharedEvents.getClientSafeEventTypes();
-    } else if (Array.isArray(sharedEvents.CLIENT_EVENTS)) {
-      // Fallback: Create client-safe events directly
-      eventTypes = sharedEvents.CLIENT_EVENTS.map(event => {
-        const { qrySQL: _qrySQL, ...clientSafeEvent } = event; // Rename with underscore
-        return clientSafeEvent;
-      });
+    
+    // Get client-safe event types from shared-events package
+    const clientEventsExports = getClientSafeEventTypes();
+    
+    // The function returns the exports object, we need the EVENTS array
+    if (clientEventsExports && clientEventsExports.EVENTS) {
+      eventTypes = clientEventsExports.EVENTS;
     } else {
-      throw new Error('Invalid shared-events package structure');
+      throw new Error('EVENTS array not found in shared-events package');
     }
+    
     log.info(`Loaded ${eventTypes.length} event types`);
     isInitialized = true;
     return Promise.resolve(eventTypes);

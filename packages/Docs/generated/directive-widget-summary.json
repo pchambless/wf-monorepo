@@ -1,0 +1,12 @@
+{
+  "totalWidgets": 0,
+  "totalUsages": 0,
+  "entitiesByWidget": {},
+  "appsByWidget": {},
+  "mostUsedWidgets": [],
+  "widgetsByApp": {
+    "client": [],
+    "admin": [],
+    "shared": []
+  }
+}

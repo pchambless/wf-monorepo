@@ -21,7 +21,7 @@ export async function execEvent(eventType, params = {}, config = {}) {
     logger.debug(`Executing event: ${eventType}`, params);
     
     // Import event validation (dynamic import to avoid circular deps)
-    const { getEventType } = await import('@whatsfresh/shared-events');
+    const { getEventType } = await import('../events/index.js');
     
     // Validate event exists in our definitions
     const eventDef = getEventType(eventType);

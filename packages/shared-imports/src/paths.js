@@ -16,8 +16,6 @@ const APPS_DIR = path.resolve(PACKAGES_DIR, '../apps');
  * Absolute paths to all shared packages
  */
 export const packagePaths = {
-  sharedConfig: path.join(PACKAGES_DIR, 'shared-config/src'),
-  sharedUI: path.join(PACKAGES_DIR, 'shared-ui/src'),
   sharedEvents: path.join(PACKAGES_DIR, 'shared-events/src'),
   devtools: path.join(PACKAGES_DIR, 'devtools/src'),
   sharedImports: path.join(PACKAGES_DIR, 'shared-imports/src')

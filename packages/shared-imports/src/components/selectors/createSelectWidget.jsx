@@ -1,6 +1,6 @@
 import React from 'react';
 import { SelectWidget } from './SelectWidget.jsx';
-import { getEventType } from '@whatsfresh/shared-events';
+import { getEventType } from '../../events/index.js';
 
 /**
  * Creates a select widget component from an event type
