@@ -1,10 +1,10 @@
-import { getClientSafeEventTypes } from '@whatsfresh/shared-imports';
+import { getSafeEventTypes } from '@whatsfresh/shared-imports/events';
 
 /**
  * Generate routes configuration from event types
  */
 export function getRoutes() {
-  const events = getClientSafeEventTypes();
+  const events = getSafeEventTypes();
   const routes = {};
 
   // Start with any static routes that don't directly map to events
@@ -63,7 +63,7 @@ console.log('Client routes:', ROUTES);
 
 // Create entityRegistry for backward compatibility
 export const entityRegistry = {};
-const events = getClientSafeEventTypes();
+const events = getSafeEventTypes();
 events.forEach(event => {
   if (event.routePath) {
     entityRegistry[event.eventType] = {

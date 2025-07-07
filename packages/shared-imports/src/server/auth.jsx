@@ -3,8 +3,8 @@
  * @module auth
  */
 import { createContext, useContext, useState, useEffect } from 'react';
-import { api } from '../api';
-import { events } from '../events';
+import { api } from '@whatsfresh/shared-imports/api';
+import { eventTypes } from '@whatsfresh/shared-imports/events';
 
 // Create auth context
 const AuthContext = createContext(null);
@@ -12,25 +12,25 @@ const AuthContext = createContext(null);
 /**
  * Authentication provider component
  */
-export function AuthProvider({ 
-  children, 
+export function AuthProvider({
+  children,
   apiInstance = api,
-  eventService = events,
+  eventService = eventTypes,
   requireAdminRole = false, // Set to true in admin app only
-  onLoginSuccess = () => {},
-  onLogout = () => {}
+  onLoginSuccess = () => { },
+  onLogout = () => { }
 }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   // Initialize auth from localStorage on mount
   useEffect(() => {
     const initAuth = async () => {
       try {
         // Initialize events if not already
         await eventService.initialize();
-        
+
         // Check for stored user
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
@@ -42,10 +42,10 @@ export function AuthProvider({
         setLoading(false);
       }
     };
-    
+
     initAuth();
   }, [eventService]);
-  
+
   /**
    * Log in user with optional admin role validation
    */
@@ -53,29 +53,29 @@ export function AuthProvider({
     try {
       setLoading(true);
       setError(null);
-      
+
       const userData = await apiInstance.execEvent('userLogin', {
         ':userEmail': email,
         ':enteredPassword': password
       });
-      
+
       if (!userData || userData.length === 0) {
         throw new Error('Invalid credentials');
       }
-      
+
       const user = userData[0];
-      
+
       // Check for admin role if required
       if (requireAdminRole && user.roleID !== 1) {
         throw new Error('You do not have administrator access');
       }
-      
+
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
-      
+
       // Call success callback
       onLoginSuccess(user);
-      
+
       return user;
     } catch (err) {
       setError(err.message);
@@ -84,7 +84,7 @@ export function AuthProvider({
       setLoading(false);
     }
   }
-  
+
   /**
    * Log out user
    */
@@ -94,7 +94,7 @@ export function AuthProvider({
     localStorage.removeItem('authToken');
     onLogout();
   }
-  
+
   // Auth context value
   const value = {
     user,
@@ -104,7 +104,7 @@ export function AuthProvider({
     login,
     logout
   };
-  
+
   return (
     <AuthContext.Provider value={value}>
       {children}

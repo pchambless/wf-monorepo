@@ -54,12 +54,20 @@ export function getEventType(eventType) {
  */
 export const eventTypes = getEventTypes();
 
+// Generic function that returns safe event types for current app context
+export function getSafeEventTypes() {
+    if (APP === 'admin') {
+        return adminEvents.EVENTS || [];
+    }
+    return clientEvents.EVENTS || [];
+}
+
 // Legacy exports for backward compatibility
 export function getClientSafeEventTypes() {
-    return { ...clientEvents };
+    return clientEvents.EVENTS || [];
 }
 
 export function getAdminSafeEventTypes() {
-    return { ...adminEvents };
+    return adminEvents.EVENTS || [];
 }
 

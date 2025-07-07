@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@whatsfresh/db-connect": "file:../../packages/db-connect",
-    "@whatsfresh/shared-events": "file:../../packages/shared-events",
     "@whatsfresh/shared-imports": "file:../../packages/shared-imports",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",

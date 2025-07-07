@@ -4,7 +4,7 @@
  */
 
 // Logger utilities
-export { 
+export {
   default as createLogger,
   configureLogger,
   getLoggerConfig,
@@ -66,3 +66,11 @@ export function deepClone(obj) {
 export function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+// DML utilities (JS only - excluding JSX components)
+export {
+  executeDML,
+  insertRecord,
+  updateRecord,
+  deleteRecord
+} from './dml/operations.js';  // Import from operations file instead

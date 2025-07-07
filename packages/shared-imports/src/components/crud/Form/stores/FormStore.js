@@ -2,8 +2,8 @@
  * Comprehensive FormStore for CRUD operations
  */
 import { makeAutoObservable, action, runInAction, toJS } from 'mobx';
-import { createLogger, execEvent } from '@whatsfresh/shared-imports';
-import { executeDML, insertRecord, updateRecord, deleteRecord } from '../../../utils/dml/index.js';
+import { createLogger } from '@whatsfresh/shared-imports';
+import { insertRecord, updateRecord, deleteRecord } from '@whatsfresh/shared-imports';
 
 class FormStore {
   // Form state (observable)
@@ -271,13 +271,13 @@ class FormStore {
       // Prepare form data
       this.prepareForSave();
 
-      // Execute the DML operation using recovered utilities
+      // Execute the DML operation using available utilities
       let result;
-      if (this.formMode === 'new') {
+      if (this.formMode === 'new' || this.formMode === 'INSERT') {
         result = await insertRecord(this.pageMap, this.plainFormData, previewOnly);
-      } else if (this.formMode === 'edit') {
+      } else if (this.formMode === 'edit' || this.formMode === 'UPDATE') {
         result = await updateRecord(this.pageMap, this.plainFormData, previewOnly);
-      } else if (this.formMode === 'delete') {
+      } else if (this.formMode === 'delete' || this.formMode === 'DELETE') {
         result = await deleteRecord(this.pageMap, this.plainFormData, previewOnly);
       } else {
         throw new Error(`Unsupported form mode: ${this.formMode}`);

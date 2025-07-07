@@ -1,15 +1,15 @@
-import sharedEventsPkg from '@whatsfresh/shared-events';
-const { EVENT_TYPES } = sharedEventsPkg;
+import { eventTypes } from '@whatsfresh/shared-imports/events';
 import logger from '../utils/logger.js';
 
 const codeName = '[fetchEventTypes.js]';
 
 async function fetchEventTypes(req, res) {
   try {
-    logger.debug(`${codeName} Returning event types from shared-events package`, { count: EVENT_TYPES.length });
+    const eventTypesArray = eventTypes.EVENTS;
+    logger.debug(`${codeName} Returning event types from shared-imports package`, { count: eventTypesArray.length });
     res.json({
       success: true,
-      data: EVENT_TYPES
+      data: eventTypesArray
     });
   } catch (error) {
     logger.error(`${codeName} Error fetching event types:`, error);

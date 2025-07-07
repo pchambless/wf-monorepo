@@ -1,8 +1,7 @@
 import { createRequestBody } from '../utils/queryResolver.js';
 import { executeQuery } from '../utils/dbUtils.js';
 import logger from '../utils/logger.js';
-import sharedEventsPkg from '@whatsfresh/shared-events';
-const { EVENT_TYPES, getEventType } = sharedEventsPkg;
+import { eventTypes, getEventType } from '@whatsfresh/shared-imports/events';
 
 const codeName = `[execEventType.js]`;
 
@@ -10,7 +9,7 @@ const execEventType = async (req, res) => {
   // Log minimal request info - just the essentials
   logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
-  const { eventType, params } = req.body; 
+  const { eventType, params } = req.body;
 
   // Log sanitized parameters using the logger's built-in sanitization
   const sanitizedParams = logger.sanitizeLogData(params);
@@ -32,7 +31,7 @@ const execEventType = async (req, res) => {
 
     // Use queryResolver to handle parameter substitution
     const qryMod = createRequestBody(qrySQL, params);
-    
+
     // Execute the modified query
     const result = await executeQuery(qryMod, method);
     logger.info(`${codeName} Query executed successfully for ${eventType}`);

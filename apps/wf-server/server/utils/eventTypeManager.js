@@ -1,5 +1,4 @@
-import sharedEventsPkg from '@whatsfresh/shared-events';
-const { EVENT_TYPES, getEventType } = sharedEventsPkg;
+import { eventTypes, getEventType } from '@whatsfresh/shared-imports/events';
 import logger from './logger.js';
 
 const codeName = '[eventTypeManager.js]';
@@ -21,20 +20,20 @@ function getEventConfig(eventType) {
  */
 function validateEventParams(event, params = {}) {
   const eventConfig = getEventConfig(event.type);
-  
+
   // Get required parameters
   const requiredParams = eventConfig.params || [];
-  
+
   // Check for missing parameters
   const missingParams = requiredParams.filter(param => {
     const paramName = param.replace(':', '');
     return params[paramName] === undefined;
   });
-  
+
   if (missingParams.length > 0) {
     throw new Error(`Missing required parameters: ${missingParams.join(', ')}`);
   }
-  
+
   return true;
 }
 
@@ -42,10 +41,10 @@ function validateEventParams(event, params = {}) {
 const eventTypeManager = {
   getEventConfig,
   validateEventParams,
-  eventTypes: EVENT_TYPES,
-  
+  eventTypes: eventTypes.EVENTS,
+
   // For backwards compatibility with existing code:
-  getEventTypes: () => Promise.resolve(EVENT_TYPES),
+  getEventTypes: () => Promise.resolve(eventTypes.EVENTS),
   findEventType: (eventType) => Promise.resolve(getEventType(eventType))
 };
 

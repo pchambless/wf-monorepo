@@ -93,6 +93,7 @@ export const accountStore = {
 export {
   getClientSafeEventTypes,
   getAdminSafeEventTypes,
+  getSafeEventTypes,
   getEventType,
   getEventTypes,
   eventTypes

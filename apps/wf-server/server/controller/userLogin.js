@@ -2,8 +2,7 @@ import bcrypt from 'bcrypt';
 import { createRequestBody } from '../utils/queryResolver.js';
 import { executeQuery } from '../utils/dbUtils.js';
 import logger from '../utils/logger.js';
-import sharedEventsPkg from '@whatsfresh/shared-events';
-const { getEventType } = sharedEventsPkg;
+import { getEventType } from '@whatsfresh/shared-imports/events';
 
 const codeName = '[userLogin.js]';
 
@@ -28,24 +27,24 @@ async function rehashPassword(userEmail, oldHash) {
 
 async function login(req, res) {
     logger.info(`${codeName} Login attempt started`);
-    
+
     try {
         const { userEmail, password } = req.body;
-        
+
         // Get login event from shared-events
         const loginEvent = getEventType('userLogin');
-        
+
         // Create SQL with parameters - including both email and password
         const { qrySQL } = loginEvent;
-        const params = { 
+        const params = {
             userEmail,
             enteredPassword: password  // Pass the password as a parameter
         };
         const qryMod = createRequestBody(qrySQL, params);
-        
+
         // Execute query 
         const users = await executeQuery(qryMod, 'GET');
-        
+
         if (!users || users.length === 0) {
             return res.status(401).json({
                 success: false,
@@ -55,11 +54,11 @@ async function login(req, res) {
 
         const user = users[0];
         const enteredPassword = user.enteredPassword; // Get from query results
-        
+
         // Verify bcrypt password
         const passwordMatches = await bcrypt.compare(enteredPassword, user.password);
-        
-        logger.debug(`${codeName} Password verification result`, { 
+
+        logger.debug(`${codeName} Password verification result`, {
             userEmail,
             matched: passwordMatches,
             needsRehash: passwordMatches && user.password.length < 60

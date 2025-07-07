@@ -1,6 +1,7 @@
 {
   "name": "@whatsfresh/shared-imports",
   "version": "0.1.0",
+  "type": "module",
   "description": "Consolidated shared utilities, components, and common functions for WhatsFresh monorepo",
   "main": "src/index.js",
   "exports": {
