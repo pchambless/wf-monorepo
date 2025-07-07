@@ -27,21 +27,27 @@ const workspaceRoot = path.resolve(__dirname, '../../../../../');
 async function getDirectImports(app) {
   const clientRegistryPath = path.join(workspaceRoot, 'packages/devtools/src/registries/client/pageMapRegistry.js');
   const adminRegistryPath = path.join(workspaceRoot, 'packages/devtools/src/registries/admin/pageMapRegistry.js');
-  const directiveMapPath = path.join(workspaceRoot, 'packages/shared-config/src/common/directiveMap.js');
-  const widgetRegistryPath = path.join(workspaceRoot, 'packages/shared-imports/src/components/selectors/index.js');
-
+  const directiveMapPath = path.join(workspaceRoot, 'packages/devtools/src/utils/directiveMap.js');
+  const eventsDataPath = path.join(workspaceRoot, 'packages/devtools/src/docs/generated/events/events.json');
   const registryPath = app === 'admin' ? adminRegistryPath : clientRegistryPath;
 
-  const [registryModule, directiveModule, widgetModule] = await Promise.all([
+  const [registryModule, directiveModule, eventsData] = await Promise.all([
     import(`file://${registryPath}`),
     import(`file://${directiveMapPath}`),
-    import(`file://${widgetRegistryPath}`)
+    fsPromises.readFile(eventsDataPath, 'utf8').then(data => JSON.parse(data))
   ]);
 
+  // Create a map of event data by entity name for quick lookup
+  const eventDataMap = {};
+  eventsData.nodes.forEach(node => {
+    eventDataMap[node.id] = node.meta;
+  });
+
   return {
-    entityRegistry: registryModule.entityRegistry,
+    entityRegistry: registryModule.pageMapRegistry,
+    eventDataMap,
     FIELD_TYPES: directiveModule.FIELD_TYPES,
-    WIDGET_REGISTRY: widgetModule.WIDGET_REGISTRY
+    WIDGET_REGISTRY: {} // Not needed - just for validation
   };
 }
 
@@ -53,12 +59,12 @@ async function main() {
   log.info(`Generating page maps for ${app} app`);
 
   // Use dynamic imports to avoid module conflicts
-  const { entityRegistry, FIELD_TYPES, WIDGET_REGISTRY } = await getDirectImports(app);
+  const { entityRegistry, eventDataMap, FIELD_TYPES, WIDGET_REGISTRY } = await getDirectImports(app);
 
-  await generatePageMaps(config, entityRegistry, FIELD_TYPES, WIDGET_REGISTRY);
+  await generatePageMaps(config, entityRegistry, eventDataMap, FIELD_TYPES, WIDGET_REGISTRY);
 }
 
-async function generatePageMaps(config, entityRegistry, FIELD_TYPES, WIDGET_REGISTRY) {
+async function generatePageMaps(config, entityRegistry, eventDataMap, FIELD_TYPES, WIDGET_REGISTRY) {
   // Set paths
   const outputDir = config.outputDir;
   const directivesDir = config.directivesDir;
@@ -86,12 +92,13 @@ async function generatePageMaps(config, entityRegistry, FIELD_TYPES, WIDGET_REGI
         // System fields
         systemConfig: {
           schema: entity.schema || 'whatsfresh',
-          table: entity.db_table,
-          primaryKey: entity.keyField,
+          table: eventDataMap[entityName]?.dbTable,
+          primaryKey: eventDataMap[entityName]?.primaryKey,
           parentIdField: entity.parentIdField,
           childEntity: entity.childEntity,
           childIdField: entity.childIdField,
-          listEvent: entityName // Add listEvent property
+          listEvent: entityName,
+          dmlEvent: 'execDML'
         },
 
         // UI metadata
