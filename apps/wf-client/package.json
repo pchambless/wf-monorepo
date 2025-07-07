@@ -40,6 +40,8 @@
   },
   "scripts": {
     "start": "npx craco start",
+    "start:fresh": "npm run clear-cache && npx craco start",
+    "start:reset": "npm run reset && npm start",
     "build": "npx craco build",
     "test": "npx react-scripts test",
     "test:watch": "craco test --watch",
@@ -47,7 +49,10 @@
     "eject": "react-scripts eject",
     "start-all": "node ../scripts/start-all.js",
     "dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn run ngrok\"",
-    "lint": "eslint src --ext .js,.jsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint src --ext .js,.jsx --report-unused-disable-directives --max-warnings 0",
+    "clear-cache": "rm -rf node_modules/.cache .eslintcache && echo 'Cache cleared!'",
+    "reset": "rm -rf node_modules package-lock.json && npm install && echo 'Full reset complete!'",
+    "post-commit": "npm run clear-cache && echo 'Post-commit cleanup done!'"
   },
   "browserslist": {
     "production": [

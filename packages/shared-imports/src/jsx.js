@@ -59,5 +59,5 @@ export { default as Logo } from './components/common/Logo/index.jsx';
 export { default as ErrorBoundary } from './components/common/ErrorBoundary.jsx';
 export { default as EntitySelector } from './components/common/EntitySelector.jsx';
 
-// Export auth utilities (from server)
-export { useAuth } from './server/auth.jsx';
+// Export auth utilities
+export { useAuth, AuthProvider } from './components/auth.jsx';

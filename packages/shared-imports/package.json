@@ -1,7 +1,6 @@
 {
   "name": "@whatsfresh/shared-imports",
   "version": "0.1.0",
-  "type": "module",
   "description": "Consolidated shared utilities, components, and common functions for WhatsFresh monorepo",
   "main": "src/index.js",
   "exports": {
@@ -11,8 +10,8 @@
     "./logger": "./src/utils/logger.js",
     "./utils": "./src/utils/index.js",
     "./jsx": "./src/jsx.js",
-    "./api": "./src/server/api.js",
-    "./auth": "./src/server/auth.js",
+    "./api": "./src/api/index.js",
+    "./auth": "./src/components/auth.jsx",
     "./events": "./src/events/index.js",
     "./components": "./src/components/index.js",
     "./layouts": "./src/layouts/index.js"

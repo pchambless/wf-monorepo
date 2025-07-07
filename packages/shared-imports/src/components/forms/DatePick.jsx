@@ -5,7 +5,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import TextField from '@mui/material/TextField';
 import { observer } from 'mobx-react-lite';
 import { createLogger } from '@whatsfresh/shared-imports';
-import { useForm } from '../crud/hooks/useForm'; // Fixed path
+// import { useForm } from '../crud/hooks/useForm.js'; // Currently empty file
 
 const log = createLogger('DatePick');
 
@@ -18,8 +18,9 @@ const DatePick = observer(({
   required,
   sx
 }) => {
-  // Use the form context from your existing system
-  const form = useForm();
+  // Use the form context from your existing system - fallback if hook not available
+  // const form = useForm();
+  const form = null; // Temporary fallback until useForm is implemented
 
   // Get value from form store or fallback to prop
   const formValue = form ? form.getFieldValue(fieldName) : null;

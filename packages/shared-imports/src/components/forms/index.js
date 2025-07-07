@@ -15,7 +15,7 @@ export const FIELD_WIDGETS = {
   'date': DateField,
   'boolean': BooleanField,
   'multiLine': MultiLineField,
-  
+
   // Aliases
   'currency': DecimalField,
   'toggle': BooleanField,
@@ -23,7 +23,7 @@ export const FIELD_WIDGETS = {
 };
 
 // Export individual widgets
-export { 
+export {
   TextField,
   NumberField,
   DecimalField,
