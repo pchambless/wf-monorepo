@@ -4,12 +4,13 @@ export default {
   "title": "Vendors",
   "systemConfig": {
     "schema": "whatsfresh",
-    "listEvent": "vndrList"
+    "table": "vendors",
+    "primaryKey": "vndrID",
+    "listEvent": "vndrList",
+    "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "section": "reference",
-    "icon": "Business",
-    "color": "gray",
+    "icon": "business",
     "actions": {
       "rowActions": [],
       "tableActions": []

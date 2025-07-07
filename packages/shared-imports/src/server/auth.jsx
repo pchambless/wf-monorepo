@@ -3,8 +3,8 @@
  * @module auth
  */
 import { createContext, useContext, useState, useEffect } from 'react';
-import { api } from './api';
-import { events } from './events';
+import { api } from '../api';
+import { events } from '../events';
 
 // Create auth context
 const AuthContext = createContext(null);

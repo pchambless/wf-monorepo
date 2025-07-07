@@ -34,7 +34,6 @@ export { useModal } from './components/modals/useModal.js';
 
 // Export form components
 export { default as DatePick } from './components/forms/DatePick.jsx';
-export { default as Select } from './components/forms/Select.jsx';
 
 // Export selector components (PascalCase names)
 export {

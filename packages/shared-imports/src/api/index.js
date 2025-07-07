@@ -16,25 +16,25 @@ const DEFAULT_CONFIG = {
  */
 export async function execEvent(eventType, params = {}, config = {}) {
   const { baseUrl, logger } = { ...DEFAULT_CONFIG, ...config };
-  
+
   try {
     logger.debug(`Executing event: ${eventType}`, params);
-    
+
     // Import event validation (dynamic import to avoid circular deps)
     const { getEventType } = await import('../events/index.js');
-    
+
     // Validate event exists in our definitions
     const eventDef = getEventType(eventType);
     if (!eventDef) {
       logger.error(`Unknown event type: ${eventType}`);
       throw new Error(`Unknown event type: ${eventType}`);
     }
-    
+
     // Basic headers
     const headers = {
       'Content-Type': 'application/json'
     };
-    
+
     // Call the execEventType endpoint with credentials
     const response = await fetch(`${baseUrl}/api/execEventType`, {
       method: 'POST',
@@ -72,22 +72,22 @@ export function createApi(options = {}) {
   async function execEvent(eventType, params = {}) {
     try {
       logger.debug(`Executing event: ${eventType}`, params);
-      
+
       // Import event validation (dynamic import to avoid circular deps)
-      const { getEventType } = await import('@whatsfresh/shared-events');
-      
+      const { getEventType } = await import('../events/index.js');
+
       // Validate event exists in our definitions
       const eventDef = getEventType(eventType);
       if (!eventDef) {
         logger.error(`Unknown event type: ${eventType}`);
         throw new Error(`Unknown event type: ${eventType}`);
       }
-      
+
       // Basic headers - no auth token
       const headers = {
         'Content-Type': 'application/json'
       };
-      
+
       // Call the execEventType endpoint with credentials
       // This ensures cookies are sent if you're using session cookies
       const response = await fetch(`${baseUrl}/api/execEventType`, {
@@ -96,13 +96,13 @@ export function createApi(options = {}) {
         credentials: 'include', // Important for session cookies
         body: JSON.stringify({ eventType, params })
       });
-      
+
       if (!response.ok) {
         const error = new Error(`API Error: ${response.status} ${response.statusText}`);
         error.status = response.status;
         throw error;
       }
-      
+
       return await response.json();
     } catch (error) {
       logger.error(`Event Error: ${eventType}`, error);
@@ -116,35 +116,35 @@ export function createApi(options = {}) {
   async function execDml(operation, data = {}) {
     try {
       logger.debug(`Executing DML: ${operation}`);
-      
+
       // Get auth token if available
       const token = localStorage.getItem('authToken');
-      
+
       const headers = {
         'Content-Type': 'application/json',
         ...(token ? { 'Authorization': `Bearer ${token}` } : {})
       };
-      
+
       // Call the DML endpoint
       const response = await fetch(`${baseUrl}/api/dml`, {
         method: 'POST',
         headers,
         body: JSON.stringify({ type: operation, ...data })
       });
-      
+
       if (!response.ok) {
         const error = new Error(`DML Error: ${response.status} ${response.statusText}`);
         error.status = response.status;
         throw error;
       }
-      
+
       return await response.json();
     } catch (error) {
       logger.error(`DML Error: ${operation}`, error);
       throw error;
     }
   }
-  
+
   return {
     execEvent,
     execDml

@@ -1,6 +1,5 @@
-import { getClientSafeEventTypes } from '@whatsfresh/shared-events';
+import { getClientSafeEventTypes } from '@whatsfresh/shared-imports/src/events';
 import { createLogger } from '@whatsfresh/shared-imports';
-import { execEventType } from '../api/api';
 
 const log = createLogger('EventStore');
 
@@ -18,17 +17,17 @@ export const initEventTypeService = () => {
 
   try {
     log.info('Loading event types from shared package');
-    
+
     // Get client-safe event types from shared-events package
     const clientEventsExports = getClientSafeEventTypes();
-    
+
     // The function returns the exports object, we need the EVENTS array
     if (clientEventsExports && clientEventsExports.EVENTS) {
       eventTypes = clientEventsExports.EVENTS;
     } else {
       throw new Error('EVENTS array not found in shared-events package');
     }
-    
+
     log.info(`Loaded ${eventTypes.length} event types`);
     isInitialized = true;
     return Promise.resolve(eventTypes);
@@ -60,7 +59,7 @@ export const getEventTypeConfig = (eventTypeId) => {
     log.warn(`Event type config not found for: ${eventTypeId}`);
     return null;
   }
-  
+
   // Return event type configuration in the format the app expects
   return {
     eventType: eventType.eventType,

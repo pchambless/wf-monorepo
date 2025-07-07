@@ -1,8 +1,8 @@
 import React, { Suspense, useState } from 'react';
 import { Box, CircularProgress, CssBaseline, Toolbar } from '@mui/material';
-import AppBar from '../1-page/b-navigation/aa-AppBar/AppBar.jsx';
-import Sidebar from '../1-page/b-navigation/bb-Sidebar/Sidebar.jsx';
-import Logo from '../Logo/index.js';
+import AppBar from '../navigation/aa-AppBar/AppBar.jsx';
+import Sidebar from '../navigation/bb-Sidebar/Sidebar.jsx';
+import Logo from '../common/Logo/index.jsx';
 
 /**
  * Shared MainLayout component for all WhatsFresh applications

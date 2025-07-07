@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, CircularProgress } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { execEvent } from '@whatsfresh/shared-events';
+import { execEvent } from '../../api/index.js';
 import { ArrowForward, ArrowBack } from '@mui/icons-material';
 
 /**
@@ -63,3 +63,5 @@ export const DataGridWidget = ({
     </Box>
   );
 };
+
+export default DataGridWidget;

@@ -4,12 +4,13 @@ export default {
   "title": "Ingredient Batches",
   "systemConfig": {
     "schema": "whatsfresh",
-    "listEvent": "ingrBtchList"
+    "table": "ingredient_batches",
+    "primaryKey": "ingrBtchID",
+    "listEvent": "ingrBtchList",
+    "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "section": "ingredients",
-    "icon": "Inventory",
-    "color": "pink",
+    "icon": "inventory",
     "actions": {
       "rowActions": [],
       "tableActions": []
@@ -101,7 +102,7 @@ export default {
             "type": "select",
             "required": true,
             "hidden": false,
-            "widget": "selVndr"
+            "widget": "SelVndr"
           },
           {
             "field": "ingrID",
@@ -116,7 +117,7 @@ export default {
             "type": "select",
             "required": false,
             "hidden": false,
-            "widget": "selAcct"
+            "widget": "SelAcct"
           }
         ]
       },
@@ -130,7 +131,7 @@ export default {
             "type": "select",
             "required": false,
             "hidden": false,
-            "widget": "selBrnd"
+            "widget": "SelBrnd"
           }
         ]
       },
@@ -165,7 +166,7 @@ export default {
             "type": "select",
             "required": true,
             "hidden": false,
-            "widget": "selMeas"
+            "widget": "SelMeas"
           }
         ]
       },

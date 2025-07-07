@@ -4,12 +4,13 @@ export default {
   "title": "Ingredients",
   "systemConfig": {
     "schema": "whatsfresh",
-    "listEvent": "ingrList"
+    "table": "ingredients",
+    "primaryKey": "ingrID",
+    "listEvent": "ingrList",
+    "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "section": "ingredients",
-    "icon": "ListAlt",
-    "color": "pink",
+    "icon": "grass",
     "actions": {
       "rowActions": [],
       "tableActions": []
@@ -75,7 +76,7 @@ export default {
             "type": "select",
             "required": false,
             "hidden": false,
-            "widget": "selMeas"
+            "widget": "SelMeas"
           },
           {
             "field": "vndrID",
@@ -83,7 +84,7 @@ export default {
             "type": "select",
             "required": false,
             "hidden": false,
-            "widget": "selVndr"
+            "widget": "SelVndr"
           }
         ]
       },

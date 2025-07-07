@@ -4,12 +4,13 @@ export default {
   "title": "Products",
   "systemConfig": {
     "schema": "whatsfresh",
-    "listEvent": "prodList"
+    "table": "products",
+    "primaryKey": "prodID",
+    "listEvent": "prodList",
+    "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "section": "products",
-    "icon": "Fastfood",
-    "color": "blue",
+    "icon": "shopping_bag",
     "actions": {
       "rowActions": [],
       "tableActions": []

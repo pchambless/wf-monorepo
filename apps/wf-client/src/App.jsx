@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { CircularProgress, Box, Typography } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import { ROUTES, entityRegistry } from './config/routes.js';
 
 // Utilities and contexts from shared-imports
@@ -20,19 +20,17 @@ import theme from './theme';
 import { getNavigationSections } from './config/navigation';
 
 // Components - JSX imports
-import { Modal, useModalStore, MainLayout } from '@whatsfresh/shared-imports/jsx';
+import { Modal, useModalStore, MainLayout, LoginForm } from '@whatsfresh/shared-imports/jsx';
 import { ErrorBoundary } from '@whatsfresh/shared-imports/jsx';
 
 // Services
-import { initEventTypeService } from './stores/eventStore';
 import navService from './services/navService';
 
-// Base layouts - now from shared-imports/jsx
+// Local layouts and pages (temporary until shared AuthLayout works)
 const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
 
-// Always import these core components
+// Local pages only
 const Dashboard = lazy(() => import('./pages/1-Dashboard'));
-const Login = lazy(() => import('./pages/0-Auth/01-Login'));
 
 // Map of lazy-loaded components
 const lazyPages = new Map();
@@ -86,46 +84,13 @@ configureLogger({
 
 // Log at the top-level App mounting
 const App = () => {
-  const [eventTypesLoaded, setEventTypesLoaded] = useState(false);
-
   useEffect(() => {
     // Filter out noisy browser fetch logs
     // disableBrowserFetchLogs(); // Not available
     log.debug('App component mounted');
-
-    // Initialize event types synchronously from the shared package
-    try {
-      initEventTypeService();
-      log.info('Event types loaded successfully at startup');
-      setEventTypesLoaded(true);
-    } catch (error) {
-      log.error('Failed to load event types at startup:', error);
-      setEventTypesLoaded(false);
-    }
   }, []);
 
   console.log('App: Rendering');
-
-  // Show loading screen until event types are loaded
-  if (!eventTypesLoaded) {
-    return (
-      <ThemeProvider theme={theme}>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-            flexDirection: 'column',
-            gap: 2
-          }}
-        >
-          <CircularProgress />
-          <Typography variant="h6">Loading application data...</Typography>
-        </Box>
-      </ThemeProvider>
-    );
-  }
 
   return (
     <Router>
@@ -141,7 +106,7 @@ const App = () => {
             {/* Auth routes */}
             <Route path="/login" element={
               <AuthLayout title="Sign In">
-                <Login />
+                <LoginForm />
               </AuthLayout>
             } />
 

@@ -1,26 +1,33 @@
 /**
  * Shared Events Package
  * Exports event type definitions for the entire WhatsFresh monorepo
+ * 
+ * Usage:
+ * // In client app
+ * import { eventTypes, getEventType } from '@whatsfresh/shared-imports/events';
+ * 
+ * // In admin app  
+ * import { eventTypes, getEventType } from '@whatsfresh/shared-imports/events';
+ * 
+ * Both apps get the same named exports but different event sets based on context
  */
 
 // Internal imports
 import * as clientEvents from './client/eventTypes.js';
 import * as adminEvents from './admin/eventTypes.js';
 
-/**
- * Get client-safe event types
- * @returns {Object} Client event type definitions
- */
-export function getClientSafeEventTypes() {
-    return { ...clientEvents };
-}
+// Detect app context from environment or process
+const APP = process.env.REACT_APP_TYPE || process.env.APP_TYPE || 'client';
 
 /**
- * Get admin-safe event types
- * @returns {Object} Admin event type definitions
+ * Get event types based on current app context
+ * @returns {Object} Event type definitions for current app
  */
-export function getAdminSafeEventTypes() {
-    return { ...adminEvents };
+export function getEventTypes() {
+    if (APP === 'admin') {
+        return { ...adminEvents };
+    }
+    return { ...clientEvents };
 }
 
 /**
@@ -29,19 +36,30 @@ export function getAdminSafeEventTypes() {
  * @returns {Object|undefined} Event definition or undefined if not found
  */
 export function getEventType(eventType) {
-    // Try client events first
-    const { getEventType: getClientEventType } = clientEvents;
-    if (getClientEventType) {
-        const clientEvent = getClientEventType(eventType);
-        if (clientEvent) return clientEvent;
+    const events = getEventTypes();
+
+    // Try the getEventType function from the current app's events
+    if (events.getEventType) {
+        return events.getEventType(eventType);
     }
-    
-    // Try admin events
-    const { getEventType: getAdminEventType } = adminEvents;
-    if (getAdminEventType) {
-        return getAdminEventType(eventType);
-    }
-    
-    return undefined;
+
+    // Fallback: search through all events in current context
+    const allEvents = Object.values(events);
+    return allEvents.find(event => event && event.eventType === eventType);
+}
+
+/**
+ * Export event types for current app context
+ * This provides a consistent interface regardless of client/admin
+ */
+export const eventTypes = getEventTypes();
+
+// Legacy exports for backward compatibility
+export function getClientSafeEventTypes() {
+    return { ...clientEvents };
+}
+
+export function getAdminSafeEventTypes() {
+    return { ...adminEvents };
 }
 

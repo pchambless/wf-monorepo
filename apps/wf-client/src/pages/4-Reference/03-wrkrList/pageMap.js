@@ -4,12 +4,13 @@ export default {
   "title": "Workers",
   "systemConfig": {
     "schema": "whatsfresh",
-    "listEvent": "wrkrList"
+    "table": "workers",
+    "primaryKey": "wrkrID",
+    "listEvent": "wrkrList",
+    "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "section": "reference",
-    "icon": "Person",
-    "color": "gray",
+    "icon": "person",
     "actions": {
       "rowActions": [],
       "tableActions": []

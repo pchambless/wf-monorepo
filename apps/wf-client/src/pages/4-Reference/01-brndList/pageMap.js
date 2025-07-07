@@ -4,12 +4,13 @@ export default {
   "title": "Brands",
   "systemConfig": {
     "schema": "whatsfresh",
-    "listEvent": "brndList"
+    "table": "brands",
+    "primaryKey": "brndID",
+    "listEvent": "brndList",
+    "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "section": "reference",
-    "icon": "Branding",
-    "color": "gray",
+    "icon": "branding_watermark",
     "actions": {
       "rowActions": [],
       "tableActions": []

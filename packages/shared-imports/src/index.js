@@ -90,7 +90,16 @@ export const accountStore = {
  * Package metadata
  */
 // === EVENT UTILITIES ===
-export { getClientSafeEventTypes, CLIENT_EVENTS, execEvent } from './events/index.js';
+export {
+  getClientSafeEventTypes,
+  getAdminSafeEventTypes,
+  getEventType,
+  getEventTypes,
+  eventTypes
+} from './events/index.js';
+
+// === API UTILITIES ===
+export { execEvent, createApi, api } from './api/index.js';
 
 export const packageInfo = {
   name: '@whatsfresh/shared-imports',
