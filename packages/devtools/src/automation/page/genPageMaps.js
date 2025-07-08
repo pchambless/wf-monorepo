@@ -259,20 +259,17 @@ async function writeOutput(entityName, pageMap, config, entityRegistry) {
   // Get the app type from config 
   const app = config.app || 'client';
 
-  // Get entity info from registry to find page path
+  // Get entity info from registry
   const entity = entityRegistry[entityName];
 
-  if (!entity || !entity.pageIndexPath) {
-    console.warn(`Warning: No pageIndexPath found for ${entityName}, skipping pageMap generation`);
+  if (!entity) {
+    console.warn(`Warning: No entity found for ${entityName}, skipping pageMap generation`);
     return;
   }
 
-  // Extract directory path from pageIndexPath (remove filename)
-  const pathParts = entity.pageIndexPath.split('/');
-  const dirPath = pathParts.slice(0, -1).join('/');
-
-  // Create target directory in the app's pages folder
-  const targetDir = path.resolve(__dirname, `../../../../../apps/wf-${app}/src/pages`, dirPath);
+  // Use direct eventType → folder mapping (simplified architecture)
+  // entityName (e.g., "ingrTypeList") becomes the folder name directly
+  const targetDir = path.resolve(__dirname, `../../../../../apps/wf-${app}/src/pages`, entityName);
 
   // Ensure directory exists
   await fsPromises.mkdir(targetDir, { recursive: true });

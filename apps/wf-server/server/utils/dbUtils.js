@@ -6,9 +6,13 @@ const fileName = '[dbUtils.js]';
 
 // Initialize the connection pool using db-connect package
 const pool = createPool({
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'your_db_user',
+    password: process.env.DB_PASSWORD || 'your_db_password',
+    database: process.env.DB_NAME || 'your_db_name',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 /**
@@ -17,17 +21,17 @@ const pool = createPool({
  * @returns {string} Sanitized query
  */
 function sanitizeQuery(query) {
-  // When logging SQL, wrap it in an object with a descriptive key
-  // This allows logger.sanitizeLogData to process it
-  const wrappedQuery = {
-    sqlWithPossiblePassword: query
-  };
-  
-  // Use the existing sanitize function
-  const sanitized = logger.sanitizeLogData(wrappedQuery);
-  
-  // Return the sanitized SQL
-  return sanitized.sqlWithPossiblePassword;
+    // When logging SQL, wrap it in an object with a descriptive key
+    // This allows logger.sanitizeLogData to process it
+    const wrappedQuery = {
+        sqlWithPossiblePassword: query
+    };
+
+    // Use the existing sanitize function
+    const sanitized = logger.sanitizeLogData(wrappedQuery);
+
+    // Return the sanitized SQL
+    return sanitized.sqlWithPossiblePassword;
 }
 
 /**
@@ -39,10 +43,10 @@ function sanitizeQuery(query) {
 async function executeQuery(query, method = 'GET') {
     let connection;
     const start = process.hrtime();
-    
+
     try {
         connection = await pool.getConnection();
-        
+
         // Log sanitized query
         logger.debug(`${fileName} Executing ${method} query: ${sanitizeQuery(query)}`);
 
@@ -63,7 +67,7 @@ async function executeQuery(query, method = 'GET') {
 
         const [seconds, nanoseconds] = process.hrtime(start);
         const duration = seconds * 1000 + nanoseconds / 1000000;
-        
+
         logger.logPerformance('database_query', duration, {
             method,
             rowCount: Array.isArray(results) ? results.length : undefined,
@@ -74,7 +78,7 @@ async function executeQuery(query, method = 'GET') {
     } catch (error) {
         const [seconds, nanoseconds] = process.hrtime(start);
         const duration = seconds * 1000 + nanoseconds / 1000000;
-        
+
         logger.logPerformance('database_query', duration, {
             method,
             success: false,

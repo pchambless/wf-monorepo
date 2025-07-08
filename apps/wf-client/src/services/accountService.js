@@ -43,11 +43,12 @@ class AccountService {
    * Switch to a different account
    * @param {string|number} accountId ID of account to switch to
    * @param {function} navigate Navigation function (optional)
+   * @param {boolean} shouldNavigate Whether to navigate to dashboard (default: false)
    * @returns {Promise<boolean>} Success indicator
    */
-  async switchAccount(accountId, navigate = null) {
+  async switchAccount(accountId, navigate = null, shouldNavigate = false) {
     try {
-      log.info('Switching account', { accountId });
+      log.info('Switching account', { accountId, shouldNavigate });
       
       // Validate account ID
       if (!this._isValidAccountId(accountId)) {
@@ -61,8 +62,8 @@ class AccountService {
       // Re-initialize any account-specific data
       await accountStore.loadAllReferenceData();
       
-      // Navigate if requested
-      if (navigate) {
+      // Only navigate if explicitly requested
+      if (navigate && shouldNavigate) {
         log.info('Navigating to dashboard');
         navigate('/dashboard');
       }

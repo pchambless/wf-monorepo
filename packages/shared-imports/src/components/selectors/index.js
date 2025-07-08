@@ -1,18 +1,13 @@
-import { createSelectWidget } from './createSelectWidget.jsx';
-import { SelectWidget } from './SelectWidget.jsx';
-import { getClientSafeEventTypes } from '@whatsfresh/shared-imports';
-
-// Create components for common selectors
-export const SelBrnd = createSelectWidget('brndList');
-export const SelVndr = createSelectWidget('vndrList');
-export const SelMeas = createSelectWidget('measList');
-export const SelProd = createSelectWidget('prodList');
-export const SelProdType = createSelectWidget('prodTypeList');
-export const SelIngr = createSelectWidget('ingrList');
-export const SelIngrType = createSelectWidget('ingrTypeList');
-export const SelWrkr = createSelectWidget('wrkrList');
-export const SelAcct = createSelectWidget('acctList');
-export const SelUserAcct = createSelectWidget('userAcctList');
-
-// Export the base components
-export { SelectWidget, createSelectWidget };
+// Barrel file for selector widgets
+export { default as SelAcct } from './SelAcct.js';
+export { default as SelBrnd } from './SelBrnd.js';
+export { default as SelIngr } from './SelIngr.js';
+export { default as SelIngrType } from './SelIngrType.js';
+export { default as SelMeas } from './SelMeas.js';
+export { default as SelProd } from './SelProd.js';
+export { default as SelProdType } from './SelProdType.js';
+export { default as SelUserAcct } from './SelUserAcct.js';
+export { default as SelVndr } from './SelVndr.js';
+export { default as SelWrkr } from './SelWrkr.js';
+export { createSelectWidget } from './createSelectWidget.jsx';
+export { SelectWidget } from './SelectWidget.jsx';

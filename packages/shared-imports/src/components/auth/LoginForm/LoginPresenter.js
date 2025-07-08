@@ -3,7 +3,7 @@ import {
   execEvent,
   initEventTypeService,
   isEventTypeServiceInitialized,
-  accountStore
+  userStore
 } from '@whatsfresh/shared-imports';
 
 export class LoginPresenter {
@@ -30,10 +30,10 @@ export class LoginPresenter {
 
   async initApplicationState(user, accounts) {
     try {
-      // Use simplified accountStore method
-      accountStore.setUserLoginData(user, accounts);
+      // Use shared userStore for authentication data only
+      userStore.setUserData(user);
       
-      this.log.info('Application state initialized with simplified accountStore');
+      this.log.info('User authentication data initialized in userStore');
       return true;
     } catch (error) {
       this.log.error('Error initializing application state:', error);

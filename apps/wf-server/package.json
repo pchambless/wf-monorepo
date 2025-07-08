@@ -6,7 +6,10 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "dev": "npx nodemon"
+    "dev": "npx nodemon",
+    "build": "echo \"No build needed for server\"",
+    "test": "echo \"No tests yet\"",
+    "lint": "echo \"No lint script configured\""
   },
   "dependencies": {
     "@whatsfresh/db-connect": "file:../../packages/db-connect",

@@ -19,6 +19,11 @@
             "date": 1751891991597,
             "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/performance-2025-07-07.log",
             "hash": "39cf80bf87d255dbe027bdd4abc0f66eaf12ea69ce255ce91991dc21b698219c"
+        },
+        {
+            "date": 1751951805212,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/performance-2025-07-08.log",
+            "hash": "454cb7f7ea8fe5809301709ab3c30bbe84d60cafffe0b70064ee0f88b5c91b31"
         }
     ],
     "hashType": "sha256"

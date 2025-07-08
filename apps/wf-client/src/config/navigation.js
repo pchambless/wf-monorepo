@@ -16,7 +16,7 @@ import {
   Straighten,
   AccountBox
 } from '@mui/icons-material';
-import { SelUserAcct } from '@whatsfresh/shared-imports/jsx';
+import SelUserAcct from '../components/SelUserAcct.jsx';
 
 export const navigationSections = [
   {
@@ -34,7 +34,7 @@ export const navigationSections = [
     description: "Manage ingredient types and categories"
   },
   {
-    title: "Products", 
+    title: "Products",
     eventType: "prodTypeList",
     icon: Inventory,
     description: "Manage product types and categories"
@@ -45,26 +45,26 @@ export const navigationSections = [
     icon: DataObject,
     description: "Manage reference data and lookup tables",
     items: [
-      { 
-        title: "Brands", 
+      {
+        title: "Brands",
         eventType: "brndList",
         icon: Business,
         description: "Manage brand information"
       },
-      { 
-        title: "Vendors", 
+      {
+        title: "Vendors",
         eventType: "vndrList",
         icon: Engineering,
         description: "Manage vendor information"
       },
-      { 
-        title: "Workers", 
+      {
+        title: "Workers",
         eventType: "wrkrList",
         icon: Groups,
         description: "Manage worker information"
       },
-      { 
-        title: "Measurements", 
+      {
+        title: "Measurements",
         eventType: "measList",
         icon: Straighten,
         description: "Manage measurement units"
@@ -73,7 +73,7 @@ export const navigationSections = [
   },
   {
     title: "Mapping",
-    eventType: "btchMap", 
+    eventType: "btchMap",
     icon: AccountTree,
     description: "Manage batch mapping and relationships"
   }
@@ -111,7 +111,7 @@ export function getNavItemByEventType(eventType) {
  */
 export function getNavigationEventTypes() {
   const eventTypes = [];
-  
+
   navigationSections.forEach(section => {
     if (section.eventType) {
       eventTypes.push(section.eventType);
@@ -124,6 +124,6 @@ export function getNavigationEventTypes() {
       });
     }
   });
-  
+
   return eventTypes;
 }

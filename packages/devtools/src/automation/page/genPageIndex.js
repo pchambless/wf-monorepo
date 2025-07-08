@@ -45,17 +45,9 @@ function generateIndexFile(entityName) {
     return false;
   }
 
-  // Use pageIndexPath if available, fall back to pageMapPath
-  const pagePath = entity.pageIndexPath || entity.pageMapPath;
-
-  if (!pagePath || !pagePath.includes('/')) {
-    console.log(`Skipping ${entityName} - missing valid page path`);
-    return false;
-  }
-
-  // Get the directory path from either pageIndexPath or pageMapPath
-  const pathParts = pagePath.split('/');
-  const dirPath = pathParts.slice(0, -1).join('/');
+  // Use direct eventType → folder mapping (simplified architecture)
+  // entityName (e.g., "ingrTypeList") becomes the folder name directly
+  const dirPath = entityName;
 
   // Format nice display name for the component
   const componentName = `${entityName}Page`;

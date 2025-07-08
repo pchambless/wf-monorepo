@@ -1,24 +1,27 @@
 {
   "name": "whatsfresh-monorepo",
   "private": true,
+  "packageManager": "npm@10.2.4",
   "workspaces": [
-    "apps/*",
+    "apps/wf-client",
+    "apps/wf-server",
     "packages/*"
   ],
   "scripts": {
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
-    "dev": "npm run --workspace=wf-client start",
-    "server": "npm run --workspace=wf-server dev",
-    "build": "npm run generate-page-maps && npm run generate-docs && npm run --workspaces build",
-    "test": "npm run --workspaces test",
-    "lint": "npm run --workspaces lint",
+    "dev": "turbo run dev --filter=wf-client",
+    "dev:all": "turbo run dev",
+    "server": "turbo run dev --filter=wf-server",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "generate-directives": "node packages/devtools/src/automation/page/genDirectives.js",
-    "generate-page-maps": "node packages/devtools/src/automation/page/genPageMaps.js",
-    "generate-docs": "node packages/devtools/src/docs/automation/genMasterDocs.js",
+    "generate-page-maps": "turbo run generate-page-maps",
+    "generate-docs": "turbo run generate-docs",
     "generate-visuals": "node tools/page-generator/genVisualDocs.js",
-    "generate:all": "npm run generate-samples && npm run generate-directives && npm run generate-page-maps && npm run generate-docs && npm run generate-visuals",
+    "generate:all": "turbo run generate:all",
     "generate:optimized": "node tools/page-generator/genOptimizedConfigs.js",
     "scaffold:section": "node packages/devtools/src/docs/sections/scaffoldRun.js",
     "run:section": "node packages/devtools/src/docs/sections/sectionRun.js"
@@ -35,7 +38,8 @@
     "dependency-cruiser": "^16.10.2",
     "minimist": "^1.2.8",
     "module-alias": "^2.2.3",
-    "storybook": "^9.0.9"
+    "storybook": "^9.0.9",
+    "turbo": "^2.5.4"
   },
   "_moduleAliases": {
     "@packages": "./packages",

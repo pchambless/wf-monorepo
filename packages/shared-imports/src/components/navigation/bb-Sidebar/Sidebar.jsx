@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { getEventType } from '@whatsfresh/shared-imports/events';
 
 /**
  * Shared Sidebar component for all WhatsFresh applications
@@ -27,6 +28,7 @@ import { useNavigate } from 'react-router-dom';
  * @param {Function} [props.onNavClick] - Function called when navigation item is clicked
  * @param {string} [props.appTitle] - Application title for header
  * @param {React.ReactNode} [props.logo] - Logo component to display
+ * @param {Object} [props.widgetProps] - Props to pass to widget components
  * @param {Object} [props.sx] - Additional Material-UI sx styling
  */
 const Sidebar = ({ 
@@ -37,6 +39,7 @@ const Sidebar = ({
   onDrawerToggle,
   onNavClick,
   appTitle = "WhatsFresh",
+  widgetProps = {},
   logo,
   sx = {}
 }) => {
@@ -45,9 +48,44 @@ const Sidebar = ({
 
   // Handle navigation item click
   const handleNavClick = (item, section) => {
+    console.log('🔍 Navigation clicked:', { item, eventType: item.eventType });
+    
     if (item.eventType) {
-      const path = `/${item.eventType}`;
-      navigate(path);
+      const event = getEventType(item.eventType);
+      console.log('🔍 Found event:', event);
+      
+      if (event && event.routePath) {
+        // Get current account ID from widget props
+        const currentAcctID = widgetProps?.Account?.value;
+        console.log('🔍 Current account ID:', currentAcctID);
+        console.log('🔍 Event params:', event.params);
+        
+        if (event.params && event.params.includes(':acctID')) {
+          // Route requires account ID
+          if (currentAcctID) {
+            const path = event.routePath.replace(':acctID', currentAcctID);
+            console.log('🔍 Navigating to resolved path:', path);
+            console.log('🔍 About to call navigate() with path:', path);
+            navigate(path);
+            console.log('🔍 navigate() call completed');
+            
+            // Check if navigation was successful after a short delay
+            setTimeout(() => {
+              console.log('🔍 Current URL after navigation attempt:', window.location.href);
+            }, 100);
+          } else {
+            console.warn(`No account selected for navigation to ${item.eventType}`);
+          }
+        } else {
+          // Route has no parameters or doesn't need account ID
+          console.log('🔍 Navigating to direct route:', event.routePath);
+          navigate(event.routePath);
+        }
+      } else {
+        // Fallback to simple eventType-based navigation
+        console.log('🔍 Fallback navigation to:', `/${item.eventType}`);
+        navigate(`/${item.eventType}`);
+      }
     }
     
     // Call optional callback
@@ -102,7 +140,7 @@ const Sidebar = ({
             // Widget section - render the React component
             <ListItem disablePadding sx={{ mb: 1 }}>
               <Box sx={{ width: '100%', px: 2, py: 1 }}>
-                <section.component />
+                <section.component {...(section.props || {})} {...(widgetProps[section.title] || {})} />
               </Box>
             </ListItem>
           ) : section.collapsible && hasItems ? (

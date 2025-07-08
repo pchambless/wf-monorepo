@@ -78,13 +78,8 @@ export function isEventTypeServiceInitialized() {
   return true;
 }
 
-export const accountStore = {
-  setUserLoginData: (user, accounts) => {
-    console.log('accountStore.setUserLoginData stub called', { user, accounts });
-  },
-  currentAccountId: null,
-  currentUser: null
-};
+// === STORE UTILITIES ===
+export { userStore, useUserStore, UserContext } from './stores/index.js';
 
 /**
  * Package metadata

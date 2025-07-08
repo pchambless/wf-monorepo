@@ -1,10 +1,9 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
-  useNavigate
+  Navigate
 } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -30,7 +29,7 @@ import navService from './services/navService';
 const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
 
 // Local pages only
-const Dashboard = lazy(() => import('./pages/1-Dashboard'));
+const Dashboard = lazy(() => import('./pages/dashboard'));
 
 // LoginForm now uses shared navigation utilities with app routes
 
@@ -39,9 +38,9 @@ const lazyPages = new Map();
 
 // Function to get a lazy-loaded component if ready
 const getLazyComponent = (config) => {
-  if (!config || !config.pageIndexPath || !config.import) return null;
+  if (!config || !config.eventType) return null;
 
-  const cacheKey = config.pageIndexPath;
+  const cacheKey = config.eventType;
 
   // Return from cache if already created
   if (lazyPages.has(cacheKey)) {
@@ -53,19 +52,12 @@ const getLazyComponent = (config) => {
   try {
     let component;
 
-    // Replace with a switch statement based on pageIndexPath
-    switch (config.pageIndexPath) {
-      case "2-Ingredient/01-ingrTypeList/index.jsx":
-        component = lazy(() => import('./pages/2-Ingredient/01-ingrTypeList'));
-        break;
-      case "3-Product/01-prodTypeList/index.jsx":
-        component = lazy(() => import('./pages/3-Product/01-prodTypeList'));
-        break;
-      // Add other cases as needed
-      default:
-        console.warn(`No static import mapping for: ${config.pageIndexPath}`);
-        return null;
-    }
+    // Direct eventType → folder mapping (simplified architecture)
+    // Use the eventType as the folder name directly
+    const eventType = config.eventType;
+
+    // Direct mapping: eventType === folder name
+    component = lazy(() => import(`./pages/${eventType}/index.jsx`));
 
     lazyPages.set(cacheKey, component);
     return component;
@@ -85,12 +77,49 @@ configureLogger({
 });
 
 // Log at the top-level App mounting
+// Dashboard wrapper component 
+const DashboardWrapper = ({ onAccountDataReady, widgetProps }) => {
+  return (
+    <MainLayout
+      navigationSections={getNavigationSections()}
+      appName="WhatsFresh Client"
+      onLogout={() => navService.logout()}
+      widgetProps={widgetProps}
+    >
+      <Suspense fallback={<CircularProgress />}>
+        <Dashboard onAccountDataReady={onAccountDataReady} />
+      </Suspense>
+    </MainLayout>
+  );
+};
+
 const App = () => {
+  const [accountData, setAccountData] = useState(null);
+
   useEffect(() => {
     // Filter out noisy browser fetch logs
     // disableBrowserFetchLogs(); // Not available
     log.debug('App component mounted');
   }, []);
+
+  const handleAccountDataReady = React.useCallback((data) => {
+    setAccountData(data);
+  }, []);
+
+  // Create widget props for the account selector - memoized to prevent infinite re-renders
+  const widgetProps = React.useMemo(() => {
+    return accountData ? {
+      Account: {
+        data: accountData.userAcctList,              
+        value: accountData.currentAcctID,            
+        onChange: (selectedId) => {                  
+          accountData.handleAccountChange(selectedId);
+        },
+        disabled: accountData.loading,               
+        loading: accountData.loading                 
+      }
+    } : {};
+  }, [accountData]);
 
   console.log('App: Rendering');
 
@@ -99,8 +128,6 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <ErrorBoundary>
-          {/* Add the initializer right after Router */}
-          <NavServiceInitializer />
 
           {/* Temporarily comment out BreadcrumbProvider */}
           {/* <BreadcrumbProvider> */}
@@ -114,34 +141,42 @@ const App = () => {
 
             {/* Dashboard route */}
             <Route path="/dashboard" element={
-              <MainLayout
-                navigationSections={getNavigationSections()}
-                appName="WhatsFresh Client"
-                onLogout={() => navService.logout()}
-              >
-                <Suspense fallback={<CircularProgress />}>
-                  <Dashboard />
-                </Suspense>
-              </MainLayout>
+              <DashboardWrapper 
+                onAccountDataReady={handleAccountDataReady}
+                widgetProps={widgetProps}
+              />
             } />
 
             {/* Special non-registry routes */}
             <Route path="/" element={<Navigate to="/login" replace />} />
 
             {/* Generated routes from registry */}
+            {console.log('🚀 Starting route generation, entityRegistry has', Object.keys(entityRegistry).length, 'entries')}
             {Object.entries(entityRegistry).map(([_eventName, config]) => {
+              console.log(`🔍 Processing route for ${_eventName}:`, config);
+
               // Skip if not ready to import
-              if (!config.import || !config.routeKey) return null;
+              if (!config.import || !config.routeKey) {
+                console.log(`❌ Skipping ${_eventName} - no import or routeKey`);
+                return null;
+              }
 
               const routeInfo = ROUTES[config.routeKey];
-              if (!routeInfo) return null;
+              if (!routeInfo) {
+                console.log(`❌ Skipping ${_eventName} - no route info for ${config.routeKey}`);
+                return null;
+              }
+
+              console.log(`📍 Route info for ${_eventName}:`, routeInfo);
 
               // Try to get component
               const PageComponent = getLazyComponent(config);
               if (!PageComponent) {
-                console.log(`Skipping route ${config.routeKey} - component not available`);
+                console.log(`❌ Skipping route ${config.routeKey} - component not available`);
                 return null;
               }
+
+              console.log(`✅ Creating route for ${_eventName} at path: ${routeInfo.path}`);
 
               // Create route with proper layout
               return (
@@ -153,6 +188,7 @@ const App = () => {
                       navigationSections={getNavigationSections()}
                       appName="WhatsFresh Client"
                       onLogout={() => navService.logout()}
+                      widgetProps={widgetProps}
                     >
                       <Suspense fallback={<CircularProgress />}>
                         <PageComponent />
@@ -163,8 +199,9 @@ const App = () => {
               );
             })}
 
-            {/* Catch-all route */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
+            {/* Catch-all route - temporarily disabled for debugging */}
+            {/* <Route path="*" element={<Navigate to="/dashboard" replace />} /> */}
           </Routes>
 
           {/* IMPORTANT: Modal must be at root level */}
@@ -181,37 +218,13 @@ const ModalContainer = () => {
   // Use modal store to get modal state
   const { isOpen, config, closeModal } = useModalStore();
 
-  // Add safety check for undefined onRowClick
-  const handleRowClick = config?.onRowClick || (() => { });
-
-  // Build modal props
-  const modalProps = {
-    isOpen,  // Fix: simplified property assignment
-    onRequestClose: closeModal,
-    content: isOpen ? {
-      type: config?.type || 'message',
-      title: config?.title || '',
-      message: config?.message || '',
-      ...config
-    } : null,
-    onRowClick: handleRowClick
-  };
-
-  // Return modal component
-  return <Modal {...modalProps} />;
-};
-
-// Add this component inside App.jsx
-const NavServiceInitializer = () => {
-  const navigate = useNavigate();
-
-  // Initialize navigation service when component mounts
-  useEffect(() => {
-    navService.init(navigate);
-    log.debug('Navigation service initialized');
-  }, [navigate]);
-
-  return null; // This component doesn't render anything
+  return (
+    <Modal
+      isOpen={isOpen}
+      config={config}
+      onClose={closeModal}
+    />
+  );
 };
 
 export default App;

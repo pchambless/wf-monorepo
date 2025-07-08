@@ -13,6 +13,7 @@ import Logo from '../common/Logo/index.jsx';
  * @param {string} [props.appName] - Application name for AppBar
  * @param {Function} props.onLogout - Logout handler
  * @param {number} [props.sidebarWidth=240] - Sidebar width in pixels
+ * @param {Object} [props.widgetProps] - Props to pass to sidebar widgets
  * @param {Object} [props.sx] - Additional styling
  */
 const MainLayout = ({
@@ -21,6 +22,7 @@ const MainLayout = ({
   appName = "WhatsFresh",
   onLogout,
   sidebarWidth = 240,
+  widgetProps = {},
   sx = {}
 }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -54,6 +56,7 @@ const MainLayout = ({
         onDrawerToggle={handleDrawerToggle}
         appTitle={appName}
         logo={<Logo />}
+        widgetProps={widgetProps}
       />
 
       {/* Main content area */}

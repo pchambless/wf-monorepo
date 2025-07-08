@@ -1,6 +1,5 @@
 import { resolveRoute, getRouteKeyByEvent } from '../config/routes';
 // Removed unused getRoute import
-import accountStore from '../stores/accountStore';
 import { createLogger } from '@whatsfresh/shared-imports';
 
 const log = createLogger('NavService');
@@ -52,29 +51,12 @@ const navService = {
       return false;
     }
 
-    // Auto-inject accountId if needed and available
-    if (!params.acctID && accountStore.currentAcctID) {
-      params.acctID = accountStore.currentAcctID;
-    }
 
     const resolvedPath = resolveRoute(routeKey, params);
     return this.navigate(resolvedPath, options);
   },
 
-  /**
-   * Common navigation patterns
-   */
-  toIngredientTypes() {
-    return this.byListEvent('ingrTypeList', { acctID: accountStore.currentAcctID });
-  },
-
-  toProductsSection() {
-    return this.byListEvent('prodTypeList', { acctID: accountStore.currentAcctID });
-  },
-
-  toReferenceSection() {
-    return this.byListEvent('brndList', { acctID: accountStore.currentAcctID });
-  },
+  // Navigation patterns removed - sidebar handles all navigation via config/navigation.js
 
   /**
    * Navigate after successful login

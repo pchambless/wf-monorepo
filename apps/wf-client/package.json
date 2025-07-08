@@ -48,7 +48,7 @@
     "test:coverage": "craco test --coverage",
     "eject": "react-scripts eject",
     "start-all": "node ../scripts/start-all.js",
-    "dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn run ngrok\"",
+    "dev": "npm start",
     "lint": "eslint src --ext .js,.jsx --report-unused-disable-directives --max-warnings 0",
     "clear-cache": "rm -rf node_modules/.cache .eslintcache && echo 'Cache cleared!'",
     "reset": "rm -rf node_modules package-lock.json && npm install && echo 'Full reset complete!'",
