@@ -3,6 +3,7 @@ import { Snackbar, Alert } from '@mui/material';
 import LoginView from './LoginView.jsx';
 import { LoginPresenter } from './LoginPresenter.js';
 import { createLogger } from '@whatsfresh/shared-imports';
+import { useAppNavigation } from '../../../utils/navigation.js';
 
 const log = createLogger('LoginForm');
 
@@ -10,8 +11,10 @@ const LoginForm = ({
   onLoginSuccess, 
   logoSrc, 
   appName = "WhatsFresh",
-  navigateToApp 
+  navigateToApp,
+  routes
 }) => {
+  const navigation = useAppNavigation(routes);
   console.count('LoginForm component render');
 
   const [loading, setLoading] = useState(false);
@@ -53,15 +56,20 @@ const LoginForm = ({
           onLoginSuccess(result);
         }
         
-        // Navigate to app if navigation function provided
-        if (navigateToApp) {
-          try {
-            log.info('Navigating to app');
+        // Navigate to app - use custom function or app-aware navigation
+        try {
+          if (navigateToApp) {
+            log.info('Using custom navigation function');
             navigateToApp();
-            log.info('Navigation command executed');
-          } catch (navError) {
-            log.error('Navigation failed with error:', navError);
+          } else if (navigation) {
+            log.info('Using app-aware navigation to dashboard');
+            navigation.goToDashboard();
+          } else {
+            log.warn('No navigation configured - staying on login page');
           }
+          log.info('Navigation command executed');
+        } catch (navError) {
+          log.error('Navigation failed with error:', navError);
         }
       } else {
         setError('Login failed. Please check your credentials.');

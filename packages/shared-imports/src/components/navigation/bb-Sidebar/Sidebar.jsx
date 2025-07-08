@@ -98,7 +98,14 @@ const Sidebar = ({
 
       return (
         <React.Fragment key={index}>
-          {section.collapsible && hasItems ? (
+          {section.type === 'widget' && section.component ? (
+            // Widget section - render the React component
+            <ListItem disablePadding sx={{ mb: 1 }}>
+              <Box sx={{ width: '100%', px: 2, py: 1 }}>
+                <section.component />
+              </Box>
+            </ListItem>
+          ) : section.collapsible && hasItems ? (
             // Collapsible section header
             <ListItem disablePadding>
               <ListItemButton onClick={() => handleSectionToggle(section.title)}>

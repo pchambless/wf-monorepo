@@ -32,6 +32,8 @@ const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
 // Local pages only
 const Dashboard = lazy(() => import('./pages/1-Dashboard'));
 
+// LoginForm now uses shared navigation utilities with app routes
+
 // Map of lazy-loaded components
 const lazyPages = new Map();
 
@@ -106,7 +108,7 @@ const App = () => {
             {/* Auth routes */}
             <Route path="/login" element={
               <AuthLayout title="Sign In">
-                <LoginForm />
+                <LoginForm routes={ROUTES} />
               </AuthLayout>
             } />
 

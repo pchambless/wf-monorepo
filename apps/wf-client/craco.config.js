@@ -75,7 +75,7 @@ module.exports = {
               require.resolve('@babel/plugin-transform-runtime')
             ],
             cacheDirectory: false, // Disable cache for shared packages
-            cacheCompression: false
+            cacheCompression: false,
             babelrc: false,
             configFile: false
           }

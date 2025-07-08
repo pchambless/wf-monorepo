@@ -1,9 +1,9 @@
-import TextField from './TextField';
-import NumberField from './NumberField';
-import DecimalField from './DecimalField';
-import DateField from './DateField';
-import BooleanField from './BooleanField';
-import MultiLineField from './MultiLineField';
+import TextField from './TextField.jsx';
+import NumberField from './NumberField.jsx';
+import DecimalField from './DecimalField.jsx';
+import DateField from './DateField.jsx';
+import BooleanField from './BooleanField.jsx';
+import MultiLineField from './MultiLineField.jsx';
 
 /**
  * Registry of field widgets by type

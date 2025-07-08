@@ -1,16 +1,9 @@
-import mysql from 'mysql2/promise';
-import { host, user, password, database, port, charset } from './dbConfig.js';
+import dbConnect from '@whatsfresh/db-connect';
 const codeName = `[db.js] `;
 
-// Create a connection pool using the extracted properties
-const pool = mysql.createPool({
-  host,
-  user,
-  password,
-  database,
-  port,
-  charset
-});
+// Create a connection pool using the db-connect package
+const { createPool } = dbConnect;
+const pool = createPool();
 
 export default {
   getConnection: async () => {

@@ -13,10 +13,20 @@ import {
   Business,
   Engineering,
   Groups,
-  Straighten
+  Straighten,
+  AccountBox
 } from '@mui/icons-material';
+import { SelUserAcct } from '@whatsfresh/shared-imports/jsx';
 
 export const navigationSections = [
+  {
+    title: "Account",
+    component: SelUserAcct,
+    icon: AccountBox,
+    description: "Select your account",
+    position: "top",
+    type: "widget"
+  },
   {
     title: "Ingredients",
     eventType: "ingrTypeList",

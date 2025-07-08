@@ -3,7 +3,9 @@ import logger from './logger.js';
 const codeName = '[queryResolver.js]';
 
 const replacePlaceholder = (qrySQL, paramName, paramValue) => {
-  const regex = new RegExp(paramName, 'g');
+  // Handle parameters with : prefix - escape special regex characters
+  const escapedParamName = paramName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp(escapedParamName, 'g');
   return qrySQL.replace(regex, paramValue);
 };
 

@@ -67,6 +67,12 @@ export function wait(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Navigation utilities
+export {
+  createNavigationService,
+  useAppNavigation
+} from './navigation.js';
+
 // DML utilities (JS only - excluding JSX components)
 export {
   executeDML,
