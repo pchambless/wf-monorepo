@@ -1,88 +1,93 @@
 {
   "viewName": "prodBtchList",
   "entityName": "prodbtchlist",
-  "lastGenerated": "2025-07-04T17:15:54.256Z",
+  "lastGenerated": "2025-07-09T17:10:10.037Z",
   "columns": {
     "prodBtchID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "id",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "id"
+        "formHide": true
       }
     },
     "btchNbr": {
       "directives": {
-        "type": "text",
         "label": "Batch Number",
         "grp": "1",
-        "required": true,
+        "type": "text",
+        "dbColumn": "batch_number",
         "width": "120",
-        "dbColumn": "batch_number"
+        "required": true
       }
     },
     "btchStart": {
       "directives": {
         "type": "text",
         "label": "Btch Start",
-        "grp": "1",
         "width": 120,
-        "dbColumn": "'%Y-%m-%d')"
+        "BI": true,
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "'%Y-%m-%d')",
+        "grp": "1"
       }
     },
     "btchLoc": {
       "directives": {
-        "type": "text",
         "label": "Location",
         "grp": "2",
-        "width": "150",
+        "type": "text",
         "dbColumn": "location",
+        "width": "150",
         "required": true
       }
     },
     "btchQty": {
       "directives": {
-        "type": "decimal",
-        "dec": "10,2",
-        "grp": "2",
         "label": "Quantity",
-        "width": "100",
+        "grp": "2",
+        "type": "text",
         "dbColumn": "batch_quantity",
+        "width": "100",
         "required": true
       }
     },
     "measID": {
       "directives": {
-        "type": "select",
-        "widget": "selMeas",
         "label": "Measure",
         "grp": "2",
-        "width": "120",
-        "tableHide": true,
+        "type": "text",
         "dbColumn": "global_measure_unit_id",
+        "width": "120",
         "required": true
       }
     },
     "bestByDate": {
       "directives": {
         "type": "date",
-        "grp": "4",
         "label": "Best By Date",
         "width": 100,
-        "dbColumn": "'%Y-%m-%d')"
+        "BI": true,
+        "tableHide": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "'%Y-%m-%d')",
+        "grp": "4"
       }
     },
     "comments": {
       "directives": {
-        "type": "multiLine",
-        "grp": "5",
         "label": "Comments",
-        "width": 200,
+        "grp": "5",
+        "type": "multiLine",
+        "dbColumn": "comments",
         "tableHide": true,
-        "dbColumn": "comments"
+        "width": 200
       }
     },
     "prodID": {
@@ -90,10 +95,10 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "product_id",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "product_id"
+        "formHide": true
       }
     },
     "prodName": {
@@ -123,12 +128,15 @@
     "acctID": {
       "directives": {
         "type": "select",
-        "widget": "selAcct",
+        "widget": "SelAcct",
         "label": "Account",
-        "grp": "1",
         "width": 120,
         "tableHide": true,
-        "dbColumn": "account_id"
+        "BI": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "account_id",
+        "grp": "1"
       }
     }
   }

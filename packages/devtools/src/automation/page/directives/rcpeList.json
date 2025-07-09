@@ -1,48 +1,44 @@
 {
   "viewName": "rcpeList",
   "entityName": "rcpelist",
-  "lastGenerated": "2025-07-04T17:15:54.272Z",
+  "lastGenerated": "2025-07-09T17:10:10.040Z",
   "columns": {
     "rcpeID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "prd_rcpe_id",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "prd_rcpe_id"
+        "formHide": true
       }
     },
     "ingrOrdr": {
       "directives": {
-        "type": "text",
         "label": "Order",
         "grp": "1",
-        "width": "80",
-        "dbColumn": "ingr_ordr"
+        "type": "text",
+        "dbColumn": "ingr_ordr",
+        "width": "80"
       }
     },
     "ingrName": {
       "directives": {
-        "type": "text",
-        "width": "200",
-        "BI": true,
         "label": "Ingredient Name",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
+        "grp": "1",
+        "type": "text",
         "dbColumn": "ingr_name",
-        "grp": "1"
+        "width": "200"
       }
     },
     "qtyMeas": {
       "directives": {
-        "type": "text",
         "label": "Quantity & Measure",
         "grp": "2",
-        "width": "150",
-        "dbColumn": "ingr_qty_meas"
+        "type": "text",
+        "dbColumn": "ingr_qty_meas",
+        "width": "150"
       }
     },
     "prodID": {
@@ -50,59 +46,56 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "prd_id",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "prd_id"
+        "formHide": true
       }
     },
     "ingrTypeSel": {
       "directives": {
-        "type": "text",
         "label": "Ingredient Type",
         "grp": "3",
-        "width": "150",
-        "dbColumn": "ingr_type_id"
+        "type": "text",
+        "dbColumn": "ingr_type_id",
+        "width": "150"
       }
     },
     "ingrSel": {
       "directives": {
-        "type": "text",
         "label": "Ingredient",
         "grp": "3",
-        "width": "180",
-        "dbColumn": "ingr_id"
+        "type": "text",
+        "dbColumn": "ingr_id",
+        "width": "180"
       }
     },
     "measID": {
       "directives": {
-        "type": "select",
-        "widget": "selMeas",
         "label": "Measure",
         "grp": "2",
-        "width": "120",
-        "tableHide": true,
-        "dbColumn": "ingr_meas_id"
+        "type": "text",
+        "dbColumn": "ingr_meas_id",
+        "width": "120"
       }
     },
     "Qty": {
       "directives": {
-        "type": "decimal",
-        "dec": "10,2",
-        "grp": "2",
         "label": "Quantity",
-        "width": "100",
-        "dbColumn": "ingr_qty"
+        "grp": "2",
+        "type": "text",
+        "dbColumn": "ingr_qty",
+        "width": "100"
       }
     },
     "Comments": {
       "directives": {
-        "type": "multiLine",
-        "grp": "5",
         "label": "Comments",
-        "width": 200,
+        "grp": "5",
+        "type": "multiLine",
+        "dbColumn": "prd_ingr_desc",
         "tableHide": true,
-        "dbColumn": "prd_ingr_desc"
+        "width": 200
       }
     }
   }

@@ -35,6 +35,22 @@ const pageMap = {
         "hidden": true
       },
       {
+        "field": "vndrName",
+        "label": "Vendor Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "vndrContactName",
+        "label": "Contact Name",
+        "width": "150",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
         "field": "vndrContactPhone",
         "label": "Phone",
         "width": "120",
@@ -72,6 +88,20 @@ const pageMap = {
             "type": "number",
             "required": false,
             "hidden": true
+          },
+          {
+            "field": "vndrName",
+            "label": "Vendor Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "vndrContactName",
+            "label": "Contact Name",
+            "type": "text",
+            "required": false,
+            "hidden": false
           },
           {
             "field": "acctID",
@@ -120,6 +150,8 @@ const pageMap = {
   "dmlConfig": {
     "fieldMappings": {
       "vndrID": "id",
+      "vndrName": "name",
+      "vndrContactName": "contact_name",
       "vndrContactPhone": "contact_phone",
       "vndrContactEmail": "contact_email",
       "vndrComments": "comments",

@@ -43,14 +43,6 @@ const pageMap = {
         "hidden": false
       },
       {
-        "field": "btchStart",
-        "label": "Btch Start",
-        "width": 120,
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
         "field": "btchLoc",
         "label": "Location",
         "width": "150",
@@ -62,15 +54,15 @@ const pageMap = {
         "field": "btchQty",
         "label": "Quantity",
         "width": "100",
-        "type": "decimal",
+        "type": "text",
         "editable": true,
         "hidden": false
       },
       {
-        "field": "bestByDate",
-        "label": "Best By Date",
-        "width": 100,
-        "type": "date",
+        "field": "measID",
+        "label": "Measure",
+        "width": "120",
+        "type": "text",
         "editable": true,
         "hidden": false
       },
@@ -105,26 +97,11 @@ const pageMap = {
             "hidden": false
           },
           {
-            "field": "btchStart",
-            "label": "Btch Start",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          },
-          {
             "field": "prodID",
             "label": "prodID",
             "type": "select",
             "required": false,
             "hidden": true
-          },
-          {
-            "field": "acctID",
-            "label": "Account",
-            "type": "select",
-            "required": false,
-            "hidden": false,
-            "widget": "selAcct"
           }
         ]
       },
@@ -142,29 +119,15 @@ const pageMap = {
           {
             "field": "btchQty",
             "label": "Quantity",
-            "type": "decimal",
+            "type": "text",
             "required": true,
             "hidden": false
           },
           {
             "field": "measID",
             "label": "Measure",
-            "type": "select",
+            "type": "text",
             "required": true,
-            "hidden": false,
-            "widget": "selMeas"
-          }
-        ]
-      },
-      {
-        "id": "4",
-        "title": "Group 4",
-        "fields": [
-          {
-            "field": "bestByDate",
-            "label": "Best By Date",
-            "type": "date",
-            "required": false,
             "hidden": false
           }
         ]
@@ -188,14 +151,11 @@ const pageMap = {
     "fieldMappings": {
       "prodBtchID": "id",
       "btchNbr": "batch_number",
-      "btchStart": "'%Y-%m-%d')",
       "btchLoc": "location",
       "btchQty": "batch_quantity",
       "measID": "global_measure_unit_id",
-      "bestByDate": "'%Y-%m-%d')",
       "comments": "comments",
-      "prodID": "product_id",
-      "acctID": "account_id"
+      "prodID": "product_id"
     },
     "operations": {
       "insert": {

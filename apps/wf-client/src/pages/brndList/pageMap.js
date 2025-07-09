@@ -35,6 +35,22 @@ const pageMap = {
         "hidden": true
       },
       {
+        "field": "brndName",
+        "label": "Brand Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "brndURL",
+        "label": "Website",
+        "width": 120,
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
         "field": "acctID",
         "label": "acctID",
         "width": 120,
@@ -56,6 +72,13 @@ const pageMap = {
             "type": "number",
             "required": false,
             "hidden": true
+          },
+          {
+            "field": "brndName",
+            "label": "Brand Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
           },
           {
             "field": "acctID",
@@ -97,6 +120,7 @@ const pageMap = {
   "dmlConfig": {
     "fieldMappings": {
       "brndID": "id",
+      "brndName": "name",
       "brndComments": "comments",
       "brndURL": "url",
       "acctID": "account_id"

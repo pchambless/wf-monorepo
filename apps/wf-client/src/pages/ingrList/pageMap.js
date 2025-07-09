@@ -35,6 +35,38 @@ const pageMap = {
         "hidden": true
       },
       {
+        "field": "ingrName",
+        "label": "Ingredient Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "ingrCode",
+        "label": "Code",
+        "width": "100",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "measID",
+        "label": "Default Measure",
+        "width": "120",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "vndrID",
+        "label": "Default Vendor",
+        "width": "150",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
         "field": "ingrGrmsPerOz",
         "label": "Grams/Oz",
         "width": "100",
@@ -66,6 +98,20 @@ const pageMap = {
             "hidden": true
           },
           {
+            "field": "ingrName",
+            "label": "Ingredient Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "ingrCode",
+            "label": "Code",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
             "field": "ingrTypeID",
             "label": "ingrTypeID",
             "type": "select",
@@ -81,18 +127,16 @@ const pageMap = {
           {
             "field": "measID",
             "label": "Default Measure",
-            "type": "select",
+            "type": "text",
             "required": false,
-            "hidden": false,
-            "widget": "SelMeas"
+            "hidden": false
           },
           {
             "field": "vndrID",
             "label": "Default Vendor",
-            "type": "select",
+            "type": "text",
             "required": false,
-            "hidden": false,
-            "widget": "SelVndr"
+            "hidden": false
           }
         ]
       },
@@ -116,7 +160,7 @@ const pageMap = {
           {
             "field": "ingrDesc",
             "label": "Description",
-            "type": "text",
+            "type": "multiLine",
             "required": false,
             "hidden": false
           }
@@ -127,6 +171,8 @@ const pageMap = {
   "dmlConfig": {
     "fieldMappings": {
       "ingrID": "id",
+      "ingrName": "name",
+      "ingrCode": "code",
       "ingrDesc": "description",
       "measID": "default_measure_unit",
       "vndrID": "default_vendor",

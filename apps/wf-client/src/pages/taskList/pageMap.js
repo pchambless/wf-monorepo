@@ -35,6 +35,14 @@ const pageMap = {
         "hidden": true
       },
       {
+        "field": "taskName",
+        "label": "Task Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
         "field": "taskOrder",
         "label": "Order",
         "width": "80",
@@ -66,9 +74,16 @@ const pageMap = {
             "hidden": true
           },
           {
+            "field": "taskName",
+            "label": "Task Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
             "field": "taskDesc",
             "label": "Description",
-            "type": "text",
+            "type": "multiLine",
             "required": false,
             "hidden": false
           },
@@ -93,6 +108,7 @@ const pageMap = {
   "dmlConfig": {
     "fieldMappings": {
       "taskID": "id",
+      "taskName": "name",
       "taskDesc": "description",
       "taskOrder": "ordr",
       "prodTypeID": "product_type_id"

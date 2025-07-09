@@ -35,6 +35,14 @@ const pageMap = {
         "hidden": true
       },
       {
+        "field": "wrkrName",
+        "label": "Worker Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
         "field": "acctID",
         "label": "acctID",
         "width": 120,
@@ -58,6 +66,13 @@ const pageMap = {
             "hidden": true
           },
           {
+            "field": "wrkrName",
+            "label": "Worker Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
             "field": "acctID",
             "label": "acctID",
             "type": "select",
@@ -71,6 +86,7 @@ const pageMap = {
   "dmlConfig": {
     "fieldMappings": {
       "wrkrID": "id",
+      "wrkrName": "name",
       "acctID": "account_id"
     },
     "operations": {

@@ -159,8 +159,8 @@ const CrudLayout = ({ pageMap }) => {
         <Grid item xs={5}>
           <Form
             ref={formRef}
-            config={formConfig}
-            data={selectedRow || {}}
+            pageMap={pageMap}
+            data={selectedRow?.row || selectedRow || {}}
             mode={formMode}
             onSave={handleFormSave}
             onCancel={handleFormCancel}

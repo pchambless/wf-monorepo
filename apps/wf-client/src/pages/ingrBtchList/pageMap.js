@@ -118,14 +118,6 @@ const pageMap = {
             "type": "select",
             "required": false,
             "hidden": true
-          },
-          {
-            "field": "acctID",
-            "label": "Account",
-            "type": "select",
-            "required": false,
-            "hidden": false,
-            "widget": "SelAcct"
           }
         ]
       },
@@ -218,8 +210,7 @@ const pageMap = {
       "measID": "global_measure_unit_id",
       "lotNbr": "lot_number",
       "comments": "comments",
-      "ingrID": "ingredient_id",
-      "acctID": "account_id"
+      "ingrID": "ingredient_id"
     },
     "operations": {
       "insert": {

@@ -1,7 +1,7 @@
 {
   "viewName": "prodTypeList",
   "entityName": "prodtypelist",
-  "lastGenerated": "2025-07-09T16:33:41.507Z",
+  "lastGenerated": "2025-07-09T17:10:10.030Z",
   "columns": {
     "prodTypeID": {
       "directives": {
@@ -21,9 +21,7 @@
         "type": "text",
         "dbColumn": "name",
         "width": "200",
-        "required": true,
-        "tableHide": true,
-        "formHide": true
+        "required": true
       }
     },
     "acctID": {

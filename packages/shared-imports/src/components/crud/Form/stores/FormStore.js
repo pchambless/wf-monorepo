@@ -33,9 +33,19 @@ class FormStore {
     // Initialize formData from initialData
     this.formData = { ...initialData };
 
-    // Filter columns for display - ADD system CHECK HERE
-    this.displayColumns = (this.pageMap?.columnMap || [])
-      .filter(col => !col.hideInForm && !col.system);
+    // Extract fields from formConfig groups structure
+    this.displayColumns = [];
+    if (this.pageMap?.formConfig?.groups) {
+      this.pageMap.formConfig.groups.forEach(group => {
+        if (group.fields) {
+          group.fields.forEach(field => {
+            if (!field.hidden) {
+              this.displayColumns.push(field);
+            }
+          });
+        }
+      });
+    }
 
     // SINGLE call to makeAutoObservable - combining both configurations
     makeAutoObservable(this, {
@@ -48,13 +58,13 @@ class FormStore {
     // Safe logging (after setup)
     if (typeof this.log === 'function') {
       this.log('FormStore initialized with displayable columns:', {
-        totalColumns: this.pageMap?.columnMap?.length || 0,
+        totalFields: this.getTotalFieldCount(),
         displayableColumns: this.displayColumns.length,
         columnFields: this.displayColumns.map(col => col.field)
       });
     } else if (this.log && typeof this.log.info === 'function') {
       this.log.info('FormStore initialized with displayable columns:', {
-        totalColumns: this.pageMap?.columnMap?.length || 0,
+        totalFields: this.getTotalFieldCount(),
         displayableColumns: this.displayColumns.length,
         columnFields: this.displayColumns.map(col => col.field)
       });
@@ -365,10 +375,12 @@ class FormStore {
     return this.pageMap.id;
   }
 
-  // Helper to create column map from form data
-  createColumnMap() {
-    // Just use the column map directly from pageMap
-    return this.pageMap.columnMap;
+  // Helper to get total field count from formConfig
+  getTotalFieldCount() {
+    if (!this.pageMap?.formConfig?.groups) return 0;
+    return this.pageMap.formConfig.groups.reduce((total, group) => {
+      return total + (group.fields?.length || 0);
+    }, 0);
   }
 
   getDisplayColumns() {

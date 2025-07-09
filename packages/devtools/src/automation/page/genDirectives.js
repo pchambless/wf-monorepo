@@ -275,6 +275,20 @@ async function inferDirectivesFromSQL(fieldName, fieldInfo, viewName) {
       directives.tableHide = true;
     }
     
+    // Check field patterns for select widgets and other special types
+    for (const [patternName, config] of Object.entries(FIELD_PATTERNS)) {
+      if (config.pattern.test(fieldName)) {
+        // Override defaults with pattern-based directives
+        directives = {
+          ...directives,
+          ...config.directives,
+          label: config.directives.label || directives.label,
+          dbColumn: dbColumn // Keep the actual database column
+        };
+        break;
+      }
+    }
+    
     return applySmartRules(directives, null);
   }
   
@@ -633,8 +647,12 @@ async function generateDirectiveFile(viewName) {
 
         // Also preserve any other manual customizations
         if (existingField.directives.required !== undefined) inferredDirectives.required = existingField.directives.required;
-        if (existingField.directives.tableHide !== undefined) inferredDirectives.tableHide = existingField.directives.tableHide;
-        if (existingField.directives.formHide !== undefined) inferredDirectives.formHide = existingField.directives.formHide;
+        
+        // Only preserve hide flags for BI fields or system fields - don't preserve incorrect hide flags for direct table columns
+        if (inferredDirectives.BI || inferredDirectives.sys || inferredDirectives.PK || inferredDirectives.parentKey) {
+          if (existingField.directives.tableHide !== undefined) inferredDirectives.tableHide = existingField.directives.tableHide;
+          if (existingField.directives.formHide !== undefined) inferredDirectives.formHide = existingField.directives.formHide;
+        }
 
         // Preserve existing dbColumn if manually set
         if (existingField.directives.dbColumn) inferredDirectives.dbColumn = existingField.directives.dbColumn;

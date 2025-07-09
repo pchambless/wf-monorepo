@@ -43,6 +43,14 @@ const pageMap = {
         "hidden": false
       },
       {
+        "field": "ingrName",
+        "label": "Ingredient Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
         "field": "qtyMeas",
         "label": "Quantity & Measure",
         "width": "150",
@@ -75,10 +83,18 @@ const pageMap = {
         "hidden": false
       },
       {
+        "field": "measID",
+        "label": "Measure",
+        "width": "120",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
         "field": "Qty",
         "label": "Quantity",
         "width": "100",
-        "type": "decimal",
+        "type": "text",
         "editable": true,
         "hidden": false
       }
@@ -100,6 +116,13 @@ const pageMap = {
           {
             "field": "ingrOrdr",
             "label": "Order",
+            "type": "text",
+            "required": false,
+            "hidden": false
+          },
+          {
+            "field": "ingrName",
+            "label": "Ingredient Name",
             "type": "text",
             "required": false,
             "hidden": false
@@ -127,15 +150,14 @@ const pageMap = {
           {
             "field": "measID",
             "label": "Measure",
-            "type": "select",
+            "type": "text",
             "required": false,
-            "hidden": false,
-            "widget": "selMeas"
+            "hidden": false
           },
           {
             "field": "Qty",
             "label": "Quantity",
-            "type": "decimal",
+            "type": "text",
             "required": false,
             "hidden": false
           }
@@ -180,6 +202,7 @@ const pageMap = {
     "fieldMappings": {
       "rcpeID": "prd_rcpe_id",
       "ingrOrdr": "ingr_ordr",
+      "ingrName": "ingr_name",
       "qtyMeas": "ingr_qty_meas",
       "prodID": "prd_id",
       "ingrTypeSel": "ingr_type_id",

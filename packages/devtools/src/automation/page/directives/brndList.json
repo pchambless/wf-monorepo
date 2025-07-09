@@ -1,7 +1,7 @@
 {
   "viewName": "brndList",
   "entityName": "brndlist",
-  "lastGenerated": "2025-07-09T16:33:41.511Z",
+  "lastGenerated": "2025-07-09T17:09:55.979Z",
   "columns": {
     "brndID": {
       "directives": {
@@ -21,9 +21,7 @@
         "type": "text",
         "dbColumn": "name",
         "width": "200",
-        "required": true,
-        "tableHide": true,
-        "formHide": true
+        "required": true
       }
     },
     "brndComments": {
@@ -42,8 +40,7 @@
         "grp": "2",
         "type": "text",
         "dbColumn": "url",
-        "width": 120,
-        "tableHide": true
+        "width": 120
       }
     },
     "acctID": {

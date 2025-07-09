@@ -161,7 +161,7 @@
         "dbTable": "measures",
         "method": "GET",
         "purpose": "Get measurement units",
-        "primaryKey": null
+        "primaryKey": "measID"
       }
     },
     {

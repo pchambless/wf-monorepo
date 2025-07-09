@@ -170,6 +170,45 @@ Active development plans and issue tracking are maintained in `/claude-plans/`, 
 
 ---
 
+## 🔧 DevTools Generator Commands
+
+### Common Generation Tasks
+- `node genDirectives.js [viewName]` - Generate directive files from SQL views
+- `node genPageMaps.js [viewName]` - Generate pageMap configurations 
+- `node genPageIndex.js client --all` - Generate React component wrappers
+- `npm run generate-client` - Full client regeneration pipeline
+
+### Generator File Locations
+- **Directive Generation**: `packages/devtools/src/automation/page/genDirectives.js`
+- **PageMap Generation**: `packages/devtools/src/automation/page/genPageMaps.js`
+- **Component Generation**: `packages/devtools/src/automation/page/genPageIndex.js`
+- **Configuration Sources**: 
+  - SQL Views: `sql/views/client/`
+  - Events Config: `packages/devtools/src/docs/generated/events/events.json`
+  - Directive Output: `packages/devtools/src/automation/page/directives/`
+
+### 🔍 Common Debugging Patterns
+
+#### Unified Naming Convention
+**Key Rule**: `viewName` = `pageName` = `eventType` = `listEvent`
+- Example: `measList` is the SQL view name, page name, event type, and list event
+- Server processes use the same `eventType` name
+- This pattern eliminates naming confusion across the stack
+
+#### Quick File Locations (using [viewName] variable)
+- **SQL View**: `sql/views/client/[viewName].sql`
+- **Directive**: `packages/devtools/src/automation/page/directives/[viewName].json` 
+- **Generated PageMap**: `apps/wf-client/src/pages/[viewName]/pageMap.js`
+- **React Component**: `apps/wf-client/src/pages/[viewName]/index.jsx`
+
+#### Common Issues → Solutions
+- **MUI DataGrid "id" error** → Check pageMap `primaryKey` configuration in events.json
+- **Fields hidden incorrectly** → Check directive generation preservation logic in genDirectives.js
+- **Select widgets not working** → Check FIELD_PATTERNS in genDirectives.js
+- **Widget warnings during generation** → Missing widget definitions in registry
+
+---
+
 ## 💡 Claude Code CLI Tips
 
 - **`#`** - Quick shortcut to add content to CLAUDE.md during session

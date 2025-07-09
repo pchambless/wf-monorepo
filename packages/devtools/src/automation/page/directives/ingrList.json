@@ -1,86 +1,74 @@
 {
   "viewName": "ingrList",
   "entityName": "ingrlist",
-  "lastGenerated": "2025-07-06T20:06:30.978Z",
+  "lastGenerated": "2025-07-09T17:10:10.018Z",
   "columns": {
     "ingrID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "id",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "id"
+        "formHide": true
       }
     },
     "ingrName": {
       "directives": {
-        "type": "text",
-        "width": "200",
-        "BI": true,
         "label": "Ingredient Name",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "dbColumn": "name",
         "grp": "1",
+        "type": "text",
+        "dbColumn": "name",
+        "width": "200",
         "required": true
       }
     },
     "ingrCode": {
       "directives": {
-        "type": "text",
-        "width": "100",
-        "BI": true,
         "label": "Code",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "dbColumn": "code",
         "grp": "1",
+        "type": "text",
+        "dbColumn": "code",
+        "width": "100",
         "required": true
       }
     },
     "ingrDesc": {
       "directives": {
-        "type": "text",
         "label": "Description",
         "grp": 4,
-        "width": 120,
+        "type": "multiLine",
         "dbColumn": "description",
-        "tableHide": true
+        "tableHide": true,
+        "width": 120
       }
     },
     "measID": {
       "directives": {
-        "type": "select",
-        "widget": "SelMeas",
         "label": "Default Measure",
         "grp": 2,
-        "width": "120",
-        "tableHide": true,
-        "dbColumn": "default_measure_unit"
+        "type": "text",
+        "dbColumn": "default_measure_unit",
+        "width": "120"
       }
     },
     "vndrID": {
       "directives": {
-        "type": "select",
-        "widget": "SelVndr",
         "label": "Default Vendor",
         "grp": 2,
-        "width": "150",
-        "tableHide": true,
-        "dbColumn": "default_vendor"
+        "type": "text",
+        "dbColumn": "default_vendor",
+        "width": "150"
       }
     },
     "ingrGrmsPerOz": {
       "directives": {
-        "type": "text",
         "label": "Grams/Oz",
         "grp": 3,
-        "width": "100",
-        "dbColumn": "grams_per_ounce"
+        "type": "text",
+        "dbColumn": "grams_per_ounce",
+        "width": "100"
       }
     },
     "ingrTypeID": {
@@ -88,10 +76,10 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "ingredient_type_id",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "ingredient_type_id"
+        "formHide": true
       }
     }
   }

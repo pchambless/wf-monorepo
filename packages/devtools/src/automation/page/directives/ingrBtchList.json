@@ -1,7 +1,7 @@
 {
   "viewName": "ingrBtchList",
   "entityName": "ingrbtchlist",
-  "lastGenerated": "2025-07-09T16:31:24.334Z",
+  "lastGenerated": "2025-07-09T17:47:22.344Z",
   "columns": {
     "ingrBtchID": {
       "directives": {
@@ -21,27 +21,29 @@
         "grp": "1",
         "type": "text",
         "dbColumn": "batch_number",
-        "width": "120",
-        "required": true
+        "required": true,
+        "width": "120"
       }
     },
     "vndrID": {
       "directives": {
         "label": "Vendor",
         "grp": "1",
-        "type": "text",
+        "type": "select",
         "dbColumn": "vendor_id",
+        "widget": "SelVndr",
         "width": "180",
-        "required": true,
-        "tableHide": true
+        "tableHide": true,
+        "required": true
       }
     },
     "brndID": {
       "directives": {
         "label": "Brand",
         "grp": "2",
-        "type": "text",
+        "type": "select",
         "dbColumn": "brand_id",
+        "widget": "SelBrnd",
         "width": "150",
         "tableHide": true
       }
@@ -63,8 +65,9 @@
       "directives": {
         "label": "Unit Qty",
         "grp": "3",
-        "type": "text",
+        "type": "decimal",
         "dbColumn": "unit_quantity",
+        "dec": "10,2",
         "width": "80",
         "required": true
       }
@@ -73,8 +76,9 @@
       "directives": {
         "label": "Unit Price",
         "grp": "3",
-        "type": "text",
+        "type": "decimal",
         "dbColumn": "unit_price",
+        "dec": "10,2",
         "width": "100"
       }
     },
@@ -82,8 +86,9 @@
       "directives": {
         "label": "Purchase Qty",
         "grp": "3",
-        "type": "text",
+        "type": "decimal",
         "dbColumn": "purchase_quantity",
+        "dec": "10,2",
         "width": "100",
         "required": true
       }
@@ -92,11 +97,12 @@
       "directives": {
         "label": "Measure",
         "grp": "3",
-        "type": "text",
+        "type": "select",
         "dbColumn": "global_measure_unit_id",
+        "widget": "SelMeas",
         "width": 120,
-        "required": true,
-        "tableHide": true
+        "tableHide": true,
+        "required": true
       }
     },
     "lotNbr": {

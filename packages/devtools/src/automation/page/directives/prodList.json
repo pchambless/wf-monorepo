@@ -1,95 +1,83 @@
 {
   "viewName": "prodList",
   "entityName": "prodlist",
-  "lastGenerated": "2025-07-04T20:19:24.889Z",
+  "lastGenerated": "2025-07-09T17:10:10.026Z",
   "columns": {
     "prodID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "id",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "id"
+        "formHide": true
       }
     },
     "prodName": {
       "directives": {
-        "type": "text",
-        "width": "200",
-        "BI": true,
         "label": "Product Name",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "dbColumn": "name",
         "grp": "1",
+        "type": "text",
+        "dbColumn": "name",
+        "width": "200",
         "required": true
       }
     },
     "prodCode": {
       "directives": {
-        "type": "text",
-        "width": "100",
-        "BI": true,
         "label": "Code",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "dbColumn": "code",
         "grp": "1",
+        "type": "text",
+        "dbColumn": "code",
+        "width": "100",
         "required": true
       }
     },
     "prodDfltLoc": {
       "directives": {
-        "type": "text",
         "label": "Default Location",
         "grp": "2",
-        "width": "120",
-        "dbColumn": "location"
+        "type": "text",
+        "dbColumn": "location",
+        "width": "120"
       }
     },
     "prodDfltBestBy": {
       "directives": {
-        "type": "text",
         "label": "Best By Days",
         "grp": "2",
-        "width": "80",
-        "dbColumn": "best_by_days"
+        "type": "text",
+        "dbColumn": "best_by_days",
+        "width": "80"
       }
     },
     "prodDesc": {
       "directives": {
-        "type": "text",
         "label": "Description",
         "grp": "1",
-        "width": 120,
+        "type": "multiLine",
         "dbColumn": "description",
-        "tableHide": true
+        "tableHide": true,
+        "width": 120
       }
     },
     "prodUpcItemRef": {
       "directives": {
-        "type": "text",
-        "width": "120",
-        "BI": true,
         "label": "UPC Reference",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
+        "grp": "3",
+        "type": "text",
         "dbColumn": "upc_item_reference",
-        "grp": "3"
+        "width": "120"
       }
     },
     "prodUpcChkDgt": {
       "directives": {
-        "type": "text",
         "label": "UPC Check Digit",
         "grp": "3",
-        "width": "80",
-        "dbColumn": "upc_check_digit"
+        "type": "text",
+        "dbColumn": "upc_check_digit",
+        "width": "80"
       }
     },
     "prodTypeID": {
@@ -97,10 +85,10 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "product_type_id",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "product_type_id"
+        "formHide": true
       }
     }
   }

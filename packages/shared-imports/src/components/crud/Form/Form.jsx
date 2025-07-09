@@ -37,6 +37,13 @@ const SELECTOR_WIDGETS = {
  */
 const renderFormField = (field, formData, setFormData, formStore) => {
   const value = formData[field.field] || '';
+  console.log('🔍 Field render:', {
+    fieldName: field.field,
+    expectedValue: value,
+    hasFormData: !!formData,
+    formDataKeys: Object.keys(formData || {}),
+    fieldLabel: field.label
+  });
 
   const handleFieldChange = (newValue) => {
     const updatedData = { ...formData, [field.field]: newValue };

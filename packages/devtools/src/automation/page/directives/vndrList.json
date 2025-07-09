@@ -1,7 +1,7 @@
 {
   "viewName": "vndrList",
   "entityName": "vndrlist",
-  "lastGenerated": "2025-07-09T16:33:41.513Z",
+  "lastGenerated": "2025-07-09T17:09:55.983Z",
   "columns": {
     "vndrID": {
       "directives": {
@@ -21,9 +21,7 @@
         "type": "text",
         "dbColumn": "name",
         "width": "200",
-        "required": true,
-        "tableHide": true,
-        "formHide": true
+        "required": true
       }
     },
     "vndrContactName": {
@@ -32,9 +30,7 @@
         "grp": "1",
         "type": "text",
         "dbColumn": "contact_name",
-        "width": "150",
-        "tableHide": true,
-        "formHide": true
+        "width": "150"
       }
     },
     "vndrContactPhone": {
