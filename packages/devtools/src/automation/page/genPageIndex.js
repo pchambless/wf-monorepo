@@ -49,8 +49,8 @@ function generateIndexFile(entityName) {
   // entityName (e.g., "ingrTypeList") becomes the folder name directly
   const dirPath = entityName;
 
-  // Format nice display name for the component
-  const componentName = `${entityName}Page`;
+  // Use eventType name directly for the component
+  const componentName = entityName;
 
   // For logging, use the readable title from registry when available
   const loggerName = entity.title || entityName;

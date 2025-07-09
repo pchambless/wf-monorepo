@@ -249,6 +249,40 @@ function generateLabel(fieldName) {
 }
 
 /**
+ * Infer directives from SQL analysis - simplified approach
+ */
+async function inferDirectivesFromSQL(fieldName, fieldInfo, viewName) {
+  const { dbColumn, isDirect } = fieldInfo;
+  const viewKeys = getViewKeys(viewName);
+  
+  // Primary/parent key check
+  if (fieldName === viewKeys.primaryKey) return { PK: true, sys: true, type: 'number' };
+  if (fieldName === viewKeys.parentKey) return { parentKey: true, sys: true, type: 'select' };
+  
+  // For direct table columns, use enhanced logic
+  if (isDirect && dbColumn) {
+    let directives = {
+      label: generateLabel(fieldName),
+      grp: '1',
+      type: 'text',
+      dbColumn: dbColumn
+    };
+    
+    // Description/comments fields = multiLine
+    if (fieldName.match(/(description|comments|desc)$/i)) {
+      directives.type = 'multiLine';
+      directives.grp = '5';
+      directives.tableHide = true;
+    }
+    
+    return applySmartRules(directives, null);
+  }
+  
+  // Fallback to pattern-based
+  return inferDirectives(fieldName, null, viewName);
+}
+
+/**
  * Infer directive properties from field name with smart defaults
  */
 function inferDirectives(fieldName, sampleData = null, viewName = null) {
@@ -342,7 +376,7 @@ function cleanBooleanAttributes(directives) {
 }
 
 /**
- * Extract field names from enhanced SQL view
+ * Extract field names from enhanced SQL view with three-tier categorization
  */
 async function extractViewFields(viewName) {
   const sqlPath = path.join(__dirname, `../../../../../sql/views/client/${viewName}.sql`);
@@ -352,6 +386,9 @@ async function extractViewFields(viewName) {
     const fields = [];
     const fieldNames = new Set(); // Track field names to avoid duplicates
 
+    // First, determine the main table alias from the FROM clause
+    const mainTableAlias = await extractMainTableAlias(sqlContent, viewName);
+    
     // Parse SELECT statements to find field aliases and source columns
     const lines = sqlContent.split('\n');
     for (const line of lines) {
@@ -367,43 +404,17 @@ async function extractViewFields(viewName) {
         }
         fieldNames.add(fieldName);
 
-        let dbColumn;
-
-        // Handle different types of SQL expressions
-        if (sourceExpression.includes('CASE') ||
-          sourceExpression.includes('CONCAT') ||
-          sourceExpression.includes('CAST(') ||
-          sourceExpression.includes('FORMAT(') ||
-          sourceExpression.includes('COALESCE') && sourceExpression.includes('*')) {
-          // This is a computed/calculated field - mark as BI
-          dbColumn = null; // Will be handled as BI field
-        } else if (sourceExpression.includes('(')) {
-          // Handle SQL functions like DATE_FORMAT, COALESCE, etc.
-          // DATE_FORMAT(ib.purchase_date, '%Y-%m-%d') -> purchase_date
-          // COALESCE(pb.brand_id, 0) -> brand_id
-          const functionMatch = sourceExpression.match(/[\w.]+\.(\w+)/);
-          if (functionMatch) {
-            dbColumn = functionMatch[1];
-          } else {
-            // Complex expression - try to find column name but mark as computed if unclear
-            const columnMatch = sourceExpression.match(/(\w+)(?:\.|,|\)|\s|$)/);
-            if (columnMatch && !sourceExpression.includes('*') && !sourceExpression.includes('+')) {
-              dbColumn = columnMatch[1];
-            } else {
-              dbColumn = null; // Mark as computed
-            }
-          }
-        } else {
-          // Simple column reference: table.column or just column
-          dbColumn = sourceExpression.includes('.') ?
-            sourceExpression.split('.').pop() : sourceExpression;
-        }
+        // Categorize field based on three-tier system
+        const fieldCategory = categorizeField(sourceExpression, mainTableAlias);
 
         fields.push({
           fieldName,
-          dbColumn: dbColumn,
+          dbColumn: fieldCategory.dbColumn,
           sourceColumn: sourceExpression,
-          isComputed: dbColumn === null // Mark computed fields
+          isComputed: fieldCategory.isComputed,
+          isBI: fieldCategory.isBI,
+          isJoined: fieldCategory.isJoined,
+          isDirect: fieldCategory.isDirect
         });
       }
     }
@@ -413,6 +424,120 @@ async function extractViewFields(viewName) {
     console.error(`Error reading view ${viewName}:`, error.message);
     return [];
   }
+}
+
+/**
+ * Extract the main table alias from FROM clause
+ */
+async function extractMainTableAlias(sqlContent, viewName) {
+  const lines = sqlContent.split('\n');
+  
+  for (const line of lines) {
+    // Look for FROM clauses
+    const fromMatch = line.match(/FROM\s+[\w.]+\s+(\w+)/i);
+    if (fromMatch) {
+      return fromMatch[1];
+    }
+    
+    // Also check for legacy view patterns
+    const legacyMatch = line.match(/FROM\s+[\w.]+\.(v_\w+)\s+(\w+)/i);
+    if (legacyMatch) {
+      return legacyMatch[2]; // Return the alias, not the view name
+    }
+  }
+  
+  return 'a'; // Default fallback
+}
+
+/**
+ * Categorize field based on three-tier system
+ */
+function categorizeField(sourceExpression, mainTableAlias) {
+  // Tier 3: Calculated/Derived Fields (BI: true)
+  if (sourceExpression.includes('CASE') ||
+      sourceExpression.includes('CONCAT') ||
+      sourceExpression.includes('CAST(') ||
+      sourceExpression.includes('FORMAT(') ||
+      sourceExpression.includes('COALESCE') && sourceExpression.includes('*') ||
+      sourceExpression.includes('NULLIF') ||
+      sourceExpression.includes('IFNULL') ||
+      sourceExpression.includes('DATE_FORMAT') ||
+      sourceExpression.includes('CURDATE') ||
+      sourceExpression.includes('DATE_ADD') ||
+      sourceExpression.includes('DATE_SUB')) {
+    return {
+      dbColumn: null,
+      isComputed: true,
+      isBI: true,
+      isJoined: false,
+      isDirect: false
+    };
+  }
+
+  // Simple column reference: table.column
+  if (sourceExpression.includes('.')) {
+    const parts = sourceExpression.split('.');
+    const tableAlias = parts[0].trim();
+    const columnName = parts[1].trim();
+    
+    // Tier 1: Direct Table Columns (main table)
+    if (tableAlias === mainTableAlias) {
+      return {
+        dbColumn: columnName,
+        isComputed: false,
+        isBI: false,
+        isJoined: false,
+        isDirect: true
+      };
+    } else {
+      // Tier 2: Joined Table Columns (BI: true)
+      return {
+        dbColumn: columnName,
+        isComputed: false,
+        isBI: true,
+        isJoined: true,
+        isDirect: false
+      };
+    }
+  }
+
+  // Function calls with table references
+  if (sourceExpression.includes('(')) {
+    const functionMatch = sourceExpression.match(/(\w+)\.(\w+)/);
+    if (functionMatch) {
+      const tableAlias = functionMatch[1];
+      const columnName = functionMatch[2];
+      
+      if (tableAlias === mainTableAlias) {
+        // Function on main table column - still direct
+        return {
+          dbColumn: columnName,
+          isComputed: false,
+          isBI: false,
+          isJoined: false,
+          isDirect: true
+        };
+      } else {
+        // Function on joined table - BI
+        return {
+          dbColumn: columnName,
+          isComputed: false,
+          isBI: true,
+          isJoined: true,
+          isDirect: false
+        };
+      }
+    }
+  }
+
+  // Fallback for complex expressions
+  return {
+    dbColumn: null,
+    isComputed: true,
+    isBI: true,
+    isJoined: false,
+    isDirect: false
+  };
 }
 
 /**
@@ -453,25 +578,26 @@ async function generateDirectiveFile(viewName) {
     const dbColumnUsage = new Map();
 
     for (const fieldInfo of viewFields) {
-      const { fieldName, dbColumn, isComputed } = fieldInfo;
+      const { fieldName, dbColumn, isComputed, isBI, isJoined, isDirect } = fieldInfo;
       const existingField = existingDirectives.columns?.[fieldName];
 
-      // Infer directives based on field properties
-      const inferredDirectives = inferDirectives(fieldName, null, viewName);
+      // Start with smart directive inference
+      let inferredDirectives = await inferDirectivesFromSQL(fieldName, fieldInfo, viewName);
 
-      // Mark computed fields as BI automatically
-      if (isComputed ||
-        dbColumn === null ||
-        ['END', ')', '0)', 'COUNT(*)', 'COMPUTED_FIELD'].includes(dbColumn) ||
-        (dbColumn && (dbColumn.includes(')') || dbColumn.includes('CASE') || dbColumn.includes('*')))) {
+      // Apply three-tier categorization
+      if (isBI || isComputed || isJoined) {
+        // Tier 2 & 3: BI fields (joined tables or calculated fields)
         inferredDirectives.BI = true;
         inferredDirectives.tableHide = true;
         inferredDirectives.formHide = true;
         inferredDirectives.excludeFromDML = true;
         delete inferredDirectives.grp; // BI fields don't need groups
-        // Set a marker for computed fields
-        inferredDirectives.dbColumn = 'COMPUTED_FIELD';
-      } else {
+        inferredDirectives.dbColumn = dbColumn || 'COMPUTED_FIELD';
+        
+        const categoryType = isComputed ? 'calculated' : 'joined table';
+        console.log(`🔍 Marking ${fieldName} as BI - ${categoryType} field`);
+      } else if (isDirect) {
+        // Tier 1: Direct table columns - regular fields
         // Check for duplicate database column usage
         if (dbColumnUsage.has(dbColumn)) {
           // This is a duplicate - mark as BI
@@ -483,10 +609,20 @@ async function generateDirectiveFile(viewName) {
           inferredDirectives.dbColumn = `${dbColumn}_DUPLICATE`;
           console.log(`⚠️  Marking ${fieldName} as BI - duplicate database column: ${dbColumn}`);
         } else {
-          // First usage of this database column
+          // First usage of this database column - regular field
           dbColumnUsage.set(dbColumn, fieldName);
           inferredDirectives.dbColumn = dbColumn;
+          console.log(`✅ Processing ${fieldName} as direct table column: ${dbColumn}`);
         }
+      } else {
+        // Fallback for unclear cases
+        inferredDirectives.BI = true;
+        inferredDirectives.tableHide = true;
+        inferredDirectives.formHide = true;
+        inferredDirectives.excludeFromDML = true;
+        delete inferredDirectives.grp;
+        inferredDirectives.dbColumn = dbColumn || 'UNKNOWN_FIELD';
+        console.log(`⚠️  Marking ${fieldName} as BI - unclear field category`);
       }
 
       // Preserve manual overrides (label, width, grp)

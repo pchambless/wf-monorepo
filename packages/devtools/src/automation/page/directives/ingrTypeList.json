@@ -1,41 +1,37 @@
 {
   "viewName": "ingrTypeList",
   "entityName": "ingrtypelist",
-  "lastGenerated": "2025-07-04T17:15:54.242Z",
+  "lastGenerated": "2025-07-09T12:17:42.736Z",
   "columns": {
     "ingrTypeID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "id",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "id"
+        "formHide": true
       }
     },
     "ingrTypeName": {
       "directives": {
-        "type": "text",
-        "width": "200",
-        "BI": true,
         "label": "Type Name",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "dbColumn": "name",
         "grp": "1",
+        "type": "text",
+        "dbColumn": "name",
+        "width": "200",
         "required": true
       }
     },
     "ingrTypeDesc": {
       "directives": {
-        "type": "text",
         "label": "Description",
         "grp": "1",
-        "width": 120,
+        "type": "multiLine",
         "dbColumn": "description",
-        "tableHide": true
+        "tableHide": true,
+        "width": 120
       }
     },
     "acctID": {
@@ -43,10 +39,10 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "account_id",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "account_id"
+        "formHide": true
       }
     }
   }

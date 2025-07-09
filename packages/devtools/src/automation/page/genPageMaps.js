@@ -106,10 +106,7 @@ async function generatePageMaps(config, entityRegistry, eventDataMap, FIELD_TYPE
           section: entity.section,
           icon: entity.icon,
           color: entity.color,
-          actions: {
-            rowActions: [],
-            tableActions: []
-          }
+          actions: generateRowActions(entityName, eventDataMap)
         },
 
         // Generate table and form configs from directives
@@ -153,6 +150,41 @@ function generateTableConfig(directives) {
     });
 
   return { columns };
+}
+
+// Generate row actions based on hierarchy
+function generateRowActions(entityName, eventDataMap) {
+  const rowActions = [];
+  const tableActions = [];
+  
+  // Always add delete action
+  rowActions.push({
+    id: 'delete',
+    icon: 'Delete',
+    color: 'error',
+    tooltip: 'Delete',
+    handler: 'handleDelete'
+  });
+  
+  // Add navigation action if entity has children
+  const eventData = eventDataMap[entityName];
+  if (eventData?.children?.length > 0) {
+    const childEventType = eventData.children[0]; // Use first child
+    const childEventData = eventDataMap[childEventType];
+    
+    if (childEventData?.routePath) {
+      rowActions.push({
+        id: 'navigate',
+        icon: 'Visibility',
+        color: 'primary', 
+        tooltip: `View ${childEventType}`,
+        route: childEventData.routePath,
+        paramField: eventData.primaryKey
+      });
+    }
+  }
+  
+  return { rowActions, tableActions };
 }
 
 // Update the form generation function
