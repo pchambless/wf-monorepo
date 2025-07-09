@@ -5,7 +5,7 @@ const pageMap = {
   "systemConfig": {
     "schema": "whatsfresh",
     "table": "measures",
-    "primaryKey": null,
+    "primaryKey": "measID",
     "listEvent": "measList",
     "dmlEvent": "execDML"
   },
@@ -33,6 +33,14 @@ const pageMap = {
         "type": "number",
         "editable": false,
         "hidden": true
+      },
+      {
+        "field": "name",
+        "label": "Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
       },
       {
         "field": "abbrev",
@@ -66,6 +74,13 @@ const pageMap = {
             "hidden": true
           },
           {
+            "field": "name",
+            "label": "Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
             "field": "abbrev",
             "label": "Abbreviation",
             "type": "text",
@@ -86,6 +101,7 @@ const pageMap = {
   "dmlConfig": {
     "fieldMappings": {
       "measID": "id",
+      "name": "name",
       "abbrev": "abbrev",
       "acctID": "account_id"
     },

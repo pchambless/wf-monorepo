@@ -1,72 +1,68 @@
 {
   "viewName": "vndrList",
   "entityName": "vndrlist",
-  "lastGenerated": "2025-07-04T20:47:29.122Z",
+  "lastGenerated": "2025-07-09T16:33:41.513Z",
   "columns": {
     "vndrID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "id",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "id"
+        "formHide": true
       }
     },
     "vndrName": {
       "directives": {
-        "type": "text",
-        "width": "200",
-        "BI": true,
         "label": "Vendor Name",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "dbColumn": "name",
         "grp": "1",
-        "required": true
+        "type": "text",
+        "dbColumn": "name",
+        "width": "200",
+        "required": true,
+        "tableHide": true,
+        "formHide": true
       }
     },
     "vndrContactName": {
       "directives": {
-        "type": "text",
-        "width": "150",
-        "BI": true,
         "label": "Contact Name",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
+        "grp": "1",
+        "type": "text",
         "dbColumn": "contact_name",
-        "grp": "1"
+        "width": "150",
+        "tableHide": true,
+        "formHide": true
       }
     },
     "vndrContactPhone": {
       "directives": {
-        "type": "text",
         "label": "Phone",
         "grp": "2",
-        "width": "120",
-        "dbColumn": "contact_phone"
+        "type": "text",
+        "dbColumn": "contact_phone",
+        "width": "120"
       }
     },
     "vndrContactEmail": {
       "directives": {
-        "type": "text",
         "label": "Email",
         "grp": "2",
-        "width": "180",
-        "dbColumn": "contact_email"
+        "type": "text",
+        "dbColumn": "contact_email",
+        "width": "180"
       }
     },
     "vndrComments": {
       "directives": {
-        "type": "multiLine",
-        "grp": "5",
         "label": "Comments",
-        "width": 200,
+        "grp": "5",
+        "type": "multiLine",
+        "dbColumn": "comments",
         "tableHide": true,
-        "dbColumn": "comments"
+        "width": 200
       }
     },
     "acctID": {
@@ -74,10 +70,10 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "account_id",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "account_id"
+        "formHide": true
       }
     }
   }

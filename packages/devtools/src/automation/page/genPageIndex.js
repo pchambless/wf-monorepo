@@ -67,7 +67,7 @@ function generateIndexFile(entityName) {
 
   // Create the index.js content - clean architecture with no external stores
   const indexContent = `import React from 'react';
-import { CrudLayout } from '@whatsfresh/shared-imports';
+import { CrudLayout } from '@whatsfresh/shared-imports/jsx';
 import pageMap from './pageMap';
 
 

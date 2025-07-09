@@ -9,8 +9,6 @@ import pageMap from './pageMap';
  * All data fetching, state management, and UI handled internally by CrudLayout
  */
 const ingrTypeList = () => {
-  console.log('🔍 IngrTypeList component rendering');
-  console.log('🔍 PageMap:', pageMap);
   return <CrudLayout pageMap={pageMap} />;
 };
 

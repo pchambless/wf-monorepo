@@ -1,51 +1,49 @@
 {
   "viewName": "ingrBtchList",
   "entityName": "ingrbtchlist",
-  "lastGenerated": "2025-07-06T20:26:03.451Z",
+  "lastGenerated": "2025-07-09T16:31:24.334Z",
   "columns": {
     "ingrBtchID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "id",
+        "label": "Ingr Btch I D",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "id",
-        "label": "Ingr Btch I D"
+        "formHide": true
       }
     },
     "btchNbr": {
       "directives": {
-        "type": "text",
         "label": "Batch Number",
         "grp": "1",
-        "required": true,
+        "type": "text",
+        "dbColumn": "batch_number",
         "width": "120",
-        "dbColumn": "batch_number"
+        "required": true
       }
     },
     "vndrID": {
       "directives": {
-        "type": "select",
-        "widget": "SelVndr",
         "label": "Vendor",
         "grp": "1",
-        "width": "180",
-        "tableHide": true,
+        "type": "text",
         "dbColumn": "vendor_id",
-        "required": true
+        "width": "180",
+        "required": true,
+        "tableHide": true
       }
     },
     "brndID": {
       "directives": {
-        "type": "select",
-        "widget": "SelBrnd",
         "label": "Brand",
         "grp": "2",
+        "type": "text",
+        "dbColumn": "brand_id",
         "width": "150",
-        "tableHide": true,
-        "dbColumn": "brand_id"
+        "tableHide": true
       }
     },
     "purchDate": {
@@ -63,55 +61,51 @@
     },
     "unitQty": {
       "directives": {
-        "type": "decimal",
-        "dec": "10,2",
-        "grp": "3",
         "label": "Unit Qty",
-        "width": "80",
+        "grp": "3",
+        "type": "text",
         "dbColumn": "unit_quantity",
+        "width": "80",
         "required": true
       }
     },
     "unitPrice": {
       "directives": {
-        "type": "decimal",
-        "dec": "10,2",
-        "grp": "3",
         "label": "Unit Price",
-        "width": "100",
-        "dbColumn": "unit_price"
+        "grp": "3",
+        "type": "text",
+        "dbColumn": "unit_price",
+        "width": "100"
       }
     },
     "purchQty": {
       "directives": {
-        "type": "decimal",
-        "dec": "10,2",
-        "grp": "3",
         "label": "Purchase Qty",
-        "width": "100",
+        "grp": "3",
+        "type": "text",
         "dbColumn": "purchase_quantity",
+        "width": "100",
         "required": true
       }
     },
     "measID": {
       "directives": {
-        "type": "select",
-        "widget": "SelMeas",
         "label": "Measure",
         "grp": "3",
-        "width": 120,
-        "tableHide": true,
+        "type": "text",
         "dbColumn": "global_measure_unit_id",
-        "required": true
+        "width": 120,
+        "required": true,
+        "tableHide": true
       }
     },
     "lotNbr": {
       "directives": {
-        "type": "text",
         "label": "Lot Number",
         "grp": "4",
-        "width": "150",
-        "dbColumn": "lot_number"
+        "type": "text",
+        "dbColumn": "lot_number",
+        "width": "150"
       }
     },
     "bestByDate": {
@@ -129,12 +123,12 @@
     },
     "comments": {
       "directives": {
-        "type": "multiLine",
-        "grp": 5,
         "label": "Comments",
-        "width": 200,
+        "grp": 5,
+        "type": "multiLine",
+        "dbColumn": "comments",
         "tableHide": true,
-        "dbColumn": "comments"
+        "width": 200
       }
     },
     "ingrID": {
@@ -142,11 +136,11 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "ingredient_id",
+        "label": "Ingredient",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "ingredient_id",
-        "label": "Ingredient"
+        "formHide": true
       }
     },
     "DECIMAL": {
@@ -301,10 +295,13 @@
         "type": "select",
         "widget": "SelAcct",
         "label": "Account",
-        "grp": "1",
         "width": 120,
         "tableHide": true,
-        "dbColumn": "account_id"
+        "BI": true,
+        "formHide": true,
+        "excludeFromDML": true,
+        "dbColumn": "account_id",
+        "grp": "1"
       }
     },
     "productBatchCount": {

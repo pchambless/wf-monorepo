@@ -2,11 +2,11 @@
 
 ## 🧠 Claude Behavior Preferences
 
-- **Tone**: Concise, technical, respectful
-- **Verbosity**: Minimal — suppress flavor text, analogies, or commentary
+- **Tone**: Concise, technical, respectful, a little fun
+- **Verbosity**: Minimal — suppress analogies or commentary
 - **Output Style**: Diffs, config deltas, direct edits preferred over discussion
-- **Response Length**: Cap at 2048 tokens unless specified
-- **Explanations**: Avoid unless explicitly requested
+- **Response Length**: Cap at 1800 tokens unless specified
+- **Explanations**: Encouraged but concise.
 
 ---
 
@@ -16,10 +16,34 @@
   - `wf-client`: Ingredient tracking, recipe workflows
   - `wf-admin`: User management, system configuration - exclude until actively developing
   - `wf-server`: Node.js API for both apps
-- **Packages**:
-  - `db-connect`: Connection info for the Mysql database.
-  - `shared-imports`: Monorepo-wide dependencies
-  - `devtools`: Code generation + documentation
+## 📦 Packages
+
+- `db-connect`  
+  Connection information for the MySQL database used by all services.
+
+- `shared-imports`  
+  Monorepo-wide dependencies, including both React and non-React utilities.
+
+  ### 🧩 Component Types
+
+  - **React (.jsx)** components  
+    Defined in `src/jsx.js` and imported via:
+    ```js
+    import { CrudLayout } from '@whatsfresh/shared-imports/jsx';
+    ```
+
+  - **Standard (.js)** utilities  
+    Imported directly from root or scoped entry points:
+    ```js
+    import { createLogger } from '@whatsfresh/shared-imports';
+    import { getSafeEventTypes } from '@whatsfresh/shared-imports/events';
+    ```
+
+  This modular structure enables clean separation between UI and logic layers across apps. React components stay isolated from utility logic, while sub-path imports allow fine-grained control.
+
+- `devtools`  
+  Core generation tools and documentation assets.  
+  - Powers config regeneration, page previews, and architectural documentation.
 - **sql/ Folder Summary**
   - `legacy`: Snapshot of production DB artifacts — the real, existing schema (but incomplete).
     - `tables`: Core relational data — ingredients, batches, recipes, users, etc.
@@ -78,8 +102,78 @@
 
 ---
 
+## 📋 Development Plans
+
+Active development plans and issue tracking are maintained in `/claude-plans/`, organized with date-prefixed filenames for chronological sorting.
+
+- **Naming Convention:**  
+  `yyyy-mm-dd descriptive-plan-name.md`
+
+- **Purpose:**  
+  Track implementation proposals, config fixes, and architectural decisions.
+
+- **Usage:**  
+  Reference these files to understand current development priorities and context.
+
+---
+
+### 📁 claude-plans/ Workflow Rules
+
+- **Folder Structure:**
+  - `a-pending/`: Contains active or in-progress development plans.
+  - `b-completed/`: Contains finalized or fully implemented plans with updated internal status.
+
+- **Claude Behavior:**
+  - When a plan is explicitly approved or tagged as complete, Claude is permitted to:
+    - Move the file from `a-pending/` to `b-completed/`
+    - Update its internal plan status (e.g. summarize what was fixed or implemented)
+    - Suggest optional follow-up steps or enhancements
+    - Reference the finalized plan in future proposals for continuity
+
+- **Filename Guidance:**
+  - Claude may rely on filename cues such as:
+    - `2025-07-08 client-navigation-fix.md`
+    - `2025-07-07 sql-refactor-plan.md`
+
+- **Manual Override:**
+  - For audit control, add a metadata tag to mark a plan as finalized:
+    ```md
+    <!-- status:FIX_COMPLETE -->
+    ```
+
+---
+
+### 🗺️ Current Plan Map
+
+#### 📝 a-pending/ (Active Plans)
+- **`2025-.07-08 Widget params.md`** - Selector widgets auto-parameter lookup (widget encapsulation)
+- **`2025-07-07 NAVIGATION_FIX_PLAN.md`** - Navigation redirect issues and TurboRepo optimization
+
+#### ✅ b-completed/ (Implemented Plans)
+- **`2025-07-07 pageMap config issues.md`** - Table component pageMap format update (columnMap → tableConfig)
+- **`2025-07-08-NAVIGATION_FIX_COMPLETE.md`** - Account state management and navigation loop fixes
+- **`2025-07-09-crud-system-navigation-fixes.md`** - CRUD system navigation and form configuration fixes (COMPLETED)
+
+#### 🎯 Current Priorities
+1. **High**: Fix directive generation process (genDirectives.js field visibility issues)
+2. **Medium**: Widget parameter auto-lookup implementation
+3. **Low**: Navigation performance optimization with TurboRepo
+
+
+---
+
 ## 🧭 Session Priming Prompt (Recommended)
 
-> You are working inside the WhatsFresh monorepo. Stay concise but friendly.  Use diffs or direct edits. Do not touch legacy views unless explicitly told. All config flows are driven by SQL views and EventType logic.
+> You are working inside the WhatsFresh monorepo. Stay concise but friendly.  Use diffs or direct edits. Do not touch legacy views unless explicitly told. All config flows are driven by SQL views and EventType logic.  Try to limit token usage to 1500 or less unless directed to proceed.  
+
+> the user is always concerned about cleaning up artifacts (unused or obsolete files).  Whenever 
+
+---
+
+## 💡 Claude Code CLI Tips
+
+- **`#`** - Quick shortcut to add content to CLAUDE.md during session
+- **`/help`** - Get help with Claude Code usage
+- **`--resume`** - Resume previous session context
 
 ---

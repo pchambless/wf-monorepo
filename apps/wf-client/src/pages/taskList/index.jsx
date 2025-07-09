@@ -1,5 +1,5 @@
 import React from 'react';
-import { CrudLayout } from '@whatsfresh/shared-imports';
+import { CrudLayout } from '@whatsfresh/shared-imports/jsx';
 import pageMap from './pageMap';
 
 

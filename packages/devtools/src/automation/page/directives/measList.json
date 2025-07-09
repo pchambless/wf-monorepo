@@ -1,40 +1,38 @@
 {
   "viewName": "measList",
   "entityName": "measlist",
-  "lastGenerated": "2025-07-04T20:19:24.880Z",
+  "lastGenerated": "2025-07-09T16:33:41.515Z",
   "columns": {
     "measID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "id",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "id"
+        "formHide": true
       }
     },
     "name": {
       "directives": {
-        "type": "text",
-        "width": "200",
-        "BI": true,
         "label": "Name",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "dbColumn": "name",
         "grp": "1",
-        "required": true
+        "type": "text",
+        "dbColumn": "name",
+        "width": "200",
+        "required": true,
+        "tableHide": true,
+        "formHide": true
       }
     },
     "abbrev": {
       "directives": {
-        "type": "text",
         "label": "Abbreviation",
         "grp": "1",
-        "width": "100",
+        "type": "text",
         "dbColumn": "abbrev",
+        "width": "100",
         "required": true
       }
     },
@@ -43,10 +41,10 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "account_id",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "account_id"
+        "formHide": true
       }
     }
   }

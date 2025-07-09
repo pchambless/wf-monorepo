@@ -1,50 +1,48 @@
 {
   "viewName": "brndList",
   "entityName": "brndlist",
-  "lastGenerated": "2025-07-04T20:19:24.871Z",
+  "lastGenerated": "2025-07-09T16:33:41.511Z",
   "columns": {
     "brndID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
+        "dbColumn": "id",
         "width": 80,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "id"
+        "formHide": true
       }
     },
     "brndName": {
       "directives": {
-        "type": "text",
-        "width": "200",
-        "BI": true,
         "label": "Brand Name",
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "dbColumn": "name",
         "grp": "1",
-        "required": true
+        "type": "text",
+        "dbColumn": "name",
+        "width": "200",
+        "required": true,
+        "tableHide": true,
+        "formHide": true
       }
     },
     "brndComments": {
       "directives": {
-        "type": "multiLine",
-        "grp": "5",
         "label": "Comments",
-        "width": 200,
+        "grp": "5",
+        "type": "multiLine",
+        "dbColumn": "comments",
         "tableHide": true,
-        "dbColumn": "comments"
+        "width": 200
       }
     },
     "brndURL": {
       "directives": {
-        "type": "text",
         "label": "Website",
         "grp": "2",
-        "width": 120,
+        "type": "text",
         "dbColumn": "url",
+        "width": 120,
         "tableHide": true
       }
     },
@@ -53,10 +51,10 @@
         "parentKey": true,
         "sys": true,
         "type": "select",
+        "dbColumn": "account_id",
         "width": 120,
         "tableHide": true,
-        "formHide": true,
-        "dbColumn": "account_id"
+        "formHide": true
       }
     }
   }

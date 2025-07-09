@@ -73,7 +73,7 @@ export const navigationSections = [
   },
   {
     title: "Mapping",
-    eventType: "btchMap",
+    eventType: "btchMapDetail",
     icon: AccountTree,
     description: "Manage batch mapping and relationships"
   }
