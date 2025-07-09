@@ -13,7 +13,7 @@ import { safeProp } from '@utils/mobxHelpers';
 
 const log = createLogger('Table.Component');
 
-const Table = observer(({ pageMap, tableConfig }) => {
+const Table = observer(({ pageMap, eventData }) => {
   // Define navigate before using it in useMemo
   const navigate = useNavigate();
   
@@ -21,20 +21,20 @@ const Table = observer(({ pageMap, tableConfig }) => {
   // to prevent duplicates when we add our own
   const columns = React.useMemo(() => {
     // Check if an actions column already exists in the pageMap
-    const hasActionsColumn = pageMap.columnMap.some(
-      col => col.field === 'actions' && !col.hideInTable && !col.system
+    const hasActionsColumn = pageMap.tableConfig.columns.some(
+      col => col.field === 'actions' && !col.hidden
     );
     
     // Process all columns from pageMap
-    const baseColumns = pageMap.columnMap
-      .filter(col => !col.hideInTable && !col.system)
+    const baseColumns = pageMap.tableConfig.columns
+      .filter(col => !col.hidden)
       .map(col => ({
         field: col.field,
         headerName: col.headerName || col.label,
         width: col.width || 150,
         flex: col.flex || 1,
         // If this is an actions column from pageMap, override renderCell with our implementation
-        ...(col.field === 'actions' && tableConfig.rowActions?.length > 0 ? {
+        ...(col.field === 'actions' && pageMap.uiConfig.actions.rowActions?.length > 0 ? {
           renderCell: (params) => (
             <Box sx={{
               display: 'flex',
@@ -45,7 +45,7 @@ const Table = observer(({ pageMap, tableConfig }) => {
                 p: 0.5
               }
             }}>
-              {tableConfig.rowActions.map((action) => (
+              {pageMap.uiConfig.actions.rowActions.map((action) => (
                 <Tooltip key={action.id} title={action.tooltip || ''}>
                   <IconButton
                     color={action.color || 'primary'}
@@ -82,7 +82,7 @@ const Table = observer(({ pageMap, tableConfig }) => {
       }));
     
     // Only add our own actions column if pageMap doesn't already have one
-    if (!hasActionsColumn && tableConfig.rowActions?.length > 0) {
+    if (!hasActionsColumn && pageMap.uiConfig.actions.rowActions?.length > 0) {
       baseColumns.push({
         field: 'actions',
         headerName: 'Actions',
@@ -99,7 +99,7 @@ const Table = observer(({ pageMap, tableConfig }) => {
               p: 0.5
             }
           }}>
-            {tableConfig.rowActions.map((action) => (
+            {pageMap.uiConfig.actions.rowActions.map((action) => (
               <Tooltip key={action.id} title={action.tooltip || ''}>
                 <IconButton
                   color={action.color || 'primary'}
@@ -136,17 +136,17 @@ const Table = observer(({ pageMap, tableConfig }) => {
     }
     
     return baseColumns;
-  }, [pageMap.columnMap, tableConfig, navigate]);
+  }, [pageMap.tableConfig.columns, eventData, navigate]);
   
   // Log current state
   log.info('Table rendering with data:', {
-    hasData: tableConfig.data?.length > 0,
-    count: tableConfig.data?.length || 0,
-    columnCount: columns.length // Use columns.length instead of tableStore.columns.length
+    hasData: eventData.data?.length > 0,
+    count: eventData.data?.length || 0,
+    columnCount: columns.length
   });
   
   // Display loading state
-  if (tableConfig.loading) {
+  if (eventData.loading) {
     return (
       <Box 
         sx={{ 
@@ -162,7 +162,7 @@ const Table = observer(({ pageMap, tableConfig }) => {
   }
   
   // Convert MobX observables to plain JS
-  const safeData = safeProp(tableConfig.data);
+  const safeData = safeProp(eventData.data);
   
   // Main table render
   return (
@@ -173,8 +173,8 @@ const Table = observer(({ pageMap, tableConfig }) => {
         pageSize={5}
         rowsPerPageOptions={[5, 10, 25]}
         disableSelectionOnClick
-        onRowClick={tableConfig.onRowClick}
-        getRowId={(row) => row[pageMap.pageConfig?.idField || tableConfig.idField || 'id']}
+        onRowClick={eventData.onRowClick}
+        getRowId={(row) => row[pageMap.systemConfig?.primaryKey || eventData.idField || 'id']}
       />
     </div>
   );

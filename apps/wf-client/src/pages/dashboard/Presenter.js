@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { createLogger, userStore, execEvent } from '@whatsfresh/shared-imports';
 
 import usePageHeader from '../../hooks/usePageHeader';
@@ -52,10 +52,10 @@ const useDashboardPresenter = () => {
     loadAccounts();
   }, [currentAcctID]);
 
-  const handleAccountChange = (newAccountId) => {
+  const handleAccountChange = useCallback((newAccountId) => {
     log.info('Account changed', { from: currentAcctID, to: newAccountId });
     setCurrentAcctID(newAccountId);
-  };
+  }, [currentAcctID]);
 
   const currentAccount = userAcctList.find(acc => acc.acctID === currentAcctID) || null;
 

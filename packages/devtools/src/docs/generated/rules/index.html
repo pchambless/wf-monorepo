@@ -180,6 +180,62 @@
 <p></p><p></p>
 <p>---</p><p></p>
 <p></p><p></p>
+<h2>SQL View Analysis Rules</h2><p></p>
+<p></p><p></p>
+<h3>[FIELD-SOURCE-DETECTION] Three-Tier Field Categorization</h3><p></p>
+<p><strong>Rule:</strong> Directive generation must analyze SQL views to determine field source and assign appropriate types.</p><p></p>
+<p></p><p></p>
+<h4>**Tier 1: Direct Table Columns** → Regular Fields</h4><p></p>
+<p><li>**Pattern:** <code>table_alias.column_name AS field_name</code></li></p><p></p>
+<p><li>**Examples:** <code>a.name AS ingrTypeName</code>, <code>ib.batch_number AS btchNbr</code></li></p><p></p>
+<p><li>**Directive:** Regular field types (<code>text</code>, <code>number</code>, <code>multiLine</code> for description/comments)</li></p><p></p>
+<p><li>**Reason:** Direct table columns are operational data, suitable for CRUD operations</li></p><p></p>
+<p></p><p></p>
+<h4>**Tier 2: Joined Table Columns** → BI Fields</h4><p></p>
+<p><li>**Pattern:** <code>joined_table.column_name AS field_name</code></li></p><p></p>
+<p><li>**Examples:** <code>i.name AS ingrName</code>, <code>v.name AS vndrName</code></li></p><p></p>
+<p><li>**Directive:** <code>BI: true</code> (excluded from tables/forms)</li></p><p></p>
+<p><li>**Reason:** Joined data is for display/reporting, not direct editing</li></p><p></p>
+<p></p><p></p>
+<h4>**Tier 3: Calculated/Derived Fields** → BI Fields</h4><p></p>
+<p><li>**Pattern:** <code>CASE...END</code>, <code>CONCAT()</code>, <code>COALESCE()</code>, functions</li></p><p></p>
+<p><li>**Examples:** <code>CONCAT(quantity, ' @ $', price) AS purch_dtl</code></li></p><p></p>
+<p><li>**Directive:** <code>BI: true</code> (excluded from tables/forms)</li></p><p></p>
+<p><li>**Reason:** Calculated fields are computed values, not editable data</li></p><p></p>
+<p></p><p></p>
+<h3>[LEGACY-VIEW-HANDLING] Multi-Level View Analysis</h3><p></p>
+<p><strong>Rule:</strong> System must handle views built on other views (legacy foundation pattern).</p><p></p>
+<p><li>**Client views** may reference legacy views: <code>FROM whatsfresh.v_prd_rcpe_dtl</code></li></p><p></p>
+<p><li>**Analysis approach:** Parse both client view and underlying legacy view</li></p><p></p>
+<p><li>**Field classification:** Apply three-tier rules to the ultimate source</li></p><p></p>
+<p><li>**Example:** <code>rcpeList</code> → <code>v_prd_rcpe_dtl</code> → <code>product_recipes</code> table</li></p><p></p>
+<p></p><p></p>
+<h3>[DESCRIPTION-FIELD-DETECTION] Database Schema Integration</h3><p></p>
+<p><strong>Rule:</strong> Use database schema to identify field types and constraints.</p><p></p>
+<p><li>**TEXT columns** → <code>type: 'multiLine'</code> + <code>tableHide: true</code></li></p><p></p>
+<p><li>**VARCHAR columns** → <code>type: 'text'</code></li></p><p></p>
+<p><li>**NOT NULL constraints** → <code>required: true</code></li></p><p></p>
+<p><li>**Comments/description patterns** → <code>type: 'multiLine'</code> regardless of VARCHAR vs TEXT</li></p><p></p>
+<p></p><p></p>
+<h4>**Implementation Examples:**</h4><p></p>
+<p></p><p></p>
+<p>**ingrTypeList Analysis:**</p><p></p>
+<p><li><code>a.id AS ingrTypeID</code> → Direct table column → <code>PK: true, sys: true</code></li></p><p></p>
+<p><li><code>a.name AS ingrTypeName</code> → Direct table column → <code>type: 'text'</code> (NOT BI)</li></p><p></p>
+<p><li><code>a.description AS ingrTypeDesc</code> → Direct table column → <code>type: 'multiLine', tableHide: true</code></li></p><p></p>
+<p><li><code>a.account_id AS acctID</code> → Direct table column → <code>parentKey: true, sys: true</code></li></p><p></p>
+<p></p><p></p>
+<p>**ingrBtchList Analysis:**</p><p></p>
+<p><li><code>ib.batch_number AS btchNbr</code> → Direct table column → <code>type: 'text'</code></li></p><p></p>
+<p><li><code>i.name AS ingrName</code> → Joined table column → <code>BI: true</code></li></p><p></p>
+<p><li><code>CONCAT(...) AS purch_dtl</code> → Calculated field → <code>BI: true</code></li></p><p></p>
+<p></p><p></p>
+<p>**rcpeList Analysis (Legacy View):**</p><p></p>
+<p><li><code>a.id AS prd_rcpe_id</code> → Direct table column (via legacy view) → <code>PK: true</code></li></p><p></p>
+<p><li><code>a.ingredient_order AS ingr_ordr</code> → Direct table column → <code>type: 'number'</code></li></p><p></p>
+<p><li><code>c.name AS ingr_name</code> → Joined table column → <code>BI: true</code></li></p><p></p>
+<p><li><code>concat(a.quantity,' ',f_measure_unit(...)) AS ingr_qty_meas</code> → Calculated → <code>BI: true</code></li></p><p></p>
+<p></p><p></p>
 <p><em>This document will be reorganized into proper sections once development patterns stabilize.</em></p>
     </div>
   </div>

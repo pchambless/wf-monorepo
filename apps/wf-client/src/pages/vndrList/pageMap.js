@@ -12,7 +12,15 @@ const pageMap = {
   "uiConfig": {
     "icon": "business",
     "actions": {
-      "rowActions": [],
+      "rowActions": [
+        {
+          "id": "delete",
+          "icon": "Delete",
+          "color": "error",
+          "tooltip": "Delete",
+          "handler": "handleDelete"
+        }
+      ],
       "tableActions": []
     }
   },

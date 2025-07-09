@@ -108,20 +108,22 @@ const App = () => {
 
   // Create widget props for the account selector - memoized to prevent infinite re-renders
   const widgetProps = React.useMemo(() => {
-    return accountData ? {
+    if (!accountData) return {};
+
+    return {
       Account: {
-        data: accountData.userAcctList,              
-        value: accountData.currentAcctID,            
-        onChange: (selectedId) => {                  
+        data: accountData.userAcctList,
+        value: accountData.currentAcctID,
+        onChange: (selectedId) => {
           accountData.handleAccountChange(selectedId);
         },
-        disabled: accountData.loading,               
-        loading: accountData.loading                 
+        disabled: accountData.loading,
+        loading: accountData.loading
       }
-    } : {};
-  }, [accountData]);
+    };
+  }, [
+    accountData]);
 
-  console.log('App: Rendering');
 
   return (
     <Router>
@@ -141,7 +143,7 @@ const App = () => {
 
             {/* Dashboard route */}
             <Route path="/dashboard" element={
-              <DashboardWrapper 
+              <DashboardWrapper
                 onAccountDataReady={handleAccountDataReady}
                 widgetProps={widgetProps}
               />
@@ -151,32 +153,22 @@ const App = () => {
             <Route path="/" element={<Navigate to="/login" replace />} />
 
             {/* Generated routes from registry */}
-            {console.log('🚀 Starting route generation, entityRegistry has', Object.keys(entityRegistry).length, 'entries')}
             {Object.entries(entityRegistry).map(([_eventName, config]) => {
-              console.log(`🔍 Processing route for ${_eventName}:`, config);
-
               // Skip if not ready to import
               if (!config.import || !config.routeKey) {
-                console.log(`❌ Skipping ${_eventName} - no import or routeKey`);
                 return null;
               }
 
               const routeInfo = ROUTES[config.routeKey];
               if (!routeInfo) {
-                console.log(`❌ Skipping ${_eventName} - no route info for ${config.routeKey}`);
                 return null;
               }
-
-              console.log(`📍 Route info for ${_eventName}:`, routeInfo);
 
               // Try to get component
               const PageComponent = getLazyComponent(config);
               if (!PageComponent) {
-                console.log(`❌ Skipping route ${config.routeKey} - component not available`);
                 return null;
               }
-
-              console.log(`✅ Creating route for ${_eventName} at path: ${routeInfo.path}`);
 
               // Create route with proper layout
               return (
@@ -200,8 +192,8 @@ const App = () => {
             })}
 
 
-            {/* Catch-all route - temporarily disabled for debugging */}
-            {/* <Route path="*" element={<Navigate to="/dashboard" replace />} /> */}
+            {/* Catch-all route */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
 
           {/* IMPORTANT: Modal must be at root level */}

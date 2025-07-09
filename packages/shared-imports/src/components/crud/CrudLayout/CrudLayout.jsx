@@ -1,14 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Box, Grid } from '@mui/material';
 import Table from '../Table';
 import Form from '../Form';
 import AddButton from './components/AddButton';
-import { execEvent, createLogger } from '@whatsfresh/shared-imports';
+import { execEvent, createLogger, getEventType, userStore } from '@whatsfresh/shared-imports';
 
 const log = createLogger('CrudLayout');
 
 const CrudLayout = ({ pageMap }) => {
+  console.log('🔍 CrudLayout mounting with pageMap:', pageMap);
+  
   const formRef = useRef(null);
+  const routeParams = useParams();
 
   // Internal state - no external dataStore needed!
   const [tableData, setTableData] = useState([]);
@@ -18,7 +22,7 @@ const CrudLayout = ({ pageMap }) => {
   const [error, setError] = useState(null);
 
   // Fetch data using execEvent from shared-imports
-  const fetchData = async (listEvent, params = {}) => {
+  const fetchData = async (listEvent, additionalParams = {}) => {
     if (!listEvent) return;
 
     try {
@@ -26,6 +30,32 @@ const CrudLayout = ({ pageMap }) => {
       setError(null);
       log.debug('Fetching data for:', listEvent);
 
+      // Look up event configuration to get required parameters
+      const eventConfig = getEventType(listEvent);
+      const eventParams = eventConfig?.params || [];
+      
+      // Build parameters with colon prefix (ready for execEvent)
+      const params = { ...additionalParams };
+      
+      eventParams.forEach(param => {
+        // param already has colon: ":acctID", ":ingrTypeID", etc.
+        const paramName = param.replace(':', '');
+        
+        // Always use current account ID for acctID
+        if (paramName === 'acctID') {
+          params[param] = userStore.currentUser?.dfltAcctID || routeParams.acctID;
+        } 
+        // For other params, try to get from route params
+        else if (routeParams[paramName]) {
+          params[param] = routeParams[paramName];
+        }
+        // For optional parameters, set to null (SQL will handle OR IS NULL)
+        else {
+          params[param] = null;
+        }
+      });
+
+      log.debug('Calling execEvent with params:', params);
       const data = await execEvent(listEvent, params);
       setTableData(data || []);
       log.debug('Data loaded:', data?.length || 0, 'rows');
@@ -116,14 +146,13 @@ const CrudLayout = ({ pageMap }) => {
           )}
 
           <Table
-            config={tableConfig}
-            data={tableData}
-            selectedId={selectedRow?.[idField]}
-            idField={idField}
-            onRowClick={handleRowSelect}
-            onDeleteClick={handleDelete}
-            loading={loading}
-            rowActions={rowActions}
+            pageMap={pageMap}
+            eventData={{
+              data: tableData,
+              loading,
+              onRowClick: handleRowSelect,
+              idField
+            }}
           />
         </Grid>
 

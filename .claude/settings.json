@@ -1,0 +1,24 @@
+{
+    "verbose": false,
+    "env": {
+        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+        "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "2048",
+        "DISABLE_COST_WARNINGS": "1",
+        "DISABLE_TELEMETRY": "1",
+        "DISABLE_AUTOUPDATER": "1",
+        "DISABLE_ERROR_REPORTING": "1"
+    },
+    "permissions": {
+        "allow": [
+            "Bash(npm run *)",
+            "Bash(git *)",
+            "Edit",
+            "Read(**)",
+            "Write(**)"
+        ],
+        "deny": [
+            "WebFetch",
+            "WebSearch"
+        ]
+    }
+}

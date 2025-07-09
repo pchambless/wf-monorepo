@@ -12,7 +12,15 @@ const pageMap = {
   "uiConfig": {
     "icon": "category",
     "actions": {
-      "rowActions": [],
+      "rowActions": [
+        {
+          "id": "delete",
+          "icon": "Delete",
+          "color": "error",
+          "tooltip": "Delete",
+          "handler": "handleDelete"
+        }
+      ],
       "tableActions": []
     }
   },
@@ -25,6 +33,14 @@ const pageMap = {
         "type": "number",
         "editable": false,
         "hidden": true
+      },
+      {
+        "field": "ingrTypeName",
+        "label": "Type Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
       },
       {
         "field": "acctID",
@@ -50,9 +66,16 @@ const pageMap = {
             "hidden": true
           },
           {
+            "field": "ingrTypeName",
+            "label": "Type Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
             "field": "ingrTypeDesc",
             "label": "Description",
-            "type": "text",
+            "type": "multiLine",
             "required": false,
             "hidden": false
           },
@@ -70,6 +93,7 @@ const pageMap = {
   "dmlConfig": {
     "fieldMappings": {
       "ingrTypeID": "id",
+      "ingrTypeName": "name",
       "ingrTypeDesc": "description",
       "acctID": "account_id"
     },

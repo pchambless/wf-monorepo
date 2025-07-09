@@ -1,0 +1,85 @@
+# Selector Widgets Parameter Auto-Lookup Plan
+
+## Problem
+The selector widgets (SelIngr, SelIngrType, etc.) currently require parameters to be passed in manually. They should be more encapsulated and automatically look up required parameters based on their `listEvent`.
+
+## Current State
+- SelectWidget expects `params` prop to be passed in
+- Each selector calls `execEvent(eventName, params)` with manually provided params
+- Parent components must figure out and pass the correct parameters
+
+## Desired State
+- Selectors should automatically determine required parameters from their `listEvent`
+- Should look up parameter values from:
+  - User context (`:acctID` from userStore)
+  - Navigation state/hierarchy (`:ingrTypeID` from selected ingredient type)
+  - Route parameters (extracted from URL)
+- Should work without manual parameter passing
+
+## Implementation Plan
+
+### 1. Parameter Auto-Detection
+- Use `getEventType(listEvent)` to get required parameters
+- Extract `params` array from event configuration
+- Example: `ingrList` requires `[":acctID", ":ingrTypeID"]`
+
+### 2. Parameter Value Resolution
+For each required parameter, resolve value from:
+- **`:acctID`** → Always from `userStore.currentUser?.dfltAcctID`
+- **Other params** → From navigation state/hierarchy
+- **Route params** → From `useParams()` if available
+- **Optional params** → Set to `null` (SQL handles `OR IS NULL`)
+
+### 3. Navigation State Management
+Need a way to track hierarchical navigation state:
+- When user selects ingredient type → store `{":ingrTypeID": selectedValue}`
+- When user selects ingredient → store `{":ingrTypeID": parentValue, ":ingrID": selectedValue}`
+- Selectors can read from this shared state
+
+### 4. Implementation Options
+
+**Option A: Context-Based State**
+- Create NavigationContext to store hierarchical parameters
+- Selectors read from context automatically
+- CrudLayout updates context when rows selected
+
+**Option B: URL-Based State**
+- Store navigation state in URL params
+- Selectors extract from `useParams()`
+- More stateless but URL gets complex
+
+**Option C: Store-Based State**
+- Add navigation state to userStore or create navigationStore
+- Selectors read from store
+- Persists across page refreshes
+
+### 5. Updated SelectWidget Logic
+```javascript
+// Inside SelectWidget
+const autoParams = useAutoParameters(eventName);
+const finalParams = { ...autoParams, ...params }; // Allow overrides
+const result = await execEvent(eventName, finalParams);
+```
+
+### 6. Benefits
+- Selectors become plug-and-play
+- No manual parameter passing required
+- Consistent parameter resolution across all selectors
+- Easier to use in different contexts (mapping, forms, etc.)
+
+### 7. Migration Path
+- Update SelectWidget to auto-detect parameters
+- Keep `params` prop for backward compatibility/overrides
+- Gradually remove manual parameter passing from parent components
+
+## Files to Modify
+- `/packages/shared-imports/src/components/selectors/SelectWidget.jsx`
+- `/packages/shared-imports/src/components/selectors/createSelectWidget.jsx`
+- Add navigation state management (context, store, or URL-based)
+- Update CrudLayout to maintain navigation state
+
+## Testing Strategy
+- Test each selector individually (SelIngr, SelIngrType, etc.)
+- Test hierarchical navigation scenarios
+- Test direct widget usage (bypassing hierarchy)
+- Test optional parameter handling (NULL values)
