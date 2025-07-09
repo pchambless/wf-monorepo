@@ -4,7 +4,7 @@ import { Box, Grid } from '@mui/material';
 import Table from '../Table';
 import Form from '../Form';
 import AddButton from './components/AddButton';
-import { execEvent, createLogger, getEventType, userStore } from '@whatsfresh/shared-imports';
+import { execEvent, createLogger, getEventType, contextStore } from '@whatsfresh/shared-imports';
 
 const log = createLogger('CrudLayout');
 
@@ -43,7 +43,7 @@ const CrudLayout = ({ pageMap }) => {
         
         // Always use current account ID for acctID
         if (paramName === 'acctID') {
-          params[param] = userStore.currentUser?.dfltAcctID || routeParams.acctID;
+          params[param] = contextStore.getParameter('acctID') || routeParams.acctID;
         } 
         // For other params, try to get from route params
         else if (routeParams[paramName]) {

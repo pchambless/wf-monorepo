@@ -209,6 +209,44 @@ Active development plans and issue tracking are maintained in `/claude-plans/`, 
 
 ---
 
+## 🎯 Session Management & Planning
+
+### Auto-Plan Triggers
+Claude should proactively suggest creating a plan when:
+- User mentions investigating/researching multiple files or systems
+- Discussion involves 3+ interconnected changes or fixes
+- User says "I need to understand how X works" about complex features
+- Session reaches 10+ tool calls without a clear plan
+- User mentions implementation but hasn't defined specific steps
+
+### Token Conservation Strategy
+- Keep sessions focused on single plans or investigations
+- Suggest new sessions when shifting to different problem domains
+- Reference completed plans from b-completed/ instead of re-explaining context
+- Use concise plan updates rather than lengthy explanations
+
+### 🔍 Investigation Shortcuts & Quick Reference
+
+**Claude Behavior**: When conducting multi-file investigations, suggest adding shortcuts to CLAUDE.md for future efficiency.
+
+#### Suggest CLAUDE.md Updates When:
+- You discover useful file/pattern relationships during searches
+- You find repeated investigation paths that could be shortcuts
+- You identify key files that are central to common tasks
+- You uncover config dependencies that aren't obvious
+
+#### Quick Reference Patterns (expand as discovered):
+- **Config Chain**: `events.json` → `genDirectives.js` → `pageMap.js` → `index.jsx`
+- **Error Debugging**: Check `primaryKey` in events.json first for MUI DataGrid issues
+- **Widget Issues**: Start with `FIELD_PATTERNS` in `genDirectives.js`
+- **SQL Changes**: Always regenerate with `npm run generate-client` after view edits
+- **Navigation Issues**: Check `pageMap.js` routing config before component code
+
+#### Future Shortcuts (Claude: add here during sessions):
+- **TurboRepo Hot-Reload Issue**: shared-imports changes require manual dev server restart due to file: dependency limitations
+
+---
+
 ## 💡 Claude Code CLI Tips
 
 - **`#`** - Quick shortcut to add content to CLAUDE.md during session

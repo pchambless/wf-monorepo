@@ -18,10 +18,9 @@ export async function execEvent(eventType, params = {}, config = {}) {
   const { baseUrl, logger } = { ...DEFAULT_CONFIG, ...config };
 
   try {
-    logger.debug(`Executing event: ${eventType}`, params);
-
-    // Import event validation (dynamic import to avoid circular deps)
+    // Import dependencies (dynamic import to avoid circular deps)
     const { getEventType } = await import('../events/index.js');
+    const { default: contextStore } = await import('../stores/contextStore.js');
 
     // Validate event exists in our definitions
     const eventDef = getEventType(eventType);
@@ -29,6 +28,18 @@ export async function execEvent(eventType, params = {}, config = {}) {
       logger.error(`Unknown event type: ${eventType}`);
       throw new Error(`Unknown event type: ${eventType}`);
     }
+
+    // Auto-resolve parameters using contextStore (everything is here now!)
+    const autoParams = contextStore.getEventParams(eventType);
+    
+    // Merge auto-resolved params with manually passed params (manual takes priority)
+    const mergedParams = { ...autoParams, ...params };
+
+    logger.debug(`Executing event: ${eventType}`, { 
+      autoParams, 
+      manualParams: params, 
+      mergedParams 
+    });
 
     // Basic headers
     const headers = {
@@ -40,7 +51,7 @@ export async function execEvent(eventType, params = {}, config = {}) {
       method: 'POST',
       headers,
       credentials: 'include', // Important for session cookies
-      body: JSON.stringify({ eventType, params })
+      body: JSON.stringify({ eventType, params: mergedParams })
     });
 
     if (!response.ok) {

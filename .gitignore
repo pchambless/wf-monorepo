@@ -25,6 +25,7 @@ docs/*.componentInventory.csv
 .env.production.local
 .env
 
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -32,6 +33,7 @@ yarn-error.log*
 # Application logs
 apps/wf-server/server/logs/*.log
 apps/wf-server/server/logs/*.json
+.turbo/*
 
 # Editor directories and files
 .idea/

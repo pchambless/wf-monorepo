@@ -4,13 +4,13 @@ import React from 'react';
 import { createLogger } from '@whatsfresh/shared-imports';
 
 const log = createLogger('UserStore');
-const STORAGE_KEY = 'whatsfresh_user_preference';
+const STORAGE_KEY = 'whatsfresh_user_session';
 
 // Create context for React components
 export const UserContext = React.createContext(null);
 
 class UserStore {
-  // User authentication data only
+  // User authentication data
   currentUser = null;
   isAuthenticated = false;
   
@@ -19,30 +19,46 @@ class UserStore {
   
   constructor() {
     makeAutoObservable(this);
-    this.loadPersistedPreference();
+    this.loadPersistedSession();
   }
   
-  // Load only account preference from localStorage
-  loadPersistedPreference() {
+  // Load full session state from localStorage
+  loadPersistedSession() {
     try {
-      const savedState = localStorage.getItem(STORAGE_KEY);
-      if (savedState) {
-        const { defaultAcctID } = JSON.parse(savedState);
-        if (defaultAcctID) this.defaultAcctID = defaultAcctID;
-        log.debug('Loaded persisted default account', { accountId: this.defaultAcctID });
+      const savedSession = localStorage.getItem(STORAGE_KEY);
+      if (savedSession) {
+        const { currentUser, isAuthenticated, defaultAcctID } = JSON.parse(savedSession);
+        
+        if (currentUser && isAuthenticated) {
+          this.currentUser = currentUser;
+          this.isAuthenticated = isAuthenticated;
+          this.defaultAcctID = defaultAcctID;
+          log.debug('Restored session state', { 
+            userID: currentUser.userID, 
+            accountId: defaultAcctID 
+          });
+        } else if (defaultAcctID) {
+          // Legacy: just account preference
+          this.defaultAcctID = defaultAcctID;
+          log.debug('Loaded persisted default account', { accountId: this.defaultAcctID });
+        }
       }
     } catch (error) {
-      log.error('Failed to load persisted preference', error);
+      log.error('Failed to load persisted session', error);
     }
   }
   
-  // Save only account preference to localStorage
-  persistPreference() {
+  // Save full session state to localStorage
+  persistSession() {
     try {
-      const stateToSave = { defaultAcctID: this.defaultAcctID };
+      const stateToSave = {
+        currentUser: this.currentUser,
+        isAuthenticated: this.isAuthenticated,
+        defaultAcctID: this.defaultAcctID
+      };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
     } catch (error) {
-      log.error('Failed to persist preference', error);
+      log.error('Failed to persist session', error);
     }
   }
   
@@ -64,8 +80,10 @@ class UserStore {
     // Set default account to user's assigned default if none set
     if (!this.defaultAcctID && userData.dfltAcctID) {
       this.defaultAcctID = userData.dfltAcctID;
-      this.persistPreference();
     }
+    
+    // Persist full session state
+    this.persistSession();
     
     log.debug('User data set', { 
       userID: userData.userID,
@@ -76,22 +94,32 @@ class UserStore {
   // Update default account (called when user selects different account)
   setDefaultAccount(accountId) {
     this.defaultAcctID = accountId;
-    this.persistPreference();
+    this.persistSession();
     log.debug('Default account updated', { accountId });
   }
   
-  // Logout - clear auth data, keep account assignment
+  // Logout - clear auth data, but keep account assignment
   logout() {
     const { defaultAcctID } = this; // Keep assignment
     
     this.currentUser = null;
     this.isAuthenticated = false;
     
-    // Restore assignment for next login
+    // Restore assignment for next login but clear session
     this.defaultAcctID = defaultAcctID;
-    this.persistPreference();
+    this.persistSession();
     
     log.debug('Logged out, maintained account assignment', { accountId: defaultAcctID });
+  }
+  
+  // Clear entire session (for complete logout)
+  clearSession() {
+    this.currentUser = null;
+    this.isAuthenticated = false;
+    this.defaultAcctID = null;
+    
+    localStorage.removeItem(STORAGE_KEY);
+    log.debug('Session cleared completely');
   }
   
   // Computed properties

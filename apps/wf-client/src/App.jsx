@@ -11,7 +11,8 @@ import { CircularProgress } from '@mui/material';
 import { ROUTES, entityRegistry } from './config/routes.js';
 
 // Utilities and contexts from shared-imports
-import { createLogger, configureLogger } from '@whatsfresh/shared-imports';
+import { createLogger, configureLogger, useContextStore } from '@whatsfresh/shared-imports';
+import { observer } from 'mobx-react-lite';
 // import { disableBrowserFetchLogs } from '@whatsfresh/shared-imports/utils'; // Not available
 // Removed ActionHandlerProvider - no longer needed
 // import { BreadcrumbProvider } from './contexts/BreadcrumbContext';
@@ -24,6 +25,7 @@ import { ErrorBoundary } from '@whatsfresh/shared-imports/jsx';
 
 // Services
 import navService from './services/navService';
+import { useNavigate } from 'react-router-dom';
 
 // Local layouts and pages (temporary until shared AuthLayout works)
 const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
@@ -93,17 +95,39 @@ const DashboardWrapper = ({ onAccountDataReady, widgetProps }) => {
   );
 };
 
-const App = () => {
+// Inner component that has access to navigate
+const AppContent = observer(() => {
   const [accountData, setAccountData] = useState(null);
+  const [isSessionRestored, setIsSessionRestored] = useState(false);
+  const contextStore = useContextStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Initialize navService with navigate function
+    navService.init(navigate);
+    
     // Filter out noisy browser fetch logs
     // disableBrowserFetchLogs(); // Not available
     log.debug('App component mounted');
-  }, []);
+    
+    // Session restoration has already happened in contextStore constructor
+    // We just need to mark it as restored for routing logic
+    setIsSessionRestored(true);
+    
+    log.debug('Session restoration completed', { 
+      isAuthenticated: contextStore.isAuthenticated,
+      userID: contextStore.getParameter('userID'),
+      acctID: contextStore.getParameter('acctID')
+    });
+  }, [contextStore, navigate]);
 
   const handleAccountDataReady = React.useCallback((data) => {
     setAccountData(data);
+  }, []);
+
+  // Navigation function for login form
+  const navigateToApp = React.useCallback(() => {
+    navService.navigate('/dashboard', { replace: true });
   }, []);
 
   // Create widget props for the account selector - memoized to prevent infinite re-renders
@@ -124,33 +148,53 @@ const App = () => {
   }, [
     accountData]);
 
-
-  return (
-    <Router>
+  // Show loading while session is being restored
+  if (!isSessionRestored) {
+    return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <ErrorBoundary>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <CircularProgress />
+        </div>
+      </ThemeProvider>
+    );
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <ErrorBoundary>
 
           {/* Temporarily comment out BreadcrumbProvider */}
           {/* <BreadcrumbProvider> */}
           <Routes>
             {/* Auth routes */}
             <Route path="/login" element={
-              <AuthLayout title="Sign In">
-                <LoginForm routes={ROUTES} />
-              </AuthLayout>
+              contextStore.isAuthenticated ? (
+                <Navigate to="/dashboard" replace />
+              ) : (
+                <AuthLayout title="Sign In">
+                  <LoginForm routes={ROUTES} navigateToApp={navigateToApp} />
+                </AuthLayout>
+              )
             } />
 
             {/* Dashboard route */}
             <Route path="/dashboard" element={
-              <DashboardWrapper
-                onAccountDataReady={handleAccountDataReady}
-                widgetProps={widgetProps}
-              />
+              contextStore.isAuthenticated ? (
+                <DashboardWrapper
+                  onAccountDataReady={handleAccountDataReady}
+                  widgetProps={widgetProps}
+                />
+              ) : (
+                <Navigate to="/login" replace />
+              )
             } />
 
             {/* Special non-registry routes */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/" element={
+              <Navigate to={contextStore.isAuthenticated ? "/dashboard" : "/login"} replace />
+            } />
 
             {/* Generated routes from registry */}
             {Object.entries(entityRegistry).map(([_eventName, config]) => {
@@ -170,22 +214,26 @@ const App = () => {
                 return null;
               }
 
-              // Create route with proper layout
+              // Create route with proper layout and auth protection
               return (
                 <Route
                   key={config.routeKey}
                   path={routeInfo.path}
                   element={
-                    <MainLayout
-                      navigationSections={getNavigationSections()}
-                      appName="WhatsFresh Client"
-                      onLogout={() => navService.logout()}
-                      widgetProps={widgetProps}
-                    >
-                      <Suspense fallback={<CircularProgress />}>
-                        <PageComponent />
-                      </Suspense>
-                    </MainLayout>
+                    contextStore.isAuthenticated ? (
+                      <MainLayout
+                        navigationSections={getNavigationSections()}
+                        appName="WhatsFresh Client"
+                        onLogout={() => navService.logout()}
+                        widgetProps={widgetProps}
+                      >
+                        <Suspense fallback={<CircularProgress />}>
+                          <PageComponent />
+                        </Suspense>
+                      </MainLayout>
+                    ) : (
+                      <Navigate to="/login" replace />
+                    )
                   }
                 />
               );
@@ -202,6 +250,14 @@ const App = () => {
           {/* Removed ActionHandlerProvider */}
         </ErrorBoundary>
       </ThemeProvider>
+  );
+});
+
+// Outer App component that provides Router context
+const App = () => {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 };

@@ -21,7 +21,8 @@
     "src/**/*"
   ],
   "scripts": {
-    "build": "echo \"No build needed for shared-imports\"",
+    "build": "echo \"Build complete - shared-imports is source-only\"",
+    "dev": "echo \"Shared-imports dev mode - watching for changes\"",
     "test": "echo \"No tests yet\"",
     "lint": "echo \"No lint script configured\""
   },

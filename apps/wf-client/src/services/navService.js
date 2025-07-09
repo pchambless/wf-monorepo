@@ -1,6 +1,6 @@
 import { resolveRoute, getRouteKeyByEvent } from '../config/routes';
 // Removed unused getRoute import
-import { createLogger } from '@whatsfresh/shared-imports';
+import { createLogger, contextStore } from '@whatsfresh/shared-imports';
 
 const log = createLogger('NavService');
 
@@ -77,14 +77,17 @@ const navService = {
    * Logout the user and navigate to the login page
    */
   logout() {
-    // Clear auth data
-    sessionStorage.removeItem('auth_token');
-    localStorage.removeItem('refresh_token');
+    log.info('NavService logout called');
+    
+    // Clear auth data from contextStore
+    contextStore.logout();
 
-    log.info('User logged out');
+    log.info('User logged out, navigating to login');
 
-    // Navigate by listEvent - this is the clean way!
-    return this.byListEvent('loginList', {}, { replace: true });
+    // Navigate to login page
+    const result = this.navigate('/login', { replace: true });
+    log.info('Navigation result:', result);
+    return result;
   }
 };
 

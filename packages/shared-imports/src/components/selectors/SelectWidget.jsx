@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, FormControl, Select, MenuItem, CircularProgress, Typography } from '@mui/material';
 // Import execEvent from our API layer
 import { execEvent } from '../../api/index.js';
+import contextStore from '../../stores/contextStore.js';
 
 /**
  * Base component for all selection widgets
@@ -44,10 +45,9 @@ export const SelectWidget = ({
     const loadData = async () => {
       setLoading(true);
       try {
-        // Use only the params passed to the widget - no auto-injection
-        const eventParams = { ...params };
-        
-        const result = await execEvent(eventName, eventParams);
+        // execEvent now auto-resolves parameters from contextStore
+        // Manual params still supported for overrides
+        const result = await execEvent(eventName, params);
         
         // Handle successful data load
         setItems(result || []);
@@ -80,6 +80,11 @@ export const SelectWidget = ({
   const handleChange = (e) => {
     const newId = e.target.value;
     setSelectedId(newId);
+    
+    // Store selection in contextStore for hierarchical parameter resolution
+    if (eventName && newId) {
+      contextStore.setEvent(eventName, newId);
+    }
     
     if (onChange) {
       const selectedItem = items.find(item => 

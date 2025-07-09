@@ -3,7 +3,7 @@ import {
   execEvent,
   initEventTypeService,
   isEventTypeServiceInitialized,
-  userStore
+  contextStore
 } from '@whatsfresh/shared-imports';
 
 export class LoginPresenter {
@@ -30,10 +30,15 @@ export class LoginPresenter {
 
   async initApplicationState(user, accounts) {
     try {
-      // Use shared userStore for authentication data only
-      userStore.setUserData(user);
+      // Store all user data in contextStore
+      contextStore.setParameter('userID', user.userID);
+      contextStore.setParameter('firstName', user.firstName);
+      contextStore.setParameter('lastName', user.lastName);
+      contextStore.setParameter('userEmail', user.userEmail);
+      contextStore.setParameter('roleID', user.roleID);
+      contextStore.setParameter('dfltAcctID', user.dfltAcctID);
       
-      this.log.info('User authentication data initialized in userStore');
+      this.log.info('User authentication data initialized in contextStore');
       return true;
     } catch (error) {
       this.log.error('Error initializing application state:', error);
@@ -81,16 +86,14 @@ export class LoginPresenter {
         throw new Error('Invalid login response format');
       }
       
-      // Load accounts
-      this.log.info('Loading user accounts', { userID: userData.userID });
-      const accounts = await execEvent('userAcctList', { 
-        ':userID': userData.userID 
-      });
-      this.log.info('User accounts loaded', { count: accounts.length });
-      
-      // Use simplified application state initialization
+      // Store user data in contextStore first
       this.log.info('Initializing application state');
-      const success = await this.initApplicationState(userData, accounts);
+      const success = await this.initApplicationState(userData, []);
+      
+      // Load accounts (execEvent will now auto-resolve userID from contextStore)
+      this.log.info('Loading user accounts', { userID: userData.userID });
+      const accounts = await execEvent('userAcctList');
+      this.log.info('User accounts loaded', { count: accounts.length });
       this.log.info('Application state initialized', { success });
       
       return result;

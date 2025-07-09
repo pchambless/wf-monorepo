@@ -79,7 +79,7 @@ export function isEventTypeServiceInitialized() {
 }
 
 // === STORE UTILITIES ===
-export { userStore, useUserStore, UserContext } from './stores/index.js';
+export { contextStore, useContextStore, ContextContext } from './stores/index.js';
 
 /**
  * Package metadata
