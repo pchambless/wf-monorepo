@@ -25,7 +25,9 @@ class ContextStore {
       const savedContext = localStorage.getItem(STORAGE_KEY);
       if (savedContext) {
         this.parameters = JSON.parse(savedContext);
-        log.debug('Restored context state', this.parameters);
+        // Clear sessionValid flag on load - require explicit login
+        this.parameters.sessionValid = null;
+        log.debug('Restored context state (sessionValid cleared)', this.parameters);
       }
     } catch (error) {
       log.error('Failed to load persisted context', error);
@@ -174,7 +176,11 @@ class ContextStore {
   }
   
   get isAuthenticated() {
-    return this.getParameter('userID') !== null;
+    // Only consider authenticated if we have both userID and explicit session validation
+    // This prevents auto-login from stale localStorage data
+    const userID = this.getParameter('userID');
+    const sessionValid = this.getParameter('sessionValid');
+    return userID !== null && sessionValid === true;
   }
   
   // Authentication methods
@@ -182,7 +188,7 @@ class ContextStore {
     log.info('Logout called, clearing auth parameters');
     
     // Clear all authentication-related parameters but keep hierarchical selections
-    const authParams = ['userID', 'firstName', 'lastName', 'userEmail', 'roleID', 'dfltAcctID', 'acctID'];
+    const authParams = ['userID', 'firstName', 'lastName', 'userEmail', 'roleID', 'dfltAcctID', 'acctID', 'sessionValid'];
     authParams.forEach(param => {
       this.parameters[param] = null;
     });

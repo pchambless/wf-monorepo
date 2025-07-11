@@ -12,6 +12,7 @@ import React from 'react';
 
 // Export layouts
 export { default as MainLayout } from './components/layouts/MainLayout.jsx';
+export { default as AuthLayout } from './components/layouts/AuthLayout.jsx';
 
 // Export navigation components
 export { default as AppBar } from './components/navigation/aa-AppBar/AppBar.jsx';

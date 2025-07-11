@@ -16,7 +16,7 @@ import {
   Straighten,
   AccountBox
 } from '@mui/icons-material';
-import SelUserAcct from '../components/SelUserAcct.jsx';
+import { SelUserAcct } from '@whatsfresh/shared-imports/jsx';
 
 export const navigationSections = [
   {
@@ -48,26 +48,22 @@ export const navigationSections = [
       {
         title: "Brands",
         eventType: "brndList",
-        icon: Business,
-        description: "Manage brand information"
+        icon: Business
       },
       {
         title: "Vendors",
         eventType: "vndrList",
         icon: Engineering,
-        description: "Manage vendor information"
       },
       {
         title: "Workers",
         eventType: "wrkrList",
         icon: Groups,
-        description: "Manage worker information"
       },
       {
         title: "Measurements",
         eventType: "measList",
         icon: Straighten,
-        description: "Manage measurement units"
       }
     ]
   },

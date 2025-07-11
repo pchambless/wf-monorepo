@@ -12,7 +12,7 @@ import {
   SelIngr, SelIngrType, SelWrkr, SelUserAcct
 } from '../../selectors/index.js';
 import {
-  Paper, Grid, Button, Typography, Box, Alert, CircularProgress
+  Paper, Grid, Button, Typography, Box, Alert, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions
 } from '@mui/material';
 import { safeProp } from '@utils/mobxHelpers';
 
@@ -106,6 +106,10 @@ const Form = observer(forwardRef(({
 }, ref) => {
   // Track whether we have a valid pageMap
   const hasValidPageMap = !!pageMap && !!pageMap.id;
+  
+  // State for DML preview modal
+  const [dmlPreviewOpen, setDmlPreviewOpen] = useState(false);
+  const [dmlPreviewData, setDmlPreviewData] = useState(null);
 
   console.log('Form received props:', {
     hasPageMap: hasValidPageMap,
@@ -192,19 +196,33 @@ const Form = observer(forwardRef(({
   // Form submission - actual save
   const handleSubmit = async () => {
     try {
+      console.log('handleSubmit called - form submission starting');
+      console.log('Form mode:', formStore.formMode);
+      console.log('Form data:', formStore.formData);
+      console.log('Form validation state:', formStore.isValid);
+      
       // Convert form data to plain JS objects BEFORE saving
       formStore.prepareForSave();
 
       // Then save
       const result = await formStore.save(false);
 
+      console.log('Save result:', result);
+
       if (result.success) {
+        console.log('Save successful, showing DML preview');
+        setDmlPreviewData(result);
+        setDmlPreviewOpen(true);
+        
+        // Also call onSave callback if provided
         if (onSave) {
           onSave(result);
         }
+      } else {
+        console.error('Save failed:', result.error);
       }
     } catch (error) {
-      // Handle error
+      console.error('Save error:', error);
     }
   };
 
@@ -323,6 +341,57 @@ const Form = observer(forwardRef(({
           )}
         </Box>
       </form>
+      
+      {/* DML Preview Modal */}
+      <Dialog open={dmlPreviewOpen} onClose={() => setDmlPreviewOpen(false)} maxWidth="md" fullWidth>
+        <DialogTitle>DML Preview - {dmlPreviewData?.method}</DialogTitle>
+        <DialogContent>
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="h6" gutterBottom>SQL Preview:</Typography>
+            <Box sx={{ 
+              bgcolor: '#f5f5f5', 
+              p: 2, 
+              borderRadius: 1, 
+              fontFamily: 'monospace',
+              fontSize: '0.875rem',
+              whiteSpace: 'pre-wrap'
+            }}>
+              {dmlPreviewData?.preview}
+            </Box>
+          </Box>
+          
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="h6" gutterBottom>DML Data Structure:</Typography>
+            <Box sx={{ 
+              bgcolor: '#f5f5f5', 
+              p: 2, 
+              borderRadius: 1, 
+              fontFamily: 'monospace',
+              fontSize: '0.875rem'
+            }}>
+              <pre>{JSON.stringify(dmlPreviewData?.dmlData, null, 2)}</pre>
+            </Box>
+          </Box>
+          
+          <Box sx={{ mb: 2 }}>
+            <Typography variant="h6" gutterBottom>Form Data (with context):</Typography>
+            <Box sx={{ 
+              bgcolor: '#f5f5f5', 
+              p: 2, 
+              borderRadius: 1, 
+              fontFamily: 'monospace',
+              fontSize: '0.875rem'
+            }}>
+              <pre>{JSON.stringify(dmlPreviewData?.formData, null, 2)}</pre>
+            </Box>
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDmlPreviewOpen(false)} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Paper>
   );
 }));

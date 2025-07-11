@@ -100,6 +100,16 @@
   - Read and write in `/domain/`, `shared-*`, `devtools`
   - Run safe bash commands inside the repo
 
+## 🚀 MVP Development Philosophy
+
+**No Backward Compatibility Concerns**: During MVP development, prioritize forward progress over backward compatibility. If changes break existing functionality, fix the breakage and move forward rather than maintaining legacy patterns. This accelerates development and prevents technical debt accumulation.
+
+**Break-and-Fix Approach**: 
+- Make necessary architectural improvements immediately
+- Address any resulting issues as they arise
+- Favor clean, modern implementations over compatibility layers
+- Focus on the target architecture rather than incremental migration
+
 ---
 
 ## 📋 Development Plans
@@ -122,6 +132,19 @@ Active development plans and issue tracking are maintained in `/claude-plans/`, 
 - **Folder Structure:**
   - `a-pending/`: Contains active or in-progress development plans.
   - `b-completed/`: Contains finalized or fully implemented plans with updated internal status.
+
+- **Plan Creation Workflow:**
+  - **User**: Creates simple plan file in `a-pending/` with basic structure:
+    ```md
+    # User Idea
+    [Raw text description of issue, feature request, or hoped-for result]
+    ```
+  - **Claude**: When notified, builds out full plan structure underneath:
+    - Investigation points
+    - Implementation strategy
+    - Expected outcomes
+    - Technical details
+  - **Benefit**: User captures ideas quickly without formatting overhead
 
 - **Claude Behavior:**
   - When a plan is explicitly approved or tagged as complete, Claude is permitted to:
@@ -229,6 +252,31 @@ Claude should proactively suggest creating a plan when:
 
 **Claude Behavior**: When conducting multi-file investigations, suggest adding shortcuts to CLAUDE.md for future efficiency.
 
+### 🔍 Investigation-First Behavior
+
+Claude should treat plans as investigation-only by default unless explicitly instructed to proceed with a fix.
+
+- **Default Behavior for Plans in `a-pending/`**:
+  - Read and interpret user input
+  - Identify relevant files, configs, and flows
+  - Summarize findings, dependencies, and potential problem sources **within the active plan `.md` file** to preserve investigation results and context for future reference.
+  - Do not generate code or suggest implementation unless prompted
+
+- **To Proceed with Fix**:
+  - User must clearly instruct Claude to implement solution, generate config, or apply edits
+
+- **Tag-based Reinforcement (optional)**:
+  - Plans may include the directive:
+    ```md
+    <!-- planPhase: Investigation only -->
+    ```
+    Claude will recognize this tag and suppress fix generation automatically
+
+- **Purpose**:
+  - Preserve tokens
+  - Improve diagnostic clarity
+  - Maintain user-led control over implementation timing
+
 #### Suggest CLAUDE.md Updates When:
 - You discover useful file/pattern relationships during searches
 - You find repeated investigation paths that could be shortcuts
@@ -244,6 +292,11 @@ Claude should proactively suggest creating a plan when:
 
 #### Future Shortcuts (Claude: add here during sessions):
 - **TurboRepo Hot-Reload Issue**: shared-imports changes require manual dev server restart due to file: dependency limitations
+- **Session Persistence Architecture**: contextStore (shared-imports/src/stores/contextStore.js) is the single source of truth for ALL session data - userID, acctID, and contextual parameters like prodTypeID, ingrTypeID, etc.
+- **Automatic Parameter Resolution**: execEvent('eventName') auto-resolves all required parameters from contextStore. No manual parameter passing needed.
+- **MobX Integration**: React components must be wrapped with observer() to react to contextStore changes. App.jsx structure: outer App (provides Router) → inner AppContent (has observer() wrapper)
+- **Hierarchical Parameter Flow**: When user selects in widgets, contextStore.setEvent(eventType, value) stores the primaryKey for that eventType, enabling automatic parameter resolution for child events
+- **Login/Logout Flow**: LoginPresenter stores all user attributes in contextStore → navService.logout() calls contextStore.logout() → clears auth params and navigates to /login
 
 ---
 

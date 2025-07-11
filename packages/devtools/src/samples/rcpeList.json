@@ -1,0 +1,122 @@
+[
+  {
+    "rcpeID": 751,
+    "ingrOrdr": 0,
+    "ingrName": "Salt - Pickling",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 5,
+    "ingrSel": 22,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 818,
+    "ingrOrdr": 0,
+    "ingrName": "Onion - Fresh Chopped",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 3,
+    "ingrSel": 424,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 945,
+    "ingrOrdr": 0,
+    "ingrName": "Onions - IQF",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 3,
+    "ingrSel": 312,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 946,
+    "ingrOrdr": 0,
+    "ingrName": "Onion - Julian Fresh",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 3,
+    "ingrSel": 425,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 990,
+    "ingrOrdr": 0,
+    "ingrName": "Salt - Pickling",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 5,
+    "ingrSel": 22,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 110,
+    "ingrOrdr": 10,
+    "ingrName": "Mustard Seed",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 5,
+    "ingrSel": 14,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 111,
+    "ingrOrdr": 20,
+    "ingrName": "Celery Seed",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 5,
+    "ingrSel": 6,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 112,
+    "ingrOrdr": 30,
+    "ingrName": "Onion - Fresh Whole",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 3,
+    "ingrSel": 15,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 113,
+    "ingrOrdr": 40,
+    "ingrName": "Cucumbers",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 3,
+    "ingrSel": 4,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  },
+  {
+    "rcpeID": 115,
+    "ingrOrdr": 60,
+    "ingrName": "Vinegar",
+    "qtyMeas": null,
+    "prodID": 3,
+    "ingrTypeSel": 1,
+    "ingrSel": 27,
+    "measID": 51,
+    "Qty": 0,
+    "Comments": ""
+  }
+]

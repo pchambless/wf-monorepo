@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createLogger, contextStore, execEvent } from '@whatsfresh/shared-imports';
 
 import usePageHeader from '../../hooks/usePageHeader';
@@ -10,6 +11,7 @@ const useDashboardPresenter = () => {
   const [userAcctList, setUserAcctList] = useState([]);
   const [accountsLoading, setAccountsLoading] = useState(false);
   const [currentAcctID, setCurrentAcctID] = useState(null);
+  const navigate = useNavigate();
 
   // Set up page header
   usePageHeader({
@@ -64,9 +66,13 @@ const useDashboardPresenter = () => {
     log.info('Account changed', { from: currentAcctID, to: newAccountId });
     setCurrentAcctID(newAccountId);
     
-    // Persist the new account selection
-    contextStore.setParameter('acctID', newAccountId);
-  }, [currentAcctID]);
+    // Use setEvent to properly manage account selection and widget state
+    contextStore.setEvent('userAcctList', newAccountId);
+    
+    // Navigate to dashboard to refresh data for new account
+    navigate('/dashboard');
+    log.info('Account changed successfully, navigating to dashboard');
+  }, [currentAcctID, navigate]);
 
   const currentAccount = userAcctList.find(acc => acc.acctID === currentAcctID) || null;
 

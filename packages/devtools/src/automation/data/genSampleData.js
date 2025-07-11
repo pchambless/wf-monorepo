@@ -1,15 +1,14 @@
-// Import modules in the correct order first
-const moduleAlias = require('module-alias');
-const path = require('path');  // Move this up before using path.join()
-const fs = require('fs');
+// Import modules in ES module syntax
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
 
-// Now use the path module
-moduleAlias.addAliases({
-  '@packages': path.join(__dirname, '../../packages'),
-});
+// Get __dirname equivalent for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Now this will work
-const { query } = require('@packages/db-connect');
+// Import from db-connect package
+import { query } from '@whatsfresh/db-connect';
 
 /**
  * Sample Data Generator for WhatsFresh
@@ -163,14 +162,16 @@ function getTableNameForEntity(entityName) {
 }
 
 // Run the extractor if called directly
-if (require.main === module) {
+// Note: import.meta.main is not available in all Node.js versions
+// Use process.argv check instead
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
   extractAllSampleData()
     .then(() => process.exit(0))
     .catch(err => {
       console.error('Unhandled error:', err);
       process.exit(1);
     });
-} else {
-  // Export for use in other modules
-  module.exports = { extractAllSampleData };
 }
+
+// Export for use in other modules
+export { extractAllSampleData };

@@ -10,8 +10,8 @@ import contextStore from '../../stores/contextStore.js';
 export const SelectWidget = ({ 
   id,
   eventName,     // Event to call for data loading
-  valueKey,      // Field for value (e.g., "brndID")
-  labelKey,      // Field for display (e.g., "brndName") 
+  valueKey,      // Field for value (optional - auto-detected as first column)
+  labelKey,      // Field for display (optional - auto-detected as second column) 
   params = {},   // Additional parameters for the event
   
   // Standard props
@@ -32,6 +32,18 @@ export const SelectWidget = ({
   const [items, setItems] = useState(data || []);
   const [loading, setLoading] = useState(!data && !!eventName);
   const [error, setError] = useState(null);
+  const [autoValueKey, setAutoValueKey] = useState(null);
+  const [autoLabelKey, setAutoLabelKey] = useState(null);
+  
+  // Initialize from contextStore if no value provided
+  React.useEffect(() => {
+    if (!value && eventName && contextStore) {
+      const storedValue = contextStore.getParameter(eventName);
+      if (storedValue) {
+        setSelectedId(storedValue);
+      }
+    }
+  }, [eventName, value]);
   
   // Load data if not provided directly
   useEffect(() => {
@@ -48,6 +60,21 @@ export const SelectWidget = ({
         // execEvent now auto-resolves parameters from contextStore
         // Manual params still supported for overrides
         const result = await execEvent(eventName, params);
+        
+        // Auto-detect field keys if not provided and we have data
+        if (!valueKey || !labelKey) {
+          if (result && result.length > 0) {
+            const firstRow = result[0];
+            const fieldNames = Object.keys(firstRow);
+            
+            if (!valueKey && fieldNames.length > 0) {
+              setAutoValueKey(fieldNames[0]); // First column as value
+            }
+            if (!labelKey && fieldNames.length > 1) {
+              setAutoLabelKey(fieldNames[1]); // Second column as label
+            }
+          }
+        }
         
         // Handle successful data load
         setItems(result || []);
@@ -76,6 +103,11 @@ export const SelectWidget = ({
     }
   }, [value]);
   
+  // Get effective field keys (manual override or auto-detected)
+  const effectiveValueKey = valueKey || autoValueKey;
+  const effectiveLabelKey = labelKey || autoLabelKey;
+  
+  
   // Handle selection change
   const handleChange = (e) => {
     const newId = e.target.value;
@@ -88,7 +120,7 @@ export const SelectWidget = ({
     
     if (onChange) {
       const selectedItem = items.find(item => 
-        String(item[valueKey]) === String(newId)
+        String(item[effectiveValueKey]) === String(newId)
       );
       onChange(newId, selectedItem);
     }
@@ -96,7 +128,7 @@ export const SelectWidget = ({
   
   // Find current selected item
   const currentItem = items.find(item => 
-    String(item[valueKey]) === String(selectedId)
+    String(item[effectiveValueKey]) === String(selectedId)
   );
   
   return (
@@ -129,13 +161,13 @@ export const SelectWidget = ({
             }
             
             if (error) return `Error: ${error}`;
-            return currentItem ? currentItem[labelKey] : placeholder;
+            return currentItem ? currentItem[effectiveLabelKey] : placeholder;
           }}
           {...props}
         >
           {items.map(item => (
-            <MenuItem key={item[valueKey]} value={item[valueKey]}>
-              {item[labelKey]}
+            <MenuItem key={item[effectiveValueKey]} value={item[effectiveValueKey]}>
+              {item[effectiveLabelKey]}
             </MenuItem>
           ))}
         </Select>

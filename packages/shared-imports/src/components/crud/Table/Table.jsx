@@ -110,7 +110,11 @@ const Table = observer(({ pageMap, eventData }) => {
                     if (action.route) {
                       const path = action.route.replace(
                         /:(\w+)/g, 
-                        (_, _param) => params.row[action.paramField] || ''
+                        (_, param) => {
+                          const value = params.row[param];
+                          // Convert to number if it looks like a numeric ID
+                          return param.endsWith('ID') && !isNaN(value) ? Number(value) : value || '';
+                        }
                       );
                       navigate(path);
                     } else if (action.handler === 'handleDelete') {

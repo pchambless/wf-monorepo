@@ -5,25 +5,22 @@
 import { formatSQLValue, buildInsertSQL, buildUpdateSQL, buildDeleteSQL } from './sqlFormatter.js';
 
 /**
- * Build DML data object using new pageMap structure
+ * Build DML data object using data-driven processing
  */
 export const buildDMLData = (pageMap, formData, method) => {
-  const { systemConfig, dmlConfig, formConfig } = pageMap;
+  const { systemConfig, dmlConfig } = pageMap;
   
-  // Get all form fields
-  const fields = formConfig.groups.flatMap(group => group.fields);
-  
-  // Map form data to database columns using fieldMappings
+  // Data-driven: Process only fields that actually have values
   const mappedData = {};
-  fields.forEach(field => {
-    const dbColumn = dmlConfig.fieldMappings[field.field] || field.field;
-    const value = formData[field.field];
-    
+  
+  Object.entries(formData).forEach(([fieldName, value]) => {
     // Skip null/undefined values for INSERT, include all for UPDATE
     if (method === 'INSERT' && (value === null || value === undefined)) {
       return;
     }
     
+    // Map form field to database column
+    const dbColumn = dmlConfig.fieldMappings?.[fieldName] || fieldName;
     mappedData[dbColumn] = value;
   });
   
@@ -37,21 +34,19 @@ export const buildDMLData = (pageMap, formData, method) => {
 };
 
 /**
- * Build SQL preview string
+ * Build SQL preview string using data-driven processing
  */
 export const buildSQLPreview = (pageMap, formData, method) => {
-  const { systemConfig, dmlConfig, formConfig } = pageMap;
-  const fields = formConfig.groups.flatMap(group => group.fields);
-  
+  const { systemConfig, dmlConfig } = pageMap;
   const table = systemConfig.table;
   const primaryKey = systemConfig.primaryKey || 'id';
   
   switch (method) {
     case 'INSERT': 
-      return buildInsertSQLPreview(fields, formData, dmlConfig, table);
+      return buildInsertSQLPreview(formData, dmlConfig, table);
     
     case 'UPDATE': 
-      return buildUpdateSQLPreview(fields, formData, dmlConfig, table, primaryKey);
+      return buildUpdateSQLPreview(formData, dmlConfig, table, primaryKey);
     
     case 'DELETE': 
       return buildDeleteSQLPreview(formData, table, primaryKey);
@@ -62,18 +57,17 @@ export const buildSQLPreview = (pageMap, formData, method) => {
 };
 
 /**
- * Build INSERT SQL preview
+ * Build INSERT SQL preview using data-driven processing
  */
-const buildInsertSQLPreview = (fields, formData, dmlConfig, table) => {
+const buildInsertSQLPreview = (formData, dmlConfig, table) => {
   const columns = [];
   const values = [];
   
-  fields.forEach(field => {
-    const value = formData[field.field];
+  Object.entries(formData).forEach(([fieldName, value]) => {
     if (value !== null && value !== undefined) {
-      const dbColumn = dmlConfig.fieldMappings[field.field] || field.field;
+      const dbColumn = dmlConfig.fieldMappings?.[fieldName] || fieldName;
       columns.push(dbColumn);
-      values.push(formatSQLValue(value, field.type));
+      values.push(formatSQLValue(value)); // Simplified - let formatSQLValue determine type
     }
   });
   
@@ -81,20 +75,19 @@ const buildInsertSQLPreview = (fields, formData, dmlConfig, table) => {
 };
 
 /**
- * Build UPDATE SQL preview
+ * Build UPDATE SQL preview using data-driven processing
  */
-const buildUpdateSQLPreview = (fields, formData, dmlConfig, table, primaryKey) => {
+const buildUpdateSQLPreview = (formData, dmlConfig, table, primaryKey) => {
   const setClauses = [];
   let whereClause = '';
   
-  fields.forEach(field => {
-    const dbColumn = dmlConfig.fieldMappings[field.field] || field.field;
-    const value = formData[field.field];
+  Object.entries(formData).forEach(([fieldName, value]) => {
+    const dbColumn = dmlConfig.fieldMappings?.[fieldName] || fieldName;
     
-    if (field.field === primaryKey) {
-      whereClause = `${dbColumn} = ${formatSQLValue(value, field.type)}`;
+    if (fieldName === primaryKey) {
+      whereClause = `${dbColumn} = ${formatSQLValue(value)}`;
     } else {
-      setClauses.push(`${dbColumn} = ${formatSQLValue(value, field.type)}`);
+      setClauses.push(`${dbColumn} = ${formatSQLValue(value)}`);
     }
   });
   
@@ -102,10 +95,10 @@ const buildUpdateSQLPreview = (fields, formData, dmlConfig, table, primaryKey) =
 };
 
 /**
- * Build DELETE SQL preview
+ * Build DELETE SQL preview using data-driven processing
  */
 const buildDeleteSQLPreview = (formData, table, primaryKey) => {
   const pkValue = formData[primaryKey];
-  const whereClause = `${primaryKey} = ${formatSQLValue(pkValue, 'id')}`;
+  const whereClause = `${primaryKey} = ${formatSQLValue(pkValue)}`;
   return buildDeleteSQL(table, whereClause);
 };

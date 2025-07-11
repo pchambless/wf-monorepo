@@ -10,7 +10,8 @@ const pageMap = {
     "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "icon": "inventory_2",
+    "section": "PRODUCTS",
+    "layout": "CrudLayout",
     "actions": {
       "rowActions": [
         {
@@ -19,6 +20,14 @@ const pageMap = {
           "color": "error",
           "tooltip": "Delete",
           "handler": "handleDelete"
+        },
+        {
+          "id": "navigate",
+          "icon": "Visibility",
+          "color": "primary",
+          "tooltip": "View btchMapDetail",
+          "route": "/mapping/:prodBtchID/btchMapDetail",
+          "paramField": "prodBtchID"
         }
       ],
       "tableActions": []

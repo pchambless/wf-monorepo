@@ -14,7 +14,8 @@ SELECT
   a.description AS prodDesc,
   a.upc_item_reference AS prodUpcItemRef,
   a.upc_check_digit AS prodUpcChkDgt,
-  a.product_type_id AS prodTypeID
+  a.product_type_id AS prodTypeID, 
+  a.account_id AS acctID
 FROM whatsfresh.products a
 WHERE a.active = 'Y'
 ORDER BY a.product_type_id, a.name;

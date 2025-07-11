@@ -110,14 +110,14 @@ const AppContent = observer(() => {
     // disableBrowserFetchLogs(); // Not available
     log.debug('App component mounted');
     
-    // Session restoration has already happened in contextStore constructor
-    // We just need to mark it as restored for routing logic
+    // Don't auto-validate sessions - require explicit login
+    // The sessionValid flag will only be set after successful login
     setIsSessionRestored(true);
     
     log.debug('Session restoration completed', { 
       isAuthenticated: contextStore.isAuthenticated,
       userID: contextStore.getParameter('userID'),
-      acctID: contextStore.getParameter('acctID')
+      sessionValid: contextStore.getParameter('sessionValid')
     });
   }, [contextStore, navigate]);
 
@@ -182,10 +182,17 @@ const AppContent = observer(() => {
             {/* Dashboard route */}
             <Route path="/dashboard" element={
               contextStore.isAuthenticated ? (
-                <DashboardWrapper
-                  onAccountDataReady={handleAccountDataReady}
+                <MainLayout
+                  navigationSections={getNavigationSections()}
+                  appName="WhatsFresh Client"
+                  onLogout={() => navService.logout()}
                   widgetProps={widgetProps}
-                />
+                >
+                  <DashboardWrapper
+                    onAccountDataReady={handleAccountDataReady}
+                    widgetProps={widgetProps}
+                  />
+                </MainLayout>
               ) : (
                 <Navigate to="/login" replace />
               )
@@ -214,7 +221,7 @@ const AppContent = observer(() => {
                 return null;
               }
 
-              // Create route with proper layout and auth protection
+              // Create route with MainLayout for all pages
               return (
                 <Route
                   key={config.routeKey}

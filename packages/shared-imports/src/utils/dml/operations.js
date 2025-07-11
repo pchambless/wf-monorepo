@@ -4,12 +4,49 @@
  */
 import { buildDMLData, buildSQLPreview } from './dmlBuilder.js';
 import { execEvent } from '../../api/index.js';
+import { contextStore } from '@whatsfresh/shared-imports';
 import createLogger from '../logger.js';
 
 const log = createLogger('DML');
 
 /**
- * Execute DML operation (INSERT, UPDATE, DELETE) for given pageMap and form data
+ * Unified parameter resolution - consolidates all parameter sources
+ */
+const resolveAllParameters = (pageMap, formData) => {
+    const eventType = pageMap?.id;
+    
+    // Start with form data as base
+    const allParameters = { ...formData };
+    
+    // Auto-resolve contextual parameters if contextStore is available
+    if (eventType && contextStore) {
+        const contextParams = contextStore.getEventParams(eventType);
+        
+        // Merge context parameters (form data takes precedence)
+        Object.entries(contextParams).forEach(([key, value]) => {
+            if (allParameters[key] === undefined) {
+                allParameters[key] = value;
+            }
+        });
+        
+        log.info('Context parameters resolved:', {
+            eventType,
+            contextParams: Object.keys(contextParams),
+            merged: Object.keys(allParameters).filter(key => !formData?.[key])
+        });
+    }
+    
+    // Handle legacy parent ID patterns (for backward compatibility)
+    const parentIdField = pageMap?.pageConfig?.parentIdField;
+    if (parentIdField && !allParameters[parentIdField] && !allParameters._parentId) {
+        log.warn(`No parent ID found for ${parentIdField} - hierarchical relationship may be incomplete`);
+    }
+    
+    return allParameters;
+};
+
+/**
+ * Execute DML operation with unified parameter resolution
  */
 export const executeDML = async (pageMap, formData, method, skipPreview = false) => {
     try {
@@ -18,26 +55,43 @@ export const executeDML = async (pageMap, formData, method, skipPreview = false)
             formDataKeys: Object.keys(formData || {})
         });
 
-        // Build DML data based on method
-        const dmlData = buildDMLData(pageMap, formData, method);
+        // Unified parameter resolution in single step
+        const allParameters = resolveAllParameters(pageMap, formData);
+        
+        log.info('Unified parameter resolution:', {
+            formDataFields: Object.keys(formData || {}),
+            contextFields: Object.keys(allParameters).filter(key => !formData?.[key]),
+            totalFields: Object.keys(allParameters).length
+        });
+
+        // Build DML data with unified parameters
+        const dmlData = buildDMLData(pageMap, allParameters, method);
 
         if (!skipPreview) {
             // Show preview first
-            const preview = buildSQLPreview(dmlData);
+            const preview = buildSQLPreview(pageMap, allParameters, method);
             log.info('DML Preview:', preview);
         }
 
-        // Execute via event system
-        const result = await execEvent({
-            eventType: 'dmlExecute',
-            pageMap: pageMap,
-            formData: formData,
+        // For now, return preview data instead of executing
+        // TODO: Replace with actual execDML API call when ready
+        const preview = buildSQLPreview(pageMap, allParameters, method);
+        
+        const mockResult = {
+            success: true,
+            preview: preview,
+            dmlData: dmlData,
             method: method,
-            dmlData: dmlData
-        });
+            message: `DML ${method} prepared successfully`,
+            formData: allParameters
+        };
 
-        log.info('DML execution completed', { success: result?.success });
-        return result;
+        log.info('DML preview generated', { 
+            method, 
+            preview: preview.substring(0, 100) + '...' 
+        });
+        
+        return mockResult;
 
     } catch (error) {
         log.error('DML execution failed:', error);
@@ -58,11 +112,11 @@ export const deleteRecord = (pageMap, formData, skipPreview = false) =>
     executeDML(pageMap, formData, 'DELETE', skipPreview);
 
 /**
- * Preview DML without executing
+ * Preview DML without executing - with unified parameter resolution
  */
 export const previewDML = (pageMap, formData, method) => {
-    const dmlData = buildDMLData(pageMap, formData, method);
-    return buildSQLPreview(dmlData);
+    const allParameters = resolveAllParameters(pageMap, formData);
+    return buildSQLPreview(pageMap, allParameters, method);
 };
 
 // Re-export builder functions

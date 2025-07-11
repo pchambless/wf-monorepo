@@ -10,7 +10,8 @@ const pageMap = {
     "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "icon": "category",
+    "section": "INGREDIENTS",
+    "layout": "CrudLayout",
     "actions": {
       "rowActions": [
         {
@@ -19,6 +20,14 @@ const pageMap = {
           "color": "error",
           "tooltip": "Delete",
           "handler": "handleDelete"
+        },
+        {
+          "id": "navigate",
+          "icon": "Visibility",
+          "color": "primary",
+          "tooltip": "View ingrList",
+          "route": "/ingredients/:ingrTypeID/ingrList",
+          "paramField": "ingrTypeID"
         }
       ],
       "tableActions": []

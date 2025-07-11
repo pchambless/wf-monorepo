@@ -15,7 +15,7 @@ const EVENTS = [
   {
     eventID: 1,
     eventType: "userLogin",
-    category: "page:Login",
+    category: "page:AuthLayout",
     cluster: "AUTH",
     routePath: "/login",
     dbTable: "users", // Add this line
@@ -51,7 +51,7 @@ const EVENTS = [
       ORDER BY acctName
     `,
     params: [":userID"],
-    primaryKey: "",
+    primaryKey: "acctID",
     purpose: "Get accounts accessible to user"
   },
 
@@ -59,7 +59,8 @@ const EVENTS = [
   {
     eventID: 10,
     eventType: "ingrTypeList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Ingredient Types",
     cluster: "INGREDIENTS",
     routePath: "/ingredients/:acctID/ingrTypeList",
     dbTable: "ingredient_types",
@@ -79,7 +80,8 @@ const EVENTS = [
   {
     eventID: 11,
     eventType: "ingrList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Ingredients",
     cluster: "INGREDIENTS",
     routePath: "/ingredients/:ingrTypeID/ingrList",
     dbTable: "ingredients",
@@ -89,8 +91,8 @@ const EVENTS = [
     qrySQL: `
       SELECT *
       FROM api_wf.ingrList
-      WHERE (ingrTypeID = :ingrTypeID OR :ingrTypeID IS NULL)
-      AND acctID = :acctID
+      WHERE (ingrTypeID = :ingrTypeID OR ingrTypeID IS NULL)
+      and acctID = :acctID
     `,
     params: [":acctID", ":ingrTypeID"],
     primaryKey: "ingrID",
@@ -99,7 +101,8 @@ const EVENTS = [
   {
     eventID: 12,
     eventType: "ingrBtchList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Ingredient Batches",
     cluster: "INGREDIENTS",
     routePath: "/ingredients/:ingrID/ingrBtchList",
     dbTable: "ingredient_batches",
@@ -121,7 +124,8 @@ const EVENTS = [
   {
     eventID: 20,
     eventType: "prodTypeList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Product Types",
     cluster: "PRODUCTS",
     routePath: "/products/:acctID/prodTypeList",
     dbTable: "product_types",
@@ -141,7 +145,8 @@ const EVENTS = [
   {
     eventID: 21,
     eventType: "prodList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Products",
     cluster: "PRODUCTS",
     routePath: "/products/:prodTypeID/prodList",
     dbTable: "products",
@@ -151,7 +156,7 @@ const EVENTS = [
     qrySQL: `
       SELECT *
       FROM api_wf.prodList
-      (prodTypeID = :prodTypeID OR :prodTypeID IS NULL)
+      WHERE (prodTypeID = :prodTypeID OR prodTypeID IS NULL)
       and acctID = :acctID
     `,
     params: [":acctID", ":prodTypeID"],
@@ -161,7 +166,8 @@ const EVENTS = [
   {
     eventID: 41,
     eventType: "taskList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Product Types Tasks",
     cluster: "PRODUCTS",
     routePath: "/products/:prodTypeID/taskList",
     dbTable: "tasks",
@@ -180,7 +186,8 @@ const EVENTS = [
   {
     eventID: 22,
     eventType: "prodBtchList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Product Batches",
     cluster: "PRODUCTS",
     routePath: "/products/:prodID/prodBtchList",
     dbTable: "product_batches",
@@ -202,7 +209,8 @@ const EVENTS = [
   {
     eventID: 30,
     eventType: "brndList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Brands",
     cluster: "REFERENCE",
     routePath: "/brands/:acctID/brndList",
     dbTable: "brands",
@@ -222,7 +230,8 @@ const EVENTS = [
   {
     eventID: 31,
     eventType: "vndrList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Vendors",
     cluster: "REFERENCE",
     routePath: "/vendors/:acctID/vndrList",
     dbTable: "vendors",
@@ -242,7 +251,8 @@ const EVENTS = [
   {
     eventID: 32,
     eventType: "wrkrList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Workers",
     cluster: "REFERENCE",
     routePath: "/workers/:acctID/wrkrList",
     dbTable: "workers",
@@ -262,7 +272,8 @@ const EVENTS = [
   {
     eventID: 63,
     eventType: "measList",
-    category: "page:Crud",
+    category: "page:CrudLayout",
+    title: "Measures",
     cluster: "REFERENCE",
     routePath: "/measures/:acctID/measList",
     dbTable: "measures",
@@ -282,7 +293,8 @@ const EVENTS = [
   {
     eventID: 42,
     eventType: "rcpeList",
-    category: "page:Recipe",
+    category: "page:RecipeLayout",
+    title: "Product Recipes",
     cluster: "PRODUCTS",
     routePath: "/recipes/:prodID/rcpeList",
     dbTable: "product_recipes",
@@ -302,7 +314,8 @@ const EVENTS = [
   {
     eventID: 100,
     eventType: "btchMapDetail",
-    category: "page:Mapping",
+    category: "page:MappingLayout",
+    title: "Batch Mapping",
     cluster: "MAPPING",
     children: ["btchMapRcpeList", "btchMapMapped", "btchMapAvailable"],
     routePath: "/mapping/:prodBtchID/btchMapDetail",
@@ -328,7 +341,7 @@ const EVENTS = [
   {
     eventID: 102,
     eventType: "btchMapMapped",
-    category: "data:Grid",
+    category: "ui:Grid",
     cluster: "MAPPING",
     method: "GET",
     qrySQL: `
@@ -345,7 +358,7 @@ const EVENTS = [
   {
     eventID: 103,
     eventType: "btchMapAvailable",
-    category: "data:Grid",
+    category: "ui:Grid",
     cluster: "MAPPING",
     method: "GET",
     qrySQL: `

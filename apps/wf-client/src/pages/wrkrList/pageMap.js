@@ -10,7 +10,8 @@ const pageMap = {
     "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "icon": "person",
+    "section": "REFERENCE",
+    "layout": "CrudLayout",
     "actions": {
       "rowActions": [
         {

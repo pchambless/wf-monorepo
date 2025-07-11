@@ -4,6 +4,7 @@
 import { makeAutoObservable, action, runInAction, toJS } from 'mobx';
 import { createLogger } from '@whatsfresh/shared-imports';
 import { insertRecord, updateRecord, deleteRecord } from '@whatsfresh/shared-imports';
+import { contextStore } from '@whatsfresh/shared-imports';
 
 class FormStore {
   // Form state (observable)
@@ -16,7 +17,6 @@ class FormStore {
 
   // Configuration properties - use columns directly
   pageMap = null;  // Will be excluded from observables
-  displayColumns = []; // Filtered columns for form display
 
   // Add contextData property
   contextData = {};
@@ -33,20 +33,6 @@ class FormStore {
     // Initialize formData from initialData
     this.formData = { ...initialData };
 
-    // Extract fields from formConfig groups structure
-    this.displayColumns = [];
-    if (this.pageMap?.formConfig?.groups) {
-      this.pageMap.formConfig.groups.forEach(group => {
-        if (group.fields) {
-          group.fields.forEach(field => {
-            if (!field.hidden) {
-              this.displayColumns.push(field);
-            }
-          });
-        }
-      });
-    }
-
     // SINGLE call to makeAutoObservable - combining both configurations
     makeAutoObservable(this, {
       pageMap: false,     // Exclude from observable
@@ -57,69 +43,24 @@ class FormStore {
 
     // Safe logging (after setup)
     if (typeof this.log === 'function') {
-      this.log('FormStore initialized with displayable columns:', {
-        totalFields: this.getTotalFieldCount(),
-        displayableColumns: this.displayColumns.length,
-        columnFields: this.displayColumns.map(col => col.field)
+      this.log('FormStore initialized with pageMap:', {
+        pageMapId: this.pageMap?.id,
+        totalFields: this.getTotalFieldCount()
       });
     } else if (this.log && typeof this.log.info === 'function') {
-      this.log.info('FormStore initialized with displayable columns:', {
-        totalFields: this.getTotalFieldCount(),
-        displayableColumns: this.displayColumns.length,
-        columnFields: this.displayColumns.map(col => col.field)
+      this.log.info('FormStore initialized with pageMap:', {
+        pageMapId: this.pageMap?.id,
+        totalFields: this.getTotalFieldCount()
       });
     }
   }
 
-  // Built-in validators
-  validators = {
-    required: (value) => value !== undefined && value !== null && value !== ''
-      ? true
-      : 'This field is required',
-
-    email: (value) => {
-      if (!value) return true;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailRegex.test(value) ? true : 'Invalid email format';
-    },
-
-    minLength: (len) => (value) => {
-      if (!value) return true;
-      return value.length >= len ? true : `Minimum length is ${len}`;
-    },
-
-    maxLength: (len) => (value) => {
-      if (!value) return true;
-      return value.length <= len ? true : `Maximum length is ${len}`;
-    },
-
-    number: (value) => {
-      if (value === null || value === undefined || value === '') return true;
-      return !isNaN(Number(value)) ? true : 'Must be a number';
-    },
-
-    min: (min) => (value) => {
-      if (value === null || value === undefined || value === '') return true;
-      return Number(value) >= min ? true : `Minimum value is ${min}`;
-    },
-
-    max: (max) => (value) => {
-      if (value === null || value === undefined || value === '') return true;
-      return Number(value) <= max ? true : `Maximum value is ${max}`;
-    }
-  };
 
   // Action methods
   setFieldValue(name, value) {
     runInAction(() => {
-      // Update formData (source of truth)
+      // Update formData (single source of truth)
       this.formData[name] = value;
-
-      // Find column by field name (not field.id!)
-      const column = this.displayColumns.find(c => c.field === name);
-      if (column) {
-        column.value = value; // Duplicated state!
-      }
 
       // Mark field as touched for validation
       this.touched[name] = true;
@@ -133,27 +74,15 @@ class FormStore {
 
   setFormData(data) {
     runInAction(() => {
-      // Store the data
+      // Store the data (single source of truth)
       this.formData = { ...data };
       this.errors = {};
       this.touched = {};
 
       this.log('Setting form data', {
         dataKeys: Object.keys(data || {}),
-        columns: this.displayColumns?.length || 0
+        fieldCount: Object.keys(data || {}).length
       });
-
-      // If we're still maintaining field values on columns
-      if (this.displayColumns && Array.isArray(this.displayColumns) && data) {
-        this.displayColumns.forEach(column => {
-          if (column && column.field) {
-            const dataValue = data[column.field];
-            if (dataValue !== undefined) {
-              column.value = dataValue;
-            }
-          }
-        });
-      }
     });
   }
 
@@ -191,48 +120,18 @@ class FormStore {
     return this;
   }
 
-  // Validation
+  // Simplified validation - field components handle their own validation
   validateField(fieldName) {
     // Clear existing error
     delete this.errors[fieldName];
-
-    // Find field definition from displayColumns
-    const column = this.displayColumns.find(c => c.field === fieldName);
-    if (!column) return true;
-
-    const value = this.formData[fieldName];
-
-    // Required validation
-    if (column.required && this.validators.required(value) !== true) {
-      this.errors[fieldName] = 'This field is required';
-      return false;
-    }
-
-    // Type-specific validation
-    if (column.displayType === 'number') {
-      if (this.validators.number(value) !== true) {
-        this.errors[fieldName] = 'Must be a number';
-        return false;
-      }
-
-      if (column.min !== undefined && this.validators.min(column.min)(value) !== true) {
-        this.errors[fieldName] = `Minimum value is ${column.min}`;
-        return false;
-      }
-
-      if (column.max !== undefined && this.validators.max(column.max)(value) !== true) {
-        this.errors[fieldName] = `Maximum value is ${column.max}`;
-        return false;
-      }
-    }
-
+    
+    // Basic validation will be handled by field components
+    // FormStore only needs to track if form is valid for submission
     return true;
   }
 
   validate() {
     this.log('Validating form data');
-
-    let isValid = true;
 
     // Skip validation for DELETE operations
     if (this.formMode === 'DELETE') {
@@ -240,23 +139,16 @@ class FormStore {
       return true;
     }
 
-    // FIXED: Use displayColumns instead of fields
-    if (this.displayColumns && Array.isArray(this.displayColumns)) {
-      this.displayColumns.forEach(column => {
-        const fieldId = column.field;
-        this.touched[fieldId] = true;
-        if (!this.validateField(fieldId)) {
-          isValid = false;
-        }
-      });
-    }
+    // Simplified validation - field components handle individual validation
+    // FormStore just ensures we have required data for submission
+    const hasRequiredData = Object.keys(this.formData).length > 0;
 
     // Update observable state
     runInAction(() => {
-      this.isValid = isValid;
+      this.isValid = hasRequiredData;
     });
 
-    return isValid;
+    return hasRequiredData;
   }
 
   /**
@@ -283,13 +175,19 @@ class FormStore {
 
       // Execute the DML operation using available utilities
       let result;
-      if (this.formMode === 'new' || this.formMode === 'INSERT') {
+      console.log('Determining DML operation for mode:', this.formMode);
+      
+      if (this.formMode === 'new' || this.formMode === 'INSERT' || this.formMode === 'ADD') {
+        console.log('Calling insertRecord');
         result = await insertRecord(this.pageMap, this.plainFormData, previewOnly);
-      } else if (this.formMode === 'edit' || this.formMode === 'UPDATE') {
+      } else if (this.formMode === 'edit' || this.formMode === 'UPDATE' || this.formMode === 'EDIT') {
+        console.log('Calling updateRecord');
         result = await updateRecord(this.pageMap, this.plainFormData, previewOnly);
       } else if (this.formMode === 'delete' || this.formMode === 'DELETE') {
+        console.log('Calling deleteRecord');
         result = await deleteRecord(this.pageMap, this.plainFormData, previewOnly);
       } else {
+        console.error('Unsupported form mode:', this.formMode);
         throw new Error(`Unsupported form mode: ${this.formMode}`);
       }
 
@@ -307,7 +205,7 @@ class FormStore {
     }
   }
 
-  // Prepare form data for save operation
+  // Simplified form data preparation - DML operations handle parameter resolution
   prepareForSave() {
     // Log the current form data for debugging
     this.log.info('Preparing form data for save', {
@@ -315,52 +213,19 @@ class FormStore {
       fieldCount: Object.keys(this.formData).length
     });
 
-    // Check if values are missing
+    // Check if values are missing - simplified validation
     const hasValues = Object.values(this.formData).some(val => val !== undefined && val !== null);
 
     if (!hasValues) {
       this.log.warn('WARNING: Form data has keys but no values!', {
         keys: Object.keys(this.formData)
       });
-
-      // Try to get values from displayColumns if available
-      if (this.displayColumns && Array.isArray(this.displayColumns)) {
-        runInAction(() => {
-          // Copy values from displayColumns to formData
-          this.displayColumns.forEach(column => {
-            if (column.field && column.value !== undefined) {
-              this.formData[column.field] = column.value;
-              this.log.info(`Copied column value: ${column.field} = ${column.value}`);
-            }
-          });
-        });
-      }
     }
 
-    // Convert formData to plain JS
+    // Convert formData to plain JS - DML operations handle parameter resolution
     this.plainFormData = toJS(this.formData);
 
-    // ** REMOVED: Don't repair or mutate pageMap **
-    // this.plainPageMap = this.pageMap;
-    // repairPageMap(this.plainPageMap, 'FormStore.prepareForSave');
-
-    // ** NEW: Handle parent ID if needed **
-    const parentIdField = this.pageMap?.pageConfig?.parentIdField;
-    if (parentIdField && this.formMode === 'INSERT') {
-      // Check if we need a parent ID but don't have one
-      if (!this.plainFormData[parentIdField] && !this.plainFormData._parentId) {
-        this.log.warn(`Missing parent ID for ${parentIdField} - hierarchy may be broken`);
-
-        // Try to get it from contextData as a last resort
-        if (this.contextData && this.contextData.parentId) {
-          this.plainFormData[parentIdField] = this.contextData.parentId;
-          this.plainFormData._parentId = this.contextData.parentId;
-          this.log.info(`Added parent ID from context: ${parentIdField}=${this.contextData.parentId}`);
-        }
-      }
-    }
-
-    this.log.info('Prepared data:', {
+    this.log.info('Prepared data (parameter resolution handled by DML):', {
       formData: this.plainFormData
     });
   }
@@ -383,24 +248,6 @@ class FormStore {
     }, 0);
   }
 
-  getDisplayColumns() {
-    // We've already filtered in the constructor, so we can use displayColumns directly
-    const groups = this.displayColumns.reduce((acc, column) => {
-      const groupKey = column.displayType === 'multiLine' ?
-        `multiLine-${column.field}` :
-        (column.group?.toString() || '0');
-
-      if (!acc[groupKey]) acc[groupKey] = [];
-      acc[groupKey].push({
-        ...column,
-        xs: column.displayType === 'multiLine' ? 12 : undefined,
-        sm: column.displayType === 'multiLine' ? 12 : undefined
-      });
-      return acc;
-    }, {});
-
-    return groups;
-  }
 
   // Update your setParentId method with safe logging
   setParentId(parentId, parentIdField = null) {

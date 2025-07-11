@@ -24,7 +24,7 @@ SELECT
 FROM whatsfresh.product_batches pb
   INNER JOIN whatsfresh.products p ON pb.product_id = p.id
   INNER JOIN whatsfresh.product_types pt ON p.product_type_id = pt.id
-WHERE pb.active = 1 
-  AND p.active = 1 
-  AND pt.active = 1
+WHERE pb.active = 'Y' 
+  AND p.active = 'Y'
+  AND pt.active = 'Y'
 ORDER BY pb.batch_start DESC, pb.batch_number;

@@ -1,15 +1,12 @@
 // Clean, focused store exports for new architecture
-import { modalStore } from '@whatsfresh/shared-imports';
-
-// Event handling for API calls
+// All event handling now comes from shared-imports
 export {
+  modalStore,
   execEvent,
   getEventType,
   getEventTypes,
-  initEventTypeService,
-  isEventTypeServiceInitialized,
-  resetEventTypeService
-} from './eventStore';
+  contextStore
+} from '@whatsfresh/shared-imports';
 
 // Simple auth and account selection
 export {

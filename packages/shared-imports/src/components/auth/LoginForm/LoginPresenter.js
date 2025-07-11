@@ -37,6 +37,8 @@ export class LoginPresenter {
       contextStore.setParameter('userEmail', user.userEmail);
       contextStore.setParameter('roleID', user.roleID);
       contextStore.setParameter('dfltAcctID', user.dfltAcctID);
+      // Mark session as valid after successful login
+      contextStore.setParameter('sessionValid', true);
       
       this.log.info('User authentication data initialized in contextStore');
       return true;

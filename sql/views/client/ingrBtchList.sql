@@ -28,7 +28,7 @@ SELECT
         ib.purchase_quantity, ' @ $',
         FORMAT(COALESCE(ib.unit_price, 0), 2), ' per ',
         CAST(ib.unit_quantity AS DECIMAL(10,2)), ' ',
-        COALESCE(m.abbreviation, '')
+        COALESCE(m.abbrev, '')
       )
     ELSE ''
   END AS purch_dtl,
@@ -79,22 +79,22 @@ SELECT
 FROM whatsfresh.ingredient_batches ib
   INNER JOIN whatsfresh.ingredients i ON ib.ingredient_id = i.id
   INNER JOIN whatsfresh.ingredient_types it ON i.ingredient_type_id = it.id
-  LEFT JOIN whatsfresh.vendors v ON ib.vendor_id = v.id AND v.active = 1
-  LEFT JOIN whatsfresh.brands b ON ib.brand_id = b.id AND b.active = 1  
-  LEFT JOIN whatsfresh.measures m ON ib.global_measure_unit_id = m.id AND m.active = 1
+  LEFT JOIN whatsfresh.vendors v ON ib.vendor_id = v.id AND v.active = 'Y'
+  LEFT JOIN whatsfresh.brands b ON ib.brand_id = b.id AND b.active = 'Y'  
+  LEFT JOIN whatsfresh.measures m ON ib.measure_id = m.id
   LEFT JOIN (
     SELECT 
       ingredient_batch_id,
       COUNT(*) AS productBatchCount
     FROM whatsfresh.product_batch_ingredients pbi
     JOIN whatsfresh.product_batches pb ON pbi.product_batch_id = pb.id
-    WHERE pb.active = 1
+    WHERE pb.active = 'Y'
     GROUP BY ingredient_batch_id
   ) pbi ON ib.id = pbi.ingredient_batch_id
 
-WHERE ib.active = 1 
-  AND i.active = 1 
-  AND it.active = 1
+WHERE ib.active = 'Y'
+  AND i.active = 'Y'
+  AND it.active ='Y'
   AND ib.purchase_date >= DATE_SUB(NOW(), INTERVAL 7 YEAR)
 
 ORDER BY ib.purchase_date DESC, ib.batch_number;

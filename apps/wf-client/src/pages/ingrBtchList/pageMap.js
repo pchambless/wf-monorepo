@@ -10,7 +10,8 @@ const pageMap = {
     "dmlEvent": "execDML"
   },
   "uiConfig": {
-    "icon": "inventory",
+    "section": "INGREDIENTS",
+    "layout": "CrudLayout",
     "actions": {
       "rowActions": [
         {

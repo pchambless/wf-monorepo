@@ -25,26 +25,21 @@ const workspaceRoot = path.resolve(__dirname, '../../../../../');
 
 // Dynamic imports to avoid module conflicts
 async function getDirectImports(app) {
-  const clientRegistryPath = path.join(workspaceRoot, 'packages/devtools/src/registries/client/pageMapRegistry.js');
-  const adminRegistryPath = path.join(workspaceRoot, 'packages/devtools/src/registries/admin/pageMapRegistry.js');
   const directiveMapPath = path.join(workspaceRoot, 'packages/devtools/src/utils/directiveMap.js');
-  const eventsDataPath = path.join(workspaceRoot, 'packages/devtools/src/docs/generated/events/events.json');
-  const registryPath = app === 'admin' ? adminRegistryPath : clientRegistryPath;
+  const eventTypesPath = path.join(workspaceRoot, 'packages/shared-imports/src/events/client/eventTypes.js');
 
-  const [registryModule, directiveModule, eventsData] = await Promise.all([
-    import(`file://${registryPath}`),
+  const [directiveModule, eventTypesModule] = await Promise.all([
     import(`file://${directiveMapPath}`),
-    fsPromises.readFile(eventsDataPath, 'utf8').then(data => JSON.parse(data))
+    import(`file://${eventTypesPath}`)
   ]);
 
   // Create a map of event data by entity name for quick lookup
   const eventDataMap = {};
-  eventsData.nodes.forEach(node => {
-    eventDataMap[node.id] = node.meta;
+  eventTypesModule.EVENTS.forEach(event => {
+    eventDataMap[event.eventType] = event;
   });
 
   return {
-    entityRegistry: registryModule.pageMapRegistry,
     eventDataMap,
     FIELD_TYPES: directiveModule.FIELD_TYPES,
     WIDGET_REGISTRY: {} // Not needed - just for validation
@@ -59,12 +54,12 @@ async function main() {
   log.info(`Generating page maps for ${app} app`);
 
   // Use dynamic imports to avoid module conflicts
-  const { entityRegistry, eventDataMap, FIELD_TYPES, WIDGET_REGISTRY } = await getDirectImports(app);
+  const { eventDataMap, FIELD_TYPES, WIDGET_REGISTRY } = await getDirectImports(app);
 
-  await generatePageMaps(config, entityRegistry, eventDataMap, FIELD_TYPES, WIDGET_REGISTRY);
+  await generatePageMaps(config, eventDataMap, FIELD_TYPES, WIDGET_REGISTRY);
 }
 
-async function generatePageMaps(config, entityRegistry, eventDataMap, FIELD_TYPES, WIDGET_REGISTRY) {
+async function generatePageMaps(config, eventDataMap, FIELD_TYPES, WIDGET_REGISTRY) {
   // Set paths
   const outputDir = config.outputDir;
   const directivesDir = config.directivesDir;
@@ -72,10 +67,10 @@ async function generatePageMaps(config, entityRegistry, eventDataMap, FIELD_TYPE
   // Create output directory
   await fsPromises.mkdir(outputDir, { recursive: true });
 
-  // Process each entity in registry that needs a pageMap
-  for (const [entityName, entity] of Object.entries(entityRegistry)) {
-    // Skip non-CRUD entities
-    if (entity.layout !== 'CrudLayout') continue;
+  // Process each eventType that needs a pageMap (filter by category starting with 'page:')
+  for (const [entityName, event] of Object.entries(eventDataMap)) {
+    // Skip non-page events
+    if (!event.category || !event.category.startsWith('page:')) continue;
 
     console.log(`Processing ${entityName}...`);
 
@@ -87,25 +82,21 @@ async function generatePageMaps(config, entityRegistry, eventDataMap, FIELD_TYPE
       const pageMap = {
         // Core identity
         id: entityName,
-        title: entity.title,
+        title: event.title,
 
         // System fields
         systemConfig: {
-          schema: entity.schema || 'whatsfresh',
-          table: eventDataMap[entityName]?.dbTable,
-          primaryKey: eventDataMap[entityName]?.primaryKey,
-          parentIdField: entity.parentIdField,
-          childEntity: entity.childEntity,
-          childIdField: entity.childIdField,
+          schema: 'whatsfresh',
+          table: event.dbTable,
+          primaryKey: event.primaryKey,
           listEvent: entityName,
           dmlEvent: 'execDML'
         },
 
         // UI metadata
         uiConfig: {
-          section: entity.section,
-          icon: entity.icon,
-          color: entity.color,
+          section: event.cluster,
+          layout: event.category.split(':')[1], // Extract layout from category (e.g., 'CrudLayout')
           actions: generateRowActions(entityName, eventDataMap)
         },
 
@@ -118,7 +109,7 @@ async function generatePageMaps(config, entityRegistry, eventDataMap, FIELD_TYPE
       };
 
       // Output as a JS module (to replace old pageMap)
-      await writeOutput(entityName, pageMap, config, entityRegistry);
+      await writeOutput(entityName, pageMap, config, event);
       console.log(`✅ Generated pageMap for ${entityName}`);
 
     } catch (err) {
@@ -166,21 +157,27 @@ function generateRowActions(entityName, eventDataMap) {
     handler: 'handleDelete'
   });
   
-  // Add navigation action if entity has children
+  // Add navigation action if entity has page-type children (not just data grids)
   const eventData = eventDataMap[entityName];
   if (eventData?.children?.length > 0) {
-    const childEventType = eventData.children[0]; // Use first child
-    const childEventData = eventDataMap[childEventType];
+    // Find the first child that is a page (not a data grid)
+    const pageChild = eventData.children.find(childEventType => {
+      const childEventData = eventDataMap[childEventType];
+      return childEventData?.category?.startsWith('page:');
+    });
     
-    if (childEventData?.routePath) {
-      rowActions.push({
-        id: 'navigate',
-        icon: 'Visibility',
-        color: 'primary', 
-        tooltip: `View ${childEventType}`,
-        route: childEventData.routePath,
-        paramField: eventData.primaryKey
-      });
+    if (pageChild) {
+      const childEventData = eventDataMap[pageChild];
+      if (childEventData?.routePath) {
+        rowActions.push({
+          id: 'navigate',
+          icon: 'Visibility',
+          color: 'primary', 
+          tooltip: `View ${pageChild}`,
+          route: childEventData.routePath,
+          paramField: eventData.primaryKey
+        });
+      }
     }
   }
   
@@ -287,15 +284,12 @@ async function extractDirectives(entityName, config) {
 }
 
 // New function to write output files directly to page folders
-async function writeOutput(entityName, pageMap, config, entityRegistry) {
+async function writeOutput(entityName, pageMap, config, event) {
   // Get the app type from config 
   const app = config.app || 'client';
 
-  // Get entity info from registry
-  const entity = entityRegistry[entityName];
-
-  if (!entity) {
-    console.warn(`Warning: No entity found for ${entityName}, skipping pageMap generation`);
+  if (!event) {
+    console.warn(`Warning: No event found for ${entityName}, skipping pageMap generation`);
     return;
   }
 
