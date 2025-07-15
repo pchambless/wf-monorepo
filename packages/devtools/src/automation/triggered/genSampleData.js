@@ -117,7 +117,7 @@ async function extractEntityData(entityName, limit = 10) {
 async function extractAllSampleData() {
   try {
     // Create samples directory
-    const samplesDir = path.resolve(__dirname, '../../samples');
+    const samplesDir = path.resolve(__dirname, '../data/samples');
     fs.mkdirSync(samplesDir, { recursive: true });
     console.log(`Created/verified samples directory: ${samplesDir}`);
     

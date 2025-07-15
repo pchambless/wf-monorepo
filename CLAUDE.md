@@ -114,7 +114,7 @@
 
 ## 📋 Development Plans
 
-Active development plans and issue tracking are maintained in `/claude-plans/`, organized with date-prefixed filenames for chronological sorting.
+Active development plans and issue tracking are maintained in `/claude-plans/`, organized with date-prefixed filenames for chronological sorting. See `/claude-plans/README.md` for workflow overview and folder structure.
 
 - **Naming Convention:**  
   `yyyy-mm-dd descriptive-plan-name.md`

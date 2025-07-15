@@ -5,16 +5,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Go up from: packages/devtools/src/docs/graph/utils
-// To:         <monorepo-root>
-const MONOREPO_ROOT = path.resolve(__dirname, '../../../../..');
+// To:         packages/devtools/src
+const DEVTOOLS_SRC = path.resolve(__dirname, '../../..');
 
-export const DOCS_ROOT = path.join(MONOREPO_ROOT, '/devtools/src/docs');
-export const SECTION_DOCS_ROOT = path.join(DOCS_ROOT, 'sections');
+export const DOCS_ROOT = path.join(DEVTOOLS_SRC, 'docs');
 
-export function getSectionDocsPath(key) {
-  return path.join(SECTION_DOCS_ROOT, key);
+export function getDocsPath(key) {
+  return path.join(DOCS_ROOT, key);
 }
 
 export function getGeneratedPath(key, type, filename) {
-  return path.join(getSectionDocsPath(key), 'generated', `${filename}.${type}`);
+  return path.join(getDocsPath(key), `${filename}.${type}`);
 }

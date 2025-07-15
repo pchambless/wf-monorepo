@@ -139,7 +139,12 @@ Only regenerate ALL views/eventTypes when:
 #### **Phase 3B: Cleanup & Validation**  
 - [x] Delete obsolete route generators (Phase 2 integration)
 - [x] Remove duplicate documentation folders
-- [ ] Test core operational generators work from new locations
+- [x] Test core operational generators work from new locations
+- [x] Update toolConfig.js directives path to use new location
+- [x] Move genEventTypes.js to /documentation/generators/
+- [x] Update paths.js for new directory structure  
+- [x] Integrate genGraphArtifacts to generate .mmd files
+- [x] **Mermaid Generation Working** - Now generates eventTypes.mmd, eventTypes.md, graphData.json
 - [ ] Validate triggered generators preserve manual customizations
 
 #### **Phase 3C: Workflow Foundation (Phase 5 Prep)**
@@ -178,5 +183,6 @@ This structure sets up the framework for Phase 5's "update and change flow":
 - ✅ Single source for samples and directives
 - ✅ Centralized configuration management
 - ✅ All generators working from new locations
-- ✅ Unified HTML generation system
+- ✅ **Mermaid documentation generation working** - Creates .mmd files for development validation
 - ✅ Updated import paths throughout monorepo
+- [ ] Triggered generators preserve manual customizations

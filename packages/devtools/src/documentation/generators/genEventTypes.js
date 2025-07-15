@@ -3,10 +3,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 // Import the function directly from shared-imports/events to avoid loading UI components
 import { getSafeEventTypes } from '@whatsfresh/shared-imports/events';
+import { genGraphArtifacts } from '../../docs/graph/utils/genGraphArtifacts.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const outputPath = path.resolve(__dirname, '../../docs/sections/eventTypes/generated/graphData.json');
-const directivesPath = path.resolve(__dirname, '../data/directives');
+const outputPath = path.resolve(__dirname, '../../docs/eventTypes/graphData.json');
+const directivesPath = path.resolve(__dirname, '../../automation/data/directives');
 
 /**
  * Scan directive files to find widget usage patterns
@@ -160,4 +161,18 @@ export default async function genEventTypes() {
   await fs.writeFile(outputPath, JSON.stringify(output, null, 2));
   console.log(`✅ graphData.json written to ${outputPath}`);
   console.log(`   📊 ${nodes.length} nodes, ${navigationEdges.length} navigation edges, ${widgetEdges.length} widget edges`);
+
+  // Generate mermaid artifacts
+  console.log('[genEventTypes] 🎨 Generating mermaid artifacts...');
+  await genGraphArtifacts({
+    key: 'eventTypes',
+    graphData: output,
+    graphName: 'eventTypes',
+    graphTypes: ['mmd', 'md']
+  });
+}
+
+// Execute the function if run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  genEventTypes().catch(console.error);
 }

@@ -34,16 +34,128 @@ const pageMap = {
     }
   },
   "tableConfig": {
-    "columns": []
+    "columns": [
+      {
+        "field": "ingrID",
+        "label": "ingrID",
+        "width": 80,
+        "type": "number",
+        "editable": false,
+        "hidden": true
+      },
+      {
+        "field": "ingrGrmsPerOz",
+        "label": "Grams/Oz",
+        "width": "100",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "ingrTypeID",
+        "label": "ingrTypeID",
+        "width": 120,
+        "type": "select",
+        "editable": false,
+        "hidden": true
+      }
+    ]
   },
   "formConfig": {
-    "groups": []
+    "groups": [
+      {
+        "id": "1",
+        "title": "Group 1",
+        "fields": [
+          {
+            "field": "ingrID",
+            "label": "ingrID",
+            "type": "number",
+            "required": false,
+            "hidden": true
+          },
+          {
+            "field": "ingrTypeID",
+            "label": "ingrTypeID",
+            "type": "select",
+            "required": false,
+            "hidden": true
+          },
+          {
+            "field": "acctID",
+            "label": "Account",
+            "type": "select",
+            "required": false,
+            "hidden": false,
+            "widget": "SelAcct"
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "title": "Group 2",
+        "fields": [
+          {
+            "field": "measID",
+            "label": "Default Measure",
+            "type": "select",
+            "required": false,
+            "hidden": false,
+            "widget": "SelMeas"
+          },
+          {
+            "field": "vndrID",
+            "label": "Default Vendor",
+            "type": "select",
+            "required": false,
+            "hidden": false,
+            "widget": "SelVndr"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "title": "Group 3",
+        "fields": [
+          {
+            "field": "ingrGrmsPerOz",
+            "label": "Grams/Oz",
+            "type": "text",
+            "required": false,
+            "hidden": false
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "title": "Group 4",
+        "fields": [
+          {
+            "field": "ingrDesc",
+            "label": "Description",
+            "type": "multiLine",
+            "required": false,
+            "hidden": false
+          }
+        ]
+      }
+    ]
   },
   "dmlConfig": {
-    "fieldMappings": {},
+    "fieldMappings": {
+      "ingrID": "id",
+      "ingrDesc": "description",
+      "measID": "default_measure_unit",
+      "vndrID": "default_vendor",
+      "ingrGrmsPerOz": "grams_per_ounce",
+      "ingrTypeID": "ingredient_type_id",
+      "acctID": "account_id"
+    },
     "operations": {
       "insert": {
-        "excludeFields": []
+        "excludeFields": [
+          "ingrID"
+        ]
       },
       "update": {},
       "delete": {}

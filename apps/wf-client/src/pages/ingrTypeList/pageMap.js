@@ -34,16 +34,83 @@ const pageMap = {
     }
   },
   "tableConfig": {
-    "columns": []
+    "columns": [
+      {
+        "field": "ingrTypeID",
+        "label": "ingrTypeID",
+        "width": 80,
+        "type": "number",
+        "editable": false,
+        "hidden": true
+      },
+      {
+        "field": "ingrTypeName",
+        "label": "Type Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "acctID",
+        "label": "acctID",
+        "width": 120,
+        "type": "select",
+        "editable": false,
+        "hidden": true
+      }
+    ]
   },
   "formConfig": {
-    "groups": []
+    "groups": [
+      {
+        "id": "1",
+        "title": "Group 1",
+        "fields": [
+          {
+            "field": "ingrTypeID",
+            "label": "ingrTypeID",
+            "type": "number",
+            "required": false,
+            "hidden": true
+          },
+          {
+            "field": "ingrTypeName",
+            "label": "Type Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "ingrTypeDesc",
+            "label": "Description",
+            "type": "multiLine",
+            "required": false,
+            "hidden": false
+          },
+          {
+            "field": "acctID",
+            "label": "acctID",
+            "type": "select",
+            "required": false,
+            "hidden": true
+          }
+        ]
+      }
+    ]
   },
   "dmlConfig": {
-    "fieldMappings": {},
+    "fieldMappings": {
+      "ingrTypeID": "id",
+      "ingrTypeName": "name",
+      "ingrTypeDesc": "description",
+      "acctID": "account_id"
+    },
     "operations": {
       "insert": {
-        "excludeFields": []
+        "excludeFields": [
+          "ingrTypeID"
+        ]
       },
       "update": {},
       "delete": {}

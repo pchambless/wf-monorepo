@@ -10,7 +10,7 @@ export function getToolConfig(app = 'client') {
 
   return {
     app,
-    directivesDir: path.join(devtoolsBase, 'automation/page/directives'),
+    directivesDir: path.join(devtoolsBase, 'automation/data/directives'),
     outputDir: devtoolsBase, // Not used anymore - pages go directly to app directories
     registryPath: path.join(devtoolsBase, 'registries', app, 'pageMapRegistry.js'),
     routesPath: path.join(devtoolsBase, 'registries', app, 'routes.js'),
