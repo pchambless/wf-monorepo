@@ -22,9 +22,6 @@ WhatsFresh 2.0 helps food producers manage their entire operation from ingredien
 │   └── wf-server/          # Node.js/Express API
 ├── packages/
 │   ├── shared-imports/     # Centralized utilities & dependencies
-│   ├── shared-ui/          # Reusable React components
-│   ├── shared-api/         # Server utilities & API helpers
-│   ├── shared-events/      # Event definitions & handlers
 │   └── devtools/           # Code generation & documentation
 └── sql/views/              # Database views organized by app
 ```
