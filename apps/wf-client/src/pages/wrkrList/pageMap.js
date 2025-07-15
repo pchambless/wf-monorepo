@@ -26,75 +26,16 @@ const pageMap = {
     }
   },
   "tableConfig": {
-    "columns": [
-      {
-        "field": "wrkrID",
-        "label": "wrkrID",
-        "width": 80,
-        "type": "number",
-        "editable": false,
-        "hidden": true
-      },
-      {
-        "field": "wrkrName",
-        "label": "Worker Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "acctID",
-        "label": "acctID",
-        "width": 120,
-        "type": "select",
-        "editable": false,
-        "hidden": true
-      }
-    ]
+    "columns": []
   },
   "formConfig": {
-    "groups": [
-      {
-        "id": "1",
-        "title": "Group 1",
-        "fields": [
-          {
-            "field": "wrkrID",
-            "label": "wrkrID",
-            "type": "number",
-            "required": false,
-            "hidden": true
-          },
-          {
-            "field": "wrkrName",
-            "label": "Worker Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "acctID",
-            "label": "acctID",
-            "type": "select",
-            "required": false,
-            "hidden": true
-          }
-        ]
-      }
-    ]
+    "groups": []
   },
   "dmlConfig": {
-    "fieldMappings": {
-      "wrkrID": "id",
-      "wrkrName": "name",
-      "acctID": "account_id"
-    },
+    "fieldMappings": {},
     "operations": {
       "insert": {
-        "excludeFields": [
-          "wrkrID"
-        ]
+        "excludeFields": []
       },
       "update": {},
       "delete": {}

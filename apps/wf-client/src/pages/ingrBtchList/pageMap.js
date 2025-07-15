@@ -20,204 +20,30 @@ const pageMap = {
           "color": "error",
           "tooltip": "Delete",
           "handler": "handleDelete"
+        },
+        {
+          "id": "navigate",
+          "icon": "Visibility",
+          "color": "primary",
+          "tooltip": "View btchMapping",
+          "route": "/mapping/:prodBtchID/btchMapDetail",
+          "paramField": "ingrBtchID"
         }
       ],
       "tableActions": []
     }
   },
   "tableConfig": {
-    "columns": [
-      {
-        "field": "ingrBtchID",
-        "label": "Ingr Btch I D",
-        "width": 80,
-        "type": "number",
-        "editable": false,
-        "hidden": true
-      },
-      {
-        "field": "btchNbr",
-        "label": "Batch Number",
-        "width": "120",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "unitQty",
-        "label": "Unit Qty",
-        "width": "80",
-        "type": "decimal",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "unitPrice",
-        "label": "Unit Price",
-        "width": "100",
-        "type": "decimal",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "purchQty",
-        "label": "Purchase Qty",
-        "width": "100",
-        "type": "decimal",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "lotNbr",
-        "label": "Lot Number",
-        "width": "150",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "ingrID",
-        "label": "Ingredient",
-        "width": 120,
-        "type": "select",
-        "editable": false,
-        "hidden": true
-      }
-    ]
+    "columns": []
   },
   "formConfig": {
-    "groups": [
-      {
-        "id": "1",
-        "title": "Group 1",
-        "fields": [
-          {
-            "field": "ingrBtchID",
-            "label": "Ingr Btch I D",
-            "type": "number",
-            "required": false,
-            "hidden": true
-          },
-          {
-            "field": "btchNbr",
-            "label": "Batch Number",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "vndrID",
-            "label": "Vendor",
-            "type": "select",
-            "required": true,
-            "hidden": false,
-            "widget": "SelVndr"
-          },
-          {
-            "field": "ingrID",
-            "label": "Ingredient",
-            "type": "select",
-            "required": false,
-            "hidden": true
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "title": "Group 2",
-        "fields": [
-          {
-            "field": "brndID",
-            "label": "Brand",
-            "type": "select",
-            "required": false,
-            "hidden": false,
-            "widget": "SelBrnd"
-          }
-        ]
-      },
-      {
-        "id": "3",
-        "title": "Group 3",
-        "fields": [
-          {
-            "field": "unitQty",
-            "label": "Unit Qty",
-            "type": "decimal",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "unitPrice",
-            "label": "Unit Price",
-            "type": "decimal",
-            "required": false,
-            "hidden": false
-          },
-          {
-            "field": "purchQty",
-            "label": "Purchase Qty",
-            "type": "decimal",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "measID",
-            "label": "Measure",
-            "type": "select",
-            "required": true,
-            "hidden": false,
-            "widget": "SelMeas"
-          }
-        ]
-      },
-      {
-        "id": "4",
-        "title": "Group 4",
-        "fields": [
-          {
-            "field": "lotNbr",
-            "label": "Lot Number",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          }
-        ]
-      },
-      {
-        "id": "5",
-        "title": "Group 5",
-        "fields": [
-          {
-            "field": "comments",
-            "label": "Comments",
-            "type": "multiLine",
-            "required": false,
-            "hidden": false
-          }
-        ]
-      }
-    ]
+    "groups": []
   },
   "dmlConfig": {
-    "fieldMappings": {
-      "ingrBtchID": "id",
-      "btchNbr": "batch_number",
-      "vndrID": "vendor_id",
-      "brndID": "brand_id",
-      "unitQty": "unit_quantity",
-      "unitPrice": "unit_price",
-      "purchQty": "purchase_quantity",
-      "measID": "global_measure_unit_id",
-      "lotNbr": "lot_number",
-      "comments": "comments",
-      "ingrID": "ingredient_id"
-    },
+    "fieldMappings": {},
     "operations": {
       "insert": {
-        "excludeFields": [
-          "ingrBtchID"
-        ]
+        "excludeFields": []
       },
       "update": {},
       "delete": {}

@@ -25,7 +25,7 @@ const pageMap = {
           "id": "navigate",
           "icon": "Visibility",
           "color": "primary",
-          "tooltip": "View btchMapDetail",
+          "tooltip": "View btchMapping",
           "route": "/mapping/:prodBtchID/btchMapDetail",
           "paramField": "prodBtchID"
         }
@@ -34,143 +34,16 @@ const pageMap = {
     }
   },
   "tableConfig": {
-    "columns": [
-      {
-        "field": "prodBtchID",
-        "label": "prodBtchID",
-        "width": 80,
-        "type": "number",
-        "editable": false,
-        "hidden": true
-      },
-      {
-        "field": "btchNbr",
-        "label": "Batch Number",
-        "width": "120",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "btchLoc",
-        "label": "Location",
-        "width": "150",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "btchQty",
-        "label": "Quantity",
-        "width": "100",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "measID",
-        "label": "Measure",
-        "width": "120",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "prodID",
-        "label": "prodID",
-        "width": 120,
-        "type": "select",
-        "editable": false,
-        "hidden": true
-      }
-    ]
+    "columns": []
   },
   "formConfig": {
-    "groups": [
-      {
-        "id": "1",
-        "title": "Group 1",
-        "fields": [
-          {
-            "field": "prodBtchID",
-            "label": "prodBtchID",
-            "type": "number",
-            "required": false,
-            "hidden": true
-          },
-          {
-            "field": "btchNbr",
-            "label": "Batch Number",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "prodID",
-            "label": "prodID",
-            "type": "select",
-            "required": false,
-            "hidden": true
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "title": "Group 2",
-        "fields": [
-          {
-            "field": "btchLoc",
-            "label": "Location",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "btchQty",
-            "label": "Quantity",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "measID",
-            "label": "Measure",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          }
-        ]
-      },
-      {
-        "id": "5",
-        "title": "Group 5",
-        "fields": [
-          {
-            "field": "comments",
-            "label": "Comments",
-            "type": "multiLine",
-            "required": false,
-            "hidden": false
-          }
-        ]
-      }
-    ]
+    "groups": []
   },
   "dmlConfig": {
-    "fieldMappings": {
-      "prodBtchID": "id",
-      "btchNbr": "batch_number",
-      "btchLoc": "location",
-      "btchQty": "batch_quantity",
-      "measID": "global_measure_unit_id",
-      "comments": "comments",
-      "prodID": "product_id"
-    },
+    "fieldMappings": {},
     "operations": {
       "insert": {
-        "excludeFields": [
-          "prodBtchID"
-        ]
+        "excludeFields": []
       },
       "update": {},
       "delete": {}

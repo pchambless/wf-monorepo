@@ -20,125 +20,22 @@ const pageMap = {
           "color": "error",
           "tooltip": "Delete",
           "handler": "handleDelete"
-        },
-        {
-          "id": "navigate",
-          "icon": "Visibility",
-          "color": "primary",
-          "tooltip": "View ingrBtchList",
-          "route": "/ingredients/:ingrID/ingrBtchList",
-          "paramField": "brndID"
         }
       ],
       "tableActions": []
     }
   },
   "tableConfig": {
-    "columns": [
-      {
-        "field": "brndID",
-        "label": "brndID",
-        "width": 80,
-        "type": "number",
-        "editable": false,
-        "hidden": true
-      },
-      {
-        "field": "brndName",
-        "label": "Brand Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "brndURL",
-        "label": "Website",
-        "width": 120,
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "acctID",
-        "label": "acctID",
-        "width": 120,
-        "type": "select",
-        "editable": false,
-        "hidden": true
-      }
-    ]
+    "columns": []
   },
   "formConfig": {
-    "groups": [
-      {
-        "id": "1",
-        "title": "Group 1",
-        "fields": [
-          {
-            "field": "brndID",
-            "label": "brndID",
-            "type": "number",
-            "required": false,
-            "hidden": true
-          },
-          {
-            "field": "brndName",
-            "label": "Brand Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "acctID",
-            "label": "acctID",
-            "type": "select",
-            "required": false,
-            "hidden": true
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "title": "Group 2",
-        "fields": [
-          {
-            "field": "brndURL",
-            "label": "Website",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          }
-        ]
-      },
-      {
-        "id": "5",
-        "title": "Group 5",
-        "fields": [
-          {
-            "field": "brndComments",
-            "label": "Comments",
-            "type": "multiLine",
-            "required": false,
-            "hidden": false
-          }
-        ]
-      }
-    ]
+    "groups": []
   },
   "dmlConfig": {
-    "fieldMappings": {
-      "brndID": "id",
-      "brndName": "name",
-      "brndComments": "comments",
-      "brndURL": "url",
-      "acctID": "account_id"
-    },
+    "fieldMappings": {},
     "operations": {
       "insert": {
-        "excludeFields": [
-          "brndID"
-        ]
+        "excludeFields": []
       },
       "update": {},
       "delete": {}

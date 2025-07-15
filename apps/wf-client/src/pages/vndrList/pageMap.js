@@ -20,157 +20,22 @@ const pageMap = {
           "color": "error",
           "tooltip": "Delete",
           "handler": "handleDelete"
-        },
-        {
-          "id": "navigate",
-          "icon": "Visibility",
-          "color": "primary",
-          "tooltip": "View ingrBtchList",
-          "route": "/ingredients/:ingrID/ingrBtchList",
-          "paramField": "vndrID"
         }
       ],
       "tableActions": []
     }
   },
   "tableConfig": {
-    "columns": [
-      {
-        "field": "vndrID",
-        "label": "vndrID",
-        "width": 80,
-        "type": "number",
-        "editable": false,
-        "hidden": true
-      },
-      {
-        "field": "vndrName",
-        "label": "Vendor Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "vndrContactName",
-        "label": "Contact Name",
-        "width": "150",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "vndrContactPhone",
-        "label": "Phone",
-        "width": "120",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "vndrContactEmail",
-        "label": "Email",
-        "width": "180",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "acctID",
-        "label": "acctID",
-        "width": 120,
-        "type": "select",
-        "editable": false,
-        "hidden": true
-      }
-    ]
+    "columns": []
   },
   "formConfig": {
-    "groups": [
-      {
-        "id": "1",
-        "title": "Group 1",
-        "fields": [
-          {
-            "field": "vndrID",
-            "label": "vndrID",
-            "type": "number",
-            "required": false,
-            "hidden": true
-          },
-          {
-            "field": "vndrName",
-            "label": "Vendor Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "vndrContactName",
-            "label": "Contact Name",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          },
-          {
-            "field": "acctID",
-            "label": "acctID",
-            "type": "select",
-            "required": false,
-            "hidden": true
-          }
-        ]
-      },
-      {
-        "id": "2",
-        "title": "Group 2",
-        "fields": [
-          {
-            "field": "vndrContactPhone",
-            "label": "Phone",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          },
-          {
-            "field": "vndrContactEmail",
-            "label": "Email",
-            "type": "text",
-            "required": false,
-            "hidden": false
-          }
-        ]
-      },
-      {
-        "id": "5",
-        "title": "Group 5",
-        "fields": [
-          {
-            "field": "vndrComments",
-            "label": "Comments",
-            "type": "multiLine",
-            "required": false,
-            "hidden": false
-          }
-        ]
-      }
-    ]
+    "groups": []
   },
   "dmlConfig": {
-    "fieldMappings": {
-      "vndrID": "id",
-      "vndrName": "name",
-      "vndrContactName": "contact_name",
-      "vndrContactPhone": "contact_phone",
-      "vndrContactEmail": "contact_email",
-      "vndrComments": "comments",
-      "acctID": "account_id"
-    },
+    "fieldMappings": {},
     "operations": {
       "insert": {
-        "excludeFields": [
-          "vndrID"
-        ]
+        "excludeFields": []
       },
       "update": {},
       "delete": {}

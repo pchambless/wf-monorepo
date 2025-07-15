@@ -34,75 +34,16 @@ const pageMap = {
     }
   },
   "tableConfig": {
-    "columns": [
-      {
-        "field": "prodTypeID",
-        "label": "prodTypeID",
-        "width": 80,
-        "type": "number",
-        "editable": false,
-        "hidden": true
-      },
-      {
-        "field": "prodTypeName",
-        "label": "Type Name",
-        "width": "200",
-        "type": "text",
-        "editable": true,
-        "hidden": false
-      },
-      {
-        "field": "acctID",
-        "label": "acctID",
-        "width": 120,
-        "type": "select",
-        "editable": false,
-        "hidden": true
-      }
-    ]
+    "columns": []
   },
   "formConfig": {
-    "groups": [
-      {
-        "id": "1",
-        "title": "Group 1",
-        "fields": [
-          {
-            "field": "prodTypeID",
-            "label": "prodTypeID",
-            "type": "number",
-            "required": false,
-            "hidden": true
-          },
-          {
-            "field": "prodTypeName",
-            "label": "Type Name",
-            "type": "text",
-            "required": true,
-            "hidden": false
-          },
-          {
-            "field": "acctID",
-            "label": "acctID",
-            "type": "select",
-            "required": false,
-            "hidden": true
-          }
-        ]
-      }
-    ]
+    "groups": []
   },
   "dmlConfig": {
-    "fieldMappings": {
-      "prodTypeID": "id",
-      "prodTypeName": "name",
-      "acctID": "account_id"
-    },
+    "fieldMappings": {},
     "operations": {
       "insert": {
-        "excludeFields": [
-          "prodTypeID"
-        ]
+        "excludeFields": []
       },
       "update": {},
       "delete": {}
