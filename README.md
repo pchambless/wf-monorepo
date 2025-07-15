@@ -1,10 +1,10 @@
-# WhatsFresh - Food Production Management System
+# WhatsFresh 2.0 - Food Production Management System
 
-A comprehensive monorepo for managing food production, ingredient tracking, recipe management, and batch operations. Built with modern React/Node.js architecture and Docker containerization.
+> WhatsFresh 2.0 represents the evolution from a single-tenant, manually-provisioned system to a multi-tenant, self-service SaaS platform. While the core business logic remains proven and mature, the architecture has been redesigned to support internet-scale user registration, account management, and multi-tenant data isolation. The Admin app serves as the operational backbone for managing the complexities of multi-tenant provisioning that were previously handled manually in WhatsFresh 1.0.
 
 ## 🎯 Overview
 
-WhatsFresh helps food producers manage their entire operation from ingredients to finished products:
+WhatsFresh 2.0 helps food producers manage their entire operation from ingredients to finished products:
 
 - **📦 Ingredient Management** - Track types, batches, vendors, and inventory
 - **🍽️ Product Management** - Manage products, recipes, and production batches  
@@ -106,23 +106,32 @@ docker-compose build     # Rebuild containers
 docker-compose logs      # View service logs
 ```
 
-## 📚 Detailed Documentation
+## 📚 Documentation Strategy
 
-**For comprehensive technical documentation, architecture details, and development guides:**
+WhatsFresh 2.0 employs a **multi-layered documentation approach** that grows with the architecture:
+
+### 🏛️ **[Architectural Evolution](./claude-plans/b-completed/index.md)**
+- **Living Documentation** - Real problem-solving history and architectural decisions
+- **Implementation Plans** - Completed solutions that shape current architecture
+- **Onboarding Foundation** - Natural learning path from actual development evolution
 
 ### 🔗 **[DevTools Documentation](./packages/devtools/README.md)**
-
-The DevTools package contains all generation logic and comprehensive docs:
 - **Generation Workflow** - SQL views → UI configs → App-specific code
 - **Architecture Overview** - Generation-first philosophy and benefits
 - **CLI Commands** - Complete guide to code generation tools
 - **Developer Workflow** - When and how to regenerate configurations
-- **Visual Documentation** - Generated page previews and system docs
 
 ### 🔗 **[Generated Documentation](./packages/devtools/docs/generated/index.html)**
 - **Live Page Previews** - See exactly how your pages will look
 - **Widget Gallery** - Browse all available UI components  
 - **System Architecture** - Visual overview of the entire system
+- **EventTypes Flow** - Interactive mermaid diagrams showing system relationships
+
+### 📋 **[Development Guidelines](./CLAUDE.md)**
+- **Project Context** - Monorepo structure and component organization
+- **MVP Development Philosophy** - Break-and-fix approach and no backward compatibility
+- **Generation Commands** - DevTools CLI usage and automation workflows
+- **Session Management** - Development planning and progress tracking
 
 ## 🐳 Docker Development
 
@@ -154,4 +163,4 @@ The entire monorepo is containerized for consistent development:
 
 ---
 
-**💡 New to the project?** Start with the [DevTools Documentation](./packages/devtools/README.md) for a comprehensive overview of the generation-first architecture and development workflow.
+**💡 New to the project?** Start with the [Architectural Evolution](./claude-plans/b-completed/index.md) to understand how WhatsFresh 2.0 evolved, then dive into [DevTools Documentation](./packages/devtools/README.md) for technical implementation details.

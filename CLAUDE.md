@@ -300,6 +300,44 @@ Claude should treat plans as investigation-only by default unless explicitly ins
 
 ---
 
+## 📚 WhatsFresh 2.0 Documentation Strategy
+
+### Multi-Layered Documentation Architecture
+
+**🏛️ Architectural Evolution** (`claude-plans/b-completed/index.md`)
+- Living documentation from completed implementation plans
+- Real problem-solving history and architectural decisions
+- Natural onboarding path from actual development evolution
+- **Updates**: Add new plans as they complete, refine categories
+
+**📋 Development Guidelines** (`CLAUDE.md` - this file)
+- Project context and component organization
+- MVP development philosophy and session management
+- Generation commands and automation workflows
+- **Updates**: Evolve based on new patterns and workflow changes
+
+**🔗 DevTools Documentation** (`packages/devtools/README.md`)
+- Generation workflow and technical implementation
+- CLI commands and developer workflows  
+- **Updates**: Maintained by devtools team, reflects current automation
+
+**🔗 Generated Documentation** (`packages/devtools/docs/generated/`)
+- Live page previews and widget galleries
+- Interactive mermaid diagrams and system visualization
+- **Updates**: Automatically generated from current codebase
+
+**🚀 Public README** (`README.md`)
+- WhatsFresh 2.0 positioning and quick start
+- Integration point for all documentation layers
+- **Updates**: Reflects current architecture and links to documentation layers
+
+### Documentation Maintenance Strategy
+
+**Incremental Updates**: Each documentation layer updates independently but references others
+**Cross-Referencing**: README.md serves as the integration hub for all documentation
+**Living Evolution**: Documentation grows with the architecture, not imposed top-down
+**Infrastructure-Generated**: Where possible, documentation emerges from actual code and configuration
+
 ## 💡 Claude Code CLI Tips
 
 - **`#`** - Quick shortcut to add content to CLAUDE.md during session

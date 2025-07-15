@@ -2,8 +2,8 @@
   "nodes": [
     {
       "id": "userLogin",
-      "label": "page:Login<br>userLogin<br>[::userEmail, ::enteredPassword]",
-      "category": "page:Login",
+      "label": "page:AuthLayout<br>userLogin<br>[::userEmail, ::enteredPassword]",
+      "category": "page:AuthLayout",
       "meta": {
         "cluster": "AUTH",
         "dbTable": "users",
@@ -21,13 +21,13 @@
         "selWidget": "SelUserAcct",
         "method": "GET",
         "purpose": "Get accounts accessible to user",
-        "primaryKey": null
+        "primaryKey": "acctID"
       }
     },
     {
       "id": "ingrTypeList",
-      "label": "page:Crud<br>ingrTypeList<br>[::acctID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>ingrTypeList<br>[::acctID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "INGREDIENTS",
         "dbTable": "ingredient_types",
@@ -39,8 +39,8 @@
     },
     {
       "id": "ingrList",
-      "label": "page:Crud<br>ingrList<br>[::acctID, ::ingrTypeID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>ingrList<br>[::acctID, ::ingrTypeID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "INGREDIENTS",
         "dbTable": "ingredients",
@@ -52,8 +52,8 @@
     },
     {
       "id": "ingrBtchList",
-      "label": "page:Crud<br>ingrBtchList<br>[::ingrID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>ingrBtchList<br>[::ingrID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "INGREDIENTS",
         "dbTable": "ingredient_batches",
@@ -65,8 +65,8 @@
     },
     {
       "id": "prodTypeList",
-      "label": "page:Crud<br>prodTypeList<br>[::acctID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>prodTypeList<br>[::acctID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "PRODUCTS",
         "dbTable": "product_types",
@@ -78,8 +78,8 @@
     },
     {
       "id": "prodList",
-      "label": "page:Crud<br>prodList<br>[::acctID, ::prodTypeID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>prodList<br>[::acctID, ::prodTypeID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "PRODUCTS",
         "dbTable": "products",
@@ -91,11 +91,12 @@
     },
     {
       "id": "taskList",
-      "label": "page:Crud<br>taskList<br>[::prodTypeID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>taskList<br>[::prodTypeID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "PRODUCTS",
         "dbTable": "tasks",
+        "selWidget": "SelTask",
         "method": "GET",
         "purpose": "Get tasks for batches",
         "primaryKey": "taskID"
@@ -103,8 +104,8 @@
     },
     {
       "id": "prodBtchList",
-      "label": "page:Crud<br>prodBtchList<br>[::prodID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>prodBtchList<br>[::prodID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "PRODUCTS",
         "dbTable": "product_batches",
@@ -116,8 +117,8 @@
     },
     {
       "id": "brndList",
-      "label": "page:Crud<br>brndList<br>[::acctID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>brndList<br>[::acctID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "REFERENCE",
         "dbTable": "brands",
@@ -129,8 +130,8 @@
     },
     {
       "id": "vndrList",
-      "label": "page:Crud<br>vndrList<br>[::acctID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>vndrList<br>[::acctID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "REFERENCE",
         "dbTable": "vendors",
@@ -142,8 +143,8 @@
     },
     {
       "id": "wrkrList",
-      "label": "page:Crud<br>wrkrList<br>[::acctID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>wrkrList<br>[::acctID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "REFERENCE",
         "dbTable": "workers",
@@ -155,32 +156,34 @@
     },
     {
       "id": "measList",
-      "label": "page:Crud<br>measList<br>[::acctID]",
-      "category": "page:Crud",
+      "label": "page:CrudLayout<br>measList<br>[::acctID]",
+      "category": "page:CrudLayout",
       "meta": {
         "cluster": "REFERENCE",
         "dbTable": "measures",
+        "selWidget": "SelMeas",
         "method": "GET",
         "purpose": "Get measurement units",
-        "primaryKey": null
+        "primaryKey": "measID"
       }
     },
     {
       "id": "rcpeList",
-      "label": "page:Recipe<br>rcpeList<br>[::prodID]",
-      "category": "page:Recipe",
+      "label": "page:RecipeLayout<br>rcpeList<br>[::prodID]",
+      "category": "page:RecipeLayout",
       "meta": {
         "cluster": "PRODUCTS",
         "dbTable": "product_recipes",
+        "selWidget": "SelRcpe",
         "method": "GET",
         "purpose": "Get recipes for an account",
         "primaryKey": "rcpeID"
       }
     },
     {
-      "id": "btchMapDetail",
-      "label": "page:Mapping<br>btchMapDetail<br>[::prodBtchID]",
-      "category": "page:Mapping",
+      "id": "btchMapping",
+      "label": "page:MappingLayout<br>btchMapping<br>[::prodBtchID]",
+      "category": "page:MappingLayout",
       "meta": {
         "cluster": "MAPPING",
         "purpose": "Main batch mapping page",
@@ -200,8 +203,8 @@
     },
     {
       "id": "btchMapMapped",
-      "label": "data:Grid<br>btchMapMapped<br>[::prodBtchID, ::ingrID]",
-      "category": "data:Grid",
+      "label": "ui:Grid<br>btchMapMapped<br>[::prodBtchID, ::ingrID]",
+      "category": "ui:Grid",
       "meta": {
         "cluster": "MAPPING",
         "method": "GET",
@@ -211,8 +214,8 @@
     },
     {
       "id": "btchMapAvailable",
-      "label": "data:Grid<br>btchMapAvailable<br>[::prodBtchID, ::ingrID]",
-      "category": "data:Grid",
+      "label": "ui:Grid<br>btchMapAvailable<br>[::prodBtchID, ::ingrID]",
+      "category": "ui:Grid",
       "meta": {
         "cluster": "MAPPING",
         "method": "GET",
@@ -221,144 +224,218 @@
       }
     }
   ],
-  "edges": [
-    {
-      "from": "userLogin",
-      "to": "userAcctList",
-      "label": "",
-      "type": "ui:select"
-    },
+  "navigationEdges": [
     {
       "from": "userAcctList",
       "to": "ingrTypeList",
-      "label": "",
-      "type": "page:Crud"
+      "label": "acctID",
+      "type": "navigation"
     },
     {
       "from": "userAcctList",
       "to": "prodTypeList",
-      "label": "",
-      "type": "page:Crud"
+      "label": "acctID",
+      "type": "navigation"
     },
     {
       "from": "userAcctList",
       "to": "brndList",
-      "label": "",
-      "type": "page:Crud"
+      "label": "acctID",
+      "type": "navigation"
     },
     {
       "from": "userAcctList",
       "to": "vndrList",
-      "label": "",
-      "type": "page:Crud"
+      "label": "acctID",
+      "type": "navigation"
     },
     {
       "from": "userAcctList",
       "to": "wrkrList",
-      "label": "",
-      "type": "page:Crud"
+      "label": "acctID",
+      "type": "navigation"
     },
     {
       "from": "userAcctList",
       "to": "measList",
-      "label": "",
-      "type": "page:Crud"
+      "label": "acctID",
+      "type": "navigation"
     },
     {
       "from": "ingrTypeList",
       "to": "ingrList",
       "label": "ingrTypeID",
-      "type": "page:Crud"
+      "type": "navigation"
     },
     {
       "from": "ingrList",
       "to": "ingrBtchList",
       "label": "ingrID",
-      "type": "page:Crud"
+      "type": "navigation"
     },
     {
       "from": "ingrBtchList",
-      "to": "btchMapAvailable",
+      "to": "btchMapping",
       "label": "ingrBtchID",
-      "type": "data:Grid"
-    },
-    {
-      "from": "ingrBtchList",
-      "to": "btchMapMapped",
-      "label": "ingrBtchID",
-      "type": "data:Grid"
+      "type": "navigation"
     },
     {
       "from": "prodTypeList",
       "to": "prodList",
       "label": "prodTypeID",
-      "type": "page:Crud"
+      "type": "navigation"
     },
     {
       "from": "prodTypeList",
       "to": "taskList",
       "label": "prodTypeID",
-      "type": "page:Crud"
+      "type": "navigation"
     },
     {
       "from": "prodList",
       "to": "prodBtchList",
       "label": "prodID",
-      "type": "page:Crud"
+      "type": "navigation"
     },
     {
       "from": "prodList",
       "to": "rcpeList",
       "label": "prodID",
-      "type": "page:Recipe"
+      "type": "navigation"
     },
     {
       "from": "prodList",
-      "to": "btchMapRcpeList",
+      "to": "btchMapping",
       "label": "prodID",
-      "type": "data:Grid"
+      "type": "navigation"
     },
     {
       "from": "prodBtchList",
-      "to": "btchMapDetail",
+      "to": "btchMapping",
       "label": "prodBtchID",
-      "type": "page:Mapping"
+      "type": "navigation"
+    }
+  ],
+  "widgetEdges": [
+    {
+      "from": "vndrList",
+      "to": "ingrBtchList",
+      "label": "vndrID",
+      "type": "widget",
+      "widget": "SelVndr"
     },
     {
       "from": "brndList",
       "to": "ingrBtchList",
       "label": "brndID",
-      "type": "page:Crud"
+      "type": "widget",
+      "widget": "SelBrnd"
     },
     {
-      "from": "vndrList",
+      "from": "measList",
       "to": "ingrBtchList",
-      "label": "vndrID",
-      "type": "page:Crud"
-    },
-    {
-      "from": "rcpeList",
-      "to": "btchMapRcpeList",
-      "label": "rcpeID",
-      "type": "data:Grid"
-    },
-    {
-      "from": "btchMapDetail",
-      "to": "btchMapRcpeList",
-      "label": "",
-      "type": "data:Grid"
-    },
-    {
-      "from": "btchMapDetail",
-      "to": "btchMapMapped",
-      "label": "",
-      "type": "data:Grid"
-    },
-    {
-      "from": "btchMapDetail",
-      "to": "btchMapAvailable",
-      "label": "",
-      "type": "data:Grid"
+      "label": "measID",
+      "type": "widget",
+      "widget": "SelMeas"
     }
-  ]
+  ],
+  "edges": [
+    {
+      "from": "userAcctList",
+      "to": "ingrTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "prodTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "brndList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "vndrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "wrkrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "measList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrTypeList",
+      "to": "ingrList",
+      "label": "ingrTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrList",
+      "to": "ingrBtchList",
+      "label": "ingrID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrBtchList",
+      "to": "btchMapping",
+      "label": "ingrBtchID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "prodList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "taskList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "prodBtchList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "rcpeList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "btchMapping",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodBtchList",
+      "to": "btchMapping",
+      "label": "prodBtchID",
+      "type": "navigation"
+    }
+  ],
+  "meta": {
+    "generated": "2025-07-15T02:31:52.512Z",
+    "nodeCount": 18,
+    "navigationEdgeCount": 15,
+    "widgetEdgeCount": 3,
+    "widgetUsageCount": 2
+  }
 }

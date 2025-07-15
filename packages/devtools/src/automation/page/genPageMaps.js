@@ -159,9 +159,9 @@ function generateRowActions(entityName, eventDataMap) {
   
   // Add navigation action if entity has page-type children (not just data grids)
   const eventData = eventDataMap[entityName];
-  if (eventData?.children?.length > 0) {
+  if (eventData?.navChildren?.length > 0) {
     // Find the first child that is a page (not a data grid)
-    const pageChild = eventData.children.find(childEventType => {
+    const pageChild = eventData.navChildren.find(childEventType => {
       const childEventData = eventDataMap[childEventType];
       return childEventData?.category?.startsWith('page:');
     });

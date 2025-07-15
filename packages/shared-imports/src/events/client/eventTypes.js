@@ -20,6 +20,7 @@ const EVENTS = [
     routePath: "/login",
     dbTable: "users", // Add this line
     children: ["userAcctList"],
+    navChildren: ["dashboard"],
     method: "GET",
     qrySQL: `
       SELECT *, :enteredPassword
@@ -34,14 +35,12 @@ const EVENTS = [
     eventType: "userAcctList",
     category: "ui:select",
     cluster: "AUTH",
-    children: [
-      "ingrTypeList",
+    navChildren: ["ingrTypeList",
       "prodTypeList",
       "brndList",
       "vndrList",
       "wrkrList",
-      "measList"
-    ],
+      "measList"],
     selWidget: "SelUserAcct",
     method: "GET",
     qrySQL: `
@@ -65,7 +64,7 @@ const EVENTS = [
     routePath: "/ingredients/:acctID/ingrTypeList",
     dbTable: "ingredient_types",
     selWidget: "SelIngrType",
-    children: ["ingrList"],
+    navChildren: ["ingrList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -87,6 +86,7 @@ const EVENTS = [
     dbTable: "ingredients",
     selWidget: "SelIngr",
     children: ["ingrBtchList"],
+    navChildren: ["ingrBtchList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -107,6 +107,7 @@ const EVENTS = [
     routePath: "/ingredients/:ingrID/ingrBtchList",
     dbTable: "ingredient_batches",
     children: ["btchMapAvailable", "btchMapMapped"],
+    navChildren: ["btchMapping"],
     selWidget: "SelIngrBtch",
     method: "GET",
     qrySQL: `
@@ -131,6 +132,7 @@ const EVENTS = [
     dbTable: "product_types",
     selWidget: "SelProdType",
     children: ["prodList", "taskList"],
+    navChildren: ["prodList", "taskList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -152,6 +154,7 @@ const EVENTS = [
     dbTable: "products",
     selWidget: "SelProd",
     children: ["prodBtchList", "rcpeList", "btchMapRcpeList"],
+    navChildren: ["prodBtchList", "rcpeList", "btchMapping"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -172,6 +175,8 @@ const EVENTS = [
     routePath: "/products/:prodTypeID/taskList",
     dbTable: "tasks",
     children: ["prodBtchTaskList"],
+    selWidget: "SelTask",
+    navChildren: ["prodBtchTaskList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -191,7 +196,8 @@ const EVENTS = [
     cluster: "PRODUCTS",
     routePath: "/products/:prodID/prodBtchList",
     dbTable: "product_batches",
-    children: ["btchMapDetail"],
+    children: ["btchMapping"],
+    navChildren: ["btchMapping"],
     selWidget: "SelProdBtch",
     method: "GET",
     qrySQL: `
@@ -216,6 +222,7 @@ const EVENTS = [
     dbTable: "brands",
     selWidget: "SelBrnd",
     children: ["ingrBtchList"],
+    navChildren: [],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -237,6 +244,7 @@ const EVENTS = [
     dbTable: "vendors",
     selWidget: "SelVndr",
     children: ["ingrBtchList"],
+    navChildren: [],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -258,6 +266,7 @@ const EVENTS = [
     dbTable: "workers",
     selWidget: "SelWrkr",
     children: ["prodBtchTaskList"],
+    navChildren: [],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -278,6 +287,8 @@ const EVENTS = [
     routePath: "/measures/:acctID/measList",
     dbTable: "measures",
     children: [],
+    selWidget: "SelMeas",
+    navChildren: [],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -299,6 +310,8 @@ const EVENTS = [
     routePath: "/recipes/:prodID/rcpeList",
     dbTable: "product_recipes",
     children: ["btchMapRcpeList"],
+    selWidget: "SelRcpe",
+    navChildren: [],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -313,11 +326,12 @@ const EVENTS = [
   // MAPPING DETAIL
   {
     eventID: 100,
-    eventType: "btchMapDetail",
+    eventType: "btchMapping",
     category: "page:MappingLayout",
     title: "Batch Mapping",
     cluster: "MAPPING",
-    children: ["btchMapRcpeList", "btchMapMapped", "btchMapAvailable"],
+    children: [],
+    navChildren: [],
     routePath: "/mapping/:prodBtchID/btchMapDetail",
     params: [":prodBtchID"],
     purpose: "Main batch mapping page"
