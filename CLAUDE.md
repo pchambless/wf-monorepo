@@ -195,20 +195,27 @@ Active development plans and issue tracking are maintained in `/claude-plans/`, 
 
 ## 🔧 DevTools Generator Commands
 
-### Common Generation Tasks
-- `node genDirectives.js [viewName]` - Generate directive files from SQL views
-- `node genPageMaps.js [viewName]` - Generate pageMap configurations 
-- `node genPageIndex.js client --all` - Generate React component wrappers
-- `npm run generate-client` - Full client regeneration pipeline
+### Unified Entry Points
+- `node src/automation/runCore.js` - Run all core operational generators
+- `node src/automation/runTriggered.js [viewName]` - Run triggered generators for specific view
+- `node src/automation/detectChanges.js` - Detect changed SQL views and suggest commands
+
+### Individual Generator Commands  
+- `node src/automation/triggered/genDirectives.js [viewName]` - Generate directive files from SQL views
+- `node src/automation/core/genPageMaps.js` - Generate pageMap configurations 
+- `node src/automation/static/genPageIndex.js client --all` - Generate React component wrappers
+- `node src/documentation/generators/genEventTypes.js` - Generate mermaid charts (.mmd files)
 
 ### Generator File Locations
-- **Directive Generation**: `packages/devtools/src/automation/page/genDirectives.js`
-- **PageMap Generation**: `packages/devtools/src/automation/page/genPageMaps.js`
-- **Component Generation**: `packages/devtools/src/automation/page/genPageIndex.js`
+- **Core (Always Run)**: `packages/devtools/src/automation/core/`
+- **Triggered (When Views Change)**: `packages/devtools/src/automation/triggered/`
+- **Static (Rare Changes)**: `packages/devtools/src/automation/static/`
+- **Documentation**: `packages/devtools/src/documentation/generators/`
+- **Data Storage**: `packages/devtools/src/automation/data/`
 - **Configuration Sources**: 
   - SQL Views: `sql/views/client/`
-  - Events Config: `packages/devtools/src/docs/generated/events/events.json`
-  - Directive Output: `packages/devtools/src/automation/page/directives/`
+  - Events Config: `packages/devtools/src/configuration/events.json`
+  - Directive Output: `packages/devtools/src/automation/data/directives/`
 
 ### 🔍 Common Debugging Patterns
 

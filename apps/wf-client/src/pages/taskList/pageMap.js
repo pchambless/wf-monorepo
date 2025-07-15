@@ -26,16 +26,99 @@ const pageMap = {
     }
   },
   "tableConfig": {
-    "columns": []
+    "columns": [
+      {
+        "field": "taskID",
+        "label": "taskID",
+        "width": 80,
+        "type": "number",
+        "editable": false,
+        "hidden": true
+      },
+      {
+        "field": "taskName",
+        "label": "Task Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "taskOrder",
+        "label": "Order",
+        "width": "80",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "prodTypeID",
+        "label": "prodTypeID",
+        "width": 120,
+        "type": "select",
+        "editable": false,
+        "hidden": true
+      }
+    ]
   },
   "formConfig": {
-    "groups": []
+    "groups": [
+      {
+        "id": "1",
+        "title": "Group 1",
+        "fields": [
+          {
+            "field": "taskID",
+            "label": "taskID",
+            "type": "number",
+            "required": false,
+            "hidden": true
+          },
+          {
+            "field": "taskName",
+            "label": "Task Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "taskDesc",
+            "label": "Description",
+            "type": "multiLine",
+            "required": false,
+            "hidden": false
+          },
+          {
+            "field": "taskOrder",
+            "label": "Order",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "prodTypeID",
+            "label": "prodTypeID",
+            "type": "select",
+            "required": false,
+            "hidden": true
+          }
+        ]
+      }
+    ]
   },
   "dmlConfig": {
-    "fieldMappings": {},
+    "fieldMappings": {
+      "taskID": "id",
+      "taskName": "name",
+      "taskDesc": "description",
+      "taskOrder": "ordr",
+      "prodTypeID": "product_type_id"
+    },
     "operations": {
       "insert": {
-        "excludeFields": []
+        "excludeFields": [
+          "taskID"
+        ]
       },
       "update": {},
       "delete": {}

@@ -34,16 +34,175 @@ const pageMap = {
     }
   },
   "tableConfig": {
-    "columns": []
+    "columns": [
+      {
+        "field": "prodID",
+        "label": "prodID",
+        "width": 80,
+        "type": "number",
+        "editable": false,
+        "hidden": true
+      },
+      {
+        "field": "prodName",
+        "label": "Product Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "prodCode",
+        "label": "Code",
+        "width": "100",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "prodDfltLoc",
+        "label": "Default Location",
+        "width": "120",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "prodDfltBestBy",
+        "label": "Best By Days",
+        "width": "80",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "prodUpcItemRef",
+        "label": "UPC Reference",
+        "width": "120",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "prodUpcChkDgt",
+        "label": "UPC Check Digit",
+        "width": "80",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "prodTypeID",
+        "label": "prodTypeID",
+        "width": 120,
+        "type": "select",
+        "editable": false,
+        "hidden": true
+      }
+    ]
   },
   "formConfig": {
-    "groups": []
+    "groups": [
+      {
+        "id": "1",
+        "title": "Group 1",
+        "fields": [
+          {
+            "field": "prodID",
+            "label": "prodID",
+            "type": "number",
+            "required": false,
+            "hidden": true
+          },
+          {
+            "field": "prodName",
+            "label": "Product Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "prodCode",
+            "label": "Code",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "prodDesc",
+            "label": "Description",
+            "type": "multiLine",
+            "required": false,
+            "hidden": false
+          },
+          {
+            "field": "prodTypeID",
+            "label": "prodTypeID",
+            "type": "select",
+            "required": false,
+            "hidden": true
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "title": "Group 2",
+        "fields": [
+          {
+            "field": "prodDfltLoc",
+            "label": "Default Location",
+            "type": "text",
+            "required": false,
+            "hidden": false
+          },
+          {
+            "field": "prodDfltBestBy",
+            "label": "Best By Days",
+            "type": "text",
+            "required": false,
+            "hidden": false
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "title": "Group 3",
+        "fields": [
+          {
+            "field": "prodUpcItemRef",
+            "label": "UPC Reference",
+            "type": "text",
+            "required": false,
+            "hidden": false
+          },
+          {
+            "field": "prodUpcChkDgt",
+            "label": "UPC Check Digit",
+            "type": "text",
+            "required": false,
+            "hidden": false
+          }
+        ]
+      }
+    ]
   },
   "dmlConfig": {
-    "fieldMappings": {},
+    "fieldMappings": {
+      "prodID": "id",
+      "prodName": "name",
+      "prodCode": "code",
+      "prodDfltLoc": "location",
+      "prodDfltBestBy": "best_by_days",
+      "prodDesc": "description",
+      "prodUpcItemRef": "upc_item_reference",
+      "prodUpcChkDgt": "upc_check_digit",
+      "prodTypeID": "product_type_id"
+    },
     "operations": {
       "insert": {
-        "excludeFields": []
+        "excludeFields": [
+          "prodID"
+        ]
       },
       "update": {},
       "delete": {}

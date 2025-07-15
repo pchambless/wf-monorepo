@@ -8,7 +8,8 @@
     "prodDesc": "Our bread and butter pickles with a delicious BBQ flavor & smoky chipotle twist.",
     "prodUpcItemRef": null,
     "prodUpcChkDgt": null,
-    "prodTypeID": 3
+    "prodTypeID": 3,
+    "acctID": 1
   },
   {
     "prodID": 3,
@@ -19,7 +20,8 @@
     "prodDesc": "A great “Bread and Butter” style Pickle.  Thinly sliced fresh cucumbers and Onions sweetened up in this awesome recipe passed down from Grandma Cora.",
     "prodUpcItemRef": "26",
     "prodUpcChkDgt": "7",
-    "prodTypeID": 3
+    "prodTypeID": 3,
+    "acctID": 1
   },
   {
     "prodID": 85,
@@ -30,7 +32,8 @@
     "prodDesc": "Bread and Butter pickle with a Jalapeno kick.",
     "prodUpcItemRef": null,
     "prodUpcChkDgt": null,
-    "prodTypeID": 3
+    "prodTypeID": 3,
+    "acctID": 1
   },
   {
     "prodID": 1,
@@ -41,7 +44,8 @@
     "prodDesc": "Our traditional Dill Pickle.  Nothing Fancy in the recipe.  Just awesome fresh tasting pickles, heavy on the fresh Dill.  Ripple cut and crunchy.",
     "prodUpcItemRef": "24",
     "prodUpcChkDgt": "3",
-    "prodTypeID": 3
+    "prodTypeID": 3,
+    "acctID": 1
   },
   {
     "prodID": 2,
@@ -52,6 +56,7 @@
     "prodDesc": "Our traditional Dill Pickles with a little scoop of our fresh chopped Habaneros.  You’ll love the punch and flavor of these one of a kind fresh pickles.",
     "prodUpcItemRef": "25",
     "prodUpcChkDgt": "0",
-    "prodTypeID": 3
+    "prodTypeID": 3,
+    "acctID": 1
   }
 ]

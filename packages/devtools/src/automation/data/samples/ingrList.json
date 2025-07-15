@@ -7,7 +7,8 @@
     "measID": 51,
     "vndrID": null,
     "ingrGrmsPerOz": 0,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 5,
@@ -17,7 +18,8 @@
     "measID": 39,
     "vndrID": null,
     "ingrGrmsPerOz": 29,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 4,
@@ -27,7 +29,8 @@
     "measID": 33,
     "vndrID": null,
     "ingrGrmsPerOz": 17,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 68,
@@ -37,7 +40,8 @@
     "measID": 33,
     "vndrID": null,
     "ingrGrmsPerOz": 17,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 7,
@@ -47,7 +51,8 @@
     "measID": 40,
     "vndrID": null,
     "ingrGrmsPerOz": 5,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 139,
@@ -57,7 +62,8 @@
     "measID": null,
     "vndrID": null,
     "ingrGrmsPerOz": 0,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 331,
@@ -67,7 +73,8 @@
     "measID": 40,
     "vndrID": null,
     "ingrGrmsPerOz": 0,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 8,
@@ -77,7 +84,8 @@
     "measID": 40,
     "vndrID": null,
     "ingrGrmsPerOz": 5,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 211,
@@ -87,7 +95,8 @@
     "measID": 40,
     "vndrID": null,
     "ingrGrmsPerOz": 0,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   },
   {
     "ingrID": 391,
@@ -97,6 +106,7 @@
     "measID": 40,
     "vndrID": null,
     "ingrGrmsPerOz": 0,
-    "ingrTypeID": 3
+    "ingrTypeID": 3,
+    "acctID": 1
   }
 ]

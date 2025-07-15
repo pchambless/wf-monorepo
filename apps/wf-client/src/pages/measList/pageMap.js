@@ -26,16 +26,91 @@ const pageMap = {
     }
   },
   "tableConfig": {
-    "columns": []
+    "columns": [
+      {
+        "field": "measID",
+        "label": "measID",
+        "width": 80,
+        "type": "number",
+        "editable": false,
+        "hidden": true
+      },
+      {
+        "field": "name",
+        "label": "Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "abbrev",
+        "label": "Abbreviation",
+        "width": "100",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "acctID",
+        "label": "acctID",
+        "width": 120,
+        "type": "select",
+        "editable": false,
+        "hidden": true
+      }
+    ]
   },
   "formConfig": {
-    "groups": []
+    "groups": [
+      {
+        "id": "1",
+        "title": "Group 1",
+        "fields": [
+          {
+            "field": "measID",
+            "label": "measID",
+            "type": "number",
+            "required": false,
+            "hidden": true
+          },
+          {
+            "field": "name",
+            "label": "Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "abbrev",
+            "label": "Abbreviation",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "acctID",
+            "label": "acctID",
+            "type": "select",
+            "required": false,
+            "hidden": true
+          }
+        ]
+      }
+    ]
   },
   "dmlConfig": {
-    "fieldMappings": {},
+    "fieldMappings": {
+      "measID": "id",
+      "name": "name",
+      "abbrev": "abbrev",
+      "acctID": "account_id"
+    },
     "operations": {
       "insert": {
-        "excludeFields": []
+        "excludeFields": [
+          "measID"
+        ]
       },
       "update": {},
       "delete": {}
