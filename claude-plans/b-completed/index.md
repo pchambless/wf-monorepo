@@ -14,6 +14,7 @@
 ### Configuration-Driven UI
 - **[2025-07-07 PageMap Config Issues Complete](2025-07-07-pageMap-config-issues-COMPLETE.md)** - Fixed pageMap → UI component configuration flow
 - **[2025-07-11 EventTypes for Docs and Navigation](2025-07-11%20EventTypes%20for%20Docs%20and%20Navigation.md)** - Separated navigation relationships from widget relationships in eventTypes
+- **[2025-07-14 Mermaid EventTypes Enhancement](2025-07-14%20Mermaid%20EventTypes%20Enhancement.md)** - Enhanced genEventTypes.js with directive analysis and widget relationship chart generation
 
 ---
 
@@ -72,5 +73,5 @@ These completed plans form the foundation for comprehensive developer onboarding
 ---
 
 *Last Updated: 2025-07-15*  
-*Plans Completed: 12*  
+*Plans Completed: 13*  
 *WhatsFresh 2.0 Evolution: Ongoing*

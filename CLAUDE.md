@@ -248,6 +248,49 @@ Claude should proactively suggest creating a plan when:
 - Reference completed plans from b-completed/ instead of re-explaining context
 - Use concise plan updates rather than lengthy explanations
 
+### Plan Completion Workflow (ADHD-Friendly Guardrails)
+
+**End-of-Session Checklist:**
+1. **Review Plan Status** - "Is this plan actually complete?"
+2. **Move Completed Plans** - `a-pending/` → `b-completed/`
+3. **Update Index** - Add entry to `b-completed/index.md`
+4. **Generate Commit Message** - Claude provides ready-to-use commit message
+5. **Commit Reminder** - "Ready to commit this plan completion?"
+
+**Plan Completion Triggers:**
+- User says "we're done with this" or "this is complete"
+- All major tasks in plan are implemented and working
+- User starts discussing next phase or different topic
+- Session is ending with completed work
+
+**Systematic Reminders:**
+- **Before session ends**: "Any plans to move to completed?"
+- **After implementation**: "Should we update the architectural evolution index?"
+- **Before major commits**: "This seems like a good plan completion commit point"
+
+**Commit Message Generation:**
+When a plan is completed, Claude should generate a commit message following this template:
+```
+Complete: [Plan Name] - [Brief Description]
+
+Key Changes:
+- [Specific technical change 1]
+- [Specific technical change 2]
+- [Specific technical change 3]
+
+Architecture Impact:
+- [How this affects overall system]
+- [What this enables for future development]
+
+Plan Status: Moved to b-completed/, updated architectural evolution index.
+```
+
+**Benefits for ADHD-Friendly Development:**
+- **Clear completion signals** - No ambiguity about what's done
+- **Automatic documentation** - Progress tracking without extra effort
+- **Structured transitions** - Clean handoff between plans
+- **Commit discipline** - Regular progress commits with clear scope
+
 ### 🔍 Investigation Shortcuts & Quick Reference
 
 **Claude Behavior**: When conducting multi-file investigations, suggest adding shortcuts to CLAUDE.md for future efficiency.
