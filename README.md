@@ -31,14 +31,16 @@ WhatsFresh 2.0 helps food producers manage their entire operation from ingredien
 WhatsFresh 2.0 is organized as a single, unified codebase—known as a monorepo—which simply means all the apps, tools, and shared code live in one place. This makes it easier to keep things consistent, reuse components, and onboard new collaborators quickly.
 
 Here’s how the core pieces fit together:
-├── apps/
-│   ├── wf-client/          # Frontend for food producers and staff
-│   ├── wf-admin/           # Frontend for system administrators
-│   └── wf-server/          # Backend API shared across apps
-├── packages/
-│   ├── shared-imports/     # Common utilities used by all apps
-│   └── devtools/           # Tools for generating code and documentation
-└── sql/views/              # Organized database views that drive the UI
+```plaintext
+ ├── apps/ │ 
+ ├── wf-client/ # Frontend for food producers and staff 
+ │ ├── wf-admin/ # Frontend for system administrators 
+ │ └── wf-server/ # Backend API shared across apps 
+ ├── packages/ 
+ │ ├── shared-imports/ # Common utilities used by all apps 
+ │ └── devtools/ # Tools for generating code and documentation 
+ └── sql/views/ # Organized database views that drive the UI
+ ```
 
 
 Each part plays a distinct role—from powering user interfaces to handling backend logic, all stitched together by shared tools and database-driven configurations.
