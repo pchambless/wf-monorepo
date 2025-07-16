@@ -85,7 +85,6 @@ const EVENTS = [
     routePath: "/ingredients/:ingrTypeID/ingrList",
     dbTable: "ingredients",
     selWidget: "SelIngr",
-    children: ["ingrBtchList"],
     navChildren: ["ingrBtchList"],
     method: "GET",
     qrySQL: `
@@ -106,8 +105,7 @@ const EVENTS = [
     cluster: "INGREDIENTS",
     routePath: "/ingredients/:ingrID/ingrBtchList",
     dbTable: "ingredient_batches",
-    children: ["btchMapAvailable", "btchMapMapped"],
-    navChildren: ["btchMapping"],
+    navChildren: [],
     selWidget: "SelIngrBtch",
     method: "GET",
     qrySQL: `
@@ -131,7 +129,6 @@ const EVENTS = [
     routePath: "/products/:acctID/prodTypeList",
     dbTable: "product_types",
     selWidget: "SelProdType",
-    children: ["prodList", "taskList"],
     navChildren: ["prodList", "taskList"],
     method: "GET",
     qrySQL: `
@@ -153,8 +150,7 @@ const EVENTS = [
     routePath: "/products/:prodTypeID/prodList",
     dbTable: "products",
     selWidget: "SelProd",
-    children: ["prodBtchList", "rcpeList", "btchMapRcpeList"],
-    navChildren: ["prodBtchList", "rcpeList", "btchMapping"],
+    navChildren: ["prodBtchList", "rcpeList"],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -174,9 +170,8 @@ const EVENTS = [
     cluster: "PRODUCTS",
     routePath: "/products/:prodTypeID/taskList",
     dbTable: "tasks",
-    children: ["prodBtchTaskList"],
     selWidget: "SelTask",
-    navChildren: ["prodBtchTaskList"],
+    navChildren: [],
     method: "GET",
     qrySQL: `
       SELECT *
@@ -196,7 +191,6 @@ const EVENTS = [
     cluster: "PRODUCTS",
     routePath: "/products/:prodID/prodBtchList",
     dbTable: "product_batches",
-    children: ["btchMapping"],
     navChildren: ["btchMapping"],
     selWidget: "SelProdBtch",
     method: "GET",
@@ -221,7 +215,6 @@ const EVENTS = [
     routePath: "/brands/:acctID/brndList",
     dbTable: "brands",
     selWidget: "SelBrnd",
-    children: ["ingrBtchList"],
     navChildren: [],
     method: "GET",
     qrySQL: `
@@ -243,7 +236,6 @@ const EVENTS = [
     routePath: "/vendors/:acctID/vndrList",
     dbTable: "vendors",
     selWidget: "SelVndr",
-    children: ["ingrBtchList"],
     navChildren: [],
     method: "GET",
     qrySQL: `
@@ -265,7 +257,6 @@ const EVENTS = [
     routePath: "/workers/:acctID/wrkrList",
     dbTable: "workers",
     selWidget: "SelWrkr",
-    children: ["prodBtchTaskList"],
     navChildren: [],
     method: "GET",
     qrySQL: `
@@ -286,7 +277,6 @@ const EVENTS = [
     cluster: "REFERENCE",
     routePath: "/measures/:acctID/measList",
     dbTable: "measures",
-    children: [],
     selWidget: "SelMeas",
     navChildren: [],
     method: "GET",
@@ -309,7 +299,6 @@ const EVENTS = [
     cluster: "PRODUCTS",
     routePath: "/recipes/:prodID/rcpeList",
     dbTable: "product_recipes",
-    children: ["btchMapRcpeList"],
     selWidget: "SelRcpe",
     navChildren: [],
     method: "GET",
@@ -330,31 +319,30 @@ const EVENTS = [
     category: "page:MappingLayout",
     title: "Batch Mapping",
     cluster: "MAPPING",
-    children: [],
     navChildren: [],
-    routePath: "/mapping/:prodBtchID/btchMapDetail",
+    routePath: "/mapping/:prodBtchID/btchMapping",
     params: [":prodBtchID"],
     purpose: "Main batch mapping page"
   },
   {
     eventID: 101,
-    eventType: "btchMapRcpeList",
+    eventType: "gridRcpe",
     category: "data:Grid",
     cluster: "MAPPING",
     method: "GET",
     qrySQL: `
       SELECT * 
-      from api_wf.btchMapRcpeList a
-      WHERE prd_id = :prodID
+      from api_wf.gridRcpe a
+      WHERE prodID = :prodID
       ORDER BY a.ingrOrdr
     `,
     params: [":prodID"],
-    primaryKey: "rcpeID",
+    primaryKey: "prodRcpeID",
     purpose: "Get recipe ingredients for a product"
   },
   {
     eventID: 102,
-    eventType: "btchMapMapped",
+    eventType: "gridMapped",
     category: "ui:Grid",
     cluster: "MAPPING",
     method: "GET",
@@ -365,33 +353,31 @@ const EVENTS = [
       AND prd_btch_id = :prodBtchID
       ORDER BY purch_date DESC
     `,
-    params: [":prodBtchID", ":ingrID"],
+    params: [":prodBtchID", ":ingrID", "prodRcpeID"],
     primaryKey: "mapID",
-    purpose: "Ingr batches mapped to an ingredient for a product batch"
+    purpose: "Ingr batches mapped to a product batch"
   },
   {
     eventID: 103,
-    eventType: "btchMapAvailable",
+    eventType: "gridAvailable",
     category: "ui:Grid",
     cluster: "MAPPING",
     method: "GET",
     qrySQL: `
-      SELECT a.ingr_btch_id ingrBtchID, ingr_name ingrName, a.ingr_btch_nbr btchNbr
-      , a.purch_date purchDate, a.vndr_name vndrName
-      ,  ingr_id ingrID
-      FROM whatsfresh.v_ingr_btch_dtl a
-      WHERE a.ingr_id = :ingrID
-      AND a.ingr_btch_id NOT IN (
-        SELECT ingr_btch_id
-        FROM whatsfresh.v_prd_btch_ingr_dtl
-        WHERE prd_btch_id = :prodBtchID
-        AND ingr_id = :ingrID
-      )
-      ORDER BY ingr_btch_id DESC
+      select ingr_name ingrName, a.ingr_btch_nbr ingrBtchNbr
+      , a.purch_date purchDate, a.vndr_name vndrName, a.ingr_btch_id ingrBtchID
+      , a.ingr_id ingrID from v_ingr_btch_dtl a
+      where a.ingr_id = :ingrID 
+      and a.ingr_btch_id not in 
+      (select ingr_btch_id 
+      from v_prd_btch_ingr_dtl 
+      where prd_btch_id = :prodBtchID 
+      and ingr_id = :ingrID) 
+      order by ingr_btch_id desc
     `,
     params: [":prodBtchID", ":ingrID"],
     primaryKey: "ingrBtchID",
-    purpose: "Ingr batches available for mapping to a product batch"
+    purpose: "Ingr batches available to map to a product batch"
   },
 
 ];
