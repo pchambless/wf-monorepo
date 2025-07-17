@@ -38,10 +38,42 @@ const pageMap = {
       {
         "field": "ingrID",
         "label": "ingrID",
-        "width": 80,
+        "width": 150,
         "type": "number",
         "editable": false,
         "hidden": true
+      },
+      {
+        "field": "ingrName",
+        "label": "Ingredient Name",
+        "width": "200",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "ingrCode",
+        "label": "Code",
+        "width": "100",
+        "type": "text",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "measID",
+        "label": "Default Measure",
+        "width": "120",
+        "type": "select",
+        "editable": true,
+        "hidden": false
+      },
+      {
+        "field": "vndrID",
+        "label": "Default Vendor",
+        "width": "150",
+        "type": "select",
+        "editable": true,
+        "hidden": false
       },
       {
         "field": "ingrGrmsPerOz",
@@ -54,8 +86,16 @@ const pageMap = {
       {
         "field": "ingrTypeID",
         "label": "ingrTypeID",
-        "width": 120,
-        "type": "select",
+        "width": 150,
+        "type": "number",
+        "editable": false,
+        "hidden": true
+      },
+      {
+        "field": "acctID",
+        "label": "acctID",
+        "width": 150,
+        "type": "number",
         "editable": false,
         "hidden": true
       }
@@ -75,19 +115,32 @@ const pageMap = {
             "hidden": true
           },
           {
+            "field": "ingrName",
+            "label": "Ingredient Name",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "field": "ingrCode",
+            "label": "Code",
+            "type": "text",
+            "required": true,
+            "hidden": false
+          },
+          {
             "field": "ingrTypeID",
             "label": "ingrTypeID",
-            "type": "select",
+            "type": "number",
             "required": false,
             "hidden": true
           },
           {
             "field": "acctID",
-            "label": "Account",
-            "type": "select",
+            "label": "acctID",
+            "type": "number",
             "required": false,
-            "hidden": false,
-            "widget": "SelAcct"
+            "hidden": true
           }
         ]
       },
@@ -144,6 +197,8 @@ const pageMap = {
   "dmlConfig": {
     "fieldMappings": {
       "ingrID": "id",
+      "ingrName": "name",
+      "ingrCode": "code",
       "ingrDesc": "description",
       "measID": "default_measure_unit",
       "vndrID": "default_vendor",

@@ -1,44 +1,33 @@
 {
   "viewName": "ingrList",
   "entityName": "ingrlist",
-  "lastGenerated": "2025-07-15T20:12:36.279Z",
+  "lastGenerated": "2025-07-16T19:24:14.849Z",
   "columns": {
     "ingrID": {
       "directives": {
         "PK": true,
         "sys": true,
         "type": "number",
-        "dbColumn": "id",
-        "width": 80,
-        "tableHide": true,
-        "formHide": true
+        "dbColumn": "id"
       }
     },
     "ingrName": {
       "directives": {
         "label": "Ingredient Name",
+        "grp": "1",
         "type": "text",
         "dbColumn": "name",
         "width": "200",
-        "BI": true,
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "grp": "1",
         "required": true
       }
     },
     "ingrCode": {
       "directives": {
         "label": "Code",
+        "grp": "1",
         "type": "text",
         "dbColumn": "code",
         "width": "100",
-        "BI": true,
-        "tableHide": true,
-        "formHide": true,
-        "excludeFromDML": true,
-        "grp": "1",
         "required": true
       }
     },
@@ -59,8 +48,7 @@
         "type": "select",
         "dbColumn": "default_measure_unit",
         "widget": "SelMeas",
-        "width": "120",
-        "tableHide": true
+        "width": "120"
       }
     },
     "vndrID": {
@@ -70,8 +58,7 @@
         "type": "select",
         "dbColumn": "default_vendor",
         "widget": "SelVndr",
-        "width": "150",
-        "tableHide": true
+        "width": "150"
       }
     },
     "ingrGrmsPerOz": {
@@ -87,22 +74,16 @@
       "directives": {
         "parentKey": true,
         "sys": true,
-        "type": "select",
-        "dbColumn": "ingredient_type_id",
-        "width": 120,
-        "tableHide": true,
-        "formHide": true
+        "type": "number",
+        "dbColumn": "ingredient_type_id"
       }
     },
     "acctID": {
       "directives": {
-        "label": "Account",
-        "grp": "1",
-        "type": "select",
+        "label": "acctID",
+        "type": "number",
         "dbColumn": "account_id",
-        "widget": "SelAcct",
-        "width": 120,
-        "tableHide": true
+        "sys": true
       }
     }
   }

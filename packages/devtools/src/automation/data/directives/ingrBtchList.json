@@ -1,7 +1,7 @@
 {
   "viewName": "ingrBtchList",
   "entityName": "ingrbtchlist",
-  "lastGenerated": "2025-07-09T17:47:22.344Z",
+  "lastGenerated": "2025-07-16T11:55:05.987Z",
   "columns": {
     "ingrBtchID": {
       "directives": {
@@ -178,8 +178,8 @@
       "directives": {
         "type": "text",
         "width": "150",
-        "BI": true,
         "label": "Ingr Name",
+        "BI": true,
         "tableHide": true,
         "formHide": true,
         "excludeFromDML": true,
@@ -190,8 +190,8 @@
       "directives": {
         "type": "text",
         "width": "100",
-        "BI": true,
         "label": "Ingr Code",
+        "BI": true,
         "tableHide": true,
         "formHide": true,
         "excludeFromDML": true,
@@ -202,8 +202,8 @@
       "directives": {
         "type": "text",
         "width": "150",
-        "BI": true,
         "label": "Ingr Type",
+        "BI": true,
         "tableHide": true,
         "formHide": true,
         "excludeFromDML": true,
@@ -214,8 +214,8 @@
       "directives": {
         "type": "text",
         "width": "150",
-        "BI": true,
         "label": "Vndr Name",
+        "BI": true,
         "tableHide": true,
         "formHide": true,
         "excludeFromDML": true,
@@ -226,8 +226,8 @@
       "directives": {
         "type": "text",
         "width": "150",
-        "BI": true,
         "label": "Brnd Name",
+        "BI": true,
         "tableHide": true,
         "formHide": true,
         "excludeFromDML": true,

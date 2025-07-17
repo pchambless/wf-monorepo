@@ -149,7 +149,7 @@ const FIELD_PATTERNS = {
 
   AccountID: {
     pattern: /acctID$/i,
-    directives: { type: 'select', widget: 'SelAcct', label: 'Account', grp: '1' }
+    directives: { type: 'number', sys: true }
   },
 
   // Comments/Description fields
@@ -200,16 +200,16 @@ const FIELD_PATTERNS = {
     directives: { type: 'decimal', dec: '10,2', grp: '3' }
   },
 
-  // Name fields (BI fields for reporting/display)
+  // Name fields (default text type, BI status determined by categorization)
   Name: {
     pattern: /(Name|Type)$/i,
-    directives: { type: 'text', width: '150', BI: true }
+    directives: { type: 'text', width: '150' }
   },
 
-  // Code fields (BI fields for reporting)
+  // Code fields (default text type, BI status determined by categorization)
   Code: {
     pattern: /Code$/i,
-    directives: { type: 'text', width: '100', BI: true }
+    directives: { type: 'text', width: '100' }
   },
 
   // Count fields (BI fields for analytics)
@@ -257,7 +257,7 @@ async function inferDirectivesFromSQL(fieldName, fieldInfo, viewName) {
   
   // Primary/parent key check
   if (fieldName === viewKeys.primaryKey) return { PK: true, sys: true, type: 'number' };
-  if (fieldName === viewKeys.parentKey) return { parentKey: true, sys: true, type: 'select' };
+  if (fieldName === viewKeys.parentKey) return { parentKey: true, sys: true, type: 'number' };
   
   // For direct table columns, use enhanced logic
   if (isDirect && dbColumn) {
@@ -289,69 +289,36 @@ async function inferDirectivesFromSQL(fieldName, fieldInfo, viewName) {
       }
     }
     
-    return applySmartRules(directives, null);
+    return applySmartRules(directives, null, fieldName);
   }
   
-  // Fallback to pattern-based
-  return inferDirectives(fieldName, null, viewName);
+  // If we reach here, SQL analysis failed - this is a critical error
+  throw new Error(`❌ SQL analysis failed for field '${fieldName}' in view '${viewName}'. Check SQL view structure and field categorization logic.`);
 }
 
-/**
- * Infer directive properties from field name with smart defaults
- */
-function inferDirectives(fieldName, sampleData = null, viewName = null) {
-  // Get view-specific keys for context
-  const viewKeys = getViewKeys(viewName);
-
-  // Check if this is a primary key
-  if (fieldName === viewKeys.primaryKey) {
-    const directives = { PK: true, sys: true, type: 'number' };
-    return applySmartRules(directives, sampleData);
-  }
-
-  // Check if this is a parent key
-  if (fieldName === viewKeys.parentKey) {
-    const directives = { parentKey: true, sys: true, type: 'select' };
-    return applySmartRules(directives, sampleData);
-  }
-
-  // Check each pattern
-  for (const [patternName, config] of Object.entries(FIELD_PATTERNS)) {
-    if (config.pattern.test(fieldName)) {
-      const directives = {
-        ...config.directives,
-        label: config.directives.label || generateLabel(fieldName)
-      };
-
-      // Apply smart width and auto-hide rules
-      return applySmartRules(directives, sampleData, viewName);
-    }
-  }
-
-  // Default for unknown fields (text auto-maps to TextField)
-  const directives = {
-    type: 'text',
-    label: generateLabel(fieldName),
-    grp: '1'
-  };
-
-  return applySmartRules(directives, sampleData, viewName);
-}
 
 /**
  * Apply smart width allocation and streamlined hide rules
  */
-function applySmartRules(directives, sampleData) {
-  // Set smart width based on type
-  if (!directives.width) {
-    directives.width = SMART_WIDTHS[directives.type] || SMART_WIDTHS.text;
+function applySmartRules(directives, sampleData, fieldName = null) {
+  // System fields: minimal attributes, widgets handle hiding
+  if (directives.sys || directives.PK || directives.parentKey) {
+    // Set label to fieldName for debugging
+    if (fieldName) {
+      directives.label = fieldName;
+    }
+    // Remove unnecessary attributes for sys fields
+    delete directives.width;
+    delete directives.grp;
+    delete directives.tableHide;
+    delete directives.formHide;
+    // Don't set any hide attributes - let widgets handle it
+    return directives; // Early return to avoid other rules
   }
 
-  // System fields: hide from tables/forms, no groups needed
-  if (directives.sys || directives.PK || directives.parentKey) {
-    directives.tableHide = true;
-    directives.formHide = true;
-    delete directives.grp; // System fields don't need groups
+  // Set smart width based on type for non-sys fields
+  if (!directives.width) {
+    directives.width = SMART_WIDTHS[directives.type] || SMART_WIDTHS.text;
   }
   // Select widgets: hide from tables only (forms show them)
   else if (directives.type === 'select') {
@@ -639,17 +606,24 @@ async function generateDirectiveFile(viewName) {
         console.log(`⚠️  Marking ${fieldName} as BI - unclear field category`);
       }
 
-      // Preserve manual overrides (label, width, grp)
+      // Preserve manual overrides (label, width, grp) - but not for sys fields
       if (existingField?.directives) {
-        if (existingField.directives.label) inferredDirectives.label = existingField.directives.label;
-        if (existingField.directives.width) inferredDirectives.width = existingField.directives.width;
-        if (existingField.directives.grp) inferredDirectives.grp = existingField.directives.grp;
+        // Only preserve labels for non-sys fields - sys fields use debug labels
+        if (existingField.directives.label && !inferredDirectives.sys && !inferredDirectives.PK && !inferredDirectives.parentKey) {
+          inferredDirectives.label = existingField.directives.label;
+        }
+        
+        // Only preserve width and grp for non-sys fields
+        if (!inferredDirectives.sys && !inferredDirectives.PK && !inferredDirectives.parentKey) {
+          if (existingField.directives.width) inferredDirectives.width = existingField.directives.width;
+          if (existingField.directives.grp) inferredDirectives.grp = existingField.directives.grp;
+        }
 
         // Also preserve any other manual customizations
         if (existingField.directives.required !== undefined) inferredDirectives.required = existingField.directives.required;
         
-        // Only preserve hide flags for BI fields or system fields - don't preserve incorrect hide flags for direct table columns
-        if (inferredDirectives.BI || inferredDirectives.sys || inferredDirectives.PK || inferredDirectives.parentKey) {
+        // Only preserve hide flags for BI fields - sys fields should not have hide flags
+        if (inferredDirectives.BI) {
           if (existingField.directives.tableHide !== undefined) inferredDirectives.tableHide = existingField.directives.tableHide;
           if (existingField.directives.formHide !== undefined) inferredDirectives.formHide = existingField.directives.formHide;
         }
@@ -698,4 +672,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   generateDirectives(viewNames).catch(console.error);
 }
 
-export { generateDirectives, generateDirectiveFile, inferDirectives };
+export { generateDirectives, generateDirectiveFile };

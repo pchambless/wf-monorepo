@@ -20,14 +20,6 @@ const pageMap = {
           "color": "error",
           "tooltip": "Delete",
           "handler": "handleDelete"
-        },
-        {
-          "id": "navigate",
-          "icon": "Visibility",
-          "color": "primary",
-          "tooltip": "View btchMapping",
-          "route": "/mapping/:prodBtchID/btchMapDetail",
-          "paramField": "ingrBtchID"
         }
       ],
       "tableActions": []

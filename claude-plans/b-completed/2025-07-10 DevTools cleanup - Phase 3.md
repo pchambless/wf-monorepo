@@ -145,13 +145,13 @@ Only regenerate ALL views/eventTypes when:
 - [x] Update paths.js for new directory structure  
 - [x] Integrate genGraphArtifacts to generate .mmd files
 - [x] **Mermaid Generation Working** - Now generates eventTypes.mmd, eventTypes.md, graphData.json
-- [ ] Validate triggered generators preserve manual customizations
+- [x] Validate triggered generators preserve manual customizations
 
 #### **Phase 3C: Workflow Foundation (Phase 5 Prep)**
-- [ ] Create unified entry points for core vs triggered
-- [ ] Document preservation logic for directive customizations
-- [ ] Establish change detection patterns
-- [ ] Update CLAUDE.md with new automation workflow
+- [x] Create unified entry points for core vs triggered (runCore.js, runTriggered.js)
+- [x] Document preservation logic for directive customizations (PRESERVATION_LOGIC.md)
+- [x] Establish change detection patterns (detectChanges.js)
+- [x] Update CLAUDE.md with new automation workflow
 
 ### 🚀 Phase 5 Foundation Established
 
@@ -185,4 +185,62 @@ This structure sets up the framework for Phase 5's "update and change flow":
 - ✅ All generators working from new locations
 - ✅ **Mermaid documentation generation working** - Creates .mmd files for development validation
 - ✅ Updated import paths throughout monorepo
-- [ ] Triggered generators preserve manual customizations
+- ✅ Triggered generators preserve manual customizations
+- ✅ **ADHD-friendly cleanup completed** - Eliminated duplicate files and confusing folder structure
+- ✅ **Unified entry points** - runCore.js and runTriggered.js for clear automation workflow
+
+## 🎉 PHASE 3 COMPLETE
+
+The DevTools package has been successfully reorganized with clean, logical structure. The automation system is working, mermaid chart generation is operational, and the foundation is ready for Phase 5 incremental workflow development.
+
+**Validation:** Client startup will confirm all pageMaps, pageIndex, and directives are working correctly.
+
+## 🚨 REGRESSION DISCOVERED POST-COMPLETION
+
+### genDirectives.js Broken During Cleanup Process
+**Problem:** The `genDirectives.js` is incorrectly marking direct table columns as BI fields, causing them to be hidden from tables.
+
+**Evidence:**
+- `ingrList` - `ingrName` and `ingrCode` marked as `BI: true, tableHide: true` (WRONG)
+- `prodList` - `prodName` and `prodCode` work correctly (NO BI flags) (CORRECT)
+
+**Root Cause:** Something in the DevTools cleanup broke the field categorization logic. The `ingrList` was used as a test case during cleanup and got corrupted.
+
+**Impact:** 
+- Primary display columns are hidden from tables
+- Only `ingrGrmsPerOz` shows in `ingrList` table (should show `ingrName`, `ingrCode`)
+- Will affect all future directive generation
+
+**Fix Required:** 
+- Debug why `genDirectives.js` categorizes identical column patterns differently
+- Fix the field categorization logic to match working `prodList` behavior
+- Test regeneration produces correct directives
+
+**Status:** Manual fix applied to `ingrList.json` but underlying generation issue remains.
+
+**NOTE:** This regression needs to be addressed before the DevTools cleanup can be considered truly complete.
+
+**Fixed** The issue with genDirectives.js has been fixed.  Note: Also excluded the label attribute from being overwritten when regenerating the directives files.  (The values in this attribute need to persist if the directive is regenerated.)
+
+### Additional Improvements Made:
+
+1. **Eliminated Fallback Pattern** - Removed the problematic `inferDirectives` fallback function that was duplicating logic. Now fails fast with clear error messages when SQL analysis fails instead of falling back to pattern guessing.
+
+2. **Fixed Parent Key Types** - Parent keys (like `ingrTypeID`) now correctly use `type: "number"` instead of `type: "select"`, resolving form rendering errors.
+
+3. **Sys Field Cleanup** - Implemented consistent handling for all system fields:
+   - **Minimal attributes**: Sys fields only contain essential attributes (`PK`, `sys`, `parentKey`, `type`, `dbColumn`)
+   - **No clutter**: Removed unnecessary `width`, `grp`, `tableHide`, `formHide` attributes
+   - **Debug labels**: Sys fields use field names as labels for debugging purposes
+   - **Widget auto-hiding**: Table/form widgets handle hiding based on `sys` attribute
+   - **Proper DML handling**: `acctID` marked as `sys: true` - hidden from UI but included in INSERT operations
+
+4. **Fixed acctID Handling** - `acctID` now correctly marked as a system field across all views, ensuring consistent behavior for account context fields.
+
+### Technical Details:
+
+- **Pattern Matching Refined**: Name/Code patterns no longer automatically set `BI: true` - field categorization now determined by three-tier SQL analysis
+- **Preservation Logic Enhanced**: Manual customizations (label, width, grp) preserved appropriately, but sys fields get clean debug labels
+- **Error Handling Improved**: SQL analysis failures now halt generation with clear error messages instead of silent fallbacks
+
+The DevTools cleanup regression is now fully resolved with these architectural improvements.

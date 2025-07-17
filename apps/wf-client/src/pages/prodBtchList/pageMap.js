@@ -26,7 +26,7 @@ const pageMap = {
           "icon": "Visibility",
           "color": "primary",
           "tooltip": "View btchMapping",
-          "route": "/mapping/:prodBtchID/btchMapDetail",
+          "route": "/mapping/:prodBtchID/btchMapping",
           "paramField": "prodBtchID"
         }
       ],

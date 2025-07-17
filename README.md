@@ -4,9 +4,13 @@
 
 WhatsFresh helps small food producers manage their operations—from ingredient tracking to batch mapping and product compliance—all in one place. It started as a tool tailored for a single business, but version 2.0 opens things up to everyone with a scalable, self-service platform. The goal is to preserve what worked in the original system while adding flexibility, cleaner data management, and better traceability features for teams on the ground.
 
+The original version was built in PHP and is still actively used by paying customers. WhatsFresh 2.0 is a complete reinvention—preserving what worked while introducing a modern, scalable architecture for broader adoption.
+
 ## 👥 Who It’s For
 
 Designed for small food businesses and kitchen teams who need clarity and control over day-to-day production. Whether you’re overseeing recipes, tracking batches, or onboarding team members, WhatsFresh makes complex workflows easier to manage and repeat.
+
+It’s also for developers and designers who want to co-create tools that solve real problems for real users. The system is already in production—this is about making it better.
 
 ## 📈 Where It’s Going
 
@@ -14,7 +18,9 @@ We’re continuing to build on the foundations of WhatsFresh 1.0—adding new fe
 
 ## 💡 Want to Get Involved?
 
-WhatsFresh is growing. If you're passionate about building tools that empower small businesses and improve transparency, we’d love to hear from you. Whether you're curious or hands-on, you can explore the [DevTools README](./packages/devtools/README.md) to see how everything fits together.
+WhatsFresh is growing. If you're passionate about building tools that empower small businesses and improve transparency, we’d love to hear from you.
+I’m a technical architect focused on backend and system design, and I’ve brought the platform to a viable place with the help of Claude AI. Now I’m looking for collaborators—especially those with UX and frontend experience—to help bring the platform fully to the web.
+Whether you're curious or hands-on, you can explore the DevTools README to see how everything fits together.
 
 ## 🎯 Overview
 

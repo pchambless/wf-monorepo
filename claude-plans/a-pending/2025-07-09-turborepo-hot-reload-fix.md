@@ -12,42 +12,35 @@ TurboRepo is not properly hot-reloading changes from shared-imports package. Whe
 2. **No build/watch in shared-imports**: Package has placeholder build script
 3. **File-based dependencies**: `file:../../packages/shared-imports` may not trigger hot-reload
 
-## Implementation Steps
+## Implementation Impact Analysis
 
-### 1. Test Current Behavior
-- [ ] Add a console.log to a shared-imports component
-- [ ] Start dev server and verify log appears
-- [ ] Modify the log message and check if change auto-reflects
-- [ ] Document current refresh behavior
+### Impact Summary
+- **Files**: 12 (see impact-tracking.json: plan_id="2025-07-09-turborepo-hot-reload")
+- **Complexity**: Medium (build system configuration, file watching)
+- **Packages**: packages/shared-imports (5), root (2), claude-plans (4)
+- **Blast Radius**: DEVTOOLS (medium), SHARED (high)
 
-### 2. Fix TurboRepo Configuration  
-- [ ] Update `turbo.json` dev task to include dependency tracking
-- [ ] Add proper file watching configuration
-- [ ] Test dev task dependency chain
+### Impact Tracking Status
+- **Predicted**: 8 files
+- **Actual**: 12 files (+4 discovered)
+- **Accuracy**: 67%
+- **JSON Reference**: All detailed tracking in `/claude-plans/impact-tracking.json`
 
-### 3. Enhance shared-imports Package
-- [ ] Add proper build/watch script to shared-imports
-- [ ] Configure file watching for source changes
-- [ ] Test package refresh behavior
+### Plan Dependencies
+- **Blocks**: None (optimization task)
+- **Blocked by**: None
+- **Related**: None currently
+- **File Conflicts**: None identified
 
-### 4. Verify Fix
-- [ ] Test hot-reload with shared-imports changes
-- [ ] Verify dev server auto-refresh works
-- [ ] Test multiple concurrent changes
-- [ ] Document improved workflow
+### Status: DEFERRED
+**Decision**: Manual restarts acceptable for MVP development. Hot-reload still requires manual restart due to file: dependency limitation.
 
-## Test Component
-Create a test log in a commonly used shared-imports component to verify hot-reload behavior before and after fixes.
-
-## Results
+### Results Achieved
 - ✅ TurboRepo dependency tracking added
 - ✅ Dev server stability improved  
 - ❌ Hot-reload still requires manual restart (file: dependency limitation)
 
-## Decision
-**DEFERRED** - Manual restarts acceptable for MVP development. Revisit post-MVP for optimization.
-
-## Future Enhancement Options
+### Future Enhancement Options (BackBurner)
 - Implement webpack watch for shared-imports
 - Switch to published packages instead of file: dependencies
 - Add symlink-based development workflow

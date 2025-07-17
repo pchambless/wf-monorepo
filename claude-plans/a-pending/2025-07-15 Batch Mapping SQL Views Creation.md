@@ -137,27 +137,54 @@ and    a.ingr_btch_id not in
 - `{{tbl_Recipe.selectedRow.ingr_id}}` → `ingrID` parameter
 - `{{tbl_Entity.selectedRow.id}}` → `prodBtchID` parameter
 
-## Implementation Status
+## Implementation Impact Analysis
 
-### ✅ Completed
-- **EventTypes 100-103**: Configured in `/packages/shared-imports/src/events/client/eventTypes.js`
-  - `100: btchMapping` (page:MappingLayout)
-  - `101: gridRcpe` (data:Grid with specialized qrySQL)
-  - `102: gridMapped` (ui:Grid with specialized qrySQL)  
-  - `103: gridAvailable` (ui:Grid with complex NOT IN exclusion qrySQL)
-- **SQL Views**: Created `/sql/views/client/gridMapped.sql` with proper column aliases
-- **Navigation Flow**: Cleaned up - only `prodBtchList` → `btchMapping` (product-centric workflow)
-- **Parameter Flow**: `:prodBtchID` and `:ingrID` properly configured
-- **Naming Convention**: Using `gridRcpe`, `gridAvailable`, `gridMapped` to match Appsmith prototypes
+### Impact Summary
+- **Files**: 10 (see impact-tracking.json: plan_id="2025-07-15-batch-mapping-sql")
+- **Complexity**: Medium (SQL view creation, parameter handling)
+- **Packages**: packages/devtools (6), sql/views (4)
+- **Blast Radius**: DEVTOOLS (medium), EVENTS (high)
 
-### Key Implementation Decisions
-- **gridAvailable**: Uses specialized qrySQL (no view) due to complex exclusion logic
-- **gridMapped**: Has dedicated view with proper table column aliases
-- **gridRcpe**: Uses specialized qrySQL for recipe-specific data
-- **No children attribute**: Removed from all eventTypes for cleaner structure
+### Impact Tracking Status
+- **Predicted**: 8 files
+- **Actual**: 10 files (+2 discovered)
+- **Accuracy**: 80%
+- **JSON Reference**: All detailed tracking in `/claude-plans/impact-tracking.json`
+
+### Plan Dependencies
+- **Blocks**: 2025-07-15 Batch Mapping (SQL views must exist first)
+- **Blocked by**: None
+- **Related**: None currently
+- **File Conflicts**: None identified
+
+### Implementation Status Notes
+- **EventTypes 100-103**: All configured properly
+- **SQL Views**: gridMapped complete, two additional views needed
+- **Navigation Flow**: Product-centric workflow implemented
+- **Parameter Flow**: :prodBtchID and :ingrID working correctly
+- **Naming Convention**: Aligned with Appsmith prototypes
+
+## 🚨 CRITICAL ISSUE DISCOVERED (RESOLVED)
+
+### genDirectives.js Field Categorization Fixed
+**Problem:** The `genDirectives.js` was incorrectly marking direct table columns as BI fields, causing them to be hidden from tables.
+
+**Evidence:**
+- `ingrList` - `ingrName` and `ingrCode` marked as `BI: true, tableHide: true` (WRONG)
+- `prodList` - `prodName` and `prodCode` work correctly (NO BI flags) (CORRECT)
+
+**Root Cause:** DevTools cleanup broke the field categorization logic in FIELD_PATTERNS.
+
+**✅ Resolution Applied:**
+- Fixed FIELD_PATTERNS to remove automatic BI flags from Name/Code patterns
+- Eliminated inferDirectives fallback function (fail-fast approach)
+- Implemented proper sys field cleanup with minimal attributes
+- Fixed parent key types from "select" to "number"
+
+**Status:** ✅ RESOLVED - Field categorization now working correctly across all views
 
 ## Next Steps
-1. Generate directives for the new views/eventTypes
+1. **[PRIORITY]** Create remaining SQL views (btchMapAvailable, btchMapRcpe)
 2. Test the parameter flow and component interactions
 3. Implement drag-and-drop DML operations
 4. Update mermaid charts to show component relationships vs navigation
