@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from '@mui/material';
 import Table from '@crud/Table';
 import AddButton from './AddButton';
-import dataStore from '@stores/dataStore';
 import createLogger from '@utils/logger';
 
 const log = createLogger('TableSection');
@@ -43,12 +42,12 @@ const TableSection = ({
       
       <Table 
         config={config}
-        data={dataStore.tableData}
-        selectedId={dataStore.selectedId}
+        data={tableData}
+        selectedId={selectedId}
         idField={idField}
         onRowClick={onRowSelect}
         onDeleteClick={onDelete}
-        loading={dataStore.loading}
+        loading={loading}
         rowActions={rowActions}
       />
     </>

@@ -73,7 +73,28 @@ const CrudLayout = ({ pageMap }) => {
   const handleRowSelect = (row) => {
     setSelectedRow(row);
     setFormMode('EDIT');
-    log.debug('Row selected:', row);
+    
+    // Set the primaryKey parameter in contextStore for universal access
+    const listEvent = systemConfig?.listEvent;
+    const primaryKey = systemConfig?.primaryKey || 'id';
+    const primaryKeyValue = row?.row?.[primaryKey] || row?.[primaryKey];
+    
+    if (listEvent && primaryKeyValue) {
+      contextStore.setEvent(listEvent, primaryKeyValue);
+      log.debug('Row selected and parameter set:', { 
+        listEvent, 
+        primaryKey, 
+        primaryKeyValue,
+        contextStoreValue: contextStore.getParameter(primaryKey)
+      });
+    } else {
+      log.warn('Could not set context parameter - missing data:', {
+        listEvent,
+        primaryKey,
+        primaryKeyValue,
+        rowData: row
+      });
+    }
   };
 
   const handleAddNew = () => {

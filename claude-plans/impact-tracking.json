@@ -7,7 +7,7 @@
   "impacts": [
     {
       "plan_id": "2026",
-      "impact_id": "2026_001",
+      "impact_id": 1,
       "package": "TBD",
       "file": "TBD",
       "type": "ANALYZED",
@@ -20,7 +20,7 @@
     },
     {
       "plan_id": "0001",
-      "impact_id": "0001_001",
+      "impact_id": 2,
       "package": "TBD",
       "file": "TBD",
       "type": "ANALYZED",
@@ -33,7 +33,7 @@
     },
     {
       "plan_id": "0002",
-      "impact_id": "0002_001",
+      "impact_id": 3,
       "package": "TBD",
       "file": "TBD",
       "type": "ANALYZED",
@@ -46,7 +46,7 @@
     },
     {
       "plan_id": "0003",
-      "impact_id": "0003_001",
+      "impact_id": 4,
       "package": "claude-plans",
       "file": "tools/create-plan.js",
       "type": "ANALYZED",
@@ -59,7 +59,7 @@
     },
     {
       "plan_id": "0003",
-      "impact_id": "0003_002",
+      "impact_id": 5,
       "package": "claude-plans",
       "file": "plan-registry.json",
       "type": "ANALYZED",
@@ -72,7 +72,7 @@
     },
     {
       "plan_id": "0003",
-      "impact_id": "0003_003",
+      "impact_id": 6,
       "package": "claude-plans",
       "file": "CLAUDE.md",
       "type": "ANALYZED",
@@ -85,7 +85,7 @@
     },
     {
       "plan_id": "0003",
-      "impact_id": "0003_004",
+      "impact_id": 7,
       "package": "claude-plans",
       "file": "tools/README.md",
       "type": "DISCOVERED",
@@ -98,7 +98,7 @@
     },
     {
       "plan_id": "0004",
-      "impact_id": "0004_001",
+      "impact_id": 8,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/stores/userStore.js",
       "type": "ANALYZED",
@@ -111,7 +111,7 @@
     },
     {
       "plan_id": "0004",
-      "impact_id": "0004_002",
+      "impact_id": 9,
       "package": "wf-client",
       "file": "apps/wf-client/src/App.jsx",
       "type": "ANALYZED",
@@ -124,7 +124,7 @@
     },
     {
       "plan_id": "0004",
-      "impact_id": "0004_003",
+      "impact_id": 10,
       "package": "wf-client",
       "file": "apps/wf-client/src/pages/dashboard/Presenter.js",
       "type": "ANALYZED",
@@ -137,7 +137,7 @@
     },
     {
       "plan_id": "0005",
-      "impact_id": "0005_001",
+      "impact_id": 11,
       "package": "devtools",
       "file": "packages/devtools/src/automation/page/genPageIndex.js",
       "type": "ANALYZED",
@@ -150,7 +150,7 @@
     },
     {
       "plan_id": "0005",
-      "impact_id": "0005_002",
+      "impact_id": 12,
       "package": "wf-client",
       "file": "apps/wf-client/src/config/navigation.js",
       "type": "ANALYZED",
@@ -163,7 +163,7 @@
     },
     {
       "plan_id": "0005",
-      "impact_id": "0005_003",
+      "impact_id": 13,
       "package": "wf-client",
       "file": "apps/wf-client/src/pages/measList/pageMap.js",
       "type": "ANALYZED",
@@ -176,7 +176,7 @@
     },
     {
       "plan_id": "0005",
-      "impact_id": "0005_004",
+      "impact_id": 14,
       "package": "wf-client",
       "file": "apps/wf-client/src/pages/*/index.jsx",
       "type": "DISCOVERED",
@@ -189,7 +189,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_001",
+      "impact_id": 15,
       "package": "wf-client",
       "file": "apps/wf-client/src/pages/btchMapping/pageMap.js",
       "type": "ANALYZED",
@@ -202,7 +202,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_002",
+      "impact_id": 16,
       "package": "wf-client",
       "file": "apps/wf-client/src/layouts/BatchMapping.jsx",
       "type": "ANALYZED",
@@ -215,7 +215,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_003",
+      "impact_id": 17,
       "package": "wf-client",
       "file": "apps/wf-client/src/config/navigation.js",
       "type": "ANALYZED",
@@ -228,7 +228,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_004",
+      "impact_id": 18,
       "package": "wf-client",
       "file": "apps/wf-client/src/navigation/sidebar.js",
       "type": "ANALYZED",
@@ -241,7 +241,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_005",
+      "impact_id": 19,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/selectors/SelProd.jsx",
       "type": "DISCOVERED",
@@ -254,7 +254,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_006",
+      "impact_id": 20,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/selectors/SelIngr.jsx",
       "type": "DISCOVERED",
@@ -267,7 +267,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_007",
+      "impact_id": 21,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/selectors/SelMeas.jsx",
       "type": "DISCOVERED",
@@ -280,7 +280,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_008",
+      "impact_id": 22,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/selectors/SelVndr.jsx",
       "type": "DISCOVERED",
@@ -293,7 +293,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_009",
+      "impact_id": 23,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/selectors/SelBrnd.jsx",
       "type": "DISCOVERED",
@@ -306,7 +306,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_010",
+      "impact_id": 24,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/selectors/SelWrkr.jsx",
       "type": "DISCOVERED",
@@ -319,7 +319,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_011",
+      "impact_id": 25,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/selectors/index.js",
       "type": "DISCOVERED",
@@ -332,7 +332,7 @@
     },
     {
       "plan_id": "0007",
-      "impact_id": "0007_001",
+      "impact_id": 26,
       "package": "TBD",
       "file": "TBD",
       "type": "ANALYZED",
@@ -345,7 +345,7 @@
     },
     {
       "plan_id": "0008",
-      "impact_id": "0008_001",
+      "impact_id": 27,
       "package": "TBD",
       "file": "TBD",
       "type": "ANALYZED",
@@ -358,7 +358,7 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_012",
+      "impact_id": 28,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/selectors/SelectWidget.jsx",
       "type": "DISCOVERED",
@@ -371,26 +371,65 @@
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_013",
+      "impact_id": 29,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx",
       "type": "DISCOVERED",
-      "status": "in_progress",
-      "description": "Parameter resolution issue - manual null params override contextStore resolution",
+      "status": "completed",
+      "description": "Fixed universal parameter setting - added contextStore.setEvent() in handleRowSelect",
       "complexity": "medium",
       "cluster": "SHARED",
       "created": "2025-07-18",
-      "completed": null
+      "completed": "2025-07-18"
     },
     {
       "plan_id": "0006",
-      "impact_id": "0006_014",
+      "impact_id": 30,
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/crud/CrudLayout/hooks/useParentID.js",
       "type": "DISCOVERED",
       "status": "pending",
       "description": "Legacy artifact using old dataStore - needs removal/replacement with contextStore",
       "complexity": "low",
+      "cluster": "SHARED",
+      "created": "2025-07-18",
+      "completed": null
+    },
+    {
+      "plan_id": "0006",
+      "impact_id": 31,
+      "package": "shared-imports",
+      "file": "packages/shared-imports/src/components/crud/CrudLayout/components/TableSection.jsx",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Fixed missing dataStore import - replaced with prop-based data flow",
+      "complexity": "low",
+      "cluster": "SHARED",
+      "created": "2025-07-18",
+      "completed": "2025-07-18"
+    },
+    {
+      "plan_id": "0006",
+      "impact_id": 32,
+      "package": "shared-imports",
+      "file": "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Added onSelectionChange handler and compact header section support",
+      "complexity": "medium",
+      "cluster": "NAVIGATION",
+      "created": "2025-07-18",
+      "completed": null
+    },
+    {
+      "plan_id": "0006",
+      "impact_id": 33,
+      "package": "claude-plans",
+      "file": "claude-plans/tools/update-impact.js",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Created CLI tool for efficient impact tracking with sequential IDs",
+      "complexity": "medium",
       "cluster": "SHARED",
       "created": "2025-07-18",
       "completed": null

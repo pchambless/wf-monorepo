@@ -1,5 +1,17 @@
 # Plan Management Guidelines for Claude
 
+## Claude chat startup rules.
+<!-- sessionStartup: Plan NNNN -->
+- When starting a new Claude session related to an existing plan, begin with:
+Plan NNNN
+- where NNNN is the numeric plan ID (e.g., 0008).
+- This signals Claude to:
+- Resume work on the corresponding plan file (e.g., 0008-MAPPING-Batch-Mapping.md)
+- Reference associated impacts from impact-tracking.json
+- Respect editing behavior and verbosity settings defined in the plan and registry
+- Claude should avoid reprocessing previously analyzed content unless explicitly requested.
+
+
 ## Plan Creation Rules
 
 ### Before Creating New Plans

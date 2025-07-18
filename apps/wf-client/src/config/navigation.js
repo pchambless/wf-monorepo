@@ -8,14 +8,11 @@
 import {
   LocalFlorist,
   Inventory,
-  DataObject,
-  AccountTree,
   Business,
   Engineering,
   Groups,
   Straighten,
-  AccountBox,
-  ViewList
+  AccountBox
 } from '@mui/icons-material';
 import { SelUserAcct, SelProd } from '@whatsfresh/shared-imports/jsx';
 
@@ -27,6 +24,10 @@ export const navigationSections = [
     description: "Select your account",
     position: "top",
     type: "widget"
+  },
+  {
+    title: "Business Setup",
+    type: "header"
   },
   {
     title: "Ingredients",
@@ -42,46 +43,42 @@ export const navigationSections = [
   },
   {
     title: "Reference Data",
-    collapsible: true,
-    icon: DataObject,
-    description: "Manage reference data and lookup tables",
-    items: [
-      {
-        title: "Brands",
-        eventType: "brndList",
-        icon: Business
-      },
-      {
-        title: "Vendors",
-        eventType: "vndrList",
-        icon: Engineering,
-      },
-      {
-        title: "Workers",
-        eventType: "wrkrList",
-        icon: Groups,
-      },
-      {
-        title: "Measurements",
-        eventType: "measList",
-        icon: Straighten,
-      }
-    ]
+    type: "header"
   },
   {
-    title: "Select Product",
+    title: "Brands",
+    eventType: "brndList",
+    icon: Business
+  },
+  {
+    title: "Vendors",
+    eventType: "vndrList",
+    icon: Engineering,
+  },
+  {
+    title: "Workers",
+    eventType: "wrkrList",
+    icon: Groups,
+  },
+  {
+    title: "Measurements",
+    eventType: "measList",
+    icon: Straighten,
+  },
+  {
+    title: "Batch Management",
+    type: "header"
+  },
+  {
+    title: "SelProd",
     component: SelProd,
-    icon: Inventory,
-    description: "Select product for batch mapping",
+    description: "Select product for batch mapping - auto-loads batches and recipe data",
     type: "widget",
     contextParam: "prodID",
-    onSelectionChange: "setParameter('prodID', value); execEvent('gridRcpe')" // Set prodID then trigger gridRcpe
-  },
-  {
-    title: "Product Batches",
-    eventType: "prodBtchList",
-    icon: ViewList,
-    description: "View and manage product batches (filtered by selected product)"
+    props: {
+      label: "Select Product"
+    },
+    onSelectionChange: "setParameter('prodID', value); navigateTo('prodBtchList'); execEvent('gridRcpe')" // Set prodID, navigate to batches, load recipe grid
   }
 ];
 

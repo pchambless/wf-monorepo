@@ -15,6 +15,9 @@ import {
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { getEventType } from '@whatsfresh/shared-imports/events';
+import { execEvent, contextStore, createLogger } from '@whatsfresh/shared-imports';
+
+const log = createLogger('Sidebar');
 
 /**
  * Shared Sidebar component for all WhatsFresh applications
@@ -128,6 +131,72 @@ const Sidebar = ({
     ));
   };
 
+  // Create selection change handler for widgets
+  const createSelectionChangeHandler = (section) => {
+    if (!section.onSelectionChange) return null;
+    
+    return async (value, selectedItem) => {
+      try {
+        log.debug('Widget selection changed:', { 
+          widget: section.title, 
+          value, 
+          onSelectionChange: section.onSelectionChange 
+        });
+        
+        // Parse and execute the onSelectionChange commands
+        const commands = section.onSelectionChange.split(';').map(cmd => cmd.trim());
+        
+        for (const command of commands) {
+          if (command.startsWith('setParameter(')) {
+            // Handle setParameter calls - replace 'value' with actual value
+            const paramCall = command.replace(/setParameter\('([^']+)',\s*value\)/, `setParameter('$1', ${value})`);
+            const match = paramCall.match(/setParameter\('([^']+)',\s*(\d+)\)/);
+            if (match) {
+              const [, paramName, paramValue] = match;
+              contextStore.setParameter(paramName, parseInt(paramValue));
+              log.debug('Set parameter:', { paramName, paramValue });
+            }
+          } else if (command.startsWith('navigateTo(')) {
+            // Handle navigateTo calls
+            const match = command.match(/navigateTo\('([^']+)'\)/);
+            if (match) {
+              const eventType = match[1];
+              const event = getEventType(eventType);
+              if (event?.routePath) {
+                // Build route with contextStore parameters
+                let route = event.routePath;
+                if (event.params) {
+                  event.params.forEach(param => {
+                    const paramName = param.replace(':', '');
+                    const paramValue = contextStore.getParameter(paramName);
+                    if (paramValue) {
+                      route = route.replace(param, paramValue);
+                    }
+                  });
+                }
+                navigate(route);
+                log.debug('Navigated to:', { eventType, route });
+              } else {
+                navigate(`/${eventType}`);
+                log.debug('Fallback navigation to:', eventType);
+              }
+            }
+          } else if (command.startsWith('execEvent(')) {
+            // Handle execEvent calls
+            const match = command.match(/execEvent\('([^']+)'\)/);
+            if (match) {
+              const eventType = match[1];
+              await execEvent(eventType);
+              log.debug('Executed event:', eventType);
+            }
+          }
+        }
+      } catch (error) {
+        log.error('Error in selection change handler:', error);
+      }
+    };
+  };
+
   // Render navigation sections
   const renderNavSections = () => {
     return navigationSections.map((section, index) => {
@@ -136,11 +205,42 @@ const Sidebar = ({
 
       return (
         <React.Fragment key={index}>
-          {section.type === 'widget' && section.component ? (
+          {section.type === 'header' ? (
+            // Header section - compact visual divider
+            <Box sx={{ 
+              mt: index > 0 ? 1.5 : 0, 
+              mb: 0.5, 
+              px: 2,
+              borderBottom: '1px solid',
+              borderColor: 'divider',
+              pb: 0.5
+            }}>
+              <Typography 
+                variant="caption" 
+                sx={{ 
+                  fontWeight: 'bold', 
+                  color: 'text.secondary',
+                  textTransform: 'uppercase',
+                  letterSpacing: 0.5,
+                  fontSize: '0.7rem'
+                }}
+              >
+                {section.title}
+              </Typography>
+            </Box>
+          ) : section.type === 'widget' && section.component ? (
             // Widget section - render the React component
             <ListItem disablePadding sx={{ mb: 1 }}>
               <Box sx={{ width: '100%', px: 2, py: 1 }}>
-                <section.component {...(section.props || {})} {...(widgetProps[section.title] || {})} />
+                <section.component 
+                  {...(section.props || {})} 
+                  {...(widgetProps[section.title] || {})}
+                  onChange={(value, item) => {
+                    console.log('🔍 Sidebar onChange called:', { value, item, section: section.title });
+                    const handler = createSelectionChangeHandler(section);
+                    if (handler) handler(value, item);
+                  }}
+                />
               </Box>
             </ListItem>
           ) : section.collapsible && hasItems ? (
