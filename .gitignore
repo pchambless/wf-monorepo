@@ -17,6 +17,8 @@ docs/*.componentInventory.csv
 /packages/devtools/temp/
 /packages/devtools/samples/*.json
 /data/samples/*.json
+/claude-plans/b-completed
+/claude-plans/c-archived
 
 # misc
 .DS_Store
@@ -32,8 +34,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Application logs
-apps/wf-server/server/logs/*.log
-apps/wf-server/server/logs/*.json
+/apps/wf-server/server/logs/*.log
+/apps/wf-server/server/logs/*.json
 .turbo/*
 
 # Editor directories and files
@@ -44,3 +46,6 @@ apps/wf-server/server/logs/*.json
 *.njsproj
 *.sln
 *.sw?
+claude-plans/impact-tracking.json
+claude-plans/impact-tracking.json
+apps/wf-server/server/logs/*

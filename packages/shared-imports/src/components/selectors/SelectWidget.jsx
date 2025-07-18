@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, FormControl, Select, MenuItem, CircularProgress, Typography } from '@mui/material';
+import { Box, Autocomplete, TextField, CircularProgress, Typography } from '@mui/material';
 // Import execEvent from our API layer
 import { execEvent } from '../../api/index.js';
 import contextStore from '../../stores/contextStore.js';
@@ -109,8 +109,8 @@ export const SelectWidget = ({
   
   
   // Handle selection change
-  const handleChange = (e) => {
-    const newId = e.target.value;
+  const handleChange = (event, newValue) => {
+    const newId = newValue ? newValue[effectiveValueKey] : null;
     setSelectedId(newId);
     
     // Store selection in contextStore for hierarchical parameter resolution
@@ -119,10 +119,7 @@ export const SelectWidget = ({
     }
     
     if (onChange) {
-      const selectedItem = items.find(item => 
-        String(item[effectiveValueKey]) === String(newId)
-      );
-      onChange(newId, selectedItem);
+      onChange(newId, newValue);
     }
   };
   
@@ -139,39 +136,41 @@ export const SelectWidget = ({
         </Typography>
       )}
       
-      <FormControl fullWidth 
-        size={size === 'SM' ? 'small' : 'medium'} 
-        required={required}
-        error={!!error}
-      >
-        <Select
-          value={selectedId || ''}
-          onChange={handleChange}
-          sx={{ bgcolor: 'background.paper' }}
-          displayEmpty
-          disabled={disabled || loading}
-          renderValue={() => {
-            if (loading) {
-              return (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <CircularProgress size={20} sx={{ mr: 1 }} />
-                  Loading...
-                </Box>
-              );
-            }
-            
-            if (error) return `Error: ${error}`;
-            return currentItem ? currentItem[effectiveLabelKey] : placeholder;
-          }}
-          {...props}
-        >
-          {items.map(item => (
-            <MenuItem key={item[effectiveValueKey]} value={item[effectiveValueKey]}>
-              {item[effectiveLabelKey]}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Autocomplete
+        value={currentItem || null}
+        onChange={handleChange}
+        options={items}
+        getOptionLabel={(option) => option[effectiveLabelKey] || ''}
+        getOptionKey={(option) => option[effectiveValueKey]}
+        loading={loading}
+        disabled={disabled}
+        size={size === 'SM' ? 'small' : 'medium'}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder={placeholder}
+            error={!!error}
+            helperText={error}
+            required={required}
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <>
+                  {loading ? <CircularProgress size={20} /> : null}
+                  {params.InputProps.endAdornment}
+                </>
+              ),
+            }}
+          />
+        )}
+        renderOption={(props, option) => (
+          <li {...props} key={option[effectiveValueKey]}>
+            {option[effectiveLabelKey]}
+          </li>
+        )}
+        noOptionsText={error ? `Error: ${error}` : "No options"}
+        {...props}
+      />
     </Box>
   );
 };

@@ -3,16 +3,23 @@
 ## Plan Creation Rules
 
 ### Before Creating New Plans
-- [ ] **Scan impact lists**: Search existing `a-pending/` plans for file/module overlap
+- [ ] **Query impact-tracking.json**: Search for file/module overlap across all plans
 - [ ] **Check package conflicts**: Multiple plans affecting same package areas
 - [ ] **Identify relationships**: Dependencies, enhancements, or subset of existing work
 - [ ] **Scope assessment**: Can this be merged into existing plan or needs separate tracking?
 
 ### Overlap Detection Process
-1. **Grep existing plans** for specific file paths and package names
-2. **Check structured impact lists** for shared modules/components
-3. **Look for pattern overlap** - similar changes across plans
-4. **Identify dependency chains** - plans that build on each other
+1. **Query impact-tracking.json** for file conflicts and shared modules
+   ```bash
+   # Find files affected by multiple plans
+   jq '.impacts | group_by(.file) | map(select(length > 1))' impact-tracking.json
+   
+   # Check package conflicts
+   jq '.impacts | group_by(.package) | map({package: .[0].package, plans: map(.plan_id) | unique})' impact-tracking.json
+   ```
+2. **Check cluster overlap** - multiple plans affecting same functional areas
+3. **Analyze blast radius conflicts** - plans touching high-risk clusters (EVENTS, SHARED, API)
+4. **Identify dependency chains** - plans that build on each other via JSON cross-references
 
 ### When to Create vs Merge
 - **Create new plan** if:
@@ -109,10 +116,10 @@ Always include:
 - **Database**: SQL views, `fieldMappings`, directive files
 
 ### Red Flags for Overlap
-- Same specific file paths in impact lists
-- Same package showing multiple "In Progress" items
+- Same specific file paths in impact-tracking.json across multiple plans
+- Same package showing multiple "in_progress" status items
 - Shared dependency requirements
-- Similar descriptions for different plans
+- Multiple plans with same cluster classification
 
 ### Overlap Resolution
 When overlap detected:
@@ -129,14 +136,14 @@ When overlap detected:
 - **Coordination rule**: Limit plans affecting same package simultaneously
 
 ### Progress Tracking During Implementation
-- **Update status**: Move items between ✅🔄⏳ sections
-- **Add discoveries**: New files/modules found during work
-- **Update totals**: Keep completion counts current
-- **Note blockers**: Issues preventing progress
+- **Update JSON status**: Change status from "pending" → "in_progress" → "completed"
+- **Add discoveries**: New impacts found during work (append to JSON)
+- **Update completed dates**: Set "completed" field when work finishes
+- **Note blockers**: Issues preventing progress (document in plan dependencies)
 
 ### Completion Criteria
 Move to `b-completed/` only when:
-- All items marked ✅ Completed
+- All JSON impacts have "completed" dates filled
 - No pending discoveries that need addressing
 - Plan objectives fully achieved
 - **User testing completed** and feedback incorporated
@@ -144,15 +151,16 @@ Move to `b-completed/` only when:
 ## Impact List Maintenance
 
 ### During Implementation
-```markdown
+```bash
 # When starting work on a file:
-- [ ] **package**/file.ext [PLANNED] → - [🔄] **package**/file.ext [PLANNED]
+# Update JSON: "status": "pending" → "status": "in_progress"
 
 # When completing work:
-- [🔄] **package**/file.ext [PLANNED] → - [x] **package**/file.ext [PLANNED]
+# Update JSON: "status": "in_progress" → "status": "completed"
+# Set: "completed": "yyyy-mm-dd"
 
 # When discovering new work:
-Add: - [ ] **package**/new-file.ext [DISCOVERED] - Description
+# Append new impact entry to JSON with "type": "DISCOVERED"
 ```
 
 ### Token Optimization Strategies
@@ -207,40 +215,45 @@ Add: - [ ] **package**/new-file.ext [DISCOVERED] - Description
 
 ### Cross-Plan Updates
 When plan affects file mentioned in other plans:
-1. **Update both plans**: Note the shared file status
+1. **Update JSON entries**: Coordinate status across shared files
 2. **Coordinate timing**: Ensure changes don't conflict
-3. **Document handoffs**: Which plan owns which changes
+3. **Document handoffs**: Which plan owns which changes (in plan dependencies)
 
 ## Communication Guidelines
 
 ### When Discovering Overlap
 - **Explicit callout**: "This overlaps with [Plan Name] in [specific files]"
 - **Suggest resolution**: "Consider merging because..." or "Sequence as..."
-- **Reference impact lists**: "Both plans show X file in progress"
+- **Reference JSON conflicts**: "Query shows X file affected by multiple plans"
 
 ### When Finding Discoveries
-- **Update impact list immediately**: Add [DISCOVERED] items
+- **Update JSON immediately**: Add impact entry with "type": "DISCOVERED"
 - **Assess scope impact**: Does this change plan complexity?
-- **Check for new overlaps**: Does discovered work conflict with other plans?
+- **Check for new overlaps**: Query JSON to see if discovered work conflicts with other plans
 
 ### Plan Status Communication
-- **Progress updates**: Update impact list status regularly
-- **Completion markers**: Clear ✅ when work truly complete
+- **Progress updates**: Update JSON status fields regularly
+- **Completion markers**: Set "completed" date when work truly complete
 - **Handoff notes**: Document completed work that enables other plans
 
 ## Plan Review Process
 
 ### Before Starting Implementation
-1. **Review all impact lists** in active plans
-2. **Check for file conflicts** across plans
+1. **Query impact-tracking.json** for all active plan impacts
+2. **Check for file conflicts** using JSON group_by queries
 3. **Sequence conflicting work** to avoid collisions
-4. **Update dependencies** based on current status
+4. **Update dependencies** based on current JSON status
 
 ### During Implementation
-1. **Maintain impact lists** with current status
-2. **Add discoveries** as they're found
-3. **Coordinate conflicts** with other active plans
-4. **Update accuracy metrics** for learning
+1. **Maintain JSON status** with current progress
+2. **Add discoveries** as new JSON entries
+3. **Coordinate conflicts** using JSON queries for shared files
+4. **Update accuracy metrics** (predicted vs actual counts) for learning
+## Editing Behavior
+- Claude should consolidate all planned edits to a single module into one update block.
+- Avoid issuing multiple passes across the same file for minor changes.
+- Prefer atomic edit sweeps using the plan’s impact-tracking data.
+
 
 ### Periodic Review (every 2-3 plans)
 1. **Scan for mergeable plans** with similar remaining work
@@ -257,35 +270,81 @@ claude-plans/
 ├── b-completed/         # Successfully implemented
 ├── c-archived/          # Obsolete or old plans
 └── impact-tracking.json # Unified impact tracking
+
+Note: It is the user's responsibility to move plans between folders as they deem appropriate.  Plan locations in the different folders should not impact any analysis.  
 ```
 
 ### File Naming Convention
-- **Format**: `CLUSTER - Descriptive Name.md`
-- **Cluster-First Grouping**: Plans sort by functional area, not chronology
-- **Blast Radius Visible**: High-risk clusters (EVENTS, SHARED, API) grouped together
-- **ADHD-Friendly**: Related functionality clustered for easy scanning
+- **Format**: `[STATUS-]NNNN-CLUSTER-Descriptive-Name.md`
+- **Sequential IDs**: Non-intelligent auto-increment (0001, 0002, etc.)
+- **Status Prefixes**: Visual organization by completion status
+- **Cluster Grouping**: Plans sort by functional area within status
+- **ADHD-Friendly**: Clear visual separation of active vs completed work
 
-**Example Naming:**
+**Active Plans (no prefix):**
 ```
-API - Universal DML Processor.md
-DEVTOOLS - Phase 4 Cleanup.md
-DEVTOOLS - TurboRepo Hot Reload Fix.md
-EVENTS - EventTypes Enhancement.md
-MAPPING - Batch Mapping.md
-MAPPING - Batch Mapping SQL Views.md
-NAVIGATION - Hierarchical Navigation Actions.md
-RECIPES - Recipe Page Implementation.md
-SHARED - Select Widget Parameters.md
+0001-DEVTOOLS-Registry-System-Test.md
+0002-API-Test-Auto-Increment.md
+0005-MAPPING-Batch-Enhancement.md
+```
+
+**Completed Plans (DONE prefix):**
+```
+DONE-0003-DEVTOOLS-Claude-Plans-Management.md
+DONE-0004-SHARED-Widget-Parameters.md
+```
+
+**Other Statuses:**
+```
+ARCHIVED-0010-API-Old-Endpoint.md
+HOLD-0007-EVENTS-Future-Enhancement.md
 ```
 
 **Benefits:**
-- **Logical Grouping**: Related plans appear together in directory listings
-- **Risk Assessment**: High blast radius plans (EVENTS, SHARED, API) immediately visible
-- **Overlap Detection**: Conflicts more obvious when functionality is grouped
-- **Date Tracking**: Creation dates preserved in JSON `created` field
+- **Visual Status**: Instant identification of plan status in file listings
+- **Logical Sorting**: Status prefixes sort after numeric active plans
+- **Database Design**: Immutable IDs with flexible status management
+- **Risk Assessment**: Cluster visible in filename for blast radius awareness
+
+## CLI Tools for Plan Management
+
+### Plan Creation
+```bash
+# Global alias setup (add to ~/.bashrc)
+alias new-plan="cd /home/paul/wf-monorepo-new/claude-plans && node tools/create-plan.js"
+
+# Usage from anywhere
+new-plan DEVTOOLS "Feature Name"
+new-plan SHARED "Component Enhancement" 
+new-plan API "Endpoint Updates"
+```
+
+### Plan Completion
+```bash
+# Global alias setup (add to ~/.bashrc)  
+alias complete-plan="cd /home/paul/wf-monorepo-new/claude-plans && node tools/complete-plan.js"
+
+# Usage from anywhere
+complete-plan 0003                # Mark as completed (default)
+complete-plan 0005 archived       # Mark as archived
+complete-plan 0007 on-hold        # Mark as on-hold
+complete-plan 0003 active         # Reactivate (remove prefix)
+```
+
+### Workflow Integration
+1. **Create**: `new-plan CLUSTER "Plan Name"` - generates ID, files, JSON entries
+2. **Work**: Edit plan file, add impacts to impact-tracking.json
+3. **Complete**: `complete-plan NNNN` - updates status, renames file, marks impacts complete
+4. **Query**: Use jq commands for status analysis and reporting
+
+### Benefits of CLI Approach
+- **Token Efficiency**: User handles administrative tasks, Claude focuses on content
+- **ADHD-Friendly**: One-command operations, visual file organization
+- **Database Design**: Immutable IDs, referential integrity, normalized data
+- **Self-Service**: No waiting for Claude to create/complete plans
 
 ### Migration Guidelines  
-- **Manual movement**: User controls plan lifecycle
-- **Status indicators**: Use impact lists to show readiness
-- **Coordination**: Check for dependencies before moving plans
-- **Renaming**: Existing plans can be renamed to cluster format as needed
+- **Status Management**: Use complete-plan tool for status transitions
+- **File Organization**: Status prefixes provide visual sorting
+- **Registry Sync**: Tools automatically maintain registry consistency
+- **ID Preservation**: Plan IDs never change, only status/filename updates

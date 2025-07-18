@@ -14,9 +14,10 @@ import {
   Engineering,
   Groups,
   Straighten,
-  AccountBox
+  AccountBox,
+  ViewList
 } from '@mui/icons-material';
-import { SelUserAcct } from '@whatsfresh/shared-imports/jsx';
+import { SelUserAcct, SelProd } from '@whatsfresh/shared-imports/jsx';
 
 export const navigationSections = [
   {
@@ -68,10 +69,19 @@ export const navigationSections = [
     ]
   },
   {
-    title: "Mapping",
-    eventType: "btchMapDetail",
-    icon: AccountTree,
-    description: "Manage batch mapping and relationships"
+    title: "Select Product",
+    component: SelProd,
+    icon: Inventory,
+    description: "Select product for batch mapping",
+    type: "widget",
+    contextParam: "prodID",
+    onSelectionChange: "setParameter('prodID', value); execEvent('gridRcpe')" // Set prodID then trigger gridRcpe
+  },
+  {
+    title: "Product Batches",
+    eventType: "prodBtchList",
+    icon: ViewList,
+    description: "View and manage product batches (filtered by selected product)"
   }
 ];
 

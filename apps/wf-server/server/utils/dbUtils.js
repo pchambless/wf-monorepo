@@ -89,7 +89,7 @@ async function executeQuery(query, method = 'GET') {
         logger.error(`${fileName} Error executing query:`, error);
         // Use sanitized query in error logs
         logger.error(`${fileName} Query: ${sanitizeQuery(query)}`);
-        logger.error(`${fileName} Stack trace:`, new Error().stack);
+        logger.error(`${fileName} Stack trace: ${new Error().stack}`);
         if (['POST', 'PATCH', 'DELETE'].includes(method) && connection) {
             await connection.rollback();
         }

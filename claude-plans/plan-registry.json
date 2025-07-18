@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "created": "2025-07-18",
+    "description": "Master registry of all development plans with ID-to-name mapping",
+    "version": "1.0",
+    "next_id": 9
+  },
+  "plans": [
+    {
+      "id": "0001",
+      "name": "Registry System Test",
+      "cluster": "DEVTOOLS",
+      "filename": "DONE-0001-DEVTOOLS-Registry-System-Test.md",
+      "status": "completed",
+      "created": "2025-07-18",
+      "completed": "2025-07-18"
+    },
+    {
+      "id": "0002",
+      "name": "Test Auto Increment",
+      "cluster": "API",
+      "filename": "DONE-0002-API-Test-Auto-Increment.md",
+      "status": "completed",
+      "created": "2025-07-18",
+      "completed": "2025-07-18"
+    },
+    {
+      "id": "0003",
+      "name": "Claude Plans Management",
+      "cluster": "DEVTOOLS",
+      "filename": "DONE-0003-DEVTOOLS-Claude-Plans-Management.md",
+      "status": "completed",
+      "created": "2025-07-18",
+      "completed": "2025-07-18"
+    },
+    {
+      "id": "0004",
+      "name": "Session Persistence Enhancement",
+      "cluster": "AUTH",
+      "filename": "DONE-0004-AUTH-Session-Persistence-Enhancement.md",
+      "status": "completed",
+      "created": "2025-07-18",
+      "completed": "2025-07-18"
+    },
+    {
+      "id": "0005",
+      "name": "System Navigation Fixes",
+      "cluster": "CRUD",
+      "filename": "DONE-0005-CRUD-System-Navigation-Fixes.md",
+      "status": "completed",
+      "created": "2025-07-18",
+      "completed": "2025-07-18"
+    },
+    {
+      "id": "0006",
+      "name": "Batch Mapping",
+      "cluster": "MAPPING",
+      "filename": "0006-MAPPING-Batch-Mapping.md",
+      "status": "active",
+      "created": "2025-07-18"
+    },
+    {
+      "id": "0007",
+      "name": "ingrListAll for SelIngr",
+      "cluster": "EVENTS",
+      "filename": "0007-EVENTS-ingrListAll-for-SelIngr.md",
+      "status": "active",
+      "created": "2025-07-18"
+    },
+    {
+      "id": "0008",
+      "name": "Sidebar Optimization",
+      "cluster": "NAVIGATION",
+      "filename": "0008-NAVIGATION-Sidebar-Optimization.md",
+      "status": "active",
+      "created": "2025-07-18"
+    }
+  ]
+}

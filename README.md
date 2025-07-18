@@ -111,11 +111,23 @@ Here’s how you can explore and learn:
 
 [Add your license information here]
 
-## 🆘 Support
+## 🧭 Development Workflow & Support
 
-- **Documentation**: [DevTools README](./packages/devtools/README.md)
-- **Issues**: [GitHub Issues](../../issues)  
-- **Discussions**: [GitHub Discussions](../../discussions)
+WhatsFresh 2.0 is built using a plan-driven development approach. Instead of traditional issue tracking, we organize work into scoped, traceable documents:
+
+- **📁 Claude Plans**:  
+  Explore `claude-plans/a-pending/` for active development efforts and `b-completed/` for finished work. Each plan outlines a specific fix, enhancement, or investigation.
+
+- **🧠 CLAUDE.md**:  
+  Documents our AI-assisted workflow strategies, including prompt chunking, session tracking, and investigation-first behavior.
+
+- **📊 impact-tracking.json**:  
+  Tracks the cumulative effect of completed plans across the system.
+
+- **📚 Documentation**:  
+  See [DevTools README](./packages/devtools/README.md) for setup instructions and architecture details.
+
+We’re not actively using GitHub Issues or Discussions at the moment. If you’re interested in contributing or collaborating, feel free to explore the plans or reach out directly.
 
 ---
 
