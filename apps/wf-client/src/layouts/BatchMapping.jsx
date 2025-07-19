@@ -44,6 +44,13 @@ const BatchMapping = ({ pageMap }) => {
   const [dropZoneState, setDropZoneState] = useState({ isOver: false, canDrop: false });
   const [loading, setLoading] = useState({ gridRcpe: false, gridAvailable: false, gridMapped: false });
 
+  // Set page title in contextStore when pageMap changes
+  useEffect(() => {
+    if (pageMap?.title) {
+      contextStore.setParameter('pageTitle', pageMap.title);
+    }
+  }, [pageMap?.title]);
+
   // Get prodBtchID from route params or contextStore
   const prodBtchID = routeParams.prodBtchID || contextStore.getParameter('prodBtchID');
   

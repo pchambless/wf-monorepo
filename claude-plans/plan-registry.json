@@ -3,7 +3,7 @@
     "created": "2025-07-18",
     "description": "Master registry of all development plans with ID-to-name mapping",
     "version": "1.0",
-    "next_id": 9
+    "next_id": 10
   },
   "plans": [
     {
@@ -55,9 +55,10 @@
       "id": "0006",
       "name": "Batch Mapping",
       "cluster": "MAPPING",
-      "filename": "0006-MAPPING-Batch-Mapping.md",
-      "status": "active",
-      "created": "2025-07-18"
+      "filename": "DONE-0006-MAPPING-Batch-Mapping.md",
+      "status": "completed",
+      "created": "2025-07-18",
+      "completed": "2025-07-19"
     },
     {
       "id": "0007",
@@ -71,9 +72,18 @@
       "id": "0008",
       "name": "Sidebar Optimization",
       "cluster": "NAVIGATION",
-      "filename": "0008-NAVIGATION-Sidebar-Optimization.md",
+      "filename": "DONE-0008-NAVIGATION-Sidebar-Optimization.md",
+      "status": "completed",
+      "created": "2025-07-18",
+      "completed": "2025-07-19"
+    },
+    {
+      "id": "0009",
+      "name": "Comprehensive Theming Rework - HOLD",
+      "cluster": "SHARED",
+      "filename": "0009-SHARED-Comprehensive-Theming-Rework-HOLD.md",
       "status": "active",
-      "created": "2025-07-18"
+      "created": "2025-07-19"
     }
   ]
 }

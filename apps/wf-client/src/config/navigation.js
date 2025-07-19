@@ -11,20 +11,11 @@ import {
   Business,
   Engineering,
   Groups,
-  Straighten,
-  AccountBox
+  Straighten
 } from '@mui/icons-material';
-import { SelUserAcct, SelProd } from '@whatsfresh/shared-imports/jsx';
-
+import { SelProd } from '@whatsfresh/shared-imports/jsx';
 export const navigationSections = [
-  {
-    title: "Account",
-    component: SelUserAcct,
-    icon: AccountBox,
-    description: "Select your account",
-    position: "top",
-    type: "widget"
-  },
+
   {
     title: "Business Setup",
     type: "header"

@@ -349,12 +349,12 @@
       "package": "TBD",
       "file": "TBD",
       "type": "ANALYZED",
-      "status": "pending",
+      "status": "completed",
       "description": "Initial plan created - impacts to be determined",
       "complexity": "medium",
       "cluster": "NAVIGATION",
       "created": "2025-07-18",
-      "completed": null
+      "completed": "2025-07-19"
     },
     {
       "plan_id": "0006",
@@ -388,12 +388,12 @@
       "package": "shared-imports",
       "file": "packages/shared-imports/src/components/crud/CrudLayout/hooks/useParentID.js",
       "type": "DISCOVERED",
-      "status": "pending",
+      "status": "completed",
       "description": "Legacy artifact using old dataStore - needs removal/replacement with contextStore",
       "complexity": "low",
       "cluster": "SHARED",
       "created": "2025-07-18",
-      "completed": null
+      "completed": "2025-07-19"
     },
     {
       "plan_id": "0006",
@@ -459,6 +459,123 @@
       "cluster": "SHARED",
       "created": "2025-07-19",
       "completed": "2025-07-19"
+    },
+    {
+      "plan_id": "0009",
+      "impact_id": "0009_001",
+      "package": "TBD",
+      "file": "TBD",
+      "type": "ANALYZED",
+      "status": "pending",
+      "description": "Initial plan created - impacts to be determined",
+      "complexity": "medium",
+      "cluster": "SHARED",
+      "created": "2025-07-19",
+      "completed": null
+    },
+    {
+      "plan_id": "0008",
+      "impact_id": 36,
+      "package": "shared-imports",
+      "file": "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Modified for configurable items array and widget slots",
+      "complexity": "medium",
+      "cluster": "NAVIGATION",
+      "created": "2025-07-19",
+      "completed": null
+    },
+    {
+      "plan_id": "0008",
+      "impact_id": 37,
+      "package": "wf-client",
+      "file": "apps/wf-client/src/config/appbar.js",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Created new AppBar configuration with SelUserAcct widget",
+      "complexity": "medium",
+      "cluster": "SHARED",
+      "created": "2025-07-19",
+      "completed": null
+    },
+    {
+      "plan_id": "0008",
+      "impact_id": 38,
+      "package": "shared-imports",
+      "file": "packages/shared-imports/src/components/layouts/MainLayout.jsx",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Updated to read pageTitle from contextStore and pass to AppBar",
+      "complexity": "medium",
+      "cluster": "SHARED",
+      "created": "2025-07-19",
+      "completed": null
+    },
+    {
+      "plan_id": "0008",
+      "impact_id": 39,
+      "package": "shared-imports",
+      "file": "packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Added pageTitle setting to contextStore when pageMap changes",
+      "complexity": "medium",
+      "cluster": "CRUD",
+      "created": "2025-07-19",
+      "completed": null
+    },
+    {
+      "plan_id": "0008",
+      "impact_id": 40,
+      "package": "wf-client",
+      "file": "apps/wf-client/src/layouts/BatchMapping.jsx",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Added pageTitle setting to contextStore when pageMap changes",
+      "complexity": "medium",
+      "cluster": "MAPPING",
+      "created": "2025-07-19",
+      "completed": null
+    },
+    {
+      "plan_id": "0008",
+      "impact_id": 41,
+      "package": "wf-client",
+      "file": "apps/wf-client/src/theme.js",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Updated AppBar color to match sidebar background",
+      "complexity": "medium",
+      "cluster": "SHARED",
+      "created": "2025-07-19",
+      "completed": null
+    },
+    {
+      "plan_id": "0008",
+      "impact_id": 42,
+      "package": "shared-imports",
+      "file": "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Removed redundant app title display from sidebar header",
+      "complexity": "medium",
+      "cluster": "NAVIGATION",
+      "created": "2025-07-19",
+      "completed": null
+    },
+    {
+      "plan_id": "0008",
+      "impact_id": 43,
+      "package": "wf-client",
+      "file": "apps/wf-client/src/config/navigation.js",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Removed SelUserAcct widget from sidebar configuration",
+      "complexity": "medium",
+      "cluster": "NAVIGATION",
+      "created": "2025-07-19",
+      "completed": null
     }
   ]
 }

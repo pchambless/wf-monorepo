@@ -294,17 +294,14 @@ const Sidebar = ({
   // Sidebar content
   const sidebarContent = (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      {/* Header */}
-      <Box sx={{ p: 2, textAlign: 'center' }}>
-        {logo && (
+      {/* Header - Logo only, no redundant title */}
+      {logo && (
+        <Box sx={{ p: 2, textAlign: 'center' }}>
           <Box sx={{ mb: 1 }}>
             {logo}
           </Box>
-        )}
-        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
-          {appTitle}
-        </Typography>
-      </Box>
+        </Box>
+      )}
       
       <Divider />
       

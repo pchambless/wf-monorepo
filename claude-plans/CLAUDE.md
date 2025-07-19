@@ -266,6 +266,11 @@ When plan affects file mentioned in other plans:
 - Avoid issuing multiple passes across the same file for minor changes.
 - Prefer atomic edit sweeps using the plan’s impact-tracking data.
 
+## Token Conservation & Simple Changes
+  - **Simple edits (1-2 lines)**: Prompt user to make the change rather than using Edit tool
+  - **Multiple file updates**: Ask user to handle repetitive changes across similar files
+  - **One-word changes**: Always suggest user makes these directly
+
 
 ### Periodic Review (every 2-3 plans)
 1. **Scan for mergeable plans** with similar remaining work

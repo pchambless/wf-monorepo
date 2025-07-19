@@ -81,7 +81,12 @@ export const themeOptions = {
     },
     MuiAppBar: {
       defaultProps: {
-        color: 'transparent',
+        color: 'default',
+      },
+      styleOverrides: {
+        root: {
+          backgroundColor: '#dcfce7', // Match sidebar paper color
+        },
       },
     },
     MuiButton: {

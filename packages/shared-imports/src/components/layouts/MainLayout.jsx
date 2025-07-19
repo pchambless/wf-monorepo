@@ -3,6 +3,8 @@ import { Box, CircularProgress, CssBaseline, Toolbar } from '@mui/material';
 import AppBar from '../navigation/aa-AppBar/AppBar.jsx';
 import Sidebar from '../navigation/bb-Sidebar/Sidebar.jsx';
 import Logo from '../common/Logo/index.jsx';
+import { observer } from 'mobx-react-lite';
+import { useContextStore } from '@whatsfresh/shared-imports';
 
 /**
  * Shared MainLayout component for all WhatsFresh applications
@@ -10,21 +12,27 @@ import Logo from '../common/Logo/index.jsx';
  * @param {Object} props
  * @param {React.ReactNode} props.children - Page content to render
  * @param {Array} props.navigationSections - App-specific navigation configuration
- * @param {string} [props.appName] - Application name for AppBar
+ * @param {Object} [props.appBarConfig] - App-specific AppBar configuration
+ * @param {string} [props.appName] - Application name for AppBar (fallback)
+ * @param {string} [props.pageTitle] - Current page title to display in AppBar
+
  * @param {Function} props.onLogout - Logout handler
  * @param {number} [props.sidebarWidth=240] - Sidebar width in pixels
- * @param {Object} [props.widgetProps] - Props to pass to sidebar widgets
+ * @param {Object} [props.widgetProps] - Props to pass to sidebar and appbar widgets
  * @param {Object} [props.sx] - Additional styling
  */
-const MainLayout = ({
+const MainLayout = observer(({
   children,
   navigationSections = [],
+  appBarConfig,
   appName = "WhatsFresh",
+  pageTitle = "",
   onLogout,
   sidebarWidth = 240,
   widgetProps = {},
   sx = {}
 }) => {
+  const contextStore = useContextStore();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -36,15 +44,20 @@ const MainLayout = ({
     setMobileOpen(!mobileOpen);
   };
 
+  // Get title from contextStore (set by individual pages)
+  const currentTitle = pageTitle || contextStore.getParameter('pageTitle') || '';
+
   return (
     <Box sx={{ display: 'flex', height: '100vh', ...sx }}>
       <CssBaseline />
 
       {/* Shared AppBar component */}
       <AppBar
-        appName={appName}
+        items={appBarConfig?.items || []}
         onToggleSidebar={handleToggleSidebar}
         onLogout={onLogout}
+        pageTitle={currentTitle}
+        widgetProps={widgetProps}
       />
 
       {/* Shared Sidebar component */}
@@ -77,6 +90,6 @@ const MainLayout = ({
       </Box>
     </Box>
   );
-};
+});
 
 export default MainLayout;

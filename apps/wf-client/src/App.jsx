@@ -18,6 +18,7 @@ import { observer } from 'mobx-react-lite';
 // import { BreadcrumbProvider } from './contexts/BreadcrumbContext';
 import theme from './theme';
 import { getNavigationSections } from './config/navigation';
+import { getAppBarConfig } from './config/appbar';
 
 // Components - JSX imports
 import { Modal, useModalStore, MainLayout, LoginForm } from '@whatsfresh/shared-imports/jsx';
@@ -84,6 +85,8 @@ const DashboardWrapper = ({ onAccountDataReady, widgetProps }) => {
   return (
     <MainLayout
       navigationSections={getNavigationSections()}
+      appBarConfig={getAppBarConfig()}
+
       appName="WhatsFresh Client"
       onLogout={() => navService.logout()}
       widgetProps={widgetProps}
@@ -105,16 +108,16 @@ const AppContent = observer(() => {
   useEffect(() => {
     // Initialize navService with navigate function
     navService.init(navigate);
-    
+
     // Filter out noisy browser fetch logs
     // disableBrowserFetchLogs(); // Not available
     log.debug('App component mounted');
-    
+
     // Don't auto-validate sessions - require explicit login
     // The sessionValid flag will only be set after successful login
     setIsSessionRestored(true);
-    
-    log.debug('Session restoration completed', { 
+
+    log.debug('Session restoration completed', {
       isAuthenticated: contextStore.isAuthenticated,
       userID: contextStore.getParameter('userID'),
       sessionValid: contextStore.getParameter('sessionValid')
@@ -165,98 +168,102 @@ const AppContent = observer(() => {
       <CssBaseline />
       <ErrorBoundary>
 
-          {/* Temporarily comment out BreadcrumbProvider */}
-          {/* <BreadcrumbProvider> */}
-          <Routes>
-            {/* Auth routes */}
-            <Route path="/login" element={
-              contextStore.isAuthenticated ? (
-                <Navigate to="/dashboard" replace />
-              ) : (
-                <AuthLayout title="Sign In">
-                  <LoginForm routes={ROUTES} navigateToApp={navigateToApp} />
-                </AuthLayout>
-              )
-            } />
+        {/* Temporarily comment out BreadcrumbProvider */}
+        {/* <BreadcrumbProvider> */}
+        <Routes>
+          {/* Auth routes */}
+          <Route path="/login" element={
+            contextStore.isAuthenticated ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <AuthLayout title="Sign In">
+                <LoginForm routes={ROUTES} navigateToApp={navigateToApp} />
+              </AuthLayout>
+            )
+          } />
 
-            {/* Dashboard route */}
-            <Route path="/dashboard" element={
-              contextStore.isAuthenticated ? (
-                <MainLayout
-                  navigationSections={getNavigationSections()}
-                  appName="WhatsFresh Client"
-                  onLogout={() => navService.logout()}
+          {/* Dashboard route */}
+          <Route path="/dashboard" element={
+            contextStore.isAuthenticated ? (
+              <MainLayout
+                navigationSections={getNavigationSections()}
+
+                appBarConfig={getAppBarConfig()}
+                appName="WhatsFresh Client"
+                onLogout={() => navService.logout()}
+                widgetProps={widgetProps}
+              >
+                <DashboardWrapper
+                  onAccountDataReady={handleAccountDataReady}
                   widgetProps={widgetProps}
-                >
-                  <DashboardWrapper
-                    onAccountDataReady={handleAccountDataReady}
-                    widgetProps={widgetProps}
-                  />
-                </MainLayout>
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            } />
-
-            {/* Special non-registry routes */}
-            <Route path="/" element={
-              <Navigate to={contextStore.isAuthenticated ? "/dashboard" : "/login"} replace />
-            } />
-
-            {/* Generated routes from registry */}
-            {Object.entries(entityRegistry).map(([_eventName, config]) => {
-              // Skip if not ready to import
-              if (!config.import || !config.routeKey) {
-                return null;
-              }
-
-              const routeInfo = ROUTES[config.routeKey];
-              if (!routeInfo) {
-                return null;
-              }
-
-              // Try to get component
-              const PageComponent = getLazyComponent(config);
-              if (!PageComponent) {
-                return null;
-              }
-
-              // Create route with MainLayout for all pages
-              return (
-                <Route
-                  key={config.routeKey}
-                  path={routeInfo.path}
-                  element={
-                    contextStore.isAuthenticated ? (
-                      <MainLayout
-                        navigationSections={getNavigationSections()}
-                        appName="WhatsFresh Client"
-                        onLogout={() => navService.logout()}
-                        widgetProps={widgetProps}
-                      >
-                        <Suspense fallback={<CircularProgress />}>
-                          <PageComponent />
-                        </Suspense>
-                      </MainLayout>
-                    ) : (
-                      <Navigate to="/login" replace />
-                    )
-                  }
                 />
-              );
-            })}
+              </MainLayout>
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          } />
+
+          {/* Special non-registry routes */}
+          <Route path="/" element={
+            <Navigate to={contextStore.isAuthenticated ? "/dashboard" : "/login"} replace />
+          } />
+
+          {/* Generated routes from registry */}
+          {Object.entries(entityRegistry).map(([_eventName, config]) => {
+            // Skip if not ready to import
+            if (!config.import || !config.routeKey) {
+              return null;
+            }
+
+            const routeInfo = ROUTES[config.routeKey];
+            if (!routeInfo) {
+              return null;
+            }
+
+            // Try to get component
+            const PageComponent = getLazyComponent(config);
+            if (!PageComponent) {
+              return null;
+            }
+
+            // Create route with MainLayout for all pages
+            return (
+              <Route
+                key={config.routeKey}
+                path={routeInfo.path}
+                element={
+                  contextStore.isAuthenticated ? (
+                    <MainLayout
+                      navigationSections={getNavigationSections()}
+                      appBarConfig={getAppBarConfig()}
+
+                      appName="WhatsFresh Client"
+                      onLogout={() => navService.logout()}
+                      widgetProps={widgetProps}
+                    >
+                      <Suspense fallback={<CircularProgress />}>
+                        <PageComponent />
+                      </Suspense>
+                    </MainLayout>
+                  ) : (
+                    <Navigate to="/login" replace />
+                  )
+                }
+              />
+            );
+          })}
 
 
-            {/* Catch-all route */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          </Routes>
+          {/* Catch-all route */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
 
-          {/* IMPORTANT: Modal must be at root level */}
-          <ModalContainer />
-          {/* </BreadcrumbProvider> */}
-          {/* Removed ActionHandlerProvider */}
-        </ErrorBoundary>
-      </ThemeProvider>
+        {/* IMPORTANT: Modal must be at root level */}
+        <ModalContainer />
+        {/* </BreadcrumbProvider> */}
+        {/* Removed ActionHandlerProvider */}
+      </ErrorBoundary>
+    </ThemeProvider>
   );
 });
 

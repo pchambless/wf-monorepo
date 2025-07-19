@@ -14,6 +14,13 @@ const CrudLayout = ({ pageMap }) => {
   const formRef = useRef(null);
   const routeParams = useParams();
 
+  // Set page title in contextStore when pageMap changes
+  useEffect(() => {
+    if (pageMap?.title) {
+      contextStore.setParameter('pageTitle', pageMap.title);
+    }
+  }, [pageMap?.title]);
+
   // Internal state - no external dataStore needed!
   const [tableData, setTableData] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
