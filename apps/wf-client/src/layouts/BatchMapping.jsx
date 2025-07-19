@@ -1,7 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { Box, Grid, Typography, Paper, styled, alpha } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { DragIndicator } from '@mui/icons-material';
+import { execEvent, createLogger, contextStore } from '@whatsfresh/shared-imports';
+
+const log = createLogger('BatchMapping');
 
 // Styled components for drag-and-drop
 const DraggableRow = styled('div')(({ theme, isDragging }) => ({
@@ -13,7 +17,9 @@ const DraggableRow = styled('div')(({ theme, isDragging }) => ({
   },
 }));
 
-const DropZone = styled(Paper)(({ theme, isOver, canDrop }) => ({
+const DropZone = styled(Paper, {
+  shouldForwardProp: (prop) => !['isOver', 'canDrop'].includes(prop),
+})(({ theme, isOver, canDrop }) => ({
   minHeight: 300,
   transition: 'all 0.3s ease',
   backgroundColor: isOver && canDrop 
@@ -29,11 +35,21 @@ const DropZone = styled(Paper)(({ theme, isOver, canDrop }) => ({
  * Based on AppSmith prototype layout with enhanced drag-and-drop functionality
  */
 const BatchMapping = ({ pageMap }) => {
+  const routeParams = useParams();
   const [selectedIngredient, setSelectedIngredient] = useState(null);
+  const [recipeIngredients, setRecipeIngredients] = useState([]);
   const [availableBatches, setAvailableBatches] = useState([]);
   const [mappedBatches, setMappedBatches] = useState([]);
   const [draggedItem, setDraggedItem] = useState(null);
   const [dropZoneState, setDropZoneState] = useState({ isOver: false, canDrop: false });
+  const [loading, setLoading] = useState({ gridRcpe: false, gridAvailable: false, gridMapped: false });
+
+  // Get prodBtchID from route params or contextStore
+  const prodBtchID = routeParams.prodBtchID || contextStore.getParameter('prodBtchID');
+  
+  useEffect(() => {
+    log.debug('BatchMapping loaded with prodBtchID:', prodBtchID);
+  }, [prodBtchID]);
   
   // Extract grid configurations from pageMap
   const { grids } = pageMap;
@@ -41,13 +57,63 @@ const BatchMapping = ({ pageMap }) => {
   const gridAvailable = grids?.gridAvailable || {};
   const gridMapped = grids?.gridMapped || {};
 
-  // Handle ingredient selection from recipe grid
-  const handleIngredientSelection = useCallback((params) => {
-    console.log('Ingredient selected:', params.row);
-    setSelectedIngredient(params.row);
-    // TODO: Trigger data loading for available and mapped grids
-    // This would call execEvent for gridAvailable and gridMapped with ingrID parameter
+  // Load recipe ingredients data on mount
+  useEffect(() => {
+    const loadRecipeData = async () => {
+      try {
+        setLoading(prev => ({ ...prev, gridRcpe: true }));
+        log.debug('Loading recipe ingredients data...');
+        
+        const data = await execEvent('gridRcpe');
+        setRecipeIngredients(data || []);
+        log.debug('Recipe ingredients loaded:', data?.length || 0, 'items');
+        
+      } catch (error) {
+        log.error('Failed to load recipe ingredients:', error);
+        setRecipeIngredients([]);
+      } finally {
+        setLoading(prev => ({ ...prev, gridRcpe: false }));
+      }
+    };
+
+    loadRecipeData();
   }, []);
+
+  // Handle ingredient selection from recipe grid
+  const handleIngredientSelection = useCallback(async (params) => {
+    const ingredient = params.row;
+    log.debug('Ingredient selected:', ingredient);
+    setSelectedIngredient(ingredient);
+    
+    // Load available and mapped batches for the selected ingredient
+    if (!prodBtchID) {
+      log.warn('No prodBtchID available - cannot load batch data');
+      return;
+    }
+    
+    try {
+      setLoading(prev => ({ ...prev, gridAvailable: true, gridMapped: true }));
+      
+      // Load available batches (requires both ingrID and prodBtchID parameters)
+      const availableParams = { ':ingrID': ingredient.ingrID, ':prodBtchID': prodBtchID };
+      const availableData = await execEvent('gridAvailable', availableParams);
+      setAvailableBatches(availableData || []);
+      log.debug('Available batches loaded:', availableData?.length || 0, 'items for ingrID:', ingredient.ingrID, 'prodBtchID:', prodBtchID);
+      
+      // Load mapped batches (requires both ingrID and prodBtchID parameters)  
+      const mappedParams = { ':ingrID': ingredient.ingrID, ':prodBtchID': prodBtchID };
+      const mappedData = await execEvent('gridMapped', mappedParams);
+      setMappedBatches(mappedData || []);
+      log.debug('Mapped batches loaded:', mappedData?.length || 0, 'items for ingrID:', ingredient.ingrID, 'prodBtchID:', prodBtchID);
+      
+    } catch (error) {
+      log.error('Failed to load batch data for ingredient:', ingredient.ingrID, error);
+      setAvailableBatches([]);
+      setMappedBatches([]);
+    } finally {
+      setLoading(prev => ({ ...prev, gridAvailable: false, gridMapped: false }));
+    }
+  }, [prodBtchID]);
 
   // Drag and drop handlers
   const handleDragStart = useCallback((event, sourceGrid, rowData) => {
@@ -157,7 +223,10 @@ const BatchMapping = ({ pageMap }) => {
               backgroundColor: draggable ? alpha('#1976d2', 0.08) : 'inherit',
             }
           }}
-          getRowId={(row) => row.id || row.ingrID || row.ingrBtchID}
+          getRowId={(row) => {
+            // Map primary keys to the id that MUI DataGrid expects
+            return row.prodRcpeID || row.ingrBtchID || row.mapID || row.id;
+          }}
           componentsProps={{
             row: {
               draggable: draggable,
@@ -213,7 +282,7 @@ const BatchMapping = ({ pageMap }) => {
       <Grid container spacing={2} sx={{ height: 'calc(100vh - 120px)' }}>
         {/* Left Panel - Recipe Ingredients (Tallest) */}
         <Grid item xs={4} sx={{ height: '100%' }}>
-          {renderDraggableGrid(gridRcpe, [], gridRcpe.title || 'Recipe Ingredients', 'recipe')}
+          {renderDraggableGrid(gridRcpe, recipeIngredients, gridRcpe.title || 'Recipe Ingredients', 'recipe')}
         </Grid>
         
         {/* Center Panel - Mapped Batches (3 rows + scroll) */}
@@ -238,13 +307,24 @@ const BatchMapping = ({ pageMap }) => {
       </Grid>
       
       {/* Debug info */}
-      {selectedIngredient && (
-        <Box sx={{ mt: 2, p: 1, bgcolor: 'info.light', borderRadius: 1 }}>
-          <Typography variant="caption">
-            Selected Ingredient: {selectedIngredient.ingrName} (ID: {selectedIngredient.ingrID})
-          </Typography>
-        </Box>
-      )}
+      <Box sx={{ mt: 2, p: 1, bgcolor: 'info.light', borderRadius: 1 }}>
+        <Typography variant="caption" display="block">
+          ProdBtchID: {prodBtchID || 'NOT FOUND'} | Recipe Ingredients: {recipeIngredients.length} loaded {loading.gridRcpe && '(loading...)'}
+        </Typography>
+        {selectedIngredient && (
+          <>
+            <Typography variant="caption" display="block">
+              Selected: {selectedIngredient.ingrName} (ID: {selectedIngredient.ingrID})
+            </Typography>
+            <Typography variant="caption" display="block">
+              Available Batches: {availableBatches.length} {loading.gridAvailable && '(loading...)'}
+            </Typography>
+            <Typography variant="caption" display="block">
+              Mapped Batches: {mappedBatches.length} {loading.gridMapped && '(loading...)'}
+            </Typography>
+          </>
+        )}
+      </Box>
     </Box>
   );
 };

@@ -366,11 +366,11 @@ const EVENTS = [
     cluster: "MAPPING",
     method: "GET",
     qrySQL: `
-      SELECT a.ingr_btch_nbr, a.purch_date, a.vndr_name, a.prd_btch_ingr_id mapID
-      FROM api_wf.v_prd_btch_ingr_dtl a
-      WHERE a.ingr_id = :ingrID
-      AND prd_btch_id = :prodBtchID
-      ORDER BY purch_date DESC
+      SELECT *
+      FROM api_wf.gridMapped a
+      WHERE a.ingrID = :ingrID
+      AND a.prodBtchID = :prodBtchID
+      ORDER BY purchDate DESC
     `,
     params: [":prodBtchID", ":ingrID", "prodRcpeID"],
     primaryKey: "mapID",
@@ -383,9 +383,9 @@ const EVENTS = [
     cluster: "MAPPING",
     method: "GET",
     qrySQL: `
-      select ingr_name ingrName, a.ingr_btch_nbr ingrBtchNbr
-      , a.purch_date purchDate, a.vndr_name vndrName, a.ingr_btch_id ingrBtchID
-      , a.ingr_id ingrID from v_ingr_btch_dtl a
+      select a.ingr_btch_id ingrBtchID, ingr_name ingrName, a.ingr_btch_nbr ingrBtchNbr
+      , a.purch_date purchDate, a.vndr_name vndrName, a.ingr_id ingrID
+      from v_ingr_btch_dtl a
       where a.ingr_id = :ingrID 
       and a.ingr_btch_id not in 
       (select ingr_btch_id 
@@ -393,6 +393,7 @@ const EVENTS = [
       where prd_btch_id = :prodBtchID 
       and ingr_id = :ingrID) 
       order by ingr_btch_id desc
+      limit 20
     `,
     params: [":prodBtchID", ":ingrID"],
     primaryKey: "ingrBtchID",

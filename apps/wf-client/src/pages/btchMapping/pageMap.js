@@ -31,9 +31,11 @@ const pageMap = {
       "position": "left",
       "selectable": true,
       "columns": [
-        { "field": "ingrName", "title": "Ingredient", "width": 200 },
+        { "field": "prodRcpeID", "title": "Recipe ID", "width": 80, "hidden": true },
         { "field": "ingrOrdr", "title": "Order", "width": 80 },
-        { "field": "ingrID", "title": "ID", "width": 80, "hidden": true }
+        { "field": "ingrName", "title": "Ingredient", "width": 200 },
+        { "field": "ingrID", "title": "Ingredient ID", "width": 80, "hidden": true },
+        { "field": "prodID", "title": "Product ID", "width": 80, "hidden": true }
       ]
     },
     "gridAvailable": {
@@ -43,10 +45,12 @@ const pageMap = {
       "draggable": true,
       "params": [":ingrID", ":prodBtchID"],
       "columns": [
+        { "field": "ingrBtchID", "title": "Batch ID", "width": 80, "hidden": true },
+        { "field": "ingrName", "title": "Ingredient", "width": 150, "hidden": true },
         { "field": "ingrBtchNbr", "title": "Batch #", "width": 120 },
         { "field": "purchDate", "title": "Purchase Date", "width": 120 },
         { "field": "vndrName", "title": "Vendor", "width": 150 },
-        { "field": "ingrBtchID", "title": "ID", "width": 80, "hidden": true }
+        { "field": "ingrID", "title": "Ingredient ID", "width": 80, "hidden": true }
       ]
     },
     "gridMapped": {
@@ -57,10 +61,13 @@ const pageMap = {
       "editable": true,
       "params": [":prodBtchID", ":ingrID"],
       "columns": [
+        { "field": "mapID", "title": "Map ID", "width": 80, "hidden": true },
         { "field": "ingrBtchNbr", "title": "Batch #", "width": 120 },
         { "field": "purchDate", "title": "Purchase Date", "width": 120 },
-        { "field": "vndrName", "title": "Vendor", "width": 150 },
-        { "field": "id", "title": "ID", "width": 80, "hidden": true }
+        { "field": "vndrName", "title": "Vendor", "width": 150, "hidden": true },
+        { "field": "prodRcpeID", "title": "Recipe ID", "width": 80, "hidden": true },
+        { "field": "ingrID", "title": "Ingredient ID", "width": 80, "hidden": true },
+        { "field": "prodBtchID", "title": "Product Batch ID", "width": 80, "hidden": true }
       ]
     }
   },

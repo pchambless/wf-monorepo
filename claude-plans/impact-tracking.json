@@ -433,6 +433,32 @@
       "cluster": "SHARED",
       "created": "2025-07-18",
       "completed": null
+    },
+    {
+      "plan_id": "0006",
+      "impact_id": 34,
+      "package": "sql",
+      "file": "sql/views/client/gridMapped.sql",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Updated field aliases to match pageMap expectations",
+      "complexity": "medium",
+      "cluster": "SHARED",
+      "created": "2025-07-19",
+      "completed": "2025-07-19"
+    },
+    {
+      "plan_id": "0006",
+      "impact_id": 35,
+      "package": "shared-imports",
+      "file": "packages/shared-imports/src/events/client/eventTypes.js",
+      "type": "DISCOVERED",
+      "status": "completed",
+      "description": "Updated gridMapped eventType SQL query",
+      "complexity": "medium",
+      "cluster": "SHARED",
+      "created": "2025-07-19",
+      "completed": "2025-07-19"
     }
   ]
 }
