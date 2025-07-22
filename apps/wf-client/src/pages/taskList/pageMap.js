@@ -107,6 +107,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "taskID": "id",
       "taskName": "name",

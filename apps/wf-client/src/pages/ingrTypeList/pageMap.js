@@ -38,7 +38,7 @@ const pageMap = {
       {
         "field": "ingrTypeID",
         "label": "ingrTypeID",
-        "width": 80,
+        "width": 150,
         "type": "number",
         "editable": false,
         "hidden": true
@@ -54,8 +54,8 @@ const pageMap = {
       {
         "field": "acctID",
         "label": "acctID",
-        "width": 120,
-        "type": "select",
+        "width": 150,
+        "type": "number",
         "editable": false,
         "hidden": true
       }
@@ -71,7 +71,7 @@ const pageMap = {
             "field": "ingrTypeID",
             "label": "ingrTypeID",
             "type": "number",
-            "required": false,
+            "required": true,
             "hidden": true
           },
           {
@@ -84,15 +84,15 @@ const pageMap = {
           {
             "field": "ingrTypeDesc",
             "label": "Description",
-            "type": "multiLine",
+            "type": "text",
             "required": false,
             "hidden": false
           },
           {
             "field": "acctID",
             "label": "acctID",
-            "type": "select",
-            "required": false,
+            "type": "number",
+            "required": true,
             "hidden": true
           }
         ]
@@ -100,6 +100,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "ingrTypeID": "id",
       "ingrTypeName": "name",

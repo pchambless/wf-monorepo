@@ -85,6 +85,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "wrkrID": "id",
       "wrkrName": "name",

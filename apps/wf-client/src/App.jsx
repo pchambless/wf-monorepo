@@ -1,38 +1,47 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate
-} from 'react-router-dom';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { CircularProgress } from '@mui/material';
-import { ROUTES, entityRegistry } from './config/routes.js';
+  Navigate,
+} from "react-router-dom";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { CircularProgress } from "@mui/material";
+import { ROUTES, entityRegistry } from "./config/routes.js";
 
 // Utilities and contexts from shared-imports
-import { createLogger, configureLogger, useContextStore } from '@whatsfresh/shared-imports';
-import { observer } from 'mobx-react-lite';
+import {
+  createLogger,
+  configureLogger,
+  useContextStore,
+} from "@whatsfresh/shared-imports";
+import { observer } from "mobx-react-lite";
 // import { disableBrowserFetchLogs } from '@whatsfresh/shared-imports/utils'; // Not available
 // Removed ActionHandlerProvider - no longer needed
 // import { BreadcrumbProvider } from './contexts/BreadcrumbContext';
-import theme from './theme';
-import { getNavigationSections } from './config/navigation';
-import { getAppBarConfig } from './config/appbar';
+import theme from "./theme";
+import { getNavigationSections } from "./config/navigation";
+import { getAppBarConfig } from "./config/appbar";
 
 // Components - JSX imports
-import { Modal, useModalStore, MainLayout, LoginForm } from '@whatsfresh/shared-imports/jsx';
-import { ErrorBoundary } from '@whatsfresh/shared-imports/jsx';
+import {
+  Modal,
+  useModalStore,
+  MainLayout,
+  LoginForm,
+  ErrorBoundary,
+} from "@whatsfresh/shared-imports/jsx";
 
 // Services
-import navService from './services/navService';
-import { useNavigate } from 'react-router-dom';
+import navService from "./services/navService";
+import { useNavigate } from "react-router-dom";
 
 // Local layouts and pages (temporary until shared AuthLayout works)
-const AuthLayout = lazy(() => import('./layouts/AuthLayout'));
+const AuthLayout = lazy(() => import("./layouts/AuthLayout"));
 
 // Local pages only
-const Dashboard = lazy(() => import('./pages/dashboard'));
+const Dashboard = lazy(() => import("./pages/dashboard"));
 
 // LoginForm now uses shared navigation utilities with app routes
 
@@ -70,23 +79,22 @@ const getLazyComponent = (config) => {
   }
 };
 
-const log = createLogger('App');
-console.log('App.js is being executed');
+const log = createLogger("App");
+console.log("App.js is being executed");
 
 // Configure logger at application startup
 configureLogger({
   showTimestamps: true,
-  dedupeTimeWindow: 500
+  dedupeTimeWindow: 500,
 });
 
 // Log at the top-level App mounting
-// Dashboard wrapper component 
+// Dashboard wrapper component
 const DashboardWrapper = ({ onAccountDataReady, widgetProps }) => {
   return (
     <MainLayout
       navigationSections={getNavigationSections()}
       appBarConfig={getAppBarConfig()}
-
       appName="WhatsFresh Client"
       onLogout={() => navService.logout()}
       widgetProps={widgetProps}
@@ -111,16 +119,16 @@ const AppContent = observer(() => {
 
     // Filter out noisy browser fetch logs
     // disableBrowserFetchLogs(); // Not available
-    log.debug('App component mounted');
+    log.debug("App component mounted");
 
     // Don't auto-validate sessions - require explicit login
     // The sessionValid flag will only be set after successful login
     setIsSessionRestored(true);
 
-    log.debug('Session restoration completed', {
+    log.debug("Session restoration completed", {
       isAuthenticated: contextStore.isAuthenticated,
-      userID: contextStore.getParameter('userID'),
-      sessionValid: contextStore.getParameter('sessionValid')
+      userID: contextStore.getParameter("userID"),
+      sessionValid: contextStore.getParameter("sessionValid"),
     });
   }, [contextStore, navigate]);
 
@@ -130,7 +138,7 @@ const AppContent = observer(() => {
 
   // Navigation function for login form
   const navigateToApp = React.useCallback(() => {
-    navService.navigate('/dashboard', { replace: true });
+    navService.navigate("/dashboard", { replace: true });
   }, []);
 
   // Create widget props for the account selector - memoized to prevent infinite re-renders
@@ -145,18 +153,24 @@ const AppContent = observer(() => {
           accountData.handleAccountChange(selectedId);
         },
         disabled: accountData.loading,
-        loading: accountData.loading
-      }
+        loading: accountData.loading,
+      },
     };
-  }, [
-    accountData]);
+  }, [accountData]);
 
   // Show loading while session is being restored
   if (!isSessionRestored) {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
           <CircularProgress />
         </div>
       </ThemeProvider>
@@ -167,46 +181,56 @@ const AppContent = observer(() => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ErrorBoundary>
-
         {/* Temporarily comment out BreadcrumbProvider */}
         {/* <BreadcrumbProvider> */}
         <Routes>
           {/* Auth routes */}
-          <Route path="/login" element={
-            contextStore.isAuthenticated ? (
-              <Navigate to="/dashboard" replace />
-            ) : (
-              <AuthLayout title="Sign In">
-                <LoginForm routes={ROUTES} navigateToApp={navigateToApp} />
-              </AuthLayout>
-            )
-          } />
+          <Route
+            path="/login"
+            element={
+              contextStore.isAuthenticated ? (
+                <Navigate to="/dashboard" replace />
+              ) : (
+                <AuthLayout title="Sign In">
+                  <LoginForm routes={ROUTES} navigateToApp={navigateToApp} />
+                </AuthLayout>
+              )
+            }
+          />
 
           {/* Dashboard route */}
-          <Route path="/dashboard" element={
-            contextStore.isAuthenticated ? (
-              <MainLayout
-                navigationSections={getNavigationSections()}
-
-                appBarConfig={getAppBarConfig()}
-                appName="WhatsFresh Client"
-                onLogout={() => navService.logout()}
-                widgetProps={widgetProps}
-              >
-                <DashboardWrapper
-                  onAccountDataReady={handleAccountDataReady}
+          <Route
+            path="/dashboard"
+            element={
+              contextStore.isAuthenticated ? (
+                <MainLayout
+                  navigationSections={getNavigationSections()}
+                  appBarConfig={getAppBarConfig()}
+                  appName="WhatsFresh Client"
+                  onLogout={() => navService.logout()}
                   widgetProps={widgetProps}
-                />
-              </MainLayout>
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          } />
+                >
+                  <DashboardWrapper
+                    onAccountDataReady={handleAccountDataReady}
+                    widgetProps={widgetProps}
+                  />
+                </MainLayout>
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
 
           {/* Special non-registry routes */}
-          <Route path="/" element={
-            <Navigate to={contextStore.isAuthenticated ? "/dashboard" : "/login"} replace />
-          } />
+          <Route
+            path="/"
+            element={
+              <Navigate
+                to={contextStore.isAuthenticated ? "/dashboard" : "/login"}
+                replace
+              />
+            }
+          />
 
           {/* Generated routes from registry */}
           {Object.entries(entityRegistry).map(([_eventName, config]) => {
@@ -236,7 +260,6 @@ const AppContent = observer(() => {
                     <MainLayout
                       navigationSections={getNavigationSections()}
                       appBarConfig={getAppBarConfig()}
-
                       appName="WhatsFresh Client"
                       onLogout={() => navService.logout()}
                       widgetProps={widgetProps}
@@ -252,7 +275,6 @@ const AppContent = observer(() => {
               />
             );
           })}
-
 
           {/* Catch-all route */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
@@ -280,13 +302,7 @@ const ModalContainer = () => {
   // Use modal store to get modal state
   const { isOpen, config, closeModal } = useModalStore();
 
-  return (
-    <Modal
-      isOpen={isOpen}
-      config={config}
-      onClose={closeModal}
-    />
-  );
+  return <Modal isOpen={isOpen} config={config} onClose={closeModal} />;
 };
 
 export default App;

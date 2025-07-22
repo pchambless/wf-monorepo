@@ -17,8 +17,6 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
-    "@whatsfresh/shared-api": "file:../../packages/shared-api",
-    "@whatsfresh/shared-events": "file:../../packages/shared-events",
     "@whatsfresh/shared-imports": "file:../../packages/shared-imports",
     "axios": "^1.9.0",
     "bcryptjs": "^3.0.2",

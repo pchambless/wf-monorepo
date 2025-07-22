@@ -10,11 +10,6 @@ services:
       sh -c "
         # Create working symlinks for all shared packages in node_modules
         mkdir -p /app/node_modules/@whatsfresh &&
-        ln -sf /app/packages/shared-imports /app/node_modules/@whatsfresh/shared-imports &&
-        ln -sf /app/packages/shared-ui /app/node_modules/@whatsfresh/shared-ui &&
-        ln -sf /app/packages/shared-api /app/node_modules/@whatsfresh/shared-api &&
-        ln -sf /app/packages/shared-events /app/node_modules/@whatsfresh/shared-events &&
-        ln -sf /app/packages/shared-config /app/node_modules/@whatsfresh/shared-config &&
+        ln -sf /app/packages/shared-imports /app/node_modules/@whatsfresh/shared-imports 
         # Start the React dev server
         npm start
-      "

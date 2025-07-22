@@ -1,6 +1,6 @@
 /**
  * WF Client Navigation Configuration
- * 
+ *
  * Defines the sidebar navigation structure for the WhatsFresh client app.
  * Maps to eventTypes for dynamic route generation.
  */
@@ -11,35 +11,35 @@ import {
   Business,
   Engineering,
   Groups,
-  Straighten
-} from '@mui/icons-material';
-import { SelProd } from '@whatsfresh/shared-imports/jsx';
+  Straighten,
+  Architecture,
+} from "@mui/icons-material";
+import { SelProd } from "@whatsfresh/shared-imports/jsx";
 export const navigationSections = [
-
   {
     title: "Business Setup",
-    type: "header"
+    type: "header",
   },
   {
     title: "Ingredients",
     eventType: "ingrTypeList",
     icon: LocalFlorist,
-    description: "Manage ingredient types and categories"
+    description: "Manage ingredient types and categories",
   },
   {
     title: "Products",
     eventType: "prodTypeList",
     icon: Inventory,
-    description: "Manage product types and categories"
+    description: "Manage product types and categories",
   },
   {
     title: "Reference Data",
-    type: "header"
+    type: "header",
   },
   {
     title: "Brands",
     eventType: "brndList",
-    icon: Business
+    icon: Business,
   },
   {
     title: "Vendors",
@@ -58,19 +58,33 @@ export const navigationSections = [
   },
   {
     title: "Batch Management",
-    type: "header"
+    type: "header",
   },
   {
     title: "SelProd",
     component: SelProd,
-    description: "Select product for batch mapping - auto-loads batches and recipe data",
+    description:
+      "Select product for batch mapping - auto-loads batches and recipe data",
     type: "widget",
     contextParam: "prodID",
     props: {
-      label: "Select Product"
+      label: "Select Product",
     },
-    onSelectionChange: "setParameter('prodID', value); navigateTo('prodBtchList'); execEvent('gridRcpe')" // Set prodID, navigate to batches, load recipe grid
-  }
+    onSelectionChange:
+      "setParameter('prodID', value); navigateTo('prodBtchList'); execEvent('gridRcpe')", // Set prodID, navigate to batches, load recipe grid
+  },
+  {
+    title: "Development",
+    type: "header",
+  },
+  {
+    title: "Architecture Intel",
+    eventType: "archDashboard",
+    icon: Architecture,
+    description: "System architecture analysis and dependency intelligence",
+    temporary: true, // Remove when admin app ready
+    access: "dev", // Development only
+  },
 ];
 
 /**
@@ -92,7 +106,7 @@ export function getNavItemByEventType(eventType) {
       return section;
     }
     if (section.items) {
-      const item = section.items.find(item => item.eventType === eventType);
+      const item = section.items.find((item) => item.eventType === eventType);
       if (item) return item;
     }
   }
@@ -106,12 +120,12 @@ export function getNavItemByEventType(eventType) {
 export function getNavigationEventTypes() {
   const eventTypes = [];
 
-  navigationSections.forEach(section => {
+  navigationSections.forEach((section) => {
     if (section.eventType) {
       eventTypes.push(section.eventType);
     }
     if (section.items) {
-      section.items.forEach(item => {
+      section.items.forEach((item) => {
         if (item.eventType) {
           eventTypes.push(item.eventType);
         }

@@ -157,6 +157,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "prodBtchID": "id",
       "btchNbr": "batch_number",

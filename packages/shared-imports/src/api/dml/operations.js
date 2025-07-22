@@ -3,45 +3,44 @@
  * Core DML functions without JSX dependencies for better compatibility
  */
 import { buildDMLData, buildSQLPreview } from './dmlBuilder.js';
-import { execEvent } from '../../api/index.js';
+import { api } from '../index.js';
 import { contextStore } from '@whatsfresh/shared-imports';
-import createLogger from '../logger.js';
+import createLogger from '../../utils/logger.js';
 
 const log = createLogger('DML');
-
 /**
  * Unified parameter resolution - consolidates all parameter sources
  */
 const resolveAllParameters = (pageMap, formData) => {
     const eventType = pageMap?.id;
-    
+
     // Start with form data as base
     const allParameters = { ...formData };
-    
+
     // Auto-resolve contextual parameters if contextStore is available
     if (eventType && contextStore) {
         const contextParams = contextStore.getEventParams(eventType);
-        
+
         // Merge context parameters (form data takes precedence)
         Object.entries(contextParams).forEach(([key, value]) => {
             if (allParameters[key] === undefined) {
                 allParameters[key] = value;
             }
         });
-        
+
         log.info('Context parameters resolved:', {
             eventType,
             contextParams: Object.keys(contextParams),
             merged: Object.keys(allParameters).filter(key => !formData?.[key])
         });
     }
-    
+
     // Handle legacy parent ID patterns (for backward compatibility)
     const parentIdField = pageMap?.pageConfig?.parentIdField;
     if (parentIdField && !allParameters[parentIdField] && !allParameters._parentId) {
         log.warn(`No parent ID found for ${parentIdField} - hierarchical relationship may be incomplete`);
     }
-    
+
     return allParameters;
 };
 
@@ -57,7 +56,7 @@ export const executeDML = async (pageMap, formData, method, skipPreview = false)
 
         // Unified parameter resolution in single step
         const allParameters = resolveAllParameters(pageMap, formData);
-        
+
         log.info('Unified parameter resolution:', {
             formDataFields: Object.keys(formData || {}),
             contextFields: Object.keys(allParameters).filter(key => !formData?.[key]),
@@ -73,25 +72,21 @@ export const executeDML = async (pageMap, formData, method, skipPreview = false)
             log.info('DML Preview:', preview);
         }
 
-        // For now, return preview data instead of executing
-        // TODO: Replace with actual execDML API call when ready
-        const preview = buildSQLPreview(pageMap, allParameters, method);
-        
-        const mockResult = {
-            success: true,
-            preview: preview,
-            dmlData: dmlData,
-            method: method,
-            message: `DML ${method} prepared successfully`,
-            formData: allParameters
-        };
+        // Execute the actual DML operation via API
+        const result = await api.execDml(method, dmlData);
 
-        log.info('DML preview generated', { 
-            method, 
-            preview: preview.substring(0, 100) + '...' 
+        log.info(`DML ${method} executed successfully`, {
+            method,
+            table: dmlData.table
         });
-        
-        return mockResult;
+
+        return {
+            success: true,
+            result,
+            dmlData,
+            method,
+            message: `DML ${method} completed successfully`
+        };
 
     } catch (error) {
         log.error('DML execution failed:', error);

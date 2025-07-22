@@ -1,192 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Event Types Flow - WhatsFresh Documentation</title>
-  <link rel="stylesheet" href="../styles.css">
-</head>
-<body>
-  <!-- WhatsFresh Documentation Navigation Template -->
-<nav class="nav">
-  <div class="nav-content">
-    <h1>WhatsFresh Documentation</h1>
-    <div class="nav-links">
-      <a href="../index.html" >Home</a>
-      <a href="../overview/index.html" >Overview</a>
-      <a href="../widgets/index.html" >Widgets</a>
-      <a href="../pages/index.html" >Pages</a>
-      <a href="../events/index.html" class="active">Events</a>
-      <a href="../directives/index.html" >Directives</a>
-      <a href="../api/index.html" >API</a>
-      <a href="../rules/index.html" >Rules</a>
-    </div>
-  </div>
-</nav>
-  
-  <div class="container">
-    <div class="content">
-      
-      <h1>Event Types Flow</h1>
-      <p>The WhatsFresh event system is the core glue that connects all data flow throughout the application. This documents the complete event hierarchy and relationships.</p>
-      
-      <div class="card">
-        <h2>System Overview</h2>
-        <p>The event system connects:</p>
-        <ul>
-          <li><strong>SQL Views</strong> → <strong>EventTypes</strong> → <strong>PageMaps</strong> → <strong>UI Components</strong></li>
-          <li><strong>Authentication Flow</strong> - User login and account selection</li>
-          <li><strong>CRUD Operations</strong> - Create, Read, Update, Delete for all entities</li>
-          <li><strong>Data Relationships</strong> - Parent-child hierarchies and mappings</li>
-          <li><strong>Widget Integration</strong> - Select widgets and form components</li>
-        </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Types Flow - WhatsFresh Documentation</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <!-- WhatsFresh Documentation Navigation Template -->
+    <nav class="nav">
+      <div class="nav-content">
+        <h1>WhatsFresh Documentation</h1>
+        <div class="nav-links">
+          <a href="../index.html">Home</a>
+          <a href="../overview/index.html">Overview</a>
+          <a href="../widgets/index.html">Widgets</a>
+          <a href="../pages/index.html">Pages</a>
+          <a href="../events/index.html" class="active">Events</a>
+          <a href="../directives/index.html">Directives</a>
+          <a href="../api/index.html">API</a>
+          <a href="../rules/index.html">Rules</a>
+        </div>
       </div>
-      
-      <div class="card">
-        <h2>Event Flow Diagram</h2>
-        <p>Interactive Mermaid diagram showing the complete event relationship flow:</p>
-        <div class="mermaid-container" style="text-align: center; margin: 2rem 0;">
-          <div id="mermaid-diagram" style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #ddd;">
-            <div class="mermaid">
-flowchart LR
+    </nav>
 
-  subgraph AUTH
-    userLogin["page:Login<br>userLogin<br>[::userEmail, ::enteredPassword]"]
-    userAcctList["ui:select<br>userAcctList<br>[::userID]"]
-  end
+    <div class="container">
+      <div class="content">
+        <h1>Event Types Flow</h1>
+        <p>
+          The WhatsFresh event system is the core glue that connects all data
+          flow throughout the application. This documents the complete event
+          hierarchy and relationships.
+        </p>
 
-  subgraph INGREDIENTS
-    ingrTypeList["page:Crud<br>ingrTypeList<br>[::acctID]"]
-    ingrList["page:Crud<br>ingrList<br>[::acctID, ::ingrTypeID]"]
-    ingrBtchList["page:Crud<br>ingrBtchList<br>[::ingrID]"]
-  end
+        <div class="card">
+          <h2>System Overview</h2>
+          <p>The event system connects:</p>
+          <ul>
+            <li>
+              <strong>SQL Views</strong> → <strong>EventTypes</strong> →
+              <strong>PageMaps</strong> → <strong>UI Components</strong>
+            </li>
+            <li>
+              <strong>Authentication Flow</strong> - User login and account
+              selection
+            </li>
+            <li>
+              <strong>CRUD Operations</strong> - Create, Read, Update, Delete
+              for all entities
+            </li>
+            <li>
+              <strong>Data Relationships</strong> - Parent-child hierarchies and
+              mappings
+            </li>
+            <li>
+              <strong>Widget Integration</strong> - Select widgets and form
+              components
+            </li>
+          </ul>
+        </div>
 
-  subgraph PRODUCTS
-    prodTypeList["page:Crud<br>prodTypeList<br>[::acctID]"]
-    prodList["page:Crud<br>prodList<br>[::acctID, ::prodTypeID]"]
-    taskList["page:Crud<br>taskList<br>[::prodTypeID]"]
-    prodBtchList["page:Crud<br>prodBtchList<br>[::prodID]"]
-    rcpeList["page:Recipe<br>rcpeList<br>[::prodID]"]
-  end
-
-  subgraph REFERENCE
-    brndList["page:Crud<br>brndList<br>[::acctID]"]
-    vndrList["page:Crud<br>vndrList<br>[::acctID]"]
-    wrkrList["page:Crud<br>wrkrList<br>[::acctID]"]
-    measList["page:Crud<br>measList<br>[::acctID]"]
-  end
-
-  subgraph MAPPING
-    btchMapDetail["page:Mapping<br>btchMapDetail<br>[::prodBtchID]"]
-    btchMapRcpeList["data:Grid<br>btchMapRcpeList<br>[::prodID]"]
-    btchMapMapped["data:Grid<br>btchMapMapped<br>[::prodBtchID, ::ingrID]"]
-    btchMapAvailable["data:Grid<br>btchMapAvailable<br>[::prodBtchID, ::ingrID]"]
-  end
-
-  userLogin --> userAcctList
-  userAcctList --> ingrTypeList
-  userAcctList --> prodTypeList
-  userAcctList --> brndList
-  userAcctList --> vndrList
-  userAcctList --> wrkrList
-  userAcctList --> measList
-  ingrTypeList -->|ingrTypeID| ingrList
-  ingrList -->|ingrID| ingrBtchList
-  ingrBtchList -->|ingrBtchID| btchMapAvailable
-  ingrBtchList -->|ingrBtchID| btchMapMapped
-  prodTypeList -->|prodTypeID| prodList
-  prodTypeList -->|prodTypeID| taskList
-  prodList -->|prodID| prodBtchList
-  prodList -->|prodID| rcpeList
-  prodList -->|prodID| btchMapRcpeList
-  prodBtchList -->|prodBtchID| btchMapDetail
-  brndList -->|brndID| ingrBtchList
-  vndrList -->|vndrID| ingrBtchList
-  rcpeList -->|rcpeID| btchMapRcpeList
-  btchMapDetail --> btchMapRcpeList
-  btchMapDetail --> btchMapMapped
-  btchMapDetail --> btchMapAvailable
-  class userLogin page:Login;
-  class userAcctList ui:select;
-  class ingrTypeList page:Crud;
-  class ingrList page:Crud;
-  class ingrBtchList page:Crud;
-  class prodTypeList page:Crud;
-  class prodList page:Crud;
-  class taskList page:Crud;
-  class prodBtchList page:Crud;
-  class brndList page:Crud;
-  class vndrList page:Crud;
-  class wrkrList page:Crud;
-  class measList page:Crud;
-  class rcpeList page:Recipe;
-  class btchMapDetail page:Mapping;
-  class btchMapRcpeList data:Grid;
-  class btchMapMapped data:Grid;
-  class btchMapAvailable data:Grid;
-  classDef page:Login fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
-  classDef ui:select fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
-  classDef page:Crud fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
-  classDef page:Recipe fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
-  classDef page:Mapping fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
-  classDef data:Grid fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
+        <div class="card">
+          <h2>Event Flow Diagram</h2>
+          <p>
+            Interactive Mermaid diagram showing the complete event relationship
+            flow:
+          </p>
+          <div
+            class="mermaid-container"
+            style="text-align: center; margin: 2rem 0"
+          >
+            <div
+              id="mermaid-diagram"
+              style="
+                background: white;
+                padding: 1rem;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+              "
+            >
+              <div class="mermaid">
+                flowchart LR subgraph AUTH userLogin["page:Login<br />userLogin<br />[::userEmail,
+                ::enteredPassword]"] userAcctList["ui:select<br />userAcctList<br />[::userID]"]
+                end subgraph INGREDIENTS ingrTypeList["page:Crud<br />ingrTypeList<br />[::acctID]"]
+                ingrList["page:Crud<br />ingrList<br />[::acctID,
+                ::ingrTypeID]"] ingrBtchList["page:Crud<br />ingrBtchList<br />[::ingrID]"]
+                end subgraph PRODUCTS prodTypeList["page:Crud<br />prodTypeList<br />[::acctID]"]
+                prodList["page:Crud<br />prodList<br />[::acctID,
+                ::prodTypeID]"] taskList["page:Crud<br />taskList<br />[::prodTypeID]"]
+                prodBtchList["page:Crud<br />prodBtchList<br />[::prodID]"]
+                rcpeList["page:Recipe<br />rcpeList<br />[::prodID]"] end
+                subgraph REFERENCE brndList["page:Crud<br />brndList<br />[::acctID]"]
+                vndrList["page:Crud<br />vndrList<br />[::acctID]"]
+                wrkrList["page:Crud<br />wrkrList<br />[::acctID]"]
+                measList["page:Crud<br />measList<br />[::acctID]"] end subgraph
+                MAPPING btchMapDetail["page:Mapping<br />btchMapDetail<br />[::prodBtchID]"]
+                btchMapRcpeList["data:Grid<br />btchMapRcpeList<br />[::prodID]"]
+                btchMapMapped["data:Grid<br />btchMapMapped<br />[::prodBtchID,
+                ::ingrID]"] btchMapAvailable["data:Grid<br />btchMapAvailable<br />[::prodBtchID,
+                ::ingrID]"] end userLogin --> userAcctList userAcctList -->
+                ingrTypeList userAcctList --> prodTypeList userAcctList -->
+                brndList userAcctList --> vndrList userAcctList --> wrkrList
+                userAcctList --> measList ingrTypeList -->|ingrTypeID| ingrList
+                ingrList -->|ingrID| ingrBtchList ingrBtchList -->|ingrBtchID|
+                btchMapAvailable ingrBtchList -->|ingrBtchID| btchMapMapped
+                prodTypeList -->|prodTypeID| prodList prodTypeList
+                -->|prodTypeID| taskList prodList -->|prodID| prodBtchList
+                prodList -->|prodID| rcpeList prodList -->|prodID|
+                btchMapRcpeList prodBtchList -->|prodBtchID| btchMapDetail
+                brndList -->|brndID| ingrBtchList vndrList -->|vndrID|
+                ingrBtchList rcpeList -->|rcpeID| btchMapRcpeList btchMapDetail
+                --> btchMapRcpeList btchMapDetail --> btchMapMapped
+                btchMapDetail --> btchMapAvailable class userLogin page:Login;
+                class userAcctList ui:select; class ingrTypeList page:Crud;
+                class ingrList page:Crud; class ingrBtchList page:Crud; class
+                prodTypeList page:Crud; class prodList page:Crud; class taskList
+                page:Crud; class prodBtchList page:Crud; class brndList
+                page:Crud; class vndrList page:Crud; class wrkrList page:Crud;
+                class measList page:Crud; class rcpeList page:Recipe; class
+                btchMapDetail page:Mapping; class btchMapRcpeList data:Grid;
+                class btchMapMapped data:Grid; class btchMapAvailable data:Grid;
+                classDef page:Login
+                fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000; classDef
+                ui:select fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
+                classDef page:Crud
+                fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000; classDef
+                page:Recipe
+                fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000; classDef
+                page:Mapping
+                fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000; classDef
+                data:Grid fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      
-      <div class="card">
-        <h2>Event Categories</h2>
-        <div id="event-categories">
-          <p><em>Loading event categories...</em></p>
+
+        <div class="card">
+          <h2>Event Categories</h2>
+          <div id="event-categories">
+            <p><em>Loading event categories...</em></p>
+          </div>
         </div>
-      </div>
-      
-      <div class="card">
-        <h2>Event Details</h2>
-        <div id="event-details">
-          <p><em>Loading event details...</em></p>
+
+        <div class="card">
+          <h2>Event Details</h2>
+          <div id="event-details">
+            <p><em>Loading event details...</em></p>
+          </div>
         </div>
-      </div>
-      
-      <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-      <script>
-        // Initialize Mermaid
-        mermaid.initialize({ 
-          startOnLoad: true,
-          theme: 'default',
-          flowchart: {
-            useMaxWidth: true,
-            htmlLabels: true
-          }
-        });
-        
-        // Load and display event data
-        async function loadEventData() {
-          try {
-            const response = await fetch('./events.json');
-            const data = await response.json();
-            
-            // Generate categories summary
-            const categories = {};
-            data.nodes.forEach(node => {
-              const category = node.category;
-              if (!categories[category]) {
-                categories[category] = [];
-              }
-              categories[category].push(node);
-            });
-            
-            const categoriesContainer = document.getElementById('event-categories');
-            const categoryTable = Object.entries(categories).map(([category, nodes]) => 
-              `<tr>
+
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+        <script>
+          // Initialize Mermaid
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: "default",
+            flowchart: {
+              useMaxWidth: true,
+              htmlLabels: true,
+            },
+          });
+
+          // Load and display event data
+          async function loadEventData() {
+            try {
+              const response = await fetch("./events.json");
+              const data = await response.json();
+
+              // Generate categories summary
+              const categories = {};
+              data.nodes.forEach((node) => {
+                const category = node.category;
+                if (!categories[category]) {
+                  categories[category] = [];
+                }
+                categories[category].push(node);
+              });
+
+              const categoriesContainer =
+                document.getElementById("event-categories");
+              const categoryTable = Object.entries(categories)
+                .map(
+                  ([category, nodes]) =>
+                    `<tr>
                 <td><strong>${category}</strong></td>
                 <td>${nodes.length} events</td>
-                <td>${nodes.map(n => `<code>${n.id}</code>`).join(', ')}</td>
+                <td>${nodes.map((n) => `<code>${n.id}</code>`).join(", ")}</td>
               </tr>`
-            ).join('');
-            
-            categoriesContainer.innerHTML = `
+                )
+                .join("");
+
+              categoriesContainer.innerHTML = `
               <table>
                 <thead>
                   <tr>
@@ -200,22 +204,26 @@ flowchart LR
                 </tbody>
               </table>
             `;
-            
-            // Generate event details table
-            const detailsContainer = document.getElementById('event-details');
-            const detailsTable = data.nodes.map(node => `
+
+              // Generate event details table
+              const detailsContainer = document.getElementById("event-details");
+              const detailsTable = data.nodes
+                .map(
+                  (node) => `
               <tr>
                 <td><code>${node.id}</code></td>
                 <td>${node.category}</td>
-                <td>${node.meta.cluster || 'N/A'}</td>
-                <td>${node.meta.dbTable || 'N/A'}</td>
-                <td>${node.meta.selWidget || 'N/A'}</td>
-                <td>${node.meta.primaryKey || 'N/A'}</td>
-                <td>${node.meta.purpose || 'N/A'}</td>
+                <td>${node.meta.cluster || "N/A"}</td>
+                <td>${node.meta.dbTable || "N/A"}</td>
+                <td>${node.meta.selWidget || "N/A"}</td>
+                <td>${node.meta.primaryKey || "N/A"}</td>
+                <td>${node.meta.purpose || "N/A"}</td>
               </tr>
-            `).join('');
-            
-            detailsContainer.innerHTML = `
+            `
+                )
+                .join("");
+
+              detailsContainer.innerHTML = `
               <table>
                 <thead>
                   <tr>
@@ -233,25 +241,23 @@ flowchart LR
                 </tbody>
               </table>
             `;
-            
-          } catch (error) {
-            console.error('Error loading event data:', error);
-            document.getElementById('event-categories').innerHTML = 
-              '<p><em>Error loading event categories</em></p>';
-            document.getElementById('event-details').innerHTML = 
-              '<p><em>Error loading event details</em></p>';
+            } catch (error) {
+              console.error("Error loading event data:", error);
+              document.getElementById("event-categories").innerHTML =
+                "<p><em>Error loading event categories</em></p>";
+              document.getElementById("event-details").innerHTML =
+                "<p><em>Error loading event details</em></p>";
+            }
           }
-        }
-        
-        // Load event data when DOM is ready
-        document.addEventListener('DOMContentLoaded', loadEventData);
-      </script>
-    
+
+          // Load event data when DOM is ready
+          document.addEventListener("DOMContentLoaded", loadEventData);
+        </script>
+      </div>
     </div>
-  </div>
-  
-  <footer class="text-center text-muted" style="padding: 2rem;">
-    <p>Generated by WhatsFresh DevTools • 7/4/2025</p>
-  </footer>
-</body>
+
+    <footer class="text-center text-muted" style="padding: 2rem">
+      <p>Generated by WhatsFresh DevTools • 7/4/2025</p>
+    </footer>
+  </body>
 </html>

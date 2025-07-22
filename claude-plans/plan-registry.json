@@ -3,13 +3,16 @@
     "created": "2025-07-18",
     "description": "Master registry of all development plans with ID-to-name mapping",
     "version": "1.0",
-    "next_id": 10
+    "next_id": 16
   },
   "plans": [
     {
       "id": "0001",
       "name": "Registry System Test",
       "cluster": "DEVTOOLS",
+      "tags": [
+        "DEVTOOLS"
+      ],
       "filename": "DONE-0001-DEVTOOLS-Registry-System-Test.md",
       "status": "completed",
       "created": "2025-07-18",
@@ -19,6 +22,9 @@
       "id": "0002",
       "name": "Test Auto Increment",
       "cluster": "API",
+      "tags": [
+        "API"
+      ],
       "filename": "DONE-0002-API-Test-Auto-Increment.md",
       "status": "completed",
       "created": "2025-07-18",
@@ -28,6 +34,9 @@
       "id": "0003",
       "name": "Claude Plans Management",
       "cluster": "DEVTOOLS",
+      "tags": [
+        "DEVTOOLS"
+      ],
       "filename": "DONE-0003-DEVTOOLS-Claude-Plans-Management.md",
       "status": "completed",
       "created": "2025-07-18",
@@ -37,6 +46,12 @@
       "id": "0004",
       "name": "Session Persistence Enhancement",
       "cluster": "AUTH",
+      "tags": [
+        "AUTH",
+        "CLIENT",
+        "ADMIN",
+        "SERVER"
+      ],
       "filename": "DONE-0004-AUTH-Session-Persistence-Enhancement.md",
       "status": "completed",
       "created": "2025-07-18",
@@ -46,6 +61,10 @@
       "id": "0005",
       "name": "System Navigation Fixes",
       "cluster": "CRUD",
+      "tags": [
+        "CONFIG",
+        "UX"
+      ],
       "filename": "DONE-0005-CRUD-System-Navigation-Fixes.md",
       "status": "completed",
       "created": "2025-07-18",
@@ -55,6 +74,10 @@
       "id": "0006",
       "name": "Batch Mapping",
       "cluster": "MAPPING",
+      "tags": [
+        "MAPPING",
+        "CONFIG"
+      ],
       "filename": "DONE-0006-MAPPING-Batch-Mapping.md",
       "status": "completed",
       "created": "2025-07-18",
@@ -65,7 +88,7 @@
       "name": "ingrListAll for SelIngr",
       "cluster": "EVENTS",
       "filename": "0007-EVENTS-ingrListAll-for-SelIngr.md",
-      "status": "active",
+      "status": "on-hold",
       "created": "2025-07-18"
     },
     {
@@ -84,6 +107,67 @@
       "filename": "0009-SHARED-Comprehensive-Theming-Rework-HOLD.md",
       "status": "active",
       "created": "2025-07-19"
+    },
+    {
+      "id": "0010",
+      "name": "Plan Completion Automation",
+      "cluster": "DEVTOOLS",
+      "filename": "0010-DEVTOOLS-Plan-Completion-Automation.md",
+      "status": "active",
+      "created": "2025-07-19"
+    },
+    {
+      "id": "0011",
+      "name": "Complete DML Process",
+      "cluster": "API",
+      "filename": "DONE-0011-API-Complete-DML-Process.md",
+      "status": "completed",
+      "created": "2025-07-19",
+      "completed": "2025-07-22"
+    },
+    {
+      "id": "0012",
+      "name": "React-PDF Worksheet System",
+      "cluster": "REPORTS",
+      "filename": "0012-REPORTS-React-PDF-Worksheet-System.md",
+      "status": "active",
+      "created": "2025-07-19"
+    },
+    {
+      "id": "0013",
+      "name": "Server Log Enhancements",
+      "cluster": "API",
+      "filename": "0013-API-Server-Log-Enhancements.md",
+      "status": "active",
+      "created": "2025-07-21"
+    },
+    {
+      "id": "0014",
+      "name": "Log Cleanup",
+      "cluster": "LOGGING",
+      "filename": "0014-LOGGING-Log-Cleanup.md",
+      "status": "ongoing",
+      "created": "2025-07-21"
+    },
+    {
+      "id": "0015",
+      "name": "Cleanup-Artifacts",
+      "cluster": "CLIENT",
+      "tags": [
+        "CLIENT",
+        "ADMIN"
+      ],
+      "filename": "0015-CLIENT-Cleanup-Artifacts.md",
+      "status": "ongoing",
+      "created": "2025-07-21"
+    },
+    {
+      "id": "0016",
+      "name": "User Communication Interface",
+      "cluster": "DEVTOOLS",
+      "filename": "0016-DEVTOOLS-User-Communication-Interface.md",
+      "status": "ongoing",
+      "created": "2025-07-22"
     }
   ]
 }

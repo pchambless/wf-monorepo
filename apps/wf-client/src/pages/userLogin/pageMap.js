@@ -30,6 +30,7 @@ const pageMap = {
     "groups": []
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {},
     "operations": {
       "insert": {

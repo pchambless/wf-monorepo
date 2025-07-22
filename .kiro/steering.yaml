@@ -1,0 +1,199 @@
+# steering.yaml — Global behavior rules for Kiro agents in your monorepo
+# WhatsFresh Monorepo - Kiro Behavior Steering Configuration
+# Working Documentation - Updated: 2025-07-20
+
+  project_context:
+    name: "WhatsFresh 2.0"
+    architecture: "monorepo-devtools-generated"
+    philosophy: "MVP break-and-fix, forward progress over backward compatibility"
+
+agent_behavior:
+  max_chain_depth: 2                  # Keep agent sequences short and snappy
+  prefer_stubs: false                 # Generate lightweight code over full implementations
+  auto_docs: false                   # Avoid automatic documentation unless explicitly requested
+  scaffold_tests_by_default: false   # Skip test scaffolds unless flagged per-plan
+  controller_pattern: thin           # Enforce "thin controller" architecture
+  reuse_existing_modules: true       # Prefer imports over code duplication
+  use_config_driven_ui: true         # Respect declarative page config from pageMap.configDML
+  audit_fields_required: true        # Inject audit metadata (created_at/by, etc.) automatically
+  prefer_modular_extraction: true    # Encourage separation of builder/processor from controller
+
+monorepo_structure:
+  apps:
+    - wf-client
+    - wf-admin
+    - wf-server
+  packages:
+    - shared-imports
+
+  # Core architectural patterns - enforce these, don't re-investigate
+  established_patterns:
+    - "SQL views drive UI generation (views → directives → pageMap → React)"
+    - "DirectiveMap system for field configuration rules"
+    - "ContextStore for universal parameter resolution"
+    - "Audit trail auto-injection (created_at/by, updated_at/by, deleted_at/by)"
+    - "Parent keys always: type number, required true, hidden true"
+    - "Field mapping: form fields → database columns via pageMap.fieldMappings"
+    - "EventType = pageName = viewName (unified naming)"
+
+  # Paths we work with constantly - load context automatically
+  frequent_paths:
+
+    # Project coordination (add to existing paths)
+    claude_guide: "CLAUDE.md"
+    collaboration_rules: "AI/collaboration-rules.md"
+    collaboration_methodology: "AI/collaboration-methodology.md"
+    session_startup: "AI/session-startup.md"
+    # Page generation workflow
+    pages: "apps/wf-client/src/pages/"
+    directives: "packages/devtools/src/automation/data/directives/"
+    sql_views: "sql/views/client/"
+    pagemaps: "apps/wf-client/src/pages/*/pageMap.js"
+
+    # Configuration files (modify constantly)
+    navigation: "apps/wf-client/src/config/navigation.js"
+    routes: "apps/wf-client/src/config/routes.js"
+    events_config: "packages/devtools/src/configuration/events.json"
+    architecture_rules: "packages/devtools/src/docs/generated/rules/ARCHITECTURE-RULES.md"
+
+    # DevTools automation
+    genDirectives: "packages/devtools/src/automation/triggered/genDirectives.js"
+    genPageMaps: "packages/devtools/src/automation/core/genPageMaps.js"
+    directiveMap: "packages/devtools/src/utils/directiveMap.js"
+
+    # Critical integration points
+    api_client: "packages/shared-imports/src/api/index.js"
+    context_store: "packages/shared-imports/src/stores/contextStore.js"
+    dml_processor: "apps/wf-server/server/utils/dml/dmlProcessor.js"
+    form_store: "packages/shared-imports/src/components/crud/Form/stores/FormStore.js"
+
+    # Project coordination
+    collaboration_rules: "AI/collaboration-rules.md"
+    collaboration_methodology: "AI/collaboration-methodology.md"
+    session_startup: "AI/session-startup.md"
+
+  # Skip deep investigation for these - they're established patterns
+  skip_investigation:
+    - "Basic CRUD form patterns in shared-imports/src/components/crud/"
+    - "Standard page component structure in apps/wf-client/src/pages/"
+    - "Routine directive generation for existing field types"
+    - "Standard field mapping patterns (camelCase → snake_case)"
+    - "Basic audit field handling (created_at, updated_at, etc.)"
+    - "ContextStore parameter resolution for known patterns"
+
+  # Investigate deeply for these - architectural decisions needed
+  deep_investigation:
+    - "New integration patterns affecting multiple packages"
+    - "DevTools generator modifications or enhancements"
+    - "Cross-package dependencies and shared utilities"
+    - "System-level architectural changes"
+    - "Database schema modifications affecting generated code"
+    - "New widget types or complex field configurations"
+
+  # Efficiency settings by plan type
+  plan_efficiency:
+    low_complexity:
+      investigation_depth: "minimal"
+      documentation_level: "essential"
+      testing_focus: "integration_only"
+
+    medium_complexity:
+      investigation_depth: "moderate"
+      documentation_level: "standard"
+      testing_focus: "unit_and_integration"
+
+    high_complexity:
+      investigation_depth: "comprehensive"
+      documentation_level: "detailed"
+      testing_focus: "full_coverage"
+
+  # ADHD-friendly development modes
+  sprint_modes:
+    prototype:
+      investigation: "skip_unless_blocked"
+      documentation: "inline_comments_only"
+      testing: "manual_validation"
+      focus: "get_it_working"
+
+    production:
+      investigation: "thorough"
+      documentation: "comprehensive"
+      testing: "full_automated"
+      focus: "maintainable_quality"
+
+  # Architectural Intelligence Integration
+  architectural_intelligence: "packages/shared-imports/src/architecture/intelligence.js"
+  madge_analysis: "packages/shared-imports/src/architecture/data/madge-analysis.json"
+
+  # AI Investigation shortcuts by blast radius
+  critical_nodes:
+    - "packages/shared-imports/src/api/index.js" # 8+ dependents
+    - "packages/shared-imports/src/events/index.js" # 5+ dependents  
+    - "packages/shared-imports/src/stores/contextStore.js" # 4+ dependents
+
+  safe_zones:
+    - "apps/wf-client/src/pages/*/pageMap.js" # Configuration only
+    - "apps/wf-client/src/config/*.js" # Pure config
+    - "apps/wf-client/src/utils/*" # Client utilities
+
+  # Path-based auto-context loading
+  path_context:
+     "*/CLAUDE.md/*":
+      auto_load:
+        - "Claude architectural guidance and behavioral preferences"
+        - "Working documentation principles and investigation shortcuts"
+        - "Collaboration protocols and communication triggers"
+
+    "*/pages/*":
+      auto_load:
+        - "pageMap pattern structure"
+        - "navigation.js integration"
+        - "routing configuration"
+
+    "*/directives/*":
+      auto_load:
+        - "directiveMap system reference"
+        - "field configuration rules"
+        - "generation preservation logic"
+
+    "*/automation/*":
+      auto_load:
+        - "generation workflow patterns"
+        - "devtools command structure"
+        - "automation coordination rules"
+
+  # Development workflow shortcuts
+  common_workflows:
+    new_page:
+      steps: ["create SQL view", "generate directives", "generate pageMap", "create React component"]
+      automation: "genDirectives.js → genPageMaps.js → manual component creation"
+
+    fix_field_config:
+      steps: ["modify directive", "regenerate pageMap", "test form behavior"]
+      automation: "manual directive edit → genPageMaps.js"
+
+    add_widget:
+      steps: ["update directiveMap", "modify field directive", "regenerate pageMap"]
+      automation: "directiveMap.js → genDirectives.js → genPageMaps.js"
+
+  # Claude ↔ Kiro collaboration hints
+  collaboration:
+    claude_strengths: ["architectural analysis", "system integration", "pattern validation", "investigation support"]
+    kiro_strengths: ["implementation", "code generation", "testing workflows", "pattern replication"]
+
+    handoff_triggers:
+      to_claude: ["ARCHITECTURAL_QUESTION", "system integration conflicts", "pattern validation needed"]
+      to_kiro: ["specs approved", "implementation ready", "testing required"]
+
+  # Resource optimization
+  efficiency_targets:
+    investigation_time: "< 30 minutes for established patterns"
+    implementation_time: "< 2 hours for standard CRUD operations"
+    testing_time: "< 1 hour for pattern replication"
+
+  # Version tracking
+  metadata:
+    version: "1.0"
+    last_updated: "2025-07-20"
+    maintainer: "Claude + Kiro collaboration"
+    review_schedule: "monthly or after major architectural changes"

@@ -1,0 +1,105 @@
+{
+  "App.jsx": [
+    "config/appbar.js",
+    "config/navigation.js",
+    "config/routes.js",
+    "layouts/AuthLayout.jsx",
+    "pages/dashboard/index.jsx",
+    "services/navService.js",
+    "theme.js"
+  ],
+  "api/api.js": [],
+  "auth/AuthProvider.js": [
+    "utils/logger.js"
+  ],
+  "config/appbar.js": [],
+  "config/navigation.js": [],
+  "config/routes.js": [],
+  "config/settings.js": [],
+  "factories/NavigationFactory.js": [
+    "models/NavigationItem.js"
+  ],
+  "hooks/useBreadcrumbs.js": [
+    "hooks/useEntityNames.js"
+  ],
+  "hooks/useEntityNames.js": [
+    "stores/index.js",
+    "utils/logger.js"
+  ],
+  "hooks/usePageHeader.js": [],
+  "index.css": [],
+  "index.js": [
+    "App.jsx",
+    "index.css",
+    "reportWebVitals.js"
+  ],
+  "layouts/AuthLayout.jsx": [],
+  "models/NavigationItem.js": [],
+  "navigation/config.js": [],
+  "navigation/sidebar.js": [],
+  "navigation/useNav.js": [
+    "navigation/config.js"
+  ],
+  "pages/brndList/pageMap.js": [],
+  "pages/btchMapping/pageMap.js": [],
+  "pages/dashboard/Presenter.js": [
+    "hooks/usePageHeader.js"
+  ],
+  "pages/dashboard/View.jsx": [],
+  "pages/dashboard/index.jsx": [
+    "pages/dashboard/Presenter.js",
+    "pages/dashboard/View.jsx"
+  ],
+  "pages/ingrBtchList/pageMap.js": [],
+  "pages/ingrList/pageMap.js": [],
+  "pages/ingrTypeList/pageMap.js": [],
+  "pages/login/index.js": [
+    "services/navService.js"
+  ],
+  "pages/measList/pageMap.js": [],
+  "pages/prodBtchList/pageMap.js": [],
+  "pages/prodList/pageMap.js": [],
+  "pages/prodTypeList/pageMap.js": [],
+  "pages/rcpeList/pageMap.js": [],
+  "pages/taskList/pageMap.js": [],
+  "pages/userLogin/pageMap.js": [],
+  "pages/vndrList/pageMap.js": [],
+  "pages/wrkrList/pageMap.js": [],
+  "reportWebVitals.js": [],
+  "services/accountService.js": [
+    "utils/logger.js"
+  ],
+  "services/navService.js": [
+    "config/routes.js"
+  ],
+  "stores/eventStore.js": [],
+  "stores/index.js": [],
+  "stores/pageStore.jsx": [
+    "utils/logger.js"
+  ],
+  "theme.js": [],
+  "utils/MinViableProd.js": [
+    "utils/logger.js"
+  ],
+  "utils/accountManager.js": [
+    "stores/pageStore.jsx",
+    "utils/logger.js"
+  ],
+  "utils/acctLists.js": [
+    "utils/logger.js"
+  ],
+  "utils/dataFetcher.js": [
+    "api/api.js",
+    "utils/logger.js"
+  ],
+  "utils/entityHelpers.js": [],
+  "utils/fetchLogHelper.js": [
+    "utils/logger.js"
+  ],
+  "utils/logger.js": [],
+  "utils/mobxHelpers.js": [],
+  "utils/navHelper.js": [
+    "utils/logger.js"
+  ],
+  "utils/runtimeRoutes.js": []
+}

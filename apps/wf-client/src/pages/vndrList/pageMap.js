@@ -149,6 +149,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "vndrID": "id",
       "vndrName": "name",

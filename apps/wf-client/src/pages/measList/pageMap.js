@@ -100,6 +100,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "measID": "id",
       "name": "name",

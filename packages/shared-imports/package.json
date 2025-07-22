@@ -26,5 +26,6 @@
     "test": "echo \"No tests yet\"",
     "lint": "echo \"No lint script configured\""
   },
+
   "private": true
 }

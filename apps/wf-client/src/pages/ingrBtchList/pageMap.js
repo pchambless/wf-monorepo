@@ -200,6 +200,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "ingrBtchID": "id",
       "btchNbr": "batch_number",

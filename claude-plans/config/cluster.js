@@ -1,0 +1,22 @@
+// claude-plans/config/clusters.js
+export const CLUSTERS = {
+    // Core System
+    API: { name: 'API', blastRadius: 'high', description: 'Server endpoints and data flow' },
+    SHARED: { name: 'SHARED', blastRadius: 'high', description: 'Cross-package dependencies' },
+    EVENTS: { name: 'EVENTS', blastRadius: 'high', description: 'Cross-app functionality' },
+
+    // Development
+    DEVTOOLS: { name: 'DEVTOOLS', blastRadius: 'medium', description: 'Code generation and tooling' },
+    LOGGING: { name: 'LOGGING', blastRadius: 'medium', description: 'Debugging and monitoring' },
+
+    // Features
+    CRUD: { name: 'CRUD', blastRadius: 'low', description: 'Standard data operations' },
+    MAPPING: { name: 'MAPPING', blastRadius: 'low', description: 'Batch mapping workflows' },
+    RECIPES: { name: 'RECIPES', blastRadius: 'low', description: 'Recipe management and processing' },
+    REPORTS: { name: 'REPORTS', blastRadius: 'low', description: 'Document generation' },
+    UX: { name: 'UX', blastRadius: 'low', description: 'User interface components' },
+
+    // Infrastructure
+    AUTH: { name: 'AUTH', blastRadius: 'medium', description: 'Authentication and sessions' },
+    NAVIGATION: { name: 'NAVIGATION', blastRadius: 'medium', description: 'Routing and UI flow' }
+};

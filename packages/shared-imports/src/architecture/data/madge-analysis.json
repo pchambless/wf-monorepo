@@ -1,0 +1,418 @@
+{
+  "apps/wf-client/src/App.jsx": [
+    "apps/wf-client/src/config/appbar.js",
+    "apps/wf-client/src/config/navigation.js",
+    "apps/wf-client/src/config/routes.js",
+    "apps/wf-client/src/layouts/AuthLayout.jsx",
+    "apps/wf-client/src/pages/dashboard/index.jsx",
+    "apps/wf-client/src/services/navService.js",
+    "apps/wf-client/src/theme.js"
+  ],
+  "apps/wf-client/src/api/api.js": [],
+  "apps/wf-client/src/auth/AuthProvider.js": [
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/config/appbar.js": [],
+  "apps/wf-client/src/config/navigation.js": [],
+  "apps/wf-client/src/config/routes.js": [],
+  "apps/wf-client/src/config/settings.js": [],
+  "apps/wf-client/src/factories/NavigationFactory.js": [
+    "apps/wf-client/src/models/NavigationItem.js"
+  ],
+  "apps/wf-client/src/hooks/useBreadcrumbs.js": [
+    "apps/wf-client/src/hooks/useEntityNames.js"
+  ],
+  "apps/wf-client/src/hooks/useEntityNames.js": [
+    "apps/wf-client/src/stores/index.js",
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/hooks/usePageHeader.js": [],
+  "apps/wf-client/src/index.css": [],
+  "apps/wf-client/src/index.js": [
+    "apps/wf-client/src/App.jsx",
+    "apps/wf-client/src/index.css",
+    "apps/wf-client/src/reportWebVitals.js"
+  ],
+  "apps/wf-client/src/layouts/AuthLayout.jsx": [],
+  "apps/wf-client/src/models/NavigationItem.js": [],
+  "apps/wf-client/src/navigation/config.js": [],
+  "apps/wf-client/src/navigation/sidebar.js": [],
+  "apps/wf-client/src/navigation/useNav.js": [
+    "apps/wf-client/src/navigation/config.js"
+  ],
+  "apps/wf-client/src/pages/brndList/pageMap.js": [],
+  "apps/wf-client/src/pages/btchMapping/pageMap.js": [],
+  "apps/wf-client/src/pages/dashboard/Presenter.js": [
+    "apps/wf-client/src/hooks/usePageHeader.js"
+  ],
+  "apps/wf-client/src/pages/dashboard/View.jsx": [],
+  "apps/wf-client/src/pages/dashboard/index.jsx": [
+    "apps/wf-client/src/pages/dashboard/Presenter.js",
+    "apps/wf-client/src/pages/dashboard/View.jsx"
+  ],
+  "apps/wf-client/src/pages/ingrBtchList/pageMap.js": [],
+  "apps/wf-client/src/pages/ingrList/pageMap.js": [],
+  "apps/wf-client/src/pages/ingrTypeList/pageMap.js": [],
+  "apps/wf-client/src/pages/login/index.js": [
+    "apps/wf-client/src/services/navService.js"
+  ],
+  "apps/wf-client/src/pages/measList/pageMap.js": [],
+  "apps/wf-client/src/pages/prodBtchList/pageMap.js": [],
+  "apps/wf-client/src/pages/prodList/pageMap.js": [],
+  "apps/wf-client/src/pages/prodTypeList/pageMap.js": [],
+  "apps/wf-client/src/pages/rcpeList/pageMap.js": [],
+  "apps/wf-client/src/pages/taskList/pageMap.js": [],
+  "apps/wf-client/src/pages/userLogin/pageMap.js": [],
+  "apps/wf-client/src/pages/vndrList/pageMap.js": [],
+  "apps/wf-client/src/pages/wrkrList/pageMap.js": [],
+  "apps/wf-client/src/reportWebVitals.js": [],
+  "apps/wf-client/src/services/accountService.js": [
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/services/navService.js": [
+    "apps/wf-client/src/config/routes.js"
+  ],
+  "apps/wf-client/src/stores/eventStore.js": [],
+  "apps/wf-client/src/stores/index.js": [],
+  "apps/wf-client/src/stores/pageStore.jsx": [
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/theme.js": [],
+  "apps/wf-client/src/utils/MinViableProd.js": [
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/utils/accountManager.js": [
+    "apps/wf-client/src/stores/pageStore.jsx",
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/utils/acctLists.js": [
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/utils/dataFetcher.js": [
+    "apps/wf-client/src/api/api.js",
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/utils/entityHelpers.js": [],
+  "apps/wf-client/src/utils/fetchLogHelper.js": [
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/utils/logger.js": [],
+  "apps/wf-client/src/utils/mobxHelpers.js": [],
+  "apps/wf-client/src/utils/navHelper.js": [
+    "apps/wf-client/src/utils/logger.js"
+  ],
+  "apps/wf-client/src/utils/runtimeRoutes.js": [],
+  "apps/wf-server/server/app.js": [
+    "apps/wf-server/server/controller/execEventType.js",
+    "apps/wf-server/server/controller/userLogin.js",
+    "apps/wf-server/server/middleware/errorHandler.js",
+    "apps/wf-server/server/middleware/security.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/execDML.js": [
+    "apps/wf-server/server/utils/dml/dmlProcessor.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/execEventType.js": [
+    "apps/wf-server/server/utils/executeEventType.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/fetchEventTypes.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/initialize.js": [],
+  "apps/wf-server/server/controller/listRegisteredRoutes.js": [],
+  "apps/wf-server/server/controller/restartServer.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/userLogin.js": [
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/queryResolver.js"
+  ],
+  "apps/wf-server/server/middleware/errorHandler.js": [],
+  "apps/wf-server/server/middleware/security.js": [],
+  "apps/wf-server/server/routes/index.js": [
+    "apps/wf-server/server/routes/registerRoutes.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/routes/registerRoutes.js": [
+    "apps/wf-server/server/controller/execDML.js",
+    "apps/wf-server/server/controller/execEventType.js",
+    "apps/wf-server/server/controller/fetchEventTypes.js",
+    "apps/wf-server/server/controller/initialize.js",
+    "apps/wf-server/server/controller/listRegisteredRoutes.js",
+    "apps/wf-server/server/controller/restartServer.js",
+    "apps/wf-server/server/controller/userLogin.js",
+    "apps/wf-server/server/utils/eventTypeManager.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/server.js": [
+    "apps/wf-server/server/app.js",
+    "apps/wf-server/server/routes/index.js",
+    "apps/wf-server/server/utils/dbManager.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/__tests__/executeEventType.test.js": [
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/executeEventType.js",
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/queryResolver.js"
+  ],
+  "apps/wf-server/server/utils/db.js": [],
+  "apps/wf-server/server/utils/dbManager.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/dbUtils.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/dml/__tests__/dmlProcessor.test.js": [],
+  "apps/wf-server/server/utils/dml/dmlProcessor.js": [
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/dml/sqlBuilder.js",
+    "apps/wf-server/server/utils/executeEventType.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/dml/sqlBuilder.js": [],
+  "apps/wf-server/server/utils/eventTypeManager.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/executeEventType.js": [
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/queryResolver.js"
+  ],
+  "apps/wf-server/server/utils/logger.js": [],
+  "apps/wf-server/server/utils/queryResolver.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "packages/shared-imports/src/api/dml/dmlBuilder.js": [
+    "packages/shared-imports/src/api/dml/sqlFormatter.js"
+  ],
+  "packages/shared-imports/src/api/dml/index.js": [
+    "packages/shared-imports/src/api/dml/operations.js",
+    "packages/shared-imports/src/api/dml/sqlFormatter.js"
+  ],
+  "packages/shared-imports/src/api/dml/operations.js": [
+    "packages/shared-imports/src/api/dml/dmlBuilder.js",
+    "packages/shared-imports/src/api/dml/sqlFormatter.js",
+    "packages/shared-imports/src/api/index.js",
+    "packages/shared-imports/src/utils/logger.js"
+  ],
+  "packages/shared-imports/src/api/dml/sqlFormatter.js": [],
+  "packages/shared-imports/src/api/index.js": [
+    "packages/shared-imports/src/events/index.js",
+    "packages/shared-imports/src/stores/contextStore.js"
+  ],
+  "packages/shared-imports/src/components/auth.jsx": [
+    "packages/shared-imports/src/events/index.js"
+  ],
+  "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx": [
+    "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js",
+    "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx",
+    "packages/shared-imports/src/utils/navigation.js"
+  ],
+  "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js": [],
+  "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx": [],
+  "packages/shared-imports/src/components/auth/LoginForm/index.js": [
+    "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
+    "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js",
+    "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx"
+  ],
+  "packages/shared-imports/src/components/common/EntitySelector.jsx": [
+    "packages/shared-imports/src/utils/logger.js"
+  ],
+  "packages/shared-imports/src/components/common/ErrorBoundary.jsx": [],
+  "packages/shared-imports/src/components/common/Logo/index.jsx": [],
+  "packages/shared-imports/src/components/common/ProtectedRoute.js": [],
+  "packages/shared-imports/src/components/common/Registration.js": [],
+  "packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx": [
+    "packages/shared-imports/src/components/crud/CrudLayout/components/AddButton.jsx",
+    "packages/shared-imports/src/components/crud/Form/index.js",
+    "packages/shared-imports/src/components/crud/Table/index.js"
+  ],
+  "packages/shared-imports/src/components/crud/CrudLayout/components/AddButton.jsx": [],
+  "packages/shared-imports/src/components/crud/CrudLayout/hooks/usePageMapValidation.js": [],
+  "packages/shared-imports/src/components/crud/CrudLayout/hooks/useParentID.js": [],
+  "packages/shared-imports/src/components/crud/CrudLayout/index.js": [
+    "packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx"
+  ],
+  "packages/shared-imports/src/components/crud/Form/Form.jsx": [
+    "packages/shared-imports/src/components/crud/Form/stores/FormStore.js",
+    "packages/shared-imports/src/components/forms/index.js",
+    "packages/shared-imports/src/components/selectors/index.js",
+    "packages/shared-imports/src/stores/contextStore.js"
+  ],
+  "packages/shared-imports/src/components/crud/Form/index.js": [
+    "packages/shared-imports/src/components/crud/Form/Form.jsx"
+  ],
+  "packages/shared-imports/src/components/crud/Form/stores/FormStore.js": [],
+  "packages/shared-imports/src/components/crud/Table/Table.jsx": [],
+  "packages/shared-imports/src/components/crud/Table/index.js": [
+    "packages/shared-imports/src/components/crud/Table/Table.jsx"
+  ],
+  "packages/shared-imports/src/components/crud/hooks/useForm.js": [],
+  "packages/shared-imports/src/components/dml/SQLPreviewContent.js": [],
+  "packages/shared-imports/src/components/forms/BooleanField.jsx": [],
+  "packages/shared-imports/src/components/forms/DateField.jsx": [],
+  "packages/shared-imports/src/components/forms/DatePick.jsx": [],
+  "packages/shared-imports/src/components/forms/DecimalField.jsx": [],
+  "packages/shared-imports/src/components/forms/MultiLineField.jsx": [],
+  "packages/shared-imports/src/components/forms/NumberField.jsx": [],
+  "packages/shared-imports/src/components/forms/TextField.jsx": [],
+  "packages/shared-imports/src/components/forms/index.js": [
+    "packages/shared-imports/src/components/forms/BooleanField.jsx",
+    "packages/shared-imports/src/components/forms/DateField.jsx",
+    "packages/shared-imports/src/components/forms/DecimalField.jsx",
+    "packages/shared-imports/src/components/forms/MultiLineField.jsx",
+    "packages/shared-imports/src/components/forms/NumberField.jsx",
+    "packages/shared-imports/src/components/forms/TextField.jsx"
+  ],
+  "packages/shared-imports/src/components/grids/DataGrid.jsx": [
+    "packages/shared-imports/src/api/index.js"
+  ],
+  "packages/shared-imports/src/components/grids/index.js": [
+    "packages/shared-imports/src/components/grids/DataGrid.jsx"
+  ],
+  "packages/shared-imports/src/components/index.js": [
+    "packages/shared-imports/src/components/auth.jsx"
+  ],
+  "packages/shared-imports/src/components/layouts/AuthLayout.jsx": [],
+  "packages/shared-imports/src/components/layouts/MainLayout.jsx": [
+    "packages/shared-imports/src/components/common/Logo/index.jsx",
+    "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx",
+    "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx"
+  ],
+  "packages/shared-imports/src/components/modals/ErrorModal.js": [],
+  "packages/shared-imports/src/components/modals/Modal.jsx": [
+    "packages/shared-imports/src/components/modals/modalStore.js"
+  ],
+  "packages/shared-imports/src/components/modals/index.js": [
+    "packages/shared-imports/src/components/modals/Modal.jsx",
+    "packages/shared-imports/src/components/modals/modalStore.js",
+    "packages/shared-imports/src/components/modals/useModal.js",
+    "packages/shared-imports/src/components/modals/useModalStore.js"
+  ],
+  "packages/shared-imports/src/components/modals/modalStore.js": [],
+  "packages/shared-imports/src/components/modals/useModal.js": [
+    "packages/shared-imports/src/components/modals/modalStore.js"
+  ],
+  "packages/shared-imports/src/components/modals/useModalStore.js": [
+    "packages/shared-imports/src/components/modals/modalStore.js"
+  ],
+  "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx": [
+    "packages/shared-imports/src/components/common/Logo/index.jsx"
+  ],
+  "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx": [],
+  "packages/shared-imports/src/components/navigation/bb-Sidebar/index.js": [
+    "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelAcct.js": [
+    "packages/shared-imports/src/components/selectors/createSelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelBrnd.jsx": [
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelIngr.jsx": [
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelIngrType.js": [
+    "packages/shared-imports/src/components/selectors/createSelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelMeas.jsx": [
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelProd.jsx": [
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelProdType.js": [
+    "packages/shared-imports/src/components/selectors/createSelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelUserAcct.jsx": [
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelVndr.jsx": [
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelWrkr.jsx": [
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/components/selectors/SelectWidget.jsx": [
+    "packages/shared-imports/src/api/index.js",
+    "packages/shared-imports/src/stores/contextStore.js"
+  ],
+  "packages/shared-imports/src/components/selectors/createSelectWidget.js": [],
+  "packages/shared-imports/src/components/selectors/createSelectWidget.jsx": [
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx",
+    "packages/shared-imports/src/events/index.js"
+  ],
+  "packages/shared-imports/src/components/selectors/index.js": [
+    "packages/shared-imports/src/components/selectors/SelAcct.js",
+    "packages/shared-imports/src/components/selectors/SelBrnd.jsx",
+    "packages/shared-imports/src/components/selectors/SelIngr.jsx",
+    "packages/shared-imports/src/components/selectors/SelIngrType.js",
+    "packages/shared-imports/src/components/selectors/SelMeas.jsx",
+    "packages/shared-imports/src/components/selectors/SelProd.jsx",
+    "packages/shared-imports/src/components/selectors/SelProdType.js",
+    "packages/shared-imports/src/components/selectors/SelUserAcct.jsx",
+    "packages/shared-imports/src/components/selectors/SelVndr.jsx",
+    "packages/shared-imports/src/components/selectors/SelWrkr.jsx",
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx",
+    "packages/shared-imports/src/components/selectors/createSelectWidget.jsx"
+  ],
+  "packages/shared-imports/src/devtools/pageMapAccess.js": [],
+  "packages/shared-imports/src/events/admin/eventTypes.js": [],
+  "packages/shared-imports/src/events/client/eventTypes.js": [],
+  "packages/shared-imports/src/events/index.js": [
+    "packages/shared-imports/src/events/admin/eventTypes.js",
+    "packages/shared-imports/src/events/client/eventTypes.js"
+  ],
+  "packages/shared-imports/src/imports.js": [
+    "packages/shared-imports/src/paths.js"
+  ],
+  "packages/shared-imports/src/index.js": [
+    "packages/shared-imports/src/api/index.js",
+    "packages/shared-imports/src/events/index.js",
+    "packages/shared-imports/src/stores/index.js",
+    "packages/shared-imports/src/utils/index.js",
+    "packages/shared-imports/src/utils/logger.js"
+  ],
+  "packages/shared-imports/src/jsx.js": [
+    "packages/shared-imports/src/components/auth.jsx",
+    "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
+    "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx",
+    "packages/shared-imports/src/components/common/EntitySelector.jsx",
+    "packages/shared-imports/src/components/common/ErrorBoundary.jsx",
+    "packages/shared-imports/src/components/common/Logo/index.jsx",
+    "packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx",
+    "packages/shared-imports/src/components/crud/Form/Form.jsx",
+    "packages/shared-imports/src/components/crud/Table/Table.jsx",
+    "packages/shared-imports/src/components/forms/DatePick.jsx",
+    "packages/shared-imports/src/components/grids/DataGrid.jsx",
+    "packages/shared-imports/src/components/layouts/AuthLayout.jsx",
+    "packages/shared-imports/src/components/layouts/MainLayout.jsx",
+    "packages/shared-imports/src/components/modals/Modal.jsx",
+    "packages/shared-imports/src/components/modals/modalStore.js",
+    "packages/shared-imports/src/components/modals/useModal.js",
+    "packages/shared-imports/src/components/modals/useModalStore.js",
+    "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx",
+    "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx",
+    "packages/shared-imports/src/components/selectors/index.js"
+  ],
+  "packages/shared-imports/src/paths.js": [],
+  "packages/shared-imports/src/stores/contextStore.js": [
+    "packages/shared-imports/src/events/client/eventTypes.js"
+  ],
+  "packages/shared-imports/src/stores/index.js": [
+    "packages/shared-imports/src/stores/contextStore.js"
+  ],
+  "packages/shared-imports/src/stores/userStore.js": [],
+  "packages/shared-imports/src/utils/index.js": [
+    "packages/shared-imports/src/utils/logger.js",
+    "packages/shared-imports/src/utils/navigation.js"
+  ],
+  "packages/shared-imports/src/utils/logger.js": [],
+  "packages/shared-imports/src/utils/navigation.js": [
+    "packages/shared-imports/src/utils/logger.js"
+  ]
+}

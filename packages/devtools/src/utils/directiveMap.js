@@ -200,6 +200,15 @@ function processDirectives(directives) {
         result.editable = false;
         result.tableHide = true;
         result.formHide = true;
+        result.required = true;
+    }
+
+    // Parent key business rules
+    if (result.parentKey) {
+        result.required = true;
+        result.editable = false;
+        result.tableHide = true;
+        result.formHide = true;
     }
 
     // Select fields need widget

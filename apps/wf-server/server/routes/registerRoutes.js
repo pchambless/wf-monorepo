@@ -1,5 +1,6 @@
 import express from 'express';
 import execEventType from '../controller/execEventType.js';
+import execDML from '../controller/execDML.js';
 import initializeController from '../controller/initialize.js';
 import listRoutesController from '../controller/listRegisteredRoutes.js';
 import restartServerController from '../controller/restartServer.js';
@@ -24,6 +25,7 @@ const registerRoutes = (app) => {
 
   // Register all routes using the helper function
   registerRoute('post', '/api/execEventType', execEventType);
+  registerRoute('post', '/api/execDML', execDML);
   registerRoute('post', '/api/initialize', initializeController.initialize);
   registerRoute('get', '/api/util/list-routes', (req, res) => {
     logger.debug(`${codeName} Entering /util/list-routes`);

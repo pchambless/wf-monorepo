@@ -8,6 +8,7 @@
     "packages/*"
   ],
   "scripts": {
+    "analyze-deps": "madge apps/wf-client/src apps/wf-admin/src apps/wf-server/server packages/shared-imports/src --json > packages/shared-imports/src/architecture/data/madge-analysis.json",
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
     "dev": "turbo run dev --filter=wf-client",
     "dev:all": "turbo run dev",
@@ -15,8 +16,6 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
     "generate-directives": "node packages/devtools/src/automation/page/genDirectives.js",
     "generate-page-maps": "turbo run generate-page-maps",
     "generate-docs": "turbo run generate-docs",
@@ -31,18 +30,19 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@mermaid-js/mermaid-cli": "^11.6.0",
-    "@storybook/addon-essentials": "^9.0.0-alpha.12",
-    "@storybook/react": "^9.0.9",
-    "@storybook/react-webpack5": "^9.0.9",
     "babel-loader": "^10.0.0",
     "dependency-cruiser": "^16.10.2",
+    "madge": "^8.0.0",
     "minimist": "^1.2.8",
     "module-alias": "^2.2.3",
-    "storybook": "^9.0.9",
     "turbo": "^2.5.4"
   },
   "_moduleAliases": {
     "@packages": "./packages",
     "@apps": "./apps"
+  },
+  "dependencies": {
+    "@mui/lab": "^7.0.0-beta.14",
+    "@react-pdf/renderer": "^4.3.0"
   }
 }

@@ -7,6 +7,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { processDirectives } from '../../utils/directiveMap.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -249,15 +250,59 @@ function generateLabel(fieldName) {
 }
 
 /**
+ * Integration wrapper for directiveMap.processDirectives()
+ * Converts genDirectives format to directiveMap format and back
+ */
+function processDirectivesWrapper(rawDirectives) {
+  try {
+    // Process directives through directiveMap system
+    const processedDirectives = processDirectives(rawDirectives);
+    
+    console.log(`🔧 DirectiveMap processed: ${JSON.stringify(rawDirectives)} → ${JSON.stringify(processedDirectives)}`);
+    
+    return processedDirectives;
+  } catch (error) {
+    console.warn(`⚠️ DirectiveMap processing failed for ${JSON.stringify(rawDirectives)}: ${error.message}`);
+    // Fallback to original directives if processing fails
+    return rawDirectives;
+  }
+}
+
+/**
+ * Test basic directiveMap integration with sample directive
+ */
+function testDirectiveMapIntegration() {
+  console.log('🧪 Testing directiveMap integration...');
+  
+  // Test sample directive - parent key field
+  const sampleParentKey = { parentKey: true, type: 'number' };
+  const processedParentKey = processDirectivesWrapper(sampleParentKey);
+  console.log(`✅ Parent key test: ${JSON.stringify(sampleParentKey)} → ${JSON.stringify(processedParentKey)}`);
+  
+  // Test sample directive - regular field
+  const sampleRegular = { type: 'text', label: 'Test Field', grp: 1 };
+  const processedRegular = processDirectivesWrapper(sampleRegular);
+  console.log(`✅ Regular field test: ${JSON.stringify(sampleRegular)} → ${JSON.stringify(processedRegular)}`);
+  
+  console.log('✅ DirectiveMap integration test complete');
+}
+
+/**
  * Infer directives from SQL analysis - simplified approach
  */
 async function inferDirectivesFromSQL(fieldName, fieldInfo, viewName) {
   const { dbColumn, isDirect } = fieldInfo;
   const viewKeys = getViewKeys(viewName);
   
-  // Primary/parent key check
-  if (fieldName === viewKeys.primaryKey) return { PK: true, sys: true, type: 'number' };
-  if (fieldName === viewKeys.parentKey) return { parentKey: true, sys: true, type: 'number' };
+  // Primary/parent key check - process through directiveMap
+  if (fieldName === viewKeys.primaryKey) {
+    const pkDirectives = { PK: true, sys: true, type: 'number' };
+    return processDirectivesWrapper(pkDirectives);
+  }
+  if (fieldName === viewKeys.parentKey) {
+    const parentKeyDirectives = { parentKey: true, sys: true, type: 'number' };
+    return processDirectivesWrapper(parentKeyDirectives);
+  }
   
   // For direct table columns, use enhanced logic
   if (isDirect && dbColumn) {
@@ -289,7 +334,9 @@ async function inferDirectivesFromSQL(fieldName, fieldInfo, viewName) {
       }
     }
     
-    return applySmartRules(directives, null, fieldName);
+    // Process through directiveMap system before applying smart rules
+    const processedDirectives = processDirectivesWrapper(directives);
+    return applySmartRules(processedDirectives, null, fieldName);
   }
   
   // If we reach here, SQL analysis failed - this is a critical error
@@ -299,6 +346,7 @@ async function inferDirectivesFromSQL(fieldName, fieldInfo, viewName) {
 
 /**
  * Apply smart width allocation and streamlined hide rules
+ * Note: Most business rules are now handled by directiveMap.processDirectives()
  */
 function applySmartRules(directives, sampleData, fieldName = null) {
   // System fields: minimal attributes, widgets handle hiding
@@ -307,12 +355,10 @@ function applySmartRules(directives, sampleData, fieldName = null) {
     if (fieldName) {
       directives.label = fieldName;
     }
-    // Remove unnecessary attributes for sys fields
+    // Remove unnecessary attributes for sys fields - directiveMap handles the hiding
     delete directives.width;
     delete directives.grp;
-    delete directives.tableHide;
-    delete directives.formHide;
-    // Don't set any hide attributes - let widgets handle it
+    // Don't manually set hide attributes - directiveMap handles this
     return directives; // Early return to avoid other rules
   }
 
@@ -320,22 +366,9 @@ function applySmartRules(directives, sampleData, fieldName = null) {
   if (!directives.width) {
     directives.width = SMART_WIDTHS[directives.type] || SMART_WIDTHS.text;
   }
-  // Select widgets: hide from tables only (forms show them)
-  else if (directives.type === 'select') {
-    directives.tableHide = true;
-  }
-  // Multi-line: hide from tables only (forms show them)
-  else if (directives.type === 'multiLine') {
-    directives.tableHide = true;
-  }
 
-  // BI fields: auto-exclude from all CRUD operations, no groups
-  if (directives.BI) {
-    directives.tableHide = true;
-    directives.formHide = true;
-    directives.excludeFromDML = true;
-    delete directives.grp; // BI fields don't need groups
-  }
+  // Note: tableHide for select and multiLine fields is now handled by directiveMap
+  // Note: BI field rules are now handled by directiveMap
 
   // Clean up: remove false boolean values (positive attributes only)
   cleanBooleanAttributes(directives);
@@ -606,30 +639,61 @@ async function generateDirectiveFile(viewName) {
         console.log(`⚠️  Marking ${fieldName} as BI - unclear field category`);
       }
 
-      // Preserve manual overrides (label, width, grp) - but not for sys fields
+      // Preserve manual overrides with conflict detection
       if (existingField?.directives) {
+        const existing = existingField.directives;
+        
         // Only preserve labels for non-sys fields - sys fields use debug labels
-        if (existingField.directives.label && !inferredDirectives.sys && !inferredDirectives.PK && !inferredDirectives.parentKey) {
-          inferredDirectives.label = existingField.directives.label;
+        if (existing.label && !inferredDirectives.sys && !inferredDirectives.PK && !inferredDirectives.parentKey) {
+          inferredDirectives.label = existing.label;
+        } else if (existing.label && (inferredDirectives.sys || inferredDirectives.PK || inferredDirectives.parentKey)) {
+          console.warn(`⚠️ Ignoring manual label "${existing.label}" for system field ${fieldName} - sys fields use debug labels`);
         }
         
         // Only preserve width and grp for non-sys fields
         if (!inferredDirectives.sys && !inferredDirectives.PK && !inferredDirectives.parentKey) {
-          if (existingField.directives.width) inferredDirectives.width = existingField.directives.width;
-          if (existingField.directives.grp) inferredDirectives.grp = existingField.directives.grp;
+          if (existing.width) inferredDirectives.width = existing.width;
+          if (existing.grp) inferredDirectives.grp = existing.grp;
+        } else {
+          if (existing.width) console.warn(`⚠️ Ignoring manual width for system field ${fieldName} - directiveMap handles sys field layout`);
+          if (existing.grp) console.warn(`⚠️ Ignoring manual group for system field ${fieldName} - directiveMap handles sys field layout`);
         }
 
-        // Also preserve any other manual customizations
-        if (existingField.directives.required !== undefined) inferredDirectives.required = existingField.directives.required;
+        // Preserve required flag but warn about conflicts with directiveMap rules
+        if (existing.required !== undefined) {
+          if (inferredDirectives.parentKey && !existing.required) {
+            console.warn(`⚠️ Manual required:false conflicts with parentKey field ${fieldName} - parent keys should be required`);
+          }
+          inferredDirectives.required = existing.required;
+        }
         
-        // Only preserve hide flags for BI fields - sys fields should not have hide flags
+        // Only preserve hide flags for BI fields - sys fields should not have manual hide flags
         if (inferredDirectives.BI) {
-          if (existingField.directives.tableHide !== undefined) inferredDirectives.tableHide = existingField.directives.tableHide;
-          if (existingField.directives.formHide !== undefined) inferredDirectives.formHide = existingField.directives.formHide;
+          if (existing.tableHide !== undefined) inferredDirectives.tableHide = existing.tableHide;
+          if (existing.formHide !== undefined) inferredDirectives.formHide = existing.formHide;
+        } else if (existing.tableHide !== undefined || existing.formHide !== undefined) {
+          if (inferredDirectives.sys || inferredDirectives.PK || inferredDirectives.parentKey) {
+            console.warn(`⚠️ Ignoring manual hide flags for system field ${fieldName} - directiveMap handles sys field visibility`);
+          }
         }
 
         // Preserve existing dbColumn if manually set
-        if (existingField.directives.dbColumn) inferredDirectives.dbColumn = existingField.directives.dbColumn;
+        if (existing.dbColumn) inferredDirectives.dbColumn = existing.dbColumn;
+        
+        // Preserve other manual customizations with warnings for potential conflicts
+        if (existing.widget && inferredDirectives.type !== 'select') {
+          console.warn(`⚠️ Manual widget "${existing.widget}" on non-select field ${fieldName} may not work correctly`);
+          inferredDirectives.widget = existing.widget;
+        } else if (existing.widget) {
+          inferredDirectives.widget = existing.widget;
+        }
+        
+        // Preserve decimal precision
+        if (existing.dec) inferredDirectives.dec = existing.dec;
+        
+        // Preserve validation rules
+        if (existing.min !== undefined) inferredDirectives.min = existing.min;
+        if (existing.max !== undefined) inferredDirectives.max = existing.max;
       }
 
       generatedDirectives.columns[fieldName] = {
@@ -667,9 +731,14 @@ async function generateDirectives(viewNames = []) {
 // CLI usage
 if (import.meta.url === `file://${process.argv[1]}`) {
   const args = process.argv.slice(2);
-  const viewNames = args.length > 0 ? args : ['ingrBtchList']; // Default to ingrBtchList
-
-  generateDirectives(viewNames).catch(console.error);
+  
+  // Test directiveMap integration if --test flag is provided
+  if (args.includes('--test')) {
+    testDirectiveMapIntegration();
+  } else {
+    const viewNames = args.length > 0 ? args : ['ingrBtchList']; // Default to ingrBtchList
+    generateDirectives(viewNames).catch(console.error);
+  }
 }
 
 export { generateDirectives, generateDirectiveFile };

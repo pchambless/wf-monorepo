@@ -6,19 +6,26 @@
         "DISABLE_COST_WARNINGS": "1",
         "DISABLE_TELEMETRY": "1",
         "DISABLE_AUTOUPDATER": "1",
-        "DISABLE_ERROR_REPORTING": "1"
+        "DISABLE_ERROR_REPORTING": "1",
+        "CLAUDE_WORKING_DIRECTORY": "/home/paul/wf-monorepo-new" // ← Set default context
     },
     "permissions": {
         "allow": [
             "Bash(npm run *)",
             "Bash(git *)",
+            "Bash(node packages/devtools/src/automation/*)", // ← Your frequent commands
             "Edit",
             "Read(**)",
-            "Write(**)"
+            "Write(**)",
+            "TodoWrite" // ← You use this for tracking
         ],
         "deny": [
             "WebFetch",
             "WebSearch"
         ]
+    },
+    "hooks": {
+        "pre_session": "Check AI/session-startup.md", // ← Your working documentation
+        "plan_context": "Reference .kiro/steering.yaml" // ← Shared intelligence
     }
 }

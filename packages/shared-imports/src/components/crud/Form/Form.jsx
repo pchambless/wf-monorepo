@@ -5,6 +5,7 @@ import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'rea
 import { observer } from 'mobx-react-lite';
 import FormStore from './stores/FormStore';
 import createLogger from '@utils/logger';
+import contextStore from '../../../stores/contextStore.js';
 // Import field widgets and selector components
 import { FIELD_WIDGETS } from '../../forms/index.js';
 import {
@@ -12,7 +13,7 @@ import {
   SelIngr, SelIngrType, SelWrkr, SelUserAcct
 } from '../../selectors/index.js';
 import {
-  Paper, Grid, Button, Typography, Box, Alert, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions
+  Paper, Grid, Button, Typography, Box, Alert, CircularProgress
 } from '@mui/material';
 import { safeProp } from '@utils/mobxHelpers';
 
@@ -106,10 +107,8 @@ const Form = observer(forwardRef(({
 }, ref) => {
   // Track whether we have a valid pageMap
   const hasValidPageMap = !!pageMap && !!pageMap.id;
-  
-  // State for DML preview modal
-  const [dmlPreviewOpen, setDmlPreviewOpen] = useState(false);
-  const [dmlPreviewData, setDmlPreviewData] = useState(null);
+
+  // Removed DML preview modal state - no longer needed for seamless CRUD
 
   console.log('Form received props:', {
     hasPageMap: hasValidPageMap,
@@ -133,9 +132,32 @@ const Form = observer(forwardRef(({
       return;
     }
 
+    // Handle form data initialization
     if (data) {
       formStore.setFormData(data);
+    } else if (mode === 'ADD' || mode === 'INSERT') {
+      // For new records, auto-populate any fields that exist in contextStore
+      const initialData = {};
+
+      // Check all form fields and populate from contextStore if available
+      if (pageMap?.formConfig?.groups) {
+        pageMap.formConfig.groups.forEach(group => {
+          group.fields?.forEach(field => {
+            if (field.field) {
+              const contextValue = contextStore.getParameter(field.field);
+              if (contextValue !== null && contextValue !== undefined) {
+                initialData[field.field] = contextValue;
+                log.debug(`Auto-populated ${field.field} from contextStore:`, contextValue);
+              }
+            }
+          });
+        });
+      }
+
+      formStore.setFormData(initialData);
+      log.debug('Initialized ADD/INSERT form with context values:', initialData);
     }
+
     formStore.setFormMode(mode);
   }, [data, mode, pageMap, formStore, hasValidPageMap]);
 
@@ -200,7 +222,7 @@ const Form = observer(forwardRef(({
       console.log('Form mode:', formStore.formMode);
       console.log('Form data:', formStore.formData);
       console.log('Form validation state:', formStore.isValid);
-      
+
       // Convert form data to plain JS objects BEFORE saving
       formStore.prepareForSave();
 
@@ -210,11 +232,9 @@ const Form = observer(forwardRef(({
       console.log('Save result:', result);
 
       if (result.success) {
-        console.log('Save successful, showing DML preview');
-        setDmlPreviewData(result);
-        setDmlPreviewOpen(true);
-        
-        // Also call onSave callback if provided
+        console.log('Save successful - seamless CRUD operation');
+
+        // Call onSave callback if provided
         if (onSave) {
           onSave(result);
         }
@@ -341,57 +361,8 @@ const Form = observer(forwardRef(({
           )}
         </Box>
       </form>
-      
-      {/* DML Preview Modal */}
-      <Dialog open={dmlPreviewOpen} onClose={() => setDmlPreviewOpen(false)} maxWidth="md" fullWidth>
-        <DialogTitle>DML Preview - {dmlPreviewData?.method}</DialogTitle>
-        <DialogContent>
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="h6" gutterBottom>SQL Preview:</Typography>
-            <Box sx={{ 
-              bgcolor: '#f5f5f5', 
-              p: 2, 
-              borderRadius: 1, 
-              fontFamily: 'monospace',
-              fontSize: '0.875rem',
-              whiteSpace: 'pre-wrap'
-            }}>
-              {dmlPreviewData?.preview}
-            </Box>
-          </Box>
-          
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="h6" gutterBottom>DML Data Structure:</Typography>
-            <Box sx={{ 
-              bgcolor: '#f5f5f5', 
-              p: 2, 
-              borderRadius: 1, 
-              fontFamily: 'monospace',
-              fontSize: '0.875rem'
-            }}>
-              <pre>{JSON.stringify(dmlPreviewData?.dmlData, null, 2)}</pre>
-            </Box>
-          </Box>
-          
-          <Box sx={{ mb: 2 }}>
-            <Typography variant="h6" gutterBottom>Form Data (with context):</Typography>
-            <Box sx={{ 
-              bgcolor: '#f5f5f5', 
-              p: 2, 
-              borderRadius: 1, 
-              fontFamily: 'monospace',
-              fontSize: '0.875rem'
-            }}>
-              <pre>{JSON.stringify(dmlPreviewData?.formData, null, 2)}</pre>
-            </Box>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDmlPreviewOpen(false)} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+
+      {/* Removed DML Preview Modal for seamless CRUD operations */}
     </Paper>
   );
 }));

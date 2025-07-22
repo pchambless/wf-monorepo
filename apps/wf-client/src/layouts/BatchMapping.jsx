@@ -4,6 +4,7 @@ import { Box, Grid, Typography, Paper, styled, alpha } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { DragIndicator } from '@mui/icons-material';
 import { execEvent, createLogger, contextStore } from '@whatsfresh/shared-imports';
+import WorksheetGenerator from '../components/reports/WorksheetGenerator.jsx';
 
 const log = createLogger('BatchMapping');
 
@@ -282,9 +283,17 @@ const BatchMapping = ({ pageMap }) => {
 
   return (
     <Box sx={{ height: '100vh', p: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        {pageMap.title || 'Batch Mapping'}
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        <Typography variant="h4">
+          {pageMap.title || 'Batch Mapping'}
+        </Typography>
+        
+        {/* Worksheet Generation Button */}
+        <WorksheetGenerator 
+          prodBtchID={prodBtchID}
+          onError={(error) => log.error('Worksheet generation error:', error)}
+        />
+      </Box>
       
       <Grid container spacing={2} sx={{ height: 'calc(100vh - 120px)' }}>
         {/* Left Panel - Recipe Ingredients (Tallest) */}

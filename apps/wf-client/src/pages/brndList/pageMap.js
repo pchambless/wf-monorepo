@@ -119,6 +119,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "brndID": "id",
       "brndName": "name",

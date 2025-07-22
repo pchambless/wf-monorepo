@@ -200,6 +200,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "rcpeID": "prd_rcpe_id",
       "ingrOrdr": "ingr_ordr",

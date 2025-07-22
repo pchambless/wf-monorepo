@@ -147,7 +147,7 @@ function generateTableConfig(directives) {
 function generateRowActions(entityName, eventDataMap) {
   const rowActions = [];
   const tableActions = [];
-  
+
   // Always add delete action
   rowActions.push({
     id: 'delete',
@@ -156,7 +156,7 @@ function generateRowActions(entityName, eventDataMap) {
     tooltip: 'Delete',
     handler: 'handleDelete'
   });
-  
+
   // Add navigation action if entity has page-type children (not just data grids)
   const eventData = eventDataMap[entityName];
   if (eventData?.navChildren?.length > 0) {
@@ -165,14 +165,14 @@ function generateRowActions(entityName, eventDataMap) {
       const childEventData = eventDataMap[childEventType];
       return childEventData?.category?.startsWith('page:');
     });
-    
+
     if (pageChild) {
       const childEventData = eventDataMap[pageChild];
       if (childEventData?.routePath) {
         rowActions.push({
           id: 'navigate',
           icon: 'Visibility',
-          color: 'primary', 
+          color: 'primary',
           tooltip: `View ${pageChild}`,
           route: childEventData.routePath,
           paramField: eventData.primaryKey
@@ -180,7 +180,7 @@ function generateRowActions(entityName, eventDataMap) {
       }
     }
   }
-  
+
   return { rowActions, tableActions };
 }
 
@@ -379,6 +379,7 @@ async function extractColumnMappingsFromView(viewName) {
 async function generateDmlConfig(directives, viewName) {
   // Extract mappings from the SQL view
   const sqlMappings = await extractColumnMappingsFromView(viewName);
+
   const fieldMappings = {};
   const pkField = findPrimaryKeyField(directives);
 
@@ -392,6 +393,7 @@ async function generateDmlConfig(directives, viewName) {
   });
 
   return {
+    primaryKey: 'id',
     fieldMappings,
     operations: {
       // Exclude primary key from INSERT operations

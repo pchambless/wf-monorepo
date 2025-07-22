@@ -73,10 +73,4 @@ export {
   useAppNavigation
 } from './navigation.js';
 
-// DML utilities (JS only - excluding JSX components)
-export {
-  executeDML,
-  insertRecord,
-  updateRecord,
-  deleteRecord
-} from './dml/operations.js';  // Import from operations file instead
+// DML utilities moved to /api/dml/ - import directly from there instead

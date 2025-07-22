@@ -93,6 +93,7 @@ const pageMap = {
     ]
   },
   "dmlConfig": {
+    "primaryKey": "id",
     "fieldMappings": {
       "prodTypeID": "id",
       "prodTypeName": "name",
