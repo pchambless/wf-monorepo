@@ -121,6 +121,18 @@ Idea → Investigation (Claude) → Specification → Implementation (Kiro) → 
 - **Implementation Complete**: Auto-notification via impact registry
 
 ---
+## Token Conservation Protocol:
+    - Claude suggests user makes direct edits for simple changes (1-2 lines, word substitutions)
+    - User handles repetitive tasks (multiple similar files, bulk updates)
+    - Claude creates content only when analysis/synthesis is needed
+    - User creates documents when Claude provides the outline/content guidance
+
+ ## Phased Implementation Guidance:
+    - Break complex changes into sequential phases (focus on one thing at a time)
+    - Complete and test each phase before proceeding to next
+    - Phase 1: Core functionality, Phase 2: Layout changes, Phase 3: Feature additions
+    - Avoid mixing structural changes with feature changes in same phase
+    - Each phase should result in working, testable functionality
 
 ## ⚠️ Conflict Resolution
 
@@ -157,6 +169,12 @@ Idea → Investigation (Claude) → Specification → Implementation (Kiro) → 
 - **SUGGEST ALTERNATIVES**: Propose implementation options
 
 ---
+ ## Form Component Standards:
+  - Use existing form renderers from /packages/shared-imports/src/components/forms/
+  - MultiLineField for large text areas (auto-expanding, consistent styling)
+  - TextField for single-line inputs
+  - Select for dropdowns
+  - Ensures app-wide consistency and compactness preferences
 
 ## 🔄 Established Workflows
 
@@ -182,6 +200,20 @@ Idea → Investigation (Claude) → Specification → Implementation (Kiro) → 
 3. Claude provides fix specification
 4. Kiro implements with testing
 5. Immediate deployment if approved
+
+###  Communication Channels by Purpose:
+  - Direct Claude chat: Quick discussions, requirement refinement, architectural questions
+  - Direct Kiro chat: Small clarifications, minor issues, quick fixes
+  - Communication Hub: Strategic business decisions, formal requirements, major scope changes
+
+    ## This is actually brilliant because:
+    - Efficiency: Right tool for the right job
+    - Documentation: Strategic stuff gets properly logged in coordination system
+    - Workflow: No overhead for minor clarifications
+    - Context: Big decisions get the structured treatment they deserve
+
+  Note:  The communication interface becomes your "official record" for strategic business input.  while direct AI chats 
+  handle the day-to-day collaboration details. 
 
 ---
 

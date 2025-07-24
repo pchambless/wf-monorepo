@@ -1,0 +1,44 @@
+{
+    "fileExtensions": [
+        "ts",
+        "tsx",
+        "js",
+        "jsx"
+    ],
+    "excludeRegExp": [
+        "node_modules",
+        "__tests__",
+        "\\.test\\.(ts|js|jsx)$",
+        "\\.spec\\.(ts|js|jsx)$",
+        "/build/",
+        "/dist/",
+        "claude-plans/",
+        "\\.kiro/communication/",
+        "\\.kiro/logs/"
+    ],
+    "includeNpm": false,
+    "detectiveOptions": {
+        "ts": {
+            "skipTypeImports": true,
+            "skipAsyncImports": false,
+            "mixedImports": true
+        },
+        "tsx": {
+            "skipTypeImports": true,
+            "skipAsyncImports": false,
+            "jsx": true
+        },
+        "js": {
+            "mixedImports": true
+        },
+        "jsx": {
+            "jsx": true
+        }
+    },
+    "layout": "dot",
+    "fontSize": "12px",
+    "nodeColor": "#c6c5fe",
+    "cyclicNodeColor": "#ff6c60",
+    "noDependencyColor": "#cfffac",
+    "edgeColor": "#757575"
+}

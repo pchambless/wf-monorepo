@@ -4,10 +4,9 @@
  * Web-based interface for viewing and editing impact tracking data
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
-  TextField,
   Button,
   Typography,
   Alert,
@@ -31,62 +30,103 @@ import {
   Cancel as CancelIcon,
 } from "@mui/icons-material";
 
-// Mock impact tracking data (would come from impact-tracking.json in real implementation)
-const MOCK_IMPACT_DATA = [
-  {
-    impact_id: 52,
-    plan_id: "0011",
-    package: "shared-imports",
-    file: "packages/shared-imports/src/components/crud/Form/stores/FormStore.js",
-    type: "MODIFIED",
-    status: "completed",
-    description: "Enhanced FormStore to include contextStore parameters",
-    complexity: "medium",
-    cluster: "API",
-  },
-  {
-    impact_id: 53,
-    plan_id: "0011",
-    package: "wf-server",
-    file: "apps/wf-server/server/utils/dml/sqlBuilder.js",
-    type: "MODIFIED",
-    status: "completed",
-    description: "Fixed primary key exclusion in INSERT operations",
-    complexity: "low",
-    cluster: "API",
-  },
-  {
-    impact_id: 54,
-    plan_id: "0015",
-    package: "shared-imports",
-    file: "packages/shared-imports/src/architecture/intelligence.js",
-    type: "CREATED",
-    status: "completed",
-    description: "Architectural intelligence system implementation",
-    complexity: "high",
-    cluster: "DEVTOOLS",
-  },
-];
+// Import our form components
+import { TextField, Select } from "@whatsfresh/shared-imports/jsx";
+
+// Impact data loaded from database via planImpactList eventType
 
 const ImpactTrackingEditor = () => {
-  const [impactData, setImpactData] = useState(MOCK_IMPACT_DATA);
+  const [impactData, setImpactData] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
   const [filterPlan, setFilterPlan] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [planOptions, setPlanOptions] = useState([
+    { value: "", label: "All Plans" },
+  ]);
+
+  // Load impact data from database
+  useEffect(() => {
+    const loadImpactData = async () => {
+      setLoading(true);
+      try {
+        // Import execEvent for database access
+        const { execEvent } = await import("@whatsfresh/shared-imports/api");
+
+        // Use planImpactList eventType (eventID: 103)
+        // Load all impacts first, then filter by plan if needed
+        const result = await execEvent("planImpactList", {});
+
+        if (result && Array.isArray(result)) {
+          setImpactData(result);
+
+          // Generate plan options from loaded data
+          const uniquePlans = Array.from(
+            new Set(result.map((item) => item.plan_id))
+          )
+            .sort()
+            .map((planId) => ({
+              value: planId.toString(),
+              label: `Plan ${planId.toString().padStart(4, "0")}`,
+            }));
+
+          setPlanOptions([{ value: "", label: "All Plans" }, ...uniquePlans]);
+        } else {
+          setImpactData([]);
+        }
+      } catch (error) {
+        console.error("Error loading impact data:", error);
+        setImpactData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadImpactData();
+  }, []);
 
   const handleEdit = (impact) => {
     setEditingId(impact.impact_id);
     setEditForm({ ...impact });
   };
 
-  const handleSave = () => {
-    setImpactData((prev) =>
-      prev.map((item) =>
-        item.impact_id === editingId ? { ...editForm } : item
-      )
-    );
-    setEditingId(null);
-    setEditForm({});
+  const handleSave = async () => {
+    try {
+      // Database-native impact update (Plan 0018)
+      const { execDml } = await import("@whatsfresh/shared-imports/api");
+
+      const dmlOperation = {
+        table: "api_wf.plan_impacts",
+        operation: "UPDATE",
+        data: {
+          file_path: editForm.file_path || editForm.file,
+          description: editForm.description,
+          updated_by: "user",
+          updated_at: new Date().toISOString(),
+        },
+        where: { id: editingId },
+      };
+
+      console.log("Updating impact in database:", dmlOperation);
+      const result = await execDml(dmlOperation);
+
+      if (result && result.success) {
+        // Update local state with the changes
+        setImpactData((prev) =>
+          prev.map((item) =>
+            item.impact_id === editingId ? { ...editForm } : item
+          )
+        );
+        setEditingId(null);
+        setEditForm({});
+      } else {
+        console.error("Failed to update impact:", result?.error);
+        alert("Failed to save changes to database");
+      }
+    } catch (error) {
+      console.error("Error saving impact:", error);
+      alert(`Error saving changes: ${error.message}`);
+    }
   };
 
   const handleCancel = () => {
@@ -144,13 +184,11 @@ const ImpactTrackingEditor = () => {
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
-              <TextField
-                fullWidth
-                label="Filter by Plan ID"
+              <Select
+                label="Filter by Plan"
                 value={filterPlan}
-                onChange={(e) => setFilterPlan(e.target.value)}
-                placeholder="e.g., 0011"
-                helperText="Enter plan ID to filter impacts"
+                onChange={(value) => setFilterPlan(value)}
+                options={planOptions}
               />
             </Grid>
             <Grid item xs={12} md={8}>
@@ -184,7 +222,7 @@ const ImpactTrackingEditor = () => {
         <CardHeader title="Impact Tracking Data" />
         <CardContent>
           <TableContainer component={Paper}>
-            <Table>
+            <Table size="small" sx={{ "& .MuiTableCell-root": { py: 0.5 } }}>
               <TableHead>
                 <TableRow>
                   <TableCell>ID</TableCell>
@@ -205,11 +243,15 @@ const ImpactTrackingEditor = () => {
                     </TableCell>
                     <TableCell>
                       {editingId === impact.impact_id ? (
-                        <TextField
-                          size="small"
+                        <input
+                          type="text"
                           value={editForm.file || ""}
                           onChange={handleFormChange("file")}
-                          sx={{ minWidth: 200 }}
+                          style={{
+                            minWidth: 200,
+                            padding: "4px",
+                            fontSize: "0.875rem",
+                          }}
                         />
                       ) : (
                         <Box>
@@ -241,13 +283,17 @@ const ImpactTrackingEditor = () => {
                     </TableCell>
                     <TableCell>
                       {editingId === impact.impact_id ? (
-                        <TextField
-                          size="small"
-                          multiline
+                        <textarea
                           rows={2}
                           value={editForm.description || ""}
                           onChange={handleFormChange("description")}
-                          sx={{ minWidth: 250 }}
+                          style={{
+                            minWidth: 250,
+                            padding: "4px",
+                            fontSize: "0.875rem",
+                            fontFamily: "inherit",
+                            resize: "vertical",
+                          }}
                         />
                       ) : (
                         <Typography variant="body2">

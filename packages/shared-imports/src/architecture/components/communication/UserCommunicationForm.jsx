@@ -4,14 +4,9 @@
  * Strategic input interface for User → Claude ↔ Kiro collaboration
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
-  TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
   Button,
   Typography,
   Alert,
@@ -19,51 +14,26 @@ import {
   Chip,
   Card,
   CardContent,
-  FormControlLabel,
-  Checkbox,
 } from "@mui/material";
 
-// Communication types for strategic input
-const COMMUNICATION_TYPES = {
-  "strategic-input": {
-    label: "Strategic Input",
-    description: "Provide business context and strategic direction",
-    color: "primary",
-    icon: "🎯",
-  },
-  "priority-change": {
-    label: "Priority Change",
-    description: "Modify plan priorities or urgency levels",
-    color: "warning",
-    icon: "⚡",
-  },
-  "scope-modification": {
-    label: "Scope Modification",
-    description: "Adjust plan scope or requirements",
-    color: "info",
-    icon: "📋",
-  },
-  "architectural-guidance": {
-    label: "Architectural Guidance",
-    description: "Provide technical direction or constraints",
-    color: "secondary",
-    icon: "🏗️",
-  },
-  "business-requirement": {
-    label: "Business Requirement",
-    description: "New business needs or constraints",
-    color: "success",
-    icon: "💼",
-  },
-};
+// Import our form components
+import {
+  MultiLineField,
+  TextField,
+  Select,
+} from "@whatsfresh/shared-imports/jsx";
 
-// Priority levels for communications
-const PRIORITY_LEVELS = [
-  { value: "low", label: "Low - FYI/Nice to have", color: "default" },
-  { value: "normal", label: "Normal - Standard input", color: "primary" },
-  { value: "high", label: "High - Important for business", color: "warning" },
-  { value: "urgent", label: "Urgent - Blocking decisions", color: "error" },
-];
+// Import config data
+import {
+  getPriorityOptions,
+  getCommunicationTypeOptions,
+  getActivePlans,
+} from "../../../utils/configLoader.js";
+
+// Load configuration data
+const PRIORITY_LEVELS = getPriorityOptions();
+const COMMUNICATION_TYPES = getCommunicationTypeOptions();
+const PLAN_OPTIONS = getActivePlans();
 
 const UserCommunicationForm = () => {
   const [formData, setFormData] = useState({
@@ -72,22 +42,28 @@ const UserCommunicationForm = () => {
     subject: "",
     message: "",
     affectedPlans: "",
-    requiresResponse: false,
-    businessImpact: "medium",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState(null);
 
-  const handleInputChange = (field) => (event) => {
-    const value =
-      event.target.type === "checkbox"
-        ? event.target.checked
-        : event.target.value;
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+  // Listen for reset events from the header button
+  useEffect(() => {
+    const handleReset = (event) => {
+      if (event.detail.tool === "communication") {
+        setFormData({
+          type: "strategic-input",
+          priority: "normal",
+          subject: "",
+          message: "",
+          affectedPlans: "",
+        });
+        setSubmitResult(null);
+      }
+    };
+
+    window.addEventListener("resetForm", handleReset);
+    return () => window.removeEventListener("resetForm", handleReset);
+  }, []);
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -114,8 +90,6 @@ const UserCommunicationForm = () => {
         subject: "",
         message: "",
         affectedPlans: "",
-        requiresResponse: false,
-        businessImpact: "medium",
       });
     } catch (error) {
       setSubmitResult({
@@ -127,8 +101,10 @@ const UserCommunicationForm = () => {
     }
   };
 
-  const isFormValid = formData.subject && formData.message;
-  const selectedType = COMMUNICATION_TYPES[formData.type];
+  const isFormValid = formData.subject && formData.message && formData.affectedPlans;
+  const selectedType = COMMUNICATION_TYPES.find(
+    (type) => type.value === formData.type
+  );
 
   return (
     <Box>
@@ -148,122 +124,88 @@ const UserCommunicationForm = () => {
       )}
 
       <Grid container spacing={3}>
-        {/* Communication Type */}
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
-            <InputLabel>Communication Type</InputLabel>
-            <Select
-              value={formData.type}
-              onChange={handleInputChange("type")}
-              label="Communication Type"
-            >
-              {Object.entries(COMMUNICATION_TYPES).map(([key, type]) => (
-                <MenuItem key={key} value={key}>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <Typography sx={{ mr: 1 }}>{type.icon}</Typography>
-                    <Box>
-                      <Typography variant="body1">{type.label}</Typography>
-                      <Typography variant="caption" color="textSecondary">
-                        {type.description}
-                      </Typography>
-                    </Box>
-                  </Box>
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
+        {/* Left Column - Quick Controls */}
+        <Grid item xs={12} md={4}>
+          {/* Primary Plan Dropdown */}
+          <Select
+            label="Primary Plan"
+            value={formData.affectedPlans}
+            onChange={(value) =>
+              setFormData((prev) => ({ ...prev, affectedPlans: value }))
+            }
+            options={PLAN_OPTIONS}
+          />
 
-        {/* Priority Level */}
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
-            <InputLabel>Priority Level</InputLabel>
-            <Select
-              value={formData.priority}
-              onChange={handleInputChange("priority")}
-              label="Priority Level"
-            >
-              {PRIORITY_LEVELS.map((priority) => (
-                <MenuItem key={priority.value} value={priority.value}>
-                  <Typography variant="body1">{priority.label}</Typography>
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
+          {/* Priority Level */}
+          <Select
+            label="Priority Level"
+            value={formData.priority}
+            onChange={(value) =>
+              setFormData((prev) => ({ ...prev, priority: value }))
+            }
+            options={PRIORITY_LEVELS}
+          />
 
-        {/* Subject */}
-        <Grid item xs={12}>
-          <TextField
+          {/* Communication Type */}
+          <Select
+            label="Communication Type"
+            value={formData.type}
+            onChange={(value) =>
+              setFormData((prev) => ({ ...prev, type: value }))
+            }
+            options={COMMUNICATION_TYPES}
+          />
+
+          {/* Submit Button */}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            disabled={!isFormValid || isSubmitting}
             fullWidth
+            sx={{ mt: 2 }}
+          >
+            {isSubmitting ? "Submitting..." : "Send Communication"}
+          </Button>
+        </Grid>
+
+        {/* Right Column - Content Area (Much Wider) */}
+        <Grid item xs={12} md={8}>
+          {/* Subject */}
+          <TextField
             label="Subject"
             value={formData.subject}
-            onChange={handleInputChange("subject")}
-            placeholder="Brief summary of your strategic input..."
-            helperText="Clear, concise subject line for your communication"
-          />
-        </Grid>
-
-        {/* Message */}
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            multiline
-            rows={6}
-            label="Strategic Message"
-            value={formData.message}
-            onChange={handleInputChange("message")}
-            placeholder="Provide detailed strategic input, business context, requirements, or guidance for the AI collaboration team..."
-            helperText="Detailed message with context, requirements, and any specific guidance"
-          />
-        </Grid>
-
-        {/* Affected Plans */}
-        <Grid item xs={12} md={6}>
-          <TextField
-            fullWidth
-            label="Affected Plans (Optional)"
-            value={formData.affectedPlans}
-            onChange={handleInputChange("affectedPlans")}
-            placeholder="e.g., 0011, 0015, 0016"
-            helperText="Plan IDs that this communication relates to"
-          />
-        </Grid>
-
-        {/* Business Impact */}
-        <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
-            <InputLabel>Business Impact</InputLabel>
-            <Select
-              value={formData.businessImpact}
-              onChange={handleInputChange("businessImpact")}
-              label="Business Impact"
-            >
-              <MenuItem value="low">Low - Minor business effect</MenuItem>
-              <MenuItem value="medium">
-                Medium - Moderate business impact
-              </MenuItem>
-              <MenuItem value="high">
-                High - Significant business impact
-              </MenuItem>
-              <MenuItem value="critical">
-                Critical - Major business impact
-              </MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        {/* Options */}
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formData.requiresResponse}
-                onChange={handleInputChange("requiresResponse")}
-              />
+            onChange={(value) =>
+              setFormData((prev) => ({ ...prev, subject: value }))
             }
-            label="Requires Response - I need feedback or acknowledgment on this communication"
+            placeholder="Brief summary of your strategic input..."
           />
+
+          {/* Strategic Message - Much Wider Text Area */}
+          <Box sx={{ width: "350%", maxWidth: "calc(100vw - 120px)" }}>
+            <MultiLineField
+              label="Strategic Message"
+              value={formData.message}
+              onChange={(value) =>
+                setFormData((prev) => ({ ...prev, message: value }))
+              }
+              minRows={15}
+              placeholder={`Provide detailed strategic input, business context, requirements, or guidance for the AI collaboration team...
+
+# Strategic Context
+[Describe the business context and strategic importance]
+
+## Requirements
+- Requirement 1
+- Requirement 2
+
+## Expected Outcomes
+[What should this accomplish...]
+
+## Additional Notes
+[Any other relevant information...]`}
+            />
+          </Box>
         </Grid>
 
         {/* Communication Preview */}
@@ -288,11 +230,6 @@ const UserCommunicationForm = () => {
                     }
                     size="small"
                   />
-                  <Chip
-                    label={`${formData.businessImpact.toUpperCase()} Impact`}
-                    variant="outlined"
-                    size="small"
-                  />
                 </Box>
                 <Typography variant="body2" gutterBottom>
                   <strong>Subject:</strong> {formData.subject}
@@ -306,49 +243,14 @@ const UserCommunicationForm = () => {
           </Grid>
         )}
 
-        {/* Form Actions */}
+        {/* Form Status */}
         <Grid item xs={12}>
-          <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              disabled={!isFormValid || isSubmitting}
-              sx={{ minWidth: 140 }}
-            >
-              {isSubmitting ? "Submitting..." : "Send Communication"}
-            </Button>
-
-            <Button
-              variant="outlined"
-              onClick={() =>
-                setFormData({
-                  type: "strategic-input",
-                  priority: "normal",
-                  subject: "",
-                  message: "",
-                  affectedPlans: "",
-                  requiresResponse: false,
-                  businessImpact: "medium",
-                })
-              }
-              disabled={isSubmitting}
-            >
-              Reset Form
-            </Button>
-
-            {/* Form Status */}
-            <Box sx={{ ml: "auto" }}>
-              {isFormValid ? (
-                <Chip label="Ready to Send" color="success" size="small" />
-              ) : (
-                <Chip
-                  label="Fill Required Fields"
-                  color="default"
-                  size="small"
-                />
-              )}
-            </Box>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {isFormValid ? (
+              <Chip label="Ready to Send" color="success" size="small" />
+            ) : (
+              <Chip label="Fill Required Fields" color="default" size="small" />
+            )}
           </Box>
         </Grid>
       </Grid>

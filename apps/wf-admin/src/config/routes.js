@@ -1,10 +1,10 @@
-import { getAdminSafeEventTypes } from '@whatsfresh/shared-imports';
+import { getSafeEventTypes } from '@whatsfresh/shared-imports/events';
 
 /**
  * Generate routes configuration from event types
  */
 export function getRoutes() {
-  const events = getAdminSafeEventTypes();
+  const events = getSafeEventTypes('admin');
   const routes = {};
 
   // Start with any static routes that don't directly map to events
@@ -57,7 +57,7 @@ console.log('Admin routes:', ROUTES);
 
 // Create entityRegistry for backward compatibility
 export const entityRegistry = {};
-const events = getAdminSafeEventTypes();
+const events = getSafeEventTypes('admin');
 events.forEach(event => {
   if (event.routePath) {
     entityRegistry[event.eventType] = {

@@ -35,6 +35,15 @@ export { useModal } from "./components/modals/useModal.js";
 
 // Export form components
 export { default as DatePick } from "./components/forms/DatePick.jsx";
+export {
+  TextField,
+  MultiLineField,
+  Select,
+  NumberField,
+  DecimalField,
+  DateField,
+  BooleanField,
+} from "./components/forms/index.js";
 
 // Export selector components (PascalCase names)
 export {

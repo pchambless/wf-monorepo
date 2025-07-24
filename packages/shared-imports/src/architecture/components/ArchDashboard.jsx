@@ -50,15 +50,11 @@ const ArchDashboard = () => {
   };
 
   return (
-    <Box p={3}>
-      <Typography variant="h4" gutterBottom>
+    <Box p={1}>
+      <Typography variant="h4" gutterBottom sx={{ mb: 1 }}>
         <ArchIcon sx={{ mr: 2, verticalAlign: "middle" }} />
         Project Command Center
       </Typography>
-
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Strategic workflow hub - will migrate to admin app when ready
-      </Alert>
 
       {/* Main Tab Navigation */}
       <Card>

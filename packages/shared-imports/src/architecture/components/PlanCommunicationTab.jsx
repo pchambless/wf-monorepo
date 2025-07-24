@@ -15,6 +15,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Chip,
 } from "@mui/material";
 
 // Import communication components
@@ -34,11 +35,6 @@ const PlanCommunicationTab = () => {
         Strategic Communication Hub
       </Typography>
 
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Bridge the gap between strategic business decisions and AI
-        implementation
-      </Alert>
-
       {/* Communication Sub-Tabs */}
       <Card>
         <CardHeader
@@ -47,6 +43,23 @@ const PlanCommunicationTab = () => {
               <Tab label="New Communication" />
               <Tab label="Communication History" />
             </Tabs>
+          }
+          action={
+            activeTab === 0 && (
+              <Chip
+                label="Reset Form"
+                variant="outlined"
+                size="small"
+                onClick={() => {
+                  window.dispatchEvent(
+                    new CustomEvent("resetForm", {
+                      detail: { tool: "communication" },
+                    })
+                  );
+                }}
+                sx={{ cursor: "pointer" }}
+              />
+            )
           }
         />
         <CardContent>

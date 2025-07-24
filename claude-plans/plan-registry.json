@@ -3,7 +3,7 @@
     "created": "2025-07-18",
     "description": "Master registry of all development plans with ID-to-name mapping",
     "version": "1.0",
-    "next_id": 16
+    "next_id": 20
   },
   "plans": [
     {
@@ -168,6 +168,27 @@
       "filename": "0016-DEVTOOLS-User-Communication-Interface.md",
       "status": "ongoing",
       "created": "2025-07-22"
+    },
+    {
+      "id": "0018",
+      "name": "Database Migration & Event Integration",
+      "cluster": "PLANS",
+      "tags": [
+        "PLANS",
+        "DATABASE",
+        "DEVTOOLS"
+      ],
+      "filename": "0018-PLANS-Database-Migration-Event-Integration.md",
+      "status": "active",
+      "created": "2025-07-22"
+    },
+    {
+      "id": "0019",
+      "name": "Planning Enhancements",
+      "cluster": "DEVTOOLS",
+      "filename": "0019-DEVTOOLS-Planning-Enhancements.md",
+      "status": "active",
+      "created": "2025-07-23"
     }
   ]
 }

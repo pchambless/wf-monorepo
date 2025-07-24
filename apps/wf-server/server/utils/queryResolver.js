@@ -5,7 +5,7 @@ const codeName = '[queryResolver.js]';
 const replacePlaceholder = (qrySQL, paramName, paramValue) => {
   // Handle parameters with : prefix - escape special regex characters
   const escapedParamName = paramName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const regex = new RegExp(escapedParamName, 'g');
+  const regex = new RegExp(`:${escapedParamName}`, 'g');
   return qrySQL.replace(regex, paramValue);
 };
 

@@ -1,5 +1,4 @@
 {
-    "verbose": false,
     "env": {
         "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
         "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "2048",
@@ -7,17 +6,17 @@
         "DISABLE_TELEMETRY": "1",
         "DISABLE_AUTOUPDATER": "1",
         "DISABLE_ERROR_REPORTING": "1",
-        "CLAUDE_WORKING_DIRECTORY": "/home/paul/wf-monorepo-new" // ← Set default context
+        "CLAUDE_WORKING_DIRECTORY": "/home/paul/wf-monorepo-new"
     },
     "permissions": {
         "allow": [
             "Bash(npm run *)",
             "Bash(git *)",
-            "Bash(node packages/devtools/src/automation/*)", // ← Your frequent commands
+            "Bash(node packages/devtools/src/automation/*)",
             "Edit",
             "Read(**)",
             "Write(**)",
-            "TodoWrite" // ← You use this for tracking
+            "TodoWrite"
         ],
         "deny": [
             "WebFetch",
@@ -25,7 +24,27 @@
         ]
     },
     "hooks": {
-        "pre_session": "Check AI/session-startup.md", // ← Your working documentation
-        "plan_context": "Reference .kiro/steering.yaml" // ← Shared intelligence
+        "PreToolUse": [
+            {
+                "matcher": "tools:BashTool",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "echo 'Checking session startup guide...'"
+                    }
+                ]
+            }
+        ],
+        "UserPromptSubmit": [
+            {
+                "matcher": "always",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "echo 'Referencing .kiro/steering.yaml'"
+                    }
+                ]
+            }
+        ]
     }
 }

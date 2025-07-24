@@ -90,6 +90,20 @@ monorepo_structure:
     - "Database schema modifications affecting generated code"
     - "New widget types or complex field configurations"
 
+  # File modification best practices
+  file_modification:
+    approach: "read_first_then_replace"
+    rules:
+      - "ALWAYS read file first to understand current structure"
+      - "Make small, targeted replacements instead of large block replacements"
+      - "Avoid blind string replacements that are likely to fail"
+      - "Use readFile before strReplace to see exact text structure"
+    
+    anti_patterns:
+      - "Large multi-line string replacements without reading file first"
+      - "Assuming file structure without verification"
+      - "Repeated failed replacements followed by file reading"
+
   # Efficiency settings by plan type
   plan_efficiency:
     low_complexity:

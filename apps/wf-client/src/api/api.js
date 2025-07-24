@@ -1,6 +1,6 @@
 import { createLogger } from '@whatsfresh/shared-imports';
 import { useCallback } from 'react';
-import { getClientSafeEventTypes } from '@whatsfresh/shared-imports';
+import { getSafeEventTypes } from '@whatsfresh/shared-imports/events';
 
 const log = createLogger('API');
 
@@ -64,7 +64,7 @@ export const execEventType = async (eventType, params = {}) => {
  */
 export const fetchEventList = () => {
   log.debug('Using client-safe event types from shared-events package');
-  return getClientSafeEventTypes();
+  return getSafeEventTypes('client');
 };
 
 /**

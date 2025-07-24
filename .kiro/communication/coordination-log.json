@@ -133,6 +133,41 @@
       "description": "DML processor needs configDML.primaryKey configuration to complete Plan 0011 unblocking. Final piece of directiveMap integration.",
       "scope": "genPageMaps.js + dmlProcessor.js enhancement",
       "effort_estimate": "1-2 hours"
+    },
+    {
+      "id": "009",
+      "timestamp": "2025-07-22T12:00:00Z",
+      "type": "ui-enhancement-batch",
+      "from": "claude",
+      "to": "kiro",
+      "subject": "Plan 0016 UI Enhancements - Comprehensive Layout Improvements",
+      "status": "awaiting-kiro-implementation",
+      "priority": "high",
+      "affects_plan": "0016",
+      "files": [
+        ".kiro/communication/claude-requests/plan-0016-ui-enhancements-batch-2025-07-22.md"
+      ],
+      "description": "Comprehensive UI improvements based on user testing feedback - left/right layout pattern, space efficiency, plan selector dropdowns, and workflow optimization",
+      "scope": "Layout restructuring across all three tabs with enhanced functionality",
+      "user_feedback_driven": true
+    },
+    {
+      "id": "010",
+      "timestamp": "2025-07-22T13:30:00Z",
+      "type": "critical-ui-fixes",
+      "from": "claude",
+      "to": "kiro",
+      "subject": "Plan 0016 UI Fixes - Form Components & Layout Issues",
+      "status": "awaiting-kiro-implementation",
+      "priority": "critical",
+      "affects_plan": "0016",
+      "files": [
+        ".kiro/communication/claude-requests/plan-0016-ui-fixes-form-components-2025-07-22.md"
+      ],
+      "description": "Critical UI fixes - text display issues, missing left/right layout pattern, form component problems. Interface currently not usable.",
+      "scope": "Use existing form renderers, implement consistent left/right layout across all tabs, fix missing functionality",
+      "blocking_issue": "Communication interface unusable for substantial text input",
+      "root_cause": "Generic MUI components instead of existing form renderers"
     }
   ]
 }

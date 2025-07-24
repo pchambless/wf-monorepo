@@ -1,0 +1,37 @@
+[
+    {
+        "value": "strategic-input",
+        "label": "Strategic Input",
+        "description": "Provide business context and strategic direction",
+        "color": "primary",
+        "icon": "🎯"
+    },
+    {
+        "value": "priority-change",
+        "label": "Priority Change",
+        "description": "Modify plan priorities or urgency levels",
+        "color": "warning",
+        "icon": "⚡"
+    },
+    {
+        "value": "scope-modification",
+        "label": "Scope Modification",
+        "description": "Adjust plan scope or requirements",
+        "color": "info",
+        "icon": "📋"
+    },
+    {
+        "value": "architectural-guidance",
+        "label": "Architectural Guidance",
+        "description": "Provide technical direction or constraints",
+        "color": "secondary",
+        "icon": "🏗️"
+    },
+    {
+        "value": "business-requirement",
+        "label": "Business Requirement",
+        "description": "New business needs or constraints",
+        "color": "success",
+        "icon": "💼"
+    }
+]

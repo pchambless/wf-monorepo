@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "analyze-deps": "madge apps/wf-client/src apps/wf-admin/src apps/wf-server/server packages/shared-imports/src --json > packages/shared-imports/src/architecture/data/madge-analysis.json",
+    "analyze-deps": "madge . --json > packages/shared-imports/src/architecture/data/raw-madge.json && node packages/shared-imports/src/architecture/scripts/enhance-madge.cjs",
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
     "dev": "turbo run dev --filter=wf-client",
     "dev:all": "turbo run dev",

@@ -69,6 +69,25 @@ const PlanToolsTab = () => {
               ? "Complete Plan"
               : "Impact Tracking Editor"
           }
+          action={
+            selectedTool !== "impact-tracking" && (
+              <Chip
+                label="Reset Form"
+                variant="outlined"
+                size="small"
+                onClick={() => {
+                  // This will trigger a reset in the child components
+                  // We'll need to pass a reset function down
+                  window.dispatchEvent(
+                    new CustomEvent("resetForm", {
+                      detail: { tool: selectedTool },
+                    })
+                  );
+                }}
+                sx={{ cursor: "pointer" }}
+              />
+            )
+          }
         />
         <CardContent>
           {/* Create Plan Tool */}

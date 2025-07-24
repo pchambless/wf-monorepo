@@ -1,4 +1,4 @@
-import { eventTypes, getEventType } from '@whatsfresh/shared-imports/events';
+import { getAllEvents, getEventType } from '@whatsfresh/shared-imports/events';
 import logger from './logger.js';
 
 const codeName = '[eventTypeManager.js]';
@@ -41,10 +41,10 @@ function validateEventParams(event, params = {}) {
 const eventTypeManager = {
   getEventConfig,
   validateEventParams,
-  eventTypes: eventTypes.EVENTS,
+  eventTypes: getAllEvents(),
 
   // For backwards compatibility with existing code:
-  getEventTypes: () => Promise.resolve(eventTypes.EVENTS),
+  getEventTypes: () => Promise.resolve(getAllEvents()),
   findEventType: (eventType) => Promise.resolve(getEventType(eventType))
 };
 
