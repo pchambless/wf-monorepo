@@ -27,21 +27,32 @@ import {
 import {
   getPriorityOptions,
   getCommunicationTypeOptions,
-  getActivePlans,
 } from "../../../utils/configLoader.js";
 
-// Load configuration data
-const PRIORITY_LEVELS = getPriorityOptions();
-const COMMUNICATION_TYPES = getCommunicationTypeOptions();
-const PLAN_OPTIONS = getActivePlans();
+// Import workflow functions
+import { createCommunication } from "../../workflows/index.js";
 
-const UserCommunicationForm = () => {
+// Create agent response communication
+const createAgentResponse = async (originalPlanId, toAgent, type, subject, message) => {
+  return await createCommunication(
+    originalPlanId,
+    type,
+    subject, 
+    message,
+    "claude" // from_agent
+  );
+};
+
+// Load configuration data with safety checks
+const PRIORITY_LEVELS = getPriorityOptions() || [];
+const COMMUNICATION_TYPES = getCommunicationTypeOptions() || [];
+
+const UserCommunicationForm = ({ selectedPlan }) => {
   const [formData, setFormData] = useState({
     type: "strategic-input",
     priority: "normal",
     subject: "",
     message: "",
-    affectedPlans: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState(null);
@@ -55,7 +66,6 @@ const UserCommunicationForm = () => {
           priority: "normal",
           subject: "",
           message: "",
-          affectedPlans: "",
         });
         setSubmitResult(null);
       }
@@ -66,22 +76,38 @@ const UserCommunicationForm = () => {
   }, []);
 
   const handleSubmit = async () => {
+    console.log("🚀 handleSubmit called");
+    console.log("📋 Form data:", formData);
+    console.log("🎯 Selected plan:", selectedPlan);
+    console.log("✅ Form valid:", formData.subject && formData.message && selectedPlan);
+    
     setIsSubmitting(true);
     setSubmitResult(null);
 
     try {
-      // Simulate communication submission (Phase 3 implementation)
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Get userID from contextStore for audit trail
+      const { contextStore } = await import("@whatsfresh/shared-imports");
+      const userID = contextStore.getParameter("firstName") || "user";
 
-      // TODO: Replace with actual coordination system integration
-      const communicationId = `user-${Date.now()}`;
+      // Call actual communication workflow
+      console.log("📞 Calling createCommunication with planId:", selectedPlan);
+      const result = await createCommunication(
+        selectedPlan,
+        formData.type,
+        formData.subject,
+        formData.message,
+        userID
+      );
 
-      setSubmitResult({
-        success: true,
-        message: `Strategic communication submitted successfully! (ID: ${communicationId})`,
-        details:
-          "Your input has been added to the coordination system and will be reviewed by Claude and Kiro.",
-      });
+      if (result.success) {
+        setSubmitResult({
+          success: true,
+          message: `Communication ${result.paddedCommunicationId} created successfully!`,
+          details: `Sent to ${result.recipient}. ${result.details.description}`,
+        });
+      } else {
+        throw new Error(result.message);
+      }
 
       // Reset form
       setFormData({
@@ -89,7 +115,6 @@ const UserCommunicationForm = () => {
         priority: "normal",
         subject: "",
         message: "",
-        affectedPlans: "",
       });
     } catch (error) {
       setSubmitResult({
@@ -101,7 +126,7 @@ const UserCommunicationForm = () => {
     }
   };
 
-  const isFormValid = formData.subject && formData.message && formData.affectedPlans;
+  const isFormValid = formData.subject && formData.message && selectedPlan;
   const selectedType = COMMUNICATION_TYPES.find(
     (type) => type.value === formData.type
   );
@@ -126,15 +151,12 @@ const UserCommunicationForm = () => {
       <Grid container spacing={3}>
         {/* Left Column - Quick Controls */}
         <Grid item xs={12} md={4}>
-          {/* Primary Plan Dropdown */}
-          <Select
-            label="Primary Plan"
-            value={formData.affectedPlans}
-            onChange={(value) =>
-              setFormData((prev) => ({ ...prev, affectedPlans: value }))
-            }
-            options={PLAN_OPTIONS}
-          />
+          {/* Plan context provided by parent dashboard */}
+          {selectedPlan && (
+            <Alert severity="info" sx={{ mb: 2 }}>
+              Working with Plan: {selectedPlan}
+            </Alert>
+          )}
 
           {/* Priority Level */}
           <Select

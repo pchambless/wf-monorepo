@@ -3,6 +3,15 @@
   ## User Idea
   [Raw text description of issue, feature request, or hoped-for result]
 
+  ## Supporting Assets
+  <!-- Optional: List supporting files that aid understanding of requirements -->
+  <!-- Images: claude-plans/assets/images/[filename] -->
+  <!-- SQL: claude-plans/assets/sql/[filename] -->
+  <!-- Examples:
+  - **Images**: `claude-plans/assets/images/dashboard-mockup.png` - Target UI layout
+  - **SQL**: `claude-plans/assets/sql/user-query.sql` - Required data structure
+  -->
+
   ---
 
   ## Claude Analysis

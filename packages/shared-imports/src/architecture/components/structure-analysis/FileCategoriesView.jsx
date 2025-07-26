@@ -26,11 +26,21 @@ import { Settings as ConfigIcon } from "@mui/icons-material";
 
 // Helper function to extract package name from file path
 const getPackageFromPath = (filePath) => {
-  if (filePath.startsWith("apps/wf-client")) return "wf-client";
-  if (filePath.startsWith("apps/wf-admin")) return "wf-admin";
-  if (filePath.startsWith("apps/wf-server")) return "wf-server";
-  if (filePath.startsWith("packages/shared-imports")) return "shared-imports";
-  if (filePath.startsWith("packages/devtools")) return "devtools";
+  if (filePath.startsWith("apps/wf-client")) {
+    return "wf-client";
+  }
+  if (filePath.startsWith("apps/wf-admin")) {
+    return "wf-admin";
+  }
+  if (filePath.startsWith("apps/wf-server")) {
+    return "wf-server";
+  }
+  if (filePath.startsWith("packages/shared-imports")) {
+    return "shared-imports";
+  }
+  if (filePath.startsWith("packages/devtools")) {
+    return "devtools";
+  }
   return "unknown";
 };
 

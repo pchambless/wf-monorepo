@@ -17,8 +17,11 @@ import {
 // Import config data
 import { getClusterOptions } from "../../../utils/configLoader.js";
 
+// Import workflow functions
+import { createPlan } from "../../workflows/plans";
+
 // Load configuration data
-const CLUSTER_OPTIONS = getClusterOptions();
+const CLUSTER_OPTIONS = getClusterOptions() || [];
 
 // Complexity options
 const COMPLEXITY_OPTIONS = [
@@ -70,116 +73,44 @@ const CreatePlanForm = () => {
     setSubmitResult(null);
 
     try {
-      // Database-native plan creation (Plan 0018)
-      const { execDml } = await import("@whatsfresh/shared-imports/api");
-
-      // Step 1: Create plan record in database (auto-increment ID)
+      // Use atomic workflow module (Business Workflow Modules pattern)
       const planData = {
         cluster: formData.cluster,
         name: formData.planName,
         description: formData.description,
-        status: "pending",
         priority: formData.priority,
-        created_by: "user",
-        created_at: new Date().toISOString(),
+        complexity: formData.complexity, // Additional metadata
       };
 
-      console.log("Creating plan in database:", planData);
-      const planResult = await execDml({
-        table: "api_wf.plans",
-        operation: "INSERT",
-        data: planData,
-      });
+      // Get proper userID - firstName from contextStore for user actions
+      const { contextStore } = await import("@whatsfresh/shared-imports");
+      const userID = contextStore.getParameter("firstName") || "user";
 
-      if (!planResult || !planResult.success) {
-        throw new Error(
-          planResult?.error || "Failed to create plan in database"
-        );
+      console.log("Creating plan via workflow:", planData);
+      const result = await createPlan(planData, userID);
+
+      if (result.success) {
+        setSubmitResult({
+          success: true,
+          planId: result.paddedPlanId,
+          message: result.message,
+          details: result.details,
+        });
+
+        // Reset form on success
+        setFormData({
+          cluster: "",
+          planName: "",
+          description: "",
+          complexity: "medium",
+          priority: "normal",
+        });
+      } else {
+        setSubmitResult({
+          success: false,
+          message: result.message,
+        });
       }
-
-      const planId = planResult.insertId || planResult.id;
-      const paddedPlanId = planId.toString().padStart(4, "0");
-
-      // Step 2: Create markdown file
-      const filename = `${paddedPlanId}-${
-        formData.cluster
-      }-${formData.planName.replace(/[^a-zA-Z0-9]/g, "-")}.md`;
-      const filePath = `claude-plans/a-pending/${filename}`;
-
-      const markdownContent = `# ${formData.planName}
-
-## Plan Overview
-${formData.description}
-
-## Implementation Details
-- **Plan ID**: ${paddedPlanId}
-- **Cluster**: ${formData.cluster}
-- **Priority**: ${formData.priority}
-- **Complexity**: ${formData.complexity}
-- **Status**: Pending
-- **Created**: ${new Date().toISOString()}
-- **Created By**: User
-
-## Next Steps
-- [ ] Review and approve plan
-- [ ] Assign implementation resources
-- [ ] Begin implementation
-
----
-*This plan was created through the Architecture Intel Dashboard.*
-`;
-
-      // Step 3: Track document in plan_documents table
-      const documentResult = await execDml({
-        table: "api_wf.plan_documents",
-        operation: "INSERT",
-        data: {
-          plan_id: planId,
-          document_type: "plan",
-          file_path: filePath,
-          title: formData.planName,
-          author: "user",
-          status: "draft",
-          created_by: "user",
-          created_at: new Date().toISOString(),
-        },
-      });
-
-      // Step 4: Track impact for document creation milestone
-      const impactResult = await execDml({
-        table: "api_wf.plan_impacts",
-        operation: "INSERT",
-        data: {
-          plan_id: planId,
-          file_path: filePath,
-          change_type: "CREATED",
-          status: "completed",
-          description: `Plan document created: ${formData.planName}`,
-          created_by: "user",
-          created_at: new Date().toISOString(),
-        },
-      });
-
-      // Note: In a real implementation, we'd also need to actually write the file to disk
-      // For now, we'll log the content that should be saved
-      console.log("Plan document content to save:", markdownContent);
-      console.log("File path:", filePath);
-
-      setSubmitResult({
-        success: true,
-        planId: paddedPlanId,
-        message: `Plan ${paddedPlanId} created successfully!`,
-        details: `Plan document created at ${filePath} and tracked in database.`,
-      });
-
-      // Reset form
-      setFormData({
-        cluster: "",
-        planName: "",
-        description: "",
-        complexity: "medium",
-        priority: "normal",
-      });
     } catch (error) {
       console.error("Error creating plan:", error);
       setSubmitResult({

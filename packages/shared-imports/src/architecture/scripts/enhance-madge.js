@@ -16,22 +16,34 @@ const rawData = JSON.parse(fs.readFileSync(rawFile, 'utf8'));
 const dependents = {};
 Object.keys(rawData).forEach(file => {
     rawData[file].forEach(dep => {
-        if (!dependents[dep]) dependents[dep] = [];
+        if (!dependents[dep]) {
+          dependents[dep] = [];
+        }
         dependents[dep].push(file);
     });
 });
 
 // Helper functions
 const getPackage = (file) => {
-    if (file.startsWith('apps/wf-client/')) return 'wf-client';
-    if (file.startsWith('apps/wf-server/')) return 'wf-server';
-    if (file.startsWith('packages/shared-imports/')) return 'shared-imports';
+    if (file.startsWith('apps/wf-client/')) {
+      return 'wf-client';
+    }
+    if (file.startsWith('apps/wf-server/')) {
+      return 'wf-server';
+    }
+    if (file.startsWith('packages/shared-imports/')) {
+      return 'shared-imports';
+    }
     return 'other';
 };
 
 const getBlastRadius = (count) => {
-    if (count >= 8) return 'high';
-    if (count >= 4) return 'medium';
+    if (count >= 8) {
+      return 'high';
+    }
+    if (count >= 4) {
+      return 'medium';
+    }
     return 'low';
 };
 

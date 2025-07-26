@@ -45,8 +45,8 @@ const pageMap = {
       },
       {
         "field": "unitQty",
-        "label": "Unit Qty",
-        "width": "80",
+        "label": "Qty",
+        "width": "60",
         "type": "decimal",
         "editable": true,
         "hidden": false
@@ -61,7 +61,7 @@ const pageMap = {
       },
       {
         "field": "purchQty",
-        "label": "Purchase Qty",
+        "label": "Purch Qty",
         "width": "100",
         "type": "decimal",
         "editable": true,

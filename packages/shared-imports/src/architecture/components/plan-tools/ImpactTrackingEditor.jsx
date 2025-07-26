@@ -31,19 +31,16 @@ import {
 } from "@mui/icons-material";
 
 // Import our form components
-import { TextField, Select } from "@whatsfresh/shared-imports/jsx";
+import { TextField } from "@whatsfresh/shared-imports/jsx";
 
 // Impact data loaded from database via planImpactList eventType
 
-const ImpactTrackingEditor = () => {
+const ImpactTrackingEditor = ({ selectedPlan }) => {
   const [impactData, setImpactData] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
-  const [filterPlan, setFilterPlan] = useState("");
   const [loading, setLoading] = useState(true);
-  const [planOptions, setPlanOptions] = useState([
-    { value: "", label: "All Plans" },
-  ]);
+  // Uses selectedPlan from parent ArchDashboard
 
   // Load impact data from database
   useEffect(() => {
@@ -55,22 +52,15 @@ const ImpactTrackingEditor = () => {
 
         // Use planImpactList eventType (eventID: 103)
         // Load all impacts first, then filter by plan if needed
-        const result = await execEvent("planImpactList", {});
+        // Set planID parameter in contextStore
+        contextStore.setParameter("planID", planID);
+
+        const result = await execEvent("planImpactList");
 
         if (result && Array.isArray(result)) {
           setImpactData(result);
 
-          // Generate plan options from loaded data
-          const uniquePlans = Array.from(
-            new Set(result.map((item) => item.plan_id))
-          )
-            .sort()
-            .map((planId) => ({
-              value: planId.toString(),
-              label: `Plan ${planId.toString().padStart(4, "0")}`,
-            }));
-
-          setPlanOptions([{ value: "", label: "All Plans" }, ...uniquePlans]);
+          // Plan options handled by SelPlan widget
         } else {
           setImpactData([]);
         }
@@ -184,11 +174,11 @@ const ImpactTrackingEditor = () => {
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
-              <Select
+              <SelPlan
                 label="Filter by Plan"
                 value={filterPlan}
                 onChange={(value) => setFilterPlan(value)}
-                options={planOptions}
+                placeholder="All Plans"
               />
             </Grid>
             <Grid item xs={12} md={8}>

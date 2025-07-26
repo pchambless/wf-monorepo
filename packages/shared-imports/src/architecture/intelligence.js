@@ -62,23 +62,18 @@ const PACKAGES = {
 
 /**
  * Calculate reverse dependency counts for all files
+ * Uses enhanced madge data structure with files.{file}.dependencies
  */
 function calculateDependentCounts(madgeData) {
   const dependentCounts = {};
 
-  // Initialize all files with 0 dependents
-  Object.keys(madgeData).forEach((file) => {
-    dependentCounts[file] = { file, count: 0, dependents: [] };
-  });
-
-  // Count reverse dependencies
-  Object.entries(madgeData).forEach(([file, dependencies]) => {
-    dependencies.forEach((dep) => {
-      if (dependentCounts[dep]) {
-        dependentCounts[dep].count++;
-        dependentCounts[dep].dependents.push(file);
-      }
-    });
+  // Initialize all files with data from enhanced structure
+  Object.entries(madgeData.files || {}).forEach(([file, fileData]) => {
+    dependentCounts[file] = { 
+      file, 
+      count: fileData.dependent_count || 0, 
+      dependents: fileData.dependents || []
+    };
   });
 
   return Object.values(dependentCounts).sort((a, b) => b.count - a.count);
@@ -92,13 +87,16 @@ function categorizeByImpact(dependentCounts) {
 
   dependentCounts.forEach((item) => {
     let categoryId;
-    if (item.count >= 8) categoryId = 1; // CRITICAL_CORE
-    else if (item.count >= 4) categoryId = 2; // HIGH_IMPACT
-    else if (item.count >= 2) categoryId = 3; // MEDIUM_IMPACT
-    else if (item.count === 1) categoryId = 4; // LOW_IMPACT
-    else categoryId = 5; // LEAF_NODES
+    if (item.count >= 8) {
+      categoryId = 1;
+    } else if (item.count >= 4) categoryId = 2; // HIGH_IMPACT
+        else if (item.count >= 2) categoryId = 3; // MEDIUM_IMPACT
+        else if (item.count === 1) categoryId = 4; // LOW_IMPACT
+        else categoryId = 5; // LEAF_NODES
 
-    if (!categories[categoryId]) categories[categoryId] = [];
+    if (!categories[categoryId]) {
+      categories[categoryId] = [];
+    }
     categories[categoryId].push(item);
   });
 
@@ -111,8 +109,9 @@ function categorizeByImpact(dependentCounts) {
 function identifyCrossPackageDependencies(madgeData) {
   const crossPackageDeps = [];
 
-  Object.entries(madgeData).forEach(([file, dependencies]) => {
+  Object.entries(madgeData.files || {}).forEach(([file, fileData]) => {
     const filePackage = getPackageId(file);
+    const dependencies = fileData.dependencies || [];
 
     dependencies.forEach((dep) => {
       const depPackage = getPackageId(dep);
@@ -136,6 +135,11 @@ function identifyCrossPackageDependencies(madgeData) {
  * Get package ID for a file path
  */
 function getPackageId(filePath) {
+  // Ensure filePath is a string before processing
+  if (typeof filePath !== 'string') {
+    return 0; // Unknown package
+  }
+  
   for (const [id, pkg] of Object.entries(PACKAGES)) {
     if (filePath.startsWith(pkg.path)) {
       return parseInt(id);

@@ -36,6 +36,7 @@ import {
   batchRegisterDocuments,
   getRegisteredDocuments,
 } from "../../packages/shared-imports/src/services/documentService.js";
+import { logImpact } from "../../packages/shared-imports/src/services/impactService.js";
 
 // Get current directory for relative path resolution
 const __filename = fileURLToPath(import.meta.url);
@@ -65,6 +66,12 @@ if (planIndex !== -1 && args[planIndex + 1]) {
 const planIdIndex = args.indexOf("--plan-id");
 if (planIdIndex !== -1 && args[planIdIndex + 1]) {
   options.planId = parseInt(args[planIdIndex + 1], 10);
+}
+
+// Also check for --plan-id=<value> format
+const planIdArg = args.find((arg) => arg.startsWith("--plan-id="));
+if (planIdArg) {
+  options.planId = parseInt(planIdArg.split("=")[1], 10);
 }
 
 // Check for document type argument
@@ -233,18 +240,41 @@ async function createDocument(type, planId, createdBy) {
     // Create the file
     fs.writeFileSync(fullPath, content, "utf8");
 
-    // Register in database
-    const metadata = parseDocumentMetadata(filePath, content);
-    metadata.author = createdBy;
-    metadata.created_by = createdBy;
+    // Get the proper creator name for audit trails
+    const creatorName = await getCreatorName(createdBy);
+
+    // Create metadata directly for create mode (don't rely on extraction)
+    const metadata = {
+      plan_id: planId,
+      document_type: type,
+      file_path: filePath,
+      title: title,
+      author: creatorName,
+      status: "draft",
+      created_by: creatorName,
+    };
 
     const registerResult = await batchRegisterDocuments([metadata], planId);
+
+    // Log the impact for tracking
+    const impactResult = await logImpact({
+      planId: planId,
+      filePath: filePath,
+      changeType: "CREATED",
+      description: `Created ${type} document: ${title} (by ${createdBy})`,
+      createdBy: creatorName,
+    });
+
+    if (options.verbose && impactResult.success) {
+      console.log(`📊 Impact logged: ${impactResult.message}`);
+    }
 
     return {
       success: true,
       filePath: filePath,
       title: title,
       registered: registerResult.summary.registered > 0,
+      impactLogged: impactResult.success,
       message: `Created ${type} document: ${title}`,
     };
   } catch (error) {
@@ -357,7 +387,9 @@ function generateInvestigationGuideTemplate(planId, title) {
 
 ## Investigation Scope
 **Objective**: [What are we trying to understand or determine?]
-**Context**: [Why is this investigation needed for Plan ${planId.toString().padStart(4, "0")}?]
+**Context**: [Why is this investigation needed for Plan ${planId
+    .toString()
+    .padStart(4, "0")}?]
 
 ## Code References
 ### Key Files to Examine
@@ -451,6 +483,28 @@ function generateInvestigationGuideTemplate(planId, title) {
 }
 
 /**
+ * Get the proper creator name for audit trails
+ * @param {string} creatorType - 'user', 'claude', 'kiro'
+ * @returns {string} - Actual name for created_by field
+ */
+async function getCreatorName(creatorType) {
+  const { default: contextStore } = await import(
+    "../../packages/shared-imports/src/stores/contextStore.js"
+  );
+
+  switch (creatorType) {
+    case "user":
+      return contextStore.getParameter("firstName") || "Paul";
+    case "claude":
+      return "Claude";
+    case "kiro":
+      return "Kiro";
+    default:
+      return creatorType; // fallback
+  }
+}
+
+/**
  * Handle create mode - Plan 0019 enhancement
  * Creates new documents and automatically registers them in database
  */
@@ -479,7 +533,9 @@ async function handleCreateMode() {
 
   // Validate type
   if (!["plan", "spec", "issue", "investigation"].includes(options.type)) {
-    console.error("Error: --type must be one of: plan, spec, issue, investigation");
+    console.error(
+      "Error: --type must be one of: plan, spec, issue, investigation"
+    );
     process.exit(1);
   }
 
@@ -765,25 +821,53 @@ async function main() {
 if (args.includes("--help") || args.includes("-h")) {
   console.log(`
 Universal Document Update Script
-Part of Plan 0018 Phase 3: Document Management Integration
+Enhanced for Plan 0019: Database-First Planning System
 
-Usage:
+MODES:
+  1. Legacy Mode: Register existing documents in database
+  2. Create Mode: Create new documents with automatic database registration
+
+LEGACY MODE USAGE:
   node claude-plans/tools/document-update.js --plan <id> [options]
 
-Required:
-  --plan <id>        Plan ID to process documents for
+  Required:
+    --plan <id>        Plan ID to process documents for
 
-Options:
-  --dry-run          Show what would be registered without making changes
-  --file <path>      Register specific file only
-  --verbose          Show detailed output
+  Options:
+    --dry-run          Show what would be registered without making changes
+    --file <path>      Register specific file only
+    --verbose          Show detailed output
+
+  Examples:
+    node claude-plans/tools/document-update.js --plan 18
+    node claude-plans/tools/document-update.js --plan 18 --dry-run
+    node claude-plans/tools/document-update.js --plan 18 --verbose
+
+CREATE MODE USAGE (Plan 0019 Enhancement):
+  node claude-plans/tools/document-update.js --create --type=<type> --plan-id=<id> --by=<creator> [options]
+
+  Required:
+    --create           Enable create mode
+    --type=<type>      Document type: plan, spec, issue
+    --plan-id=<id>     Plan ID for the new document
+    --by=<creator>     Creator: user, claude, kiro
+
+  Options:
+    --dry-run          Show what would be created without making changes
+    --verbose          Show detailed output
+
+  Examples:
+    node claude-plans/tools/document-update.js --create --type=plan --plan-id=19 --by=user
+    node claude-plans/tools/document-update.js --create --type=spec --plan-id=19 --by=kiro
+    node claude-plans/tools/document-update.js --create --type=issue --plan-id=19 --by=claude --dry-run
+
+DOMAIN BOUNDARIES (Plan 0019):
+  • Plans: Created by users via Architecture Dashboard
+  • Specs: Created by Kiro for implementation details
+  • Issues: Created by Claude/users for problem tracking
+
+General Options:
   --help, -h         Show this help message
-
-Examples:
-  node claude-plans/tools/document-update.js --plan 18
-  node claude-plans/tools/document-update.js --plan 18 --dry-run
-  node claude-plans/tools/document-update.js --plan 18 --file .kiro/specs/0018-feature/design.md
-  node claude-plans/tools/document-update.js --plan 18 --verbose
 `);
   process.exit(0);
 }

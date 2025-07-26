@@ -16,7 +16,7 @@ const buildInsertSQL = (table, data, userID) => {
 
   // Add audit fields
   columns.push("created_at", "created_by");
-  values.push("NOW()", userID);
+  values.push("NOW()", formatValue(userID));
 
   return `INSERT INTO ${table} (${columns.join(", ")}) VALUES (${values.join(
     ", "
@@ -40,7 +40,7 @@ const buildUpdateSQL = (table, data, primaryKey, userID) => {
   });
 
   // Add audit fields
-  setClauses.push("updated_at = NOW()", `updated_by = ${userID}`);
+  setClauses.push("updated_at = NOW()", `updated_by = ${formatValue(userID)}`);
 
   return `UPDATE ${table} SET ${setClauses.join(
     ", "
@@ -50,8 +50,8 @@ const buildUpdateSQL = (table, data, primaryKey, userID) => {
 /**
  * Build DELETE SQL
  */
-const buildDeleteSQL = (table, data, primaryKey) => {
-  const whereValue = data[primaryKey];
+const buildDeleteSQL = (table, data, primaryKey, primaryKeyValue) => {
+  const whereValue = primaryKeyValue || data[primaryKey];
   return `DELETE FROM ${table} WHERE ${primaryKey} = ${formatValue(
     whereValue
   )}`;
@@ -60,11 +60,11 @@ const buildDeleteSQL = (table, data, primaryKey) => {
 /**
  * Build soft delete SQL with audit fields
  */
-const buildSoftDeleteSQL = (table, data, primaryKey, userID) => {
-  const whereValue = data[primaryKey];
-  return `UPDATE ${table} SET deleted_at = NOW(), deleted_by = ${userID} WHERE ${primaryKey} = ${formatValue(
-    whereValue
-  )}`;
+const buildSoftDeleteSQL = (table, data, primaryKey, primaryKeyValue, userID) => {
+  const whereValue = primaryKeyValue || data[primaryKey];
+  return `UPDATE ${table} SET deleted_at = NOW(), deleted_by = ${formatValue(
+    userID
+  )} WHERE ${primaryKey} = ${formatValue(whereValue)}`;
 };
 
 /**

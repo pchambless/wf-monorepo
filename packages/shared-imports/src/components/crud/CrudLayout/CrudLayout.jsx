@@ -35,7 +35,9 @@ const CrudLayout = ({ pageMap }) => {
 
   // Fetch data using execEvent from shared-imports
   const fetchData = async (listEvent, additionalParams = {}) => {
-    if (!listEvent) return;
+    if (!listEvent) {
+      return;
+    }
 
     try {
       setLoading(true);

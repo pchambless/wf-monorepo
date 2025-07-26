@@ -23,12 +23,7 @@ import {
   Select,
 } from "@whatsfresh/shared-imports/jsx";
 
-// Import config data
-import { getCompletablePlans } from "../../../utils/configLoader.js";
-
-// Plan options will be loaded asynchronously
-
-// Plan details will be loaded from database via planOptions
+// SelPlan widget handles plan loading automatically via planList event
 
 const STATUS_OPTIONS = [
   { value: "completed", label: "Completed Successfully", color: "success" },
@@ -41,38 +36,17 @@ const STATUS_OPTIONS = [
   },
 ];
 
-const CompletePlanForm = () => {
-  const [selectedPlan, setSelectedPlan] = useState("");
+const CompletePlanForm = ({ selectedPlan }) => {
   const [completionStatus, setCompletionStatus] = useState("completed");
   const [completionNotes, setCompletionNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState(null);
-  const [planOptions, setPlanOptions] = useState([]);
-  const [loadingPlans, setLoadingPlans] = useState(true);
-
-  // Load plan options from database
-  useEffect(() => {
-    const loadPlans = async () => {
-      setLoadingPlans(true);
-      try {
-        const plans = await getCompletablePlans();
-        setPlanOptions(plans);
-      } catch (error) {
-        console.error("Error loading completable plans:", error);
-        setPlanOptions([]);
-      } finally {
-        setLoadingPlans(false);
-      }
-    };
-
-    loadPlans();
-  }, []);
+  // Uses selectedPlan from parent ArchDashboard
 
   // Listen for reset events from the header button
   useEffect(() => {
     const handleReset = (event) => {
       if (event.detail.tool === "complete-plan") {
-        setSelectedPlan("");
         setCompletionStatus("completed");
         setCompletionNotes("");
         setSubmitResult(null);
@@ -91,33 +65,30 @@ const CompletePlanForm = () => {
       // Database-native plan completion (Plan 0018)
       const { execDml } = await import("@whatsfresh/shared-imports/api");
 
-      const dmlOperation = {
+      const dmlData = {
         table: "api_wf.plans",
-        operation: "UPDATE",
+        method: "UPDATE",
         data: {
           status: completionStatus,
           completed_at:
             completionStatus === "completed" ? new Date().toISOString() : null,
-          updated_by: "user",
-          updated_at: new Date().toISOString(),
+          userID: "user", // DML processor handles audit fields automatically
         },
         where: { id: parseInt(selectedPlan) },
       };
 
-      console.log("Updating plan status in database:", dmlOperation);
-      const result = await execDml(dmlOperation);
+      console.log("Updating plan status in database:", dmlData);
+      const result = await execDml("UPDATE", dmlData);
 
       if (result && result.success) {
-        // Find the plan name from planOptions for the success message
-        const plan = planOptions.find((p) => p.value === selectedPlan);
+        // Plan name will be shown by plan ID
 
         setSubmitResult({
           success: true,
-          message: `Plan ${selectedPlan} (${plan?.label}) marked as ${completionStatus}!`,
+          message: `Plan ${selectedPlan} marked as ${completionStatus}!`,
         });
 
         // Reset form
-        setSelectedPlan("");
         setCompletionStatus("completed");
         setCompletionNotes("");
       } else {
@@ -150,14 +121,10 @@ const CompletePlanForm = () => {
       <Grid container spacing={3}>
         {/* Left Column - Controls */}
         <Grid item xs={12} md={4}>
-          {/* Plan Selection */}
-          <Select
-            label="Select Plan to Complete"
-            value={selectedPlan}
-            onChange={(value) => setSelectedPlan(value)}
-            options={planOptions}
-            disabled={loadingPlans}
-          />
+          {/* Selected Plan Display */}
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {selectedPlan ? `Completing Plan ${selectedPlan}` : "No Plan Selected"}
+          </Typography>
 
           {/* Completion Status */}
           <Select
@@ -200,7 +167,7 @@ const CompletePlanForm = () => {
             {isFormValid ? (
               <Chip label="Ready to Complete" color="success" size="small" />
             ) : (
-              <Chip label="Select Plan" color="default" size="small" />
+              <Chip label="No Plan Selected" color="default" size="small" />
             )}
           </Box>
         </Grid>

@@ -13,6 +13,9 @@ export {
   batchRegisterDocuments,
 } from "./documentService.js";
 
+// Plan impact tracking services (Plan 0019)
+export { logImpact, logMultipleImpacts } from "./impactService.js";
+
 // TODO: Add other shared services here as they're created
 // Example future services:
 // export { default as authService } from './authService.js';

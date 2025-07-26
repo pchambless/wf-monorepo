@@ -53,7 +53,7 @@ async function login(req, res) {
         }
 
         const user = users[0];
-        const enteredPassword = user.enteredPassword; // Get from query results
+        const {enteredPassword} = user; // Get from query results
 
         // Verify bcrypt password
         const passwordMatches = await bcrypt.compare(enteredPassword, user.password);

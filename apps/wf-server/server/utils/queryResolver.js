@@ -3,9 +3,9 @@ import logger from './logger.js';
 const codeName = '[queryResolver.js]';
 
 const replacePlaceholder = (qrySQL, paramName, paramValue) => {
-  // Handle parameters with : prefix - escape special regex characters
+  // Handle parameters that include : prefix - escape special regex characters
   const escapedParamName = paramName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const regex = new RegExp(`:${escapedParamName}`, 'g');
+  const regex = new RegExp(escapedParamName, 'g');
   return qrySQL.replace(regex, paramValue);
 };
 
@@ -36,8 +36,7 @@ const convertQuery = (qrySQL, params) => {
 };
 
 const createRequestBody = (qrySQL, params) => {
-  const qryMod = convertQuery(qrySQL, params);
-  return qryMod;
+  return convertQuery(qrySQL, params);
 };
 
 export { createRequestBody };

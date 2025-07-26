@@ -19,6 +19,7 @@ docs/*.componentInventory.csv
 /data/samples/*.json
 /claude-plans/b-completed
 /claude-plans/c-archived
+/claude-plans/assets
 
 # misc
 .DS_Store

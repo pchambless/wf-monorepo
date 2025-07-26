@@ -17,8 +17,12 @@ const usePageMapValidation = (pageMap) => {
       return { isValid: false, errors };
     }
     
-    if (!pageMap.pageConfig) errors.push('Missing pageConfig in pageMap');
-    if (!pageMap.columnMap) errors.push('Missing columnMap in pageMap');
+    if (!pageMap.pageConfig) {
+      errors.push('Missing pageConfig in pageMap');
+    }
+    if (!pageMap.columnMap) {
+      errors.push('Missing columnMap in pageMap');
+    }
     
     return {
       isValid: errors.length === 0,

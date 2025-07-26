@@ -26,6 +26,11 @@ monorepo_structure:
   packages:
     - shared-imports
 
+  AI Architectue Principles
+    This file contains the architectural principles and guidelines for the WhatsFresh monorepo. It will be a work in progress
+    to constantly refine guiding principles and rules for the architecture of the monorepo.
+    - /home/paul/wf-monorepo-new/AI/architecture-principles.md  
+
   # Core architectural patterns - enforce these, don't re-investigate
   established_patterns:
     - "SQL views drive UI generation (views → directives → pageMap → React)"

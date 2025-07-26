@@ -17,6 +17,7 @@ import {
   CardHeader,
   Chip,
 } from "@mui/material";
+import contextStore from "../../stores/contextStore.js";
 
 // Import communication components
 import UserCommunicationForm from "./communication/UserCommunicationForm.jsx";
@@ -64,7 +65,9 @@ const PlanCommunicationTab = () => {
         />
         <CardContent>
           {/* Tab 1: New Communication Form */}
-          {activeTab === 0 && <UserCommunicationForm />}
+          {activeTab === 0 && (
+            <UserCommunicationForm selectedPlan={contextStore.getParameter("planID")} />
+          )}
 
           {/* Tab 2: Communication History */}
           {activeTab === 1 && <CommunicationHistory />}

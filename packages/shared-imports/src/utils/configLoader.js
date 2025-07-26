@@ -47,6 +47,27 @@ const communicationTypeConfig = [
     color: "success",
     icon: "💼",
   },
+  {
+    value: "implementation-request",
+    label: "Implementation Request",
+    description: "Request Kiro to implement specific functionality",
+    color: "warning",
+    icon: "⚙️",
+  },
+  {
+    value: "issue-report",
+    label: "Issue/Bug Report",
+    description: "Report problems or bugs for Kiro to investigate",
+    color: "error",
+    icon: "🐛",
+  },
+  {
+    value: "analysis-request",
+    label: "Analysis Request",
+    description: "Ask Claude to analyze code or architecture",
+    color: "info",
+    icon: "🔍",
+  },
 ];
 
 const clustersConfig = {

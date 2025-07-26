@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Autocomplete, TextField, CircularProgress, Typography } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import {
+  Box,
+  Autocomplete,
+  TextField,
+  CircularProgress,
+  Typography,
+} from "@mui/material";
 // Import execEvent from our API layer
-import { execEvent } from '../../api/index.js';
-import contextStore from '../../stores/contextStore.js';
+import { execEvent } from "../../api/index.js";
+import contextStore from "../../stores/contextStore.js";
 
 /**
  * Base component for all selection widgets
  */
-export const SelectWidget = ({ 
+export const SelectWidget = ({
   id,
-  eventName,     // Event to call for data loading
-  valueKey,      // Field for value (optional - auto-detected as first column)
-  labelKey,      // Field for display (optional - auto-detected as second column) 
-  params = {},   // Additional parameters for the event
-  
+  eventName, // Event to call for data loading
+  valueKey, // Field for value (optional - auto-detected as first column)
+  labelKey, // Field for display (optional - auto-detected as second column)
+  params = {}, // Additional parameters for the event
+
   // Standard props
-  size = 'SM',
-  data = null,   // Optional direct data provision
+  size = "SM",
+  data = null, // Optional direct data provision
   value = null,
   onChange,
   label,
@@ -26,7 +32,7 @@ export const SelectWidget = ({
   ...props
 }) => {
   // Note: accountStore removed - widgets should pass all required params explicitly
-  
+
   // Component state
   const [selectedId, setSelectedId] = useState(value);
   const [items, setItems] = useState(data || []);
@@ -34,7 +40,7 @@ export const SelectWidget = ({
   const [error, setError] = useState(null);
   const [autoValueKey, setAutoValueKey] = useState(null);
   const [autoLabelKey, setAutoLabelKey] = useState(null);
-  
+
   // Initialize from contextStore if no value provided
   React.useEffect(() => {
     if (!value && eventName && contextStore) {
@@ -44,7 +50,7 @@ export const SelectWidget = ({
       }
     }
   }, [eventName, value]);
-  
+
   // Load data if not provided directly
   useEffect(() => {
     // Skip if data was provided or no event name
@@ -53,20 +59,20 @@ export const SelectWidget = ({
       setLoading(false);
       return;
     }
-    
+
     const loadData = async () => {
       setLoading(true);
       try {
         // execEvent now auto-resolves parameters from contextStore
         // Manual params still supported for overrides
         const result = await execEvent(eventName, params);
-        
+
         // Auto-detect field keys if not provided and we have data
         if (!valueKey || !labelKey) {
           if (result && result.length > 0) {
             const firstRow = result[0];
             const fieldNames = Object.keys(firstRow);
-            
+
             if (!valueKey && fieldNames.length > 0) {
               setAutoValueKey(fieldNames[0]); // First column as value
             }
@@ -75,7 +81,7 @@ export const SelectWidget = ({
             }
           }
         }
-        
+
         // Handle successful data load
         setItems(result || []);
         setError(null);
@@ -87,13 +93,13 @@ export const SelectWidget = ({
         setLoading(false);
       }
     };
-    
+
     loadData();
   }, [
-    data, 
-    eventName, 
+    data,
+    eventName,
     // Stringify params to react properly to object changes
-    JSON.stringify(params) 
+    JSON.stringify(params),
   ]);
 
   // Update internal state when external value changes
@@ -102,49 +108,60 @@ export const SelectWidget = ({
       setSelectedId(value);
     }
   }, [value]);
-  
+
   // Get effective field keys (manual override or auto-detected)
   const effectiveValueKey = valueKey || autoValueKey;
   const effectiveLabelKey = labelKey || autoLabelKey;
-  
-  
+
   // Handle selection change
   const handleChange = (event, newValue) => {
     const newId = newValue ? newValue[effectiveValueKey] : null;
     setSelectedId(newId);
-    
+
     // Store selection in contextStore for hierarchical parameter resolution
     if (eventName && newId) {
       contextStore.setEvent(eventName, newId);
     }
-    
+
     if (onChange) {
       onChange(newId, newValue);
     }
   };
-  
+
   // Find current selected item
-  const currentItem = items.find(item => 
-    String(item[effectiveValueKey]) === String(selectedId)
+  const currentItem = items.find(
+    (item) => String(item[effectiveValueKey]) === String(selectedId)
   );
-  
+
+  // Extract sx and other styling props from props
+  const { sx, fullWidth, ...autocompleteProps } = props;
+
   return (
-    <Box sx={{ p: 2 }} data-widget-id={id} data-widget-size={size}>
+    <Box
+      sx={{
+        p: 2,
+        width: fullWidth ? "100%" : "200px",
+        ...(sx || {}),
+      }}
+      data-widget-id={id}
+      data-widget-size={size}
+    >
       {label && (
-        <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
+        <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: "bold" }}>
           {label}
         </Typography>
       )}
-      
+
       <Autocomplete
         value={currentItem || null}
         onChange={handleChange}
         options={items}
-        getOptionLabel={(option) => option[effectiveLabelKey] || ''}
+        getOptionLabel={(option) => option[effectiveLabelKey] || ""}
         getOptionKey={(option) => option[effectiveValueKey]}
         loading={loading}
         disabled={disabled}
-        size={size === 'SM' ? 'small' : 'medium'}
+        size={size === "SM" ? "small" : "medium"}
+        fullWidth={fullWidth}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -152,11 +169,12 @@ export const SelectWidget = ({
             error={!!error}
             helperText={error}
             required={required}
+            fullWidth={fullWidth}
             InputProps={{
               ...params.InputProps,
               endAdornment: (
                 <>
-                  {loading ? <CircularProgress size={20} /> : null}
+                  {loading ? <CircularProgress size={50} /> : null}
                   {params.InputProps.endAdornment}
                 </>
               ),
@@ -169,7 +187,7 @@ export const SelectWidget = ({
           </li>
         )}
         noOptionsText={error ? `Error: ${error}` : "No options"}
-        {...props}
+        {...autocompleteProps}
       />
     </Box>
   );

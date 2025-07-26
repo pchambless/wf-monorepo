@@ -45,7 +45,7 @@ const Select = ({
           required={required}
           {...props}
         >
-          {options.map((option) => (
+          {(options || []).map((option) => (
             <MenuItem key={option.value} value={option.value}>
               <Box
                 sx={{ display: "flex", alignItems: "center", width: "100%" }}

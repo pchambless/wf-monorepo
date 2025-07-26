@@ -6,7 +6,22 @@
  * for registration in the plan_documents database table.
  */
 
-import path from "path";
+// Browser-compatible path utilities
+const path = {
+  basename: (filePath, ext) => {
+    const name = filePath.split(/[\\/]/).pop() || "";
+    return ext
+      ? name.replace(
+          new RegExp(ext.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "$"),
+          ""
+        )
+      : name;
+  },
+  dirname: (filePath) => {
+    const parts = filePath.split(/[\\/]/);
+    return parts.slice(0, -1).join("/") || ".";
+  },
+};
 
 /**
  * Plan ID extraction patterns - supports multiple naming conventions

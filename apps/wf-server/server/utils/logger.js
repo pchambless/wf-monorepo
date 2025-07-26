@@ -113,7 +113,9 @@ const measurePerformance = async (operation, func) => {
 
 // Add this function to your logger utility:
 function sanitizeLogData(data) {
-  if (!data || typeof data !== 'object') return data;
+  if (!data || typeof data !== 'object') {
+    return data;
+  }
 
   const sanitized = { ...data };
 

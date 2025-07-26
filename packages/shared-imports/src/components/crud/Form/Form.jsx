@@ -21,14 +21,11 @@ const log = createLogger('Form');
 
 // Widget registry for selector components
 const SELECTOR_WIDGETS = {
-  SelAcct: SelAcct,
   SelBrnd: SelBrnd,
   SelVndr: SelVndr,
   SelMeas: SelMeas,
   SelProd: SelProd,
-  SelProdType: SelProdType,
   SelIngr: SelIngr,
-  SelIngrType: SelIngrType,
   SelWrkr: SelWrkr,
   SelUserAcct: SelUserAcct
 };
@@ -164,7 +161,9 @@ const Form = observer(forwardRef(({
   // Always use imperative handle
   useImperativeHandle(ref, () => ({
     refresh: (newMode, newData) => {
-      if (!hasValidPageMap) return; // Don't operate on invalid store
+      if (!hasValidPageMap) {
+        return;
+      } // Don't operate on invalid store
 
       formStore.setFormMode(newMode || mode);
       if (newData) {
@@ -263,7 +262,9 @@ const Form = observer(forwardRef(({
   // Handle cancel
   const handleCancel = () => {
     formStore.setFormMode('SELECT');
-    if (onCancel) onCancel();
+    if (onCancel) {
+      onCancel();
+    }
   };
 
   // Get form groups from pageMap

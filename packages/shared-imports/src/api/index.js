@@ -221,3 +221,8 @@ export function createApi(options = {}) {
  * Default API instance
  */
 export const api = createApi();
+
+/**
+ * Direct exports for convenience
+ */
+export const { execDml, execDmlWithRefresh } = api;

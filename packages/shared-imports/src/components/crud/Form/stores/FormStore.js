@@ -105,7 +105,9 @@ class FormStore {
 
   // Add setContextData method
   setContextData(context) {
-    if (!context) return this;
+    if (!context) {
+      return this;
+    }
 
     runInAction(() => {
       this.contextData = { ...context };
@@ -235,22 +237,17 @@ class FormStore {
 
       Object.entries(allContextParams).forEach(([paramName, paramValue]) => {
         // Skip userID and acctID as they're handled above
-        if (
-          paramName !== "userID" &&
-          paramName !== "acctID" &&
-          paramValue !== undefined &&
-          paramValue !== null
-        ) {
-          // Only include if this parameter corresponds to a field in the pageMap
-          if (fieldMappings[paramName] && !formDataWithDefaults[paramName]) {
-            formDataWithDefaults[paramName] = paramValue;
-            this.log(
-              `Added ${paramName} from contextStore (mapped to ${fieldMappings[paramName]})`,
-              {
-                [paramName]: paramValue,
-              }
-            );
-          }
+        if (paramName !== "userID" &&
+                  paramName !== "acctID" &&
+                  paramValue !== undefined &&
+                  paramValue !== null && (fieldMappings[paramName] && !formDataWithDefaults[paramName])) {
+              formDataWithDefaults[paramName] = paramValue;
+              this.log(
+                `Added ${paramName} from contextStore (mapped to ${fieldMappings[paramName]})`,
+                {
+                  [paramName]: paramValue,
+                }
+              );
         }
       });
 
@@ -272,15 +269,9 @@ class FormStore {
       });
 
       // Apply defaults for common required fields that should be optional from UX perspective
-      if (method === "INSERT") {
-        // Default empty description fields to empty string if not provided
-        if (
-          formDataWithDefaults.description === undefined ||
-          formDataWithDefaults.description === null
-        ) {
-          formDataWithDefaults.description = "";
-        }
-        // Add other common optional-but-required fields as needed
+      if (method === "INSERT" && (formDataWithDefaults.description === undefined ||
+                formDataWithDefaults.description === null)) {
+            formDataWithDefaults.description = "";
       }
 
       // Determine table name from pageMap
@@ -385,7 +376,9 @@ class FormStore {
 
   // Helper to get total field count from formConfig
   getTotalFieldCount() {
-    if (!this.pageMap?.formConfig?.groups) return 0;
+    if (!this.pageMap?.formConfig?.groups) {
+      return 0;
+    }
     return this.pageMap.formConfig.groups.reduce((total, group) => {
       return total + (group.fields?.length || 0);
     }, 0);
@@ -393,7 +386,9 @@ class FormStore {
 
   // Helper to infer table name from pageMap structure
   inferTableFromPageMap() {
-    if (!this.pageMap) return null;
+    if (!this.pageMap) {
+      return null;
+    }
 
     // Try common pageMap properties that might contain table info
     const possibleTableSources = [
@@ -406,25 +401,49 @@ class FormStore {
 
     // Return first non-null value
     for (const source of possibleTableSources) {
-      if (source) return source;
+      if (source) {
+        return source;
+      }
     }
 
     // Last resort: try to infer from pageMap ID
     if (this.pageMap.id) {
       // Convert pageMap ID to likely table name
       // e.g., "ingrTypeList" -> "ingredient_types"
-      const id = this.pageMap.id;
-      if (id.includes("ingrType")) return "ingredient_types";
-      if (id.includes("prodType")) return "product_types";
-      if (id.includes("prod")) return "products";
-      if (id.includes("ingr")) return "ingredients";
-      if (id.includes("brnd")) return "brands";
-      if (id.includes("vndr")) return "vendors";
-      if (id.includes("wrkr")) return "workers";
-      if (id.includes("meas")) return "measures";
-      if (id.includes("task")) return "tasks";
-      if (id.includes("acct")) return "accounts";
-      if (id.includes("user")) return "users";
+      const {id} = this.pageMap;
+      if (id.includes("ingrType")) {
+        return "ingredient_types";
+      }
+      if (id.includes("prodType")) {
+        return "product_types";
+      }
+      if (id.includes("prod")) {
+        return "products";
+      }
+      if (id.includes("ingr")) {
+        return "ingredients";
+      }
+      if (id.includes("brnd")) {
+        return "brands";
+      }
+      if (id.includes("vndr")) {
+        return "vendors";
+      }
+      if (id.includes("wrkr")) {
+        return "workers";
+      }
+      if (id.includes("meas")) {
+        return "measures";
+      }
+      if (id.includes("task")) {
+        return "tasks";
+      }
+      if (id.includes("acct")) {
+        return "accounts";
+      }
+      if (id.includes("user")) {
+        return "users";
+      }
     }
 
     return null;
@@ -432,7 +451,9 @@ class FormStore {
 
   // Helper to map view column names to database column names using dmlConfig.fieldMappings
   mapViewColumnsToDatabaseColumns(formData) {
-    if (!formData || !this.pageMap) return formData;
+    if (!formData || !this.pageMap) {
+      return formData;
+    }
 
     const mappedData = { ...formData };
 

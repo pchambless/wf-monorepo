@@ -51,10 +51,9 @@ export {
   SelBrnd,
   SelVndr,
   SelMeas,
+  SelPlan,
   SelProd,
-  SelProdType,
   SelIngr,
-  SelIngrType,
   SelWrkr,
   SelUserAcct,
   SelectWidget,
@@ -74,3 +73,6 @@ export { default as ArchDashboard } from "./architecture/components/ArchDashboar
 
 // Export auth utilities
 export { useAuth, AuthProvider } from "./components/auth.jsx";
+
+// Workflows are now in architecture folder - not JSX components
+// Import workflows directly from architecture when needed in business logic

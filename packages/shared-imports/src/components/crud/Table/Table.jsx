@@ -94,8 +94,8 @@ const Table = observer(({ pageMap, eventData }) => {
       .map((col) => ({
         field: col.field,
         headerName: col.headerName || col.label,
-        width: col.width || 150,
-        flex: col.flex || 1,
+        width: parseInt(col.width) || 150,
+        ...(col.flex && { flex: col.flex }),
         // If this is an actions column from pageMap, use our unified renderer
         ...(col.field === "actions" &&
           pageMap.uiConfig.actions.rowActions?.length > 0

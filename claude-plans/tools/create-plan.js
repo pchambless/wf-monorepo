@@ -86,6 +86,15 @@ function createPlanFile(planId, cluster, planName) {
 ## User Idea
 [Brief description of the feature/fix/enhancement]
 
+## Supporting Assets
+<!-- Optional: List supporting files that aid understanding of requirements -->
+<!-- Images: claude-plans/assets/images/[filename] -->
+<!-- SQL: claude-plans/assets/sql/[filename] -->
+<!-- Examples:
+- **Images**: \`claude-plans/assets/images/dashboard-mockup.png\` - Target UI layout
+- **SQL**: \`claude-plans/assets/sql/user-query.sql\` - Required data structure
+-->
+
 ## Implementation Impact Analysis
 
 ### Impact Summary

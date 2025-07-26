@@ -21,7 +21,7 @@ import CreatePlanForm from "./plan-tools/CreatePlanForm.jsx";
 import CompletePlanForm from "./plan-tools/CompletePlanForm.jsx";
 import ImpactTrackingEditor from "./plan-tools/ImpactTrackingEditor.jsx";
 
-const PlanToolsTab = () => {
+const PlanToolsTab = ({ selectedPlan }) => {
   const [selectedTool, setSelectedTool] = useState("create-plan");
 
   return (
@@ -97,7 +97,9 @@ const PlanToolsTab = () => {
           {selectedTool === "complete-plan" && <CompletePlanForm />}
 
           {/* Impact Tracking Tool */}
-          {selectedTool === "impact-tracking" && <ImpactTrackingEditor />}
+          {selectedTool === "impact-tracking" && (
+            <ImpactTrackingEditor selectedPlan={selectedPlan} />
+          )}
         </CardContent>
       </Card>
     </Box>

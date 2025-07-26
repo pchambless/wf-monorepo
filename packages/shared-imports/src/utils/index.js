@@ -23,6 +23,22 @@ export {
   PLAN_ID_PATTERNS,
 } from "./documentMetadata.js";
 
+// File operations utilities (Plan 0019 - Document Automation)
+export {
+  createDoc,
+  default as createDocDefault,
+  validateInputs,
+  validateFileName,
+  validateSecurity,
+  resolvePath,
+  ensureDirectory,
+  directoryExists,
+  fileExists,
+  writeFile,
+  ERROR_TYPES,
+  categorizeError,
+} from "./fileOperations.js";
+
 // TODO: Add other shared utilities here as they're created
 // Example future utilities:
 // export { default as apiClient } from './apiClient.js';
