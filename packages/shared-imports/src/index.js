@@ -1,11 +1,11 @@
 /**
  * WhatsFresh Shared Imports Package - Main Export (JS only)
- * 
+ *
  * This file exports only JavaScript utilities and functions.
  * For JSX components, use '@whatsfresh/shared-imports/jsx'
  * For API utilities, use '@whatsfresh/shared-imports/api'
  * For event definitions, use '@whatsfresh/shared-imports/events'
- * 
+ *
  * Usage:
  * import { createLogger } from '@whatsfresh/shared-imports';
  * import { LoginForm } from '@whatsfresh/shared-imports/jsx';
@@ -13,21 +13,21 @@
  * import { eventTypes } from '@whatsfresh/shared-imports/events';
  */
 
-import React from 'react';
+import React from "react";
 
 // Core utilities
-export * from './utils/index.js';
+export * from "./utils/index.js";
 
 // Re-export commonly used utilities
-export { default as createLogger } from './utils/logger.js';
+export { default as createLogger } from "./utils/logger.js";
 
 // === UTILITIES FROM THIS PACKAGE ===
-export * from './utils/index.js';
+export * from "./utils/index.js";
 
 // === WIDGET UTILITIES (Placeholder - implement when needed) ===
 // export {
 //   WIDGET_REGISTRY,
-//   WIDGET_TYPES, 
+//   WIDGET_TYPES,
 //   WIDGET_SIZES,
 //   getWidgetById,
 //   getWidgetsByApp,
@@ -60,26 +60,41 @@ export * from './utils/index.js';
 export const LoginView = () => null;
 export const CrudLayout = () => null;
 export const Modal = () => null;
-export const useModalStore = () => ({ isOpen: false, close: () => { } });
-export const modalStore = { isOpen: false, close: () => { } };
-export const SelAcct = ({ selectedAccountId, accounts, onChange, loading, size }) => {
+export const useModalStore = () => ({ isOpen: false, close: () => {} });
+export const modalStore = { isOpen: false, close: () => {} };
+export const SelAcct = ({
+  selectedAccountId,
+  accounts,
+  onChange,
+  loading,
+  size,
+}) => {
   // Temporary debug - return simple string to test if this is causing the React error
-  console.log('SelAcct called with:', { selectedAccountId, accounts, loading, size });
-  return 'Account Selector (Debug)';
+  console.log("SelAcct called with:", {
+    selectedAccountId,
+    accounts,
+    loading,
+    size,
+  });
+  return "Account Selector (Debug)";
 };
 
 export function initEventTypeService() {
-  console.log('initEventTypeService stub called');
+  console.log("initEventTypeService stub called");
   return Promise.resolve(true);
 }
 
 export function isEventTypeServiceInitialized() {
-  console.log('isEventTypeServiceInitialized stub called');
+  console.log("isEventTypeServiceInitialized stub called");
   return true;
 }
 
 // === STORE UTILITIES ===
-export { contextStore, useContextStore, ContextContext } from './stores/index.js';
+export {
+  contextStore,
+  useContextStore,
+  ContextContext,
+} from "./stores/index.js";
 
 /**
  * Package metadata
@@ -91,16 +106,29 @@ export {
   getSafeEventTypes,
   getEventType,
   getEventTypes,
-  eventTypes
-} from './events/index.js';
+  eventTypes,
+} from "./events/index.js";
 
 // === API UTILITIES ===
-export { execEvent, createApi, api } from './api/index.js';
+export { execEvent, createApi, api } from "./api/index.js";
+
+// === WORKFLOW UTILITIES ===
+export {
+  createAnalysis,
+  createGuidance,
+  createCommunication,
+  createPlan,
+  completePlan,
+  deletePlan,
+  createPlanImpact,
+  createPlanImpactBatch,
+  trackDocumentCreation,
+} from "./architecture/workflows/index.js";
 
 export const packageInfo = {
-  name: '@whatsfresh/shared-imports',
-  version: '0.1.0',
-  description: 'Shared utilities and import aliases for WhatsFresh monorepo'
+  name: "@whatsfresh/shared-imports",
+  version: "0.1.0",
+  description: "Shared utilities and import aliases for WhatsFresh monorepo",
 };
 
 /**
@@ -108,22 +136,24 @@ export const packageInfo = {
  */
 export function setupSharedImports(options = {}) {
   const {
-    logLevel = 'info',
+    logLevel = "info",
     showTimestamps = true,
-    component = 'APP'
+    component = "APP",
   } = options;
 
   // Configure logger with app-specific defaults
-  import('./utils/logger.js').then(({ configureLogger }) => {
+  import("./utils/logger.js").then(({ configureLogger }) => {
     configureLogger({
-      defaultLevel: typeof logLevel === 'string' ?
-        { error: 1, warn: 2, info: 3, debug: 4 }[logLevel] : logLevel,
-      showTimestamps
+      defaultLevel:
+        typeof logLevel === "string"
+          ? { error: 1, warn: 2, info: 3, debug: 4 }[logLevel]
+          : logLevel,
+      showTimestamps,
     });
   });
 
   // Return a pre-configured logger for the app
-  return import('./utils/logger.js').then(({ default: createLogger }) =>
+  return import("./utils/logger.js").then(({ default: createLogger }) =>
     createLogger(component, logLevel)
   );
 }

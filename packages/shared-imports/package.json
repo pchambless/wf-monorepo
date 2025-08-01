@@ -10,12 +10,16 @@
     "./imports": "./src/imports.js",
     "./logger": "./src/utils/logger.js",
     "./utils": "./src/utils/index.js",
+    "./utils/server": "./src/utils/server.js",
+    "./createDocs": "./src/createDocs/index.js",
     "./jsx": "./src/jsx.js",
     "./api": "./src/api/index.js",
     "./auth": "./src/components/auth.jsx",
     "./events": "./src/events/index.js",
     "./components": "./src/components/index.js",
-    "./layouts": "./src/layouts/index.js"
+    "./layouts": "./src/layouts/index.js",
+    "./stores/contextStore": "./src/stores/contextStore.js",
+    "./workflows/eventType": "./src/architecture/workflows/eventType/index.js"
   },
   "files": [
     "src/**/*"
@@ -26,6 +30,5 @@
     "test": "echo \"No tests yet\"",
     "lint": "echo \"No lint script configured\""
   },
-
   "private": true
 }

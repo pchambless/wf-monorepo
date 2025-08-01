@@ -35,13 +35,6 @@ const SELECTOR_WIDGETS = {
  */
 const renderFormField = (field, formData, setFormData, formStore) => {
   const value = formData[field.field] || '';
-  console.log('🔍 Field render:', {
-    fieldName: field.field,
-    expectedValue: value,
-    hasFormData: !!formData,
-    formDataKeys: Object.keys(formData || {}),
-    fieldLabel: field.label
-  });
 
   const handleFieldChange = (newValue) => {
     const updatedData = { ...formData, [field.field]: newValue };
@@ -107,16 +100,8 @@ const Form = observer(forwardRef(({
 
   // Removed DML preview modal state - no longer needed for seamless CRUD
 
-  console.log('Form received props:', {
-    hasPageMap: hasValidPageMap,
-    pageMapId: pageMap?.id,
-    data,
-    mode
-  });
-
   // Create formStore (MUST do this for hook rules)
   const [formStore] = useState(() => {
-    console.log('Creating FormStore with pageMap:', pageMap);
     return new FormStore({
       pageMap
     }, data || {});
@@ -206,13 +191,7 @@ const Form = observer(forwardRef(({
     );
   }
 
-  // Log formStore state after initialization
-  console.log('FormStore state after initialization:', {
-    formData: safeProp(formStore.formData),
-    fields: safeProp(formStore.fields),
-    columnMap: safeProp(formStore.columnMap),
-    pageMap: safeProp(formStore.pageMap)
-  });
+  // FormStore initialized - state available in formStore instance
 
   // Form submission - actual save
   const handleSubmit = async () => {
@@ -270,16 +249,7 @@ const Form = observer(forwardRef(({
   // Get form groups from pageMap
   const formGroups = pageMap?.formConfig?.groups || [];
 
-  // Debug log
-  console.log('Form rendering with form groups:', {
-    groupCount: formGroups.length,
-    groups: formGroups.map(group => ({
-      groupId: group.id,
-      title: group.title,
-      fieldCount: group.fields?.length || 0,
-      fields: group.fields?.map(f => f.field) || []
-    }))
-  });
+  // Form groups configured (summary available in formStore)
 
   // Finally add the return statement with form rendering
   return (
@@ -306,7 +276,7 @@ const Form = observer(forwardRef(({
             )}
             <Grid container spacing={2}>
               {group.fields?.filter(field => !field.hidden).map(field => (
-                <Grid item xs={field.type === 'multiLine' ? 12 : 6} key={field.field}>
+                <Grid size={field.type === 'multiLine' ? 12 : { xs: 12, sm: 6 }} key={field.field}>
                   {renderFormField(field, formStore.formData, (data) => formStore.setFormData(data), formStore)}
                 </Grid>
               ))}

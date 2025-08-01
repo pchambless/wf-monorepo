@@ -52,3 +52,4 @@
   - **Example pattern**: `createPlan(data, userID)` → INSERT plan → INSERT documents → INSERT impacts → return success/failure
   - **Location**: Workflow modules in `/packages/shared-imports/src/workflows/` for cross-package reuse
   - **Error handling**: Workflows provide business-meaningful error messages, not database error codes
+

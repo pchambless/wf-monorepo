@@ -140,7 +140,7 @@ export const SelectWidget = ({
     <Box
       sx={{
         p: 2,
-        width: fullWidth ? "100%" : "200px",
+        width: fullWidth ? "100%" : "auto",
         ...(sx || {}),
       }}
       data-widget-id={id}
@@ -161,7 +161,7 @@ export const SelectWidget = ({
         loading={loading}
         disabled={disabled}
         size={size === "SM" ? "small" : "medium"}
-        fullWidth={fullWidth}
+        sx={{ minWidth: '300px' }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -169,7 +169,7 @@ export const SelectWidget = ({
             error={!!error}
             helperText={error}
             required={required}
-            fullWidth={fullWidth}
+            sx={{}}
             InputProps={{
               ...params.InputProps,
               endAdornment: (

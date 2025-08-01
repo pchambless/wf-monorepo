@@ -5,6 +5,7 @@
  */
 
 import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import {
   Grid,
   Button,
@@ -23,6 +24,9 @@ import {
   Select,
 } from "@whatsfresh/shared-imports/jsx";
 
+// Import context store to get selected plan
+import { useContextStore } from "@whatsfresh/shared-imports/stores/contextStore";
+
 // SelPlan widget handles plan loading automatically via planList event
 
 const STATUS_OPTIONS = [
@@ -36,12 +40,15 @@ const STATUS_OPTIONS = [
   },
 ];
 
-const CompletePlanForm = ({ selectedPlan }) => {
+const CompletePlanForm = observer(() => {
   const [completionStatus, setCompletionStatus] = useState("completed");
   const [completionNotes, setCompletionNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState(null);
-  // Uses selectedPlan from parent ArchDashboard
+
+  // Get selected plan from context store (set by SelPlan widget)
+  const contextStore = useContextStore();
+  const selectedPlan = contextStore.getParameter("planID");
 
   // Listen for reset events from the header button
   useEffect(() => {
@@ -106,6 +113,14 @@ const CompletePlanForm = ({ selectedPlan }) => {
 
   const isFormValid = selectedPlan && completionStatus;
 
+  // Debug logging for troubleshooting
+  console.log("CompletePlanForm Debug:", {
+    selectedPlan,
+    completionStatus,
+    isFormValid,
+    contextStoreParams: contextStore.getAllParameters()
+  });
+
   return (
     <Box>
       {submitResult && (
@@ -123,7 +138,9 @@ const CompletePlanForm = ({ selectedPlan }) => {
         <Grid item xs={12} md={4}>
           {/* Selected Plan Display */}
           <Typography variant="h6" sx={{ mb: 2 }}>
-            {selectedPlan ? `Completing Plan ${selectedPlan}` : "No Plan Selected"}
+            {selectedPlan
+              ? `Completing Plan ${selectedPlan}`
+              : "No Plan Selected"}
           </Typography>
 
           {/* Completion Status */}
@@ -174,6 +191,6 @@ const CompletePlanForm = ({ selectedPlan }) => {
       </Grid>
     </Box>
   );
-};
+});
 
 export default CompletePlanForm;

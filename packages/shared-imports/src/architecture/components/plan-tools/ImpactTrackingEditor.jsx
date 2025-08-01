@@ -32,48 +32,69 @@ import {
 
 // Import our form components
 import { TextField } from "@whatsfresh/shared-imports/jsx";
+import { usePlanContext } from "../../../contexts/PlanContext.jsx";
+
+// Import workflow registry for impact tracking operations
+import { workflowRegistry } from "../../workflows/WorkflowRegistry.js";
+
+// Import workflow configuration
+import { getComponentWorkflowConfig } from "../../config/workflowConfig.js";
 
 // Impact data loaded from database via planImpactList eventType
 
-const ImpactTrackingEditor = ({ selectedPlan }) => {
+const ImpactTrackingEditor = () => {
   const [impactData, setImpactData] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
   const [loading, setLoading] = useState(true);
-  // Uses selectedPlan from parent ArchDashboard
+  const [filterPlan, setFilterPlan] = useState("");
 
-  // Load impact data from database
-  useEffect(() => {
-    const loadImpactData = async () => {
-      setLoading(true);
-      try {
-        // Import execEvent for database access
-        const { execEvent } = await import("@whatsfresh/shared-imports/api");
+  // Use plan context for automatic refresh when plan changes
+  const { currentPlanId, isRefreshing } = usePlanContext(async (planId) => {
+    await loadImpactData(planId);
+  });
 
-        // Use planImpactList eventType (eventID: 103)
-        // Load all impacts first, then filter by plan if needed
-        // Set planID parameter in contextStore
-        contextStore.setParameter("planID", planID);
+  // Load impact data using workflow
+  const loadImpactData = async (planId) => {
+    if (!planId) {
+      setImpactData([]);
+      return;
+    }
 
-        const result = await execEvent("planImpactList");
+    setLoading(true);
+    try {
+      // Use impact tracking workflow to load data
+      const workflowContext = {
+        planId,
+        action: "load",
+      };
 
-        if (result && Array.isArray(result)) {
-          setImpactData(result);
+      const workflowOptions = getComponentWorkflowConfig("editor");
+      const result = await workflowRegistry.execute(
+        "trackImpact",
+        workflowContext,
+        workflowOptions
+      );
 
-          // Plan options handled by SelPlan widget
-        } else {
-          setImpactData([]);
-        }
-      } catch (error) {
-        console.error("Error loading impact data:", error);
+      if (result && result.success && Array.isArray(result.data.impacts)) {
+        setImpactData(result.data.impacts);
+      } else {
         setImpactData([]);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("Error loading impact data:", error);
+      setImpactData([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    loadImpactData();
-  }, []);
+  // Initial load when component mounts
+  useEffect(() => {
+    if (currentPlanId) {
+      loadImpactData(currentPlanId);
+    }
+  }, [currentPlanId]);
 
   const handleEdit = (impact) => {
     setEditingId(impact.impact_id);
@@ -82,23 +103,25 @@ const ImpactTrackingEditor = ({ selectedPlan }) => {
 
   const handleSave = async () => {
     try {
-      // Database-native impact update (Plan 0018)
-      const { execDml } = await import("@whatsfresh/shared-imports/api");
-
-      const dmlOperation = {
-        table: "api_wf.plan_impacts",
-        operation: "UPDATE",
-        data: {
-          file_path: editForm.file_path || editForm.file,
-          description: editForm.description,
-          updated_by: "user",
-          updated_at: new Date().toISOString(),
-        },
-        where: { id: editingId },
+      // Use impact tracking workflow to update data
+      const workflowContext = {
+        action: "update",
+        impactId: editingId,
+        filePath: editForm.file_path || editForm.file,
+        description: editForm.description,
+        updatedBy: "user",
       };
 
-      console.log("Updating impact in database:", dmlOperation);
-      const result = await execDml(dmlOperation);
+      console.log(
+        "Executing trackImpact workflow for update:",
+        workflowContext
+      );
+      const workflowOptions = getComponentWorkflowConfig("editor");
+      const result = await workflowRegistry.execute(
+        "trackImpact",
+        workflowContext,
+        workflowOptions
+      );
 
       if (result && result.success) {
         // Update local state with the changes
@@ -111,7 +134,11 @@ const ImpactTrackingEditor = ({ selectedPlan }) => {
         setEditForm({});
       } else {
         console.error("Failed to update impact:", result?.error);
-        alert("Failed to save changes to database");
+        alert(
+          `Failed to save changes: ${
+            result?.error?.message || "Workflow execution failed"
+          }`
+        );
       }
     } catch (error) {
       console.error("Error saving impact:", error);
@@ -166,7 +193,14 @@ const ImpactTrackingEditor = ({ selectedPlan }) => {
       <Alert severity="info" sx={{ mb: 3 }}>
         Impact tracking editor - view and modify file-level impact data for all
         plans
+        {isRefreshing && " (Refreshing...)"}
       </Alert>
+
+      {!currentPlanId && (
+        <Alert severity="warning" sx={{ mb: 3 }}>
+          Please select a plan to view impact tracking data
+        </Alert>
+      )}
 
       {/* Filter Controls */}
       <Card sx={{ mb: 3 }}>
@@ -174,7 +208,7 @@ const ImpactTrackingEditor = ({ selectedPlan }) => {
         <CardContent>
           <Grid container spacing={2}>
             <Grid item xs={12} md={4}>
-              <SelPlan
+              <TextField
                 label="Filter by Plan"
                 value={filterPlan}
                 onChange={(value) => setFilterPlan(value)}

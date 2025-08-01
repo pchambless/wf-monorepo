@@ -14,8 +14,6 @@ import {
 const log = createLogger("CrudLayout");
 
 const CrudLayout = ({ pageMap }) => {
-  console.log("🔍 CrudLayout mounting with pageMap:", pageMap);
-
   const formRef = useRef(null);
   const routeParams = useParams();
 
@@ -243,7 +241,7 @@ const CrudLayout = ({ pageMap }) => {
   return (
     <Box display="flex" flexDirection="column" gap={2}>
       <Grid container spacing={2}>
-        <Grid item xs={7}>
+        <Grid size={7}>
           {canAdd && (
             <Box sx={{ display: "flex", justifyContent: "flex-start", mb: 1 }}>
               <AddButton onClick={handleAddNew} />
@@ -262,7 +260,7 @@ const CrudLayout = ({ pageMap }) => {
           />
         </Grid>
 
-        <Grid item xs={5}>
+        <Grid size={5}>
           <Form
             ref={formRef}
             pageMap={pageMap}

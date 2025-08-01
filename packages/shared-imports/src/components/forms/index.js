@@ -4,6 +4,7 @@ import DecimalField from "./DecimalField.jsx";
 import DateField from "./DateField.jsx";
 import BooleanField from "./BooleanField.jsx";
 import MultiLineField from "./MultiLineField.jsx";
+import TextArea from "./TextArea.jsx";
 import Select from "./Select.jsx";
 
 /**
@@ -31,5 +32,6 @@ export {
   DateField,
   BooleanField,
   MultiLineField,
+  TextArea,
   Select,
 };

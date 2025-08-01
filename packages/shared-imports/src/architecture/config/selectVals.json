@@ -1,0 +1,566 @@
+{
+  "planStatus": {
+    "name": "planStatus",
+    "choices": [
+      {
+        "value": "new",
+        "label": "New",
+        "ordr": 1,
+        "color": "slate"
+      },
+      {
+        "value": "active",
+        "label": "Active",
+        "ordr": 2,
+        "color": "blue"
+      },
+      {
+        "value": "in-progress",
+        "label": "In Progress",
+        "ordr": 3,
+        "color": "green"
+      },
+      {
+        "value": "on-hold",
+        "label": "On Hold",
+        "ordr": 4,
+        "color": "yellow"
+      },
+      {
+        "value": "completed",
+        "label": "Completed",
+        "ordr": 5,
+        "color": "emerald"
+      },
+      {
+        "value": "ongoing",
+        "label": "Ongoing",
+        "ordr": 6,
+        "color": "purple"
+      },
+      {
+        "value": "archived",
+        "label": "Archived",
+        "ordr": 10,
+        "color": "gray"
+      }
+    ]
+  },
+  "priority": {
+    "name": "priority",
+    "choices": [
+      {
+        "value": "low",
+        "label": "Low",
+        "ordr": 1,
+        "color": "blue"
+      },
+      {
+        "value": "medium",
+        "label": "Medium",
+        "ordr": 2,
+        "color": "yellow"
+      },
+      {
+        "value": "high",
+        "label": "High",
+        "ordr": 3,
+        "color": "red"
+      },
+      {
+        "value": "urgent",
+        "label": "Urgent",
+        "ordr": 4,
+        "color": "red"
+      }
+    ]
+  },
+  "cluster": {
+    "name": "cluster",
+    "choices": [
+      {
+        "value": "DEVTOOLS",
+        "label": "DevTools",
+        "ordr": 1,
+        "color": "purple"
+      },
+      {
+        "value": "PLANS",
+        "label": "Plans",
+        "ordr": 2,
+        "color": "blue"
+      },
+      {
+        "value": "UI",
+        "label": "UI/UX",
+        "ordr": 3,
+        "color": "green"
+      },
+      {
+        "value": "API",
+        "label": "API",
+        "ordr": 4,
+        "color": "orange"
+      }
+    ]
+  },
+  "complexity": {
+    "name": "complexity",
+    "choices": [
+      {
+        "value": "low",
+        "label": "Low - Simple changes",
+        "ordr": 1,
+        "color": "green"
+      },
+      {
+        "value": "medium",
+        "label": "Medium - Moderate changes",
+        "ordr": 2,
+        "color": "yellow"
+      },
+      {
+        "value": "high",
+        "label": "High - Complex changes",
+        "ordr": 3,
+        "color": "red"
+      }
+    ]
+  },
+  "workflowTimeouts": {
+    "name": "workflowTimeouts",
+    "choices": [
+      {
+        "value": "createPlan",
+        "label": "Create Plan",
+        "timeout": 15000,
+        "description": "Plan creation"
+      },
+      {
+        "value": "updatePlan",
+        "label": "Update Plan",
+        "timeout": 10000,
+        "description": "Plan update"
+      },
+      {
+        "value": "archivePlan",
+        "label": "Archive Plan",
+        "timeout": 8000,
+        "description": "Plan archival"
+      },
+      {
+        "value": "createCommunication",
+        "label": "Create Communication",
+        "timeout": 10000,
+        "description": "Communication creation"
+      },
+      {
+        "value": "trackImpact",
+        "label": "Track Impact",
+        "timeout": 12000,
+        "description": "Impact tracking"
+      }
+    ]
+  },
+  "workflowRetryPolicies": {
+    "name": "workflowRetryPolicies",
+    "choices": [
+      {
+        "value": "standard",
+        "label": "Standard Retry",
+        "maxAttempts": 3,
+        "backoffMs": 1000,
+        "description": "Standard retry policy"
+      },
+      {
+        "value": "aggressive",
+        "label": "Aggressive Retry",
+        "maxAttempts": 5,
+        "backoffMs": 500,
+        "description": "More aggressive retry for critical operations"
+      },
+      {
+        "value": "conservative",
+        "label": "Conservative Retry",
+        "maxAttempts": 2,
+        "backoffMs": 2000,
+        "description": "Conservative retry for non-critical operations"
+      },
+      {
+        "value": "none",
+        "label": "No Retry",
+        "maxAttempts": 1,
+        "backoffMs": 0,
+        "description": "No retry attempts"
+      }
+    ]
+  },
+  "workflowErrorHandling": {
+    "name": "workflowErrorHandling",
+    "choices": [
+      {
+        "value": "fail-fast",
+        "label": "Fail Fast",
+        "ordr": 1,
+        "color": "red",
+        "description": "Stop execution on first error"
+      },
+      {
+        "value": "continue",
+        "label": "Continue on Error",
+        "ordr": 2,
+        "color": "yellow",
+        "description": "Continue execution despite errors"
+      },
+      {
+        "value": "rollback",
+        "label": "Rollback on Error",
+        "ordr": 3,
+        "color": "orange",
+        "description": "Rollback changes on error"
+      }
+    ]
+  },
+  "workflowCommunicationPatterns": {
+    "name": "workflowCommunicationPatterns",
+    "choices": [
+      {
+        "value": "sequential",
+        "label": "Sequential",
+        "ordr": 1,
+        "color": "blue",
+        "description": "Execute workflows one after another"
+      },
+      {
+        "value": "parallel",
+        "label": "Parallel",
+        "ordr": 2,
+        "color": "green",
+        "description": "Execute workflows simultaneously"
+      },
+      {
+        "value": "event-driven",
+        "label": "Event Driven",
+        "ordr": 3,
+        "color": "purple",
+        "description": "Event-based workflow coordination"
+      },
+      {
+        "value": "pipeline",
+        "label": "Pipeline",
+        "ordr": 4,
+        "color": "orange",
+        "description": "Data flows through workflow stages"
+      },
+      {
+        "value": "scatter-gather",
+        "label": "Scatter-Gather",
+        "ordr": 5,
+        "color": "teal",
+        "description": "Distribute work then aggregate results"
+      }
+    ]
+  },
+  "workflowDataPassingStrategies": {
+    "name": "workflowDataPassingStrategies",
+    "choices": [
+      {
+        "value": "merge",
+        "label": "Merge Data",
+        "ordr": 1,
+        "color": "blue",
+        "description": "Merge workflow results together"
+      },
+      {
+        "value": "replace",
+        "label": "Replace Data",
+        "ordr": 2,
+        "color": "yellow",
+        "description": "Replace previous data with new results"
+      },
+      {
+        "value": "append",
+        "label": "Append Data",
+        "ordr": 3,
+        "color": "green",
+        "description": "Append results to array"
+      },
+      {
+        "value": "selective",
+        "label": "Selective Passing",
+        "ordr": 4,
+        "color": "purple",
+        "description": "Pass only specific fields"
+      }
+    ]
+  },
+  "workflowAgents": {
+    "name": "workflowAgents",
+    "choices": [
+      {
+        "value": "claude",
+        "label": "Claude",
+        "ordr": 1,
+        "color": "blue",
+        "description": "Claude AI assistant"
+      },
+      {
+        "value": "kiro",
+        "label": "Kiro",
+        "ordr": 2,
+        "color": "green",
+        "description": "Kiro AI assistant"
+      },
+      {
+        "value": "user",
+        "label": "'User' or First Name",
+        "ordr": 3,
+        "color": "purple",
+        "description": "Human user's First Name"
+      },
+      {
+        "value": "system",
+        "label": "System",
+        "ordr": 4,
+        "color": "gray",
+        "description": "Automated system processes"
+      }
+    ]
+  },
+  "workflowPhases": {
+    "name": "workflowPhases",
+    "choices": [
+      {
+        "value": "idea",
+        "label": "Idea",
+        "ordr": 1,
+        "color": "blue",
+        "description": "Initial concept phase"
+      },
+      {
+        "value": "analysis",
+        "label": "Analysis",
+        "ordr": 2,
+        "color": "purple",
+        "description": "Analysis and planning phase"
+      },
+      {
+        "value": "development",
+        "label": "Development",
+        "ordr": 3,
+        "color": "green",
+        "description": "Active development phase"
+      },
+      {
+        "value": "adhoc",
+        "label": "Ad-hoc",
+        "ordr": 4,
+        "color": "orange",
+        "description": "Spontaneous changes"
+      }
+    ]
+  },
+  "workflowImpactTypes": {
+    "name": "workflowImpactTypes",
+    "choices": [
+      {
+        "value": "CREATE",
+        "label": "Create",
+        "ordr": 1,
+        "color": "green",
+        "description": "Creating new files or resources"
+      },
+      {
+        "value": "MODIFY",
+        "label": "Modify",
+        "ordr": 2,
+        "color": "yellow",
+        "description": "Modifying existing files or resources"
+      },
+      {
+        "value": "DELETE",
+        "label": "Delete",
+        "ordr": 3,
+        "color": "red",
+        "description": "Deleting files or resources"
+      },
+      {
+        "value": "ANALYZE",
+        "label": "Analyze",
+        "ordr": 4,
+        "color": "blue",
+        "description": "Analyzing existing code or data"
+      },
+      {
+        "value": "DISCOVER",
+        "label": "Discover",
+        "ordr": 5,
+        "color": "purple",
+        "description": "Discovering patterns or issues"
+      },
+      {
+        "value": "COMMUNICATE",
+        "label": "Communicate",
+        "ordr": 6,
+        "color": "teal",
+        "description": "Creating communications"
+      },
+      {
+        "value": "PLAN",
+        "label": "Plan",
+        "ordr": 7,
+        "color": "orange",
+        "description": "Planning activities"
+      }
+    ]
+  },
+  "registeredWorkflows": {
+    "name": "registeredWorkflows",
+    "description": "Working documentation of all registered workflows in the system",
+    "choices": [
+      {
+        "value": "createPlan",
+        "label": "Create Plan",
+        "ordr": 1,
+        "category": "plan-operations",
+        "description": "Creates a new plan with validation and impact tracking",
+        "timeout": 15000,
+        "contextRefresh": [
+          "planList",
+          "impactTracking"
+        ],
+        "steps": [
+          "validatePlanData",
+          "createPlanRecord",
+          "initializeImpactTracking"
+        ],
+        "errorHandling": "fail-fast",
+        "retryable": true
+      },
+      {
+        "value": "updatePlan",
+        "label": "Update Plan",
+        "ordr": 2,
+        "category": "plan-operations",
+        "description": "Updates an existing plan with validation and impact tracking",
+        "timeout": 10000,
+        "contextRefresh": [
+          "planContext",
+          "impactTracking",
+          "planList"
+        ],
+        "steps": [
+          "validateUpdateData",
+          "updatePlanRecord",
+          "recordUpdateImpact"
+        ],
+        "errorHandling": "fail-fast",
+        "retryable": true
+      },
+      {
+        "value": "archivePlan",
+        "label": "Archive Plan",
+        "ordr": 3,
+        "category": "plan-operations",
+        "description": "Archives a plan using soft delete (deleted_at, active=0)",
+        "timeout": 8000,
+        "contextRefresh": [
+          "planList",
+          "planContext",
+          "impactTracking"
+        ],
+        "steps": [
+          "validateArchiveRequest",
+          "archivePlanRecord",
+          "recordArchiveImpact"
+        ],
+        "errorHandling": "fail-fast",
+        "retryable": true
+      },
+      {
+        "value": "createCommunication",
+        "label": "Create Communication",
+        "ordr": 4,
+        "category": "communication",
+        "description": "Creates a new communication with validation and modal coordination",
+        "timeout": 10000,
+        "contextRefresh": [
+          "communicationHistory"
+        ],
+        "steps": [
+          "validateCommunicationData",
+          "createCommunicationRecord",
+          "triggerModalCoordination"
+        ],
+        "errorHandling": "fail-fast",
+        "retryable": true
+      },
+      {
+        "value": "trackImpact",
+        "label": "Track Impact",
+        "ordr": 5,
+        "category": "impact-tracking",
+        "description": "Records impact tracking data with automatic categorization",
+        "timeout": 12000,
+        "contextRefresh": [
+          "impactTracking"
+        ],
+        "steps": [
+          "validateImpactData",
+          "categorizeImpact",
+          "recordImpact"
+        ],
+        "errorHandling": "continue",
+        "retryable": true
+      }
+    ]
+  },
+  "workflowCategories": {
+    "name": "workflowCategories",
+    "description": "Categories for organizing workflows",
+    "choices": [
+      {
+        "value": "plan-operations",
+        "label": "Plan Operations",
+        "ordr": 1,
+        "color": "blue",
+        "description": "CRUD operations for plans"
+      },
+      {
+        "value": "communication",
+        "label": "Communication",
+        "ordr": 2,
+        "color": "green",
+        "description": "Communication and messaging workflows"
+      },
+      {
+        "value": "impact-tracking",
+        "label": "Impact Tracking",
+        "ordr": 3,
+        "color": "purple",
+        "description": "Impact tracking and analysis workflows"
+      },
+      {
+        "value": "business-process",
+        "label": "Business Process",
+        "ordr": 4,
+        "color": "orange",
+        "description": "Complex business process workflows"
+      },
+      {
+        "value": "integration",
+        "label": "Integration",
+        "ordr": 5,
+        "color": "teal",
+        "description": "Cross-system integration workflows"
+      },
+      {
+        "value": "utility",
+        "label": "Utility",
+        "ordr": 6,
+        "color": "gray",
+        "description": "Utility and helper workflows"
+      }
+    ]
+  }
+}

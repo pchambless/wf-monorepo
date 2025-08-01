@@ -12,6 +12,43 @@ const DEFAULT_CONFIG = {
 };
 
 /**
+ * Standalone execCreateDoc function for parameter-driven document creation
+ */
+export async function execCreateDoc(params, config = {}) {
+  const { baseUrl, logger } = { ...DEFAULT_CONFIG, ...config };
+
+  try {
+    logger.debug(`Creating document:`, params);
+
+    // Basic headers
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    // Call the execCreateDoc endpoint with credentials
+    const response = await fetch(`${baseUrl}/api/execCreateDoc`, {
+      method: "POST",
+      headers,
+      credentials: "include", // Important for session cookies
+      body: JSON.stringify(params),
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `API call failed: ${response.status} ${response.statusText}`
+      );
+    }
+
+    const result = await response.json();
+    logger.debug(`Document created successfully:`, result.resolvedFileName);
+    return result;
+  } catch (error) {
+    logger.error(`Document creation failed:`, error);
+    throw error;
+  }
+}
+
+/**
  * Standalone execEvent function that can be used directly
  */
 export async function execEvent(eventType, params = {}, config = {}) {
@@ -77,6 +114,40 @@ export function createApi(options = {}) {
     baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:3001",
     logger = console,
   } = options;
+
+  /**
+   * Execute parameter-driven document creation
+   */
+  async function execCreateDoc(params) {
+    try {
+      logger.debug(`Creating document:`, params);
+
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      // Call the execCreateDoc endpoint with credentials
+      const response = await fetch(`${baseUrl}/api/execCreateDoc`, {
+        method: "POST",
+        headers,
+        credentials: "include", // Important for session cookies
+        body: JSON.stringify(params),
+      });
+
+      if (!response.ok) {
+        const error = new Error(
+          `API Error: ${response.status} ${response.statusText}`
+        );
+        error.status = response.status;
+        throw error;
+      }
+
+      return await response.json();
+    } catch (error) {
+      logger.error(`Document Creation Error:`, error);
+      throw error;
+    }
+  }
 
   /**
    * Execute an event type against the API with validation
@@ -214,6 +285,7 @@ export function createApi(options = {}) {
     execEvent,
     execDml,
     execDmlWithRefresh,
+    execCreateDoc,
   };
 }
 
@@ -225,4 +297,8 @@ export const api = createApi();
 /**
  * Direct exports for convenience
  */
-export const { execDml, execDmlWithRefresh } = api;
+export const {
+  execDml,
+  execDmlWithRefresh,
+  execCreateDoc: apiExecCreateDoc,
+} = api;

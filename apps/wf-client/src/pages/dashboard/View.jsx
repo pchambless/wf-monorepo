@@ -25,7 +25,7 @@ const DashboardView = () => {
       
       <Grid container spacing={3}>
         {/* Recent Activity Card */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -39,7 +39,7 @@ const DashboardView = () => {
         </Grid>
         
         {/* System Status Card */}
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>

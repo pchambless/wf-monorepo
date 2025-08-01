@@ -18,7 +18,7 @@ import {
 
 // Import our form components
 import {
-  MultiLineField,
+  TextArea,
   TextField,
   Select,
 } from "@whatsfresh/shared-imports/jsx";
@@ -29,25 +29,49 @@ import {
   getCommunicationTypeOptions,
 } from "../../../utils/configLoader.js";
 
-// Import workflow functions
-import { createCommunication } from "../../workflows/index.js";
+// Import workflow registry for communication operations
+import { workflowRegistry } from "../../workflows/WorkflowRegistry.js";
 
-// Create agent response communication
-const createAgentResponse = async (originalPlanId, toAgent, type, subject, message) => {
-  return await createCommunication(
-    originalPlanId,
+// Import workflow configuration
+import { getComponentWorkflowConfig } from "../../config/workflowConfig.js";
+
+// Import modal system for agent coordination
+import AgentCoordinationModal from "./AgentCoordinationModal.jsx";
+
+// Import contextStore for planID
+import contextStore from "../../../stores/contextStore.js";
+
+// Create agent response communication using workflow
+const createAgentResponse = async (
+  originalPlanId,
+  toAgent,
+  type,
+  subject,
+  message
+) => {
+  const workflowContext = {
+    planId: originalPlanId,
     type,
-    subject, 
+    subject,
     message,
-    "claude" // from_agent
+    fromAgent: "claude",
+    toAgent,
+  };
+
+  const result = await workflowRegistry.execute(
+    "createCommunication",
+    workflowContext
   );
+  return result;
 };
 
 // Load configuration data with safety checks
 const PRIORITY_LEVELS = getPriorityOptions() || [];
 const COMMUNICATION_TYPES = getCommunicationTypeOptions() || [];
 
-const UserCommunicationForm = ({ selectedPlan }) => {
+const UserCommunicationForm = () => {
+  // Get planID from contextStore (set by SelPlan widget)
+  const selectedPlan = contextStore.getParameter("planID");
   const [formData, setFormData] = useState({
     type: "strategic-input",
     priority: "normal",
@@ -56,6 +80,11 @@ const UserCommunicationForm = ({ selectedPlan }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState(null);
+
+  // Modal state for agent coordination
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalCommunication, setModalCommunication] = useState(null);
+  const [modalScenario, setModalScenario] = useState(null);
 
   // Listen for reset events from the header button
   useEffect(() => {
@@ -79,8 +108,11 @@ const UserCommunicationForm = ({ selectedPlan }) => {
     console.log("🚀 handleSubmit called");
     console.log("📋 Form data:", formData);
     console.log("🎯 Selected plan:", selectedPlan);
-    console.log("✅ Form valid:", formData.subject && formData.message && selectedPlan);
-    
+    console.log(
+      "✅ Form valid:",
+      formData.subject && formData.message && selectedPlan
+    );
+
     setIsSubmitting(true);
     setSubmitResult(null);
 
@@ -89,24 +121,53 @@ const UserCommunicationForm = ({ selectedPlan }) => {
       const { contextStore } = await import("@whatsfresh/shared-imports");
       const userID = contextStore.getParameter("firstName") || "user";
 
-      // Call actual communication workflow
-      console.log("📞 Calling createCommunication with planId:", selectedPlan);
-      const result = await createCommunication(
-        selectedPlan,
-        formData.type,
-        formData.subject,
-        formData.message,
-        userID
+      // Use createCommunication workflow
+      const workflowContext = {
+        planId: selectedPlan,
+        type: formData.type,
+        subject: formData.subject,
+        message: formData.message,
+        priority: formData.priority,
+        fromAgent: userID,
+        toAgent: "claude", // Default recipient
+      };
+
+      console.log(
+        "📞 Executing createCommunication workflow:",
+        workflowContext
+      );
+      const workflowOptions = getComponentWorkflowConfig("form");
+      const result = await workflowRegistry.execute(
+        "createCommunication",
+        workflowContext,
+        workflowOptions
       );
 
-      if (result.success) {
+      if (result && result.success) {
         setSubmitResult({
           success: true,
-          message: `Communication ${result.paddedCommunicationId} created successfully!`,
-          details: `Sent to ${result.recipient}. ${result.details.description}`,
+          message: `Communication created successfully! (Workflow: ${result.executionId})`,
+          details: `Sent to ${result.data.recipient || "claude"}. ${
+            result.data.details || "Communication processed."
+          }`,
         });
+
+        // Trigger modal for agent coordination
+        const communicationData = {
+          id: result.data.communicationId,
+          plan_id: selectedPlan,
+          from_agent: userID,
+          to_agent: result.data.recipient || "claude",
+          subject: formData.subject,
+          message: formData.message,
+          created_at: new Date().toISOString(),
+        };
+
+        setModalCommunication(communicationData);
+        setModalScenario("user-issue"); // User identifying an issue
+        setModalOpen(true);
       } else {
-        throw new Error(result.message);
+        throw new Error(result?.error?.message || "Workflow execution failed");
       }
 
       // Reset form
@@ -193,26 +254,38 @@ const UserCommunicationForm = ({ selectedPlan }) => {
 
         {/* Right Column - Content Area (Much Wider) */}
         <Grid item xs={12} md={8}>
-          {/* Subject */}
-          <TextField
-            label="Subject"
-            value={formData.subject}
-            onChange={(value) =>
-              setFormData((prev) => ({ ...prev, subject: value }))
-            }
-            placeholder="Brief summary of your strategic input..."
-          />
-
-          {/* Strategic Message - Much Wider Text Area */}
-          <Box sx={{ width: "350%", maxWidth: "calc(100vw - 120px)" }}>
-            <MultiLineField
-              label="Strategic Message"
-              value={formData.message}
+          {/* Subject - Wider field */}
+          <Box sx={{ width: "100%", maxWidth: "800px" }}>
+            <TextField
+              label="Subject"
+              value={formData.subject}
               onChange={(value) =>
-                setFormData((prev) => ({ ...prev, message: value }))
+                setFormData((prev) => ({ ...prev, subject: value }))
               }
-              minRows={15}
-              placeholder={`Provide detailed strategic input, business context, requirements, or guidance for the AI collaboration team...
+              placeholder="Brief summary of your strategic input..."
+            />
+          </Box>
+
+          {/* Form Status - Moved above message */}
+          <Box sx={{ mb: 2 }}>
+            {isFormValid ? (
+              <Chip label="Ready to Send" color="success" size="small" />
+            ) : (
+              <Chip label="Fill Required Fields" color="default" size="small" />
+            )}
+          </Box>
+
+          {/* Strategic Message - 80 character width */}
+          <TextArea
+            label="Strategic Message"
+            value={formData.message}
+            onChange={(value) =>
+              setFormData((prev) => ({ ...prev, message: value }))
+            }
+            minRows={15}
+            maxRows={25}
+            sx={{ fontFamily: 'monospace', width: '80ch', maxWidth: '100%' }}
+            placeholder={`Provide detailed strategic input, business context, requirements, or guidance for the AI collaboration team...
 
 # Strategic Context
 [Describe the business context and strategic importance]
@@ -226,8 +299,7 @@ const UserCommunicationForm = ({ selectedPlan }) => {
 
 ## Additional Notes
 [Any other relevant information...]`}
-            />
-          </Box>
+          />
         </Grid>
 
         {/* Communication Preview */}
@@ -265,17 +337,15 @@ const UserCommunicationForm = ({ selectedPlan }) => {
           </Grid>
         )}
 
-        {/* Form Status */}
-        <Grid item xs={12}>
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            {isFormValid ? (
-              <Chip label="Ready to Send" color="success" size="small" />
-            ) : (
-              <Chip label="Fill Required Fields" color="default" size="small" />
-            )}
-          </Box>
-        </Grid>
       </Grid>
+
+      {/* Agent Coordination Modal */}
+      <AgentCoordinationModal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        communication={modalCommunication}
+        scenario={modalScenario}
+      />
     </Box>
   );
 };

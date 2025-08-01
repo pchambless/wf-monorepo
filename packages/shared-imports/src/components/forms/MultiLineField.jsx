@@ -38,13 +38,7 @@ const MultiLineField = ({
         variant="outlined"
         fullWidth={fullWidth}
         sx={{
-          '& .MuiInputBase-root': {
-            height: 'auto',
-            minHeight: '100px',
-            alignItems: 'flex-start',
-          },
           '& .MuiInputBase-input': {
-            overflow: 'auto',
             lineHeight: 1.5
           }
         }}

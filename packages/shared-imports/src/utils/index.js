@@ -23,21 +23,25 @@ export {
   PLAN_ID_PATTERNS,
 } from "./documentMetadata.js";
 
-// File operations utilities (Plan 0019 - Document Automation)
-export {
-  createDoc,
-  default as createDocDefault,
-  validateInputs,
-  validateFileName,
-  validateSecurity,
-  resolvePath,
-  ensureDirectory,
-  directoryExists,
-  fileExists,
-  writeFile,
-  ERROR_TYPES,
-  categorizeError,
-} from "./fileOperations.js";
+// File Operations utilities
+// Browser-safe: Uses API endpoints for document creation
+// Server-side: Import from '@whatsfresh/shared-imports/utils/server' for direct file operations
+
+// Re-export API version for browser compatibility
+export { execCreateDoc as createDoc } from "../api/index.js";
+
+// Browser-safe stubs for other file operations (use API endpoints)
+export const writeFile = () => {
+  throw new Error(
+    "writeFile is server-side only. Use execCreateDoc() for document creation or import from @whatsfresh/shared-imports/utils/server for server usage."
+  );
+};
+
+export const fileExists = () => {
+  throw new Error(
+    "fileExists is server-side only. Import from @whatsfresh/shared-imports/utils/server for server usage."
+  );
+};
 
 // TODO: Add other shared utilities here as they're created
 // Example future utilities:

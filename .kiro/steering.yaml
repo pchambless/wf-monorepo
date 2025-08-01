@@ -2,21 +2,21 @@
 # WhatsFresh Monorepo - Kiro Behavior Steering Configuration
 # Working Documentation - Updated: 2025-07-20
 
-  project_context:
-    name: "WhatsFresh 2.0"
-    architecture: "monorepo-devtools-generated"
-    philosophy: "MVP break-and-fix, forward progress over backward compatibility"
+project_context:
+  name: "WhatsFresh 2.0"
+  architecture: "monorepo-devtools-generated"
+  philosophy: "MVP break-and-fix, forward progress over backward compatibility"
 
 agent_behavior:
-  max_chain_depth: 2                  # Keep agent sequences short and snappy
-  prefer_stubs: false                 # Generate lightweight code over full implementations
-  auto_docs: false                   # Avoid automatic documentation unless explicitly requested
-  scaffold_tests_by_default: false   # Skip test scaffolds unless flagged per-plan
-  controller_pattern: thin           # Enforce "thin controller" architecture
-  reuse_existing_modules: true       # Prefer imports over code duplication
-  use_config_driven_ui: true         # Respect declarative page config from pageMap.configDML
-  audit_fields_required: true        # Inject audit metadata (created_at/by, etc.) automatically
-  prefer_modular_extraction: true    # Encourage separation of builder/processor from controller
+  max_chain_depth: 2 # Keep agent sequences short and snappy
+  prefer_stubs: false # Generate lightweight code over full implementations
+  auto_docs: false # Avoid automatic documentation unless explicitly requested
+  scaffold_tests_by_default: false # Skip test scaffolds unless flagged per-plan
+  controller_pattern: thin # Enforce "thin controller" architecture
+  reuse_existing_modules: true # Prefer imports over code duplication
+  use_config_driven_ui: true # Respect declarative page config from pageMap.configDML
+  audit_fields_required: true # Inject audit metadata (created_at/by, etc.) automatically
+  prefer_modular_extraction: true # Encourage separation of builder/processor from controller
 
 monorepo_structure:
   apps:
@@ -26,10 +26,11 @@ monorepo_structure:
   packages:
     - shared-imports
 
-  AI Architectue Principles
-    This file contains the architectural principles and guidelines for the WhatsFresh monorepo. It will be a work in progress
-    to constantly refine guiding principles and rules for the architecture of the monorepo.
-    - /home/paul/wf-monorepo-new/AI/architecture-principles.md  
+  ai_architecture_principles:
+    description: >
+      This file contains the architectural principles and guidelines for the WhatsFresh monorepo. It will be a work in progress
+      to constantly refine guiding principles and rules for the architecture of the monorepo.
+    reference: "/home/paul/wf-monorepo-new/AI/architecture-principles.md"
 
   # Core architectural patterns - enforce these, don't re-investigate
   established_patterns:
@@ -40,42 +41,14 @@ monorepo_structure:
     - "Parent keys always: type number, required true, hidden true"
     - "Field mapping: form fields → database columns via pageMap.fieldMappings"
     - "EventType = pageName = viewName (unified naming)"
+    - "Use shared workflow helpers (createDoc, createPlanImpact) over direct API calls"
+    - "Co-located templates with workflows (Template.js pattern)"
+    - "Impact tracking required for all file modifications"
+    - "Browser-safe vs server-side module separation (.browser.js pattern)"
+    - "Follow established document creation workflows over direct file operations"
+    - "Modularization: Always modularize code when modules become large or complicated (>300 lines or multiple responsibilities)"
 
   # Paths we work with constantly - load context automatically
-  frequent_paths:
-
-    # Project coordination (add to existing paths)
-    claude_guide: "CLAUDE.md"
-    collaboration_rules: "AI/collaboration-rules.md"
-    collaboration_methodology: "AI/collaboration-methodology.md"
-    session_startup: "AI/session-startup.md"
-    # Page generation workflow
-    pages: "apps/wf-client/src/pages/"
-    directives: "packages/devtools/src/automation/data/directives/"
-    sql_views: "sql/views/client/"
-    pagemaps: "apps/wf-client/src/pages/*/pageMap.js"
-
-    # Configuration files (modify constantly)
-    navigation: "apps/wf-client/src/config/navigation.js"
-    routes: "apps/wf-client/src/config/routes.js"
-    events_config: "packages/devtools/src/configuration/events.json"
-    architecture_rules: "packages/devtools/src/docs/generated/rules/ARCHITECTURE-RULES.md"
-
-    # DevTools automation
-    genDirectives: "packages/devtools/src/automation/triggered/genDirectives.js"
-    genPageMaps: "packages/devtools/src/automation/core/genPageMaps.js"
-    directiveMap: "packages/devtools/src/utils/directiveMap.js"
-
-    # Critical integration points
-    api_client: "packages/shared-imports/src/api/index.js"
-    context_store: "packages/shared-imports/src/stores/contextStore.js"
-    dml_processor: "apps/wf-server/server/utils/dml/dmlProcessor.js"
-    form_store: "packages/shared-imports/src/components/crud/Form/stores/FormStore.js"
-
-    # Project coordination
-    collaboration_rules: "AI/collaboration-rules.md"
-    collaboration_methodology: "AI/collaboration-methodology.md"
-    session_startup: "AI/session-startup.md"
 
   # Skip deep investigation for these - they're established patterns
   skip_investigation:
@@ -85,6 +58,9 @@ monorepo_structure:
     - "Standard field mapping patterns (camelCase → snake_case)"
     - "Basic audit field handling (created_at, updated_at, etc.)"
     - "ContextStore parameter resolution for known patterns"
+    - "Standard workflow creation using established helpers"
+    - "Impact tracking using createPlanImpact patterns"
+    - "Document creation using createDoc workflows"
 
   # Investigate deeply for these - architectural decisions needed
   deep_investigation:
@@ -103,7 +79,7 @@ monorepo_structure:
       - "Make small, targeted replacements instead of large block replacements"
       - "Avoid blind string replacements that are likely to fail"
       - "Use readFile before strReplace to see exact text structure"
-    
+
     anti_patterns:
       - "Large multi-line string replacements without reading file first"
       - "Assuming file structure without verification"
@@ -147,7 +123,7 @@ monorepo_structure:
   # AI Investigation shortcuts by blast radius
   critical_nodes:
     - "packages/shared-imports/src/api/index.js" # 8+ dependents
-    - "packages/shared-imports/src/events/index.js" # 5+ dependents  
+    - "packages/shared-imports/src/events/index.js" # 5+ dependents
     - "packages/shared-imports/src/stores/contextStore.js" # 4+ dependents
 
   safe_zones:
@@ -155,9 +131,31 @@ monorepo_structure:
     - "apps/wf-client/src/config/*.js" # Pure config
     - "apps/wf-client/src/utils/*" # Client utilities
 
-  # Path-based auto-context loading
+  # Pre-analyzed data for token-efficient investigations
+  analysis_data_shortcuts:
+    architecture_mapping: "analysis-n-document/output/config-relationships.json"
+    dead_code_analysis: "analysis-n-document/output/dead-code-analysis.json"
+    event_flows: "analysis-n-document/output/event-flows.json"
+    integration_flows: "analysis-n-document/output/integration-flows.json"
+
+    investigation_protocol:
+      before_file_search: "Check analysis data first - saves 50-200 tokens per investigation"
+      page_components: "config-relationships.json.page_flows[eventType].component"
+      database_tables: "config-relationships.json.page_flows[eventType].dbTable"
+      navigation_hierarchy: "config-relationships.json.hierarchy.userAcctList.children[]"
+      dead_code_cleanup: "dead-code-analysis.json.ai_summary.high_priority_removals[]"
+      full_stack_flows: "integration-flows.json.client_server_flows[eventType]"
+      api_patterns: "integration-flows.json.integration_patterns"
+
+    refresh_commands:
+      all_analysis: "npm run analyze:all"
+      architecture_only: "npm run analyze:config"
+      dead_code_only: "npm run analyze:dead-code"
+      events_only: "npm run analyze:events"
+      integration_only: "npm run analyze:integration"
+
   path_context:
-     "*/CLAUDE.md/*":
+    "*/CLAUDE.md/*":
       auto_load:
         - "Claude architectural guidance and behavioral preferences"
         - "Working documentation principles and investigation shortcuts"
@@ -180,11 +178,18 @@ monorepo_structure:
         - "generation workflow patterns"
         - "devtools command structure"
         - "automation coordination rules"
+        - "automation coordination rules"
 
   # Development workflow shortcuts
   common_workflows:
     new_page:
-      steps: ["create SQL view", "generate directives", "generate pageMap", "create React component"]
+      steps:
+        [
+          "create SQL view",
+          "generate directives",
+          "generate pageMap",
+          "create React component",
+        ]
       automation: "genDirectives.js → genPageMaps.js → manual component creation"
 
     fix_field_config:
@@ -192,17 +197,49 @@ monorepo_structure:
       automation: "manual directive edit → genPageMaps.js"
 
     add_widget:
-      steps: ["update directiveMap", "modify field directive", "regenerate pageMap"]
+      steps:
+        ["update directiveMap", "modify field directive", "regenerate pageMap"]
       automation: "directiveMap.js → genDirectives.js → genPageMaps.js"
 
   # Claude ↔ Kiro collaboration hints
   collaboration:
-    claude_strengths: ["architectural analysis", "system integration", "pattern validation", "investigation support"]
-    kiro_strengths: ["implementation", "code generation", "testing workflows", "pattern replication"]
+    claude_strengths:
+      [
+        "architectural analysis",
+        "system integration",
+        "pattern validation",
+        "investigation support",
+        "requirements/design creation",
+      ]
+    kiro_strengths:
+      [
+        "implementation",
+        "code generation",
+        "testing workflows",
+        "pattern replication",
+        "impact tracking",
+      ]
 
     handoff_triggers:
-      to_claude: ["ARCHITECTURAL_QUESTION", "system integration conflicts", "pattern validation needed"]
-      to_kiro: ["specs approved", "implementation ready", "testing required"]
+      to_claude:
+        [
+          "ARCHITECTURAL_QUESTION",
+          "system integration conflicts",
+          "pattern validation needed",
+          "requirements/design needed",
+        ]
+      to_kiro:
+        [
+          "specs approved",
+          "implementation ready",
+          "testing required",
+          "workflow creation needed",
+        ]
+
+    shared_responsibilities:
+      - "Impact tracking for all file changes (Plan ID 0 for adhoc operations)"
+      - "Use established document creation workflows"
+      - "Follow co-located template patterns"
 
   # Resource optimization
   efficiency_targets:
@@ -210,9 +247,10 @@ monorepo_structure:
     implementation_time: "< 2 hours for standard CRUD operations"
     testing_time: "< 1 hour for pattern replication"
 
-  # Version tracking
+    # Version tracking
   metadata:
-    version: "1.0"
-    last_updated: "2025-07-20"
+    version: "1.1"
+    last_updated: "2025-07-27"
     maintainer: "Claude + Kiro collaboration"
     review_schedule: "monthly or after major architectural changes"
+    recent_updates: "Added workflow patterns, impact tracking, co-located templates"

@@ -18,10 +18,10 @@ import {
 
 // Import plan tool components
 import CreatePlanForm from "./plan-tools/CreatePlanForm.jsx";
-import CompletePlanForm from "./plan-tools/CompletePlanForm.jsx";
+import PlanStatusUpdateForm from "./plan-tools/PlanStatusUpdateForm.jsx";
 import ImpactTrackingEditor from "./plan-tools/ImpactTrackingEditor.jsx";
 
-const PlanToolsTab = ({ selectedPlan }) => {
+const PlanToolsTab = () => {
   const [selectedTool, setSelectedTool] = useState("create-plan");
 
   return (
@@ -44,10 +44,12 @@ const PlanToolsTab = ({ selectedPlan }) => {
           sx={{ mr: 1, mb: 1 }}
         />
         <Chip
-          label="Complete Plan"
+          label="Update Plan Status"
           color="success"
-          variant={selectedTool === "complete-plan" ? "filled" : "outlined"}
-          onClick={() => setSelectedTool("complete-plan")}
+          variant={
+            selectedTool === "plan-status-update" ? "filled" : "outlined"
+          }
+          onClick={() => setSelectedTool("plan-status-update")}
           sx={{ mr: 1, mb: 1 }}
         />
         <Chip
@@ -65,8 +67,8 @@ const PlanToolsTab = ({ selectedPlan }) => {
           title={
             selectedTool === "create-plan"
               ? "Create New Plan"
-              : selectedTool === "complete-plan"
-              ? "Complete Plan"
+              : selectedTool === "plan-status-update"
+              ? "Update Plan Status"
               : "Impact Tracking Editor"
           }
           action={
@@ -93,13 +95,11 @@ const PlanToolsTab = ({ selectedPlan }) => {
           {/* Create Plan Tool */}
           {selectedTool === "create-plan" && <CreatePlanForm />}
 
-          {/* Complete Plan Tool */}
-          {selectedTool === "complete-plan" && <CompletePlanForm />}
+          {/* Plan Status Update Tool */}
+          {selectedTool === "plan-status-update" && <PlanStatusUpdateForm />}
 
           {/* Impact Tracking Tool */}
-          {selectedTool === "impact-tracking" && (
-            <ImpactTrackingEditor selectedPlan={selectedPlan} />
-          )}
+          {selectedTool === "impact-tracking" && <ImpactTrackingEditor />}
         </CardContent>
       </Card>
     </Box>

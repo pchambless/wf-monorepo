@@ -65,9 +65,7 @@ const PlanCommunicationTab = () => {
         />
         <CardContent>
           {/* Tab 1: New Communication Form */}
-          {activeTab === 0 && (
-            <UserCommunicationForm selectedPlan={contextStore.getParameter("planID")} />
-          )}
+          {activeTab === 0 && <UserCommunicationForm />}
 
           {/* Tab 2: Communication History */}
           {activeTab === 1 && <CommunicationHistory />}

@@ -8,7 +8,6 @@
  */
 
 import { execDml } from "../../../api/index.js";
-import { createPlanDocument } from "../documents/createPlanDocument.js";
 
 /**
  * Generate plan document path using consistent naming pattern
@@ -106,7 +105,8 @@ export const createPlan = async (planData, userID) => {
     const impactRecord = {
       plan_id: planId,
       file_path: documentPath, // Same path as document for consistency
-      change_type: "CREATED",
+      change_type: "CREATE",
+      phase: "idea",
       status: "pending",
       description: "Plan creation workflow executed",
       // Audit fields (created_by, created_at) auto-injected by DML processor
@@ -127,11 +127,11 @@ export const createPlan = async (planData, userID) => {
       throw new Error(impactResult?.error || "Failed to create impact record");
     }
 
-    // Step 4: Create physical plan document
-    const docResult = await createPlanDocument(planId, planData);
-    if (!docResult.success) {
-      console.warn('Plan created in database but file creation failed:', docResult.message);
-    }
+    // Step 4: No document creation needed - database-driven plan management
+    const docResult = {
+      success: true,
+      message: "Database-driven plan management - no physical documents needed",
+    };
 
     // Success - all operations completed
     return {

@@ -5,185 +5,173 @@
 
 ---
 
-## Universal Startup Checklist
+## Plan-Focused Startup Protocol
 
-### 1. **Project Context Recovery**
-- [ ] **Read CLAUDE.md** - Project context, behavioral preferences, MVP development philosophy
-- [ ] **Read AI/collaboration-rules.md** - Claude ↔ Kiro coordination framework and swim lanes
-- [ ] **Read AI/collaboration-methodology.md** - Investigation support and process enhancement procedures
+### 1. **Plan Context Recovery**
+When user signals "Plan NNNN":
+- [ ] **Read plan file** - `claude-plans/a-pending/NNNN-*.md` for plan context
+- [ ] **Check .kiro structure** - `.kiro/NNNN/` for analysis, guidance, and specs
+- [ ] **Review tasks status** - `.kiro/NNNN/specs/tasks.md` for current progress
+- [ ] **Read CLAUDE.md** - Project context and behavioral preferences
 
-### 2. **Collaboration State Check**
-- [ ] **Check coordination log** - `.kiro/communication/coordination-log.json` for pending items
-- [ ] **Review pending communications** - `.kiro/communication/[claude-requests|kiro-questions]/`
-- [ ] **Identify awaiting responses** - Any "awaiting-claude-review" or "awaiting-kiro-response" items
+### 2. **Plan-Specific Work State**
+For active Plan NNNN:
+- [ ] **Analysis files** - `.kiro/NNNN/analysis/` for Claude's prior architectural work
+- [ ] **Guidance files** - `.kiro/NNNN/guidance/` for implementation guidance created
+- [ ] **Specs status** - `.kiro/NNNN/specs/` for requirements, design, and task progress
+- [ ] **Code references** - `.kiro/NNNN/specs/code-references.js` for implementation context
 
-### 3. **Plan Status Assessment**
-- [ ] **Active plans** - `claude-plans/a-pending/` for current work
-- [ ] **Impact tracking** - `claude-plans/impact-tracking.json` for plan status and dependencies
-- [ ] **Plan registry** - `claude-plans/plan-registry.json` for overall status
-- [ ] **User signals active plan** - Wait for "Plan NNNN" format from user
+### 3. **Legacy System Check** (Being Phased Out)
+- [ ] **Coordination log** - `.kiro/communication/coordination-log.json` (if exists)
+- [ ] **Impact tracking** - `claude-plans/impact-tracking.json` (being migrated to database)
+- [ ] **Plan registry** - `claude-plans/plan-registry.json` (if exists)
 
-### 4. **Pending Communications Review**
-- [ ] **Architectural questions** - Any ARCHITECTURAL_QUESTION flags requiring input
-- [ ] **Implementation handoffs** - Any completed work needing review
-- [ ] **Process innovations** - Any off-plan discoveries or methodology enhancements
-
-### 5. **Current Focus Identification**
-- [ ] **Blocking dependencies** - Which plans are waiting on others
-- [ ] **Compilation errors** - Any immediate technical issues
-- [ ] **User validation needs** - Any work awaiting user approval
+### 4. **Current Work Status Assessment**
+- [ ] **Implementation blockers** - Any ARCHITECTURAL_QUESTION flags in guidance files
+- [ ] **Completed analysis** - Which analysis and guidance files are complete
+- [ ] **Next required work** - What Claude needs to provide next for plan progress
+- [ ] **User feedback needs** - Any completed work awaiting user validation
 
 ---
 
-## Investigation Support (New Sessions)
+## Standard Plan Structure Pattern
 
-### Check Investigation Artifacts
-- [ ] **Review investigation files** in `.kiro/specs/[current-plan]/`
-- [ ] **Check code references** - Pre-extracted snippets and integration points
-- [ ] **Review progress logs** - Shared investigation state and discoveries
+### Analysis Directory (`.kiro/NNNN/analysis/`)
+Claude's architectural analysis files:
+- `claude-analysis-*.md` - System analysis and architectural assessment
+- Domain-specific analysis for plan requirements
+- Integration point identification and risk assessment
+- System impact and dependency analysis
 
-### Identify Support Needs
-- [ ] **Complex integration tasks** - Need investigation guides?
-- [ ] **Architectural decisions** - Need system analysis support?
-- [ ] **Code extraction** - Need reference snippets for comparison?
-- [ ] **Progress tracking** - Need shared investigation logs?
+### Guidance Directory (`.kiro/NNNN/guidance/`)
+Claude's implementation guidance files:
+- `implementation-guidance-*.md` - Specific implementation instructions
+- Step-by-step implementation guidance for development
+- Integration patterns and architectural constraints
+- Code organization and pattern recommendations
 
-### Create Investigation Support (Claude)
-- [ ] **investigation-guide.md** - File locations, key functions, integration points
-- [ ] **code-references.js** - Extracted snippets with context and line numbers
-- [ ] **discovery-checklist.md** - Structured investigation steps
-- [ ] **integration-points.md** - System connections and compatibility analysis
+### Specs Directory (`.kiro/NNNN/specs/`)
+Shared specification files:
+- `requirements.md` - Plan requirements and scope
+- `design.md` - Technical design and architecture decisions
+- `tasks.md` - Task breakdown and progress tracking
+- `code-references.js` - Extracted code snippets with context
+- `investigation-guide.md` - Investigation file locations and key functions
+- `discovery-checklist.md` - Structured investigation steps
 
 ---
 
 ## Quick File References
 
-### Project Structure
-- **Project Rules:** `/CLAUDE.md`
-- **Collaboration Framework:** `/AI/collaboration-rules.md`
-- **Process Methodology:** `/AI/collaboration-methodology.md`
-- **Plans:** `/claude-plans/a-pending/`, `/claude-plans/b-completed/`
-- **Impact Tracking:** `/claude-plans/impact-tracking.json`
+### Current Plan Files (Replace NNNN with plan number)
+- **Active Plan:** `claude-plans/a-pending/NNNN-*.md`
+- **Plan Tasks:** `.kiro/NNNN/specs/tasks.md`
+- **Plan Requirements:** `.kiro/NNNN/specs/requirements.md`
+- **Plan Design:** `.kiro/NNNN/specs/design.md`
 
-### Kiro Integration
-- **Coordination:** `.kiro/communication/coordination-log.json`
-- **Specs:** `.kiro/specs/[plan-name]/`
-- **Issues:** `.kiro/issues/`
-- **Impact Registry:** `.kiro/impact-registry.json`
+### Claude Work Products
+- **Analysis:** `.kiro/NNNN/analysis/claude-analysis-*.md`
+- **Guidance:** `.kiro/NNNN/guidance/implementation-guidance-*.md`
+- **Code References:** `.kiro/NNNN/specs/code-references.js`
+- **Investigation Guide:** `.kiro/NNNN/specs/investigation-guide.md`
 
-### Architecture Context
-- **DevTools Rules:** `/packages/devtools/src/docs/generated/rules/ARCHITECTURE-RULES.md`
-- **Generation Commands:** See CLAUDE.md DevTools section
-- **Field Patterns:** `/packages/devtools/src/utils/directiveMap.js`
+### Legacy System Files (May Be Phased Out)
+- **Plans:** `claude-plans/a-pending/`, `claude-plans/b-completed/`
+- **Impact Tracking:** `claude-plans/impact-tracking.json` (potentially → database)
+- **Coordination:** `.kiro/communication/coordination-log.json` (potentially → database)
 
----
-
-## Claude-Specific Startup
-
-### Architectural Review Priorities
-- [ ] **Check for ARCHITECTURAL_QUESTION flags** in recent files
-- [ ] **Review system integration opportunities** in current plan
-- [ ] **Assess architectural impact** of proposed changes
-- [ ] **Identify pattern validation needs** for implementation approach
-
-### Investigation Support Role
-- [ ] **Create investigation guides** for complex integration tasks
-- [ ] **Extract relevant code snippets** with full context
-- [ ] **Identify integration points** and potential conflicts
-- [ ] **Provide architectural guidance** through coordination system
-
-### Plan Coordination
-- [ ] **Review plan dependencies** and blocking relationships
-- [ ] **Check for scope changes** requiring architectural input
-- [ ] **Assess impact on other plans** and system components
+### Core Architecture
+- **Project Rules:** `CLAUDE.md`
+- **DevTools Rules:** `packages/devtools/src/docs/generated/rules/ARCHITECTURE-RULES.md`
+- **Field Patterns:** `packages/devtools/src/utils/directiveMap.js`
 
 ---
 
-## Kiro-Specific Startup
+## Claude Session Startup Workflow
 
-### Implementation Readiness
-- [ ] **Check spec completeness** in `.kiro/specs/[plan]/`
-- [ ] **Review investigation artifacts** created by Claude
-- [ ] **Assess code references** and integration requirements
-- [ ] **Identify architectural questions** needing clarification
+### Plan Context Recovery
+When user says "Plan NNNN":
+1. **Read plan context** - `claude-plans/a-pending/NNNN-*.md` for plan objectives
+2. **Check existing analysis** - Review `.kiro/NNNN/analysis/` for prior architectural work
+3. **Review guidance status** - Check `.kiro/NNNN/guidance/` for completed implementation guidance
+4. **Assess current needs** - What architectural support is needed next?
 
-### Testing & Validation
-- [ ] **Review testing strategy** in plan design documents
-- [ ] **Check validation criteria** for implementation success
-- [ ] **Identify end-to-end testing** requirements
-- [ ] **Plan integration testing** approach
+### Rapid Assessment Questions
+- **What analysis has Claude already completed?** (check analysis/ directory)
+- **What guidance has been provided?** (check guidance/ directory)
+- **What's the current task status?** (check specs/tasks.md)
+- **Are there implementation blockers?** (look for ARCHITECTURAL_QUESTION flags)
 
-### Progress Communication
-- [ ] **Update progress logs** with current investigation state
-- [ ] **Communicate discoveries** through coordination system
-- [ ] **Request architectural input** when needed via ARCHITECTURAL_QUESTION
-
----
-
-## Status Indicators to Check
-
-### Emergency Scenarios
-- [ ] **ARCHITECTURAL_QUESTION** - Implementation blocked, needs Claude input
-- [ ] **Compilation errors** - Technical issues preventing progress
-- [ ] **Plan sequencing conflicts** - Multiple plans affecting same files
-- [ ] **User testing feedback** - Implementation needs adjustment
-
-### Coordination Health
-- [ ] **Pending responses** - Any communications awaiting reply >24 hours
-- [ ] **Blocking dependencies** - Plans waiting on architectural decisions
-- [ ] **Scope creep** - Implementation expanding beyond approved specs
-- [ ] **Integration conflicts** - Multiple plans modifying same systems
+### Next Action Identification
+Based on current plan state:
+- **Analysis needed:** Create architectural analysis files
+- **Guidance needed:** Create implementation guidance files
+- **Review needed:** Validate completed implementation work
+- **Coordination needed:** Address architectural questions or blockers
 
 ---
 
-## Context Clues for Quick Assessment
+## Database Migration Context (Plan 0019)
 
-### Development State
-- **Last modified files** - What was being worked on most recently?
-- **Recent git commits** - What changes were made?
-- **Build/compilation status** - Any immediate technical issues?
+### Current Migration State
+Plan 0019 focuses on migrating from file-based coordination to database-driven workflows:
+- **Legacy:** `.kiro/communication/` files → **Target:** `api_wf.plan_communications` table
+- **Legacy:** `claude-plans/impact-tracking.json` → **Target:** `api_wf.plan_impacts` table
+- **Legacy:** File-based coordination → **Target:** Database queries + UI integration
 
-### Collaboration State
-- **Recent .kiro/issues/** - What problems were encountered?
-- **Coordination log entries** - What decisions were made?
-- **Plan task status** - Which tasks are in-progress vs complete?
-
-### System Health
-- **Server logs** - Any runtime issues to address?
-- **Browser console** - Any client-side errors?
-- **Test results** - Any failing validations?
+### Session Implications
+- **File references may be transitional** - some coordination still file-based during migration
+- **Database integration in progress** - new workflows being developed
+- **UI integration planned** - plan creation/management moving to web interface
 
 ---
 
-## Current Session State (Auto-Updated)
-- **Active Plan:** [Plan Number] ([Plan Name])
-- **Blocking:** [Blocked by Plan Number] 
-- **Last Action:** [Description of last action taken]
-- **Next Action:** [Description of next required action]
-- **Status:** [Ready for implementation/Awaiting review/etc.]
+## Current Plan Status Indicators
+
+### Plan Health Check
+- [ ] **Task completion** - Check `.kiro/NNNN/specs/tasks.md` for current progress
+- [ ] **Analysis completeness** - Are all required analysis files created?
+- [ ] **Guidance completeness** - Are all implementation guidance files created?
+- [ ] **Implementation blockers** - Any ARCHITECTURAL_QUESTION flags?
+
+### System Integration Status
+- [ ] **Database migration progress** - What's been migrated from files to database?
+- [ ] **UI integration status** - What plan management UI components exist?
+- [ ] **Testing integration** - Are there tests for the new database workflows?
 
 ---
 
-## Emergency Startup Scenarios
+## Session Context Assessment
 
-### Mid-Implementation Handoff
-**Situation:** Kiro → Claude review needed during active implementation
-**Actions:** Check progress logs, review recent changes, assess architectural soundness
+### Development State Assessment
+- **Recent plan work** - Check git status for .kiro/NNNN/ modifications
+- **Recent guidance** - What was the last guidance file created?
+- **Implementation progress** - What has been completed based on guidance?
 
-### Blocking Issue Discovered
-**Situation:** Implementation stopped due to architectural conflict
-**Actions:** Review issue details, assess integration requirements, provide architectural guidance
-
-### Plan Sequencing Conflict
-**Situation:** Multiple plans affecting same files discovered
-**Actions:** Review impact tracking, coordinate sequencing, resolve conflicts
-
-### User Testing Feedback
-**Situation:** Implemented features need adjustment based on user feedback
-**Actions:** Assess feedback scope, determine architectural impact, coordinate changes
+### Current Focus Areas (Plan-Specific)
+- Focus areas depend on the specific plan objectives
+- Architectural patterns and system integration needs
+- Component development and workflow enhancements
+- UI/UX improvements and user interface updates
 
 ---
 
-**Token Conservation Strategy:** This document enables rapid context recovery without lengthy explanations, maintaining focus on current objectives while ensuring comprehensive situational awareness.
+## Efficient Session Startup
 
-**Collaboration Success Metric:** Either AI can achieve full context awareness within 2-3 minutes of session startup using this protocol.
+### 30-Second Assessment
+1. **Plan context** - Read active plan file for current objectives
+2. **Task status** - Check tasks.md for immediate next steps
+3. **Blocking issues** - Scan for ARCHITECTURAL_QUESTION flags
+4. **Recent work** - Review last modified files in .kiro/NNNN/
+
+### 2-Minute Deep Dive
+1. **Analysis review** - Read existing Claude analysis files
+2. **Guidance review** - Check implementation guidance completeness
+3. **Code integration** - Review code-references.js for implementation context
+4. **System state** - Assess database migration and UI integration progress
+
+---
+
+**Token Conservation Strategy:** Focus on current plan structure and work rather than legacy coordination systems. Adapt to evolving workflows.
+
+**Success Metric:** Claude can resume architectural support for any active plan within 2 minutes of session startup.

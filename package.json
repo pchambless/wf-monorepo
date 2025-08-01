@@ -1,6 +1,7 @@
 {
   "name": "whatsfresh-monorepo",
   "private": true,
+  "type": "module",
   "packageManager": "npm@10.2.4",
   "workspaces": [
     "apps/wf-client",
@@ -8,7 +9,13 @@
     "packages/*"
   ],
   "scripts": {
-    "analyze-deps": "madge . --json > packages/shared-imports/src/architecture/data/raw-madge.json && node packages/shared-imports/src/architecture/scripts/enhance-madge.cjs",
+    "analyze:dead-code": "node analysis-n-document/scripts/analyze-dead-code.js",
+    "analyze:config": "node analysis-n-document/scripts/analyze-config-flows.js",
+    "analyze:events": "node analysis-n-document/scripts/genEventTypes.js",
+    "analyze:integration": "node analysis-n-document/scripts/analyze-integration-flows.js",
+    "analyze:all": "npm run analyze-deps && npm run analyze:dead-code && npm run analyze:config && npm run analyze:events && npm run analyze:integration",
+    "analyze-deps": "madge . --json > apps/wf-client/public/analysis-data/raw-madge.json && node packages/shared-imports/src/architecture/scripts/enhance-madge.cjs && node packages/shared-imports/src/architecture/scripts/analyze-config.cjs",
+    "docs:generate": "npm run analyze:all",
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
     "dev": "turbo run dev --filter=wf-client",
     "dev:all": "turbo run dev",
@@ -22,6 +29,7 @@
     "generate-visuals": "node tools/page-generator/genVisualDocs.js",
     "generate:all": "turbo run generate:all",
     "generate:optimized": "node tools/page-generator/genOptimizedConfigs.js",
+    "generate:event-types": "node analysis-n-document/scripts/genEventTypes.js",
     "scaffold:section": "node packages/devtools/src/docs/sections/scaffoldRun.js",
     "run:section": "node packages/devtools/src/docs/sections/sectionRun.js"
   },

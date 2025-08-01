@@ -35,6 +35,7 @@ export { useModal } from "./components/modals/useModal.js";
 
 // Export form components
 export { default as DatePick } from "./components/forms/DatePick.jsx";
+export { default as TextArea } from "./components/forms/TextArea.jsx";
 export {
   TextField,
   MultiLineField,
@@ -73,6 +74,12 @@ export { default as ArchDashboard } from "./architecture/components/ArchDashboar
 
 // Export auth utilities
 export { useAuth, AuthProvider } from "./components/auth.jsx";
+
+// Export plan context utilities
+export {
+  PlanContextProvider,
+  usePlanContext,
+} from "./contexts/PlanContext.jsx";
 
 // Workflows are now in architecture folder - not JSX components
 // Import workflows directly from architecture when needed in business logic

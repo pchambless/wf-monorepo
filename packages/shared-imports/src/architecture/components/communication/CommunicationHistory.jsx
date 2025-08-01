@@ -1,10 +1,11 @@
 /**
- * Communication History Component
+ * Communication History Component - PHASE 2 Enhanced
  *
- * Displays timeline of User ↔ Claude ↔ Kiro communications
+ * Master-Detail Layout for Plan Communications (EventID 102)
+ * Database-driven living guidance system
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -12,174 +13,74 @@ import {
   Typography,
   Chip,
   Avatar,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Alert,
-  TextField,
-  InputAdornment,
+  Grid,
+  Paper,
+  Divider,
 } from "@mui/material";
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-} from "@mui/lab";
+import { DataGrid } from "@mui/x-data-grid";
 import {
   Person as UserIcon,
   SmartToy as ClaudeIcon,
   Build as KiroIcon,
-  ExpandMore as ExpandMoreIcon,
-  Search as SearchIcon,
 } from "@mui/icons-material";
 
-// Mock communication history (would come from coordination system in real implementation)
-const MOCK_COMMUNICATIONS = [
-  {
-    id: "user-001",
-    from: "user",
-    type: "strategic-input",
-    priority: "high",
-    subject: "Plan 0011 DML Process Priority",
-    message:
-      "This plan is blocking other development work. Please prioritize completion.",
-    timestamp: "2025-07-21T20:30:00Z",
-    affectedPlans: ["0011"],
-    status: "acknowledged",
-    responses: [
-      {
-        from: "claude",
-        message:
-          "Understood. Analyzing blocking dependencies and implementation requirements.",
-        timestamp: "2025-07-21T20:35:00Z",
-      },
-      {
-        from: "kiro",
-        message:
-          "Plan 0011 implementation completed successfully. DML process is now working end-to-end.",
-        timestamp: "2025-07-21T22:15:00Z",
-      },
-    ],
-  },
-  {
-    id: "claude-002",
-    from: "claude",
-    type: "architectural-question",
-    priority: "normal",
-    subject: "Plan 0015 Architectural Intelligence Implementation",
-    message:
-      "Comprehensive architectural analysis complete. Ready for Kiro implementation with modular component structure.",
-    timestamp: "2025-07-21T18:00:00Z",
-    affectedPlans: ["0015"],
-    status: "completed",
-    responses: [
-      {
-        from: "kiro",
-        message:
-          "Implementation complete! Modular architecture with 8 focused components created.",
-        timestamp: "2025-07-21T19:30:00Z",
-      },
-    ],
-  },
-  {
-    id: "user-003",
-    from: "user",
-    type: "scope-modification",
-    priority: "normal",
-    subject: "Plan 0016 User Communication Interface",
-    message:
-      "Love the three-tab approach! Please continue with Phase 2 and 3 implementation.",
-    timestamp: "2025-07-21T21:45:00Z",
-    affectedPlans: ["0016"],
-    status: "in-progress",
-    responses: [
-      {
-        from: "kiro",
-        message:
-          "Phase 2 Plan Tools interface completed! Moving to Phase 3 User Communication system.",
-        timestamp: "2025-07-21T22:30:00Z",
-      },
-    ],
-  },
-];
+// Import utilities for data fetching
+import { execEvent } from "@whatsfresh/shared-imports";
+import contextStore from "../../../stores/contextStore.js";
+import { usePlanContext } from "../../../contexts/PlanContext.jsx";
+
+// PHASE 2: Database-driven communications via EventID 102
 
 const CommunicationHistory = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [expandedItem, setExpandedItem] = useState(null);
+  const [selectedCommunication, setSelectedCommunication] = useState(null);
+  const [communications, setCommunications] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleAccordionChange = (itemId) => (event, isExpanded) => {
-    setExpandedItem(isExpanded ? itemId : null);
+  // Use plan context for automatic refresh when plan changes
+  const { currentPlanId, isRefreshing } = usePlanContext(async (planId) => {
+    await fetchCommunications(planId);
+  });
+
+  // Fetch communications data
+  const fetchCommunications = async (planId) => {
+    if (!planId) {
+      setCommunications([]);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const result = await execEvent("planCommunicationList", {
+        ":planID": planId,
+      });
+      setCommunications(result || []);
+    } catch (error) {
+      console.error("Error fetching communications:", error);
+      setCommunications([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const filteredCommunications = MOCK_COMMUNICATIONS.filter(
-    (comm) =>
-      comm.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      comm.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      comm.affectedPlans.some((plan) => plan.includes(searchTerm))
-  );
+  // Initial load when component mounts
+  useEffect(() => {
+    if (currentPlanId) {
+      fetchCommunications(currentPlanId);
+    }
+  }, [currentPlanId]);
 
-  const getParticipantInfo = (participant) => {
-    switch (participant) {
+  // Agent display utilities
+  const getAgentInfo = (agent) => {
+    switch (agent?.toLowerCase()) {
       case "user":
-        return {
-          name: "User",
-          icon: <UserIcon />,
-          color: "primary",
-          avatar: "👤",
-        };
+        return { name: "User", avatar: "👤", color: "primary" };
       case "claude":
-        return {
-          name: "Claude",
-          icon: <ClaudeIcon />,
-          color: "secondary",
-          avatar: "🧠",
-        };
+        return { name: "Claude", avatar: "🧠", color: "secondary" };
       case "kiro":
-        return {
-          name: "Kiro",
-          icon: <KiroIcon />,
-          color: "success",
-          avatar: "🤖",
-        };
+        return { name: "Kiro", avatar: "🤖", color: "success" };
       default:
-        return {
-          name: "System",
-          icon: <KiroIcon />,
-          color: "default",
-          avatar: "⚙️",
-        };
-    }
-  };
-
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case "urgent":
-        return "error";
-      case "high":
-        return "warning";
-      case "normal":
-        return "primary";
-      case "low":
-        return "default";
-      default:
-        return "default";
-    }
-  };
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "completed":
-        return "success";
-      case "in-progress":
-        return "warning";
-      case "acknowledged":
-        return "info";
-      case "pending":
-        return "default";
-      default:
-        return "default";
+        return { name: agent || "System", avatar: "⚙️", color: "default" };
     }
   };
 
@@ -187,165 +88,186 @@ const CommunicationHistory = () => {
     return new Date(timestamp).toLocaleString();
   };
 
+  // Message display component for right panel
+  const MessageDisplay = ({ communication }) => {
+    if (!communication) {
+      return (
+        <Paper sx={{ p: 3, textAlign: "center", color: "text.secondary" }}>
+          <Typography variant="h6">Select a communication</Typography>
+          <Typography variant="body2">
+            Choose a message from the list to view details
+          </Typography>
+        </Paper>
+      );
+    }
+
+    const fromAgent = getAgentInfo(communication.from_agent);
+    const toAgent = getAgentInfo(communication.to_agent);
+
+    return (
+      <Paper sx={{ p: 3 }}>
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            {communication.subject}
+          </Typography>
+
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Avatar sx={{ width: 24, height: 24, fontSize: "0.8rem" }}>
+                {fromAgent.avatar}
+              </Avatar>
+              <Typography variant="body2">{fromAgent.name}</Typography>
+              <Typography variant="body2" color="text.secondary">
+                →
+              </Typography>
+              <Avatar sx={{ width: 24, height: 24, fontSize: "0.8rem" }}>
+                {toAgent.avatar}
+              </Avatar>
+              <Typography variant="body2">{toAgent.name}</Typography>
+            </Box>
+
+            <Typography variant="caption" color="text.secondary">
+              {formatTimestamp(communication.created_at)}
+            </Typography>
+          </Box>
+        </Box>
+
+        <Divider sx={{ mb: 2 }} />
+
+        <Typography variant="body1" sx={{ whiteSpace: "pre-wrap" }}>
+          {communication.message}
+        </Typography>
+
+        {communication.metadata && (
+          <Box sx={{ mt: 2, p: 2, bgcolor: "grey.50", borderRadius: 1 }}>
+            <Typography variant="caption" color="text.secondary">
+              Metadata: {JSON.stringify(communication.metadata, null, 2)}
+            </Typography>
+          </Box>
+        )}
+      </Paper>
+    );
+  };
+
   return (
     <Box>
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Communication timeline showing strategic collaboration between User,
-        Claude, and Kiro
+      <Alert severity="info" sx={{ mb: 2 }}>
+        Plan Communications - Database-driven living guidance system
+        {isRefreshing && " (Refreshing...)"}
       </Alert>
 
-      {/* Search Filter */}
-      <TextField
-        fullWidth
-        placeholder="Search communications..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        sx={{ mb: 3 }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-
-      {/* Communication Timeline */}
-      <Timeline>
-        {filteredCommunications.map((comm, index) => {
-          const participantInfo = getParticipantInfo(comm.from);
-
-          return (
-            <TimelineItem key={comm.id}>
-              <TimelineSeparator>
-                <TimelineDot color={participantInfo.color}>
-                  <Avatar sx={{ width: 32, height: 32, fontSize: "1rem" }}>
-                    {participantInfo.avatar}
-                  </Avatar>
-                </TimelineDot>
-                {index < filteredCommunications.length - 1 && (
-                  <TimelineConnector />
-                )}
-              </TimelineSeparator>
-
-              <TimelineContent>
-                <Accordion
-                  expanded={expandedItem === comm.id}
-                  onChange={handleAccordionChange(comm.id)}
-                >
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Box sx={{ width: "100%" }}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 1,
-                          mb: 1,
-                        }}
-                      >
-                        <Typography variant="h6">{comm.subject}</Typography>
-                        <Chip
-                          label={participantInfo.name}
-                          color={participantInfo.color}
-                          size="small"
-                        />
-                        <Chip
-                          label={comm.priority.toUpperCase()}
-                          color={getPriorityColor(comm.priority)}
-                          size="small"
-                        />
-                        <Chip
-                          label={comm.status.toUpperCase()}
-                          color={getStatusColor(comm.status)}
-                          variant="outlined"
-                          size="small"
-                        />
-                      </Box>
-                      <Typography variant="body2" color="textSecondary">
-                        {formatTimestamp(comm.timestamp)} • Plans:{" "}
-                        {comm.affectedPlans.join(", ")}
-                      </Typography>
-                    </Box>
-                  </AccordionSummary>
-
-                  <AccordionDetails>
-                    <Box>
-                      {/* Original Message */}
-                      <Card variant="outlined" sx={{ mb: 2 }}>
-                        <CardContent>
-                          <Typography variant="body1" gutterBottom>
-                            {comm.message}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-
-                      {/* Responses */}
-                      {comm.responses && comm.responses.length > 0 && (
-                        <Box>
-                          <Typography variant="subtitle2" gutterBottom>
-                            Responses ({comm.responses.length})
-                          </Typography>
-                          {comm.responses.map((response, responseIndex) => {
-                            const responseParticipant = getParticipantInfo(
-                              response.from
-                            );
-                            return (
-                              <Card
-                                key={responseIndex}
-                                variant="outlined"
-                                sx={{ mb: 1, ml: 2 }}
-                              >
-                                <CardContent sx={{ py: 1.5 }}>
-                                  <Box
-                                    sx={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      gap: 1,
-                                      mb: 1,
-                                    }}
-                                  >
-                                    <Avatar
-                                      sx={{
-                                        width: 24,
-                                        height: 24,
-                                        fontSize: "0.8rem",
-                                      }}
-                                    >
-                                      {responseParticipant.avatar}
-                                    </Avatar>
-                                    <Typography variant="subtitle2">
-                                      {responseParticipant.name}
-                                    </Typography>
-                                    <Typography
-                                      variant="caption"
-                                      color="textSecondary"
-                                    >
-                                      {formatTimestamp(response.timestamp)}
-                                    </Typography>
-                                  </Box>
-                                  <Typography variant="body2">
-                                    {response.message}
-                                  </Typography>
-                                </CardContent>
-                              </Card>
-                            );
-                          })}
-                        </Box>
-                      )}
-                    </Box>
-                  </AccordionDetails>
-                </Accordion>
-              </TimelineContent>
-            </TimelineItem>
-          );
-        })}
-      </Timeline>
-
-      {filteredCommunications.length === 0 && (
-        <Alert severity="info">
-          No communications found matching your search criteria.
+      {!currentPlanId && (
+        <Alert severity="warning" sx={{ mb: 2 }}>
+          Please select a plan to view communications
         </Alert>
       )}
+
+      {/* Master-Detail Layout for Communications */}
+      <Grid container spacing={2}>
+        {/* Left Panel: Communications List */}
+        <Grid size={5}>
+          <Paper sx={{ p: 1, height: "600px", overflow: "auto" }}>
+            <DataGrid
+              rows={communications}
+              columns={[
+                {
+                  field: "from_agent",
+                  headerName: "From",
+                  width: 80,
+                  renderCell: (params) => {
+                    const agent = getAgentInfo(params.value);
+                    return (
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                      >
+                        <Avatar
+                          sx={{ width: 16, height: 16, fontSize: "0.7rem" }}
+                        >
+                          {agent.avatar}
+                        </Avatar>
+                        <Typography variant="caption">{agent.name}</Typography>
+                      </Box>
+                    );
+                  },
+                },
+                {
+                  field: "to_agent",
+                  headerName: "To",
+                  width: 80,
+                  renderCell: (params) => {
+                    const agent = getAgentInfo(params.value);
+                    return (
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+                      >
+                        <Avatar
+                          sx={{ width: 16, height: 16, fontSize: "0.7rem" }}
+                        >
+                          {agent.avatar}
+                        </Avatar>
+                        <Typography variant="caption">{agent.name}</Typography>
+                      </Box>
+                    );
+                  },
+                },
+                {
+                  field: "subject",
+                  headerName: "Subject",
+                  flex: 1,
+                  renderCell: (params) => (
+                    <Typography variant="caption" sx={{ fontSize: "13px" }}>
+                      {params.value}
+                    </Typography>
+                  ),
+                },
+                {
+                  field: "created_at",
+                  headerName: "Created",
+                  width: 120,
+                  renderCell: (params) => (
+                    <Typography variant="caption" sx={{ fontSize: "11px" }}>
+                      {formatTimestamp(params.value)}
+                    </Typography>
+                  ),
+                },
+              ]}
+              loading={loading || isRefreshing}
+              rowHeight={28}
+              hideFooter
+              onRowClick={(params) => setSelectedCommunication(params.row)}
+              sx={{
+                fontSize: "13px",
+                "& .MuiDataGrid-cell": {
+                  padding: "2px 8px",
+                },
+              }}
+            />
+          </Paper>
+        </Grid>
+
+        {/* Right Panel: Message Display */}
+        <Grid size={7}>
+          <Paper sx={{ p: 2, height: "600px", overflow: "auto" }}>
+            {selectedCommunication ? (
+              <MessageDisplay communication={selectedCommunication} />
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                  color: "text.secondary",
+                }}
+              >
+                <Typography variant="body2">
+                  Select a communication to view details
+                </Typography>
+              </Box>
+            )}
+          </Paper>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

@@ -73,15 +73,12 @@ class FormStore {
 
   setFormData(data) {
     runInAction(() => {
-      // Store the data (single source of truth)
+      // Store the data (single source of truth)  
       this.formData = { ...data };
       this.errors = {};
       this.touched = {};
 
-      this.log("Setting form data", {
-        dataKeys: Object.keys(data || {}),
-        fieldCount: Object.keys(data || {}).length,
-      });
+      // Form data updated silently
     });
   }
 

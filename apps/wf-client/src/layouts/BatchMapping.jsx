@@ -8,15 +8,15 @@ import WorksheetGenerator from '../components/reports/WorksheetGenerator.jsx';
 
 const log = createLogger('BatchMapping');
 
-// Styled components for drag-and-drop
-const DraggableRow = styled('div')(({ theme, isDragging }) => ({
-  cursor: isDragging ? 'grabbing' : 'grab',
-  opacity: isDragging ? 0.5 : 1,
-  transition: 'opacity 0.2s ease',
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.primary.main, 0.1),
-  },
-}));
+// Styled components for drag-and-drop (currently unused)
+// const _DraggableRow = styled('div')(({ theme, isDragging }) => ({
+//   cursor: isDragging ? 'grabbing' : 'grab',
+//   opacity: isDragging ? 0.5 : 1,
+//   transition: 'opacity 0.2s ease',
+//   '&:hover': {
+//     backgroundColor: alpha(theme.palette.primary.main, 0.1),
+//   },
+// }));
 
 const DropZone = styled(Paper, {
   shouldForwardProp: (prop) => !['isOver', 'canDrop'].includes(prop),
@@ -297,12 +297,12 @@ const BatchMapping = ({ pageMap }) => {
       
       <Grid container spacing={2} sx={{ height: 'calc(100vh - 120px)' }}>
         {/* Left Panel - Recipe Ingredients (Tallest) */}
-        <Grid item xs={4} sx={{ height: '100%' }}>
+        <Grid size={4} sx={{ height: '100%' }}>
           {renderDraggableGrid(gridRcpe, recipeIngredients, gridRcpe.title || 'Recipe Ingredients', 'recipe')}
         </Grid>
         
         {/* Center Panel - Mapped Batches (3 rows + scroll) */}
-        <Grid item xs={4} sx={{ height: '100%' }}>
+        <Grid size={4} sx={{ height: '100%' }}>
           {renderDraggableGrid(
             gridMapped, 
             mappedBatches, 
@@ -312,7 +312,7 @@ const BatchMapping = ({ pageMap }) => {
         </Grid>
         
         {/* Right Panel - Available Batches (20 latest) */}
-        <Grid item xs={4} sx={{ height: '100%' }}>
+        <Grid size={4} sx={{ height: '100%' }}>
           {renderDraggableGrid(
             gridAvailable, 
             availableBatches, 

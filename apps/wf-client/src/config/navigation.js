@@ -78,10 +78,10 @@ export const navigationSections = [
     type: "header",
   },
   {
-    title: "Architecture Intel",
-    eventType: "archDashboard",
+    title: "Plan Management",
+    eventType: "plan-management",
     icon: Architecture,
-    description: "System architecture analysis and dependency intelligence",
+    description: "Manage development plans, communications, and impacts",
     temporary: true, // Remove when admin app ready
     access: "dev", // Development only
   },

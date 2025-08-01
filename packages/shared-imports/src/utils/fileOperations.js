@@ -10,9 +10,11 @@
  *   }
  */
 
-// Re-export everything from the modular implementation
+// Re-export everything from the enhanced implementation with impact tracking
 export {
   createDoc,
+  modifyDoc,
+  createDocBatch,
   default,
   validateInputs,
   validateFileName,
@@ -25,4 +27,5 @@ export {
   writeFile,
   ERROR_TYPES,
   categorizeError,
-} from "./fileOperations/index.js";
+  createDocWithoutTracking,
+} from "./fileOperations/indexWithTracking.js";

@@ -1,0 +1,671 @@
+{
+  "nodes": [
+    {
+      "id": "userLogin",
+      "label": "page:AuthLayout<br>userLogin<br>[::userEmail, ::enteredPassword]",
+      "category": "page:AuthLayout",
+      "meta": {
+        "cluster": "AUTH",
+        "dbTable": "users",
+        "method": "GET",
+        "purpose": "Authenticate user login",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "userAcctList",
+      "label": "ui:select<br>userAcctList<br>[::userID]",
+      "category": "ui:select",
+      "meta": {
+        "cluster": "AUTH",
+        "selWidget": "SelUserAcct",
+        "method": "GET",
+        "purpose": "Get accounts accessible to user",
+        "primaryKey": "acctID"
+      }
+    },
+    {
+      "id": "archDashboard",
+      "label": "page:development<br>archDashboard<br>[:]",
+      "category": "page:development",
+      "meta": {
+        "cluster": "DEVELOPMENT",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "ingrTypeList",
+      "label": "page:CrudLayout<br>ingrTypeList<br>[::acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredient_types",
+        "selWidget": "SelIngrType",
+        "method": "GET",
+        "purpose": "Get ingredient types for an account",
+        "primaryKey": "ingrTypeID"
+      }
+    },
+    {
+      "id": "ingrList",
+      "label": "page:CrudLayout<br>ingrList<br>[::acctID, ::ingrTypeID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredients",
+        "selWidget": "SelIngr",
+        "method": "GET",
+        "purpose": "Get ingredients for an account",
+        "primaryKey": "ingrID"
+      }
+    },
+    {
+      "id": "ingrBtchList",
+      "label": "page:CrudLayout<br>ingrBtchList<br>[::ingrID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredient_batches",
+        "selWidget": "SelIngrBtch",
+        "method": "GET",
+        "purpose": "Get ingredient batches for a product",
+        "primaryKey": "ingrBtchID"
+      }
+    },
+    {
+      "id": "prodTypeList",
+      "label": "page:CrudLayout<br>prodTypeList<br>[::acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_types",
+        "selWidget": "SelProdType",
+        "method": "GET",
+        "purpose": "Get product types for an account",
+        "primaryKey": "prodTypeID"
+      }
+    },
+    {
+      "id": "prodList",
+      "label": "page:CrudLayout<br>prodList<br>[::prodTypeID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "products",
+        "selWidget": "SelProd",
+        "method": "GET",
+        "purpose": "Get products for an Product Type",
+        "primaryKey": "prodID"
+      }
+    },
+    {
+      "id": "prodListAll",
+      "label": "ui:Select<br>prodListAll<br>[::acctID]",
+      "category": "ui:Select",
+      "meta": {
+        "cluster": "SELECT",
+        "dbTable": "products",
+        "selWidget": "SelProd",
+        "method": "GET",
+        "purpose": "Get all products for an account",
+        "primaryKey": "prodID"
+      }
+    },
+    {
+      "id": "taskList",
+      "label": "page:CrudLayout<br>taskList<br>[::prodTypeID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "tasks",
+        "selWidget": "SelTask",
+        "method": "GET",
+        "purpose": "Get tasks for batches",
+        "primaryKey": "taskID"
+      }
+    },
+    {
+      "id": "prodBtchList",
+      "label": "page:CrudLayout<br>prodBtchList<br>[::prodID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_batches",
+        "selWidget": "SelProdBtch",
+        "method": "GET",
+        "purpose": "Get product batches for a product",
+        "primaryKey": "prodBtchID"
+      }
+    },
+    {
+      "id": "brndList",
+      "label": "page:CrudLayout<br>brndList<br>[::acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "brands",
+        "selWidget": "SelBrnd",
+        "method": "GET",
+        "purpose": "Get brands for an account",
+        "primaryKey": "brndID"
+      }
+    },
+    {
+      "id": "vndrList",
+      "label": "page:CrudLayout<br>vndrList<br>[::acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "vendors",
+        "selWidget": "SelVndr",
+        "method": "GET",
+        "purpose": "Get vendors for an account",
+        "primaryKey": "vndrID"
+      }
+    },
+    {
+      "id": "wrkrList",
+      "label": "page:CrudLayout<br>wrkrList<br>[::acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "workers",
+        "selWidget": "SelWrkr",
+        "method": "GET",
+        "purpose": "Get workers for an account",
+        "primaryKey": "wrkrID"
+      }
+    },
+    {
+      "id": "measList",
+      "label": "page:CrudLayout<br>measList<br>[::acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "measures",
+        "selWidget": "SelMeas",
+        "method": "GET",
+        "purpose": "Get measurement units",
+        "primaryKey": "measID"
+      }
+    },
+    {
+      "id": "rcpeList",
+      "label": "page:RecipeLayout<br>rcpeList<br>[::prodID]",
+      "category": "page:RecipeLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_recipes",
+        "selWidget": "SelRcpe",
+        "method": "GET",
+        "purpose": "Get recipes for an account",
+        "primaryKey": "rcpeID"
+      }
+    },
+    {
+      "id": "btchMapping",
+      "label": "page:MappingLayout<br>btchMapping<br>[::prodBtchID]",
+      "category": "page:MappingLayout",
+      "meta": {
+        "cluster": "MAPPING",
+        "purpose": "Main batch mapping page",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "gridRcpe",
+      "label": "data:Grid<br>gridRcpe<br>[::prodID]",
+      "category": "data:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Get recipe ingredients for a product",
+        "primaryKey": "prodRcpeID"
+      }
+    },
+    {
+      "id": "gridMapped",
+      "label": "ui:Grid<br>gridMapped<br>[::prodBtchID, ::ingrID, :prodRcpeID]",
+      "category": "ui:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Ingr batches mapped to a product batch",
+        "primaryKey": "mapID"
+      }
+    },
+    {
+      "id": "gridAvailable",
+      "label": "ui:Grid<br>gridAvailable<br>[::prodBtchID, ::ingrID]",
+      "category": "ui:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Ingr batches available to map to a product batch",
+        "primaryKey": "ingrBtchID"
+      }
+    },
+    {
+      "id": "rpt-WrkSht-Ingr",
+      "label": "report:worksheet<br>rpt-WrkSht-Ingr<br>[::prodBtchID]",
+      "category": "report:worksheet",
+      "meta": {
+        "cluster": "REPORTS",
+        "method": "GET",
+        "purpose": "Worksheet ingredients section data",
+        "primaryKey": "ingr_ordr"
+      }
+    },
+    {
+      "id": "rpt-WrkSht-Task",
+      "label": "report:worksheet<br>rpt-WrkSht-Task<br>[::prodBtchID]",
+      "category": "report:worksheet",
+      "meta": {
+        "cluster": "REPORTS",
+        "method": "GET",
+        "purpose": "Worksheet tasks section data",
+        "primaryKey": "ordr"
+      }
+    },
+    {
+      "id": "archIntel",
+      "label": "page:ArchDashboard<br>archIntel<br>[:]",
+      "category": "page:ArchDashboard",
+      "meta": {
+        "cluster": "PLANS",
+        "purpose": "Get all plans for management",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "SelPlanStatus",
+      "label": "ui:Select<br>SelPlanStatus<br>[:]",
+      "category": "ui:Select",
+      "meta": {
+        "cluster": "PLANS",
+        "method": "CONFIG",
+        "purpose": "Filter plans by status selection",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "planDetailTab",
+      "label": "tab:PlanDetail<br>planDetailTab<br>[:]",
+      "category": "tab:PlanDetail",
+      "meta": {
+        "cluster": "PLANS",
+        "purpose": "Get all plans for management",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "planCommunicationTab",
+      "label": "tab:PlanCommunication<br>planCommunicationTab<br>[:]",
+      "category": "tab:PlanCommunication",
+      "meta": {
+        "cluster": "PLANS",
+        "purpose": "Get all plans for management",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "planImpactTab",
+      "label": "tab:PlanImpacts<br>planImpactTab<br>[:]",
+      "category": "tab:PlanImpacts",
+      "meta": {
+        "cluster": "PLANS",
+        "purpose": "Get all plans for management",
+        "primaryKey": null
+      }
+    },
+    {
+      "id": "planList",
+      "label": "grid:Plans<br>planList<br>[::Status]",
+      "category": "grid:Plans",
+      "meta": {
+        "cluster": "PLANS",
+        "dbTable": "api_wf.plans",
+        "selWidget": "SelPlan",
+        "method": "GET",
+        "purpose": "Get all plans for management",
+        "primaryKey": "id"
+      }
+    },
+    {
+      "id": "planCommunicationList",
+      "label": "grid:PlanCommunications<br>planCommunicationList<br>[::planID]",
+      "category": "grid:PlanCommunications",
+      "meta": {
+        "cluster": "PLANS",
+        "dbTable": "api_wf.plan_communications",
+        "method": "GET",
+        "purpose": "Get communications for a specific plan",
+        "primaryKey": "id"
+      }
+    },
+    {
+      "id": "planImpactList",
+      "label": "grid:PlanImpacts<br>planImpactList<br>[::planID]",
+      "category": "grid:PlanImpacts",
+      "meta": {
+        "cluster": "PLANS",
+        "dbTable": "api_wf.plan_impacts",
+        "method": "GET",
+        "purpose": "Get file impacts for a specific plan",
+        "primaryKey": "id"
+      }
+    },
+    {
+      "id": "planDetailList",
+      "label": "api:query<br>planDetailList<br>[::planID]",
+      "category": "api:query",
+      "meta": {
+        "cluster": "PLANS",
+        "dbTable": "api_wf.plans",
+        "method": "GET",
+        "purpose": "Get detailed information for a specific plan",
+        "primaryKey": "id"
+      }
+    }
+  ],
+  "navigationEdges": [
+    {
+      "from": "userAcctList",
+      "to": "ingrTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "prodTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "brndList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "vndrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "wrkrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "measList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrTypeList",
+      "to": "ingrList",
+      "label": "ingrTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrList",
+      "to": "ingrBtchList",
+      "label": "ingrID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "prodList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "taskList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "prodBtchList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "rcpeList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodBtchList",
+      "to": "btchMapping",
+      "label": "prodBtchID",
+      "type": "navigation"
+    },
+    {
+      "from": "archIntel",
+      "to": "SelPlanStatus",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "SelPlanStatus",
+      "to": "planList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "planDetailTab",
+      "to": "planDetailList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "planCommunicationTab",
+      "to": "planCommunicationList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "planImpactTab",
+      "to": "planImpactList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "planList",
+      "to": "planDetailTab",
+      "label": "id",
+      "type": "navigation"
+    },
+    {
+      "from": "planList",
+      "to": "planCommunicationTab",
+      "label": "id",
+      "type": "navigation"
+    },
+    {
+      "from": "planList",
+      "to": "planImpactTab",
+      "label": "id",
+      "type": "navigation"
+    }
+  ],
+  "widgetEdges": [
+    {
+      "from": "vndrList",
+      "to": "ingrBtchList",
+      "label": "vndrID",
+      "type": "widget",
+      "widget": "SelVndr"
+    },
+    {
+      "from": "brndList",
+      "to": "ingrBtchList",
+      "label": "brndID",
+      "type": "widget",
+      "widget": "SelBrnd"
+    },
+    {
+      "from": "measList",
+      "to": "ingrBtchList",
+      "label": "measID",
+      "type": "widget",
+      "widget": "SelMeas"
+    },
+    {
+      "from": "measList",
+      "to": "ingrList",
+      "label": "measID",
+      "type": "widget",
+      "widget": "SelMeas"
+    },
+    {
+      "from": "vndrList",
+      "to": "ingrList",
+      "label": "vndrID",
+      "type": "widget",
+      "widget": "SelVndr"
+    }
+  ],
+  "edges": [
+    {
+      "from": "userAcctList",
+      "to": "ingrTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "prodTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "brndList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "vndrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "wrkrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "measList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrTypeList",
+      "to": "ingrList",
+      "label": "ingrTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrList",
+      "to": "ingrBtchList",
+      "label": "ingrID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "prodList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "taskList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "prodBtchList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "rcpeList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodBtchList",
+      "to": "btchMapping",
+      "label": "prodBtchID",
+      "type": "navigation"
+    },
+    {
+      "from": "archIntel",
+      "to": "SelPlanStatus",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "SelPlanStatus",
+      "to": "planList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "planDetailTab",
+      "to": "planDetailList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "planCommunicationTab",
+      "to": "planCommunicationList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "planImpactTab",
+      "to": "planImpactList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "planList",
+      "to": "planDetailTab",
+      "label": "id",
+      "type": "navigation"
+    },
+    {
+      "from": "planList",
+      "to": "planCommunicationTab",
+      "label": "id",
+      "type": "navigation"
+    },
+    {
+      "from": "planList",
+      "to": "planImpactTab",
+      "label": "id",
+      "type": "navigation"
+    }
+  ],
+  "meta": {
+    "generated": "2025-07-31T04:52:36.906Z",
+    "nodeCount": 31,
+    "navigationEdgeCount": 21,
+    "widgetEdgeCount": 5,
+    "widgetUsageCount": 3
+  }
+}

@@ -51,42 +51,27 @@ const Sidebar = ({
 
   // Handle navigation item click
   const handleNavClick = (item, section) => {
-    console.log('🔍 Navigation clicked:', { item, eventType: item.eventType });
-    
     if (item.eventType) {
       const event = getEventType(item.eventType);
-      console.log('🔍 Found event:', event);
       
       if (event && event.routePath) {
         // Get current account ID from widget props
         const currentAcctID = widgetProps?.Account?.value;
-        console.log('🔍 Current account ID:', currentAcctID);
-        console.log('🔍 Event params:', event.params);
         
         if (event.params && event.params.includes(':acctID')) {
           // Route requires account ID
           if (currentAcctID) {
             const path = event.routePath.replace(':acctID', currentAcctID);
-            console.log('🔍 Navigating to resolved path:', path);
-            console.log('🔍 About to call navigate() with path:', path);
             navigate(path);
-            console.log('🔍 navigate() call completed');
-            
-            // Check if navigation was successful after a short delay
-            setTimeout(() => {
-              console.log('🔍 Current URL after navigation attempt:', window.location.href);
-            }, 100);
           } else {
             console.warn(`No account selected for navigation to ${item.eventType}`);
           }
         } else {
           // Route has no parameters or doesn't need account ID
-          console.log('🔍 Navigating to direct route:', event.routePath);
           navigate(event.routePath);
         }
       } else {
         // Fallback to simple eventType-based navigation
-        console.log('🔍 Fallback navigation to:', `/${item.eventType}`);
         navigate(`/${item.eventType}`);
       }
     }
@@ -236,7 +221,6 @@ const Sidebar = ({
                   {...(section.props || {})} 
                   {...(widgetProps[section.title] || {})}
                   onChange={(value, item) => {
-                    console.log('🔍 Sidebar onChange called:', { value, item, section: section.title });
                     const handler = createSelectionChangeHandler(section);
                     if (handler) handler(value, item);
                   }}

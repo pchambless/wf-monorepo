@@ -1,0 +1,14 @@
+[
+  {
+    "value": "low",
+    "label": "Low - Simple changes, minimal impact"
+  },
+  {
+    "value": "medium",
+    "label": "Medium - Moderate changes, some dependencies"  
+  },
+  {
+    "value": "high",
+    "label": "High - Complex changes, significant impact"
+  }
+]

@@ -9,34 +9,27 @@ import { Grid, Button, Typography, Alert, Box, Chip } from "@mui/material";
 
 // Import our form components
 import {
-  MultiLineField,
+  TextArea,
   TextField,
   Select,
 } from "@whatsfresh/shared-imports/jsx";
 
-// Import config data
-import { getClusterOptions } from "../../../utils/configLoader.js";
+// Import workflow registry for plan operations
+import { workflowRegistry } from "../../workflows/WorkflowRegistry.js";
 
-// Import workflow functions
-import { createPlan } from "../../workflows/plans";
+// Import workflow configuration
+import { getComponentWorkflowConfig } from "../../config/workflowConfig.js";
 
-// Load configuration data
+// Load configuration data from centralized config
+import {
+  getClusterOptions,
+  getPriorityOptions,
+  getComplexityOptions,
+} from "../../config/index.js";
+
 const CLUSTER_OPTIONS = getClusterOptions() || [];
-
-// Complexity options
-const COMPLEXITY_OPTIONS = [
-  { value: "low", label: "Low - Simple changes, minimal impact" },
-  { value: "medium", label: "Medium - Moderate changes, some dependencies" },
-  { value: "high", label: "High - Complex changes, significant impact" },
-];
-
-// Priority options
-const PRIORITY_OPTIONS = [
-  { value: "low", label: "Low - Nice to have" },
-  { value: "normal", label: "Normal - Standard priority" },
-  { value: "high", label: "High - Important for business" },
-  { value: "urgent", label: "Urgent - Blocking other work" },
-];
+const COMPLEXITY_OPTIONS = getComplexityOptions() || [];
+const PRIORITY_OPTIONS = getPriorityOptions() || [];
 
 const CreatePlanForm = () => {
   const [formData, setFormData] = useState({
@@ -73,28 +66,35 @@ const CreatePlanForm = () => {
     setSubmitResult(null);
 
     try {
-      // Use atomic workflow module (Business Workflow Modules pattern)
-      const planData = {
+      // Use createPlan workflow for plan creation
+      const workflowContext = {
         cluster: formData.cluster,
         name: formData.planName,
         description: formData.description,
         priority: formData.priority,
-        complexity: formData.complexity, // Additional metadata
+        complexity: formData.complexity,
+        phase: "idea", // Default phase for new plans
       };
 
       // Get proper userID - firstName from contextStore for user actions
       const { contextStore } = await import("@whatsfresh/shared-imports");
       const userID = contextStore.getParameter("firstName") || "user";
+      workflowContext.userID = userID;
 
-      console.log("Creating plan via workflow:", planData);
-      const result = await createPlan(planData, userID);
+      console.log("Executing createPlan workflow:", workflowContext);
+      const workflowOptions = getComponentWorkflowConfig("form");
+      const result = await workflowRegistry.execute(
+        "createPlan",
+        workflowContext,
+        workflowOptions
+      );
 
-      if (result.success) {
+      if (result && result.success) {
         setSubmitResult({
           success: true,
-          planId: result.paddedPlanId,
-          message: result.message,
-          details: result.details,
+          planId: result.data.planId,
+          message: `Plan created successfully! (Workflow: ${result.executionId})`,
+          details: result.data.details,
         });
 
         // Reset form on success
@@ -108,7 +108,7 @@ const CreatePlanForm = () => {
       } else {
         setSubmitResult({
           success: false,
-          message: result.message,
+          message: result?.error?.message || "Workflow execution failed",
         });
       }
     } catch (error) {
@@ -185,26 +185,38 @@ const CreatePlanForm = () => {
 
         {/* Right Column - Content */}
         <Grid item xs={12} md={8}>
-          {/* Plan Name */}
-          <TextField
-            label="Plan Name"
-            value={formData.planName}
-            onChange={(value) =>
-              setFormData((prev) => ({ ...prev, planName: value }))
-            }
-            placeholder="e.g., User Authentication System"
-          />
-
-          {/* Plan Description - Much Wider Text Area */}
-          <Box sx={{ width: "350%", maxWidth: "calc(100vw - 120px)" }}>
-            <MultiLineField
-              label="Plan Description"
-              value={formData.description}
+          {/* Plan Name - Wider field */}
+          <Box sx={{ width: "100%", maxWidth: "800px" }}>
+            <TextField
+              label="Plan Name"
+              value={formData.planName}
               onChange={(value) =>
-                setFormData((prev) => ({ ...prev, description: value }))
+                setFormData((prev) => ({ ...prev, planName: value }))
               }
-              minRows={15}
-              placeholder={`# User Idea
+              placeholder="e.g., User Authentication System"
+            />
+          </Box>
+
+          {/* Form Status - Moved above description */}
+          <Box sx={{ mb: 2 }}>
+            {isFormValid ? (
+              <Chip label="Ready to Create" color="success" size="small" />
+            ) : (
+              <Chip label="Fill Required Fields" color="default" size="small" />
+            )}
+          </Box>
+
+          {/* Plan Description - 80 character width */}
+          <TextArea
+            label="Plan Description"
+            value={formData.description}
+            onChange={(value) =>
+              setFormData((prev) => ({ ...prev, description: value }))
+            }
+            minRows={15}
+            maxRows={25}
+            sx={{ fontFamily: 'monospace', width: '80ch', maxWidth: '100%' }}
+            placeholder={`# User Idea
 The User should have a way to get in on the communication loop... Since the new dashboard kiro created is in place, I'm wondering if kiro could create an interface form so I can put in my 2 cents in strategic places...
 
 ## Implementation Strategy
@@ -216,20 +228,9 @@ The User should have a way to get in on the communication loop... Since the new 
 
 ## Expected Outcomes
 [What should this accomplish...]`}
-            />
-          </Box>
+          />
         </Grid>
 
-        {/* Form Status */}
-        <Grid item xs={12}>
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            {isFormValid ? (
-              <Chip label="Ready to Create" color="success" size="small" />
-            ) : (
-              <Chip label="Fill Required Fields" color="default" size="small" />
-            )}
-          </Box>
-        </Grid>
 
         {/* Preview */}
         {isFormValid && (

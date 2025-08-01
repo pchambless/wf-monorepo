@@ -1,217 +1,148 @@
- # CLAUDE.md - WhatsFresh Working Guide
-  *Working documentation - stays current because Claude depends on it daily*
+# CLAUDE.md - WhatsFresh Working Guide
 
-  ## 🧠 Claude Behavior Configuration
+_Working documentation - stays current because Claude depends on it daily_
 
-  ### Core Behavior
-  - **Tone**: Concise, technical, respectful, minimally verbose
-  - **Response Cap**: 1800 tokens unless specified otherwise
-  - **Code Style**: NO comments unless explicitly requested
-  - **Output Preference**: Diffs, config deltas, direct edits over discussion
-  - **Philosophy**: MVP development - break and fix over backward compatibility
+## 🧠 Core Behavior
 
-  ### Working Documentation Priority
-  1. **`.kiro/steering.yaml`** - Live project patterns and file paths
-  2. **`CLAUDE.md`** - This file - behavioral preferences and project context
-  3. **`AI/collaboration-rules.md`** - Role boundaries and coordination protocols
-  4. **`AI/session-startup.md`** - Context recovery for new sessions
+- **Tone**: Concise, technical, respectful, minimally verbose
+- **Code Style**: NO comments unless explicitly requested
+- **Philosophy**: MVP development - break and fix over backward compatibility
+- **Modularization**: Always try to modularize code if a module gets complicated or large.
 
-  ### Session Startup Protocol
-  - **Primary Reference**: `AI/session-startup.md` for complete checklist
-  - **Coordination Check**: `.kiro/communication/coordination-log.json` for pending items
-  - **Plan Context**: User signals active plan with "Plan NNNN" format
-  - **Investigation Support**: Check `.kiro/steering.yaml` frequent_paths before searching
+## 📖 Documentation Priority
 
-  ---
+1. **`.kiro/steering.yaml`** - Live project patterns and file paths
+2. **`CLAUDE.md`** - This file - behavioral preferences
+3. **`AI/planning-standards.md`** - Plan phases, impact types, and agent roles
+4. **`AI/collaboration-rules.md`** - Role boundaries
+5. **`AI/session-startup.md`** - Context recovery
 
-   ## 🏗️ Project Architecture Context
+ ## Config-Driven Development Standards
 
-  ### Monorepo Structure
-  - **`wf-client`**: React ingredient tracking, recipe workflows
-  - **`wf-server`**: Node.js API serving both client and admin apps
-  - **`shared-imports`**: Monorepo-wide dependencies (React + non-React utilities)
-  - **`devtools`**: Code generation tools and documentation systems
+  ### Philosophy: Configuration files drive process logic, not hardcoded values
 
-  ### Core Architecture Pattern
-  **SQL Views → Directives → PageMaps → React Components**
-  - **SQL Views**: `sql/views/client/` define data structure and field directives
-  - **Directives**: `packages/devtools/src/automation/data/directives/` generated field configurations
-  - **PageMaps**: `apps/wf-client/src/pages/*/pageMap.js` generated component configurations
-  - **React Pages**: `apps/wf-client/src/pages/*/index.jsx` generated component wrappers
+  Established Config System
 
-  ### Key Systems
-  - **DirectiveMap**: `packages/devtools/src/utils/directiveMap.js` - Field configuration rules
-  - **ContextStore**: `packages/shared-imports/src/stores/contextStore.js` - Session data (userID, acctID, parameters)
-  - **DML System**: Server-side processing via `/api/execDML` with audit trail auto-injection
-  - **Field Mapping**: Form fields (camelCase) → Database columns (snake_case) via pageMap.fieldMappings
+  - Location: /packages/shared-imports/src/architecture/config/
+  - Pattern: JSON configs with centralized loaders in index.js
+  - Existing: clusters.json, communication-types.json, priorities.json, complexities.json
 
-  ### Critical Patterns
-  - **Unified Naming**: `viewName` = `pageName` = `eventType` = `listEvent`
-  - **Parent Keys**: Always `type: "number"`, `required: true`, `hidden: true`
-  - **Audit Trail**: Auto-inject `created_at/by`, `updated_at/by`, `deleted_at/by`
-  - **Parameter Resolution**: ContextStore auto-resolves userID, acctID for hidden fields
+  Mandatory Externalization
 
-  Section 3: 🎛️ Investigation Efficiency
+  Never hardcode these values - use config files:
 
-  ## 🎛️ Investigation Efficiency
+  1. Database Schema: table: "api_wf.plans" → getSchemaMapping('plans')
+  3. Status Values: "pending", "completed" → getStatusOptions()
+  4. Agent Names: ["claude", "kiro", "user"] → getAgentOptions()
+  5. Retry Policies: maxAttempts: 3 → getRetryPolicy(type)
+  6. Error Messages: Hardcoded strings → error-messages.json
+  7. URLs/Endpoints: localhost:3001 → environment-based config
 
-  ### Shared Project Intelligence
-  - **Check `.kiro/steering.yaml`** for current project patterns and file paths
-  - **Use frequent_paths** as investigation starting points instead of searching
-  - **Reference established_patterns** to avoid re-investigating known architecture
-  - **Check skip_investigation** to focus effort on genuine architectural questions
+  Extension Pattern
 
-  ### Investigation Strategy
-  1. **Start with steering.yaml paths** - Don't search, use the map
-  2. **Validate against established_patterns** - Is this expected behavior or actual issue?
-  3. **Focus on deep_investigation areas** - Where architectural decisions are actually needed
-  4. **Reference working documentation** - Live files over static explanations
+  // GOOD: Extend existing config system
+  import { getStatusOptions, getAgentOptions } from '../config';
 
-  ### Common Investigation Shortcuts
-  - **Page Issues**: Check `sql/views/client/[viewName].sql` → `directives/[viewName].json` → `pages/[viewName]/pageMap.js`
-  - **Field Problems**: Reference `packages/devtools/src/utils/directiveMap.js` for field rules
-  - **DML Issues**: Check `apps/wf-server/server/utils/dml/dmlProcessor.js` and pageMap.configDML
-  - **API Problems**: Start with `packages/shared-imports/src/api/index.js`
+  // BAD: Create new hardcoded arrays
+  const validTypes = ["strategic-input", "priority-change"];
 
-  ### Architectural Decision Points
-  - **System Integration**: When multiple packages need coordination
-  - **Pattern Violations**: When established_patterns are being broken
-  - **New Complexity**: When adding genuinely new architectural concepts
-  - **Cross-Package Dependencies**: When shared-imports changes affect multiple apps
+  Config Organization
 
-   ## 🔧 DevTools Operations
+  config/
+  ├── workflows/
+  │   ├── agents.json          # Agent routing rules
+  │   ├── statuses.json        # All valid status values
+  │   ├── retry-policies.json  # Timeout configurations
+  │   ├── schemas.json         # Database mappings
+  │   └── paths.json           # File path templates
 
-  ### Generation Commands
-  **Primary Commands** (run from `packages/devtools/src/automation/`):
-  ```bash
-  # Core generators (always run)
-  node core/genPageMaps.js                    # Generate pageMap configurations
-  node triggered/genDirectives.js [viewName]  # Generate field directives for specific view
-  node static/genPageIndex.js client --all   # Generate React component wrappers
+  Rule: If it's a magic string, business rule, or varies by environment - externalize it to config.
 
-  # Unified entry points
-  node runCore.js                            # Run all core generators
-  node runTriggered.js [viewName]            # Run triggered generators for view
-  node detectChanges.js                      # Detect changed SQL views
+## 🎛️ Investigation Efficiency
 
-  Investigation Commands
+- **Check steering.yaml first** for frequent_paths before searching
+- **Reference established_patterns** to avoid re-investigation
+- **Focus on deep_investigation areas** where decisions are needed
 
-  # Test directive generation
-  node triggered/genDirectives.js ingrTypeList
+### Common paths to search in
+  #### shared-imports
+  - **Components**: `/packages/shared-imports/src/components/` (forms, crud, navigation)
+  - **Architecture**: `/packages/shared-imports/src/architecture/` (workflows, components)
+  - **Events**: `/packages/shared-imports/src/events/` (eventTypes, pageMaps)
+  - **Utils**: `/packages/shared-imports/src/utils/` (fileOperations, helpers)
+  - **Navigation**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/components/navigation` (sidebar, appbar)
+  - **EventTypes**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/events` (admin, client, plans)
+  - **Workflows**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/architecture/workflows` (Planning workflows)
 
-  # Regenerate after directive changes
-  node core/genPageMaps.js
+  ### wf-server
+  - **Controllers**: `/apps/wf-server/server/controller/` (business logic)
+  - **Utils**: `/apps/wf-server/server/utils/` (dml, queryResolver)
+  - **Workflows**: `/home/paul/wf-monorepo-new/apps/wf-server/server/workflows` (plans, communications, impact-tracking)
+  - **Routes**: `/home/paul/wf-monorepo-new/apps/wf-server/server/routes/registerRoutes.js` (controllers, routes)
+  - **app.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server/app.js` (app.js, app start)
+  - **server.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server` (instead of src folder)
+  - **utils/dml**: `\\wsl$\Ubuntu-22.04\home\paul\wf-monorepo-new\apps\wf-server\server\utils\dml` (dml modules)
 
-  # Check generation stability (should only change timestamps)
-  node triggered/genDirectives.js [viewName]  # Run twice, compare
+  #### wf-client
+  - **Pages**: `/apps/wf-client/src/pages/` (UI components)
+  - **Config**: `/apps/wf-client/src/config/` (navigation, routes)
+  - **App.jsx**: `/home/paul/wf-monorepo-new/apps/wf-client/src/App.jsx` (App.jsx)
 
-  File Locations (Steering Reference)
+  #### .kiro (plans)
 
-  - SQL Views: sql/views/client/ - Data structure definitions
-  - Generated Directives: packages/devtools/src/automation/data/directives/
-  - Generated PageMaps: apps/wf-client/src/pages/*/pageMap.js
-  - Architecture Rules: packages/devtools/src/docs/generated/rules/ARCHITECTURE-RULES.md
+## 🔧 Workflow Helpers
 
-  Common Debugging Pattern
+- **createDoc.js** - Shared document creation with impact tracking
+- **createPlanImpact.js** - Impact tracking for all file changes
+- **Co-located templates** - Templates live with workflows (Template.js)
+- **Document Creation**: Use createDoc.js workflow instead of direct file writing - maintains impact tracking and template consistency. This will help conserve token usage
+- **Always use createGuidance.js workflow for implementation guidance documents** - ensures proper parameter substitution and impact tracking
+- **Always use createAnalysis.js workflow for architectural analysis documents** - maintains consistent structure and automated workflows
 
-  1. Issue Reported → Check steering.yaml for relevant paths
-  2. Investigate Root Cause → SQL view → directive → pageMap → component
-  3. Fix at Source → Usually SQL view or directiveMap.js rules
-  4. Regenerate Downstream → genDirectives.js → genPageMaps.js
-  5. Validate Fix → Test component behavior
+## 📋 Quick Fix Impact Tracking
 
-## 📋 Live Plan Status
+When making spontaneous edits:
 
-  ### Current Plan Information
-  - **Plan Registry**: `claude-plans/plan-registry.json` - Authoritative plan status
-  - **Impact Tracking**: `claude-plans/impact-tracking.json` - File-level progress tracking
-  - **Active Plans**: `claude-plans/a-pending/` - Current work
-  - **Completed Plans**: `claude-plans/b-completed/` - Reference for patterns and decisions
+1. **Make changes** using appropriate tools
+2. **Track impact immediately**:
 
-  ### Plan Management Tools
-  ```bash
-  # Plan lifecycle management
-  claude-plans/tools/create-plan.js [CLUSTER] "Plan Name"
-  claude-plans/tools/complete-plan.js [NNNN]
-  claude-plans/tools/update-impact.js [NNNN] [status]
+```bash
+curl -X POST http://localhost:3001/api/execDML -H "Content-Type: application/json" \
+-d '{"method": "INSERT", "table": "api_wf.plan_impacts", "data": {"plan_id": 0, "file_path": "[PATH]", "change_type": "[TYPE]", "phase": "adhoc", "description": "[DESC]", "status": "completed", "userID": "claude"}}'
+```
 
-  Plan Coordination
+3. **Plan 0000 "Adhoc-Operations"** for all quick fixes
 
-  - Check Coordination: .kiro/communication/coordination-log.json for active communications
-  - Pending Reviews: Look for "awaiting-claude-review" status items
-  - Implementation Status: Check .kiro/specs/[plan-name]/tasks.md for progress
+## 💬 Plan Communications
 
-  Plan Dependencies
+**Create guidance communications for agents:**
 
-  - Blocking Relationships: Tracked in impact-tracking.json
-  - File Conflicts: Multiple plans affecting same files
-  - Sequencing: Plans that must complete before others can proceed
+```bash
+curl -X POST http://localhost:3001/api/execDML -H "Content-Type: application/json" \
+-d '{"method": "INSERT", "table": "api_wf.plan_communications", "data": {"plan_id": [PLAN_ID], "from_agent": "claude", "to_agent": "[AGENT]", "type": "guidance", "subject": "[SUBJECT]", "message": "[MESSAGE]", "userID": "claude"}}'
+```
 
-  User Plan Signals
+**Note**: AgentCoordinationModal should trigger after communication creation but may not work for programmatic inserts.
 
-  - Format: "Plan NNNN" indicates active focus
-  - Context: Claude should reference plan files and coordination status
-  - Scope: Check impact-tracking.json for affected files and systems
+## 🤝 Collaboration
 
-   ## 🤝 Collaboration Protocols
+- **Claude**: Architecture, analysis, investigation support
+- **Kiro**: Implementation, testing, impact tracking
+- **Communication**: Via `.kiro/communication/coordination-log.json`
 
-  ### Claude ↔ Kiro Coordination
-  - **Framework**: `AI/collaboration-rules.md` defines swim lanes and responsibilities
-  - **Communication**: `.kiro/communication/coordination-log.json` tracks formal exchanges
-  - **Methodology**: `AI/collaboration-methodology.md` defines investigation support workflows
+## 🚀 Session Management
 
-  ### Claude Domain (Architecture & Investigation)
-  - **Architectural analysis** and system integration decisions
-  - **Investigation support** via `.kiro/specs/[plan]/` reference files
-  - **Pattern validation** and design consistency review
-  - **Cross-system impact** assessment and dependency analysis
+- **Startup**: Check session-startup.md and coordination-log.json
+- **Plan Context**: Wait for "Plan NNNN" signal
+- **Token Conservation**: Batch calls, reference docs, use TodoWrite
 
-  ### Kiro Domain (Implementation & Testing)
-  - **Implementation** following approved specifications
-  - **Code generation** and pattern replication
-  - **Testing workflows** and validation processes
-  - **Progress tracking** via task completion and impact updates
+## 📝 Plan Impact Standards
 
-  ### Communication Triggers
-  - **ARCHITECTURAL_QUESTION** - Kiro needs Claude input to proceed
-  - **awaiting-claude-review** - Implementation ready for architectural validation
-  - **awaiting-kiro-response** - Claude request pending Kiro action
-  - **process-enhancement** - Workflow improvements and methodology updates
+**See `AI/planning-standards.md` for complete specifications:**
 
-  ### Investigation Support Workflow
-  1. **Claude creates**: `investigation-guide.md`, `code-references.js`, `discovery-checklist.md`
-  2. **Kiro implements**: Following investigation artifacts and architectural guidance
-  3. **Shared progress**: Both update `progress-log.md` with discoveries and status
-  4. **Coordination**: Formal communication through `.kiro/communication/` system
+- Change types (CREATE, MODIFY, DELETE, ANALYZE, DISCOVER, COMMUNICATE, PLAN)
+- Phase definitions (idea, analysis, guidance, development, adhoc)
+- Agent role assignments and responsibilities
+- Communication protocols and process quality metrics
 
-  ## 🚀 Session Management
-
-  ### Session Startup
-  - **Complete Protocol**: `AI/session-startup.md` - Full context recovery checklist
-  - **Quick Start**: Check `.kiro/communication/coordination-log.json` for immediate priorities
-  - **Plan Context**: Wait for user "Plan NNNN" signal before diving into specific work
-  - **Steering Reference**: Use `.kiro/steering.yaml` frequent_paths for efficient investigation
-
-  ### Token Conservation Strategy
-  - **Batch Tool Calls**: Multiple parallel operations in single response when possible
-  - **Reference Working Docs**: Point to live files rather than reproducing content
-  - **Focus Responses**: Address specific query without unnecessary preamble/postamble
-  - **Use TodoWrite**: Track progress systematically rather than maintaining mental context
-
-  ### Context Recovery
-  - **Session Gaps**: Use session-startup.md checklist for rapid situational awareness
-  - **Plan Continuity**: Reference impact-tracking.json for current work status
-  - **Coordination State**: Check coordination-log.json for pending communications
-  - **Investigation State**: Review `.kiro/specs/[plan]/progress-log.md` for shared discoveries
-
-  ### Working Documentation Principles
-  - **Must Work**: Documentation Claude depends on daily must be accurate or operations fail
-  - **Live References**: Point to current files rather than static descriptions
-  - **Self-Updating**: References to live data rather than manually maintained lists
-  - **Operationally Critical**: Information guides real work, not historical record
-
-  ### Emergency Scenarios
-  - **ARCHITECTURAL_QUESTION**: Immediate architectural input needed for blocked implementation
-  - **Compilation Errors**: Technical issues preventing progress
-  - **Plan Conflicts**: Multiple plans affecting same files requiring coordination
-  - **Session Handoffs**: Mid-implementation transitions between AI agents
+_Updated: 2025-07-27_

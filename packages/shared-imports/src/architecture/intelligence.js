@@ -5,7 +5,9 @@
  * Uses configurable numeric identifiers for path class categories
  */
 
-import madgeData from "./data/madge-analysis.json" with { type: "json" };
+// Note: Data now loaded dynamically from analysis-data folder
+// This allows updates without server restart
+let madgeData = null;
 
 // Configurable Path Class Categories (numeric IDs for flexibility)
 const PATH_CATEGORIES = {
@@ -152,27 +154,41 @@ function getPackageId(filePath) {
  * Identify potential dead code by comparing filesystem to madge output
  */
 function identifyDeadCode(madgeData) {
-  // This would need filesystem scanning - for now return known patterns
-  const knownDeadCode = [
-    // Test artifacts
-    "apps/wf-client/src/App.test.jsx",
-    "apps/wf-client/src/TestMonorepo.jsx",
-
-    // Empty/broken files
-    "apps/wf-client/src/stores/eventStore.js",
-    "apps/wf-client/src/utils/entityHelpers.js",
-    "apps/wf-client/src/utils/runtimeRoutes.js",
-
-    // Server test files
-    "apps/wf-server/server/utils/dml/__tests__/dmlProcessor.test.js",
-  ];
-
-  return knownDeadCode.map((file) => ({
-    file,
-    category: 6, // DEAD_CODE
-    reason: "Not found in madge dependency graph",
-    safeToRemove: true,
-  }));
+  // Extract dead code from madge analysis data
+  const deadFiles = [];
+  
+  if (madgeData.files) {
+    // Enhanced madge-analysis.json format
+    Object.entries(madgeData.files).forEach(([filePath, fileData]) => {
+      if (fileData.is_dead === true) {
+        deadFiles.push({
+          file: filePath,
+          category: 6, // DEAD_CODE
+          reason: "Not found in madge dependency graph",
+          safeToRemove: true,
+        });
+      }
+    });
+  } else {
+    // Raw madge format - files with no dependencies or dependents
+    Object.entries(madgeData).forEach(([filePath, dependencies]) => {
+      const hasDependencies = dependencies && dependencies.length > 0;
+      const hasDependents = Object.values(madgeData).some(deps => 
+        deps && deps.includes(filePath)
+      );
+      
+      if (!hasDependencies && !hasDependents) {
+        deadFiles.push({
+          file: filePath,
+          category: 6, // DEAD_CODE
+          reason: "No dependencies or dependents found",
+          safeToRemove: true,
+        });
+      }
+    });
+  }
+  
+  return deadFiles;
 }
 
 /**
@@ -331,9 +347,38 @@ function getPackageName(filePath) {
 }
 
 /**
+ * Load madge data dynamically from analysis-data folder
+ */
+async function loadMadgeData(forceReload = false) {
+  if (!madgeData || forceReload) {
+    try {
+      // Try to load from analysis-data folder
+      const response = await fetch('/analysis-data/madge-analysis.json');
+      if (response.ok) {
+        madgeData = await response.json();
+      } else {
+        // Fallback to raw data if enhanced version not available
+        const rawResponse = await fetch('/analysis-data/raw-madge.json');
+        if (rawResponse.ok) {
+          madgeData = await rawResponse.json();
+        } else {
+          throw new Error('No madge data available');
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load madge data:', error);
+      // Fallback to empty data structure
+      madgeData = { files: {}, metadata: { total_files: 0 } };
+    }
+  }
+  return madgeData;
+}
+
+/**
  * Main architectural intelligence interface
  */
-export const getArchitecturalIntel = () => {
+export const getArchitecturalIntel = async (forceReload = false) => {
+  await loadMadgeData(forceReload);
   const dependentCounts = calculateDependentCounts(madgeData);
   const categories = categorizeByImpact(dependentCounts);
   const crossPackageDeps = identifyCrossPackageDependencies(madgeData);

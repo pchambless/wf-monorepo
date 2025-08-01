@@ -8,8 +8,8 @@ const fs = require('fs');
 const path = require('path');
 
 // Read raw madge data
-const rawFile = path.join(__dirname, '../data/raw-madge.json');
-const outputFile = path.join(__dirname, '../data/madge-analysis.json');
+const rawFile = path.join(__dirname, '../../../../../apps/wf-client/public/analysis-data/raw-madge.json');
+const outputFile = path.join(__dirname, '../../../../../apps/wf-client/public/analysis-data/madge-analysis.json');
 const rawData = JSON.parse(fs.readFileSync(rawFile, 'utf8'));
 
 // Build reverse dependency map
