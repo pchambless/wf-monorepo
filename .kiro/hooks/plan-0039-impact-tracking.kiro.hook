@@ -1,0 +1,20 @@
+{
+  "enabled": true,
+  "name": "Plan 0039 Impact Tracking",
+  "description": "Tracks changes and impacts related to Plan 0039 implementation and monitors affected files for consistency",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "/claude-plans/**/*0039*",
+      "/sql/database/whatsfresh/tables/",
+      "/sql/database/api_wf/views/",
+      "/packages/*/src/**/*.js",
+      "/apps/*/src/**/*.jsx"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Plan 0039 Impact Tracking:\n\nDetected file changes that may impact Plan 0039. Please:\n\n1. **Analyze the change context:**\n   - Identify which files were modified\n   - Determine if changes relate to Plan 0039 scope\n   - Check for potential breaking changes\n\n2. **Impact Assessment:**\n   - Review affected database schemas\n   - Check display configurations for consistency\n   - Validate API view dependencies\n   - Identify downstream component impacts\n\n3. **Action Items:**\n   - Update related display configs with safe defaults\n   - Flag any breaking changes for review\n   - Generate impact summary for Plan 0039\n   - Suggest necessary updates to maintain consistency\n\n4. **Validation:**\n   - Ensure schema changes align with Plan 0039 goals\n   - Verify UI configurations remain consistent\n   - Check for orphaned references or configurations\n\nProvide a concise summary of impacts and recommended actions."
+  }
+}

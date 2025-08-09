@@ -1,5 +1,4 @@
 // Barrel file for selector widgets
-export { default as SelAcct } from "./SelAcct.js";
 export { default as SelBrnd } from "./SelBrnd.jsx";
 export { default as SelIngr } from "./SelIngr.jsx";
 export { default as SelMeas } from "./SelMeas.jsx";

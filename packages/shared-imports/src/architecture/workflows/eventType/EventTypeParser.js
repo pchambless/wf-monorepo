@@ -4,7 +4,7 @@
  */
 
 // Import the plan eventTypes at the top level
-import { PLAN_EVENTS } from "../../../events/plans/eventTypes.js";
+import { PLAN_EVENTS } from "../../../events/plans/eventTypes/index.js";
 import { CommonConfigs } from "../../config/selectValsHelper.js";
 
 /**

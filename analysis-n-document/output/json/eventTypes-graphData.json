@@ -1,0 +1,1107 @@
+{
+  "nodes": [
+    {
+      "id": "brndList",
+      "label": "page:CrudLayout<br>brndList<br>[:acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "brands",
+        "selWidget": "SelBrnd",
+        "method": "GET",
+        "purpose": "Get brands for an account - hook test",
+        "primaryKey": "brndID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "btchMapping",
+      "label": "page:MappingLayout<br>btchMapping<br>[:prodBtchID]",
+      "category": "page:MappingLayout",
+      "meta": {
+        "cluster": "MAPPING",
+        "purpose": "Main batch mapping page",
+        "primaryKey": null,
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "gridAvailable",
+      "label": "ui:Grid<br>gridAvailable<br>[:prodBtchID,:ingrID]",
+      "category": "ui:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Ingr batches available to map to a product batch",
+        "primaryKey": "ingrBtchID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "gridMapped",
+      "label": "ui:Grid<br>gridMapped<br>[:prodBtchID,:ingrID,prodRcpeID]",
+      "category": "ui:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Ingr batches mapped to a product batch",
+        "primaryKey": "mapID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "gridRcpe",
+      "label": "data:Grid<br>gridRcpe<br>[:prodID]",
+      "category": "data:Grid",
+      "meta": {
+        "cluster": "MAPPING",
+        "method": "GET",
+        "purpose": "Get recipe ingredients for a product",
+        "primaryKey": "prodRcpeID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "ingrBtchList",
+      "label": "page:CrudLayout<br>ingrBtchList<br>[:ingrID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredient_batches",
+        "selWidget": "SelIngrBtch",
+        "method": "GET",
+        "purpose": "Get ingredient batches for a product",
+        "primaryKey": "ingrBtchID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "ingrList",
+      "label": "page:CrudLayout<br>ingrList<br>[:acctID,:ingrTypeID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredients",
+        "selWidget": "SelIngr",
+        "method": "GET",
+        "purpose": "Get ingredients for an account",
+        "primaryKey": "ingrID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "ingrTypeList",
+      "label": "page:CrudLayout<br>ingrTypeList<br>[:acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "INGREDIENTS",
+        "dbTable": "ingredient_types",
+        "selWidget": "SelIngrType",
+        "method": "GET",
+        "purpose": "Get ingredient types for an account",
+        "primaryKey": "ingrTypeID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "measList",
+      "label": "page:CrudLayout<br>measList<br>[:acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "measures",
+        "selWidget": "SelMeas",
+        "method": "GET",
+        "purpose": "Get measurement units",
+        "primaryKey": "measID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "prodBtchList",
+      "label": "page:CrudLayout<br>prodBtchList<br>[:prodID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_batches",
+        "selWidget": "SelProdBtch",
+        "method": "GET",
+        "purpose": "Get product batches for a product",
+        "primaryKey": "prodBtchID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "prodList",
+      "label": "page:CrudLayout<br>prodList<br>[:prodTypeID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "products",
+        "selWidget": "SelProd",
+        "method": "GET",
+        "purpose": "Get products for an Product Type",
+        "primaryKey": "prodID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "prodListAll",
+      "label": "ui:Select<br>prodListAll<br>[:acctID]",
+      "category": "ui:Select",
+      "meta": {
+        "cluster": "SELECT",
+        "dbTable": "products",
+        "selWidget": "SelProd",
+        "method": "GET",
+        "purpose": "Get all products for an account",
+        "primaryKey": "prodID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "prodTypeList",
+      "label": "page:CrudLayout<br>prodTypeList<br>[:acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_types",
+        "selWidget": "SelProdType",
+        "method": "GET",
+        "purpose": "Get product types for an account",
+        "primaryKey": "prodTypeID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "rcpeList",
+      "label": "page:RecipeLayout<br>rcpeList<br>[:prodID]",
+      "category": "page:RecipeLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "product_recipes",
+        "selWidget": "SelRcpe",
+        "method": "GET",
+        "purpose": "Get recipes for an account",
+        "primaryKey": "rcpeID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "rptWrkShtIngr",
+      "label": "report:worksheet<br>rptWrkShtIngr<br>[:prodBtchID]",
+      "category": "report:worksheet",
+      "meta": {
+        "cluster": "REPORTS",
+        "method": "GET",
+        "purpose": "Worksheet ingredients section data",
+        "primaryKey": "ingr_ordr",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "rptWrkShtTask",
+      "label": "report:worksheet<br>rptWrkShtTask<br>[:prodBtchID]",
+      "category": "report:worksheet",
+      "meta": {
+        "cluster": "REPORTS",
+        "method": "GET",
+        "purpose": "Worksheet tasks section data",
+        "primaryKey": "ordr",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "taskList",
+      "label": "page:CrudLayout<br>taskList<br>[:prodTypeID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "PRODUCTS",
+        "dbTable": "tasks",
+        "selWidget": "SelTask",
+        "method": "GET",
+        "purpose": "Get tasks for batches",
+        "primaryKey": "taskID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "userAcctList",
+      "label": "ui:select<br>userAcctList<br>[:userID]",
+      "category": "ui:select",
+      "meta": {
+        "cluster": "AUTH",
+        "selWidget": "SelUserAcct",
+        "method": "GET",
+        "purpose": "Get accounts accessible to user",
+        "primaryKey": "acctID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "userLogin",
+      "label": "page:AuthLayout<br>userLogin<br>[:userEmail,:enteredPassword]",
+      "category": "page:AuthLayout",
+      "meta": {
+        "cluster": "AUTH",
+        "dbTable": "users",
+        "method": "GET",
+        "purpose": "Authenticate user login",
+        "primaryKey": null,
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "vndrList",
+      "label": "page:CrudLayout<br>vndrList<br>[:acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "vendors",
+        "selWidget": "SelVndr",
+        "method": "GET",
+        "purpose": "Get vendors for an account",
+        "primaryKey": "vndrID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "wrkrList",
+      "label": "page:CrudLayout<br>wrkrList<br>[:acctID]",
+      "category": "page:CrudLayout",
+      "meta": {
+        "cluster": "REFERENCE",
+        "dbTable": "workers",
+        "selWidget": "SelWrkr",
+        "method": "GET",
+        "purpose": "Get workers for an account",
+        "primaryKey": "wrkrID",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "page-planManagement",
+      "label": "page<br>page-planManagement<br>[]",
+      "category": "page",
+      "meta": {
+        "cluster": "PLANS",
+        "purpose": "Get all plans for management",
+        "primaryKey": null,
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "select-PlanStatus",
+      "label": "ui:Select<br>select-PlanStatus<br>[]",
+      "category": "ui:Select",
+      "meta": {
+        "cluster": "PLANS",
+        "method": "CONFIG",
+        "purpose": "Filter plans by status selection",
+        "primaryKey": null,
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "tab-planDetail",
+      "label": "tab<br>tab-planDetail<br>[]",
+      "category": "tab",
+      "meta": {
+        "cluster": "PLANS",
+        "purpose": "Get all plans for management",
+        "primaryKey": null,
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "tab-planCommunications",
+      "label": "tab<br>tab-planCommunications<br>[]",
+      "category": "tab",
+      "meta": {
+        "cluster": "PLANS",
+        "purpose": "Get all plans for management",
+        "primaryKey": null,
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "tab-planImpacts",
+      "label": "tab<br>tab-planImpacts<br>[]",
+      "category": "tab",
+      "meta": {
+        "cluster": "PLANS",
+        "purpose": "Get all impacted files for a plan",
+        "primaryKey": null,
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "grid-planList",
+      "label": "grid<br>grid-planList<br>[:planStatus]",
+      "category": "grid",
+      "meta": {
+        "cluster": "PLANS",
+        "dbTable": "api_wf.plans",
+        "selWidget": "SelPlan",
+        "method": "GET",
+        "purpose": "Get all plans given a specific status",
+        "primaryKey": "id",
+        "workflows": [
+          "updatePlan",
+          "createPlan"
+        ],
+        "workflowTriggers": {
+          "onSelect": [
+            "validateAccess",
+            "refreshContext"
+          ],
+          "onUpdate": [
+            "updateRecord",
+            "trackImpact"
+          ],
+          "onCreate": [
+            "createRecord",
+            "trackImpact"
+          ]
+        },
+        "workflowConfig": {},
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "grid-planCommunicationList",
+      "label": "grid<br>grid-planCommunicationList<br>[:planID]",
+      "category": "grid",
+      "meta": {
+        "cluster": "PLANS",
+        "dbTable": "api_wf.plan_communications",
+        "method": "GET",
+        "purpose": "Get communications for a specific plan",
+        "primaryKey": "id",
+        "workflows": [
+          "createCommunication"
+        ],
+        "workflowTriggers": {
+          "onSelect": [
+            "validateAccess",
+            "refreshContext"
+          ],
+          "onUpdate": [
+            "updateRecord",
+            "trackImpact"
+          ],
+          "onCreate": [
+            "createRecord",
+            "trackImpact"
+          ]
+        },
+        "workflowConfig": {},
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "grid-planImpactList",
+      "label": "grid<br>grid-planImpactList<br>[:planID]",
+      "category": "grid",
+      "meta": {
+        "cluster": "PLANS",
+        "dbTable": "api_wf.plan_impacts",
+        "method": "GET",
+        "purpose": "Get file impacts for a specific plan",
+        "primaryKey": "id",
+        "workflows": [],
+        "workflowTriggers": {},
+        "workflowConfig": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "form-planDetail",
+      "label": "form<br>form-planDetail<br>[:planID]",
+      "category": "form",
+      "meta": {
+        "cluster": "PLANS",
+        "dbTable": "api_wf.plans",
+        "method": "GET",
+        "purpose": "Get detailed information for a specific plan",
+        "primaryKey": "id",
+        "workflows": [],
+        "workflowTriggers": {
+          "onSelect": [
+            "validateAccess",
+            "refreshContext"
+          ],
+          "onUpdate": [
+            "updateRecord",
+            "trackImpact"
+          ],
+          "onCreate": [
+            "createRecord",
+            "trackImpact"
+          ]
+        },
+        "workflowConfig": {},
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "workflow:updatePlan",
+      "label": "workflow<br>updatePlan",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "updatePlan",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:createPlan",
+      "label": "workflow<br>createPlan",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "createPlan",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:validateAccess",
+      "label": "workflow<br>validateAccess",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "validateAccess",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:refreshContext",
+      "label": "workflow<br>refreshContext",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "refreshContext",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:updateRecord",
+      "label": "workflow<br>updateRecord",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "updateRecord",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:trackImpact",
+      "label": "workflow<br>trackImpact",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "trackImpact",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:createRecord",
+      "label": "workflow<br>createRecord",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "createRecord",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:createCommunication",
+      "label": "workflow<br>createCommunication",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "createCommunication",
+        "isWorkflowNode": true
+      }
+    }
+  ],
+  "navigationEdges": [
+    {
+      "from": "ingrList",
+      "to": "ingrBtchList",
+      "label": "ingrID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrTypeList",
+      "to": "ingrList",
+      "label": "ingrTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodBtchList",
+      "to": "btchMapping",
+      "label": "prodBtchID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "prodBtchList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "rcpeList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "prodList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "taskList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "ingrTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "prodTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "brndList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "vndrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "wrkrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "measList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "page-planManagement",
+      "to": "select-PlanStatus",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "select-PlanStatus",
+      "to": "grid-planList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "tab-planDetail",
+      "to": "form-planDetail",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "tab-planCommunications",
+      "to": "grid-planCommunicationList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "tab-planImpacts",
+      "to": "grid-planImpactList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "grid-planList",
+      "to": "tab-planDetail",
+      "label": "id",
+      "type": "navigation"
+    },
+    {
+      "from": "grid-planList",
+      "to": "tab-planCommunications",
+      "label": "id",
+      "type": "navigation"
+    },
+    {
+      "from": "grid-planList",
+      "to": "tab-planImpacts",
+      "label": "id",
+      "type": "navigation"
+    }
+  ],
+  "widgetEdges": [
+    {
+      "from": "vndrList",
+      "to": "ingrBtchList",
+      "label": "vndrID",
+      "type": "widget",
+      "widget": "SelVndr"
+    },
+    {
+      "from": "brndList",
+      "to": "ingrBtchList",
+      "label": "brndID",
+      "type": "widget",
+      "widget": "SelBrnd"
+    },
+    {
+      "from": "measList",
+      "to": "ingrBtchList",
+      "label": "measID",
+      "type": "widget",
+      "widget": "SelMeas"
+    },
+    {
+      "from": "measList",
+      "to": "ingrList",
+      "label": "measID",
+      "type": "widget",
+      "widget": "SelMeas"
+    },
+    {
+      "from": "vndrList",
+      "to": "ingrList",
+      "label": "vndrID",
+      "type": "widget",
+      "widget": "SelVndr"
+    }
+  ],
+  "workflowEdges": [
+    {
+      "from": "grid-planList",
+      "to": "workflow:updatePlan",
+      "label": "direct",
+      "type": "workflow",
+      "workflow": "updatePlan",
+      "triggers": [],
+      "config": {}
+    },
+    {
+      "from": "grid-planList",
+      "to": "workflow:createPlan",
+      "label": "direct",
+      "type": "workflow",
+      "workflow": "createPlan",
+      "triggers": [],
+      "config": {}
+    },
+    {
+      "from": "grid-planList",
+      "to": "workflow:validateAccess",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "validateAccess",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planList",
+      "to": "workflow:refreshContext",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "refreshContext",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planList",
+      "to": "workflow:updateRecord",
+      "label": "onUpdate",
+      "type": "workflow",
+      "workflow": "updateRecord",
+      "triggers": [
+        "onUpdate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planList",
+      "to": "workflow:trackImpact",
+      "label": "onUpdate,onCreate",
+      "type": "workflow",
+      "workflow": "trackImpact",
+      "triggers": [
+        "onUpdate",
+        "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planList",
+      "to": "workflow:createRecord",
+      "label": "onCreate",
+      "type": "workflow",
+      "workflow": "createRecord",
+      "triggers": [
+        "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planCommunicationList",
+      "to": "workflow:createCommunication",
+      "label": "direct",
+      "type": "workflow",
+      "workflow": "createCommunication",
+      "triggers": [],
+      "config": {}
+    },
+    {
+      "from": "grid-planCommunicationList",
+      "to": "workflow:validateAccess",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "validateAccess",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planCommunicationList",
+      "to": "workflow:refreshContext",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "refreshContext",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planCommunicationList",
+      "to": "workflow:updateRecord",
+      "label": "onUpdate",
+      "type": "workflow",
+      "workflow": "updateRecord",
+      "triggers": [
+        "onUpdate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planCommunicationList",
+      "to": "workflow:trackImpact",
+      "label": "onUpdate,onCreate",
+      "type": "workflow",
+      "workflow": "trackImpact",
+      "triggers": [
+        "onUpdate",
+        "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "grid-planCommunicationList",
+      "to": "workflow:createRecord",
+      "label": "onCreate",
+      "type": "workflow",
+      "workflow": "createRecord",
+      "triggers": [
+        "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "form-planDetail",
+      "to": "workflow:validateAccess",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "validateAccess",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "form-planDetail",
+      "to": "workflow:refreshContext",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "refreshContext",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "form-planDetail",
+      "to": "workflow:updateRecord",
+      "label": "onUpdate",
+      "type": "workflow",
+      "workflow": "updateRecord",
+      "triggers": [
+        "onUpdate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "form-planDetail",
+      "to": "workflow:trackImpact",
+      "label": "onUpdate,onCreate",
+      "type": "workflow",
+      "workflow": "trackImpact",
+      "triggers": [
+        "onUpdate",
+        "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "form-planDetail",
+      "to": "workflow:createRecord",
+      "label": "onCreate",
+      "type": "workflow",
+      "workflow": "createRecord",
+      "triggers": [
+        "onCreate"
+      ],
+      "config": {}
+    }
+  ],
+  "edges": [
+    {
+      "from": "ingrList",
+      "to": "ingrBtchList",
+      "label": "ingrID",
+      "type": "navigation"
+    },
+    {
+      "from": "ingrTypeList",
+      "to": "ingrList",
+      "label": "ingrTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodBtchList",
+      "to": "btchMapping",
+      "label": "prodBtchID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "prodBtchList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodList",
+      "to": "rcpeList",
+      "label": "prodID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "prodList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "prodTypeList",
+      "to": "taskList",
+      "label": "prodTypeID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "ingrTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "prodTypeList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "brndList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "vndrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "wrkrList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "userAcctList",
+      "to": "measList",
+      "label": "acctID",
+      "type": "navigation"
+    },
+    {
+      "from": "page-planManagement",
+      "to": "select-PlanStatus",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "select-PlanStatus",
+      "to": "grid-planList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "tab-planDetail",
+      "to": "form-planDetail",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "tab-planCommunications",
+      "to": "grid-planCommunicationList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "tab-planImpacts",
+      "to": "grid-planImpactList",
+      "label": "",
+      "type": "navigation"
+    },
+    {
+      "from": "grid-planList",
+      "to": "tab-planDetail",
+      "label": "id",
+      "type": "navigation"
+    },
+    {
+      "from": "grid-planList",
+      "to": "tab-planCommunications",
+      "label": "id",
+      "type": "navigation"
+    },
+    {
+      "from": "grid-planList",
+      "to": "tab-planImpacts",
+      "label": "id",
+      "type": "navigation"
+    }
+  ],
+  "meta": {
+    "generated": "2025-08-09T14:26:11.775Z",
+    "nodeCount": 38,
+    "eventNodeCount": 30,
+    "workflowNodeCount": 8,
+    "navigationEdgeCount": 21,
+    "widgetEdgeCount": 5,
+    "workflowEdgeCount": 18,
+    "widgetUsageCount": 3,
+    "workflowEventCount": 3
+  }
+}

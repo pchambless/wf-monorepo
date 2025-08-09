@@ -1,11 +1,11 @@
 export const gridPlanList = {
   eventID: 101,
-  eventType: "planList",
+  eventType: "grid-planList",
   category: "grid",
   title: "Plans",
   cluster: "PLANS",
   dbTable: "api_wf.plans",
-  navChildren: ["planDetailTab", "planCommunicationTab", "planImpactTab"],
+  navChildren: ["tab-planDetail", "tab-planCommunications", "tab-planImpacts"],
   workflows: ["updatePlan", "createPlan"],
 
   // Standard 3-trigger pattern

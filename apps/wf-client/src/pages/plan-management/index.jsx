@@ -220,9 +220,9 @@ export const PlanManagement = () => {
     console.log("Phase 3: Status filter:", status);
 
     try {
-      // Execute onSelect workflows for SelPlanStatus
+      // Execute onSelect workflows for select-PlanStatus
       const workflowResult = await executeWorkflows(
-        "SelPlanStatus",
+        "select-PlanStatus",
         "onSelect",
         {
           status,

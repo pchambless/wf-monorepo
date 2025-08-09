@@ -1,37 +1,44 @@
-Session Startup Summary - TextArea Widget Fix Complete
+ # Session Restart Context - Plan 0040 Progress
 
-  Key Accomplishments
+  ## Where We Left Off
 
-  ✅ Fixed TextArea widget - Replaced complex Material-UI TextField with simple HTML textarea
-  ✅ Plan 36 created - "Reorganize ArchIntel Page" with detailed requirements
-  ✅ EventType hierarchy defined - archIntel → SelPlanStatus → [planList, tabs] flow documented
-  ✅ Analysis pipeline working - All npm run analyze:* scripts converted to ES modules
+  We were working on Plan 0040 "Plan Management MVP Completion" and made significant progress on:
 
-  Current Status
+  1. **Generator Path Cleanup** ✅
+     - Fixed all genDocs generators to use `analysis-n-document/output/json/` and `output/reports/`
+     - Eliminated duplicate generation to `apps/wf-client/public/analysis-data/`
+     - Updated package.json scripts to use new genDocs/ structure
+     - Fixed ES module issues and path resolution problems
 
-  - TextArea widget: Now uses plain HTML - stores plain text, no overflow issues
-  - Width issue remains: Both plan name field and textarea need to be wider
-  - Plan 36 ready: Kiro can start ArchIntel redesign using eventTypes.mmd as blueprint
-  - Theme RTL disabled: Removed direction: "rtl" that was causing layout conflicts
+  2. **EventTypes Modularization** ✅
+     - Successfully modularized client and admin eventTypes into individual files
+     - Created proper index.js files with EVENTS arrays
+     - Updated main events/index.js to import from new structure
+     - Server confirmed working with updated import structure
 
-  Next Session Tasks
+  3. **Design Document Enhancement** ✅
+     - Added genDirectives and genWorkflows automation to `.kiro/0040/design.md`
+     - Established hybrid approach with dual-zone pattern (auto-generated + manual zones)
+     - Decided on co-located workflow.js and display.js files (following existing .display.js patterns)
+     - Added template system, update strategy, and validation approaches
 
-  1. Fix field widths - Make plan name and textarea fields wider in forms
-  2. Coordinate Plan 36 - Ensure Kiro follows eventType hierarchy for ArchIntel redesign
-  3. Test TextArea - Verify long text pasting works correctly in production
+  ## Current State
 
-  Key Files Modified
+  **Clean Output Structure:**
+  analysis-n-document/output/
+  ├── json/ (all .json files)
+  └── reports/ (only .mmd files - no .md files)
 
-  - /packages/shared-imports/src/components/forms/TextArea.jsx - Plain HTML implementation
-  - /apps/wf-client/src/theme.js - Disabled RTL direction
-  - /analysis-n-document/output/eventTypes.mmd - Contains ArchIntel flow blueprint
+  **Next Phase Strategy:**
+  - Kiro handles complex architectural tasks (template processing, safe regeneration logic)
+  - Lighter models handle straightforward implementation (SQL parsing, file creation, validation)
+  - Focus on genDirectives and genWorkflows automation for plan-management MVP
 
-  Architecture Notes
+  ## Key Files to Reference
+  - `.kiro/0040/design.md` - Complete design with dual-zone pattern
+  - `.kiro/0040/tasks.md` - Detailed task breakdown (6.1-6.3 marked complete by Kiro)
+  - `analysis-n-document/genDocs/` - Updated generators using clean output structure
+  - `packages/shared-imports/src/events/` - Modularized eventTypes structure
 
-  - EventTypes drive routes - Paul owns eventType definitions, implementation follows
-  - Plain textarea proven - Sometimes simple HTML beats complex React components
-  - Material-UI version conflict - Root cause of many styling issues (v5 vs v7)
-
-  Ready to continue with Plan 36 implementation and field width adjustments.
-
-  I informed kiro to create a requirements document for plan 0036:  \\wsl$\Ubuntu-22.04\home\paul\wf-monorepo-new\.kiro\specs\0036\requirements.md
+  ## Immediate Next Steps
+  Ready to continue with genDirectives/genWorkflows automation or any other Plan 0040 MVP tasks.

@@ -1,0 +1,89 @@
+# .claude/config.yaml - Claude-specific configuration for WhatsFresh monorepo
+# Working Documentation - Created: 2025-08-01
+
+project_context:
+  name: "WhatsFresh 2.0"
+  architecture: "monorepo-devtools-generated"
+  philosophy: "MVP break-and-fix, forward progress over backward compatibility"
+
+# Claude's role and responsibilities
+claude_role:
+  primary: "architectural analysis and system integration guidance"
+  secondary: "debugging complex issues, pattern validation, requirements analysis"
+  avoid: "direct code generation (use tools), repetitive CRUD operations"
+
+# Key reference documents - Claude should read these for context
+reference_docs:
+  main_readme: "/home/paul/wf-monorepo-new/README.md"
+  architecture: "/home/paul/wf-monorepo-new/AI/architecture-principles.md"
+  claude_guidance: "/home/paul/wf-monorepo-new/CLAUDE.md"
+  kiro_config: "/home/paul/wf-monorepo-new/.kiro/steering.yaml"
+
+# Pre-analyzed data for efficient investigations
+analysis_shortcuts:
+  architecture_mapping: "analysis-n-document/output/json/config-relationships.json"
+  integration_flows: "analysis-n-document/output/json/integration-flows.json"
+  event_flows: "analysis-n-document/output/json/event-flows.json"
+  event_graph_data: "analysis-n-document/output/json/eventTypes-graphData.json"
+  dead_code_analysis: "analysis-n-document/output/json/dead-code-analysis.json"
+  madge_dependencies: "analysis-n-document/output/raw-madge.json"
+
+# Investigation protocol - check these BEFORE deep file exploration
+investigation_priorities:
+  1: "Check analysis_shortcuts for existing data"
+  2: "Use semantic_search for code patterns"
+  3: "Read key files only if needed"
+  4: "Avoid redundant file reading"
+
+# Critical system knowledge
+architectural_patterns:
+  event_system: "eventType = pageName = viewName (unified naming)"
+  data_flow: "SQL views → directives → pageMap → React components"
+  api_pattern: "React → useApi() → execEventType() → server → DB"
+  navigation: "hierarchical with primaryKey parameter passing"
+  shared_packages: "@whatsfresh/shared-imports for all shared code"
+
+# Paths that matter most to Claude
+key_paths:
+  shared_imports: "packages/shared-imports/src/"
+  client_pages: "apps/wf-client/src/pages/"
+  server_controllers: "apps/wf-server/server/controller/"
+  config_files: "apps/*/src/config/"
+  analysis_output: "analysis-n-document/output/"
+
+# What Claude should focus on
+focus_areas:
+  - "Cross-package integration issues"
+  - "Event system architecture"
+  - "API flow debugging"
+  - "Import/export resolution"
+  - "Module dependency conflicts"
+  - "Build and runtime errors"
+
+# What Claude should delegate
+delegate_to_tools:
+  - "File creation and editing"
+  - "Running terminal commands"
+  - "Installing packages"
+  - "Code generation"
+  - "Repetitive tasks"
+
+# Communication preferences
+communication:
+  be_concise: true
+  show_reasoning: true
+  suggest_tools: true
+  avoid_assumptions: true
+  ask_clarifying_questions: false # Just proceed with best judgment
+
+# Token efficiency
+efficiency:
+  use_semantic_search: true
+  check_analysis_data_first: true
+  read_files_strategically: true
+  avoid_redundant_exploration: true
+
+metadata:
+  version: "1.0"
+  created: "2025-08-01"
+  purpose: "Optimize Claude interactions with WhatsFresh monorepo"

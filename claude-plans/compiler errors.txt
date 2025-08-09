@@ -1,0 +1,408 @@
+Failed to compile.
+
+Module parse failed: Unexpected token (85:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <PlanContextProvider>
+|       <Box className="compact-container">
+|         <Typography variant="h4" className="compact-heading">
+ERROR in ../../packages/shared-imports/src/architecture/components/ArchDashboard.jsx 85:4
+Module parse failed: Unexpected token (85:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <PlanContextProvider>
+|       <Box className="compact-container">
+|         <Typography variant="h4" className="compact-heading">
+
+ERROR in ../../packages/shared-imports/src/components/auth.jsx 111:4
+Module parse failed: Unexpected token (111:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <AuthContext.Provider value={value}>
+|       {children}
+|     </AuthContext.Provider>
+
+ERROR in ../../packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx 93:4
+Module parse failed: Unexpected token (93:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <>
+|       <LoginView
+|         onLogin={handleLogin}
+
+ERROR in ../../packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx 30:4
+Module parse failed: Unexpected token (30:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Container component="main" maxWidth="xs">
+|       <CssBaseline />
+|       <Box
+
+ERROR in ../../packages/shared-imports/src/components/common/EntitySelector.jsx 96:4
+Module parse failed: Unexpected token (96:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <FormControl fullWidth size="small" disabled={disabled || loading}>
+|       <InputLabel>{label}</InputLabel>
+|       <Select
+
+ERROR in ../../packages/shared-imports/src/components/common/ErrorBoundary.jsx 36:16
+Module parse failed: Unexpected token (36:16)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|             // Custom fallback UI
+|             return (
+>                 <Box
+|                     sx={{
+|                         p: 4,
+
+ERROR in ../../packages/shared-imports/src/components/common/Logo/index.jsx 10:4
+Module parse failed: Unexpected token (10:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+| const Logo = ({ sx = {} }) => {
+|   return (
+>     <Box
+|       component="img"
+|       src={logoImg}
+
+ERROR in ../../packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx 245:4
+Module parse failed: Unexpected token (245:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box display="flex" flexDirection="column" gap={2}>
+|       <Grid container spacing={2}>
+|         <Grid size={7}>
+
+ERROR in ../../packages/shared-imports/src/components/crud/Form/Form.jsx 55:6
+Module parse failed: Unexpected token (55:6)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|     const SelectorComponent = SELECTOR_WIDGETS[field.widget];
+|     return (
+>       <SelectorComponent
+|         value={value}
+|         onChange={handleFieldChange}
+
+ERROR in ../../packages/shared-imports/src/components/crud/Table/Table.jsx 26:6
+Module parse failed: Unexpected token (26:6)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|   const renderActionCell = React.useCallback(
+|     (params) => (
+>       <Box
+|         sx={{
+|           display: "flex",
+
+ERROR in ../../packages/shared-imports/src/components/forms/BooleanField.jsx 31:4
+Module parse failed: Unexpected token (31:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box sx={{ width: '100%', pt: 1.5, pb: 0.5 }}>
+|       <FormControl error={error} required={required}>
+|         <FormControlLabel
+
+ERROR in ../../packages/shared-imports/src/components/forms/DateField.jsx 36:4
+Module parse failed: Unexpected token (36:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box sx={{ width: '100%' }}>
+|       <LocalizationProvider dateAdapter={AdapterDateFns}>
+|         <DatePicker
+
+ERROR in ../../packages/shared-imports/src/components/forms/DatePick.jsx 67:11
+Module parse failed: Unexpected token (67:11)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   if (loading) {
+>     return <CircularProgress />;
+|   }
+|
+
+ERROR in ../../packages/shared-imports/src/components/forms/DecimalField.jsx 49:4
+Module parse failed: Unexpected token (49:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box sx={{ width: '100%' }}>
+|       <TextField
+|         type="number"
+
+ERROR in ../../packages/shared-imports/src/components/forms/MultiLineField.jsx 24:4
+Module parse failed: Unexpected token (24:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+| }) => {
+|   return (
+>     <Box
+|       sx={{
+|         width: '100%',
+
+ERROR in ../../packages/shared-imports/src/components/forms/NumberField.jsx 41:4
+Module parse failed: Unexpected token (41:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box sx={{ width: '100%' }}>
+|       <TextField
+|         type="number"
+
+ERROR in ../../packages/shared-imports/src/components/forms/Select.jsx 36:4
+Module parse failed: Unexpected token (36:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box sx={{ width: "100%", mb: 2 }}>
+|       <FormControl
+|         fullWidth={fullWidth}
+
+ERROR in ../../packages/shared-imports/src/components/forms/TextArea.jsx 25:4
+Module parse failed: Unexpected token (25:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+| }) => {
+|   return (
+>     <div style={{ marginBottom: '16px', width: fullWidth ? '100%' : 'auto' }}>
+|       {label && (
+|         <label
+
+ERROR in ../../packages/shared-imports/src/components/forms/TextField.jsx 29:4
+Module parse failed: Unexpected token (29:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box sx={{ width: '100%' }}>
+|       <MuiTextField
+|         value={value || ''}
+
+ERROR in ../../packages/shared-imports/src/components/grids/DataGrid.jsx 42:4
+Module parse failed: Unexpected token (42:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box sx={{ height, width: '100%' }}>
+|       <DataGrid
+|         rows={data}
+
+ERROR in ../../packages/shared-imports/src/components/layouts/AuthLayout.jsx 23:8
+Module parse failed: Unexpected token (23:8)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+| }) => {
+|     return (
+>         <Box
+|             sx={{
+|                 height: '100vh',
+
+ERROR in ../../packages/shared-imports/src/components/layouts/MainLayout.jsx 54:4
+Module parse failed: Unexpected token (54:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box sx={{ display: 'flex', height: '100vh', ...sx }}>
+|       <CssBaseline />
+|
+
+ERROR in ../../packages/shared-imports/src/components/modals/Modal.jsx 42:4
+Module parse failed: Unexpected token (42:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Dialog
+|       open={true} // Always true because we return null above when !isOpen
+|       onClose={handleClose}
+
+ERROR in ../../packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx 34:10
+Module parse failed: Unexpected token (34:10)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|       case 'hamburger':
+|         return (
+>           <IconButton
+|             key={index}
+|             edge="start"
+
+ERROR in ../../packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx 102:6
+Module parse failed: Unexpected token (102:6)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|   const renderNavItems = (items, isNested = false) => {
+|     return items.map((item, index) => (
+>       <ListItem key={index} disablePadding sx={{ pl: isNested ? 4 : 2 }}>
+|         <ListItemButton onClick={() => handleNavClick(item)}>
+|           {item.icon && (
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelBrnd.jsx 12:2
+Module parse failed: Unexpected token (12:2)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|  */
+| const SelBrnd = (props) => (
+>   <SelectWidget
+|     id="selBrnd"
+|     eventName="brndList"
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelIngr.jsx 12:2
+Module parse failed: Unexpected token (12:2)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|  */
+| const SelIngr = (props) => (
+>   <SelectWidget
+|     id="selIngr"
+|     eventName="ingrList"
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelMeas.jsx 12:2
+Module parse failed: Unexpected token (12:2)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|  */
+| const SelMeas = (props) => (
+>   <SelectWidget
+|     id="selMeas"
+|     eventName="measList"
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelPlan.jsx 31:4
+Module parse failed: Unexpected token (31:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   const widget = (
+>     <SelectWidget
+|       id="selPlan"
+|       eventName="SelPlan"
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelProd.jsx 15:2
+Module parse failed: Unexpected token (15:2)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|  */
+| const SelProd = (props) => (
+>   <SelectWidget
+|     id="SelProd"
+|     eventName="prodListAll"
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelUserAcct.jsx 15:2
+Module parse failed: Unexpected token (15:2)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|  */
+| const SelUserAcct = (props) => (
+>   <SelectWidget
+|     id="selUserAcct"
+|     eventName="userAcctList"
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelVndr.jsx 12:2
+Module parse failed: Unexpected token (12:2)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|  */
+| const SelVndr = (props) => (
+>   <SelectWidget
+|     id="selVndr"
+|     eventName="vndrList"
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelWrkr.jsx 12:2
+Module parse failed: Unexpected token (12:2)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|  */
+| const SelWrkr = (props) => (
+>   <SelectWidget
+|     id="selWrkr"
+|     eventName="wrkrList"
+
+ERROR in ../../packages/shared-imports/src/components/selectors/SelectWidget.jsx 143:4
+Module parse failed: Unexpected token (143:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <Box
+|       sx={{
+|         p: 2,
+
+ERROR in ../../packages/shared-imports/src/components/selectors/createSelectWidget.jsx 15:17
+Module parse failed: Unexpected token (15:17)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|   if (!event) {
+|     console.error(`Event type ${eventType} not found`);
+>     return () => <div>Invalid event type: {eventType}</div>;
+|   }
+|
+
+ERROR in ../../packages/shared-imports/src/contexts/PlanContext.jsx 64:4
+Module parse failed: Unexpected token (64:4)
+File was processed with these loaders:
+ * ./node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js
+You may need an additional loader to handle the result of these loaders.
+|
+|   return (
+>     <PlanContext.Provider value={contextValue}>{children}</PlanContext.Provider>
+|   );
+| };
+
+webpack compiled with 36 errors

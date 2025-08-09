@@ -68,13 +68,19 @@ const getLazyComponent = (config) => {
     // Use the eventType as the folder name directly
     const eventType = config.eventType;
 
-    // Direct mapping: eventType === folder name
-    component = lazy(() => import(`./pages/${eventType}/index.jsx`));
+    // Handle page- eventTypes by converting to folder name
+    let folderName = eventType;
+    if (eventType.startsWith("page-")) {
+      // Convert page-planManagement -> plan-management
+      folderName = eventType.replace("page-", "").replace(/([A-Z])/g, "-$1").toLowerCase().replace(/^-/, "");
+    }
+    
+    component = lazy(() => import(`./pages/${folderName}/index.jsx`));
 
     lazyPages.set(cacheKey, component);
     return component;
   } catch (error) {
-    console.error(`Failed to load component: ${config.pageIndexPath}`, error);
+    console.error(`Failed to load component for ${config.eventType}:`, error);
     return null;
   }
 };

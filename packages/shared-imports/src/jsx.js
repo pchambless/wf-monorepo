@@ -48,7 +48,6 @@ export {
 
 // Export selector components (PascalCase names)
 export {
-  SelAcct,
   SelBrnd,
   SelVndr,
   SelMeas,

@@ -1,0 +1,74 @@
+flowchart LR
+
+  subgraph PLANS
+    page-planManagement["page<br>page-planManagement<br>[]"]
+    select-PlanStatus["ui:Select<br>select-PlanStatus<br>[]"]
+    tab-planDetail["tab<br>tab-planDetail<br>[]"]
+    tab-planCommunications["tab<br>tab-planCommunications<br>[]"]
+    tab-planImpacts["tab<br>tab-planImpacts<br>[]"]
+    grid-planList["grid<br>grid-planList<br>[:planStatus]"]
+    grid-planCommunicationList["grid<br>grid-planCommunicationList<br>[:planID]"]
+    grid-planImpactList["grid<br>grid-planImpactList<br>[:planID]"]
+    form-planDetail["form<br>form-planDetail<br>[:planID]"]
+  end
+
+  subgraph WORKFLOWS
+    workflow:updatePlan["workflow<br>updatePlan"]
+    workflow:createPlan["workflow<br>createPlan"]
+    workflow:validateAccess["workflow<br>validateAccess"]
+    workflow:refreshContext["workflow<br>refreshContext"]
+    workflow:updateRecord["workflow<br>updateRecord"]
+    workflow:trackImpact["workflow<br>trackImpact"]
+    workflow:createRecord["workflow<br>createRecord"]
+    workflow:createCommunication["workflow<br>createCommunication"]
+  end
+
+  page-planManagement --> select-PlanStatus
+  select-PlanStatus --> grid-planList
+  tab-planDetail --> form-planDetail
+  tab-planCommunications --> grid-planCommunicationList
+  tab-planImpacts --> grid-planImpactList
+  grid-planList -->|id| tab-planDetail
+  grid-planList -->|id| tab-planCommunications
+  grid-planList -->|id| tab-planImpacts
+  grid-planList -.->|direct| workflow:updatePlan
+  grid-planList -.->|direct| workflow:createPlan
+  grid-planList -.->|onSelect| workflow:validateAccess
+  grid-planList -.->|onSelect| workflow:refreshContext
+  grid-planList -.->|onUpdate| workflow:updateRecord
+  grid-planList -.->|onUpdate,onCreate| workflow:trackImpact
+  grid-planList -.->|onCreate| workflow:createRecord
+  grid-planCommunicationList -.->|direct| workflow:createCommunication
+  grid-planCommunicationList -.->|onSelect| workflow:validateAccess
+  grid-planCommunicationList -.->|onSelect| workflow:refreshContext
+  grid-planCommunicationList -.->|onUpdate| workflow:updateRecord
+  grid-planCommunicationList -.->|onUpdate,onCreate| workflow:trackImpact
+  grid-planCommunicationList -.->|onCreate| workflow:createRecord
+  form-planDetail -.->|onSelect| workflow:validateAccess
+  form-planDetail -.->|onSelect| workflow:refreshContext
+  form-planDetail -.->|onUpdate| workflow:updateRecord
+  form-planDetail -.->|onUpdate,onCreate| workflow:trackImpact
+  form-planDetail -.->|onCreate| workflow:createRecord
+  class page-planManagement page;
+  class select-PlanStatus ui:Select;
+  class tab-planDetail tab;
+  class tab-planCommunications tab;
+  class tab-planImpacts tab;
+  class grid-planList grid;
+  class grid-planCommunicationList grid;
+  class grid-planImpactList grid;
+  class form-planDetail form;
+  class workflow:updatePlan workflow;
+  class workflow:createPlan workflow;
+  class workflow:validateAccess workflow;
+  class workflow:refreshContext workflow;
+  class workflow:updateRecord workflow;
+  class workflow:trackImpact workflow;
+  class workflow:createRecord workflow;
+  class workflow:createCommunication workflow;
+  classDef page fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
+  classDef ui:Select fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
+  classDef tab fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
+  classDef grid fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
+  classDef form fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;
+  classDef workflow fill:#f0f0f0,stroke:#333,stroke-width:1px,color:#000;

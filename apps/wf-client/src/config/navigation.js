@@ -79,7 +79,7 @@ export const navigationSections = [
   },
   {
     title: "Plan Management",
-    eventType: "plan-management",
+    eventType: "page-planManagement",
     icon: Architecture,
     description: "Manage development plans, communications, and impacts",
     temporary: true, // Remove when admin app ready

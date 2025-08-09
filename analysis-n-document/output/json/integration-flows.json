@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "generated": "2025-08-09T14:26:11.924Z",
+    "analysis_type": "client_server_integration",
+    "ai_optimized": true,
+    "purpose": "Full-stack flow mapping for AI agents"
+  },
+  "api_bridge": {
+    "location": "apps/wf-client/src/api/api.js",
+    "primary_endpoint": "/api/execEventType",
+    "dml_endpoint": "/api/execDML",
+    "pattern": "Unified API layer between React components and server controllers"
+  },
+  "client_server_flows": {
+    "brndList": {
+      "client_component": "apps/wf-client/src/pages/brndList/index.jsx",
+      "api_call": "execEventType('brndList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "brands",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/brands/:acctID/brndList",
+      "full_flow": "apps/wf-client/src/pages/brndList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "btchMapping": {
+      "client_component": "apps/wf-client/src/pages/btchMapping/index.jsx",
+      "api_call": "execEventType('btchMapping', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": null,
+      "layout_type": "page:MappingLayout",
+      "navigation_route": "/mapping/:prodBtchID/btchMapping",
+      "full_flow": "apps/wf-client/src/pages/btchMapping/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "ingrBtchList": {
+      "client_component": "apps/wf-client/src/pages/ingrBtchList/index.jsx",
+      "api_call": "execEventType('ingrBtchList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "ingredient_batches",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/ingredients/:ingrID/ingrBtchList",
+      "full_flow": "apps/wf-client/src/pages/ingrBtchList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "ingrList": {
+      "client_component": "apps/wf-client/src/pages/ingrList/index.jsx",
+      "api_call": "execEventType('ingrList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "ingredients",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/ingredients/:ingrTypeID/ingrList",
+      "full_flow": "apps/wf-client/src/pages/ingrList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "ingrTypeList": {
+      "client_component": "apps/wf-client/src/pages/ingrTypeList/index.jsx",
+      "api_call": "execEventType('ingrTypeList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "ingredient_types",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/ingredients/:acctID/ingrTypeList",
+      "full_flow": "apps/wf-client/src/pages/ingrTypeList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "measList": {
+      "client_component": "apps/wf-client/src/pages/measList/index.jsx",
+      "api_call": "execEventType('measList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "measures",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/measures/:acctID/measList",
+      "full_flow": "apps/wf-client/src/pages/measList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "prodBtchList": {
+      "client_component": "apps/wf-client/src/pages/prodBtchList/index.jsx",
+      "api_call": "execEventType('prodBtchList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "product_batches",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/products/:prodID/prodBtchList",
+      "full_flow": "apps/wf-client/src/pages/prodBtchList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "prodList": {
+      "client_component": "apps/wf-client/src/pages/prodList/index.jsx",
+      "api_call": "execEventType('prodList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "products",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/products/:prodTypeID/prodList",
+      "full_flow": "apps/wf-client/src/pages/prodList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "prodTypeList": {
+      "client_component": "apps/wf-client/src/pages/prodTypeList/index.jsx",
+      "api_call": "execEventType('prodTypeList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "product_types",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/products/:acctID/prodTypeList",
+      "full_flow": "apps/wf-client/src/pages/prodTypeList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "rcpeList": {
+      "client_component": "apps/wf-client/src/pages/rcpeList/index.jsx",
+      "api_call": "execEventType('rcpeList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "product_recipes",
+      "layout_type": "page:RecipeLayout",
+      "navigation_route": "/recipes/:prodID/rcpeList",
+      "full_flow": "apps/wf-client/src/pages/rcpeList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "taskList": {
+      "client_component": "apps/wf-client/src/pages/taskList/index.jsx",
+      "api_call": "execEventType('taskList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "tasks",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/products/:prodTypeID/taskList",
+      "full_flow": "apps/wf-client/src/pages/taskList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "userLogin": {
+      "client_component": "apps/wf-client/src/pages/userLogin/index.jsx",
+      "api_call": "execEventType('userLogin', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "users",
+      "layout_type": "page:AuthLayout",
+      "navigation_route": "/login",
+      "full_flow": "apps/wf-client/src/pages/userLogin/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "vndrList": {
+      "client_component": "apps/wf-client/src/pages/vndrList/index.jsx",
+      "api_call": "execEventType('vndrList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "vendors",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/vendors/:acctID/vndrList",
+      "full_flow": "apps/wf-client/src/pages/vndrList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "wrkrList": {
+      "client_component": "apps/wf-client/src/pages/wrkrList/index.jsx",
+      "api_call": "execEventType('wrkrList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": "workers",
+      "layout_type": "page:CrudLayout",
+      "navigation_route": "/workers/:acctID/wrkrList",
+      "full_flow": "apps/wf-client/src/pages/wrkrList/index.jsx → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "archDashboard": {
+      "client_component": "Non-page Component",
+      "api_call": "execEventType('archDashboard', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "database_table": null,
+      "layout_type": "page:development",
+      "navigation_route": "/architecture",
+      "full_flow": "Non-page Component → api.js → execEventType.js → apps/wf-server/server/utils/executeEventType.js → DB"
+    },
+    "userAcctList": {
+      "client_component": "UI Selector Component",
+      "api_call": "execEventType('userAcctList', params)",
+      "server_endpoint": "/api/execEventType",
+      "server_controller": "apps/wf-server/server/controller/execEventType.js",
+      "processor": "apps/wf-server/server/utils/executeEventType.js",
+      "database_access": "via queryResolver.js",
+      "special_purpose": "Feeds :acctID parameter to other pages",
+      "full_flow": "UI Selector → api.js → execEventType.js → executeEventType.js → DB → Parameter cascade"
+    }
+  },
+  "integration_patterns": {
+    "standard_page_flow": [
+      "React Component",
+      "useApi() hook",
+      "execEventType() call",
+      "POST /api/execEventType",
+      "execEventType.js controller",
+      "executeEventType.js processor",
+      "queryResolver.js for DB access",
+      "Response back through chain"
+    ],
+    "dml_flow": [
+      "React Component",
+      "execDmlRequest() call",
+      "POST /api/execDML",
+      "execDML.js controller",
+      "dmlProcessor.js",
+      "[create|read|update|delete].js",
+      "Direct SQL execution",
+      "Response back through chain"
+    ]
+  },
+  "ai_shortcuts": {
+    "find_full_flow": "integration-flows.json.client_server_flows[eventType]",
+    "trace_api_call": "Check api.js execEventType() → server controller → processor",
+    "debug_endpoint": "POST /api/execEventType with {eventType, params}",
+    "server_entry_point": "apps/wf-server/server/controller/execEventType.js"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "name": "EventType change detection",
+  "description": "Monitors changes to eventType definitions and ensures consistency across components, workflows, and API integrations that depend on these event structures.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/eventTypes/**",
+      "**/eventType.js",
+      "**/events/**/*.js",
+      "/apps/wf-client/**/eventTypes/**",
+      "/apps/wf-plan-management/**/eventTypes/**",
+      "/packages/shared-imports/src/events/**"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "EventType Change Detection:\n\n**Architecture Context Analysis:**\nFirst, identify which architecture is affected:\n- 🏗️ **wf-client** (legacy architecture) - notification and impact assessment only\n- 🚀 **wf-plan-management** (new prototype) - full integration support\n- 📦 **shared/packages** - affects both architectures\n\n**For wf-client changes:**\n- 📢 Notify about breaking changes to existing eventTypes\n- 🔍 Identify components that may be affected\n- ⚠️ Flag potential migration considerations\n- 📋 Document changes for future reference\n\n**For wf-plan-management changes:**\n- 🤖 Full integration support and updates\n- 🔄 Update dependent components automatically\n- ✅ Validate new architecture patterns\n- 🔗 Ensure proper shared-imports usage\n\n**User Responsibilities:**\n- ✅ Define eventType structures for both architectures\n- ✅ Decide migration strategy for wf-client eventTypes\n- ✅ Control business logic in new architecture\n\n**Kiro Actions:**\non_wf_client_change:\n- notify_breaking_changes\n- document_legacy_impacts\n- suggest_migration_path\n\non_plan_management_change:\n- validate_eventtype_structure\n- update_dependent_components\n- check_workflow_integrations\n- update_import_patterns\n\non_shared_change:\n- assess_dual_architecture_impact\n- coordinate_updates_across_apps"
+  }
+}

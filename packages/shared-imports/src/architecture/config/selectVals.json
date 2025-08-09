@@ -298,11 +298,11 @@
     "name": "workflowAgents",
     "choices": [
       {
-        "value": "claude",
-        "label": "Claude",
+        "value": "claudeCLI",
+        "label": "Claude CLI",
         "ordr": 1,
         "color": "blue",
-        "description": "Claude AI assistant"
+        "description": "Claude CLI AI assistant"
       },
       {
         "value": "kiro",
@@ -312,16 +312,23 @@
         "description": "Kiro AI assistant"
       },
       {
+        "value": "claudeWeb",
+        "label": "Claude Web",
+        "ordr": 3,
+        "color": "orange",
+        "description": "Claude Web AI assistant - accessed via vsCode"
+      },
+      {
         "value": "user",
         "label": "'User' or First Name",
-        "ordr": 3,
+        "ordr": 4,
         "color": "purple",
         "description": "Human user's First Name"
       },
       {
         "value": "system",
         "label": "System",
-        "ordr": 4,
+        "ordr": 5,
         "color": "gray",
         "description": "Automated system processes"
       }

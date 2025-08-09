@@ -6,17 +6,19 @@
   "workspaces": [
     "apps/wf-client",
     "apps/wf-server",
+    "apps/wf-plan-management",
     "packages/*"
   ],
   "scripts": {
-    "analyze:dead-code": "node analysis-n-document/scripts/analyze-dead-code.js",
-    "analyze:config": "node analysis-n-document/scripts/analyze-config-flows.js",
-    "analyze:events": "node analysis-n-document/scripts/genEventTypes.js",
-    "analyze:integration": "node analysis-n-document/scripts/analyze-integration-flows.js",
+    "analyze:dead-code": "node analysis-n-document/genDocs/analyze-dead-code.js",
+    "analyze:config": "node analysis-n-document/genDocs/analyze-config-flows.js",
+    "analyze:events": "node analysis-n-document/genDocs/genEventTypes.js",
+    "analyze:integration": "node analysis-n-document/genDocs/analyze-integration-flows.js",
     "analyze:all": "npm run analyze-deps && npm run analyze:dead-code && npm run analyze:config && npm run analyze:events && npm run analyze:integration",
-    "analyze-deps": "madge . --json > apps/wf-client/public/analysis-data/raw-madge.json && node packages/shared-imports/src/architecture/scripts/enhance-madge.cjs && node packages/shared-imports/src/architecture/scripts/analyze-config.cjs",
+    "analyze-deps": "madge . --json > analysis-n-document/output/json/raw-madge.json && node analysis-n-document/genDocs/enhance-madge.js",
     "docs:generate": "npm run analyze:all",
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
+    "route-task": "node cli/route-task.js",
     "dev": "turbo run dev --filter=wf-client",
     "dev:all": "turbo run dev",
     "server": "turbo run dev --filter=wf-server",
@@ -29,9 +31,10 @@
     "generate-visuals": "node tools/page-generator/genVisualDocs.js",
     "generate:all": "turbo run generate:all",
     "generate:optimized": "node tools/page-generator/genOptimizedConfigs.js",
-    "generate:event-types": "node analysis-n-document/scripts/genEventTypes.js",
+    "generate:event-types": "node analysis-n-document/genDocs/genEventTypes.js",
     "scaffold:section": "node packages/devtools/src/docs/sections/scaffoldRun.js",
-    "run:section": "node packages/devtools/src/docs/sections/sectionRun.js"
+    "run:section": "node packages/devtools/src/docs/sections/sectionRun.js",
+    "route-task": "node cli/route-task.js"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",

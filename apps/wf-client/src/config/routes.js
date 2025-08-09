@@ -50,10 +50,20 @@ function getRouteKeyForEvent(eventType) {
   const specialCases = {
     userLogin: "LOGIN",
     userAcctList: "SELECT_ACCOUNT",
+    "page-planManagement": "PLAN_MANAGEMENT",
   };
 
   if (specialCases[eventType]) {
     return specialCases[eventType];
+  }
+
+  // Handle page- prefix eventTypes
+  if (eventType.startsWith("page-")) {
+    return eventType
+      .replace(/^page-/, "") // Remove "page-" prefix
+      .replace(/([A-Z])/g, "_$1") // Add underscore before capital letters
+      .toUpperCase() // Convert to uppercase
+      .replace(/^_/, ""); // Remove leading underscore if present
   }
 
   // Standard conversion: ingrTypeList -> INGREDIENT_TYPES
@@ -67,6 +77,7 @@ function getRouteKeyForEvent(eventType) {
 // Export static routes for direct usage
 export const ROUTES = getRoutes();
 console.log("Client routes:", ROUTES);
+console.log("Plan management route:", ROUTES.PLAN_MANAGEMENT);
 
 // Create entityRegistry for backward compatibility
 export const entityRegistry = {};
@@ -78,7 +89,7 @@ events.forEach((event) => {
       eventType: event.eventType,
       category: event.category,
       cluster: event.cluster,
-      import: event.category?.includes("page:") || false,
+      import: event.category === "page" || event.eventType.startsWith("page-"),
     };
   }
 });

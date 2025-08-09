@@ -29,7 +29,7 @@ export const SelStatusWidget = ({
       setError(null);
 
       // Load from eventType CONFIG method - clean and declarative!
-      const options = getConfigData("SelPlanStatus");
+      const options = getConfigData("select-PlanStatus");
 
       if (options && options.length > 0) {
         setStatusOptions(options);

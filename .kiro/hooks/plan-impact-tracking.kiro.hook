@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "Database change detection",
+  "description": "The detection would need to watch both:\n  - /sql/database/whatsfresh/tables/ changes\n  - /sql/database/api_wf/views/ changes\n\n  And then take appropriate action when either changes.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "/sql/database/whatsfresh",
+      "/sql/database/api_wf"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "User Responsibilities:\n  - ✅ Update table structures in whatsfresh/tables/\n  - ✅ Update listViews in api_wf/views/\n  - ✅ Decide what fields to expose/hide in views\n  - ✅ Control the data architecture\n\n  Kiro Steering Responsibilities:\n  - 🤖 Detect changes in both locations\n  - 🤖 Update displayConfigs with new/removed fields\n  - 🤖 Notify user of impacts and suggested actions\n  - 🤖 Maintain consistency between schema and UI configs\n\n     on_change_detected:\n      - update_display_configs_with_safe_defaults\n      - notify_user_of_changes\n      - generate_change_summary\n      - validate_existing_configs\n\n  User Workflow:\n  1. User adds column to whatsfresh.ingredients\n  2. User decides to expose it in api_wf.ingrList view\n  3. Kiro detects both changes automatically\n  4. Kiro updates ingrList.display.js with safe defaults\n  5. User fine-tunes the display config as needed"
+  }
+}

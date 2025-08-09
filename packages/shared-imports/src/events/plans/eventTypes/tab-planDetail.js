@@ -8,6 +8,6 @@ export const tabPlanDetail = {
     category: "tab",
     title: "Plan Detail",
     cluster: "PLANS",
-    navChildren: ["planDetailList"],
+    navChildren: ["form-planDetail"],
     purpose: "Get all plans for management",
 };

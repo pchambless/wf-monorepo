@@ -8,7 +8,7 @@ export const pagePlanManagement = {
   category: "page",
   title: "Plan Management",
   cluster: "PLANS",
+  navChildren: ["select-PlanStatus"],
   routePath: "/plan-management",
-  navChildren: ["selectPlanStatus"],
   purpose: "Get all plans for management",
 };

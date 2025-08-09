@@ -1,4 +1,4 @@
-export const detailPlanDetail = {
+export const formPlanDetail = {
   eventID: 105,
   eventType: "form-planDetail",
   category: "form",
@@ -23,11 +23,7 @@ export const detailPlanDetail = {
           priority,
           description,
           comments,
-          assigned_to,
-          created_at,
-          created_by,
-          updated_at,
-          updated_by
+          assigned_to
         FROM api_wf.plans
         WHERE id = :planID
       `,

@@ -4,6 +4,6 @@ export const tabPlanImpacts = {
     category: "tab",
     title: "Impacted Files",
     cluster: "PLANS",
-    navChildren: ["planImpactList"],
+    navChildren: ["grid-planImpactList"],
     purpose: "Get all impacted files for a plan",
 };

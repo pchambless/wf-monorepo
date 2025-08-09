@@ -1,9 +1,9 @@
-export const tabCommunications = {
+export const tabPlanCommunications = {
     eventID: 100.7,
     eventType: "tab-planCommunications",
     category: "tab",
     title: "Communications",
     cluster: "PLANS",
-    navChildren: ["planCommunicationList"],
+    navChildren: ["grid-planCommunicationList"],
     purpose: "Get all plans for management"
 };  

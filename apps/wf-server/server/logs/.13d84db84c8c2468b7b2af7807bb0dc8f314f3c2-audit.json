@@ -6,51 +6,6 @@
     "auditLog": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/.13d84db84c8c2468b7b2af7807bb0dc8f314f3c2-audit.json",
     "files": [
         {
-            "date": 1752840458588,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-18.log",
-            "hash": "7345d6d0c533a7bf6e6911fb51926c01e5d0cf7d32cb10e22516da9168cec39e"
-        },
-        {
-            "date": 1752927581255,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-19.log",
-            "hash": "f07b7b994494f2409ab8d39d55542188f9e99c2724c934b55374ddc11f9d5efd"
-        },
-        {
-            "date": 1752989100091,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-20.log",
-            "hash": "d24f63d98a287ad3d82f56c9f3a8a7af9033b825cea69a438d93aee4fa44657e"
-        },
-        {
-            "date": 1753076571969,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-21.log",
-            "hash": "d49befbcd681dfee439f46349ef604e5c0552b25f0b041b9697dc31d74321c9e"
-        },
-        {
-            "date": 1753193720405,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-22.log",
-            "hash": "40791079e88b6ba1933d21d2a5993e63971b4ff35966bfb96427da9705d75c2b"
-        },
-        {
-            "date": 1753292904486,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-23.log",
-            "hash": "9f23e919248353bd376db31162298b0e09a7b3b0eca4d1055d3cca8b2da231e4"
-        },
-        {
-            "date": 1753335839824,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-24.log",
-            "hash": "8658f1eedf7b11d8854b51092a120b6892cb5cb707559a38d9568cd0052ca8e5"
-        },
-        {
-            "date": 1753419767774,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-25.log",
-            "hash": "3106be0aea8e8dc5a74d198ffdc12cfb737bf6584a0a02dba825bc9ab712813a"
-        },
-        {
-            "date": 1753506365586,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-26.log",
-            "hash": "17e0cf235056ae18e32479e220553165629f0213e08f1ee6c8cc3bd9aada2351"
-        },
-        {
             "date": 1753610761383,
             "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-07-27.log",
             "hash": "c7753bd78682aad9c59d0f0d602dbb893e421dcfa686c0d61edf6d5bd18079e8"
@@ -79,6 +34,41 @@
             "date": 1754024746743,
             "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-08-01.log",
             "hash": "ccd5838d6a5465f4d7a5e48f7b8db3bca61a12a26e3335b9b215e370ba129eb9"
+        },
+        {
+            "date": 1754111614715,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-08-02.log",
+            "hash": "b908fe5e40a704bfb17138dd1d7f8de759d2a9a0255a851088fdb7dcfa778b0d"
+        },
+        {
+            "date": 1754216001229,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-08-03.log",
+            "hash": "a15832449eb1dbf61402689b3a10050244d383e1b00618e43f69fc2ecc315a4e"
+        },
+        {
+            "date": 1754287947073,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-08-04.log",
+            "hash": "b7a1854d6f359aebec844c68f58454e70d15d010cb0c8c9ec77679bb6d2734df"
+        },
+        {
+            "date": 1754374893523,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-08-05.log",
+            "hash": "282a7533e35aa1b0b1559692e8646ae86ac9f6aa1a17be93cbfa2a4daad6ecbc"
+        },
+        {
+            "date": 1754596256856,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-08-07.log",
+            "hash": "4d81e80561e076fe60dc7f14a693bd43c0f00036ceae0ab5829a26d83cc6ca66"
+        },
+        {
+            "date": 1754694380207,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-08-08.log",
+            "hash": "5533cc96c412f23f1cf76b422572304360eecce03183243bf00f80edd997c5f1"
+        },
+        {
+            "date": 1754723422144,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-08-09.log",
+            "hash": "9bf53fc9dcbd1884907c98954902e58d6bfa7c16aaeeb6b47ac22af4ef979e71"
         }
     ],
     "hashType": "sha256"
