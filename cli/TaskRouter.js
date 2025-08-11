@@ -9,12 +9,17 @@ import path from "path";
 class TaskRouter {
   constructor() {
     this.modelMapping = {
-      low: "gemini-flash",
-      medium: "gpt-4o",
-      high: "claude-sonnet",
+      "1-simple": "gemini-flash",
+      "2-structured": "gemini-flash",
+      "3-analytical": "gpt-4o",
+      "4-architectural": "claude-sonnet",
+      // Legacy support for existing tasks
+      low: "1-simple",
+      medium: "3-analytical",
+      high: "4-architectural",
     };
 
-    this.fallbackComplexity = "medium";
+    this.fallbackComplexity = "3-analytical";
   }
 
   /**
@@ -59,15 +64,12 @@ class TaskRouter {
    * @returns {Object|null} Task object or null if not found
    */
   findTask(content, taskId) {
-    // Normalize line endings to handle Windows/Unix differences
-    content = content.replace(/\r\n/g, '\n');
-
     // Match task patterns like "- [ ] 2.1 Task Name" or "- [x] 2.1 Task Name"
     const taskPattern = new RegExp(
       `- \\[([ x])\\] ${taskId.replace(
         ".",
         "\\."
-      )} (.+?)\\n\\n((?:\\s{2,}[^\\n]+\\n)*)`,
+      )} (.+?)\\n((?:\\s{2,}-.+\\n)*)`,
       "gms"
     );
 
@@ -107,9 +109,9 @@ class TaskRouter {
       metadata.requirements = reqMatch[1].trim();
     }
 
-    // Extract Complexity
+    // Extract Complexity (support both new 4-tier and legacy 3-tier)
     const complexityMatch = description.match(
-      /_Complexity: (low|medium|high)_/
+      /_Complexity: (1-simple|2-structured|3-analytical|4-architectural|low|medium|high)_/
     );
     if (complexityMatch) {
       metadata.complexity = complexityMatch[1];
@@ -150,7 +152,9 @@ class TaskRouter {
     }
     // Use complexity to determine model
     else if (complexity) {
-      model = this.modelMapping[complexity];
+      // Handle legacy complexity values by mapping them first
+      const mappedComplexity = this.modelMapping[complexity] || complexity;
+      model = this.getModelForComplexity(mappedComplexity);
       reasoning = "complexity metadata";
     }
     // Fallback: analyze task content
@@ -169,14 +173,31 @@ class TaskRouter {
   }
 
   /**
+   * Get model for complexity level
+   * @param {string} complexity - Complexity level
+   * @returns {string} Model name
+   */
+  getModelForComplexity(complexity) {
+    // Direct mapping for new 4-tier system
+    const directMapping = {
+      "1-simple": "gemini-flash",
+      "2-structured": "gemini-flash",
+      "3-analytical": "gpt-4o",
+      "4-architectural": "claude-sonnet",
+    };
+
+    return directMapping[complexity] || this.modelMapping[complexity];
+  }
+
+  /**
    * Infer complexity from model name
    * @param {string} model - Model name
    * @returns {string} Complexity level
    */
   inferComplexityFromModel(model) {
-    if (model.includes("gemini-flash")) return "low";
-    if (model.includes("gpt-4o")) return "medium";
-    if (model.includes("claude-sonnet")) return "high";
+    if (model.includes("gemini-flash")) return "2-structured"; // Default to structured for gemini
+    if (model.includes("gpt-4o")) return "3-analytical";
+    if (model.includes("claude-sonnet")) return "4-architectural";
     return this.fallbackComplexity;
   }
 
@@ -188,42 +209,68 @@ class TaskRouter {
   inferComplexityFromContent(task) {
     const content = (task.name + " " + task.description).toLowerCase();
 
-    // High complexity indicators
-    const highPatterns = [
+    // 4-architectural complexity indicators
+    const architecturalPatterns = [
       "architecture",
       "integration",
       "cross-app",
-      "analyzer",
-      "context",
-      "sophisticated",
-      "complex",
       "ui integration",
       "plan context",
+      "sophisticated reasoning",
+      "system design",
+      "error strategies",
     ];
 
-    // Low complexity indicators
-    const lowPatterns = [
-      "sql",
-      "database",
-      "template",
-      "file generation",
+    // 3-analytical complexity indicators
+    const analyticalPatterns = [
+      "business logic",
+      "workflow design",
+      "integration mapping",
+      "analyzer",
+      "context",
+      "analysis",
+      "reasoning",
+    ];
+
+    // 2-structured complexity indicators
+    const structuredPatterns = [
+      "config generation",
+      "validation",
+      "structured extraction",
+      "pattern-based",
+      "configuration",
+      "mapping",
+    ];
+
+    // 1-simple complexity indicators
+    const simplePatterns = [
+      "sql parsing",
+      "file i/o",
+      "basic template",
       "parser",
       "schema",
       "create",
       "setup",
-      "configuration",
       "migration",
     ];
 
-    if (highPatterns.some((pattern) => content.includes(pattern))) {
-      return "high";
+    if (architecturalPatterns.some((pattern) => content.includes(pattern))) {
+      return "4-architectural";
     }
 
-    if (lowPatterns.some((pattern) => content.includes(pattern))) {
-      return "low";
+    if (analyticalPatterns.some((pattern) => content.includes(pattern))) {
+      return "3-analytical";
     }
 
-    return "medium";
+    if (structuredPatterns.some((pattern) => content.includes(pattern))) {
+      return "2-structured";
+    }
+
+    if (simplePatterns.some((pattern) => content.includes(pattern))) {
+      return "1-simple";
+    }
+
+    return "3-analytical"; // Default to analytical
   }
 
   /**
@@ -233,12 +280,17 @@ class TaskRouter {
    */
   estimateTokens(complexity) {
     const estimates = {
-      low: "1500-4000",
+      "1-simple": "1500-3000",
+      "2-structured": "2000-4000",
+      "3-analytical": "3000-8000",
+      "4-architectural": "6000-15000",
+      // Legacy support
+      low: "1500-3000",
       medium: "3000-8000",
       high: "6000-15000",
     };
 
-    return estimates[complexity] || estimates.medium;
+    return estimates[complexity] || estimates["3-analytical"];
   }
 
   /**

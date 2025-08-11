@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated": "2025-08-09T14:26:11.430Z",
-    "total_files": 454,
+    "generated": "2025-08-10T13:34:58.625Z",
+    "total_files": 479,
     "analysis_type": "dead_code_detection",
     "ai_optimized": true
   },
@@ -16,6 +16,24 @@
       },
       {
         "file": ".kiro/0019/specs/code-references.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": ".kiro/workflows/createRoadmap.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": ".vscode/extensions/task-router/extension.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": ".vscode/extensions/task-router/GeminiChatPanel.ts",
         "package": "other",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
@@ -243,6 +261,30 @@
         "ai_safety_level": "medium"
       },
       {
+        "file": "cli/generate-prompt.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "cli/ModelExecutor.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "cli/route-task.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "cli/toolsets/low-complexity/runner.ts",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
         "file": "packages/db-connect/src/migrate-communications.js",
         "package": "other",
         "reason": "No dependents found",
@@ -393,6 +435,12 @@
         "ai_safety_level": "medium"
       },
       {
+        "file": "packages/devtools/src/toolsets/low-complexity/runner.ts",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
         "file": "packages/devtools/src/utils/directiveBasedWidgetAnalyzer.js",
         "package": "other",
         "reason": "No dependents found",
@@ -400,6 +448,12 @@
       },
       {
         "file": "packages/devtools/src/utils/directiveWidgetAnalyzer.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "packages/devtools/src/utils/toolManager.ts",
         "package": "other",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
@@ -627,6 +681,12 @@
         "ai_safety_level": "medium"
       },
       {
+        "file": "packages/shared-imports/src/components/selectors/SelWrkr.js",
+        "package": "shared-imports",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
         "file": "packages/shared-imports/src/createDocs/templates/designTemplate.js",
         "package": "shared-imports",
         "reason": "No dependents found",
@@ -663,7 +723,25 @@
         "ai_safety_level": "medium"
       },
       {
+        "file": "packages/shared-imports/src/impact-tracking/FileSystemMonitor.js",
+        "package": "shared-imports",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "packages/shared-imports/src/impact-tracking/genConfig.js",
+        "package": "shared-imports",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
         "file": "packages/shared-imports/src/impact-tracking/ImpactTracker.js",
+        "package": "shared-imports",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js",
         "package": "shared-imports",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
@@ -763,6 +841,54 @@
       "ai_notes": [
         "Test file - safe to remove if unused"
       ]
+    },
+    ".kiro/workflows/createRoadmap.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    ".vscode/extensions/task-router/GeminiChatPanel.ts": {
+      "dependencies": [
+        ".vscode/extensions/task-router/types.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    ".vscode/extensions/task-router/extension.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    ".vscode/extensions/task-router/types.ts": {
+      "dependencies": [],
+      "dependents": [
+        ".vscode/extensions/task-router/GeminiChatPanel.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
     },
     "analysis-n-document/genDocs/analyze-config-flows.js": {
       "dependencies": [],
@@ -3065,6 +3191,112 @@
       "is_dead": true,
       "ai_notes": []
     },
+    "cli/ModelExecutor.js": {
+      "dependencies": [
+        "cli/services/ModelService.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "cli/TaskRouter.js": {
+      "dependencies": [],
+      "dependents": [
+        "cli/generate-prompt.js",
+        "cli/route-task.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "cli/generate-prompt.js": {
+      "dependencies": [
+        "cli/TaskRouter.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "cli/route-task.js": {
+      "dependencies": [
+        "cli/TaskRouter.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "cli/services/ModelService.js": {
+      "dependencies": [],
+      "dependents": [
+        "cli/ModelExecutor.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "cli/toolsets/low-complexity/patterns.ts": {
+      "dependencies": [],
+      "dependents": [
+        "cli/toolsets/low-complexity/runner.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "cli/toolsets/low-complexity/runner.ts": {
+      "dependencies": [
+        "cli/toolsets/low-complexity/patterns.ts",
+        "cli/utils/toolManager.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 2,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "cli/utils/toolManager.ts": {
+      "dependencies": [],
+      "dependents": [
+        "cli/toolsets/low-complexity/runner.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
     "packages/db-connect/index.js": {
       "dependencies": [
         "packages/db-connect/query.js",
@@ -3500,6 +3732,32 @@
       "is_dead": false,
       "ai_notes": []
     },
+    "packages/devtools/src/toolsets/low-complexity/patterns.ts": {
+      "dependencies": [],
+      "dependents": [
+        "packages/devtools/src/toolsets/low-complexity/runner.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/devtools/src/toolsets/low-complexity/runner.ts": {
+      "dependencies": [
+        "packages/devtools/src/toolsets/low-complexity/patterns.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
     "packages/devtools/src/utils/abbreviationMap.js": {
       "dependencies": [],
       "dependents": [
@@ -3539,6 +3797,17 @@
       "ai_notes": []
     },
     "packages/devtools/src/utils/directiveWidgetAnalyzer.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "packages/devtools/src/utils/toolManager.ts": {
       "dependencies": [],
       "dependents": [],
       "dependency_count": 0,
@@ -5705,10 +5974,11 @@
     "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx": {
       "dependencies": [
         "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx",
-        "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx"
+        "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx",
+        "packages/shared-imports/src/components/selectors/SelAcct.js"
       ],
       "dependents": [],
-      "dependency_count": 2,
+      "dependency_count": 3,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports",
@@ -5775,6 +6045,19 @@
       "package": "shared-imports",
       "is_entry_point": false,
       "is_dead": true,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/components/selectors/SelAcct.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
       "ai_notes": []
     },
     "packages/shared-imports/src/components/selectors/SelBrnd.jsx": {
@@ -5881,6 +6164,17 @@
       "package": "shared-imports",
       "is_entry_point": false,
       "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/components/selectors/SelWrkr.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": true,
       "ai_notes": []
     },
     "packages/shared-imports/src/components/selectors/SelWrkr.jsx": {
@@ -6680,6 +6974,48 @@
       "is_dead": true,
       "ai_notes": []
     },
+    "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js": {
+      "dependencies": [
+        "packages/shared-imports/src/impact-tracking/types.js",
+        "packages/shared-imports/src/utils/logger.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/impact-tracking/FileSystemMonitor.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/impact-tracking/ImpactProcessor.js": {
+      "dependencies": [
+        "packages/shared-imports/src/utils/logger.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
     "packages/shared-imports/src/impact-tracking/ImpactTracker.js": {
       "dependencies": [],
       "dependents": [],
@@ -6689,6 +7025,74 @@
       "package": "shared-imports",
       "is_entry_point": false,
       "is_dead": true,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js": {
+      "dependencies": [
+        "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js",
+        "packages/shared-imports/src/impact-tracking/ImpactProcessor.js",
+        "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js",
+        "packages/shared-imports/src/utils/logger.js"
+      ],
+      "dependents": [],
+      "dependency_count": 4,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js": {
+      "dependencies": [
+        "packages/shared-imports/src/impact-tracking/types.js",
+        "packages/shared-imports/src/utils/logger.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/impact-tracking/genConfig.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/impact-tracking/index.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/impact-tracking/types.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js",
+        "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
       "ai_notes": []
     },
     "packages/shared-imports/src/imports.js": {
@@ -7128,6 +7532,10 @@
       "dependents": [
         "packages/shared-imports/src/api/dml/operations.js",
         "packages/shared-imports/src/components/common/EntitySelector.jsx",
+        "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js",
+        "packages/shared-imports/src/impact-tracking/ImpactProcessor.js",
+        "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js",
+        "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js",
         "packages/shared-imports/src/index.js",
         "packages/shared-imports/src/utils/fileOperations/backup.js",
         "packages/shared-imports/src/utils/fileOperations/directory.js",
@@ -7142,7 +7550,7 @@
         "packages/shared-imports/src/utils/navigation.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 14,
+      "dependent_count": 18,
       "blast_radius": "high",
       "package": "shared-imports",
       "is_entry_point": false,
@@ -7202,6 +7610,24 @@
     },
     {
       "file": ".kiro/0019/specs/code-references.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": ".kiro/workflows/createRoadmap.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": ".vscode/extensions/task-router/GeminiChatPanel.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": ".vscode/extensions/task-router/extension.js",
       "package": "other",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
@@ -7441,6 +7867,30 @@
       "ai_safety_level": "medium"
     },
     {
+      "file": "cli/ModelExecutor.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "cli/generate-prompt.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "cli/route-task.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "cli/toolsets/low-complexity/runner.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
       "file": "packages/db-connect/src/migrate-communications.js",
       "package": "other",
       "reason": "No dependents found",
@@ -7591,6 +8041,12 @@
       "ai_safety_level": "medium"
     },
     {
+      "file": "packages/devtools/src/toolsets/low-complexity/runner.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
       "file": "packages/devtools/src/utils/directiveBasedWidgetAnalyzer.js",
       "package": "other",
       "reason": "No dependents found",
@@ -7598,6 +8054,12 @@
     },
     {
       "file": "packages/devtools/src/utils/directiveWidgetAnalyzer.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "packages/devtools/src/utils/toolManager.ts",
       "package": "other",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
@@ -7825,6 +8287,12 @@
       "ai_safety_level": "medium"
     },
     {
+      "file": "packages/shared-imports/src/components/selectors/SelWrkr.js",
+      "package": "shared-imports",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
       "file": "packages/shared-imports/src/components/selectors/createSelectWidget.js",
       "package": "shared-imports",
       "reason": "No dependents found",
@@ -7867,7 +8335,25 @@
       "ai_safety_level": "medium"
     },
     {
+      "file": "packages/shared-imports/src/impact-tracking/FileSystemMonitor.js",
+      "package": "shared-imports",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
       "file": "packages/shared-imports/src/impact-tracking/ImpactTracker.js",
+      "package": "shared-imports",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js",
+      "package": "shared-imports",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "packages/shared-imports/src/impact-tracking/genConfig.js",
       "package": "shared-imports",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
@@ -7937,15 +8423,15 @@
       "ai_impact": "BREAKING_CHANGE_RISK"
     },
     {
-      "file": "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-      "dependent_count": 15,
+      "file": "packages/shared-imports/src/utils/logger.js",
+      "dependent_count": 18,
       "blast_radius": "high",
       "package": "shared-imports",
       "ai_impact": "BREAKING_CHANGE_RISK"
     },
     {
-      "file": "packages/shared-imports/src/utils/logger.js",
-      "dependent_count": 14,
+      "file": "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
+      "dependent_count": 15,
       "blast_radius": "high",
       "package": "shared-imports",
       "ai_impact": "BREAKING_CHANGE_RISK"
@@ -8003,7 +8489,7 @@
   "package_breakdown": {
     "wf-client": 90,
     "wf-server": 35,
-    "shared-imports": 244,
-    "other": 85
+    "shared-imports": 254,
+    "other": 100
   }
 }

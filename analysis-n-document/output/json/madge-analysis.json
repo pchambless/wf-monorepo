@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated": "2025-08-09T14:26:11.270Z",
-    "total_files": 454
+    "generated": "2025-08-10T13:34:58.474Z",
+    "total_files": 479
   },
   "files": {
     ".dependency-cruiser.js": {
@@ -17,6 +17,42 @@
       "dependents": [],
       "dependency_count": 0,
       "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    ".kiro/workflows/createRoadmap.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    ".vscode/extensions/task-router/GeminiChatPanel.ts": {
+      "dependencies": [
+        ".vscode/extensions/task-router/types.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    ".vscode/extensions/task-router/extension.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    ".vscode/extensions/task-router/types.ts": {
+      "dependencies": [],
+      "dependents": [
+        ".vscode/extensions/task-router/GeminiChatPanel.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
       "blast_radius": "low",
       "package": "other"
     },
@@ -1810,6 +1846,88 @@
       "blast_radius": "low",
       "package": "wf-server"
     },
+    "cli/ModelExecutor.js": {
+      "dependencies": [
+        "cli/services/ModelService.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "cli/TaskRouter.js": {
+      "dependencies": [],
+      "dependents": [
+        "cli/generate-prompt.js",
+        "cli/route-task.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "cli/generate-prompt.js": {
+      "dependencies": [
+        "cli/TaskRouter.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "cli/route-task.js": {
+      "dependencies": [
+        "cli/TaskRouter.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "cli/services/ModelService.js": {
+      "dependencies": [],
+      "dependents": [
+        "cli/ModelExecutor.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "cli/toolsets/low-complexity/patterns.ts": {
+      "dependencies": [],
+      "dependents": [
+        "cli/toolsets/low-complexity/runner.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "cli/toolsets/low-complexity/runner.ts": {
+      "dependencies": [
+        "cli/toolsets/low-complexity/patterns.ts",
+        "cli/utils/toolManager.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 2,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "cli/utils/toolManager.ts": {
+      "dependencies": [],
+      "dependents": [
+        "cli/toolsets/low-complexity/runner.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other"
+    },
     "packages/db-connect/index.js": {
       "dependencies": [
         "packages/db-connect/query.js",
@@ -2140,6 +2258,26 @@
       "blast_radius": "low",
       "package": "other"
     },
+    "packages/devtools/src/toolsets/low-complexity/patterns.ts": {
+      "dependencies": [],
+      "dependents": [
+        "packages/devtools/src/toolsets/low-complexity/runner.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "packages/devtools/src/toolsets/low-complexity/runner.ts": {
+      "dependencies": [
+        "packages/devtools/src/toolsets/low-complexity/patterns.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
     "packages/devtools/src/utils/abbreviationMap.js": {
       "dependencies": [],
       "dependents": [
@@ -2170,6 +2308,14 @@
       "package": "other"
     },
     "packages/devtools/src/utils/directiveWidgetAnalyzer.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other"
+    },
+    "packages/devtools/src/utils/toolManager.ts": {
       "dependencies": [],
       "dependents": [],
       "dependency_count": 0,
@@ -3894,10 +4040,11 @@
     "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx": {
       "dependencies": [
         "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx",
-        "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx"
+        "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx",
+        "packages/shared-imports/src/components/selectors/SelAcct.js"
       ],
       "dependents": [],
-      "dependency_count": 2,
+      "dependency_count": 3,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports"
@@ -3945,6 +4092,16 @@
       "dependents": [],
       "dependency_count": 0,
       "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/components/selectors/SelAcct.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
       "blast_radius": "low",
       "package": "shared-imports"
     },
@@ -4030,6 +4187,14 @@
       ],
       "dependency_count": 1,
       "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/components/selectors/SelWrkr.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports"
     },
@@ -4662,11 +4827,97 @@
       "blast_radius": "low",
       "package": "shared-imports"
     },
+    "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js": {
+      "dependencies": [
+        "packages/shared-imports/src/impact-tracking/types.js",
+        "packages/shared-imports/src/utils/logger.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/impact-tracking/FileSystemMonitor.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/impact-tracking/ImpactProcessor.js": {
+      "dependencies": [
+        "packages/shared-imports/src/utils/logger.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
     "packages/shared-imports/src/impact-tracking/ImpactTracker.js": {
       "dependencies": [],
       "dependents": [],
       "dependency_count": 0,
       "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js": {
+      "dependencies": [
+        "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js",
+        "packages/shared-imports/src/impact-tracking/ImpactProcessor.js",
+        "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js",
+        "packages/shared-imports/src/utils/logger.js"
+      ],
+      "dependents": [],
+      "dependency_count": 4,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js": {
+      "dependencies": [
+        "packages/shared-imports/src/impact-tracking/types.js",
+        "packages/shared-imports/src/utils/logger.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/impact-tracking/genConfig.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/impact-tracking/index.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/impact-tracking/types.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js",
+        "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
       "blast_radius": "low",
       "package": "shared-imports"
     },
@@ -5024,6 +5275,10 @@
       "dependents": [
         "packages/shared-imports/src/api/dml/operations.js",
         "packages/shared-imports/src/components/common/EntitySelector.jsx",
+        "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js",
+        "packages/shared-imports/src/impact-tracking/ImpactProcessor.js",
+        "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js",
+        "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js",
         "packages/shared-imports/src/index.js",
         "packages/shared-imports/src/utils/fileOperations/backup.js",
         "packages/shared-imports/src/utils/fileOperations/directory.js",
@@ -5038,7 +5293,7 @@
         "packages/shared-imports/src/utils/navigation.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 14,
+      "dependent_count": 18,
       "blast_radius": "high",
       "package": "shared-imports"
     },
@@ -5091,14 +5346,14 @@
       "package": "shared-imports"
     },
     {
-      "file": "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-      "dependents": 15,
+      "file": "packages/shared-imports/src/utils/logger.js",
+      "dependents": 18,
       "blast_radius": "high",
       "package": "shared-imports"
     },
     {
-      "file": "packages/shared-imports/src/utils/logger.js",
-      "dependents": 14,
+      "file": "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
+      "dependents": 15,
       "blast_radius": "high",
       "package": "shared-imports"
     },
@@ -5148,7 +5403,7 @@
   "packages": {
     "wf-client": 90,
     "wf-server": 35,
-    "shared-imports": 244,
-    "other": 85
+    "shared-imports": 254,
+    "other": 100
   }
 }

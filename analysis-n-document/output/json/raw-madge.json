@@ -1,6 +1,12 @@
 {
   ".dependency-cruiser.js": [],
   ".kiro/0019/specs/code-references.js": [],
+  ".kiro/workflows/createRoadmap.js": [],
+  ".vscode/extensions/task-router/GeminiChatPanel.ts": [
+    ".vscode/extensions/task-router/types.ts"
+  ],
+  ".vscode/extensions/task-router/extension.js": [],
+  ".vscode/extensions/task-router/types.ts": [],
   "analysis-n-document/genDocs/analyze-config-flows.js": [],
   "analysis-n-document/genDocs/analyze-dead-code.js": [],
   "analysis-n-document/genDocs/analyze-integration-flows.js": [],
@@ -382,6 +388,23 @@
   ],
   "apps/wf-server/tailwind.config.js": [],
   "apps/wf-server/unitTest.js": [],
+  "cli/ModelExecutor.js": [
+    "cli/services/ModelService.js"
+  ],
+  "cli/TaskRouter.js": [],
+  "cli/generate-prompt.js": [
+    "cli/TaskRouter.js"
+  ],
+  "cli/route-task.js": [
+    "cli/TaskRouter.js"
+  ],
+  "cli/services/ModelService.js": [],
+  "cli/toolsets/low-complexity/patterns.ts": [],
+  "cli/toolsets/low-complexity/runner.ts": [
+    "cli/toolsets/low-complexity/patterns.ts",
+    "cli/utils/toolManager.ts"
+  ],
+  "cli/utils/toolManager.ts": [],
   "packages/db-connect/index.js": [
     "packages/db-connect/query.js",
     "packages/db-connect/src/connection.js"
@@ -447,10 +470,15 @@
   ],
   "packages/devtools/src/studio/useCanvasState.js": [],
   "packages/devtools/src/toolConfig.js": [],
+  "packages/devtools/src/toolsets/low-complexity/patterns.ts": [],
+  "packages/devtools/src/toolsets/low-complexity/runner.ts": [
+    "packages/devtools/src/toolsets/low-complexity/patterns.ts"
+  ],
   "packages/devtools/src/utils/abbreviationMap.js": [],
   "packages/devtools/src/utils/directiveBasedWidgetAnalyzer.js": [],
   "packages/devtools/src/utils/directiveMap.js": [],
   "packages/devtools/src/utils/directiveWidgetAnalyzer.js": [],
+  "packages/devtools/src/utils/toolManager.ts": [],
   "packages/devtools/src/utils/widgetUsageAnalyzer.js": [],
   "packages/shared-imports/src/api/dml/dmlBuilder.js": [
     "packages/shared-imports/src/api/dml/sqlFormatter.js"
@@ -856,7 +884,8 @@
   "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx": [],
   "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx": [
     "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx",
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx"
+    "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx",
+    "packages/shared-imports/src/components/selectors/SelAcct.js"
   ],
   "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx": [],
   "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx": [],
@@ -865,6 +894,7 @@
     "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx"
   ],
   "packages/shared-imports/src/components/navigation/cc-PageHeader/Breadcrumbs.jsx": [],
+  "packages/shared-imports/src/components/selectors/SelAcct.js": [],
   "packages/shared-imports/src/components/selectors/SelBrnd.jsx": [
     "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
   ],
@@ -887,6 +917,7 @@
   "packages/shared-imports/src/components/selectors/SelVndr.jsx": [
     "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
   ],
+  "packages/shared-imports/src/components/selectors/SelWrkr.js": [],
   "packages/shared-imports/src/components/selectors/SelWrkr.jsx": [
     "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
   ],
@@ -1011,7 +1042,28 @@
   "packages/shared-imports/src/events/plans/eventTypes/tab-planImpacts.js": [],
   "packages/shared-imports/src/events/plans/pageMaps/planCommunicationCrud.js": [],
   "packages/shared-imports/src/events/plans/pageMaps/planCommunicationHistory.js": [],
+  "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js": [
+    "packages/shared-imports/src/impact-tracking/types.js",
+    "packages/shared-imports/src/utils/logger.js"
+  ],
+  "packages/shared-imports/src/impact-tracking/FileSystemMonitor.js": [],
+  "packages/shared-imports/src/impact-tracking/ImpactProcessor.js": [
+    "packages/shared-imports/src/utils/logger.js"
+  ],
   "packages/shared-imports/src/impact-tracking/ImpactTracker.js": [],
+  "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js": [
+    "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js",
+    "packages/shared-imports/src/impact-tracking/ImpactProcessor.js",
+    "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js",
+    "packages/shared-imports/src/utils/logger.js"
+  ],
+  "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js": [
+    "packages/shared-imports/src/impact-tracking/types.js",
+    "packages/shared-imports/src/utils/logger.js"
+  ],
+  "packages/shared-imports/src/impact-tracking/genConfig.js": [],
+  "packages/shared-imports/src/impact-tracking/index.js": [],
+  "packages/shared-imports/src/impact-tracking/types.js": [],
   "packages/shared-imports/src/imports.js": [
     "packages/shared-imports/src/paths.js"
   ],

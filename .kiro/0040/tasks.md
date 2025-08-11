@@ -36,15 +36,15 @@
   - _Requirements: 2.4, 6.3_
   - _Complexity: medium_
 
-- [ ] 2.1 Create database table schema parser
+- [x] 2.1 Create database table schema parser
 
   - Write parser for SQL table definition files in /sql/database/api_wf/tables/
   - Extract field types, constraints, and relationships
   - Create TableSchema and DatabaseField interfaces
   - _Requirements: 2.4_
-  - _Complexity: low_
+  - _Complexity: 2-structured_ <!-- Updated: SQL parsing more complex than 1-simple -->
 
-- [ ] 2.2 Build field constraint analysis system
+- [x] 2.2 Build field constraint analysis system
 
   - Map database types to UI input types (VARCHAR→text, INT→number, etc.)
   - Extract validation rules from NOT NULL, length constraints

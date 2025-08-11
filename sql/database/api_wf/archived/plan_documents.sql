@@ -1,4 +1,4 @@
-CREATE TABLE `api_wf.plan_documents` (
+CREATE TABLE `plan_documents` (
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`plan_id` INT UNSIGNED NOT NULL,
 	`document_type` VARCHAR(30) NOT NULL COLLATE 'utf8mb4_general_ci',

@@ -1,44 +1,87 @@
- # Session Restart Context - Plan 0040 Progress
+# Next Chat Session - Task Routing System Complete
 
-  ## Where We Left Off
+## What We Built
+Successfully implemented a **complete 4-tier task routing system** for cost-optimized AI model usage:
 
-  We were working on Plan 0040 "Plan Management MVP Completion" and made significant progress on:
+### 🎯 Core System
+- **CLI Tool**: `npm run route-task 0040 2.1` generates focused prompts
+- **4-Tier Complexity**: 1-simple → 2-structured → 3-analytical → 4-architectural
+- **Smart Model Routing**: gemini-flash (tiers 1+2), GPT-4 (tier 3), Claude-Sonnet (tier 4)
+- **Toolset Framework**: Complexity-specific patterns and execution environments
 
-  1. **Generator Path Cleanup** ✅
-     - Fixed all genDocs generators to use `analysis-n-document/output/json/` and `output/reports/`
-     - Eliminated duplicate generation to `apps/wf-client/public/analysis-data/`
-     - Updated package.json scripts to use new genDocs/ structure
-     - Fixed ES module issues and path resolution problems
+### 📁 File Structure
+```
+cli/
+├── route-task.js           # Main CLI (generates prompts)
+├── generate-prompt.js      # Prompt generator with task-specific patterns
+├── TaskRouter.js           # 4-tier routing logic with legacy support
+└── toolsets/
+    ├── low-complexity/     # 1-simple: SQL parsing, file I/O
+    │   ├── patterns.ts     # SQL extraction patterns
+    │   ├── runner.ts       # Basic execution engine
+    │   └── GeminiChat.ipynb
+    ├── medium-complexity/  # 2-structured & 3-analytical
+    │   ├── patterns.ts     # Workflow, config, business logic patterns
+    │   ├── runner.ts       # Advanced execution with validation
+    │   └── GPT4Chat.ipynb  # Jupyter execution environment
+    └── (ready for 4-architectural/)
+```
 
-  2. **EventTypes Modularization** ✅
-     - Successfully modularized client and admin eventTypes into individual files
-     - Created proper index.js files with EVENTS arrays
-     - Updated main events/index.js to import from new structure
-     - Server confirmed working with updated import structure
+### 🚀 Usage Workflow
+1. **Route Task**: `npm run route-task 0040 2.1`
+2. **Get Focused Prompt**: Includes task details + relevant patterns only
+3. **Copy-Paste to Model**: Gemini/GPT-4/Claude based on complexity
+4. **Execute with Toolset**: Use provided patterns for implementation
 
-  3. **Design Document Enhancement** ✅
-     - Added genDirectives and genWorkflows automation to `.kiro/0040/design.md`
-     - Established hybrid approach with dual-zone pattern (auto-generated + manual zones)
-     - Decided on co-located workflow.js and display.js files (following existing .display.js patterns)
-     - Added template system, update strategy, and validation approaches
+## 💡 Key Innovations
+- **Smart Pattern Filtering**: Only includes relevant tools (SQL patterns for DB tasks, workflow patterns for config tasks)
+- **Copilot Pro Integration**: Use VS Code GPT-4 for tier 3 (no API costs!)
+- **Token Optimization**: Focused prompts ~200 lines vs 500+ previously
+- **Scalable Architecture**: Works across future plans (0041, 0042, etc.)
 
-  ## Current State
+## 🎛️ Model Distribution Strategy
+- **70% of tasks** → gemini-flash (tiers 1+2) - **Cheap**
+- **20% of tasks** → GPT-4 via Copilot - **Free with subscription**  
+- **10% of tasks** → Claude-Sonnet (tier 4) - **Expensive but necessary**
 
-  **Clean Output Structure:**
-  analysis-n-document/output/
-  ├── json/ (all .json files)
-  └── reports/ (only .mmd files - no .md files)
+## 📋 Current Plan 0040 Status
+- **Tasks.md Enhanced**: Has complexity metadata and dependency analysis
+- **Roadmap Generated**: `.kiro/0040/roadmap.md` with execution order
+- **Ready for Implementation**: Can start with `npm run route-task 0040 2.1` (database schema parser)
 
-  **Next Phase Strategy:**
-  - Kiro handles complex architectural tasks (template processing, safe regeneration logic)
-  - Lighter models handle straightforward implementation (SQL parsing, file creation, validation)
-  - Focus on genDirectives and genWorkflows automation for plan-management MVP
+## 🔄 Next Steps
+Ready to implement any of these:
 
-  ## Key Files to Reference
-  - `.kiro/0040/design.md` - Complete design with dual-zone pattern
-  - `.kiro/0040/tasks.md` - Detailed task breakdown (6.1-6.3 marked complete by Kiro)
-  - `analysis-n-document/genDocs/` - Updated generators using clean output structure
-  - `packages/shared-imports/src/events/` - Modularized eventTypes structure
+### A. Start Task Execution
+- Execute task 2.1 (database schema parser) with gemini-flash
+- Follow roadmap dependency chain: 2.1 → 2.2 → 2.3 → 3.2
 
-  ## Immediate Next Steps
-  Ready to continue with genDirectives/genWorkflows automation or any other Plan 0040 MVP tasks.
+### B. Refine Routing System  
+- Add metadata flags (`requires_reasoning`, `has_patterns`) per Edge Copilot suggestions
+- Implement overlap zones and confidence scoring
+- Add shell aliases (`task1`, `task2`, `task3`, `task4`)
+
+### C. Expand Toolsets
+- Create high-complexity (4-architectural) toolset for UI integration
+- Add domain-specific patterns (APIs, reporting, etc.) for future plans
+- Build monitoring dashboard for cost/success tracking
+
+### D. Plan 0040 MVP Completion
+- Continue with genDirectives/genWorkflows automation 
+- Complete the 15-20 tasks needed for basic functionality
+
+## 🛠️ System Status
+- ✅ **Routing Logic**: Complete with 4-tier support
+- ✅ **Prompt Generation**: Streamlined and task-focused
+- ✅ **Toolsets**: Low and medium complexity ready
+- ✅ **Integration**: VS Code Copilot + web interfaces
+- 🔄 **Ready for**: Task execution or system refinement
+
+## 📌 Important Files Modified
+- `package.json`: Added `route-task` script
+- `cli/TaskRouter.js`: 4-tier complexity system
+- `cli/generate-prompt.js`: Smart pattern filtering
+- `.kiro/0040/roadmap.md`: Complete execution strategy
+
+**Current working directory**: `/home/paul/wf-monorepo-new`
+**Next command suggestion**: `npm run route-task 0040 2.1`

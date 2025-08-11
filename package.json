@@ -18,7 +18,8 @@
     "analyze-deps": "madge . --json > analysis-n-document/output/json/raw-madge.json && node analysis-n-document/genDocs/enhance-madge.js",
     "docs:generate": "npm run analyze:all",
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
-    "route-task": "node cli/route-task.js",
+    "route-task": "node cli/generate-prompt.js",
+    "generate-prompt": "node cli/generate-prompt.js",
     "dev": "turbo run dev --filter=wf-client",
     "dev:all": "turbo run dev",
     "server": "turbo run dev --filter=wf-server",
@@ -33,20 +34,21 @@
     "generate:optimized": "node tools/page-generator/genOptimizedConfigs.js",
     "generate:event-types": "node analysis-n-document/genDocs/genEventTypes.js",
     "scaffold:section": "node packages/devtools/src/docs/sections/scaffoldRun.js",
-    "run:section": "node packages/devtools/src/docs/sections/sectionRun.js",
-    "route-task": "node cli/route-task.js"
+    "run:section": "node packages/devtools/src/docs/sections/sectionRun.js"
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@mermaid-js/mermaid-cli": "^11.6.0",
+    "@types/vscode": "^1.102.0",
     "babel-loader": "^10.0.0",
     "dependency-cruiser": "^16.10.2",
     "madge": "^8.0.0",
     "minimist": "^1.2.8",
     "module-alias": "^2.2.3",
-    "turbo": "^2.5.4"
+    "turbo": "^2.5.4",
+    "vscode": "^1.1.37"
   },
   "_moduleAliases": {
     "@packages": "./packages",

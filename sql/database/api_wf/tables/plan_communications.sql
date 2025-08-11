@@ -1,4 +1,4 @@
-CREATE TABLE `api_wf.plan_communications` (
+CREATE TABLE `plan_communications` (
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`plan_id` INT UNSIGNED NOT NULL,
 	`from_agent` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_unicode_ci',
