@@ -2,15 +2,17 @@
  * Directory management utilities
  */
 
+import fs from "fs";
+import path from "path";
 import createLogger from "../logger.js";
 
 const logger = createLogger("DirectoryOps");
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof window !== "undefined";
 
 // Dynamic imports to avoid webpack bundling issues
 async function getNodeModules() {
   if (isBrowser) {
-    throw new Error('File operations not supported in browser environment');
+    throw new Error("File operations not supported in browser environment");
   }
   const fs = await import("fs");
   const path = await import("path");
@@ -24,13 +26,11 @@ async function getNodeModules() {
  */
 export function directoryExists(dirPath) {
   if (isBrowser) {
-    logger.error('directoryExists called in browser environment');
+    logger.error("directoryExists called in browser environment");
     return false;
   }
-  
+
   try {
-    // Use require for synchronous import in Node.js
-    const fs = require("fs");
     const stats = fs.statSync(dirPath);
     return stats.isDirectory();
   } catch (error) {

@@ -5,9 +5,7 @@
  */
 
 import path from "path";
-import {
-  generateContent,
-} from "@whatsfresh/shared-imports/createDocs";
+import { generateContent } from "@whatsfresh/shared-imports/createDocs";
 import { createDoc } from "@whatsfresh/shared-imports/utils/server";
 import { createRequestBody } from "../utils/queryResolver.js";
 import logger from "../utils/logger.js";
@@ -64,7 +62,11 @@ const execCreateDoc = async (req, res) => {
     }
 
     // Step 4: Create the document using createDoc utility
-    const result = createDoc(resolvedPath, resolvedFileName, documentContent);
+    const result = await createDoc(
+      resolvedPath,
+      resolvedFileName,
+      documentContent
+    );
 
     // Step 5: Return enhanced result
     if (result.success) {

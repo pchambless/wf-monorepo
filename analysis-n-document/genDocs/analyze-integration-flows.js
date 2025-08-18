@@ -10,7 +10,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const JSON_OUTPUT_DIR = path.join(__dirname, '..', 'output', 'json');
+const JSON_OUTPUT_DIR = path.join(__dirname, '..', 'output/monorepo', 'json');
 const CONFIG_FILE = path.join(JSON_OUTPUT_DIR, 'config-relationships.json');
 const MADGE_FILE = path.join(JSON_OUTPUT_DIR, 'raw-madge.json');
 const OUTPUT_FILE = path.join(JSON_OUTPUT_DIR, 'integration-flows.json');
@@ -20,7 +20,7 @@ const API_JS_PATH = path.join(__dirname, '..', '..', '..', 'apps', 'wf-client', 
 
 function analyzeIntegrationFlows() {
   console.log('🔗 Analyzing client-server integration flows...');
-  
+
   // Load existing analysis data
   if (!fs.existsSync(CONFIG_FILE) || !fs.existsSync(MADGE_FILE)) {
     console.error('❌ Required analysis files not found. Run npm run analyze:all first.');
@@ -29,7 +29,7 @@ function analyzeIntegrationFlows() {
 
   const configData = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
   const madgeData = JSON.parse(fs.readFileSync(MADGE_FILE, 'utf8'));
-  
+
   // Parse API bridge patterns
   let apiPatterns = {};
   if (fs.existsSync(API_JS_PATH)) {
@@ -44,7 +44,7 @@ function analyzeIntegrationFlows() {
       ai_optimized: true,
       purpose: "Full-stack flow mapping for AI agents"
     },
-    
+
     // Core API patterns
     api_bridge: {
       location: "apps/wf-client/src/api/api.js",
@@ -52,27 +52,27 @@ function analyzeIntegrationFlows() {
       dml_endpoint: "/api/execDML",
       pattern: "Unified API layer between React components and server controllers"
     },
-    
+
     // Full-stack flows for each page
     client_server_flows: {},
-    
+
     // Integration patterns
     integration_patterns: {
       standard_page_flow: [
         "React Component",
-        "useApi() hook", 
+        "useApi() hook",
         "execEventType() call",
         "POST /api/execEventType",
         "execEventType.js controller",
-        "executeEventType.js processor", 
+        "executeEventType.js processor",
         "queryResolver.js for DB access",
         "Response back through chain"
       ],
-      
+
       dml_flow: [
         "React Component",
         "execDmlRequest() call",
-        "POST /api/execDML", 
+        "POST /api/execDML",
         "execDML.js controller",
         "dmlProcessor.js",
         "[create|read|update|delete].js",
@@ -80,7 +80,7 @@ function analyzeIntegrationFlows() {
         "Response back through chain"
       ]
     },
-    
+
     // AI investigation shortcuts
     ai_shortcuts: {
       find_full_flow: "integration-flows.json.client_server_flows[eventType]",
@@ -92,12 +92,12 @@ function analyzeIntegrationFlows() {
 
   // Map each page to its full-stack flow
   const pageFlows = configData.page_flows || {};
-  
+
   Object.entries(pageFlows).forEach(([eventType, pageData]) => {
     if (pageData.category?.startsWith('page:')) {
       integrationFlows.client_server_flows[eventType] = buildFlowMapping(
-        eventType, 
-        pageData, 
+        eventType,
+        pageData,
         madgeData,
         apiPatterns
       );
@@ -122,20 +122,20 @@ function analyzeIntegrationFlows() {
   fs.writeFileSync(OUTPUT_FILE, JSON.stringify(integrationFlows, null, 2));
   console.log(`✅ Integration flows analysis written to: ${OUTPUT_FILE}`);
   console.log(`📊 Mapped ${Object.keys(integrationFlows.client_server_flows).length} client-server flows`);
-  
+
   return integrationFlows;
 }
 
 function buildFlowMapping(eventType, pageData, madgeData, apiPatterns) {
   // Determine server processor from madge data
   const execEventTypeDeps = madgeData["apps/wf-server/server/controller/execEventType.js"] || [];
-  const processor = execEventTypeDeps.find(dep => dep.includes('executeEventType')) || 
-                   "apps/wf-server/server/utils/executeEventType.js";
+  const processor = execEventTypeDeps.find(dep => dep.includes('executeEventType')) ||
+    "apps/wf-server/server/utils/executeEventType.js";
 
   return {
     client_component: pageData.component,
     api_call: `execEventType('${eventType}', params)`,
-    server_endpoint: "/api/execEventType", 
+    server_endpoint: "/api/execEventType",
     server_controller: "apps/wf-server/server/controller/execEventType.js",
     processor: processor,
     database_access: "via queryResolver.js",
@@ -152,15 +152,15 @@ function parseApiPatterns(content) {
     endpoints: [],
     functions: []
   };
-  
+
   // Look for API endpoint calls
   const endpointMatches = content.match(/['"`]\/api\/\w+['"`]/g) || [];
   patterns.endpoints = [...new Set(endpointMatches.map(m => m.replace(/['"`]/g, '')))];
-  
+
   // Look for exported functions
   const functionMatches = content.match(/export\s+const\s+(\w+)/g) || [];
   patterns.functions = functionMatches.map(m => m.replace('export const ', ''));
-  
+
   return patterns;
 }
 

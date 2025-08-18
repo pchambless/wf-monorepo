@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated": "2025-08-10T13:34:58.625Z",
-    "total_files": 479,
+    "generated": "2025-08-16T23:09:10.934Z",
+    "total_files": 596,
     "analysis_type": "dead_code_detection",
     "ai_optimized": true
   },
@@ -69,7 +69,145 @@
         "ai_safety_level": "medium"
       },
       {
-        "file": "analysis-n-document/utils/types.js",
+        "file": "analysis-n-document/genDocs/utils/types.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/analyzeSchemas/shared/baseForeignKeyMapper.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/analyzeSchemas/shared/parseTablesInDir.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/configDB.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/generateEntity.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/studio/move-downloads.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/templates/workflow/displayTemplate.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/templates/workflow/Template.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/debugGeneration.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/formPlan-display.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/formPlan-workflow.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/formPlanComm-display.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/formPlanComm-workflow.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-display.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-workflow.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-display.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-workflow.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-display.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-workflow.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/gridPlans-display.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/gridPlans-workflow.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-display.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-workflow.js",
         "package": "other",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
@@ -225,13 +363,25 @@
         "ai_safety_level": "medium"
       },
       {
-        "file": "apps/wf-plan-management/src/components/MockMainLayout.jsx",
+        "file": "apps/wf-plan-management/src/components/ConfigGrid.jsx",
         "package": "other",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
       },
       {
-        "file": "apps/wf-plan-management/src/components/PlanListGrid.jsx",
+        "file": "apps/wf-plan-management/src/pages/Reports.jsx",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "apps/wf-plan-management/src/studio/StudioLayout.jsx",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "apps/wf-plan-management/src/utils/eventTypeIntegration.js",
         "package": "other",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
@@ -274,6 +424,24 @@
       },
       {
         "file": "cli/route-task.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "cli/toolsets/1-simple/runner.ts",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "cli/toolsets/2-structured/runner.ts",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "cli/toolsets/low-complexity/patterns.ts",
         "package": "other",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
@@ -429,7 +597,7 @@
         "ai_safety_level": "medium"
       },
       {
-        "file": "packages/devtools/src/studio/StudioApp.jsx",
+        "file": "packages/devtools/src/toolsets/low-complexity/patterns.ts",
         "package": "other",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
@@ -711,13 +879,7 @@
         "ai_safety_level": "medium"
       },
       {
-        "file": "packages/shared-imports/src/events/plans/pageMaps/planCommunicationCrud.js",
-        "package": "shared-imports",
-        "reason": "No dependents found",
-        "ai_safety_level": "medium"
-      },
-      {
-        "file": "packages/shared-imports/src/events/plans/pageMaps/planCommunicationHistory.js",
+        "file": "packages/shared-imports/src/events/studio-integration-example.js",
         "package": "shared-imports",
         "reason": "No dependents found",
         "ai_safety_level": "medium"
@@ -783,6 +945,60 @@
         "ai_safety_level": "medium"
       },
       {
+        "file": "tools/asciip/e2e/fixtures/delete.spec.ts/data_01.json",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "tools/asciip/e2e/fixtures/fixture.ts",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "tools/asciip/e2e/fixtures/order.spec.ts/data_01.json",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "tools/asciip/e2e/fixtures/select.spec.ts/data_01.json",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "tools/asciip/e2e/fixtures/style.spec.ts/data_01.json",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "tools/asciip/e2e/fixtures/style.spec.ts/data_02.json",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "tools/asciip/e2e/fixtures/translate.spec.ts/data_01.json",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "tools/asciip/src/react-app-env.d.ts",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
+        "file": "tools/asciip/src/setupTests.ts",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "medium"
+      },
+      {
         "file": "types/shim-modules.d.ts",
         "package": "other",
         "reason": "No dependents found",
@@ -791,6 +1007,18 @@
     ],
     "risky_removals": [],
     "safe_removals": [
+      {
+        "file": "analysis-n-document/genOps/analyzeEvents/testFormAnalyzer.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "safe"
+      },
+      {
+        "file": "analysis-n-document/genOps/templates/testTemplates.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "safe"
+      },
       {
         "file": "apps/wf-client/tests/migrations/helpers.js",
         "package": "wf-client",
@@ -812,6 +1040,42 @@
       {
         "file": "packages/shared-imports/src/utils/fileOperations/simple-test.js",
         "package": "shared-imports",
+        "reason": "No dependents found",
+        "ai_safety_level": "safe"
+      },
+      {
+        "file": "test-gen-workflows.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "safe"
+      },
+      {
+        "file": "test-handlebars-gen.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "safe"
+      },
+      {
+        "file": "test-output-display.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "safe"
+      },
+      {
+        "file": "test-output-workflow.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "safe"
+      },
+      {
+        "file": "test-template-processing.js",
+        "package": "other",
+        "reason": "No dependents found",
+        "ai_safety_level": "safe"
+      },
+      {
+        "file": "tools/asciip/src/store/tests/utils.ts",
+        "package": "other",
         "reason": "No dependents found",
         "ai_safety_level": "safe"
       }
@@ -938,7 +1202,7 @@
     },
     "analysis-n-document/genDocs/genEventTypes.js": {
       "dependencies": [
-        "analysis-n-document/utils/genGraphArtifacts.js"
+        "analysis-n-document/genDocs/utils/genGraphArtifacts.js"
       ],
       "dependents": [],
       "dependency_count": 1,
@@ -949,11 +1213,11 @@
       "is_dead": true,
       "ai_notes": []
     },
-    "analysis-n-document/utils/genGraphArtifacts.js": {
+    "analysis-n-document/genDocs/utils/genGraphArtifacts.js": {
       "dependencies": [
-        "analysis-n-document/utils/paths.js",
-        "analysis-n-document/utils/toDot.js",
-        "analysis-n-document/utils/toMermaid.js"
+        "analysis-n-document/genDocs/utils/paths.js",
+        "analysis-n-document/genDocs/utils/toDot.js",
+        "analysis-n-document/genDocs/utils/toMermaid.js"
       ],
       "dependents": [
         "analysis-n-document/genDocs/genEventTypes.js"
@@ -966,10 +1230,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "analysis-n-document/utils/paths.js": {
+    "analysis-n-document/genDocs/utils/paths.js": {
       "dependencies": [],
       "dependents": [
-        "analysis-n-document/utils/genGraphArtifacts.js"
+        "analysis-n-document/genDocs/utils/genGraphArtifacts.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -979,10 +1243,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "analysis-n-document/utils/toDot.js": {
+    "analysis-n-document/genDocs/utils/toDot.js": {
       "dependencies": [],
       "dependents": [
-        "analysis-n-document/utils/genGraphArtifacts.js"
+        "analysis-n-document/genDocs/utils/genGraphArtifacts.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -992,10 +1256,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "analysis-n-document/utils/toMermaid.js": {
+    "analysis-n-document/genDocs/utils/toMermaid.js": {
       "dependencies": [],
       "dependents": [
-        "analysis-n-document/utils/genGraphArtifacts.js"
+        "analysis-n-document/genDocs/utils/genGraphArtifacts.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -1005,7 +1269,540 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "analysis-n-document/utils/types.js": {
+    "analysis-n-document/genDocs/utils/types.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/shared/analyzeForms.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/shared/analyzeGrids.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/shared/analyzeSelects.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/analyzeEvents/shared/analyzeForms.js",
+        "analysis-n-document/genOps/analyzeEvents/shared/analyzeGrids.js",
+        "analysis-n-document/genOps/analyzeEvents/shared/analyzeSelects.js",
+        "analysis-n-document/genOps/analyzeEvents/shared/constraintMapper.js",
+        "analysis-n-document/genOps/analyzeEvents/shared/dataFlowAnalyzer.js",
+        "analysis-n-document/genOps/analyzeEvents/shared/relationshipDetector.js",
+        "analysis-n-document/genOps/analyzeEvents/shared/schemaValidator.js"
+      ],
+      "dependents": [
+        "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
+      ],
+      "dependency_count": 7,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/shared/constraintMapper.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/shared/dataFlowAnalyzer.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/shared/relationshipDetector.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/shared/schemaValidator.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeEvents/testFormAnalyzer.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "analysis-n-document/genOps/analyzeSchemas/shared/addFieldAttributes.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeSchemas/shared/baseForeignKeyMapper.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/configDirectives.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/analyzeSchemas/shared/addFieldAttributes.js",
+        "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js",
+        "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js",
+        "analysis-n-document/genOps/analyzeSchemas/shared/writeSchema.js"
+      ],
+      "dependents": [],
+      "dependency_count": 4,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js",
+        "analysis-n-document/genOps/analyzeSchemas/shared/parseTablesInDir.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js",
+        "analysis-n-document/genOps/analyzeSchemas/shared/parseTablesInDir.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeSchemas/shared/parseTablesInDir.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js",
+        "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js"
+      ],
+      "dependents": [],
+      "dependency_count": 2,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/analyzeSchemas/shared/writeSchema.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/configDB.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Config file - verify not used at runtime"
+      ]
+    },
+    "analysis-n-document/genOps/configDirectives.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/analyzeSchemas/shared/baseForeignKeyMapper.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/configForeignKeys.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/generateEntity.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/generateEntity.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/configForeignKeys.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/studio/move-downloads.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/templates/shared/handlebarsProcessor.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/templates/shared/templateUtils.js": {
+      "dependencies": [],
+      "dependents": [
+        "analysis-n-document/genOps/templates/testTemplates.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/templates/testTemplates.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/templates/shared/templateUtils.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "analysis-n-document/genOps/templates/workflow/Template.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/templates/workflow/displayTemplate.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/debugGeneration.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/genEntityWorkflows.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js",
+        "analysis-n-document/genOps/templates/shared/handlebarsProcessor.js"
+      ],
+      "dependents": [
+        "analysis-n-document/genOps/workflows/debugGeneration.js",
+        "test-gen-workflows.js",
+        "test-handlebars-gen.js"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 3,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/formPlan-display.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/formPlan-workflow.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/formPlanComm-display.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/formPlanComm-workflow.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-display.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-workflow.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-display.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-workflow.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-display.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-workflow.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/gridPlans-display.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/gridPlans-workflow.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-display.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-workflow.js": {
       "dependencies": [],
       "dependents": [],
       "dependency_count": 0,
@@ -2356,18 +3153,14 @@
         "apps/wf-plan-management/src/components/SimpleLayout.jsx",
         "apps/wf-plan-management/src/config/navigation.js",
         "apps/wf-plan-management/src/config/routes.js",
-        "apps/wf-plan-management/src/pages/AllPlans.jsx",
-        "apps/wf-plan-management/src/pages/Communications.jsx",
-        "apps/wf-plan-management/src/pages/CreatePlan.jsx",
         "apps/wf-plan-management/src/pages/Dashboard.jsx",
-        "apps/wf-plan-management/src/pages/ImpactTracking.jsx",
-        "apps/wf-plan-management/src/pages/PlanStatus.jsx",
-        "apps/wf-plan-management/src/pages/Reports.jsx"
+        "apps/wf-plan-management/src/pages/SketchPad.jsx",
+        "apps/wf-plan-management/src/studio/StudioApp.jsx"
       ],
       "dependents": [
         "apps/wf-plan-management/src/index.js"
       ],
-      "dependency_count": 10,
+      "dependency_count": 6,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "other",
@@ -2375,7 +3168,7 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "apps/wf-plan-management/src/components/MockMainLayout.jsx": {
+    "apps/wf-plan-management/src/components/ConfigGrid.jsx": {
       "dependencies": [],
       "dependents": [],
       "dependency_count": 0,
@@ -2384,72 +3177,17 @@
       "package": "other",
       "is_entry_point": false,
       "is_dead": true,
-      "ai_notes": []
-    },
-    "apps/wf-plan-management/src/components/PlanListGrid.jsx": {
-      "dependencies": [
-        "apps/wf-plan-management/src/components/PlanModal.jsx",
-        "apps/wf-plan-management/src/utils/eventTypeIntegration.js"
-      ],
-      "dependents": [],
-      "dependency_count": 2,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": true,
-      "ai_notes": []
-    },
-    "apps/wf-plan-management/src/components/PlanModal.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "apps/wf-plan-management/src/components/PlanListGrid.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
       "ai_notes": []
     },
     "apps/wf-plan-management/src/components/SimpleLayout.jsx": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/wf-plan-management/src/studio/CanvasSidebar.jsx",
+        "apps/wf-plan-management/src/studio/StudioSidebar.jsx"
+      ],
       "dependents": [
         "apps/wf-plan-management/src/App.jsx"
       ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "apps/wf-plan-management/src/components/SimplePage.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "apps/wf-plan-management/src/pages/CreatePlan.jsx",
-        "apps/wf-plan-management/src/pages/ImpactTracking.jsx",
-        "apps/wf-plan-management/src/pages/PlanStatus.jsx",
-        "apps/wf-plan-management/src/pages/Reports.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 4,
-      "blast_radius": "medium",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "apps/wf-plan-management/src/components/SimplePlanList.jsx": {
-      "dependencies": [
-        "apps/wf-plan-management/src/utils/eventTypeIntegration.js"
-      ],
-      "dependents": [
-        "apps/wf-plan-management/src/pages/AllPlans.jsx"
-      ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "other",
@@ -2471,11 +3209,14 @@
       "ai_notes": []
     },
     "apps/wf-plan-management/src/config/routes.js": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/wf-plan-management/src/pages/SketchPad.jsx",
+        "apps/wf-plan-management/src/studio/StudioApp.jsx"
+      ],
       "dependents": [
         "apps/wf-plan-management/src/App.jsx"
       ],
-      "dependency_count": 0,
+      "dependency_count": 2,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "other",
@@ -2510,49 +3251,6 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "apps/wf-plan-management/src/pages/AllPlans.jsx": {
-      "dependencies": [
-        "apps/wf-plan-management/src/components/SimplePlanList.jsx"
-      ],
-      "dependents": [
-        "apps/wf-plan-management/src/App.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "apps/wf-plan-management/src/pages/Communications.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "apps/wf-plan-management/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "apps/wf-plan-management/src/pages/CreatePlan.jsx": {
-      "dependencies": [
-        "apps/wf-plan-management/src/components/SimplePage.jsx"
-      ],
-      "dependents": [
-        "apps/wf-plan-management/src/App.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
     "apps/wf-plan-management/src/pages/Dashboard.jsx": {
       "dependencies": [],
       "dependents": [
@@ -2566,44 +3264,196 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "apps/wf-plan-management/src/pages/ImpactTracking.jsx": {
-      "dependencies": [
-        "apps/wf-plan-management/src/components/SimplePage.jsx"
-      ],
-      "dependents": [
-        "apps/wf-plan-management/src/App.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "apps/wf-plan-management/src/pages/PlanStatus.jsx": {
-      "dependencies": [
-        "apps/wf-plan-management/src/components/SimplePage.jsx"
-      ],
-      "dependents": [
-        "apps/wf-plan-management/src/App.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
     "apps/wf-plan-management/src/pages/Reports.jsx": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/pages/SketchPad.jsx": {
+      "dependencies": [],
+      "dependents": [
+        "apps/wf-plan-management/src/App.jsx",
+        "apps/wf-plan-management/src/config/routes.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/CanvasItem.jsx": {
+      "dependencies": [],
+      "dependents": [
+        "apps/wf-plan-management/src/studio/WidgetCanvas.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/CanvasSidebar.jsx": {
       "dependencies": [
-        "apps/wf-plan-management/src/components/SimplePage.jsx"
+        "apps/wf-plan-management/src/studio/StudioHierarchy.jsx",
+        "apps/wf-plan-management/src/studio/eventTypeComponents.js"
       ],
       "dependents": [
-        "apps/wf-plan-management/src/App.jsx"
+        "apps/wf-plan-management/src/components/SimpleLayout.jsx",
+        "apps/wf-plan-management/src/studio/StudioLayout.jsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/StudioApp.jsx": {
+      "dependencies": [
+        "apps/wf-plan-management/src/studio/WidgetCanvas.jsx",
+        "apps/wf-plan-management/src/studio/eventTypeToStudio.js",
+        "apps/wf-plan-management/src/studio/studio.css",
+        "apps/wf-plan-management/src/studio/useCanvasState.js"
+      ],
+      "dependents": [
+        "apps/wf-plan-management/src/App.jsx",
+        "apps/wf-plan-management/src/config/routes.js"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/StudioHierarchy.jsx": {
+      "dependencies": [],
+      "dependents": [
+        "apps/wf-plan-management/src/studio/CanvasSidebar.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/StudioLayout.jsx": {
+      "dependencies": [
+        "apps/wf-plan-management/src/studio/CanvasSidebar.jsx",
+        "apps/wf-plan-management/src/studio/StudioSidebar.jsx"
+      ],
+      "dependents": [],
+      "dependency_count": 2,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/StudioSidebar.jsx": {
+      "dependencies": [
+        "apps/wf-plan-management/src/studio/TreeView.jsx"
+      ],
+      "dependents": [
+        "apps/wf-plan-management/src/components/SimpleLayout.jsx",
+        "apps/wf-plan-management/src/studio/StudioLayout.jsx"
       ],
       "dependency_count": 1,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/TreeView.jsx": {
+      "dependencies": [],
+      "dependents": [
+        "apps/wf-plan-management/src/studio/StudioSidebar.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/WidgetCanvas.jsx": {
+      "dependencies": [
+        "apps/wf-plan-management/src/studio/CanvasItem.jsx"
+      ],
+      "dependents": [
+        "apps/wf-plan-management/src/studio/StudioApp.jsx"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/eventTypeComponents.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/wf-plan-management/src/studio/CanvasSidebar.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/eventTypeToStudio.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/wf-plan-management/src/studio/StudioApp.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/studio.css": {
+      "dependencies": [],
+      "dependents": [
+        "apps/wf-plan-management/src/studio/StudioApp.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-plan-management/src/studio/useCanvasState.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/wf-plan-management/src/studio/StudioApp.jsx"
+      ],
+      "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "other",
@@ -2613,16 +3463,13 @@
     },
     "apps/wf-plan-management/src/utils/eventTypeIntegration.js": {
       "dependencies": [],
-      "dependents": [
-        "apps/wf-plan-management/src/components/PlanListGrid.jsx",
-        "apps/wf-plan-management/src/components/SimplePlanList.jsx"
-      ],
+      "dependents": [],
       "dependency_count": 0,
-      "dependent_count": 2,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "other",
       "is_entry_point": false,
-      "is_dead": false,
+      "is_dead": true,
       "ai_notes": []
     },
     "apps/wf-plan-management/src/utils/impactTracking.js": {
@@ -2716,6 +3563,36 @@
       "ai_notes": []
     },
     "apps/wf-server/server/controller/fetchEventTypes.js": {
+      "dependencies": [
+        "apps/wf-server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/wf-server/server/routes/registerRoutes.js"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "wf-server",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-server/server/controller/fetchStudioEventTypes.js": {
+      "dependencies": [
+        "apps/wf-server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/wf-server/server/routes/registerRoutes.js"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "wf-server",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "apps/wf-server/server/controller/getDoc.js": {
       "dependencies": [
         "apps/wf-server/server/utils/logger.js"
       ],
@@ -2853,6 +3730,8 @@
         "apps/wf-server/server/controller/execDML.js",
         "apps/wf-server/server/controller/execEventType.js",
         "apps/wf-server/server/controller/fetchEventTypes.js",
+        "apps/wf-server/server/controller/fetchStudioEventTypes.js",
+        "apps/wf-server/server/controller/getDoc.js",
         "apps/wf-server/server/controller/initialize.js",
         "apps/wf-server/server/controller/listRegisteredRoutes.js",
         "apps/wf-server/server/controller/restartServer.js",
@@ -2864,7 +3743,7 @@
       "dependents": [
         "apps/wf-server/server/routes/index.js"
       ],
-      "dependency_count": 11,
+      "dependency_count": 13,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "wf-server",
@@ -3030,6 +3909,8 @@
         "apps/wf-server/server/controller/execDML.js",
         "apps/wf-server/server/controller/execEventType.js",
         "apps/wf-server/server/controller/fetchEventTypes.js",
+        "apps/wf-server/server/controller/fetchStudioEventTypes.js",
+        "apps/wf-server/server/controller/getDoc.js",
         "apps/wf-server/server/controller/restartServer.js",
         "apps/wf-server/server/controller/userLogin.js",
         "apps/wf-server/server/controller/writeFileDirectly.js",
@@ -3045,7 +3926,7 @@
         "apps/wf-server/server/utils/queryResolver.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 18,
+      "dependent_count": 20,
       "blast_radius": "high",
       "package": "wf-server",
       "is_entry_point": false,
@@ -3257,10 +4138,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "cli/toolsets/low-complexity/patterns.ts": {
+    "cli/toolsets/1-simple/patterns.ts": {
       "dependencies": [],
       "dependents": [
-        "cli/toolsets/low-complexity/runner.ts"
+        "cli/toolsets/1-simple/runner.ts"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -3270,9 +4151,9 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "cli/toolsets/low-complexity/runner.ts": {
+    "cli/toolsets/1-simple/runner.ts": {
       "dependencies": [
-        "cli/toolsets/low-complexity/patterns.ts",
+        "cli/toolsets/1-simple/patterns.ts",
         "cli/utils/toolManager.ts"
       ],
       "dependents": [],
@@ -3284,13 +4165,63 @@
       "is_dead": true,
       "ai_notes": []
     },
-    "cli/utils/toolManager.ts": {
+    "cli/toolsets/2-structured/patterns.ts": {
       "dependencies": [],
       "dependents": [
-        "cli/toolsets/low-complexity/runner.ts"
+        "cli/toolsets/2-structured/runner.ts"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "cli/toolsets/2-structured/runner.ts": {
+      "dependencies": [
+        "cli/toolsets/2-structured/patterns.ts",
+        "cli/utils/toolManager.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 2,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "cli/toolsets/low-complexity/patterns.ts": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "cli/toolsets/low-complexity/runner.ts": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "cli/utils/toolManager.ts": {
+      "dependencies": [],
+      "dependents": [
+        "cli/toolsets/1-simple/runner.ts",
+        "cli/toolsets/2-structured/runner.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
       "blast_radius": "low",
       "package": "other",
       "is_entry_point": false,
@@ -3470,11 +4401,9 @@
       "ai_notes": []
     },
     "packages/devtools/src/automation/triggered/genDirectives.js": {
-      "dependencies": [
-        "packages/devtools/src/utils/directiveMap.js"
-      ],
+      "dependencies": [],
       "dependents": [],
-      "dependency_count": 1,
+      "dependency_count": 0,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "other",
@@ -3627,11 +4556,10 @@
     },
     "packages/devtools/src/index.js": {
       "dependencies": [
-        "packages/devtools/src/utils/abbreviationMap.js",
-        "packages/devtools/src/utils/directiveMap.js"
+        "packages/devtools/src/utils/abbreviationMap.js"
       ],
       "dependents": [],
-      "dependency_count": 2,
+      "dependency_count": 1,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "other",
@@ -3650,75 +4578,6 @@
       "is_dead": true,
       "ai_notes": []
     },
-    "packages/devtools/src/studio/CanvasItem.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/devtools/src/studio/WidgetCanvas.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "packages/devtools/src/studio/CanvasSidebar.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/devtools/src/studio/StudioApp.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "packages/devtools/src/studio/StudioApp.jsx": {
-      "dependencies": [
-        "packages/devtools/src/studio/CanvasSidebar.jsx",
-        "packages/devtools/src/studio/WidgetCanvas.jsx",
-        "packages/devtools/src/studio/useCanvasState.js"
-      ],
-      "dependents": [],
-      "dependency_count": 3,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": true,
-      "ai_notes": []
-    },
-    "packages/devtools/src/studio/WidgetCanvas.jsx": {
-      "dependencies": [
-        "packages/devtools/src/studio/CanvasItem.jsx"
-      ],
-      "dependents": [
-        "packages/devtools/src/studio/StudioApp.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "packages/devtools/src/studio/useCanvasState.js": {
-      "dependencies": [],
-      "dependents": [
-        "packages/devtools/src/studio/StudioApp.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
     "packages/devtools/src/toolConfig.js": {
       "dependencies": [],
       "dependents": [
@@ -3734,23 +4593,19 @@
     },
     "packages/devtools/src/toolsets/low-complexity/patterns.ts": {
       "dependencies": [],
-      "dependents": [
-        "packages/devtools/src/toolsets/low-complexity/runner.ts"
-      ],
+      "dependents": [],
       "dependency_count": 0,
-      "dependent_count": 1,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "other",
       "is_entry_point": false,
-      "is_dead": false,
+      "is_dead": true,
       "ai_notes": []
     },
     "packages/devtools/src/toolsets/low-complexity/runner.ts": {
-      "dependencies": [
-        "packages/devtools/src/toolsets/low-complexity/patterns.ts"
-      ],
+      "dependencies": [],
       "dependents": [],
-      "dependency_count": 1,
+      "dependency_count": 0,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "other",
@@ -3780,20 +4635,6 @@
       "package": "other",
       "is_entry_point": false,
       "is_dead": true,
-      "ai_notes": []
-    },
-    "packages/devtools/src/utils/directiveMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "packages/devtools/src/automation/triggered/genDirectives.js",
-        "packages/devtools/src/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "other",
-      "is_entry_point": false,
-      "is_dead": false,
       "ai_notes": []
     },
     "packages/devtools/src/utils/directiveWidgetAnalyzer.js": {
@@ -4090,13 +4931,12 @@
     },
     "packages/shared-imports/src/architecture/components/plan-tools/PlanStatusUpdateForm.jsx": {
       "dependencies": [
-        "packages/shared-imports/src/architecture/config/selectVals.json",
         "packages/shared-imports/src/architecture/workflows/index.js"
       ],
       "dependents": [
         "packages/shared-imports/src/architecture/components/PlanToolsTab.jsx"
       ],
-      "dependency_count": 2,
+      "dependency_count": 1,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "shared-imports",
@@ -4240,20 +5080,6 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/architecture/config/selectVals.json": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/architecture/components/plan-tools/PlanStatusUpdateForm.jsx",
-        "packages/shared-imports/src/architecture/config/selectValsHelper.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "shared-imports",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
     "packages/shared-imports/src/architecture/config/selectValsData.js": {
       "dependencies": [],
       "dependents": [
@@ -4268,14 +5094,12 @@
       "ai_notes": []
     },
     "packages/shared-imports/src/architecture/config/selectValsHelper.js": {
-      "dependencies": [
-        "packages/shared-imports/src/architecture/config/selectVals.json"
-      ],
+      "dependencies": [],
       "dependents": [
         "packages/shared-imports/src/architecture/config/index.js",
         "packages/shared-imports/src/architecture/workflows/eventType/EventTypeParser.js"
       ],
-      "dependency_count": 1,
+      "dependency_count": 0,
       "dependent_count": 2,
       "blast_radius": "low",
       "package": "shared-imports",
@@ -4625,14 +5449,13 @@
     },
     "packages/shared-imports/src/architecture/workflows/eventType/EventTypeParser.js": {
       "dependencies": [
-        "packages/shared-imports/src/architecture/config/selectValsHelper.js",
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/architecture/config/selectValsHelper.js"
       ],
       "dependents": [
         "packages/shared-imports/src/architecture/workflows/eventType/WorkflowTriggerMap.js",
         "packages/shared-imports/src/architecture/workflows/eventType/index.js"
       ],
-      "dependency_count": 2,
+      "dependency_count": 1,
       "dependent_count": 2,
       "blast_radius": "low",
       "package": "shared-imports",
@@ -6432,11 +7255,9 @@
         "packages/shared-imports/src/events/admin/eventTypes/userList.js",
         "packages/shared-imports/src/events/admin/eventTypes/userLogin.js"
       ],
-      "dependents": [
-        "packages/shared-imports/src/events/index.js"
-      ],
+      "dependents": [],
       "dependency_count": 3,
-      "dependent_count": 1,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports",
       "is_entry_point": true,
@@ -6466,6 +7287,32 @@
       "blast_radius": "low",
       "package": "shared-imports",
       "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/admin/layoutIdx/index.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/admin/queryIdx/index.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": true,
       "is_dead": false,
       "ai_notes": []
     },
@@ -6572,11 +7419,9 @@
         "packages/shared-imports/src/events/client/eventTypes/vndrList.js",
         "packages/shared-imports/src/events/client/eventTypes/wrkrList.js"
       ],
-      "dependents": [
-        "packages/shared-imports/src/events/index.js"
-      ],
+      "dependents": [],
       "dependency_count": 21,
-      "dependent_count": 1,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports",
       "is_entry_point": true,
@@ -6791,30 +7636,60 @@
       "is_dead": false,
       "ai_notes": []
     },
+    "packages/shared-imports/src/events/client/layoutIdx/index.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/client/queryIdx/index.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
     "packages/shared-imports/src/events/index.js": {
       "dependencies": [
-        "packages/shared-imports/src/events/admin/eventTypes/index.js",
-        "packages/shared-imports/src/events/client/eventTypes/index.js",
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/events/admin/layoutIdx/index.js",
+        "packages/shared-imports/src/events/admin/queryIdx/index.js",
+        "packages/shared-imports/src/events/client/layoutIdx/index.js",
+        "packages/shared-imports/src/events/client/queryIdx/index.js",
+        "packages/shared-imports/src/events/plans/layoutIdx/index.js",
+        "packages/shared-imports/src/events/plans/queryIdx/index.js"
       ],
       "dependents": [
         "packages/shared-imports/src/api/index.js",
         "packages/shared-imports/src/components/auth.jsx",
         "packages/shared-imports/src/components/selectors/createSelectWidget.jsx",
+        "packages/shared-imports/src/events/studio-integration-example.js",
         "packages/shared-imports/src/index.js"
       ],
-      "dependency_count": 3,
-      "dependent_count": 4,
+      "dependency_count": 6,
+      "dependent_count": 5,
       "blast_radius": "medium",
       "package": "shared-imports",
       "is_entry_point": true,
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/eventTypes/form-planDetail.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/app/appbar.js": {
       "dependencies": [],
       "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/events/plans/layoutIdx/index.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -6824,10 +7699,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/eventTypes/grid-planCommunicationList.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/app/sidebar.js": {
       "dependencies": [],
       "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/events/plans/layoutIdx/index.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -6837,60 +7712,97 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/eventTypes/grid-planImpactList.js": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "packages/shared-imports/src/events/plans/eventTypes/grid-planList.js": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports",
-      "is_entry_point": false,
-      "is_dead": false,
-      "ai_notes": []
-    },
-    "packages/shared-imports/src/events/plans/eventTypes/index.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/index.js": {
       "dependencies": [
-        "packages/shared-imports/src/events/plans/eventTypes/form-planDetail.js",
-        "packages/shared-imports/src/events/plans/eventTypes/grid-planCommunicationList.js",
-        "packages/shared-imports/src/events/plans/eventTypes/grid-planImpactList.js",
-        "packages/shared-imports/src/events/plans/eventTypes/grid-planList.js",
-        "packages/shared-imports/src/events/plans/eventTypes/page-planManagement.js",
-        "packages/shared-imports/src/events/plans/eventTypes/select-planStatus.js",
-        "packages/shared-imports/src/events/plans/eventTypes/tab-planCommuncations.js",
-        "packages/shared-imports/src/events/plans/eventTypes/tab-planDetail.js",
-        "packages/shared-imports/src/events/plans/eventTypes/tab-planImpacts.js"
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js"
       ],
-      "dependents": [
-        "packages/shared-imports/src/architecture/workflows/eventType/EventTypeParser.js",
-        "packages/shared-imports/src/events/index.js"
-      ],
-      "dependency_count": 9,
-      "dependent_count": 2,
+      "dependents": [],
+      "dependency_count": 5,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports",
       "is_entry_point": true,
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/eventTypes/page-planManagement.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js": {
       "dependencies": [],
       "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/index.js",
+        "packages/shared-imports/src/events/plans/layoutIdx/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/index.js",
+        "packages/shared-imports/src/events/plans/layoutIdx/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/index.js",
+        "packages/shared-imports/src/events/plans/layoutIdx/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/index.js",
+        "packages/shared-imports/src/events/plans/layoutIdx/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/index.js",
+        "packages/shared-imports/src/events/plans/layoutIdx/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlan.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -6900,10 +7812,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/eventTypes/select-planStatus.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanComm.js": {
       "dependencies": [],
       "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -6913,10 +7825,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/eventTypes/tab-planCommuncations.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanImpact.js": {
       "dependencies": [],
       "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -6926,10 +7838,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/eventTypes/tab-planDetail.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanComms.js": {
       "dependencies": [],
       "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -6939,10 +7851,10 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/eventTypes/tab-planImpacts.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanImpacts.js": {
       "dependencies": [],
       "dependents": [
-        "packages/shared-imports/src/events/plans/eventTypes/index.js"
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -6952,21 +7864,106 @@
       "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/pageMaps/planCommunicationCrud.js": {
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlans.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js": {
+      "dependencies": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlan.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanComm.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanImpact.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanComms.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanImpacts.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlans.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/selectPlanStatus.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/events/plans/queryIdx/index.js"
+      ],
+      "dependency_count": 7,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/selectPlanStatus.js": {
+      "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/index.js": {
       "dependencies": [],
       "dependents": [],
       "dependency_count": 0,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports",
-      "is_entry_point": false,
-      "is_dead": true,
+      "is_entry_point": true,
+      "is_dead": false,
       "ai_notes": []
     },
-    "packages/shared-imports/src/events/plans/pageMaps/planCommunicationHistory.js": {
-      "dependencies": [],
+    "packages/shared-imports/src/events/plans/layoutIdx/index.js": {
+      "dependencies": [
+        "packages/shared-imports/src/events/plans/eventTypes/app/appbar.js",
+        "packages/shared-imports/src/events/plans/eventTypes/app/sidebar.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js",
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/events/index.js"
+      ],
+      "dependency_count": 7,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/plans/queryIdx/index.js": {
+      "dependencies": [
+        "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
+      ],
+      "dependents": [
+        "packages/shared-imports/src/events/index.js"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "shared-imports",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "packages/shared-imports/src/events/studio-integration-example.js": {
+      "dependencies": [
+        "packages/shared-imports/src/events/index.js"
+      ],
       "dependents": [],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports",
@@ -7589,6 +8586,1031 @@
       "is_dead": false,
       "ai_notes": []
     },
+    "test-gen-workflows.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "test-handlebars-gen.js": {
+      "dependencies": [
+        "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "test-output-display.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "test-output-workflow.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "test-template-processing.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "tools/asciip/e2e/fixtures/delete.spec.ts/data_01.json": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "tools/asciip/e2e/fixtures/fixture.ts": {
+      "dependencies": [
+        "tools/asciip/e2e/pom/Canvas.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "tools/asciip/e2e/fixtures/order.spec.ts/data_01.json": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "tools/asciip/e2e/fixtures/select.spec.ts/data_01.json": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "tools/asciip/e2e/fixtures/style.spec.ts/data_01.json": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "tools/asciip/e2e/fixtures/style.spec.ts/data_02.json": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "tools/asciip/e2e/fixtures/translate.spec.ts/data_01.json": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "tools/asciip/e2e/pom/Canvas.ts": {
+      "dependencies": [
+        "tools/asciip/src/components/canvas/draw.ts"
+      ],
+      "dependents": [
+        "tools/asciip/e2e/fixtures/fixture.ts"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/jest.config.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/playwright.config.ts": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/App.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/canvas/Canvas.tsx",
+        "tools/asciip/src/components/footer/Footer.tsx",
+        "tools/asciip/src/components/toolbar/Toolbar.tsx",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/index.tsx"
+      ],
+      "dependency_count": 6,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/Logo.tsx": {
+      "dependencies": [],
+      "dependents": [
+        "tools/asciip/src/components/footer/FooterInfo.tsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/canvas/Canvas.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/canvas/TextShapeInput.tsx",
+        "tools/asciip/src/components/canvas/draw.ts",
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/App.tsx"
+      ],
+      "dependency_count": 6,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/canvas/TextShapeInput.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/canvas/draw.ts",
+        "tools/asciip/src/models/text.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/canvas/Canvas.tsx"
+      ],
+      "dependency_count": 5,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/canvas/draw.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/representation.ts",
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/models/style.ts",
+        "tools/asciip/src/models/transformation.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependents": [
+        "tools/asciip/e2e/pom/Canvas.ts",
+        "tools/asciip/src/components/canvas/Canvas.tsx",
+        "tools/asciip/src/components/canvas/TextShapeInput.tsx",
+        "tools/asciip/src/components/dialogs/ExportDialog.tsx"
+      ],
+      "dependency_count": 5,
+      "dependent_count": 4,
+      "blast_radius": "medium",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/dialogs/CreateDiagramFormDialog.tsx": {
+      "dependencies": [
+        "tools/asciip/src/store/appSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/dialogs/DeleteDiagramConfirmationDialog.tsx": {
+      "dependencies": [
+        "tools/asciip/src/store/appSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/dialogs/ExportDialog.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/canvas/draw.ts",
+        "tools/asciip/src/models/representation.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/ToolbarExport.tsx"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/dialogs/InfoDialog.tsx": {
+      "dependencies": [],
+      "dependents": [
+        "tools/asciip/src/components/footer/FooterInfo.tsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/dialogs/RenameDiagramFormDialog.tsx": {
+      "dependencies": [
+        "tools/asciip/src/store/appSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/footer/Footer.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/footer/FooterCanvasSize.tsx",
+        "tools/asciip/src/components/footer/FooterHistory.tsx",
+        "tools/asciip/src/components/footer/FooterInfo.tsx",
+        "tools/asciip/src/components/footer/FooterTip.tsx"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/App.tsx"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/footer/FooterCanvasSize.tsx": {
+      "dependencies": [
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/footer/Footer.tsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/footer/FooterHistory.tsx": {
+      "dependencies": [
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/footer/Footer.tsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/footer/FooterInfo.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/Logo.tsx",
+        "tools/asciip/src/components/dialogs/InfoDialog.tsx"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/footer/Footer.tsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/footer/FooterTip.tsx": {
+      "dependencies": [
+        "tools/asciip/src/store/hooks.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/footer/Footer.tsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/SelectArrowHead.tsx": {
+      "dependencies": [
+        "tools/asciip/src/models/style.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/ToolbarStyles.tsx"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/SelectArrowHeadStyle.tsx": {
+      "dependencies": [
+        "tools/asciip/src/models/style.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/ToolbarStyles.tsx"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/SelectLineStyle.tsx": {
+      "dependencies": [
+        "tools/asciip/src/models/style.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/ToolbarStyles.tsx"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/Toolbar.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarExport.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarOrder.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarStyleMode.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarStyles.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarTools.tsx"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/App.tsx"
+      ],
+      "dependency_count": 6,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/dialogs/CreateDiagramFormDialog.tsx",
+        "tools/asciip/src/components/dialogs/DeleteDiagramConfirmationDialog.tsx",
+        "tools/asciip/src/components/dialogs/RenameDiagramFormDialog.tsx",
+        "tools/asciip/src/store/appSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/Toolbar.tsx"
+      ],
+      "dependency_count": 5,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/ToolbarExport.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/dialogs/ExportDialog.tsx",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/Toolbar.tsx"
+      ],
+      "dependency_count": 3,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/ToolbarOrder.tsx": {
+      "dependencies": [
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/Toolbar.tsx"
+      ],
+      "dependency_count": 3,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/ToolbarStyleMode.tsx": {
+      "dependencies": [
+        "tools/asciip/src/models/style.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/Toolbar.tsx"
+      ],
+      "dependency_count": 3,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/ToolbarStyles.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/toolbar/SelectArrowHead.tsx",
+        "tools/asciip/src/components/toolbar/SelectArrowHeadStyle.tsx",
+        "tools/asciip/src/components/toolbar/SelectLineStyle.tsx",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/Toolbar.tsx"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/components/toolbar/ToolbarTools.tsx": {
+      "dependencies": [
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/hooks.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/toolbar/Toolbar.tsx"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/index.css": {
+      "dependencies": [],
+      "dependents": [
+        "tools/asciip/src/index.tsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/index.tsx": {
+      "dependencies": [
+        "tools/asciip/src/components/App.tsx",
+        "tools/asciip/src/index.css",
+        "tools/asciip/src/store/store.ts",
+        "tools/asciip/src/theme.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 4,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": true,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/models/create.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/shapes.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/models/transformation.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/models/representation.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/shapeInCanvas.ts",
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/models/style.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/canvas/draw.ts",
+        "tools/asciip/src/components/dialogs/ExportDialog.tsx",
+        "tools/asciip/src/models/shapeInCanvas.ts",
+        "tools/asciip/src/models/style.ts"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 4,
+      "blast_radius": "medium",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/models/shapeInCanvas.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/representation.ts",
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/models/transformation.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/models/representation.ts",
+        "tools/asciip/src/models/transformation.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 4,
+      "blast_radius": "medium",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/models/shapes.ts": {
+      "dependencies": [],
+      "dependents": [
+        "tools/asciip/src/components/canvas/Canvas.tsx",
+        "tools/asciip/src/components/canvas/draw.ts",
+        "tools/asciip/src/models/create.ts",
+        "tools/asciip/src/models/representation.ts",
+        "tools/asciip/src/models/shapeInCanvas.ts",
+        "tools/asciip/src/models/text.ts",
+        "tools/asciip/src/models/transformation.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/selectors.ts",
+        "tools/asciip/src/store/tests/utils.ts"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 10,
+      "blast_radius": "high",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/models/style.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/representation.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/canvas/draw.ts",
+        "tools/asciip/src/components/toolbar/SelectArrowHead.tsx",
+        "tools/asciip/src/components/toolbar/SelectArrowHeadStyle.tsx",
+        "tools/asciip/src/components/toolbar/SelectLineStyle.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarStyleMode.tsx",
+        "tools/asciip/src/models/representation.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 7,
+      "blast_radius": "medium",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/models/text.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/canvas/TextShapeInput.tsx",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/models/transformation.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/create.ts",
+        "tools/asciip/src/models/shapeInCanvas.ts",
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/canvas/draw.ts",
+        "tools/asciip/src/models/shapeInCanvas.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 3,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/react-app-env.d.ts": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "tools/asciip/src/setupTests.ts": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": []
+    },
+    "tools/asciip/src/store/appSlice.ts": {
+      "dependencies": [
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/dialogs/CreateDiagramFormDialog.tsx",
+        "tools/asciip/src/components/dialogs/DeleteDiagramConfirmationDialog.tsx",
+        "tools/asciip/src/components/dialogs/RenameDiagramFormDialog.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx",
+        "tools/asciip/src/store/localStorage.ts",
+        "tools/asciip/src/store/middleware.ts",
+        "tools/asciip/src/store/store.ts"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 7,
+      "blast_radius": "medium",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/store/diagramSlice.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/create.ts",
+        "tools/asciip/src/models/shapeInCanvas.ts",
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/models/style.ts",
+        "tools/asciip/src/models/text.ts",
+        "tools/asciip/src/models/transformation.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/App.tsx",
+        "tools/asciip/src/components/canvas/Canvas.tsx",
+        "tools/asciip/src/components/canvas/TextShapeInput.tsx",
+        "tools/asciip/src/components/canvas/draw.ts",
+        "tools/asciip/src/components/dialogs/ExportDialog.tsx",
+        "tools/asciip/src/components/footer/FooterCanvasSize.tsx",
+        "tools/asciip/src/components/footer/FooterHistory.tsx",
+        "tools/asciip/src/components/toolbar/SelectArrowHead.tsx",
+        "tools/asciip/src/components/toolbar/SelectArrowHeadStyle.tsx",
+        "tools/asciip/src/components/toolbar/SelectLineStyle.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarExport.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarOrder.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarStyleMode.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarTools.tsx",
+        "tools/asciip/src/models/representation.ts",
+        "tools/asciip/src/models/shapeInCanvas.ts",
+        "tools/asciip/src/models/text.ts",
+        "tools/asciip/src/models/transformation.ts",
+        "tools/asciip/src/store/appSlice.ts",
+        "tools/asciip/src/store/localStorage.ts",
+        "tools/asciip/src/store/middleware.ts",
+        "tools/asciip/src/store/selectors.ts",
+        "tools/asciip/src/store/store.ts",
+        "tools/asciip/src/store/tests/utils.ts"
+      ],
+      "dependency_count": 6,
+      "dependent_count": 24,
+      "blast_radius": "high",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/store/hooks.ts": {
+      "dependencies": [],
+      "dependents": [
+        "tools/asciip/src/components/App.tsx",
+        "tools/asciip/src/components/canvas/Canvas.tsx",
+        "tools/asciip/src/components/canvas/TextShapeInput.tsx",
+        "tools/asciip/src/components/dialogs/CreateDiagramFormDialog.tsx",
+        "tools/asciip/src/components/dialogs/DeleteDiagramConfirmationDialog.tsx",
+        "tools/asciip/src/components/dialogs/ExportDialog.tsx",
+        "tools/asciip/src/components/dialogs/RenameDiagramFormDialog.tsx",
+        "tools/asciip/src/components/footer/FooterCanvasSize.tsx",
+        "tools/asciip/src/components/footer/FooterHistory.tsx",
+        "tools/asciip/src/components/footer/FooterTip.tsx",
+        "tools/asciip/src/components/toolbar/SelectArrowHead.tsx",
+        "tools/asciip/src/components/toolbar/SelectArrowHeadStyle.tsx",
+        "tools/asciip/src/components/toolbar/SelectLineStyle.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarExport.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarOrder.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarStyleMode.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarStyles.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarTools.tsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 19,
+      "blast_radius": "high",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/store/localStorage.ts": {
+      "dependencies": [
+        "tools/asciip/src/store/appSlice.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/store.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/store/middleware.ts",
+        "tools/asciip/src/store/store.ts"
+      ],
+      "dependency_count": 3,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/store/middleware.ts": {
+      "dependencies": [
+        "tools/asciip/src/store/appSlice.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/localStorage.ts",
+        "tools/asciip/src/store/store.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/store/store.ts"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/store/selectors.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/shapeInCanvas.ts",
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/store.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/components/App.tsx",
+        "tools/asciip/src/components/canvas/Canvas.tsx",
+        "tools/asciip/src/components/canvas/TextShapeInput.tsx",
+        "tools/asciip/src/components/footer/FooterTip.tsx",
+        "tools/asciip/src/components/toolbar/SelectArrowHead.tsx",
+        "tools/asciip/src/components/toolbar/SelectArrowHeadStyle.tsx",
+        "tools/asciip/src/components/toolbar/SelectLineStyle.tsx",
+        "tools/asciip/src/components/toolbar/ToolbarOrder.tsx"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 8,
+      "blast_radius": "high",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/store/store.ts": {
+      "dependencies": [
+        "tools/asciip/src/store/appSlice.ts",
+        "tools/asciip/src/store/diagramSlice.ts",
+        "tools/asciip/src/store/localStorage.ts",
+        "tools/asciip/src/store/middleware.ts"
+      ],
+      "dependents": [
+        "tools/asciip/src/index.tsx",
+        "tools/asciip/src/store/localStorage.ts",
+        "tools/asciip/src/store/middleware.ts",
+        "tools/asciip/src/store/selectors.ts"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 4,
+      "blast_radius": "medium",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
+    "tools/asciip/src/store/tests/utils.ts": {
+      "dependencies": [
+        "tools/asciip/src/models/shapes.ts",
+        "tools/asciip/src/store/diagramSlice.ts"
+      ],
+      "dependents": [],
+      "dependency_count": 2,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": true,
+      "ai_notes": [
+        "Test file - safe to remove if unused"
+      ]
+    },
+    "tools/asciip/src/theme.ts": {
+      "dependencies": [],
+      "dependents": [
+        "tools/asciip/src/index.tsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "other",
+      "is_entry_point": false,
+      "is_dead": false,
+      "ai_notes": []
+    },
     "types/shim-modules.d.ts": {
       "dependencies": [],
       "dependents": [],
@@ -7663,7 +9685,157 @@
       "ai_safety_level": "medium"
     },
     {
-      "file": "analysis-n-document/utils/types.js",
+      "file": "analysis-n-document/genDocs/utils/types.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/analyzeEvents/testFormAnalyzer.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "safe"
+    },
+    {
+      "file": "analysis-n-document/genOps/analyzeSchemas/shared/baseForeignKeyMapper.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/analyzeSchemas/shared/parseTablesInDir.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/configDB.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/generateEntity.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/studio/move-downloads.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/templates/testTemplates.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "safe"
+    },
+    {
+      "file": "analysis-n-document/genOps/templates/workflow/Template.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/templates/workflow/displayTemplate.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/debugGeneration.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/formPlan-display.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/formPlan-workflow.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/formPlanComm-display.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/formPlanComm-workflow.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-display.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-workflow.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-display.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-workflow.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-display.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-workflow.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/gridPlans-display.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/gridPlans-workflow.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-display.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-workflow.js",
       "package": "other",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
@@ -7831,13 +10003,25 @@
       "ai_safety_level": "safe"
     },
     {
-      "file": "apps/wf-plan-management/src/components/MockMainLayout.jsx",
+      "file": "apps/wf-plan-management/src/components/ConfigGrid.jsx",
       "package": "other",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
     },
     {
-      "file": "apps/wf-plan-management/src/components/PlanListGrid.jsx",
+      "file": "apps/wf-plan-management/src/pages/Reports.jsx",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "apps/wf-plan-management/src/studio/StudioLayout.jsx",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "apps/wf-plan-management/src/utils/eventTypeIntegration.js",
       "package": "other",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
@@ -7880,6 +10064,24 @@
     },
     {
       "file": "cli/route-task.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "cli/toolsets/1-simple/runner.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "cli/toolsets/2-structured/runner.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "cli/toolsets/low-complexity/patterns.ts",
       "package": "other",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
@@ -8035,7 +10237,7 @@
       "ai_safety_level": "medium"
     },
     {
-      "file": "packages/devtools/src/studio/StudioApp.jsx",
+      "file": "packages/devtools/src/toolsets/low-complexity/patterns.ts",
       "package": "other",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
@@ -8323,13 +10525,7 @@
       "ai_safety_level": "medium"
     },
     {
-      "file": "packages/shared-imports/src/events/plans/pageMaps/planCommunicationCrud.js",
-      "package": "shared-imports",
-      "reason": "No dependents found",
-      "ai_safety_level": "medium"
-    },
-    {
-      "file": "packages/shared-imports/src/events/plans/pageMaps/planCommunicationHistory.js",
+      "file": "packages/shared-imports/src/events/studio-integration-example.js",
       "package": "shared-imports",
       "reason": "No dependents found",
       "ai_safety_level": "medium"
@@ -8401,6 +10597,96 @@
       "ai_safety_level": "safe"
     },
     {
+      "file": "test-gen-workflows.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "safe"
+    },
+    {
+      "file": "test-handlebars-gen.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "safe"
+    },
+    {
+      "file": "test-output-display.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "safe"
+    },
+    {
+      "file": "test-output-workflow.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "safe"
+    },
+    {
+      "file": "test-template-processing.js",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "safe"
+    },
+    {
+      "file": "tools/asciip/e2e/fixtures/delete.spec.ts/data_01.json",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/e2e/fixtures/fixture.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/e2e/fixtures/order.spec.ts/data_01.json",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/e2e/fixtures/select.spec.ts/data_01.json",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/e2e/fixtures/style.spec.ts/data_01.json",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/e2e/fixtures/style.spec.ts/data_02.json",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/e2e/fixtures/translate.spec.ts/data_01.json",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/src/react-app-env.d.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/src/setupTests.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "medium"
+    },
+    {
+      "file": "tools/asciip/src/store/tests/utils.ts",
+      "package": "other",
+      "reason": "No dependents found",
+      "ai_safety_level": "safe"
+    },
+    {
       "file": "types/shim-modules.d.ts",
       "package": "other",
       "reason": "No dependents found",
@@ -8409,10 +10695,24 @@
   ],
   "critical_dependencies": [
     {
+      "file": "tools/asciip/src/store/diagramSlice.ts",
+      "dependent_count": 24,
+      "blast_radius": "high",
+      "package": "other",
+      "ai_impact": "BREAKING_CHANGE_RISK"
+    },
+    {
       "file": "apps/wf-server/server/utils/logger.js",
-      "dependent_count": 18,
+      "dependent_count": 20,
       "blast_radius": "high",
       "package": "wf-server",
+      "ai_impact": "BREAKING_CHANGE_RISK"
+    },
+    {
+      "file": "tools/asciip/src/store/hooks.ts",
+      "dependent_count": 19,
+      "blast_radius": "high",
+      "package": "other",
       "ai_impact": "BREAKING_CHANGE_RISK"
     },
     {
@@ -8451,10 +10751,38 @@
       "ai_impact": "BREAKING_CHANGE_RISK"
     },
     {
+      "file": "tools/asciip/src/models/shapes.ts",
+      "dependent_count": 10,
+      "blast_radius": "high",
+      "package": "other",
+      "ai_impact": "BREAKING_CHANGE_RISK"
+    },
+    {
       "file": "apps/wf-client/src/utils/logger.js",
       "dependent_count": 9,
       "blast_radius": "high",
       "package": "wf-client",
+      "ai_impact": "HIGH_IMPACT"
+    },
+    {
+      "file": "tools/asciip/src/store/selectors.ts",
+      "dependent_count": 8,
+      "blast_radius": "high",
+      "package": "other",
+      "ai_impact": "HIGH_IMPACT"
+    },
+    {
+      "file": "tools/asciip/src/models/style.ts",
+      "dependent_count": 7,
+      "blast_radius": "medium",
+      "package": "other",
+      "ai_impact": "HIGH_IMPACT"
+    },
+    {
+      "file": "tools/asciip/src/store/appSlice.ts",
+      "dependent_count": 7,
+      "blast_radius": "medium",
+      "package": "other",
       "ai_impact": "HIGH_IMPACT"
     },
     {
@@ -8484,12 +10812,19 @@
       "blast_radius": "medium",
       "package": "shared-imports",
       "ai_impact": "HIGH_IMPACT"
+    },
+    {
+      "file": "packages/shared-imports/src/events/index.js",
+      "dependent_count": 5,
+      "blast_radius": "medium",
+      "package": "shared-imports",
+      "ai_impact": "HIGH_IMPACT"
     }
   ],
   "package_breakdown": {
     "wf-client": 90,
-    "wf-server": 35,
-    "shared-imports": 254,
-    "other": 100
+    "wf-server": 37,
+    "shared-imports": 265,
+    "other": 204
   }
 }

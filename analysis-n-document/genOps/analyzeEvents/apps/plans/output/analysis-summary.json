@@ -1,0 +1,19 @@
+{
+  "summary": {
+    "totalTables": 3,
+    "totalFields": 46,
+    "totalForeignKeys": 2,
+    "analysisModules": [
+      "constraints",
+      "relationships",
+      "validation",
+      "dataFlow"
+    ]
+  },
+  "insights": [],
+  "validation": {
+    "isValid": true,
+    "errorCount": 0,
+    "warningCount": 2
+  }
+}

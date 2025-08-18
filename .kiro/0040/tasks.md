@@ -76,7 +76,7 @@
   - _Requirements: 9.1, 9.3_
   - _Complexity: medium_
 
-- [ ] 3.2 Build combined eventType and schema analysis
+- [x] 3.2 Build combined eventType and schema analysis
 
   - Implement combineEventTypeAndSchema function
   - Create EnhancedDirectives that merge business logic with data constraints
@@ -100,13 +100,13 @@
   - _Requirements: 8.2, 8.3_
   - _Complexity: medium_
 
-- [ ] 4.1 Create dual-zone template files
+- [x] 4.1 Create dual-zone template files
 
   - Write workflow.js template with auto-generated and manual zones
   - Write display.js template with field groups and layout zones
   - Add clear zone markers and documentation comments
   - _Requirements: 8.2_
-  - _Complexity: low_
+  - _Complexity: 3-analytical_ <!-- UX design decisions, not mechanical work -->
 
 - [ ] 4.2 Build template processing engine
 
@@ -132,7 +132,7 @@
   - _Requirements: 8.1, 8.2_
   - _Complexity: medium_
 
-- [ ] 5.1 Implement workflow configuration generation
+- [x] 5.1 Implement workflow configuration generation
 
   - Create PageConfiguration objects from enhanced directives
   - Generate WorkflowConfig with CRUD operations and business logic

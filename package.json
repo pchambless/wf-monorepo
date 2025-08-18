@@ -15,7 +15,7 @@
     "analyze:events": "node analysis-n-document/genDocs/genEventTypes.js",
     "analyze:integration": "node analysis-n-document/genDocs/analyze-integration-flows.js",
     "analyze:all": "npm run analyze-deps && npm run analyze:dead-code && npm run analyze:config && npm run analyze:events && npm run analyze:integration",
-    "analyze-deps": "madge . --json > analysis-n-document/output/json/raw-madge.json && node analysis-n-document/genDocs/enhance-madge.js",
+    "analyze-deps": "madge . --json > analysis-n-document/genDocs/output/monorepo/raw-madge.json && node analysis-n-document/genDocs/enhance-madge.js",
     "docs:generate": "npm run analyze:all",
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
     "route-task": "node cli/generate-prompt.js",
@@ -48,7 +48,8 @@
     "minimist": "^1.2.8",
     "module-alias": "^2.2.3",
     "turbo": "^2.5.4",
-    "vscode": "^1.1.37"
+    "vscode": "^1.1.37",
+    "@types/bun": "latest"
   },
   "_moduleAliases": {
     "@packages": "./packages",
@@ -56,6 +57,11 @@
   },
   "dependencies": {
     "@mui/lab": "^7.0.0-beta.14",
-    "@react-pdf/renderer": "^4.3.0"
+    "@react-pdf/renderer": "^4.3.0",
+    "ccflare": "^0.0.2",
+    "handlebars": "^4.7.8"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }

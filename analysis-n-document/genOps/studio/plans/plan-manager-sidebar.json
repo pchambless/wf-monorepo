@@ -1,0 +1,12 @@
+{
+  "appName": "plans",
+  "pageName": "plan-manager",
+  "section": "sidebar",
+  "version": "1.0.0",
+  "lastModified": "2025-08-14T21:13:12.240Z",
+  "components": [],
+  "metadata": {
+    "componentCount": 0,
+    "purpose": "Side navigation and menu structure"
+  }
+}

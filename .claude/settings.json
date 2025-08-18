@@ -6,7 +6,8 @@
         "DISABLE_TELEMETRY": "1",
         "DISABLE_AUTOUPDATER": "1",
         "DISABLE_ERROR_REPORTING": "1",
-        "CLAUDE_WORKING_DIRECTORY": "/home/paul/wf-monorepo-new"
+        "CLAUDE_WORKING_DIRECTORY": "/home/paul/wf-monorepo-new",
+        "ANTHROPIC_API_URL": "http://localhost:8080"
     },
     "permissions": {
         "allow": [

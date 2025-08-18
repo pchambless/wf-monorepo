@@ -1,13 +1,44 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
-// Import the function directly from shared-imports/events to avoid loading UI components
-import { getSafeEventTypes } from '@whatsfresh/shared-imports/events';
-import { genGraphArtifacts } from '../utils/genGraphArtifacts.js';
+// Import the new API function for fetching studio eventTypes
+import { fetchStudioEventTypes } from '@whatsfresh/shared-imports/api';
+import { genGraphArtifacts } from './utils/genGraphArtifacts.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const outputPath = path.resolve(__dirname, '../output/json/eventTypes-graphData.json');
+const outputDir = path.resolve(__dirname, './output/apps');
 const directivesPath = path.resolve(__dirname, '../../packages/devtools/src/automation/data/directives');
+
+/**
+ * Generate the file path for an eventType based on new directory structure
+ */
+function generateEventTypePath(app, eventType) {
+  const eventTypeId = eventType.eventType;
+  const category = eventType.category;
+  
+  // Map eventTypes to their file paths in the new structure
+  if (category === 'sidebar' || eventTypeId === 'sidebar') {
+    return `packages/shared-imports/src/events/${app}/eventTypes/app/sidebar.js`;
+  } else if (category === 'appbar' || eventTypeId === 'appbar') {
+    return `packages/shared-imports/src/events/${app}/eventTypes/app/appbar.js`;
+  } else if (category === 'page') {
+    // Page components in pages/[pageName]/layout/
+    const pageName = eventTypeId.replace(/^page/, '').toLowerCase();
+    return `packages/shared-imports/src/events/${app}/eventTypes/pages/${pageName}/layout/${eventTypeId}.js`;
+  } else if (category === 'tabs' || eventTypeId.startsWith('tabs')) {
+    // Tabs components
+    return `packages/shared-imports/src/events/${app}/eventTypes/pages/planManager/layout/${eventTypeId}.js`;
+  } else if (category === 'tab' || eventTypeId.startsWith('tab')) {
+    // Individual tab components
+    return `packages/shared-imports/src/events/${app}/eventTypes/pages/planManager/layout/${eventTypeId}.js`;
+  } else if (['grid', 'form', 'ui:Select'].includes(category)) {
+    // Query components
+    return `packages/shared-imports/src/events/${app}/eventTypes/pages/planManager/query/${eventTypeId}.js`;
+  } else {
+    // Default fallback
+    return `packages/shared-imports/src/events/${app}/eventTypes/${eventTypeId}.js`;
+  }
+}
 
 /**
  * Scan directive files to find widget usage patterns
@@ -180,52 +211,73 @@ function generateWorkflowData(events) {
   return { workflowNodes, workflowEdges };
 }
 
-export default async function genEventTypes() {
-  console.log('[genEventTypes] 🛠 Generating eventTypes graph data...');
+export default async function genEventTypes(app = 'plans') {
+  console.log(`[genEventTypes] 🛠 Generating eventTypes graph data for app: ${app}...`);
 
-  // Set app context to client for this generation
-  process.env.APP_TYPE = 'client';
-
-  // Get events directly - no more parsing needed!
-  const events = getSafeEventTypes();
-  console.log(`📊 Processing ${events.length} event types...`);
-
-  // Build graph structure with workflow data
-  const nodes = events.map(evt => ({
-    id: evt.eventType,
-    label: `${evt.category}<br>${evt.eventType}<br>[${evt.params || ''}]`,
-    category: evt.category || 'uncategorized',
-    meta: {
-      cluster: evt.cluster || 'UNGROUPED',
-      dbTable: evt.dbTable,
-      selWidget: evt.selWidget,
-      method: evt.method,
-      purpose: evt.purpose,
-      primaryKey: evt.primaryKey || null,
-      // Workflow integration data
-      workflows: evt.workflows || [],
-      workflowTriggers: evt.workflowTriggers || {},
-      workflowConfig: evt.workflowConfig || {},
-      hasWorkflows: !!(evt.workflows || evt.workflowTriggers)
+  try {
+    // Fetch eventTypes using the new API
+    const response = await fetchStudioEventTypes(app);
+    if (!response.success) {
+      throw new Error(`Failed to fetch eventTypes: ${response.message}`);
     }
-  }));
+    
+    const events = response.eventTypes;
+    console.log(`📊 Processing ${events.length} event types for ${app}...`
+      + `\n   Layout: ${response.meta.layoutCount}, Query: ${response.meta.queryCount}`);
 
-  // Generate navigation edges from navChildren
-  const navigationEdges = [];
-  events.forEach(evt => {
-    const navChildren = evt.navChildren || [];
-    navChildren.forEach(childID => {
-      const child = events.find(e => e.eventType === childID);
-      if (child) {
-        navigationEdges.push({
-          from: evt.eventType,
-          to: childID,
-          label: evt.primaryKey || '',
-          type: 'navigation'
+    // Build graph structure with component data
+    const nodes = events.map(evt => ({
+      id: evt.eventType,
+      label: `${evt.category}<br>${evt.eventType}<br>[${evt.title || ''}]`,
+      category: evt.category || 'uncategorized',
+      meta: {
+        cluster: evt.cluster || 'UNGROUPED',
+        app: app,
+        title: evt.title,
+        purpose: evt.purpose,
+        routePath: evt.routePath,
+        // File path for Studio to load eventType source
+        filePath: generateEventTypePath(app, evt),
+        // Component structure data
+        components: evt.components || [],
+        hasComponents: !!(evt.components && evt.components.length > 0),
+        componentCount: evt.components ? evt.components.length : 0,
+        // Legacy workflow data (if still present)
+        workflows: evt.workflows || [],
+        workflowTriggers: evt.workflowTriggers || {},
+        hasWorkflows: !!(evt.workflows || evt.workflowTriggers)
+      }
+    }));
+
+    // Skip navigation edges - using components[] now for cleaner hierarchy
+    const navigationEdges = [];
+
+    // Generate component edges from components array
+    const componentEdges = [];
+    events.forEach(evt => {
+      if (evt.components) {
+        evt.components.forEach(component => {
+          if (component.event) {
+            // Find the referenced eventType
+            const targetEvent = events.find(e => e.eventType === component.event);
+            if (targetEvent) {
+              componentEdges.push({
+                from: evt.eventType,
+                to: component.event,
+                label: component.type,
+                type: 'component',
+                componentId: component.id,
+                componentType: component.type,
+                position: component.position,
+                span: component.span
+              });
+            } else {
+              console.warn(`⚠️  Component edge skipped: ${evt.eventType} -> ${component.event} (target eventType not found)`);
+            }
+          }
         });
       }
     });
-  });
 
   // Analyze directive files for widget usage
   console.log('🔍 Analyzing directive files for widget usage...');
@@ -244,149 +296,66 @@ export default async function genEventTypes() {
   // Combine nodes to include workflow nodes
   const allNodes = [...nodes, ...workflowNodes];
 
-  // Output structure with navigation, widget, and workflow data
-  const output = {
-    nodes: allNodes,
-    navigationEdges,
-    widgetEdges,
-    workflowEdges,
-    // Legacy support for existing charts
-    edges: navigationEdges,
-    meta: {
-      generated: new Date().toISOString(),
-      nodeCount: allNodes.length,
-      eventNodeCount: nodes.length,
-      workflowNodeCount: workflowNodes.length,
-      navigationEdgeCount: navigationEdges.length,
-      widgetEdgeCount: widgetEdges.length,
-      workflowEdgeCount: workflowEdges.length,
-      widgetUsageCount: widgetUsage.size,
-      workflowEventCount: nodes.filter(n => n.meta.hasWorkflows).length
-    }
-  };
-
-  await fs.writeFile(outputPath, JSON.stringify(output, null, 2));
-  console.log(`✅ graphData.json written to ${outputPath}`);
-  console.log(`   📊 ${output.meta.eventNodeCount} event nodes, ${output.meta.workflowNodeCount} workflow nodes`);
-  console.log(`   🔗 ${navigationEdges.length} navigation edges, ${widgetEdges.length} widget edges, ${workflowEdges.length} workflow edges`);
-  console.log(`   ⚙️  ${output.meta.workflowEventCount} eventTypes have workflow integration`);
-
-  // Generate mermaid artifacts - by cluster only
-  console.log('[genEventTypes] 🎨 Generating folder-specific mermaid artifacts...');
-
-  // Generate folder-specific versions
-  const folderGroups = new Map();
-
-  // Group event nodes by folder (admin, client, plans)
-  nodes.forEach(node => {
-    // Determine folder from eventType or other metadata
-    let folder = 'ungrouped';
-    const eventType = node.id;
-
-    // Check if this eventType belongs to a specific folder
-    if (eventType.includes('plan') || eventType.includes('Plan')) {
-      folder = 'plans';
-    } else if (eventType.includes('admin') || eventType.includes('Admin')) {
-      folder = 'admin';
-    } else if (eventType.includes('client') || eventType.includes('Client')) {
-      folder = 'client';
-    } else {
-      // Try to infer from cluster or other patterns
-      const cluster = node.meta?.cluster;
-      if (cluster === 'PLANS') folder = 'plans';
-      else if (cluster === 'AUTH' || cluster === 'SELECT' || cluster === 'REFERENCE') folder = 'client';
-      else folder = 'client'; // Default to client for most UI components
-    }
-
-    if (!folderGroups.has(folder)) {
-      folderGroups.set(folder, {
-        nodes: [],
-        navigationEdges: [],
-        widgetEdges: [],
-        workflowEdges: [],
-        relatedWorkflowNodes: new Set()
-      });
-    }
-    folderGroups.get(folder).nodes.push(node);
-
-    // Track workflows used by this eventType
-    if (node.meta.workflows) {
-      node.meta.workflows.forEach(workflow => {
-        folderGroups.get(folder).relatedWorkflowNodes.add(`workflow:${workflow}`);
-      });
-    }
-    if (node.meta.workflowTriggers) {
-      Object.values(node.meta.workflowTriggers).forEach(triggerWorkflows => {
-        if (Array.isArray(triggerWorkflows)) {
-          triggerWorkflows.forEach(workflow => {
-            folderGroups.get(folder).relatedWorkflowNodes.add(`workflow:${workflow}`);
-          });
-        }
-      });
-    }
-  });
-
-  // Add related workflow nodes to each folder group
-  folderGroups.forEach((folderData, folderName) => {
-    folderData.relatedWorkflowNodes.forEach(workflowNodeId => {
-      const workflowNode = workflowNodes.find(n => n.id === workflowNodeId);
-      if (workflowNode) {
-        folderData.nodes.push(workflowNode);
-      }
-    });
-  });
-
-  // Filter edges to include cross-folder workflow connections
-  folderGroups.forEach((folderData, folderName) => {
-    const folderNodeIds = new Set(folderData.nodes.map(n => n.id));
-
-    folderData.navigationEdges = navigationEdges.filter(edge =>
-      folderNodeIds.has(edge.from) && folderNodeIds.has(edge.to)
-    );
-    folderData.widgetEdges = widgetEdges.filter(edge =>
-      folderNodeIds.has(edge.from) && folderNodeIds.has(edge.to)
-    );
-    // Include workflow edges where either end is in this folder
-    folderData.workflowEdges = workflowEdges.filter(edge =>
-      folderNodeIds.has(edge.from) || folderNodeIds.has(edge.to)
-    );
-  });
-
-  // Generate separate files for each folder
-  for (const [folderName, folderData] of folderGroups) {
-    if (folderData.nodes.length === 0) continue;
-
-    const folderOutput = {
-      nodes: folderData.nodes,
-      navigationEdges: folderData.navigationEdges,
-      widgetEdges: folderData.widgetEdges,
-      workflowEdges: folderData.workflowEdges,
-      edges: folderData.navigationEdges, // Legacy support
+    // Output structure with navigation, component, widget, and workflow data
+    const output = {
+      app: app,
+      nodes: allNodes,
+      navigationEdges,
+      componentEdges,
+      widgetEdges,
+      workflowEdges,
+      // Legacy support for existing charts
+      edges: [...navigationEdges, ...componentEdges],
       meta: {
         generated: new Date().toISOString(),
-        folder: folderName,
-        nodeCount: folderData.nodes.length,
-        eventNodeCount: folderData.nodes.filter(n => !n.meta.isWorkflowNode).length,
-        workflowNodeCount: folderData.nodes.filter(n => n.meta.isWorkflowNode).length,
-        navigationEdgeCount: folderData.navigationEdges.length,
-        widgetEdgeCount: folderData.widgetEdges.length,
-        workflowEdgeCount: folderData.workflowEdges.length
+        app: app,
+        nodeCount: allNodes.length,
+        eventNodeCount: nodes.length,
+        workflowNodeCount: workflowNodes.length,
+        navigationEdgeCount: navigationEdges.length,
+        componentEdgeCount: componentEdges.length,
+        widgetEdgeCount: widgetEdges.length,
+        workflowEdgeCount: workflowEdges.length,
+        widgetUsageCount: widgetUsage.size,
+        workflowEventCount: nodes.filter(n => n.meta.hasWorkflows).length,
+        componentEventCount: nodes.filter(n => n.meta.hasComponents).length
       }
     };
 
-    console.log(`🎨 Generating folder-specific artifacts for ${folderName}...`);
+    // App-specific output path
+    await fs.mkdir(path.resolve(outputDir, app), { recursive: true });
+    const outputPath = path.resolve(outputDir, app, `eventTypes-${app}-graphData.json`);
+    
+    await fs.writeFile(outputPath, JSON.stringify(output, null, 2));
+    console.log(`✅ graphData.json written to ${outputPath}`);
+    console.log(`   📊 ${output.meta.eventNodeCount} event nodes, ${output.meta.workflowNodeCount} workflow nodes`);
+    console.log(`   🔗 ${navigationEdges.length} navigation edges, ${componentEdges.length} component edges, ${widgetEdges.length} widget edges, ${workflowEdges.length} workflow edges`);
+    console.log(`   ⚙️  ${output.meta.workflowEventCount} eventTypes have workflow integration`);
+    console.log(`   🧩 ${componentEdges.length} component relationships found`);
+
+    // Generate mermaid artifacts for the specific app
+    console.log(`[genEventTypes] 🎨 Generating mermaid artifacts for ${app}...`);
+
+    // Generate app-specific mermaid in app subfolder
     await genGraphArtifacts({
-      key: `eventTypes-${folderName.toLowerCase()}`,
-      graphData: folderOutput,
-      graphName: `eventTypes-${folderName}`,
-      graphTypes: ['mmd']
+      key: `eventTypes-${app}`,
+      graphData: output,
+      graphName: `eventTypes-${app}`,
+      graphTypes: ['mmd', 'json'],
+      outputSubDir: app
     });
 
-    console.log(`   ✅ ${folderName}: ${folderOutput.meta.eventNodeCount} event nodes, ${folderOutput.meta.workflowNodeCount} workflow nodes`);
+    console.log(`✅ Mermaid artifacts generated for ${app}`);
+    
+  } catch (error) {
+    console.error(`[genEventTypes] ❌ Error generating eventTypes for ${app}:`, error);
+    throw error;
   }
 }
 
 // Execute the function if run directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  genEventTypes().catch(console.error);
+  const app = process.argv[2] || 'plans';
+  genEventTypes(app).catch(console.error);
 }
+

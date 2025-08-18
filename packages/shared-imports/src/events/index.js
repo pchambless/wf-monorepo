@@ -1,85 +1,89 @@
 /**
- * Shared Events Package
- * Exports event type definitions for the entire WhatsFresh monorepo
- * 
+ * Server EventTypes Index
+ * Consolidates query eventTypes from all apps for server database operations
+ *
  * Usage:
- * // In client app
- * import { eventTypes, getEventType } from '@whatsfresh/shared-imports/events';
- * 
- * // In admin app  
- * import { eventTypes, getEventType } from '@whatsfresh/shared-imports/events';
- * 
- * Both apps get the same named exports but different event sets based on context
+ * // In server
+ * import { getAllQueryEvents, getEventType } from '@whatsfresh/shared-imports/events';
+ *
+ * Note: React apps should import from layoutIdx files:
+ * - plans/layoutIdx/, client/layoutIdx/, admin/layoutIdx/
  */
 
-// Internal imports
-import * as clientEvents from './client/eventTypes/index.js';
-import * as adminEvents from './admin/eventTypes/index.js';
-import * as planEvents from './plans/eventTypes/index.js';
+// Import consolidated query eventTypes from each app
+import { getPlanQueryEvents, getAllPlanQueryEvents } from "./plans/queryIdx/index.js";
+import { getClientQueryEvents } from "./client/queryIdx/index.js";
+import { getAdminQueryEvents } from "./admin/queryIdx/index.js";
+
+// Import layout eventTypes from each app
+import { getPlanLayoutEvents } from "./plans/layoutIdx/index.js";
+import { getClientLayoutEvents } from "./client/layoutIdx/index.js";
+import { getAdminLayoutEvents } from "./admin/layoutIdx/index.js";
 
 /**
- * Get event types based on app context (DEPRECATED - use getSafeEventTypes with explicit app parameter)
- * @returns {Object} Event type definitions for current app
+ * Get ALL query events for server use
+ * Consolidates from all app queryIdx files
  */
-export function getEventTypes() {
-    // Detect app context from environment or process (deprecated pattern)
-    const APP = process.env.REACT_APP_TYPE || process.env.APP_TYPE || 'client';
-
-    if (APP === 'admin') {
-        return { ...adminEvents, ...planEvents };
-    }
-    return { ...clientEvents, ...planEvents };
+export function getAllQueryEvents() {
+  return [
+    ...getPlanQueryEvents(),
+    ...getClientQueryEvents(),
+    ...getAdminQueryEvents(),
+  ];
 }
 
 /**
- * Get event type definition by eventType string
+ * Get specific event type by eventType string
  * @param {string} eventType - The event type to find
  * @returns {Object|undefined} Event definition or undefined if not found
  */
 export function getEventType(eventType) {
-    // Search through ALL events (client + admin + plans) for server compatibility
-    const allEvents = getAllEvents();
-    return allEvents.find(event => event && event.eventType === eventType);
+  const allEvents = getAllQueryEvents();
+  return allEvents.find((event) => event && event.eventType === eventType);
 }
 
-/**
- * Export event types for current app context (DEPRECATED - apps should use getSafeEventTypes explicitly)
- * This provides a consistent interface regardless of client/admin
- */
-export const eventTypes = getEventTypes();
+// Legacy compatibility - server uses this
+export const getAllEvents = getAllQueryEvents;
 
-// Generic function that returns safe event types for current app context
-export function getSafeEventTypes(app = 'client') {
-    const planEventsList = planEvents.PLAN_EVENTS || [];
-    if (app === 'admin') {
-        return [...(adminEvents.EVENTS || []), ...planEventsList];
+/**
+ * Get ALL eventTypes (layout + query) for a specific app (Studio use)
+ * @param {string} appName - App name (plans, client, admin)
+ * @returns {Promise<Array>} All eventTypes for the app
+ */
+export async function getAppAllEvents(appName) {
+  try {
+    switch (appName.toLowerCase()) {
+      case "plans":
+        return [
+          ...getPlanLayoutEvents(),
+          ...getAllPlanQueryEvents()
+        ];
+      case "client":
+        return [
+          ...getClientLayoutEvents(),
+          ...getClientQueryEvents()
+        ];
+      case "admin":
+        return [
+          ...getAdminLayoutEvents(),
+          ...getAdminQueryEvents()
+        ];
+      default:
+        console.warn(`Unknown app name: ${appName}`);
+        return [];
     }
-    return [...(clientEvents.EVENTS || []), ...planEventsList];
+  } catch (error) {
+    console.error(`Error loading eventTypes for ${appName}:`, error);
+    // Fallback to query events only if layout events fail to load
+    switch (appName.toLowerCase()) {
+      case "plans":
+        return getPlanQueryEvents();
+      case "client":
+        return getClientQueryEvents();
+      case "admin":
+        return getAdminQueryEvents();
+      default:
+        return [];
+    }
+  }
 }
-
-/**
- * Get ALL events from all contexts (for server use)
- * Server only needs events with qrySQL attributes for database operations
- */
-export function getAllEvents() {
-    const clientEventsList = clientEvents.EVENTS || [];
-    const adminEventsList = adminEvents.EVENTS || [];
-    const planEventsList = planEvents.PLAN_EVENTS || [];
-
-    const allEvents = [...clientEventsList, ...adminEventsList, ...planEventsList];
-
-    // Filter to only return events that have qrySQL attribute (server only needs SQL events)
-    return allEvents.filter(event => event && event.qrySQL);
-}
-
-// Legacy exports for backward compatibility (actively used in client/admin apps)
-export function getClientSafeEventTypes() {
-    const planEventsList = planEvents.PLAN_EVENTS || [];
-    return [...(clientEvents.EVENTS || []), ...planEventsList];
-}
-
-export function getAdminSafeEventTypes() {
-    const planEventsList = planEvents.PLAN_EVENTS || [];
-    return [...(adminEvents.EVENTS || []), ...planEventsList];
-}
-

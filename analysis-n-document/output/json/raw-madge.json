@@ -12,17 +12,86 @@
   "analysis-n-document/genDocs/analyze-integration-flows.js": [],
   "analysis-n-document/genDocs/enhance-madge.js": [],
   "analysis-n-document/genDocs/genEventTypes.js": [
-    "analysis-n-document/utils/genGraphArtifacts.js"
+    "analysis-n-document/genDocs/utils/genGraphArtifacts.js"
   ],
-  "analysis-n-document/utils/genGraphArtifacts.js": [
-    "analysis-n-document/utils/paths.js",
-    "analysis-n-document/utils/toDot.js",
-    "analysis-n-document/utils/toMermaid.js"
+  "analysis-n-document/genDocs/utils/genGraphArtifacts.js": [
+    "analysis-n-document/genDocs/utils/paths.js",
+    "analysis-n-document/genDocs/utils/toDot.js",
+    "analysis-n-document/genDocs/utils/toMermaid.js"
   ],
-  "analysis-n-document/utils/paths.js": [],
-  "analysis-n-document/utils/toDot.js": [],
-  "analysis-n-document/utils/toMermaid.js": [],
-  "analysis-n-document/utils/types.js": [],
+  "analysis-n-document/genDocs/utils/paths.js": [],
+  "analysis-n-document/genDocs/utils/toDot.js": [],
+  "analysis-n-document/genDocs/utils/toMermaid.js": [],
+  "analysis-n-document/genDocs/utils/types.js": [],
+  "analysis-n-document/genOps/analyzeEvents/shared/analyzeForms.js": [],
+  "analysis-n-document/genOps/analyzeEvents/shared/analyzeGrids.js": [],
+  "analysis-n-document/genOps/analyzeEvents/shared/analyzeSelects.js": [],
+  "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js": [
+    "analysis-n-document/genOps/analyzeEvents/shared/analyzeForms.js",
+    "analysis-n-document/genOps/analyzeEvents/shared/analyzeGrids.js",
+    "analysis-n-document/genOps/analyzeEvents/shared/analyzeSelects.js",
+    "analysis-n-document/genOps/analyzeEvents/shared/constraintMapper.js",
+    "analysis-n-document/genOps/analyzeEvents/shared/dataFlowAnalyzer.js",
+    "analysis-n-document/genOps/analyzeEvents/shared/relationshipDetector.js",
+    "analysis-n-document/genOps/analyzeEvents/shared/schemaValidator.js"
+  ],
+  "analysis-n-document/genOps/analyzeEvents/shared/constraintMapper.js": [],
+  "analysis-n-document/genOps/analyzeEvents/shared/dataFlowAnalyzer.js": [],
+  "analysis-n-document/genOps/analyzeEvents/shared/relationshipDetector.js": [],
+  "analysis-n-document/genOps/analyzeEvents/shared/schemaValidator.js": [],
+  "analysis-n-document/genOps/analyzeEvents/testFormAnalyzer.js": [],
+  "analysis-n-document/genOps/analyzeSchemas/shared/addFieldAttributes.js": [],
+  "analysis-n-document/genOps/analyzeSchemas/shared/baseForeignKeyMapper.js": [
+    "analysis-n-document/genOps/configDirectives.js"
+  ],
+  "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js": [
+    "analysis-n-document/genOps/analyzeSchemas/shared/addFieldAttributes.js",
+    "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js",
+    "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js",
+    "analysis-n-document/genOps/analyzeSchemas/shared/writeSchema.js"
+  ],
+  "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js": [],
+  "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js": [],
+  "analysis-n-document/genOps/analyzeSchemas/shared/parseTablesInDir.js": [
+    "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js",
+    "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js"
+  ],
+  "analysis-n-document/genOps/analyzeSchemas/shared/writeSchema.js": [],
+  "analysis-n-document/genOps/configDB.js": [],
+  "analysis-n-document/genOps/configDirectives.js": [],
+  "analysis-n-document/genOps/configForeignKeys.js": [],
+  "analysis-n-document/genOps/generateEntity.js": [
+    "analysis-n-document/genOps/configForeignKeys.js"
+  ],
+  "analysis-n-document/genOps/studio/move-downloads.js": [],
+  "analysis-n-document/genOps/templates/shared/handlebarsProcessor.js": [],
+  "analysis-n-document/genOps/templates/shared/templateUtils.js": [],
+  "analysis-n-document/genOps/templates/testTemplates.js": [
+    "analysis-n-document/genOps/templates/shared/templateUtils.js"
+  ],
+  "analysis-n-document/genOps/templates/workflow/Template.js": [],
+  "analysis-n-document/genOps/templates/workflow/displayTemplate.js": [],
+  "analysis-n-document/genOps/workflows/debugGeneration.js": [
+    "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
+  ],
+  "analysis-n-document/genOps/workflows/genEntityWorkflows.js": [
+    "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js",
+    "analysis-n-document/genOps/templates/shared/handlebarsProcessor.js"
+  ],
+  "analysis-n-document/genOps/workflows/output/plans/formPlan-display.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/formPlan-workflow.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/formPlanComm-display.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/formPlanComm-workflow.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-display.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-workflow.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-display.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-workflow.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-display.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-workflow.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/gridPlans-display.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/gridPlans-workflow.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-display.js": [],
+  "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-workflow.js": [],
   "apps/wf-admin/craco.config.js": [],
   "apps/wf-admin/src/App.jsx": [
     "apps/wf-admin/src/pages/acctList/index.js",
@@ -227,49 +296,55 @@
     "apps/wf-plan-management/src/components/SimpleLayout.jsx",
     "apps/wf-plan-management/src/config/navigation.js",
     "apps/wf-plan-management/src/config/routes.js",
-    "apps/wf-plan-management/src/pages/AllPlans.jsx",
-    "apps/wf-plan-management/src/pages/Communications.jsx",
-    "apps/wf-plan-management/src/pages/CreatePlan.jsx",
     "apps/wf-plan-management/src/pages/Dashboard.jsx",
-    "apps/wf-plan-management/src/pages/ImpactTracking.jsx",
-    "apps/wf-plan-management/src/pages/PlanStatus.jsx",
-    "apps/wf-plan-management/src/pages/Reports.jsx"
+    "apps/wf-plan-management/src/pages/SketchPad.jsx",
+    "apps/wf-plan-management/src/studio/StudioApp.jsx"
   ],
-  "apps/wf-plan-management/src/components/MockMainLayout.jsx": [],
-  "apps/wf-plan-management/src/components/PlanListGrid.jsx": [
-    "apps/wf-plan-management/src/components/PlanModal.jsx",
-    "apps/wf-plan-management/src/utils/eventTypeIntegration.js"
-  ],
-  "apps/wf-plan-management/src/components/PlanModal.jsx": [],
-  "apps/wf-plan-management/src/components/SimpleLayout.jsx": [],
-  "apps/wf-plan-management/src/components/SimplePage.jsx": [],
-  "apps/wf-plan-management/src/components/SimplePlanList.jsx": [
-    "apps/wf-plan-management/src/utils/eventTypeIntegration.js"
+  "apps/wf-plan-management/src/components/ConfigGrid.jsx": [],
+  "apps/wf-plan-management/src/components/SimpleLayout.jsx": [
+    "apps/wf-plan-management/src/studio/CanvasSidebar.jsx",
+    "apps/wf-plan-management/src/studio/StudioSidebar.jsx"
   ],
   "apps/wf-plan-management/src/config/navigation.js": [],
-  "apps/wf-plan-management/src/config/routes.js": [],
+  "apps/wf-plan-management/src/config/routes.js": [
+    "apps/wf-plan-management/src/pages/SketchPad.jsx",
+    "apps/wf-plan-management/src/studio/StudioApp.jsx"
+  ],
   "apps/wf-plan-management/src/index.css": [],
   "apps/wf-plan-management/src/index.js": [
     "apps/wf-plan-management/src/App.jsx",
     "apps/wf-plan-management/src/index.css"
   ],
-  "apps/wf-plan-management/src/pages/AllPlans.jsx": [
-    "apps/wf-plan-management/src/components/SimplePlanList.jsx"
-  ],
-  "apps/wf-plan-management/src/pages/Communications.jsx": [],
-  "apps/wf-plan-management/src/pages/CreatePlan.jsx": [
-    "apps/wf-plan-management/src/components/SimplePage.jsx"
-  ],
   "apps/wf-plan-management/src/pages/Dashboard.jsx": [],
-  "apps/wf-plan-management/src/pages/ImpactTracking.jsx": [
-    "apps/wf-plan-management/src/components/SimplePage.jsx"
+  "apps/wf-plan-management/src/pages/Reports.jsx": [],
+  "apps/wf-plan-management/src/pages/SketchPad.jsx": [],
+  "apps/wf-plan-management/src/studio/CanvasItem.jsx": [],
+  "apps/wf-plan-management/src/studio/CanvasSidebar.jsx": [
+    "apps/wf-plan-management/src/studio/StudioHierarchy.jsx",
+    "apps/wf-plan-management/src/studio/eventTypeComponents.js"
   ],
-  "apps/wf-plan-management/src/pages/PlanStatus.jsx": [
-    "apps/wf-plan-management/src/components/SimplePage.jsx"
+  "apps/wf-plan-management/src/studio/StudioApp.jsx": [
+    "apps/wf-plan-management/src/studio/WidgetCanvas.jsx",
+    "apps/wf-plan-management/src/studio/eventTypeToStudio.js",
+    "apps/wf-plan-management/src/studio/studio.css",
+    "apps/wf-plan-management/src/studio/useCanvasState.js"
   ],
-  "apps/wf-plan-management/src/pages/Reports.jsx": [
-    "apps/wf-plan-management/src/components/SimplePage.jsx"
+  "apps/wf-plan-management/src/studio/StudioHierarchy.jsx": [],
+  "apps/wf-plan-management/src/studio/StudioLayout.jsx": [
+    "apps/wf-plan-management/src/studio/CanvasSidebar.jsx",
+    "apps/wf-plan-management/src/studio/StudioSidebar.jsx"
   ],
+  "apps/wf-plan-management/src/studio/StudioSidebar.jsx": [
+    "apps/wf-plan-management/src/studio/TreeView.jsx"
+  ],
+  "apps/wf-plan-management/src/studio/TreeView.jsx": [],
+  "apps/wf-plan-management/src/studio/WidgetCanvas.jsx": [
+    "apps/wf-plan-management/src/studio/CanvasItem.jsx"
+  ],
+  "apps/wf-plan-management/src/studio/eventTypeComponents.js": [],
+  "apps/wf-plan-management/src/studio/eventTypeToStudio.js": [],
+  "apps/wf-plan-management/src/studio/studio.css": [],
+  "apps/wf-plan-management/src/studio/useCanvasState.js": [],
   "apps/wf-plan-management/src/utils/eventTypeIntegration.js": [],
   "apps/wf-plan-management/src/utils/impactTracking.js": [],
   "apps/wf-server/postcss.config.js": [],
@@ -293,6 +368,12 @@
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/controller/fetchEventTypes.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/fetchStudioEventTypes.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/getDoc.js": [
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/controller/initialize.js": [],
@@ -320,6 +401,8 @@
     "apps/wf-server/server/controller/execDML.js",
     "apps/wf-server/server/controller/execEventType.js",
     "apps/wf-server/server/controller/fetchEventTypes.js",
+    "apps/wf-server/server/controller/fetchStudioEventTypes.js",
+    "apps/wf-server/server/controller/getDoc.js",
     "apps/wf-server/server/controller/initialize.js",
     "apps/wf-server/server/controller/listRegisteredRoutes.js",
     "apps/wf-server/server/controller/restartServer.js",
@@ -399,11 +482,18 @@
     "cli/TaskRouter.js"
   ],
   "cli/services/ModelService.js": [],
-  "cli/toolsets/low-complexity/patterns.ts": [],
-  "cli/toolsets/low-complexity/runner.ts": [
-    "cli/toolsets/low-complexity/patterns.ts",
+  "cli/toolsets/1-simple/patterns.ts": [],
+  "cli/toolsets/1-simple/runner.ts": [
+    "cli/toolsets/1-simple/patterns.ts",
     "cli/utils/toolManager.ts"
   ],
+  "cli/toolsets/2-structured/patterns.ts": [],
+  "cli/toolsets/2-structured/runner.ts": [
+    "cli/toolsets/2-structured/patterns.ts",
+    "cli/utils/toolManager.ts"
+  ],
+  "cli/toolsets/low-complexity/patterns.ts": [],
+  "cli/toolsets/low-complexity/runner.ts": [],
   "cli/utils/toolManager.ts": [],
   "packages/db-connect/index.js": [
     "packages/db-connect/query.js",
@@ -437,9 +527,7 @@
   "packages/devtools/src/automation/static/genPageIndex.js": [
     "packages/shared-imports/src/events/client/eventTypes.js"
   ],
-  "packages/devtools/src/automation/triggered/genDirectives.js": [
-    "packages/devtools/src/utils/directiveMap.js"
-  ],
+  "packages/devtools/src/automation/triggered/genDirectives.js": [],
   "packages/devtools/src/automation/triggered/genSampleData.js": [],
   "packages/devtools/src/docs/graph/utils/paths.js": [],
   "packages/devtools/src/docs/graph/utils/writeGraphJson.js": [],
@@ -454,29 +542,14 @@
   "packages/devtools/src/documentation/generators/getCss.js": [],
   "packages/devtools/src/generate.js": [],
   "packages/devtools/src/index.js": [
-    "packages/devtools/src/utils/abbreviationMap.js",
-    "packages/devtools/src/utils/directiveMap.js"
+    "packages/devtools/src/utils/abbreviationMap.js"
   ],
   "packages/devtools/src/scaffold/data/dbQuery.js": [],
-  "packages/devtools/src/studio/CanvasItem.jsx": [],
-  "packages/devtools/src/studio/CanvasSidebar.jsx": [],
-  "packages/devtools/src/studio/StudioApp.jsx": [
-    "packages/devtools/src/studio/CanvasSidebar.jsx",
-    "packages/devtools/src/studio/WidgetCanvas.jsx",
-    "packages/devtools/src/studio/useCanvasState.js"
-  ],
-  "packages/devtools/src/studio/WidgetCanvas.jsx": [
-    "packages/devtools/src/studio/CanvasItem.jsx"
-  ],
-  "packages/devtools/src/studio/useCanvasState.js": [],
   "packages/devtools/src/toolConfig.js": [],
   "packages/devtools/src/toolsets/low-complexity/patterns.ts": [],
-  "packages/devtools/src/toolsets/low-complexity/runner.ts": [
-    "packages/devtools/src/toolsets/low-complexity/patterns.ts"
-  ],
+  "packages/devtools/src/toolsets/low-complexity/runner.ts": [],
   "packages/devtools/src/utils/abbreviationMap.js": [],
   "packages/devtools/src/utils/directiveBasedWidgetAnalyzer.js": [],
-  "packages/devtools/src/utils/directiveMap.js": [],
   "packages/devtools/src/utils/directiveWidgetAnalyzer.js": [],
   "packages/devtools/src/utils/toolManager.ts": [],
   "packages/devtools/src/utils/widgetUsageAnalyzer.js": [],
@@ -545,7 +618,6 @@
     "packages/shared-imports/src/contexts/PlanContext.jsx"
   ],
   "packages/shared-imports/src/architecture/components/plan-tools/PlanStatusUpdateForm.jsx": [
-    "packages/shared-imports/src/architecture/config/selectVals.json",
     "packages/shared-imports/src/architecture/workflows/index.js"
   ],
   "packages/shared-imports/src/architecture/components/structure-analysis/CriticalNodesView.jsx": [],
@@ -564,11 +636,8 @@
     "packages/shared-imports/src/architecture/config/selectValsHelper.js"
   ],
   "packages/shared-imports/src/architecture/config/priorities.json": [],
-  "packages/shared-imports/src/architecture/config/selectVals.json": [],
   "packages/shared-imports/src/architecture/config/selectValsData.js": [],
-  "packages/shared-imports/src/architecture/config/selectValsHelper.js": [
-    "packages/shared-imports/src/architecture/config/selectVals.json"
-  ],
+  "packages/shared-imports/src/architecture/config/selectValsHelper.js": [],
   "packages/shared-imports/src/architecture/config/selectValsLoader.js": [],
   "packages/shared-imports/src/architecture/config/workflowConfig.js": [
     "packages/shared-imports/src/architecture/config/selectValsData.js"
@@ -625,8 +694,7 @@
     "packages/shared-imports/src/api/index.js"
   ],
   "packages/shared-imports/src/architecture/workflows/eventType/EventTypeParser.js": [
-    "packages/shared-imports/src/architecture/config/selectValsHelper.js",
-    "packages/shared-imports/src/events/plans/eventTypes/index.js"
+    "packages/shared-imports/src/architecture/config/selectValsHelper.js"
   ],
   "packages/shared-imports/src/architecture/workflows/eventType/WorkflowTriggerMap.js": [
     "packages/shared-imports/src/architecture/workflows/eventType/EventTypeParser.js"
@@ -970,6 +1038,8 @@
   ],
   "packages/shared-imports/src/events/admin/eventTypes/userList.js": [],
   "packages/shared-imports/src/events/admin/eventTypes/userLogin.js": [],
+  "packages/shared-imports/src/events/admin/layoutIdx/index.js": [],
+  "packages/shared-imports/src/events/admin/queryIdx/index.js": [],
   "packages/shared-imports/src/events/client/eventTypes.js": [],
   "packages/shared-imports/src/events/client/eventTypes/brndList.js": [],
   "packages/shared-imports/src/events/client/eventTypes/btchMapping.js": [],
@@ -1015,33 +1085,62 @@
   "packages/shared-imports/src/events/client/eventTypes/userLogin.js": [],
   "packages/shared-imports/src/events/client/eventTypes/vndrList.js": [],
   "packages/shared-imports/src/events/client/eventTypes/wrkrList.js": [],
+  "packages/shared-imports/src/events/client/layoutIdx/index.js": [],
+  "packages/shared-imports/src/events/client/queryIdx/index.js": [],
   "packages/shared-imports/src/events/index.js": [
-    "packages/shared-imports/src/events/admin/eventTypes/index.js",
-    "packages/shared-imports/src/events/client/eventTypes/index.js",
-    "packages/shared-imports/src/events/plans/eventTypes/index.js"
+    "packages/shared-imports/src/events/admin/layoutIdx/index.js",
+    "packages/shared-imports/src/events/admin/queryIdx/index.js",
+    "packages/shared-imports/src/events/client/layoutIdx/index.js",
+    "packages/shared-imports/src/events/client/queryIdx/index.js",
+    "packages/shared-imports/src/events/plans/layoutIdx/index.js",
+    "packages/shared-imports/src/events/plans/queryIdx/index.js"
   ],
-  "packages/shared-imports/src/events/plans/eventTypes/form-planDetail.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/grid-planCommunicationList.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/grid-planImpactList.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/grid-planList.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/index.js": [
-    "packages/shared-imports/src/events/plans/eventTypes/form-planDetail.js",
-    "packages/shared-imports/src/events/plans/eventTypes/grid-planCommunicationList.js",
-    "packages/shared-imports/src/events/plans/eventTypes/grid-planImpactList.js",
-    "packages/shared-imports/src/events/plans/eventTypes/grid-planList.js",
-    "packages/shared-imports/src/events/plans/eventTypes/page-planManagement.js",
-    "packages/shared-imports/src/events/plans/eventTypes/select-planStatus.js",
-    "packages/shared-imports/src/events/plans/eventTypes/tab-planCommuncations.js",
-    "packages/shared-imports/src/events/plans/eventTypes/tab-planDetail.js",
-    "packages/shared-imports/src/events/plans/eventTypes/tab-planImpacts.js"
+  "packages/shared-imports/src/events/plans/eventTypes/app/appbar.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/app/sidebar.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/index.js": [
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js"
   ],
-  "packages/shared-imports/src/events/plans/eventTypes/page-planManagement.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/select-planStatus.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/tab-planCommuncations.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/tab-planDetail.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/tab-planImpacts.js": [],
-  "packages/shared-imports/src/events/plans/pageMaps/planCommunicationCrud.js": [],
-  "packages/shared-imports/src/events/plans/pageMaps/planCommunicationHistory.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlan.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanComm.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanImpact.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanComms.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanImpacts.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlans.js": [],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js": [
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlan.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanComm.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanImpact.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanComms.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanImpacts.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlans.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/selectPlanStatus.js"
+  ],
+  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/selectPlanStatus.js": [],
+  "packages/shared-imports/src/events/plans/index.js": [],
+  "packages/shared-imports/src/events/plans/layoutIdx/index.js": [
+    "packages/shared-imports/src/events/plans/eventTypes/app/appbar.js",
+    "packages/shared-imports/src/events/plans/eventTypes/app/sidebar.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js",
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js"
+  ],
+  "packages/shared-imports/src/events/plans/queryIdx/index.js": [
+    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
+  ],
+  "packages/shared-imports/src/events/studio-integration-example.js": [
+    "packages/shared-imports/src/events/index.js"
+  ],
   "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js": [
     "packages/shared-imports/src/impact-tracking/types.js",
     "packages/shared-imports/src/utils/logger.js"
@@ -1185,5 +1284,236 @@
     "packages/shared-imports/src/architecture/workflows/plans/index.js",
     "packages/shared-imports/src/utils/fileOperations.js"
   ],
+  "test-gen-workflows.js": [
+    "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
+  ],
+  "test-handlebars-gen.js": [
+    "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
+  ],
+  "test-output-display.js": [],
+  "test-output-workflow.js": [],
+  "test-template-processing.js": [],
+  "tools/asciip/e2e/fixtures/delete.spec.ts/data_01.json": [],
+  "tools/asciip/e2e/fixtures/fixture.ts": [
+    "tools/asciip/e2e/pom/Canvas.ts"
+  ],
+  "tools/asciip/e2e/fixtures/order.spec.ts/data_01.json": [],
+  "tools/asciip/e2e/fixtures/select.spec.ts/data_01.json": [],
+  "tools/asciip/e2e/fixtures/style.spec.ts/data_01.json": [],
+  "tools/asciip/e2e/fixtures/style.spec.ts/data_02.json": [],
+  "tools/asciip/e2e/fixtures/translate.spec.ts/data_01.json": [],
+  "tools/asciip/e2e/pom/Canvas.ts": [
+    "tools/asciip/src/components/canvas/draw.ts"
+  ],
+  "tools/asciip/jest.config.js": [],
+  "tools/asciip/playwright.config.ts": [],
+  "tools/asciip/src/components/App.tsx": [
+    "tools/asciip/src/components/canvas/Canvas.tsx",
+    "tools/asciip/src/components/footer/Footer.tsx",
+    "tools/asciip/src/components/toolbar/Toolbar.tsx",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts",
+    "tools/asciip/src/store/selectors.ts"
+  ],
+  "tools/asciip/src/components/Logo.tsx": [],
+  "tools/asciip/src/components/canvas/Canvas.tsx": [
+    "tools/asciip/src/components/canvas/TextShapeInput.tsx",
+    "tools/asciip/src/components/canvas/draw.ts",
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts",
+    "tools/asciip/src/store/selectors.ts"
+  ],
+  "tools/asciip/src/components/canvas/TextShapeInput.tsx": [
+    "tools/asciip/src/components/canvas/draw.ts",
+    "tools/asciip/src/models/text.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts",
+    "tools/asciip/src/store/selectors.ts"
+  ],
+  "tools/asciip/src/components/canvas/draw.ts": [
+    "tools/asciip/src/models/representation.ts",
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/models/style.ts",
+    "tools/asciip/src/models/transformation.ts",
+    "tools/asciip/src/store/diagramSlice.ts"
+  ],
+  "tools/asciip/src/components/dialogs/CreateDiagramFormDialog.tsx": [
+    "tools/asciip/src/store/appSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/dialogs/DeleteDiagramConfirmationDialog.tsx": [
+    "tools/asciip/src/store/appSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/dialogs/ExportDialog.tsx": [
+    "tools/asciip/src/components/canvas/draw.ts",
+    "tools/asciip/src/models/representation.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/dialogs/InfoDialog.tsx": [],
+  "tools/asciip/src/components/dialogs/RenameDiagramFormDialog.tsx": [
+    "tools/asciip/src/store/appSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/footer/Footer.tsx": [
+    "tools/asciip/src/components/footer/FooterCanvasSize.tsx",
+    "tools/asciip/src/components/footer/FooterHistory.tsx",
+    "tools/asciip/src/components/footer/FooterInfo.tsx",
+    "tools/asciip/src/components/footer/FooterTip.tsx"
+  ],
+  "tools/asciip/src/components/footer/FooterCanvasSize.tsx": [
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/footer/FooterHistory.tsx": [
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/footer/FooterInfo.tsx": [
+    "tools/asciip/src/components/Logo.tsx",
+    "tools/asciip/src/components/dialogs/InfoDialog.tsx"
+  ],
+  "tools/asciip/src/components/footer/FooterTip.tsx": [
+    "tools/asciip/src/store/hooks.ts",
+    "tools/asciip/src/store/selectors.ts"
+  ],
+  "tools/asciip/src/components/toolbar/SelectArrowHead.tsx": [
+    "tools/asciip/src/models/style.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts",
+    "tools/asciip/src/store/selectors.ts"
+  ],
+  "tools/asciip/src/components/toolbar/SelectArrowHeadStyle.tsx": [
+    "tools/asciip/src/models/style.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts",
+    "tools/asciip/src/store/selectors.ts"
+  ],
+  "tools/asciip/src/components/toolbar/SelectLineStyle.tsx": [
+    "tools/asciip/src/models/style.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts",
+    "tools/asciip/src/store/selectors.ts"
+  ],
+  "tools/asciip/src/components/toolbar/Toolbar.tsx": [
+    "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx",
+    "tools/asciip/src/components/toolbar/ToolbarExport.tsx",
+    "tools/asciip/src/components/toolbar/ToolbarOrder.tsx",
+    "tools/asciip/src/components/toolbar/ToolbarStyleMode.tsx",
+    "tools/asciip/src/components/toolbar/ToolbarStyles.tsx",
+    "tools/asciip/src/components/toolbar/ToolbarTools.tsx"
+  ],
+  "tools/asciip/src/components/toolbar/ToolbarDiagrams.tsx": [
+    "tools/asciip/src/components/dialogs/CreateDiagramFormDialog.tsx",
+    "tools/asciip/src/components/dialogs/DeleteDiagramConfirmationDialog.tsx",
+    "tools/asciip/src/components/dialogs/RenameDiagramFormDialog.tsx",
+    "tools/asciip/src/store/appSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/toolbar/ToolbarExport.tsx": [
+    "tools/asciip/src/components/dialogs/ExportDialog.tsx",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/toolbar/ToolbarOrder.tsx": [
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts",
+    "tools/asciip/src/store/selectors.ts"
+  ],
+  "tools/asciip/src/components/toolbar/ToolbarStyleMode.tsx": [
+    "tools/asciip/src/models/style.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/toolbar/ToolbarStyles.tsx": [
+    "tools/asciip/src/components/toolbar/SelectArrowHead.tsx",
+    "tools/asciip/src/components/toolbar/SelectArrowHeadStyle.tsx",
+    "tools/asciip/src/components/toolbar/SelectLineStyle.tsx",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/components/toolbar/ToolbarTools.tsx": [
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/hooks.ts"
+  ],
+  "tools/asciip/src/index.css": [],
+  "tools/asciip/src/index.tsx": [
+    "tools/asciip/src/components/App.tsx",
+    "tools/asciip/src/index.css",
+    "tools/asciip/src/store/store.ts",
+    "tools/asciip/src/theme.ts"
+  ],
+  "tools/asciip/src/models/create.ts": [
+    "tools/asciip/src/models/shapes.ts"
+  ],
+  "tools/asciip/src/models/representation.ts": [
+    "tools/asciip/src/models/shapeInCanvas.ts",
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/models/style.ts",
+    "tools/asciip/src/store/diagramSlice.ts"
+  ],
+  "tools/asciip/src/models/shapeInCanvas.ts": [
+    "tools/asciip/src/models/representation.ts",
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/models/transformation.ts",
+    "tools/asciip/src/store/diagramSlice.ts"
+  ],
+  "tools/asciip/src/models/shapes.ts": [],
+  "tools/asciip/src/models/style.ts": [
+    "tools/asciip/src/models/representation.ts"
+  ],
+  "tools/asciip/src/models/text.ts": [
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/store/diagramSlice.ts"
+  ],
+  "tools/asciip/src/models/transformation.ts": [
+    "tools/asciip/src/models/create.ts",
+    "tools/asciip/src/models/shapeInCanvas.ts",
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/store/diagramSlice.ts"
+  ],
+  "tools/asciip/src/react-app-env.d.ts": [],
+  "tools/asciip/src/setupTests.ts": [],
+  "tools/asciip/src/store/appSlice.ts": [
+    "tools/asciip/src/store/diagramSlice.ts"
+  ],
+  "tools/asciip/src/store/diagramSlice.ts": [
+    "tools/asciip/src/models/create.ts",
+    "tools/asciip/src/models/shapeInCanvas.ts",
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/models/style.ts",
+    "tools/asciip/src/models/text.ts",
+    "tools/asciip/src/models/transformation.ts"
+  ],
+  "tools/asciip/src/store/hooks.ts": [],
+  "tools/asciip/src/store/localStorage.ts": [
+    "tools/asciip/src/store/appSlice.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/store.ts"
+  ],
+  "tools/asciip/src/store/middleware.ts": [
+    "tools/asciip/src/store/appSlice.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/localStorage.ts",
+    "tools/asciip/src/store/store.ts"
+  ],
+  "tools/asciip/src/store/selectors.ts": [
+    "tools/asciip/src/models/shapeInCanvas.ts",
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/store.ts"
+  ],
+  "tools/asciip/src/store/store.ts": [
+    "tools/asciip/src/store/appSlice.ts",
+    "tools/asciip/src/store/diagramSlice.ts",
+    "tools/asciip/src/store/localStorage.ts",
+    "tools/asciip/src/store/middleware.ts"
+  ],
+  "tools/asciip/src/store/tests/utils.ts": [
+    "tools/asciip/src/models/shapes.ts",
+    "tools/asciip/src/store/diagramSlice.ts"
+  ],
+  "tools/asciip/src/theme.ts": [],
   "types/shim-modules.d.ts": []
 }

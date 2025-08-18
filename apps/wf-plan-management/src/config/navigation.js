@@ -1,7 +1,7 @@
 /**
- * Plan Management App Navigation Configuration
- * Plan-focused navigation sections - cleaner than mixed wf-client sidebar
- */
+  * Plan Management App Navigation Configuration
+  * Consolidated navigation for unified plan management
+  */
 
 export const getNavigationSections = () => {
   return [
@@ -13,41 +13,23 @@ export const getNavigationSections = () => {
           path: "/",
           icon: "Dashboard",
         },
+//        {
+//          title: "Plan Manager",
+//          path: "/plans",
+//          icon: "Assignment",
+//        },
         {
-          title: "All Plans",
-          path: "/plans",
-          icon: "Assignment",
+          title: 'Studio',
+          path: '/studio',
+          icon: 'design',
+          devOnly: true
         },
         {
-          title: "Plan Status",
-          path: "/plans/status",
-          icon: "FilterList",
-        },
-        {
-          title: "Communications",
-          path: "/plans/communications",
-          icon: "Chat",
-        },
-        {
-          title: "Impact Tracking",
-          path: "/plans/impacts",
-          icon: "Timeline",
-        },
-      ],
-    },
-    {
-      title: "Tools",
-      items: [
-        {
-          title: "Create Plan",
-          path: "/plans/create",
-          icon: "Add",
-        },
-        {
-          title: "Reports",
-          path: "/reports",
-          icon: "Assessment",
-        },
+          title: 'Sketch Pad',
+          path: 'https://asciiflow.com',
+          icon: '📝',
+          external: true
+        }
       ],
     },
   ];
@@ -56,12 +38,7 @@ export const getNavigationSections = () => {
 export const getAppBarConfig = () => {
   return {
     title: "Plan Management",
-    showUserMenu: false, // Skip for Phase 2
+    showUserMenu: false,
     showNotifications: false,
   };
-};
-
-export default {
-  getNavigationSections,
-  getAppBarConfig,
 };

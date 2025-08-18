@@ -1,0 +1,28 @@
+{
+  "app": "plans",
+  "summary": {
+    "app": "plans",
+    "totalTables": 3,
+    "totalFields": 46,
+    "totalForeignKeys": 2,
+    "analysisModules": [
+      "constraints",
+      "relationships",
+      "validation",
+      "dataFlow"
+    ]
+  },
+  "insights": [
+    {
+      "type": "INFO",
+      "category": "ARCHITECTURE",
+      "message": "Analysis completed for plans app domain",
+      "priority": "LOW"
+    }
+  ],
+  "validation": {
+    "isValid": true,
+    "errorCount": 0,
+    "warningCount": 2
+  }
+}

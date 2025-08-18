@@ -1,0 +1,310 @@
+/**
+ * Dual-Zone Workflow Template for {{entityName}}
+ * Generated from: {{schemaSource}}
+ * Generated on: {{generationTimestamp}}
+ */
+
+// 🤖 AUTO-GENERATED ZONE - Safe to regenerate
+// This section will be automatically updated when entity schemas change
+// Do not modify this section directly - changes will be overwritten
+
+import { execEvent, execDmlWithRefresh } from '@whatsfresh/shared-imports';
+import { createLogger, contextStore } from '@whatsfresh/shared-imports';
+
+const logger = createLogger('{{entityName}}Workflow');
+
+/**
+ * Auto-generated workflow configuration for {{entityName}}
+ * Generated from: {{schemaSource}}
+ * Generated on: {{generationTimestamp}}
+ */
+export const workflow = {
+  // Entity configuration
+  entityName: '{{entityName}}',
+  tableName: '{{tableName}}',
+  primaryKey: '{{primaryKey}}',
+  {{#if parentKey}}
+  parentKey: '{{parentKey}}',
+  parentTable: '{{parentTable}}',
+  {{/if}}
+  
+  // CRUD operations - conditionally generated based on supported operations
+  operations: {
+    {{#if supportedOperations.read}}
+    // List/Grid operations
+    list: {
+      eventType: 'grid{{pascalCase entityName}}',
+      endpoint: '/api/execEventType',
+      method: 'POST',
+      autoRefresh: true
+    },
+    
+    // Detail/Form operations
+    read: {
+      eventType: 'form{{pascalCase entityName}}Dtl',
+      endpoint: '/api/execEventType', 
+      method: 'POST',
+      requiresId: true
+    }{{#if supportedOperations.create}},{{/if}}
+    {{/if}}
+    
+    {{#if supportedOperations.create}}
+    // Create operations
+    create: {
+      endpoint: '/api/execDML',
+      method: 'POST',
+      table: '{{tableName}}',
+      operation: 'INSERT',
+      autoRefresh: true
+    }{{#if supportedOperations.update}},{{/if}}
+    {{/if}}
+    
+    {{#if supportedOperations.update}}
+    // Update operations
+    update: {
+      endpoint: '/api/execDML',
+      method: 'POST', 
+      table: '{{tableName}}',
+      operation: 'UPDATE',
+      requiresId: true,
+      autoRefresh: true
+    }{{#if supportedOperations.delete}},{{/if}}
+    {{/if}}
+    
+    {{#if supportedOperations.delete}}
+    // Delete operations
+    delete: {
+      endpoint: '/api/execDML',
+      method: 'POST',
+      table: '{{tableName}}',
+      operation: 'DELETE',
+      requiresId: true,
+      autoRefresh: true
+    }
+    {{/if}}
+  },
+  
+  // Row click event handling - auto-generated for all grids
+  events: {
+    onRowClick: (rowData) => {
+      const id = rowData['{{primaryKey}}'];
+      
+      // Set context parameter for child components
+      contextStore.setParam('{{camelCase entityName}}ID', id);
+      
+      // Log selection for debugging
+      logger.info('{{titleCase entityName}} selected:', id);
+      
+      {{#if hasChildComponents}}
+      // Trigger refresh of dependent components
+      const childComponents = [{{#each childComponents}}'{{this}}'{{#unless @last}}, {{/unless}}{{/each}}];
+      refreshChildComponents(childComponents);
+      {{/if}}
+      
+      // Custom display strategy hook (implemented in manual zone)
+      if (this.displayStrategy && typeof this.displayStrategy.onRowClick === 'function') {
+        this.displayStrategy.onRowClick(rowData);
+      }
+    }
+  },
+  
+  // Child component configuration
+  {{#if navChildren}}
+  hasChildComponents: true,
+  childComponents: [{{#each navChildren}}'{{this}}'{{#unless @last}}, {{/unless}}{{/each}}],
+  {{else}}
+  hasChildComponents: false,
+  {{/if}}
+  
+  // Field configuration for forms and validation
+  fields: {
+    {{#each fields}}
+    {{name}}: {
+      type: '{{type}}',
+      uiType: '{{uiType}}',
+      label: '{{titleCase name}}',
+      {{#if (includes validationRules "required")}}
+      required: true,
+      {{/if}}
+      {{#if (includes validationRules "maxLength")}}
+      maxLength: {{getMaxLength validationRules}},
+      {{/if}}
+      validationRules: {{{json validationRules}}},
+      {{#if defaultValue}}
+      defaultValue: '{{defaultValue}}',
+      {{/if}}
+      {{#if (eq uiType "select")}}
+      options: [], // TODO: Configure options for select field
+      {{/if}}
+      {{#if (eq uiType "datetime")}}
+      format: 'YYYY-MM-DD HH:mm:ss',
+      {{/if}}
+      editable: true
+    }{{#unless @last}},{{/unless}}
+    {{/each}}
+  },
+  
+  // Permissions configuration
+  permissions: {
+    create: {{permissions.create}},
+    read: {{permissions.read}},
+    update: {{permissions.update}},
+    delete: {{permissions.delete}},
+    export: {{permissions.export}}
+  }
+};
+
+// Helper function for refreshing child components
+function refreshChildComponents(componentNames) {
+  if (!Array.isArray(componentNames)) return;
+  
+  componentNames.forEach(componentName => {
+    try {
+      // Trigger refresh event for each child component
+      const refreshEvent = new CustomEvent(`refresh-${componentName}`, {
+        detail: { 
+          parentEntity: '{{entityName}}',
+          parentId: contextStore.getParam('{{camelCase entityName}}ID')
+        }
+      });
+      document.dispatchEvent(refreshEvent);
+      
+      logger.info(`Refreshed child component: ${componentName}`);
+    } catch (error) {
+      logger.warn(`Failed to refresh child component ${componentName}:`, error);
+    }
+  });
+}
+
+// Workflow functions - conditionally generated based on supported operations
+export const workflowFunctions = {
+  
+  {{#if supportedOperations.create}}
+  /**
+   * Create a new {{entityName}} record
+   */
+  async create{{pascalCase entityName}}(data) {
+    logger.info('Creating new {{entityName}}', { data });
+    
+    try {
+      const result = await execDmlWithRefresh({
+        ...workflow.operations.create,
+        data
+      });
+      
+      logger.info('{{entityName}} created successfully', { id: result.id });
+      return result;
+    } catch (error) {
+      logger.error('Failed to create {{entityName}}', { error, data });
+      throw error;
+    }
+  }{{#if supportedOperations.update}},{{/if}}
+  {{/if}}
+  
+  {{#if supportedOperations.update}}
+  /**
+   * Update an existing {{entityName}} record
+   */
+  async update{{pascalCase entityName}}(id, data) {
+    logger.info('Updating {{entityName}}', { id, data });
+    
+    try {
+      const result = await execDmlWithRefresh({
+        ...workflow.operations.update,
+        data: { ...data, {{primaryKey}}: id }
+      });
+      
+      logger.info('{{entityName}} updated successfully', { id });
+      return result;
+    } catch (error) {
+      logger.error('Failed to update {{entityName}}', { error, id, data });
+      throw error;
+    }
+  }{{#if supportedOperations.delete}},{{/if}}
+  {{/if}}
+  
+  {{#if supportedOperations.delete}}
+  /**
+   * Delete a {{entityName}} record
+   */
+  async delete{{pascalCase entityName}}(id) {
+    logger.info('Deleting {{entityName}}', { id });
+    
+    try {
+      const result = await execDmlWithRefresh({
+        ...workflow.operations.delete,
+        data: { {{primaryKey}}: id }
+      });
+      
+      logger.info('{{entityName}} deleted successfully', { id });
+      return result;
+    } catch (error) {
+      logger.error('Failed to delete {{entityName}}', { error, id });
+      throw error;
+    }
+  }
+  {{/if}}
+  },
+  
+  /**
+   * Load {{entityName}} list/grid data
+   */
+  async load{{pascalCase entityName}}List(params = {}) {
+    logger.info('Loading {{entityName}} list', { params });
+    
+    try {
+      const result = await execEvent({
+        ...workflow.operations.list,
+        params
+      });
+      
+      logger.info('{{entityName}} list loaded successfully', { count: result?.data?.length || 0 });
+      return result;
+    } catch (error) {
+      logger.error('Failed to load {{entityName}} list', { error, params });
+      throw error;
+    }
+  },
+  
+  /**
+   * Load single {{entityName}} record for form
+   */
+  async load{{pascalCase entityName}}Detail(id) {
+    logger.info('Loading {{entityName}} detail', { id });
+    
+    try {
+      const result = await execEvent({
+        ...workflow.operations.read,
+        params: { {{primaryKey}}: id }
+      });
+      
+      logger.info('{{entityName}} detail loaded successfully', { id });
+      return result;
+    } catch (error) {
+      logger.error('Failed to load {{entityName}} detail', { error, id });
+      throw error;
+    }
+  }
+};
+
+// 🤖 END AUTO-GENERATED ZONE
+
+// ✋ MANUAL CUSTOMIZATION ZONE - Never overwrite
+// Add your custom workflow functions and business logic here
+
+export const customWorkflow = {
+  // Add custom workflow functions here
+  // Example:
+  // async customBusinessLogic(data) {
+  //   // Your custom logic here
+  // }
+};
+
+// ✋ END MANUAL CUSTOMIZATION ZONE
+
+// Export combined workflow
+export default {
+  ...workflow,
+  ...workflowFunctions,
+  ...customWorkflow
+};

@@ -1,39 +1,29 @@
 /**
- * Plan Management App Routes Configuration
- * Basic routing for plan management focused app
- */
+   * Plan Management App Routes Configuration
+   * Consolidated routing for unified plan management
+   */
 
 export const ROUTES = {
   dashboard: {
     path: "/",
     title: "Dashboard",
   },
-  plans: {
-    path: "/plans",
-    title: "All Plans",
-  },
-  planStatus: {
-    path: "/plans/status",
-    title: "Plan Status",
-  },
-  communications: {
-    path: "/plans/communications",
-    title: "Communications",
-  },
-  impacts: {
-    path: "/plans/impacts",
-    title: "Impact Tracking",
-  },
-  createPlan: {
-    path: "/plans/create",
-    title: "Create Plan",
-  },
+//  planManager: {
+//    path: "/plans",
+//    title: "Plan Manager",
+//  },
   reports: {
     path: "/reports",
     title: "Reports",
   },
-};
-
-export default {
-  ROUTES,
+  studio: {
+    path: '/studio',
+    component: () => import('../studio/StudioApp.jsx'),
+    name: 'EventType Studio'
+  },
+  sketch: {
+    path: '/sketch',
+    component: () => import('../pages/SketchPad.jsx'),
+    name: 'ASCII Sketch Pad'
+  }
 };

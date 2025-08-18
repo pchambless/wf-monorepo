@@ -1,0 +1,57 @@
+{
+  "appName": "plans",
+  "pageName": "plan-manager",
+  "section": "appbar",
+  "version": "1.0.0",
+  "lastModified": "2025-08-14T21:13:12.240Z",
+  "components": [
+    {
+      "id": "appbar_icon",
+      "type": "Icon",
+      "section": "appbar",
+      "bindings": {},
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "config": {}
+    },
+    {
+      "id": "appbar_text",
+      "type": "Text",
+      "section": "appbar",
+      "bindings": {},
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "config": {}
+    },
+    {
+      "id": "appbar_select",
+      "type": "Select",
+      "section": "appbar",
+      "bindings": {},
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "config": {}
+    },
+    {
+      "id": "appbar_button",
+      "type": "Button",
+      "section": "appbar",
+      "bindings": {},
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "config": {}
+    }
+  ],
+  "metadata": {
+    "componentCount": 4,
+    "purpose": "Application header and navigation"
+  }
+}

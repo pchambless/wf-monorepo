@@ -17,46 +17,91 @@ _Working documentation - stays current because Claude depends on it daily_
 4. **`AI/collaboration-rules.md`** - Role boundaries
 5. **`AI/session-startup.md`** - Context recovery
 
- ## Config-Driven Development Standards
+## Config-Driven Development Standards
 
-  ### Philosophy: Configuration files drive process logic, not hardcoded values
+### Philosophy: Configuration files drive process logic, not hardcoded values
 
-  Established Config System
+Established Config System
 
-  - Location: /packages/shared-imports/src/architecture/config/
-  - Pattern: JSON configs with centralized loaders in index.js
-  - Existing: clusters.json, communication-types.json, priorities.json, complexities.json
+- Location: /packages/shared-imports/src/architecture/config/
+- Pattern: JSON configs with centralized loaders in index.js
+- Existing: clusters.json, communication-types.json, priorities.json, complexities.json
 
-  Mandatory Externalization
+Mandatory Externalization
 
-  Never hardcode these values - use config files:
+Never hardcode these values - use config files:
 
-  1. Database Schema: table: "api_wf.plans" → getSchemaMapping('plans')
-  3. Status Values: "pending", "completed" → getStatusOptions()
-  4. Agent Names: ["claude", "kiro", "user"] → getAgentOptions()
-  5. Retry Policies: maxAttempts: 3 → getRetryPolicy(type)
-  6. Error Messages: Hardcoded strings → error-messages.json
-  7. URLs/Endpoints: localhost:3001 → environment-based config
+1. Database Schema: table: "api_wf.plans" → getSchemaMapping('plans')
+2. Status Values: "pending", "completed" → getStatusOptions()
+3. Agent Names: ["claude", "kiro", "user"] → getAgentOptions()
+4. Retry Policies: maxAttempts: 3 → getRetryPolicy(type)
+5. Error Messages: Hardcoded strings → error-messages.json
+6. URLs/Endpoints: localhost:3001 → environment-based config
 
-  Extension Pattern
+Extension Pattern
 
-  // GOOD: Extend existing config system
-  import { getStatusOptions, getAgentOptions } from '../config';
+// GOOD: Extend existing config system
+import { getStatusOptions, getAgentOptions } from '../config';
 
-  // BAD: Create new hardcoded arrays
-  const validTypes = ["strategic-input", "priority-change"];
+// BAD: Create new hardcoded arrays
+const validTypes = ["strategic-input", "priority-change"];
 
-  Config Organization
+Config Organization
 
-  config/
-  ├── workflows/
-  │   ├── agents.json          # Agent routing rules
-  │   ├── statuses.json        # All valid status values
-  │   ├── retry-policies.json  # Timeout configurations
-  │   ├── schemas.json         # Database mappings
-  │   └── paths.json           # File path templates
+config/
+├── workflows/
+│ ├── agents.json # Agent routing rules
+│ ├── statuses.json # All valid status values
+│ ├── retry-policies.json # Timeout configurations
+│ ├── schemas.json # Database mappings
+│ └── paths.json # File path templates
 
-  Rule: If it's a magic string, business rule, or varies by environment - externalize it to config.
+Rule: If it's a magic string, business rule, or varies by environment - externalize it to config.
+
+## 🎨 UI Component Strategy - Vanilla React First
+
+### Core Philosophy: Progressive Enhancement
+
+Based on real-world experience with MUI causing theme context conflicts, bundle bloat, and complexity issues, this monorepo follows a **Vanilla React First** approach.
+
+#### Decision Tree for UI Components:
+
+1. **Can vanilla React + CSS handle this?** → Use vanilla ✅
+2. **Do I need complex data handling?** → Consider headless libraries
+3. **Is this a one-off complex interaction?** → Evaluate specialized tools
+4. **Am I reaching for a heavy framework?** → Stop and reconsider ❌
+
+#### ✅ Preferred Approach:
+
+```javascript
+// Vanilla React + CSS - reliable, fast, maintainable
+const styles = {
+  container: { display: "flex", height: "100vh" },
+  sidebar: { width: "240px", backgroundColor: "#f5f5f5" },
+};
+return <div style={styles.container}>...</div>;
+```
+
+#### ❌ Avoid Heavy UI Frameworks:
+
+- **MUI/Material-UI** - Theme context conflicts, bundle bloat
+- **Ant Design** - Similar complexity issues
+- **Chakra UI** - Theme dependency problems
+
+#### ✅ Lightweight Alternatives When Needed:
+
+- **Data tables**: `@tanstack/react-table` (headless)
+- **Forms**: `react-hook-form` (tiny, performant)
+- **Icons**: `react-icons/fi` (tree-shakeable)
+- **UI primitives**: `@headlessui/react` (unstyled, accessible)
+
+#### Success Examples:
+
+- `SimpleLayout` component (vanilla React + CSS) ✅
+- Studio components (converted from MUI to vanilla) ✅
+- Navigation systems, form layouts, grid displays ✅
+
+**Migration Strategy**: When encountering MUI components, assess if vanilla React can replace it, convert to vanilla with equivalent styling, add CSS classes for reusability.
 
 ## 🎛️ Investigation Efficiency
 
@@ -65,30 +110,34 @@ _Working documentation - stays current because Claude depends on it daily_
 - **Focus on deep_investigation areas** where decisions are needed
 
 ### Common paths to search in
-  #### shared-imports
-  - **Components**: `/packages/shared-imports/src/components/` (forms, crud, navigation)
-  - **Architecture**: `/packages/shared-imports/src/architecture/` (workflows, components)
-  - **Events**: `/packages/shared-imports/src/events/` (eventTypes, pageMaps)
-  - **Utils**: `/packages/shared-imports/src/utils/` (fileOperations, helpers)
-  - **Navigation**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/components/navigation` (sidebar, appbar)
-  - **EventTypes**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/events` (admin, client, plans)
-  - **Workflows**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/architecture/workflows` (Planning workflows)
 
-  ### wf-server
-  - **Controllers**: `/apps/wf-server/server/controller/` (business logic)
-  - **Utils**: `/apps/wf-server/server/utils/` (dml, queryResolver)
-  - **Workflows**: `/home/paul/wf-monorepo-new/apps/wf-server/server/workflows` (plans, communications, impact-tracking)
-  - **Routes**: `/home/paul/wf-monorepo-new/apps/wf-server/server/routes/registerRoutes.js` (controllers, routes)
-  - **app.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server/app.js` (app.js, app start)
-  - **server.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server` (instead of src folder)
-  - **utils/dml**: `\\wsl$\Ubuntu-22.04\home\paul\wf-monorepo-new\apps\wf-server\server\utils\dml` (dml modules)
+#### shared-imports
 
-  #### wf-client
-  - **Pages**: `/apps/wf-client/src/pages/` (UI components)
-  - **Config**: `/apps/wf-client/src/config/` (navigation, routes)
-  - **App.jsx**: `/home/paul/wf-monorepo-new/apps/wf-client/src/App.jsx` (App.jsx)
+- **Components**: `/packages/shared-imports/src/components/` (forms, crud, navigation)
+- **Architecture**: `/packages/shared-imports/src/architecture/` (workflows, components)
+- **Events**: `/packages/shared-imports/src/events/` (eventTypes, pageMaps)
+- **Utils**: `/packages/shared-imports/src/utils/` (fileOperations, helpers)
+- **Navigation**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/components/navigation` (sidebar, appbar)
+- **EventTypes**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/events` (admin, client, plans)
+- **Workflows**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/architecture/workflows` (Planning workflows)
 
-  #### .kiro (plans)
+### wf-server
+
+- **Controllers**: `/apps/wf-server/server/controller/` (business logic)
+- **Utils**: `/apps/wf-server/server/utils/` (dml, queryResolver)
+- **Workflows**: `/home/paul/wf-monorepo-new/apps/wf-server/server/workflows` (plans, communications, impact-tracking)
+- **Routes**: `/home/paul/wf-monorepo-new/apps/wf-server/server/routes/registerRoutes.js` (controllers, routes)
+- **app.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server/app.js` (app.js, app start)
+- **server.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server` (instead of src folder)
+- **utils/dml**: `\\wsl$\Ubuntu-22.04\home\paul\wf-monorepo-new\apps\wf-server\server\utils\dml` (dml modules)
+
+#### wf-client
+
+- **Pages**: `/apps/wf-client/src/pages/` (UI components)
+- **Config**: `/apps/wf-client/src/config/` (navigation, routes)
+- **App.jsx**: `/home/paul/wf-monorepo-new/apps/wf-client/src/App.jsx` (App.jsx)
+
+#### .kiro (plans)
 
 ## 🔧 Workflow Helpers
 

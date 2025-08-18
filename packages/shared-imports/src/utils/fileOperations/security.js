@@ -14,13 +14,21 @@ const logger = createLogger("FileSecurity");
  * @throws {Error} If path resolution fails
  */
 export function resolvePath(filePath) {
-  const projectRoot = path.resolve(process.cwd());
+  // Determine project root - if we're in apps/wf-server, go up to workspace root
+  let projectRoot = process.cwd();
+  if (
+    projectRoot.endsWith("apps/wf-server") ||
+    projectRoot.endsWith("apps\\wf-server")
+  ) {
+    projectRoot = path.resolve(projectRoot, "../..");
+  }
+  projectRoot = path.resolve(projectRoot);
 
   // Clean and normalize the input path
   const cleanPath = filePath.trim().replace(/[/\\]+/g, path.sep);
 
-  // Resolve to absolute path
-  const resolvedPath = path.resolve(cleanPath);
+  // Resolve to absolute path relative to project root
+  const resolvedPath = path.resolve(projectRoot, cleanPath);
 
   // Get relative path from project root
   const relativePath = path.relative(projectRoot, resolvedPath);
