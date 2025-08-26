@@ -1,7 +1,7 @@
 import { createRequestBody } from './queryResolver.js';
 import { executeQuery } from './dbUtils.js';
 import logger from './logger.js';
-import { getEventType } from '@whatsfresh/shared-imports/events';
+import { getEventType } from '../events/index.js';
 
 const codeName = `[executeEventType.js]`;
 
@@ -29,14 +29,14 @@ export const executeEventType = async (eventType, params) => {
             throw error;
         }
 
-        const { qrySQL, method } = eventRoute;
+        const { qrySQL, method, configKey, configOptions } = eventRoute;
         logger.debug(`${codeName} Found event route with method: ${method}`);
 
-        // Use queryResolver to handle parameter substitution
+        let result;
+        
+        // Handle SQL queries only - CONFIG is client-side
         const qryMod = createRequestBody(qrySQL, params);
-
-        // Execute the modified query
-        const result = await executeQuery(qryMod, method);
+        result = await executeQuery(qryMod, method);
         
         logger.info(`${codeName} Event executed successfully: ${eventType}`);
         return result;

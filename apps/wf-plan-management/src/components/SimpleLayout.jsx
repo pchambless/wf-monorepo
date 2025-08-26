@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import StudioSidebar from "../studio/StudioSidebar";
-import CanvasSidebar from "../studio/CanvasSidebar";
+import StudioSidebar from "../pages/Studio/StudioSidebar";
+import CanvasSidebar from "../pages/Studio/CanvasSidebar";
 
 /**
  * Simple vanilla React layout for Plan 0039 testing

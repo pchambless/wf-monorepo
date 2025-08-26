@@ -1,0 +1,21 @@
+{
+  "pageFolder": "Studio",
+  "components": [
+    {
+      "eventType": "pageStudio",
+      "category": "page",
+      "title": "Studio",
+      "purpose": "Page for building page components and organization",
+      "qry": "",
+      "routePath": "/studio",
+      "components": [],
+      "workflowTriggers": {},
+      "hasComponents": false,
+      "hasWorkflows": false
+    }
+  ],
+  "meta": {
+    "generated": "2025-08-22T20:44:51.842Z",
+    "componentCount": 1
+  }
+}

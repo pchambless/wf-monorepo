@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import { createRequestBody } from '../utils/queryResolver.js';
 import { executeQuery } from '../utils/dbUtils.js';
 import logger from '../utils/logger.js';
-import { getEventType } from '@whatsfresh/shared-imports/events';
+import { getEventType } from '../events/index.js';
 
 const codeName = '[userLogin.js]';
 

@@ -8,6 +8,8 @@ _Working documentation - stays current because Claude depends on it daily_
 - **Code Style**: NO comments unless explicitly requested
 - **Philosophy**: MVP development - break and fix over backward compatibility
 - **Modularization**: Always try to modularize code if a module gets complicated or large.
+- **Agent Routing**: ALWAYS use AgentDirector for analysis tasks - no unfocused gyrations
+- **Completion-Drive**: Tag assumptions during implementation, verify systematically
 
 ## 📖 Documentation Priority
 
@@ -148,6 +150,36 @@ return <div style={styles.container}>...</div>;
 - **Always use createGuidance.js workflow for implementation guidance documents** - ensures proper parameter substitution and impact tracking
 - **Always use createAnalysis.js workflow for architectural analysis documents** - maintains consistent structure and automated workflows
 
+## 🤖 AgentDirector - Mandatory for Analysis
+
+**ALWAYS route analysis tasks through AgentDirector before starting work:**
+
+```bash
+node .claude/routing/AgentDirector.js "Analyze React app infrastructure"
+node .claude/routing/AgentDirector.js "Review component patterns in shared-imports"  
+node .claude/routing/AgentDirector.js "Validate eventTypes structure"
+```
+
+**Benefits:**
+- **Focused expertise** - Routes to specialized agents instead of generic analysis
+- **Token efficiency** - Agents optimized for specific domains use less context
+- **Quality analysis** - Domain experts provide deeper insights
+- **No unfocused gyrations** - Skip generic "let me look at everything" approach
+
+**Agent Ecosystem:**
+- **AppAnalyzer** - React app infrastructure, routing, startup validation
+- **ComponentAnalyzer** - React component patterns, performance, consistency
+- **EventParser** - EventTypes validation, workflow orchestration  
+- **WorkflowAnalyzer** - Workflow definitions, triggers, integration
+- **DeadCodeParser** - Unused code identification, dependency cleanup
+- **SchemaParser** - SQL schema validation, field metadata
+- **UXAnalyzer** - UI layouts, accessibility, design consistency
+
+**Auto-Registry System:**
+- Drop `.md` file in `.claude/agents/` → Instantly available for routing
+- Single source of truth - agent file contains all metadata
+- No manual registry.json maintenance required
+
 ## 📋 Quick Fix Impact Tracking
 
 When making spontaneous edits:
@@ -194,4 +226,23 @@ curl -X POST http://localhost:3001/api/execDML -H "Content-Type: application/jso
 - Agent role assignments and responsibilities
 - Communication protocols and process quality metrics
 
-_Updated: 2025-07-27_
+## 🔍 Completion-Drive Methodology
+
+When implementing complex logic, tag assumptions with `// COMPLETION_DRIVE: assumption here`
+
+**Process:**
+- Tag assumptions during implementation  
+- At milestones, systematically verify all tagged assumptions
+- Replace verified tags with explanatory comments
+- Track accuracy in TodoWrite for continuous improvement
+
+**Example:**
+```javascript
+// COMPLETION_DRIVE: Assuming all exports use same structure
+const exportMatch = content.match(/regex/);
+
+// Later verification phase:
+// ✅ VERIFIED: Exports vary - updated to handle both simple and complex structures
+```
+
+_Updated: 2025-08-19_

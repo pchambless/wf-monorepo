@@ -7,6 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getAppDirectory } from '../config/appNames.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -28,11 +29,14 @@ Object.keys(rawData).forEach(file => {
 
 // Helper functions
 const getPackage = (file) => {
-  if (file.startsWith('apps/wf-client/')) {
-    return 'wf-client';
+  const clientDir = getAppDirectory('client');
+  const serverDir = getAppDirectory('server');
+
+  if (file.startsWith(`apps/${clientDir}/`)) {
+    return clientDir;
   }
-  if (file.startsWith('apps/wf-server/')) {
-    return 'wf-server';
+  if (file.startsWith(`apps/${serverDir}/`)) {
+    return serverDir;
   }
   if (file.startsWith('packages/shared-imports/')) {
     return 'shared-imports';
@@ -58,8 +62,16 @@ const enhanced = {
   },
   files: {},
   hotspots: [],
-  packages: { 'wf-client': 0, 'wf-server': 0, 'shared-imports': 0, 'other': 0 }
+  packages: {}
 };
+
+// Initialize package breakdown with dynamic names
+const clientDir = getAppDirectory('client');
+const serverDir = getAppDirectory('server');
+enhanced.packages[clientDir] = 0;
+enhanced.packages[serverDir] = 0;
+enhanced.packages['shared-imports'] = 0;
+enhanced.packages['other'] = 0;
 
 // Analyze each file
 Object.keys(rawData).forEach(file => {

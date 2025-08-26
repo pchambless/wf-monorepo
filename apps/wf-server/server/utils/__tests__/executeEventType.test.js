@@ -1,13 +1,13 @@
 import { executeEventType } from '../executeEventType.js';
 import { createRequestBody } from '../queryResolver.js';
 import { executeQuery } from '../dbUtils.js';
-import { getEventType } from '@whatsfresh/shared-imports/events';
+import { getEventType } from '../../events/index.js';
 import logger from '../logger.js';
 
 // Mock dependencies
 jest.mock('../queryResolver.js');
 jest.mock('../dbUtils.js');
-jest.mock('@whatsfresh/shared-imports/events');
+jest.mock('../../events/index.js');
 jest.mock('../logger.js');
 
 describe('executeEventType', () => {

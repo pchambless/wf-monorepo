@@ -60,8 +60,8 @@ export * from "./utils/index.js";
 export const LoginView = () => null;
 export const CrudLayout = () => null;
 export const Modal = () => null;
-export const useModalStore = () => ({ isOpen: false, close: () => {} });
-export const modalStore = { isOpen: false, close: () => {} };
+export const useModalStore = () => ({ isOpen: false, close: () => { } });
+export const modalStore = { isOpen: false, close: () => { } };
 export const SelAcct = ({
   selectedAccountId,
   accounts,
@@ -107,23 +107,13 @@ export {
   getEventType,
   getEventTypes,
   eventTypes,
-} from "./events/index.js";
+} from "../../../apps/wf-server/server/events/index.js";
 
 // === API UTILITIES ===
 export { execEvent, createApi, api } from "./api/index.js";
 
 // === WORKFLOW UTILITIES ===
-export {
-  createAnalysis,
-  createGuidance,
-  createCommunication,
-  createPlan,
-  completePlan,
-  deletePlan,
-  createPlanImpact,
-  createPlanImpactBatch,
-  trackDocumentCreation,
-} from "./architecture/workflows/index.js";
+// Removed - architecture folder deleted to clean up broken dependencies
 
 export const packageInfo = {
   name: "@whatsfresh/shared-imports",

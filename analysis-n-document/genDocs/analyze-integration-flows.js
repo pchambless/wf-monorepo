@@ -8,6 +8,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { getAppDirectory } from '../config/appNames.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const JSON_OUTPUT_DIR = path.join(__dirname, '..', 'output/monorepo', 'json');
@@ -16,7 +17,8 @@ const MADGE_FILE = path.join(JSON_OUTPUT_DIR, 'raw-madge.json');
 const OUTPUT_FILE = path.join(JSON_OUTPUT_DIR, 'integration-flows.json');
 
 // API bridge file location
-const API_JS_PATH = path.join(__dirname, '..', '..', '..', 'apps', 'wf-client', 'src', 'api', 'api.js');
+const clientDir = getAppDirectory('client');
+const API_JS_PATH = path.join(__dirname, '..', '..', '..', 'apps', clientDir, 'src', 'api', 'api.js');
 
 function analyzeIntegrationFlows() {
   console.log('🔗 Analyzing client-server integration flows...');
@@ -47,7 +49,7 @@ function analyzeIntegrationFlows() {
 
     // Core API patterns
     api_bridge: {
-      location: "apps/wf-client/src/api/api.js",
+      location: `apps/${clientDir}/src/api/api.js`,
       primary_endpoint: "/api/execEventType",
       dml_endpoint: "/api/execDML",
       pattern: "Unified API layer between React components and server controllers"
@@ -86,7 +88,7 @@ function analyzeIntegrationFlows() {
       find_full_flow: "integration-flows.json.client_server_flows[eventType]",
       trace_api_call: "Check api.js execEventType() → server controller → processor",
       debug_endpoint: "POST /api/execEventType with {eventType, params}",
-      server_entry_point: "apps/wf-server/server/controller/execEventType.js"
+      server_entry_point: `apps/${getAppDirectory('server')}/server/controller/execEventType.js`
     }
   };
 
@@ -106,12 +108,13 @@ function analyzeIntegrationFlows() {
 
   // Add special UI selector flows
   if (pageFlows.userAcctList) {
+    const serverDir = getAppDirectory('server');
     integrationFlows.client_server_flows.userAcctList = {
       client_component: "UI Selector Component",
       api_call: "execEventType('userAcctList', params)",
       server_endpoint: "/api/execEventType",
-      server_controller: "apps/wf-server/server/controller/execEventType.js",
-      processor: "apps/wf-server/server/utils/executeEventType.js",
+      server_controller: `apps/${serverDir}/server/controller/execEventType.js`,
+      processor: `apps/${serverDir}/server/utils/executeEventType.js`,
       database_access: "via queryResolver.js",
       special_purpose: "Feeds :acctID parameter to other pages",
       full_flow: "UI Selector → api.js → execEventType.js → executeEventType.js → DB → Parameter cascade"
@@ -127,16 +130,18 @@ function analyzeIntegrationFlows() {
 }
 
 function buildFlowMapping(eventType, pageData, madgeData, apiPatterns) {
+  const serverDir = getAppDirectory('server');
+
   // Determine server processor from madge data
-  const execEventTypeDeps = madgeData["apps/wf-server/server/controller/execEventType.js"] || [];
+  const execEventTypeDeps = madgeData[`apps/${serverDir}/server/controller/execEventType.js`] || [];
   const processor = execEventTypeDeps.find(dep => dep.includes('executeEventType')) ||
-    "apps/wf-server/server/utils/executeEventType.js";
+    `apps/${serverDir}/server/utils/executeEventType.js`;
 
   return {
     client_component: pageData.component,
     api_call: `execEventType('${eventType}', params)`,
     server_endpoint: "/api/execEventType",
-    server_controller: "apps/wf-server/server/controller/execEventType.js",
+    server_controller: `apps/${serverDir}/server/controller/execEventType.js`,
     processor: processor,
     database_access: "via queryResolver.js",
     database_table: pageData.dbTable || null,

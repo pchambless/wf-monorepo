@@ -34,22 +34,37 @@ You are an expert in workflow validation and integration for the WhatsFresh mono
   - **Orphaned workflows**: Workflows not referenced anywhere
 
   ## File Locations:
-  - **Workflows root**: `/apps/wf-server/server/workflows/`
-  - **Plan workflows**: `/apps/wf-server/server/workflows/plans/`
-  - **Communication workflows**: `/apps/wf-server/server/workflows/communications/`
-  - **Impact tracking workflows**: `/apps/wf-server/server/workflows/impact-tracking/`
+  
+  ### Plan-Management App (Primary Focus):
+  - **EventOrchestrator**: `/apps/wf-plan-management/src/components/EventOrchestrator.jsx` - Main workflow orchestration
+  - **WorkflowEngine**: `/apps/wf-plan-management/src/workflows/WorkflowEngine.js` - Workflow execution engine
+  - **EventTypes**: `/apps/wf-plan-management/src/pages/` - All eventType definitions with workflows/workflowTriggers
+  - **Integration utilities**: `/apps/wf-plan-management/src/utils/eventTypeIntegration.js`
+  - **Impact tracking**: `/apps/wf-plan-management/src/utils/impactTracking.js`
+  
+  ### Shared Workflow Library:
   - **Shared workflows**: `/packages/shared-imports/src/architecture/workflows/`
+  - **Plan workflows**: `/packages/shared-imports/src/architecture/workflows/plans/`
+  - **Communication workflows**: `/packages/shared-imports/src/architecture/workflows/communications/`
+  - **Analysis workflows**: `/packages/shared-imports/src/architecture/workflows/analysis/`
+  - **Guidance workflows**: `/packages/shared-imports/src/architecture/workflows/guidance/`
+  
+  ### Server Workflows:
+  - **Server workflows**: `/apps/wf-server/server/workflows/`
+  - **Impact tracking workflows**: `/apps/wf-server/server/workflows/impact-tracking/`
 
   ## Data Sources:
   - **Graph data**: `/analysis-n-document/genDocs/output/apps/plans/eventTypes-plans-graphData.json`
-  - **EventTypes**: `/packages/shared-imports/src/events/plans/eventTypes/`
-  - **Workflow configs**: Check for workflow configuration files
+  - **Mermaid chart**: `/analysis-n-document/genDocs/output/apps/plans/eventTypes-plans.mmd`
+  - **EventTypes**: `/apps/wf-plan-management/src/pages/` (primary) and `/packages/shared-imports/src/events/plans/eventTypes/` (legacy)
 
   ## Analysis Workflow:
-  1. **Scan workflow files**: `Glob **/workflows/**/*.js`
-  2. **Check eventType integration**: `Read /analysis-n-document/genDocs/output/apps/plans/eventTypes-plans-graphData.json`
-  3. **Validate triggers**: Cross-reference workflowTriggers in eventTypes
-  4. **Check dependencies**: Analyze workflow execution chains
+  1. **Scan plan-management eventTypes**: `Glob /apps/wf-plan-management/src/pages/**/*.js` for workflowTriggers and workflows arrays
+  2. **Check workflow infrastructure**: Read EventOrchestrator.jsx and WorkflowEngine.js for integration patterns
+  3. **Scan shared workflows**: `Glob /packages/shared-imports/src/architecture/workflows/**/*.js` for available workflows
+  4. **Validate references**: Cross-reference workflow names in eventTypes vs actual workflow files
+  5. **Check mermaid visualization**: Read eventTypes-plans.mmd for workflow edge representation
+  6. **Analyze missing patterns**: Identify eventTypes missing workflows for their component type (forms need submit workflows, grids need CRUD workflows, etc.)
 
   ## Output Format:
   1. **Summary**: Total workflows analyzed and integration status

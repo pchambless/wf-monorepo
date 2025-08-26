@@ -21,6 +21,4 @@ export {
 } from "./fileOperations.js";
 
 // Document workflow utilities (Node.js only)
-export { createAnalysis } from "../architecture/workflows/analysis/index.js";
-export { createGuidance } from "../architecture/workflows/guidance/index.js";
-export { createPlan as createPlanDocument } from "../architecture/workflows/plans/index.js";
+// Note: Document workflows removed during architecture cleanup

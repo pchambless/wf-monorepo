@@ -1,0 +1,21 @@
+{
+  "pageFolder": "SketchPad",
+  "components": [
+    {
+      "eventType": "pageSketchPad",
+      "category": "page",
+      "title": "Sketch Pad",
+      "purpose": "Page for sketching and visualizing objects",
+      "qry": "",
+      "routePath": "/sketch-pad",
+      "components": [],
+      "workflowTriggers": {},
+      "hasComponents": false,
+      "hasWorkflows": false
+    }
+  ],
+  "meta": {
+    "generated": "2025-08-22T20:44:51.840Z",
+    "componentCount": 1
+  }
+}

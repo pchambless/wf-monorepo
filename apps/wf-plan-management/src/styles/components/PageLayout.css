@@ -1,0 +1,20 @@
+/* PageLayout.css - Styles for page-level layout */
+
+.page-layout {
+  min-height: 100vh;
+  background-color: #fafafa;
+  padding: 20px;
+}
+
+.page-layout h1 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.page-components {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

@@ -56,7 +56,7 @@ export async function execEvent(eventType, params = {}, config = {}) {
 
   try {
     // Import dependencies (dynamic import to avoid circular deps)
-    const { getEventType } = await import("../events/index.js");
+    const { getEventType } = await import("../../../../apps/wf-server/server/events/index.js");
     const { default: contextStore } = await import("../stores/contextStore.js");
 
     // Validate event exists in our definitions
@@ -157,7 +157,7 @@ export function createApi(options = {}) {
       logger.debug(`Executing event: ${eventType}`, params);
 
       // Import event validation (dynamic import to avoid circular deps)
-      const { getEventType } = await import("../events/index.js");
+      const { getEventType } = await import("../../../../apps/wf-server/server/events/index.js");
 
       // Validate event exists in our definitions
       const eventDef = getEventType(eventType);

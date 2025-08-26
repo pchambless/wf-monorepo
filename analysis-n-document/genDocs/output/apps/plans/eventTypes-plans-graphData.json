@@ -2,53 +2,238 @@
   "app": "plans",
   "nodes": [
     {
+      "id": "pageDashboard",
+      "title": "Dashboard",
+      "label": "page<br>pageDashboard<br>[Dashboard]",
+      "category": "page",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "Dashboard",
+        "title": "Dashboard",
+        "purpose": "Dashboard Landing page",
+        "qry": "",
+        "routePath": "/dashboard",
+        "filePath": "apps/wf-plan-management/src/Dashboard/page/pageDashboard.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [],
+        "workflowTriggers": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "formPlan",
+      "title": "Plan Detail\nqry: planDtl",
+      "label": "form<br>formPlan<br>[Plan Detail]",
+      "category": "form",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Plan Detail",
+        "purpose": "Form layout for plan details",
+        "qry": "planDtl",
+        "filePath": "apps/wf-plan-management/src/PlanManager/forms/formPlan.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [],
+        "workflowTriggers": {
+          "onRefresh": [
+            "execEvent"
+          ],
+          "onSelect": [
+            "validateAccess",
+            "refreshContext"
+          ],
+          "onCreate": [
+            "createRecord"
+          ],
+          "onUpdate": [
+            "updateRecord"
+          ]
+        },
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "formPlanComm",
+      "title": "Plan Communication Detail\nqry: planCommDtl",
+      "label": "form<br>formPlanComm<br>[Plan Communication Detail]",
+      "category": "form",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Plan Communication Detail",
+        "purpose": "Get detailed information for a specific plan communication",
+        "qry": "planCommDtl",
+        "filePath": "apps/wf-plan-management/src/PlanManager/forms/formPlanComm.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [],
+        "workflowTriggers": {
+          "onRefresh": [
+            "execEvent"
+          ],
+          "onSelect": [
+            "validateAccess",
+            "refreshContext"
+          ],
+          "onCreate": [
+            "createRecord"
+          ]
+        },
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "formPlanImpact",
+      "title": "Plan Impact Detail\nqry: planImpactDtl",
+      "label": "form<br>formPlanImpact<br>[Plan Impact Detail]",
+      "category": "form",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Plan Impact Detail",
+        "purpose": "Get detailed information for a specific plan impact",
+        "qry": "planImpactDtl",
+        "filePath": "apps/wf-plan-management/src/PlanManager/forms/formPlanImpact.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [],
+        "workflowTriggers": {
+          "onRefresh": [
+            "execEvent"
+          ],
+          "onSelect": [
+            "validateAccess",
+            "refreshContext"
+          ],
+          "onCreate": [
+            "createRecord"
+          ]
+        },
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "gridPlanComms",
+      "title": "Communications\nqry: planCommList",
+      "label": "grid<br>gridPlanComms<br>[Communications]",
+      "category": "grid",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Communications",
+        "purpose": "Get communications for a specific plan",
+        "qry": "planCommList",
+        "filePath": "apps/wf-plan-management/src/PlanManager/grids/gridPlanComms.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [
+          "createCommunication"
+        ],
+        "workflowTriggers": {
+          "onRefresh": [
+            "execEvent"
+          ],
+          "onSelect": [
+            "validateAccess",
+            "refreshContext"
+          ],
+          "onCreate": [
+            "createRecord"
+          ]
+        },
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "gridPlanImpacts",
+      "title": "Plan Impacts\nqry: planImpactList",
+      "label": "grid<br>gridPlanImpacts<br>[Plan Impacts]",
+      "category": "grid",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Plan Impacts",
+        "purpose": "Get file impacts for a specific plan",
+        "qry": "planImpactList",
+        "filePath": "apps/wf-plan-management/src/PlanManager/grids/gridPlanImpacts.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [
+          "createPlanImpact"
+        ],
+        "workflowTriggers": {
+          "onRefresh": [
+            "execEvent"
+          ],
+          "onSelect": [
+            "validateAccess",
+            "refreshContext"
+          ],
+          "onCreate": [
+            "createRecord"
+          ]
+        },
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "gridPlans",
+      "title": "Plans\nqry: planList",
+      "label": "grid<br>gridPlans<br>[Plans]",
+      "category": "grid",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Plans",
+        "purpose": "Display all plans given a specific status",
+        "qry": "planList",
+        "filePath": "apps/wf-plan-management/src/PlanManager/grids/gridPlans.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [
+          "createPlan"
+        ],
+        "workflowTriggers": {
+          "onRefresh": [
+            "execEvent"
+          ],
+          "onRowSelect": [],
+          "onCreate": [
+            "createRecord"
+          ],
+          "onUpdate": [
+            "updateRecord"
+          ]
+        },
+        "hasWorkflows": true
+      }
+    },
+    {
       "id": "pagePlanManager",
+      "title": "Plan Management",
       "label": "page<br>pagePlanManager<br>[Plan Management]",
       "category": "page",
       "meta": {
-        "cluster": "PLANS",
         "app": "plans",
+        "pageFolder": "PlanManager",
         "title": "Plan Management",
         "purpose": "Page for plan management and overview",
+        "qry": "",
         "routePath": "/plan-manager",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planmanager/layout/pagePlanManager.js",
+        "filePath": "apps/wf-plan-management/src/PlanManager/page/pagePlanManager.js",
         "components": [
           {
-            "id": "selectPlanStatus",
-            "type": "select",
-            "event": "selectPlanStatus",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 2,
-              "rows": 1
-            },
-            "props": {
-              "title": "Select Status"
-            }
-          },
-          {
-            "id": "gridPlans",
-            "type": "grid",
-            "event": "gridPlans",
-            "position": {
-              "row": 1,
-              "col": 2
-            },
-            "span": {
-              "cols": 1,
-              "rows": 20
-            },
-            "props": {
-              "title": "Status Plans",
-              "showToolbar": true
-            }
-          },
-          {
             "id": "tabsPlanTabs",
-            "type": "tabs",
+            "container": "tabs",
             "event": "tabsPlanTabs",
             "position": {
               "row": 1,
@@ -64,7 +249,258 @@
           }
         ],
         "hasComponents": true,
-        "componentCount": 3,
+        "componentCount": 1,
+        "workflows": [],
+        "workflowTriggers": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "tabPlan",
+      "title": "Plan Detail",
+      "label": "tab<br>tabPlan<br>[Plan Detail]",
+      "category": "tab",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Plan Detail",
+        "purpose": "Get all plans for management",
+        "qry": "",
+        "filePath": "apps/wf-plan-management/src/PlanManager/tabs/tabPlan.js",
+        "components": [
+          {
+            "id": "hdrTabPlan",
+            "container": "inline",
+            "title": "Status + Plan Name",
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "props": {
+              "title": "selectPlanStatus.selectedItem.label + formPlan.selectedRow.name"
+            }
+          },
+          {
+            "id": "btnCreate",
+            "type": "button",
+            "container": "inline",
+            "position": {
+              "row": 2,
+              "col": 1
+            },
+            "props": {
+              "title": "Create New Plan",
+              "action": "create",
+              "targetForm": "formPlan"
+            }
+          },
+          {
+            "id": "selectPlanStatus",
+            "container": "inline",
+            "title": "Plan Status",
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "span": {
+              "cols": 2,
+              "rows": 1
+            },
+            "props": {
+              "title": "Select Status"
+            }
+          },
+          {
+            "id": "gridPlans",
+            "container": "inline",
+            "title": "Status Plans",
+            "position": {
+              "row": 1,
+              "col": 3
+            },
+            "span": {
+              "cols": 1,
+              "rows": 20
+            },
+            "props": {
+              "title": "Status Plans"
+            }
+          },
+          {
+            "id": "formPlan",
+            "container": "inline",
+            "title": "Plan Details",
+            "position": {
+              "row": 2,
+              "col": 1
+            },
+            "span": {
+              "cols": 1,
+              "rows": 1
+            },
+            "props": {
+              "title": "Plan Details"
+            }
+          }
+        ],
+        "hasComponents": true,
+        "componentCount": 5,
+        "workflows": [],
+        "workflowTriggers": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "tabPlanComms",
+      "title": "Communications",
+      "label": "tab<br>tabPlanComms<br>[Communications]",
+      "category": "tab",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Communications",
+        "purpose": "Layout container for communications tab",
+        "qry": "",
+        "filePath": "apps/wf-plan-management/src/PlanManager/tabs/tabPlanComms.js",
+        "components": [
+          {
+            "id": "hdrTabPlanComms",
+            "container": "inline",
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "props": {
+              "title": "selectPlanStatus.selectedItem.label + gridPlanComms.selectedRow.name"
+            }
+          },
+          {
+            "id": "btnCreate",
+            "type": "button",
+            "container": "inline",
+            "position": {
+              "row": 2,
+              "col": 1
+            },
+            "props": {
+              "title": "Create Communication",
+              "action": "create",
+              "targetForm": "formPlanComm",
+              "parentID": ":planID"
+            }
+          },
+          {
+            "id": "gridPlanComms",
+            "container": "inline",
+            "position": {
+              "row": 2,
+              "col": 1
+            },
+            "span": {
+              "cols": 1,
+              "rows": 1
+            },
+            "props": {
+              "title": "Plan Communications"
+            }
+          },
+          {
+            "id": "formPlanComm",
+            "container": "inline",
+            "position": {
+              "row": 3,
+              "col": 1
+            },
+            "span": {
+              "cols": 1,
+              "rows": 1
+            },
+            "props": {
+              "title": "Communication Details"
+            }
+          }
+        ],
+        "hasComponents": true,
+        "componentCount": 4,
+        "workflows": [],
+        "workflowTriggers": {},
+        "hasWorkflows": false
+      }
+    },
+    {
+      "id": "tabPlanImpacts",
+      "title": "Impacted Files",
+      "label": "tab<br>tabPlanImpacts<br>[Impacted Files]",
+      "category": "tab",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Impacted Files",
+        "purpose": "Get all impacted files for a plan",
+        "qry": "",
+        "filePath": "apps/wf-plan-management/src/PlanManager/tabs/tabPlanImpacts.js",
+        "components": [
+          {
+            "id": "hdrTabPlanImpacts",
+            "type": "header",
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "props": {
+              "title": "selectPlanStatus.selectedItem.label + gridPlanImpacts.selectedRow.name"
+            }
+          },
+          {
+            "id": "btnCreate",
+            "type": "button",
+            "container": "inline",
+            "position": {
+              "row": 1,
+              "col": 1
+            },
+            "props": {
+              "title": "Log Impact",
+              "action": "create",
+              "targetForm": "formPlanImpact",
+              "parentIdField": "plan_id"
+            }
+          },
+          {
+            "id": "gridPlanImpacts",
+            "container": "inline",
+            "event": "gridPlanImpacts",
+            "position": {
+              "row": 2,
+              "col": 1
+            },
+            "span": {
+              "cols": 1,
+              "rows": 15
+            },
+            "props": {
+              "title": "Impact Tracking"
+            }
+          },
+          {
+            "id": "formPlanImpact",
+            "container": "inline",
+            "event": "formPlanImpact",
+            "position": {
+              "row": 2,
+              "col": 3
+            },
+            "span": {
+              "cols": 3,
+              "rows": 15
+            },
+            "props": {
+              "title": "Impact Tracking"
+            }
+          }
+        ],
+        "hasComponents": true,
+        "componentCount": 4,
         "workflows": [],
         "workflowTriggers": {},
         "hasWorkflows": false
@@ -72,18 +508,20 @@
     },
     {
       "id": "tabsPlanTabs",
+      "title": "Tabs",
       "label": "tabs<br>tabsPlanTabs<br>[Tabs]",
       "category": "tabs",
       "meta": {
-        "cluster": "PLANS",
         "app": "plans",
+        "pageFolder": "PlanManager",
         "title": "Tabs",
         "purpose": "Container for the tabs on the page",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js",
+        "qry": "",
+        "filePath": "apps/wf-plan-management/src/PlanManager/tabs/tabsPlanTabs.js",
         "components": [
           {
             "id": "tabPlan",
-            "type": "tab",
+            "container": "tab",
             "event": "tabPlan",
             "position": {
               "row": 1,
@@ -94,14 +532,12 @@
               "rows": 1
             },
             "props": {
-              "title": "Plan Details",
-              "active": true
+              "title": "Plan Details"
             }
           },
           {
-            "id": "tabComms",
-            "type": "tab",
-            "event": "tabPlanComms",
+            "id": "tabPlanComms",
+            "container": "tab",
             "position": {
               "row": 1,
               "col": 2
@@ -115,9 +551,8 @@
             }
           },
           {
-            "id": "tabImpacts",
-            "type": "tab",
-            "event": "tabPlanImpacts",
+            "id": "tabPlanImpacts",
+            "container": "tab",
             "position": {
               "row": 1,
               "col": 3
@@ -139,112 +574,92 @@
       }
     },
     {
-      "id": "tabPlan",
-      "label": "tab<br>tabPlan<br>[Plan Detail]",
-      "category": "tab",
+      "id": "btnCreate",
+      "title": "Create Button",
+      "label": "button<br>btnCreate<br>[Create Button]",
+      "category": "button",
       "meta": {
-        "cluster": "PLANS",
         "app": "plans",
-        "title": "Plan Detail",
-        "purpose": "Get all plans for management",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js",
-        "components": [
-          {
-            "id": "formPlan",
-            "type": "form",
-            "event": "formPlan",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 1,
-              "rows": 1
-            },
-            "props": {
-              "title": "Plan Details",
-              "allowEdit": true,
-              "showSaveButton": true
-            }
-          }
-        ],
-        "hasComponents": true,
-        "componentCount": 1,
+        "pageFolder": "PlanManager",
+        "title": "Create Button",
+        "qry": "",
+        "filePath": "apps/wf-plan-management/src/PlanManager/widgets/btnCreate.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [],
+        "workflowTriggers": {
+          "onClick": [
+            "clearTargetForm",
+            "setParentContext",
+            "showForm"
+          ]
+        },
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "selectPlanStatus",
+      "title": "Plan Status\nqry: selectPlanStatus",
+      "label": "select<br>selectPlanStatus<br>[Plan Status]",
+      "category": "select",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "PlanManager",
+        "title": "Plan Status",
+        "purpose": "Filter plans by status selection",
+        "qry": "selectPlanStatus",
+        "filePath": "apps/wf-plan-management/src/PlanManager/widgets/selectPlanStatus.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
+        "workflows": [],
+        "workflowTriggers": {
+          "onLoad": [
+            "CONFIG"
+          ],
+          "onSelectionChange": []
+        },
+        "hasWorkflows": true
+      }
+    },
+    {
+      "id": "pageSketchPad",
+      "title": "Sketch Pad",
+      "label": "page<br>pageSketchPad<br>[Sketch Pad]",
+      "category": "page",
+      "meta": {
+        "app": "plans",
+        "pageFolder": "SketchPad",
+        "title": "Sketch Pad",
+        "purpose": "Page for sketching and visualizing objects",
+        "qry": "",
+        "routePath": "/sketch-pad",
+        "filePath": "apps/wf-plan-management/src/SketchPad/page/pageSketchPad.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
         "workflows": [],
         "workflowTriggers": {},
         "hasWorkflows": false
       }
     },
     {
-      "id": "tabPlanComms",
-      "label": "tab<br>tabPlanComms<br>[Communications]",
-      "category": "tab",
+      "id": "pageStudio",
+      "title": "Studio",
+      "label": "page<br>pageStudio<br>[Studio]",
+      "category": "page",
       "meta": {
-        "cluster": "PLANS",
         "app": "plans",
-        "title": "Communications",
-        "purpose": "Layout container for communications tab",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js",
-        "components": [
-          {
-            "id": "gridPlanComms",
-            "type": "grid",
-            "event": "gridPlanComms",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 1,
-              "rows": 1
-            },
-            "props": {
-              "title": "Plan Communications",
-              "showToolbar": true,
-              "allowCreate": true
-            }
-          }
-        ],
-        "hasComponents": true,
-        "componentCount": 1,
-        "workflows": [],
-        "workflowTriggers": {},
-        "hasWorkflows": false
-      }
-    },
-    {
-      "id": "tabPlanImpacts",
-      "label": "tab<br>tabPlanImpacts<br>[Impacted Files]",
-      "category": "tab",
-      "meta": {
-        "cluster": "PLANS",
-        "app": "plans",
-        "title": "Impacted Files",
-        "purpose": "Get all impacted files for a plan",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js",
-        "components": [
-          {
-            "id": "gridImpacts",
-            "type": "grid",
-            "event": "gridPlanImpacts",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 1,
-              "rows": 1
-            },
-            "props": {
-              "title": "Impact Tracking",
-              "showToolbar": true,
-              "allowCreate": true,
-              "allowEdit": true
-            }
-          }
-        ],
-        "hasComponents": true,
-        "componentCount": 1,
+        "pageFolder": "Studio",
+        "title": "Studio",
+        "purpose": "Page for building page components and organization",
+        "qry": "",
+        "routePath": "/studio",
+        "filePath": "apps/wf-plan-management/src/Studio/page/pageStudio.js",
+        "components": [],
+        "hasComponents": false,
+        "componentCount": 0,
         "workflows": [],
         "workflowTriggers": {},
         "hasWorkflows": false
@@ -252,31 +667,17 @@
     },
     {
       "id": "appbar",
+      "title": "Plan Manager",
       "label": "appbar<br>appbar<br>[Plan Manager]",
       "category": "appbar",
       "meta": {
-        "cluster": "APPBAR",
         "app": "plans",
+        "pageFolder": "appbar.js",
         "title": "Plan Manager",
         "purpose": "APPBAR for the Plan Manager app",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/app/appbar.js",
+        "qry": "",
+        "filePath": "apps/wf-plan-management/src/appbar.js",
         "components": [
-          {
-            "id": "appbarIcon",
-            "type": "icon",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 1,
-              "rows": 1
-            },
-            "props": {
-              "title": "",
-              "icon": "meaningful icon"
-            }
-          },
           {
             "id": "appbarTitle",
             "type": "text",
@@ -303,19 +704,11 @@
               "cols": 1,
               "rows": 1
             },
-            "props": {
-              "actions": [
-                {
-                  "type": "button",
-                  "label": "Logout",
-                  "icon": "logout-icon"
-                }
-              ]
-            }
+            "props": {}
           }
         ],
         "hasComponents": true,
-        "componentCount": 3,
+        "componentCount": 2,
         "workflows": [],
         "workflowTriggers": {},
         "hasWorkflows": false
@@ -323,14 +716,16 @@
     },
     {
       "id": "sidebar",
-      "label": "sidebar<br>sidebar<br>[Plan Management Sidebar]",
+      "title": "Sidebar",
+      "label": "sidebar<br>sidebar<br>[Sidebar]",
       "category": "sidebar",
       "meta": {
-        "cluster": "SIDEBAR",
         "app": "plans",
-        "title": "Plan Management Sidebar",
+        "pageFolder": "sidebar.js",
+        "title": "Sidebar",
         "purpose": "Complete sidebar navigation for plan management",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/app/sidebar.js",
+        "qry": "",
+        "filePath": "apps/wf-plan-management/src/sidebar.js",
         "components": [
           {
             "id": "pageHeader",
@@ -340,12 +735,7 @@
               "col": 1
             },
             "props": {
-              "title": "Plan Management",
-              "style": {
-                "fontSize": "18px",
-                "fontWeight": "600",
-                "margin": "0 0 16px 0"
-              }
+              "title": "Plan Management"
             }
           },
           {
@@ -356,23 +746,7 @@
               "col": 1
             },
             "props": {
-              "title": "PLAN MANAGEMENT",
-              "collapsible": false,
-              "items": [
-                {
-                  "id": "dashboardLink",
-                  "title": "📊 Dashboard",
-                  "path": "/dashboard",
-                  "icon": "📊"
-                },
-                {
-                  "id": "planManagerLink",
-                  "title": "📋 Plan Manager",
-                  "path": "/plans",
-                  "icon": "📋",
-                  "active": true
-                }
-              ]
+              "title": "PLAN MANAGEMENT"
             }
           },
           {
@@ -383,24 +757,7 @@
               "col": 1
             },
             "props": {
-              "title": "DEVELOPMENT",
-              "collapsible": true,
-              "collapsed": false,
-              "items": [
-                {
-                  "id": "studioLink",
-                  "title": "🎨 Studio",
-                  "path": "/studio",
-                  "icon": "🎨"
-                },
-                {
-                  "id": "sketchPadLink",
-                  "title": "📝 Sketch Pad",
-                  "path": "https://asciiflow.com",
-                  "icon": "📝",
-                  "external": true
-                }
-              ]
+              "title": "DEVELOPMENT"
             }
           }
         ],
@@ -412,264 +769,12 @@
       }
     },
     {
-      "id": "selectPlanStatus",
-      "label": "ui:Select<br>selectPlanStatus<br>[Status]",
-      "category": "ui:Select",
-      "meta": {
-        "cluster": "PLANS",
-        "app": "plans",
-        "title": "Status",
-        "purpose": "Filter plans by status selection",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/selectPlanStatus.js",
-        "components": [
-          {
-            "id": "gridPlans",
-            "type": "grid",
-            "event": "gridPlans",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 1,
-              "rows": 1
-            },
-            "props": {
-              "title": "select.label + 'Plans'",
-              "allowCreate": true
-            }
-          }
-        ],
-        "hasComponents": true,
-        "componentCount": 1,
-        "workflows": [],
-        "workflowTriggers": {},
-        "hasWorkflows": false
-      }
-    },
-    {
-      "id": "gridPlans",
-      "label": "grid<br>gridPlans<br>[Plans]",
-      "category": "grid",
-      "meta": {
-        "cluster": "PLANS",
-        "app": "plans",
-        "title": "Plans",
-        "purpose": "Get all plans given a specific status",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlans.js",
-        "components": [
-          {
-            "id": "formPlan",
-            "type": "form",
-            "event": "formPlan",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 1,
-              "rows": 1
-            },
-            "props": {
-              "title": "grid.row.name",
-              "allowCreate": true,
-              "allowUpdate": true
-            }
-          }
-        ],
-        "hasComponents": true,
-        "componentCount": 1,
-        "workflows": [
-          "createPlan"
-        ],
-        "workflowTriggers": {},
-        "hasWorkflows": true
-      }
-    },
-    {
-      "id": "gridPlanComms",
-      "label": "grid<br>gridPlanComms<br>[Communications]",
-      "category": "grid",
-      "meta": {
-        "cluster": "PLANS",
-        "app": "plans",
-        "title": "Communications",
-        "purpose": "Get communications for a specific plan",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanComms.js",
-        "components": [
-          {
-            "id": "formPlanComm",
-            "type": "form",
-            "event": "formPlanComm",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 1,
-              "rows": 1
-            },
-            "props": {
-              "title": "grid.row.name",
-              "allowCreate": true
-            }
-          }
-        ],
-        "hasComponents": true,
-        "componentCount": 1,
-        "workflows": [
-          "createCommunication"
-        ],
-        "workflowTriggers": {},
-        "hasWorkflows": true
-      }
-    },
-    {
-      "id": "gridPlanImpacts",
-      "label": "grid<br>gridPlanImpacts<br>[Plan Impacts]",
-      "category": "grid",
-      "meta": {
-        "cluster": "PLANS",
-        "app": "plans",
-        "title": "Plan Impacts",
-        "purpose": "Get file impacts for a specific plan",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanImpacts.js",
-        "components": [
-          {
-            "id": "formPlanImpact",
-            "type": "form",
-            "event": "formPlanImpact",
-            "position": {
-              "row": 1,
-              "col": 1
-            },
-            "span": {
-              "cols": 1,
-              "rows": 1
-            },
-            "props": {
-              "title": "grid.row.name",
-              "allowCreate": true
-            }
-          }
-        ],
-        "hasComponents": true,
-        "componentCount": 1,
-        "workflows": [
-          "createPlanImpact"
-        ],
-        "workflowTriggers": {},
-        "hasWorkflows": true
-      }
-    },
-    {
-      "id": "formPlan",
-      "label": "form<br>formPlan<br>[Plan Detail]",
-      "category": "form",
-      "meta": {
-        "cluster": "PLANS",
-        "app": "plans",
-        "title": "Plan Detail",
-        "purpose": "Get detailed information for a specific plan",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlan.js",
-        "components": [],
-        "hasComponents": false,
-        "componentCount": 0,
-        "workflows": [],
-        "workflowTriggers": {
-          "onSelect": [
-            "validateAccess",
-            "refreshContext"
-          ],
-          "onUpdate": [
-            "updateRecord"
-          ],
-          "onCreate": [
-            "createRecord"
-          ]
-        },
-        "hasWorkflows": true
-      }
-    },
-    {
-      "id": "formPlanComm",
-      "label": "form<br>formPlanComm<br>[Plan Communication Detail]",
-      "category": "form",
-      "meta": {
-        "cluster": "PLANS",
-        "app": "plans",
-        "title": "Plan Communication Detail",
-        "purpose": "Get detailed information for a specific plan communication",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanComm.js",
-        "components": [],
-        "hasComponents": false,
-        "componentCount": 0,
-        "workflows": [],
-        "workflowTriggers": {
-          "onSelect": [
-            "validateAccess",
-            "refreshContext"
-          ],
-          "onCreate": [
-            "createRecord"
-          ]
-        },
-        "hasWorkflows": true
-      }
-    },
-    {
-      "id": "formPlanImpact",
-      "label": "form<br>formPlanImpact<br>[Plan Impact Detail]",
-      "category": "form",
-      "meta": {
-        "cluster": "PLANS",
-        "app": "plans",
-        "title": "Plan Impact Detail",
-        "purpose": "Get detailed information for a specific plan impact",
-        "filePath": "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanImpact.js",
-        "components": [],
-        "hasComponents": false,
-        "componentCount": 0,
-        "workflows": [],
-        "workflowTriggers": {
-          "onSelect": [
-            "validateAccess",
-            "refreshContext"
-          ],
-          "onCreate": [
-            "createRecord"
-          ]
-        },
-        "hasWorkflows": true
-      }
-    },
-    {
-      "id": "workflow:createPlan",
-      "label": "workflow<br>createPlan",
+      "id": "workflow:execEvent",
+      "label": "workflow<br>execEvent",
       "category": "workflow",
       "meta": {
         "cluster": "WORKFLOWS",
-        "workflow": "createPlan",
-        "isWorkflowNode": true
-      }
-    },
-    {
-      "id": "workflow:createCommunication",
-      "label": "workflow<br>createCommunication",
-      "category": "workflow",
-      "meta": {
-        "cluster": "WORKFLOWS",
-        "workflow": "createCommunication",
-        "isWorkflowNode": true
-      }
-    },
-    {
-      "id": "workflow:createPlanImpact",
-      "label": "workflow<br>createPlanImpact",
-      "category": "workflow",
-      "meta": {
-        "cluster": "WORKFLOWS",
-        "workflow": "createPlanImpact",
+        "workflow": "execEvent",
         "isWorkflowNode": true
       }
     },
@@ -694,6 +799,16 @@
       }
     },
     {
+      "id": "workflow:createRecord",
+      "label": "workflow<br>createRecord",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "createRecord",
+        "isWorkflowNode": true
+      }
+    },
+    {
       "id": "workflow:updateRecord",
       "label": "workflow<br>updateRecord",
       "category": "workflow",
@@ -704,12 +819,72 @@
       }
     },
     {
-      "id": "workflow:createRecord",
-      "label": "workflow<br>createRecord",
+      "id": "workflow:createCommunication",
+      "label": "workflow<br>createCommunication",
       "category": "workflow",
       "meta": {
         "cluster": "WORKFLOWS",
-        "workflow": "createRecord",
+        "workflow": "createCommunication",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:createPlanImpact",
+      "label": "workflow<br>createPlanImpact",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "createPlanImpact",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:createPlan",
+      "label": "workflow<br>createPlan",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "createPlan",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:clearTargetForm",
+      "label": "workflow<br>clearTargetForm",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "clearTargetForm",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:setParentContext",
+      "label": "workflow<br>setParentContext",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "setParentContext",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:showForm",
+      "label": "workflow<br>showForm",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "showForm",
+        "isWorkflowNode": true
+      }
+    },
+    {
+      "id": "workflow:CONFIG",
+      "label": "workflow<br>CONFIG",
+      "category": "workflow",
+      "meta": {
+        "cluster": "WORKFLOWS",
+        "workflow": "CONFIG",
         "isWorkflowNode": true
       }
     }
@@ -718,240 +893,142 @@
   "componentEdges": [
     {
       "from": "pagePlanManager",
-      "to": "selectPlanStatus",
-      "label": "select",
-      "type": "component",
-      "componentId": "selectPlanStatus",
-      "componentType": "select",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 2,
-        "rows": 1
-      }
-    },
-    {
-      "from": "pagePlanManager",
-      "to": "gridPlans",
-      "label": "grid",
-      "type": "component",
-      "componentId": "gridPlans",
-      "componentType": "grid",
-      "position": {
-        "row": 1,
-        "col": 2
-      },
-      "span": {
-        "cols": 1,
-        "rows": 20
-      }
-    },
-    {
-      "from": "pagePlanManager",
       "to": "tabsPlanTabs",
-      "label": "tabs",
+      "label": "contains",
       "type": "component",
-      "componentId": "tabsPlanTabs",
-      "componentType": "tabs",
-      "position": {
-        "row": 1,
-        "col": 5
-      },
-      "span": {
-        "cols": 50,
-        "rows": 20
+      "meta": {
+        "container": "tabs"
       }
     },
     {
-      "from": "tabsPlanTabs",
-      "to": "tabPlan",
-      "label": "tab",
+      "from": "tabPlan",
+      "to": "btnCreate",
+      "label": "contains",
       "type": "component",
-      "componentId": "tabPlan",
-      "componentType": "tab",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
       }
     },
     {
-      "from": "tabsPlanTabs",
-      "to": "tabPlanComms",
-      "label": "tab",
+      "from": "tabPlan",
+      "to": "selectPlanStatus",
+      "label": "contains",
       "type": "component",
-      "componentId": "tabComms",
-      "componentType": "tab",
-      "position": {
-        "row": 1,
-        "col": 2
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
       }
     },
     {
-      "from": "tabsPlanTabs",
-      "to": "tabPlanImpacts",
-      "label": "tab",
+      "from": "tabPlan",
+      "to": "gridPlans",
+      "label": "contains",
       "type": "component",
-      "componentId": "tabImpacts",
-      "componentType": "tab",
-      "position": {
-        "row": 1,
-        "col": 3
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
       }
     },
     {
       "from": "tabPlan",
       "to": "formPlan",
-      "label": "form",
+      "label": "contains",
       "type": "component",
-      "componentId": "formPlan",
-      "componentType": "form",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
+      }
+    },
+    {
+      "from": "tabPlanComms",
+      "to": "btnCreate",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "inline"
       }
     },
     {
       "from": "tabPlanComms",
       "to": "gridPlanComms",
-      "label": "grid",
+      "label": "contains",
       "type": "component",
-      "componentId": "gridPlanComms",
-      "componentType": "grid",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
+      }
+    },
+    {
+      "from": "tabPlanComms",
+      "to": "formPlanComm",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "inline"
+      }
+    },
+    {
+      "from": "tabPlanImpacts",
+      "to": "btnCreate",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "inline"
       }
     },
     {
       "from": "tabPlanImpacts",
       "to": "gridPlanImpacts",
-      "label": "grid",
+      "label": "contains",
       "type": "component",
-      "componentId": "gridImpacts",
-      "componentType": "grid",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
       }
     },
     {
-      "from": "selectPlanStatus",
-      "to": "gridPlans",
-      "label": "grid",
-      "type": "component",
-      "componentId": "gridPlans",
-      "componentType": "grid",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
-      }
-    },
-    {
-      "from": "gridPlans",
-      "to": "formPlan",
-      "label": "form",
-      "type": "component",
-      "componentId": "formPlan",
-      "componentType": "form",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
-      }
-    },
-    {
-      "from": "gridPlanComms",
-      "to": "formPlanComm",
-      "label": "form",
-      "type": "component",
-      "componentId": "formPlanComm",
-      "componentType": "form",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
-      }
-    },
-    {
-      "from": "gridPlanImpacts",
+      "from": "tabPlanImpacts",
       "to": "formPlanImpact",
-      "label": "form",
+      "label": "contains",
       "type": "component",
-      "componentId": "formPlanImpact",
-      "componentType": "form",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
+      }
+    },
+    {
+      "from": "tabsPlanTabs",
+      "to": "tabPlan",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "tab"
+      }
+    },
+    {
+      "from": "tabsPlanTabs",
+      "to": "tabPlanComms",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "tab"
+      }
+    },
+    {
+      "from": "tabsPlanTabs",
+      "to": "tabPlanImpacts",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "tab"
       }
     }
   ],
   "widgetEdges": [],
   "workflowEdges": [
     {
-      "from": "gridPlans",
-      "to": "workflow:createPlan",
-      "label": "direct",
+      "from": "formPlan",
+      "to": "workflow:execEvent",
+      "label": "onRefresh",
       "type": "workflow",
-      "workflow": "createPlan",
-      "triggers": [],
-      "config": {}
-    },
-    {
-      "from": "gridPlanComms",
-      "to": "workflow:createCommunication",
-      "label": "direct",
-      "type": "workflow",
-      "workflow": "createCommunication",
-      "triggers": [],
-      "config": {}
-    },
-    {
-      "from": "gridPlanImpacts",
-      "to": "workflow:createPlanImpact",
-      "label": "direct",
-      "type": "workflow",
-      "workflow": "createPlanImpact",
-      "triggers": [],
+      "workflow": "execEvent",
+      "triggers": [
+        "onRefresh"
+      ],
       "config": {}
     },
     {
@@ -973,6 +1050,17 @@
       "workflow": "refreshContext",
       "triggers": [
         "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "formPlan",
+      "to": "workflow:createRecord",
+      "label": "onCreate",
+      "type": "workflow",
+      "workflow": "createRecord",
+      "triggers": [
+        "onCreate"
       ],
       "config": {}
     },
@@ -988,13 +1076,13 @@
       "config": {}
     },
     {
-      "from": "formPlan",
-      "to": "workflow:createRecord",
-      "label": "onCreate",
+      "from": "formPlanComm",
+      "to": "workflow:execEvent",
+      "label": "onRefresh",
       "type": "workflow",
-      "workflow": "createRecord",
+      "workflow": "execEvent",
       "triggers": [
-        "onCreate"
+        "onRefresh"
       ],
       "config": {}
     },
@@ -1033,6 +1121,17 @@
     },
     {
       "from": "formPlanImpact",
+      "to": "workflow:execEvent",
+      "label": "onRefresh",
+      "type": "workflow",
+      "workflow": "execEvent",
+      "triggers": [
+        "onRefresh"
+      ],
+      "config": {}
+    },
+    {
+      "from": "formPlanImpact",
       "to": "workflow:validateAccess",
       "label": "onSelect",
       "type": "workflow",
@@ -1061,6 +1160,198 @@
       "workflow": "createRecord",
       "triggers": [
         "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlanComms",
+      "to": "workflow:createCommunication",
+      "label": "direct",
+      "type": "workflow",
+      "workflow": "createCommunication",
+      "triggers": [],
+      "config": {}
+    },
+    {
+      "from": "gridPlanComms",
+      "to": "workflow:execEvent",
+      "label": "onRefresh",
+      "type": "workflow",
+      "workflow": "execEvent",
+      "triggers": [
+        "onRefresh"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlanComms",
+      "to": "workflow:validateAccess",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "validateAccess",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlanComms",
+      "to": "workflow:refreshContext",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "refreshContext",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlanComms",
+      "to": "workflow:createRecord",
+      "label": "onCreate",
+      "type": "workflow",
+      "workflow": "createRecord",
+      "triggers": [
+        "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlanImpacts",
+      "to": "workflow:createPlanImpact",
+      "label": "direct",
+      "type": "workflow",
+      "workflow": "createPlanImpact",
+      "triggers": [],
+      "config": {}
+    },
+    {
+      "from": "gridPlanImpacts",
+      "to": "workflow:execEvent",
+      "label": "onRefresh",
+      "type": "workflow",
+      "workflow": "execEvent",
+      "triggers": [
+        "onRefresh"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlanImpacts",
+      "to": "workflow:validateAccess",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "validateAccess",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlanImpacts",
+      "to": "workflow:refreshContext",
+      "label": "onSelect",
+      "type": "workflow",
+      "workflow": "refreshContext",
+      "triggers": [
+        "onSelect"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlanImpacts",
+      "to": "workflow:createRecord",
+      "label": "onCreate",
+      "type": "workflow",
+      "workflow": "createRecord",
+      "triggers": [
+        "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlans",
+      "to": "workflow:createPlan",
+      "label": "direct",
+      "type": "workflow",
+      "workflow": "createPlan",
+      "triggers": [],
+      "config": {}
+    },
+    {
+      "from": "gridPlans",
+      "to": "workflow:execEvent",
+      "label": "onRefresh",
+      "type": "workflow",
+      "workflow": "execEvent",
+      "triggers": [
+        "onRefresh"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlans",
+      "to": "workflow:createRecord",
+      "label": "onCreate",
+      "type": "workflow",
+      "workflow": "createRecord",
+      "triggers": [
+        "onCreate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "gridPlans",
+      "to": "workflow:updateRecord",
+      "label": "onUpdate",
+      "type": "workflow",
+      "workflow": "updateRecord",
+      "triggers": [
+        "onUpdate"
+      ],
+      "config": {}
+    },
+    {
+      "from": "btnCreate",
+      "to": "workflow:clearTargetForm",
+      "label": "onClick",
+      "type": "workflow",
+      "workflow": "clearTargetForm",
+      "triggers": [
+        "onClick"
+      ],
+      "config": {}
+    },
+    {
+      "from": "btnCreate",
+      "to": "workflow:setParentContext",
+      "label": "onClick",
+      "type": "workflow",
+      "workflow": "setParentContext",
+      "triggers": [
+        "onClick"
+      ],
+      "config": {}
+    },
+    {
+      "from": "btnCreate",
+      "to": "workflow:showForm",
+      "label": "onClick",
+      "type": "workflow",
+      "workflow": "showForm",
+      "triggers": [
+        "onClick"
+      ],
+      "config": {}
+    },
+    {
+      "from": "selectPlanStatus",
+      "to": "workflow:CONFIG",
+      "label": "onLoad",
+      "type": "workflow",
+      "workflow": "CONFIG",
+      "triggers": [
+        "onLoad"
       ],
       "config": {}
     }
@@ -1068,225 +1359,143 @@
   "edges": [
     {
       "from": "pagePlanManager",
-      "to": "selectPlanStatus",
-      "label": "select",
-      "type": "component",
-      "componentId": "selectPlanStatus",
-      "componentType": "select",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 2,
-        "rows": 1
-      }
-    },
-    {
-      "from": "pagePlanManager",
-      "to": "gridPlans",
-      "label": "grid",
-      "type": "component",
-      "componentId": "gridPlans",
-      "componentType": "grid",
-      "position": {
-        "row": 1,
-        "col": 2
-      },
-      "span": {
-        "cols": 1,
-        "rows": 20
-      }
-    },
-    {
-      "from": "pagePlanManager",
       "to": "tabsPlanTabs",
-      "label": "tabs",
+      "label": "contains",
       "type": "component",
-      "componentId": "tabsPlanTabs",
-      "componentType": "tabs",
-      "position": {
-        "row": 1,
-        "col": 5
-      },
-      "span": {
-        "cols": 50,
-        "rows": 20
+      "meta": {
+        "container": "tabs"
       }
     },
     {
-      "from": "tabsPlanTabs",
-      "to": "tabPlan",
-      "label": "tab",
+      "from": "tabPlan",
+      "to": "btnCreate",
+      "label": "contains",
       "type": "component",
-      "componentId": "tabPlan",
-      "componentType": "tab",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
       }
     },
     {
-      "from": "tabsPlanTabs",
-      "to": "tabPlanComms",
-      "label": "tab",
+      "from": "tabPlan",
+      "to": "selectPlanStatus",
+      "label": "contains",
       "type": "component",
-      "componentId": "tabComms",
-      "componentType": "tab",
-      "position": {
-        "row": 1,
-        "col": 2
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
       }
     },
     {
-      "from": "tabsPlanTabs",
-      "to": "tabPlanImpacts",
-      "label": "tab",
+      "from": "tabPlan",
+      "to": "gridPlans",
+      "label": "contains",
       "type": "component",
-      "componentId": "tabImpacts",
-      "componentType": "tab",
-      "position": {
-        "row": 1,
-        "col": 3
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
       }
     },
     {
       "from": "tabPlan",
       "to": "formPlan",
-      "label": "form",
+      "label": "contains",
       "type": "component",
-      "componentId": "formPlan",
-      "componentType": "form",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
+      }
+    },
+    {
+      "from": "tabPlanComms",
+      "to": "btnCreate",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "inline"
       }
     },
     {
       "from": "tabPlanComms",
       "to": "gridPlanComms",
-      "label": "grid",
+      "label": "contains",
       "type": "component",
-      "componentId": "gridPlanComms",
-      "componentType": "grid",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
+      }
+    },
+    {
+      "from": "tabPlanComms",
+      "to": "formPlanComm",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "inline"
+      }
+    },
+    {
+      "from": "tabPlanImpacts",
+      "to": "btnCreate",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "inline"
       }
     },
     {
       "from": "tabPlanImpacts",
       "to": "gridPlanImpacts",
-      "label": "grid",
+      "label": "contains",
       "type": "component",
-      "componentId": "gridImpacts",
-      "componentType": "grid",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
       }
     },
     {
-      "from": "selectPlanStatus",
-      "to": "gridPlans",
-      "label": "grid",
-      "type": "component",
-      "componentId": "gridPlans",
-      "componentType": "grid",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
-      }
-    },
-    {
-      "from": "gridPlans",
-      "to": "formPlan",
-      "label": "form",
-      "type": "component",
-      "componentId": "formPlan",
-      "componentType": "form",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
-      }
-    },
-    {
-      "from": "gridPlanComms",
-      "to": "formPlanComm",
-      "label": "form",
-      "type": "component",
-      "componentId": "formPlanComm",
-      "componentType": "form",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
-      }
-    },
-    {
-      "from": "gridPlanImpacts",
+      "from": "tabPlanImpacts",
       "to": "formPlanImpact",
-      "label": "form",
+      "label": "contains",
       "type": "component",
-      "componentId": "formPlanImpact",
-      "componentType": "form",
-      "position": {
-        "row": 1,
-        "col": 1
-      },
-      "span": {
-        "cols": 1,
-        "rows": 1
+      "meta": {
+        "container": "inline"
+      }
+    },
+    {
+      "from": "tabsPlanTabs",
+      "to": "tabPlan",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "tab"
+      }
+    },
+    {
+      "from": "tabsPlanTabs",
+      "to": "tabPlanComms",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "tab"
+      }
+    },
+    {
+      "from": "tabsPlanTabs",
+      "to": "tabPlanImpacts",
+      "label": "contains",
+      "type": "component",
+      "meta": {
+        "container": "tab"
       }
     }
   ],
   "meta": {
-    "generated": "2025-08-16T23:09:11.353Z",
+    "generated": "2025-08-21T22:10:38.663Z",
     "app": "plans",
-    "nodeCount": 21,
-    "eventNodeCount": 14,
-    "workflowNodeCount": 7,
+    "nodeCount": 30,
+    "eventNodeCount": 18,
+    "workflowNodeCount": 12,
     "navigationEdgeCount": 0,
-    "componentEdgeCount": 13,
+    "componentEdgeCount": 14,
     "widgetEdgeCount": 0,
-    "workflowEdgeCount": 13,
+    "workflowEdgeCount": 31,
     "widgetUsageCount": 3,
-    "workflowEventCount": 6,
-    "componentEventCount": 11
+    "workflowEventCount": 8,
+    "componentEventCount": 7
   }
 }

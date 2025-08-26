@@ -1,4 +1,4 @@
-import { getAllEvents, getEventType } from '@whatsfresh/shared-imports/events';
+import { getAllEvents, getEventType } from '../events/index.js';
 import logger from './logger.js';
 
 const codeName = '[eventTypeManager.js]';

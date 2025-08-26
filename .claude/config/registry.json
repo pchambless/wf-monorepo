@@ -1,0 +1,202 @@
+{
+  "EventParser": {
+    "domains": [
+      "eventTypes",
+      "workflows",
+      "validation",
+      "architecture"
+    ],
+    "capabilities": [
+      "structure-validation",
+      "component-analysis",
+      "workflow-orchestration",
+      "context-flow-validation",
+      "dependency-mapping"
+    ],
+    "contextLimits": {
+      "optimal": 8000,
+      "maximum": 15000
+    },
+    "model": "claude-sonnet-4-20250514",
+    "availability": "active",
+    "expertise": {
+      "eventTypes": 95,
+      "componentAnalysis": 85,
+      "workflowOrchestration": 90,
+      "validation": 88
+    },
+    "description": "Analyzes eventType files for validation and enhancement",
+    "color": "blue"
+  },
+  "ComponentAnalyzer": {
+    "domains": [
+      "react",
+      "ui",
+      "performance",
+      "patterns"
+    ],
+    "capabilities": [
+      "pattern-analysis",
+      "performance-optimization",
+      "consistency-checking",
+      "component-structure-analysis"
+    ],
+    "contextLimits": {
+      "optimal": 6000,
+      "maximum": 12000
+    },
+    "model": "claude-sonnet-4-20250514",
+    "availability": "active",
+    "expertise": {
+      "reactPatterns": 90,
+      "performanceAnalysis": 85,
+      "uiConsistency": 88,
+      "componentArchitecture": 87
+    },
+    "description": "Analyzes React components for patterns, best practices, and consistency",
+    "color": "cyan"
+  },
+  "WorkflowAnalyzer": {
+    "domains": [
+      "workflows",
+      "integration",
+      "triggers",
+      "dependencies"
+    ],
+    "capabilities": [
+      "workflow-validation",
+      "trigger-analysis",
+      "integration-validation",
+      "dependency-analysis"
+    ],
+    "contextLimits": {
+      "optimal": 7000,
+      "maximum": 14000
+    },
+    "model": "claude-sonnet-4-20250514",
+    "availability": "active",
+    "expertise": {
+      "workflowDefinition": 92,
+      "triggerValidation": 89,
+      "integrationAnalysis": 86,
+      "dependencyMapping": 88
+    },
+    "description": "Validates workflow definitions, triggers, and integration with eventTypes",
+    "color": "purple"
+  },
+  "SchemaParser": {
+    "domains": [
+      "sql",
+      "schema",
+      "validation",
+      "metadata"
+    ],
+    "capabilities": [
+      "schema-analysis",
+      "field-validation",
+      "metadata-generation",
+      "constraint-analysis"
+    ],
+    "contextLimits": {
+      "optimal": 4000,
+      "maximum": 8000
+    },
+    "model": "claude-sonnet-4-20250514",
+    "availability": "active",
+    "expertise": {
+      "sqlSchema": 90,
+      "fieldValidation": 85,
+      "metadataGeneration": 80,
+      "constraintAnalysis": 88
+    },
+    "description": "Enriches SQL schema definitions with field-level attributes for UI validation",
+    "color": "green"
+  },
+  "UXAnalyzer": {
+    "domains": [
+      "ui",
+      "accessibility",
+      "design",
+      "layout"
+    ],
+    "capabilities": [
+      "layout-validation",
+      "accessibility-analysis",
+      "design-consistency",
+      "grid-validation"
+    ],
+    "contextLimits": {
+      "optimal": 6000,
+      "maximum": 12000
+    },
+    "model": "claude-sonnet-4-20250514",
+    "availability": "active",
+    "expertise": {
+      "layoutValidation": 88,
+      "accessibilityCompliance": 90,
+      "designConsistency": 92,
+      "vanillaReactPatterns": 85
+    },
+    "description": "Analyzes UI layouts for consistency, accessibility, and vanilla React design standards",
+    "color": "purple"
+  },
+  "DeadCodeParser": {
+    "domains": [
+      "codeAnalysis",
+      "dependencies",
+      "cleanup",
+      "optimization"
+    ],
+    "capabilities": [
+      "dependency-analysis",
+      "dead-code-detection",
+      "impact-assessment",
+      "safe-removal-planning"
+    ],
+    "contextLimits": {
+      "optimal": 5000,
+      "maximum": 10000
+    },
+    "model": "claude-sonnet-4-20250514",
+    "availability": "active",
+    "expertise": {
+      "dependencyAnalysis": 95,
+      "deadCodeDetection": 92,
+      "impactAssessment": 88,
+      "safetyAnalysis": 90
+    },
+    "description": "Identifies unused files, functions, and imports for safe removal using madge analysis",
+    "color": "red"
+  },
+  "AppAnalyzer": {
+    "domains": [
+      "app startup",
+      "routes",
+      "navigation",
+      "error boundaries"
+    ],
+    "capabilities": [
+      "imports-and-dependencies",
+      "routing",
+      "navigation",
+      "app-startup",
+      "error-boundaries",
+      "environment-variables",
+      "conventions"
+    ],
+    "contextLimits": {
+      "optimal": 5000,
+      "maximum": 10000
+    },
+    "model": "claude-sonnet-4-20250514",
+    "availability": "active",
+    "expertise": {
+      "dependencyAnalysis": 95,
+      "deadCodeDetection": 92,
+      "impactAssessment": 88,
+      "safetyAnalysis": 90
+    },
+    "description": "Identifies unused files, functions, and imports for safe removal using madge analysis",
+    "color": "red"
+  }
+}

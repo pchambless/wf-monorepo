@@ -21,7 +21,8 @@
     "./components": "./src/components/index.js",
     "./layouts": "./src/layouts/index.js",
     "./stores/contextStore": "./src/stores/contextStore.js",
-    "./workflows/eventType": "./src/architecture/workflows/eventType/index.js"
+    "./workflows/eventType": "./src/architecture/workflows/eventType/index.js",
+    "./architecture/config": "./src/architecture/config/index.js"
   },
   "files": [
     "src/**/*"

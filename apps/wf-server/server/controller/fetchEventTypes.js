@@ -1,4 +1,4 @@
-import { getAllEvents } from "@whatsfresh/shared-imports/events";
+import { getAllEvents } from "../events/index.js";
 import logger from "../utils/logger.js";
 
 const codeName = "[fetchEventTypes.js]";
@@ -11,7 +11,7 @@ async function fetchEventTypes(req, res) {
     if (category === "all" || category === "layout") {
       // Import layout eventTypes for Studio
       const { getSafeEventTypes } = await import(
-        "@whatsfresh/shared-imports/events"
+        "../events/index.js"
       );
       eventTypesArray = getSafeEventTypes();
 

@@ -42,7 +42,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "echo 'Referencing .kiro/steering.yaml'"
+                        "command": "echo 'Referencing .kiro/steering.yaml and .claude/new-chat-session.md'"
                     }
                 ]
             }

@@ -1,0 +1,21 @@
+{
+  "pageFolder": "Dashboard",
+  "components": [
+    {
+      "eventType": "pageDashboard",
+      "category": "page",
+      "title": "Dashboard",
+      "purpose": "Dashboard Landing page",
+      "qry": "",
+      "routePath": "/dashboard",
+      "components": [],
+      "workflowTriggers": {},
+      "hasComponents": false,
+      "hasWorkflows": false
+    }
+  ],
+  "meta": {
+    "generated": "2025-08-22T20:44:51.838Z",
+    "componentCount": 1
+  }
+}

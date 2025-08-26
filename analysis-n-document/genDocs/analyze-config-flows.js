@@ -8,6 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import glob from 'glob';
 import { fileURLToPath } from 'url';
+import { getAppDirectory } from '../config/appNames.js';
 
 // Configuration file paths
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -28,7 +29,7 @@ function safeRequire(filePath) {
   try {
     const fullPath = path.join(ROOT_DIR, filePath);
     if (!fs.existsSync(fullPath)) return null;
-    
+
     if (filePath.endsWith('.json')) {
       return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
     } else if (filePath.endsWith('.js')) {
@@ -46,10 +47,10 @@ function safeRequire(filePath) {
 function parseEventTypes() {
   const eventTypesFile = safeRequire('packages/shared-imports/src/events/client/eventTypes.js');
   if (!eventTypesFile) return [];
-  
+
   const events = [];
   const content = eventTypesFile.content;
-  
+
   // Simple regex parsing for eventType objects
   const eventMatches = content.match(/{\s*eventID:[^}]+}/g);
   if (eventMatches) {
@@ -59,7 +60,7 @@ function parseEventTypes() {
       const routeMatch = match.match(/routePath:\s*["']([^"']+)["']/);
       const dbTableMatch = match.match(/dbTable:\s*["']([^"']+)["']/);
       const navChildrenMatch = match.match(/navChildren:\s*\[(.*?)\]/);
-      
+
       if (eventTypeMatch) {
         let navChildren = [];
         if (navChildrenMatch) {
@@ -70,7 +71,7 @@ function parseEventTypes() {
             navChildren = childMatches.map(m => m.replace(/["']/g, ''));
           }
         }
-        
+
         events.push({
           eventType: eventTypeMatch[1],
           category: categoryMatch ? categoryMatch[1] : 'unknown',
@@ -81,15 +82,16 @@ function parseEventTypes() {
       }
     });
   }
-  
+
   return events;
 }
 
 // Find all pageMap files
 function findPageMaps() {
   const pageMaps = [];
-  const pageMapFiles = glob.sync('apps/wf-client/src/pages/*/pageMap.js', { cwd: ROOT_DIR });
-  
+  const clientDir = getAppDirectory('client');
+  const pageMapFiles = glob.sync(`apps/${clientDir}/src/pages/*/pageMap.js`, { cwd: ROOT_DIR });
+
   pageMapFiles.forEach(filePath => {
     const pageMapContent = safeRequire(filePath);
     if (pageMapContent) {
@@ -102,18 +104,19 @@ function findPageMaps() {
       });
     }
   });
-  
+
   return pageMaps;
 }
 
 // Parse navigation config
 function parseNavigation() {
-  const navFile = safeRequire('apps/wf-client/src/config/navigation.js');
+  const clientDir = getAppDirectory('client');
+  const navFile = safeRequire(`apps/${clientDir}/src/config/navigation.js`);
   if (!navFile) return [];
-  
+
   const navItems = [];
   const content = navFile.content;
-  
+
   // Simple regex to find eventType references
   const eventTypeMatches = content.match(/eventType:\s*["']([^"']+)["']/g);
   if (eventTypeMatches) {
@@ -122,42 +125,43 @@ function parseNavigation() {
       navItems.push({ eventType });
     });
   }
-  
+
   return navItems;
 }
 
 // Main analysis function
 function analyzeConfigRelationships() {
   console.log('🔍 Analyzing configuration-driven relationships...');
-  
+
   const eventTypes = parseEventTypes();
   const pageMaps = findPageMaps();
   const navigation = parseNavigation();
-  
+
   console.log(`📄 Found ${eventTypes.length} event types`);
   console.log(`📋 Found ${pageMaps.length} page maps`);
   console.log(`🧭 Found ${navigation.length} navigation items`);
-  
+
   const pageFlows = {};
   const configHotspots = [];
   const trulyDeadCode = [];
   const configOrphans = [];
   const hierarchicalRelationships = [];
-  
+
   // Map page flows (including UI selectors)
   pageMaps.forEach(pageMap => {
     const { pageName, filePath } = pageMap;
-    
+
     // Try to extract listEvent from pageMap content
     const listEventMatch = pageMap.content.match(/["']?listEvent["']?\s*:\s*["']([^"']+)["']/);
     const listEvent = listEventMatch ? listEventMatch[1] : null;
-    
+
     if (listEvent) {
       const matchingEventType = eventTypes.find(et => et.eventType === listEvent);
       const inNavigation = navigation.some(nav => nav.eventType === listEvent);
-      
+      const clientDir = getAppDirectory('client');
+
       pageFlows[listEvent] = {
-        component: `apps/wf-client/src/pages/${pageName}/index.jsx`,
+        component: `apps/${clientDir}/src/pages/${pageName}/index.jsx`,
         pageMap: filePath,
         eventType: matchingEventType ? `eventTypes.js:${listEvent}` : null,
         inNavigation,
@@ -170,10 +174,10 @@ function analyzeConfigRelationships() {
 
   // Add UI selectors and other important non-page eventTypes
   eventTypes.forEach(eventType => {
-    if (!pageFlows[eventType.eventType] && 
-        (eventType.category.includes('ui:select') || 
-         eventType.category.includes('page:') ||
-         eventType.navChildren.length > 0)) {
+    if (!pageFlows[eventType.eventType] &&
+      (eventType.category.includes('ui:select') ||
+        eventType.category.includes('page:') ||
+        eventType.navChildren.length > 0)) {
       pageFlows[eventType.eventType] = {
         component: eventType.category.includes('ui:select') ? 'UI Selector Component' : 'Non-page Component',
         pageMap: null,
@@ -185,7 +189,7 @@ function analyzeConfigRelationships() {
       };
     }
   });
-  
+
   // Find config hotspots (eventTypes referenced by multiple pages)
   const eventTypeUsage = {};
   Object.values(pageFlows).forEach(flow => {
@@ -194,7 +198,7 @@ function analyzeConfigRelationships() {
       eventTypeUsage[eventName] = (eventTypeUsage[eventName] || 0) + 1;
     }
   });
-  
+
   Object.entries(eventTypeUsage).forEach(([eventType, count]) => {
     if (count > 1) {
       configHotspots.push({
@@ -204,7 +208,7 @@ function analyzeConfigRelationships() {
       });
     }
   });
-  
+
   // Find orphaned eventTypes (defined but not used by any page)
   eventTypes.forEach(eventType => {
     if (!pageFlows[eventType.eventType]) {
@@ -223,11 +227,11 @@ function analyzeConfigRelationships() {
         // Extract parameter from routes to show data flow
         const parentRoute = eventType.routePath || '';
         const childRoute = eventTypes.find(et => et.eventType === childEventType)?.routePath || '';
-        
+
         // Extract parameter that flows from parent to child
         const parentParam = parentRoute.match(/:(\w+)/);
         const childParam = childRoute.match(/:(\w+)/);
-        
+
         hierarchicalRelationships.push({
           parent: eventType.eventType,
           child: childEventType,
@@ -238,7 +242,7 @@ function analyzeConfigRelationships() {
       });
     }
   });
-  
+
   return {
     metadata: {
       generated: new Date().toISOString(),
@@ -263,43 +267,43 @@ function analyzeConfigRelationships() {
 // Generate Mermaid flow diagram
 function generateMermaidDiagram(analysis) {
   let mermaid = 'graph TD\n';
-  
+
   // Add page flows
   Object.entries(analysis.page_flows).forEach(([eventType, flow]) => {
     const pageName = flow.component.split('/').slice(-2, -1)[0];
     const cleanEventType = eventType.replace(/[^a-zA-Z0-9]/g, '_');
-    
+
     mermaid += `  ${cleanEventType}[${eventType}]\n`;
     mermaid += `  ${pageName}_comp[${pageName} Component]\n`;
     mermaid += `  ${pageName}_map[${pageName} PageMap]\n`;
-    
+
     // Add connections
     mermaid += `  ${pageName}_comp --> ${pageName}_map\n`;
     mermaid += `  ${pageName}_map --> ${cleanEventType}\n`;
-    
+
     if (flow.dbTable) {
       mermaid += `  ${cleanEventType} --> ${flow.dbTable}_db[(${flow.dbTable})]\n`;
     }
-    
+
     // Color coding by category
     if (flow.category === 'page:CrudLayout') {
       mermaid += `  style ${cleanEventType} fill:#e1f5fe\n`;
     }
   });
-  
+
   // Add hotspots
   analysis.configuration_hotspots.forEach(hotspot => {
     const cleanEventType = hotspot.eventType.replace(/[^a-zA-Z0-9]/g, '_');
     mermaid += `  style ${cleanEventType} fill:#ffebee,stroke:#f44336,stroke-width:3px\n`;
   });
-  
+
   return mermaid;
 }
 
 // Main execution
 try {
   const analysis = analyzeConfigRelationships();
-  
+
   // Add AI-optimized metadata
   analysis.metadata = {
     generated: new Date().toISOString(),
@@ -311,22 +315,22 @@ try {
   // Write outputs
   const jsonFile = path.join(JSON_OUTPUT_DIR, 'config-relationships.json');
   fs.writeFileSync(jsonFile, JSON.stringify(analysis, null, 2));
-  
+
   // Write Mermaid diagram
   const mermaid = generateMermaidDiagram(analysis);
   const mermaidFile = path.join(REPORTS_OUTPUT_DIR, 'config-flow.mmd');
   fs.writeFileSync(mermaidFile, mermaid);
-  
+
   console.log(`✅ Config analysis complete!`);
   console.log(`📁 JSON output: ${jsonFile}`);
   console.log(`📊 Mermaid diagram: ${mermaidFile}`);
-  
+
   // Summary
   console.log(`\n📋 Summary:`);
   console.log(`   🔄 Page Flows: ${analysis.metadata.total_page_flows}`);
   console.log(`   🔥 Config Hotspots: ${analysis.metadata.total_config_hotspots}`);
   console.log(`   🏝️  Config Orphans: ${analysis.metadata.total_config_orphans}`);
-  
+
 } catch (error) {
   console.error('❌ Analysis failed:', error);
   process.exit(1);

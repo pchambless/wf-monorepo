@@ -12,10 +12,10 @@ export function toMermaid(graph, options = {}) {
   lines.push(`flowchart ${layout}`);
   lines.push('');
 
-  // 🔹 Group nodes by cluster
+  // 🔹 Group nodes by pageFolder (or fallback to cluster)  
   const clusterMap = {};
   for (const node of nodes) {
-    const cluster = node.meta?.cluster || 'UNCATEGORIZED';
+    const cluster = node.meta?.pageFolder || node.meta?.cluster || 'UNCATEGORIZED';
     if (!clusterMap[cluster]) clusterMap[cluster] = [];
     clusterMap[cluster].push(node);
   }
@@ -35,8 +35,11 @@ export function toMermaid(graph, options = {}) {
 
   // 🔹 Generate navigation edges
   for (const edge of edges) {
-    const line = edge.label
-      ? `  ${edge.from} -->|${edge.label}| ${edge.to}`
+    // Use container as the edge label if available, otherwise use original label
+    const edgeLabel = edge.meta?.container || edge.label;
+    
+    const line = edgeLabel
+      ? `  ${edge.from} -->|${edgeLabel}| ${edge.to}`
       : `  ${edge.from} --> ${edge.to}`;
     lines.push(line);
   }

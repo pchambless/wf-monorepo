@@ -2,7 +2,7 @@
 import { makeAutoObservable } from "mobx";
 import React from "react";
 import { createLogger } from "@whatsfresh/shared-imports";
-import { getEventType } from "../events/client/eventTypes.js";
+import { getEventType } from "../../../../apps/wf-server/server/events/client/eventTypes.js";
 
 const log = createLogger("ContextStore");
 const STORAGE_KEY = "whatsfresh_context_state";
@@ -59,7 +59,7 @@ class ContextStore {
   }
 
   // Set a parameter value when user makes a selection
-  setParameter(paramName, value) {
+  setVal(paramName, value) {
     const oldValue = this.parameters[paramName];
     this.parameters[paramName] = value;
     this.persistContext();
@@ -78,7 +78,7 @@ class ContextStore {
   }
 
   // Get a parameter value
-  getParameter(paramName) {
+  getVal(paramName) {
     return this.parameters[paramName] || null;
   }
 
@@ -86,7 +86,7 @@ class ContextStore {
   setEvent(eventType, selectedValue) {
     const eventDef = getEventType(eventType);
     if (eventDef?.primaryKey) {
-      this.setParameter(eventDef.primaryKey, selectedValue);
+      this.setVal(eventDef.primaryKey, selectedValue);
 
       // Clear child parameters when parent selection changes
       this.clearChildParams(eventType);
@@ -120,7 +120,7 @@ class ContextStore {
       const paramName = param.replace(":", "");
 
       // Look up from contextual parameter store (everything is here now!)
-      const value = this.getParameter(paramName);
+      const value = this.getVal(paramName);
       if (value !== null) {
         resolvedParams[paramName] = value;
       }
@@ -150,7 +150,7 @@ class ContextStore {
   }
 
   // Get all parameters
-  getAllParameters() {
+  getAllVals() {
     return { ...this.parameters };
   }
 
@@ -175,18 +175,18 @@ class ContextStore {
   // Helper methods for common user attributes
   get currentUser() {
     return {
-      userID: this.getParameter("userID"),
-      firstName: this.getParameter("firstName"),
-      lastName: this.getParameter("lastName"),
-      userEmail: this.getParameter("userEmail"),
-      roleID: this.getParameter("roleID"),
-      dfltAcctID: this.getParameter("dfltAcctID"),
+      userID: this.getVal("userID"),
+      firstName: this.getVal("firstName"),
+      lastName: this.getVal("lastName"),
+      userEmail: this.getVal("userEmail"),
+      roleID: this.getVal("roleID"),
+      dfltAcctID: this.getVal("dfltAcctID"),
     };
   }
 
   get userDisplayName() {
-    const firstName = this.getParameter("firstName");
-    const lastName = this.getParameter("lastName");
+    const firstName = this.getVal("firstName");
+    const lastName = this.getVal("lastName");
     if (firstName && lastName) {
       return `${firstName} ${lastName}`;
     }
@@ -196,8 +196,8 @@ class ContextStore {
   get isAuthenticated() {
     // Only consider authenticated if we have both userID and explicit session validation
     // This prevents auto-login from stale localStorage data
-    const userID = this.getParameter("userID");
-    const sessionValid = this.getParameter("sessionValid");
+    const userID = this.getVal("userID");
+    const sessionValid = this.getVal("sessionValid");
     return userID !== null && sessionValid === true;
   }
 

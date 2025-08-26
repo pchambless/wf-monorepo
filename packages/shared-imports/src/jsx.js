@@ -46,6 +46,9 @@ export {
   BooleanField,
 } from "./components/forms/index.js";
 
+// Export schema-driven form components
+export { FormComponent } from "./components/FormComponent.jsx";
+
 // Export selector components (PascalCase names)
 export {
   SelBrnd,

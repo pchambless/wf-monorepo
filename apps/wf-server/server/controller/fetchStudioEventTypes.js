@@ -4,7 +4,7 @@
  * Used by Studio for hierarchy and component palette
  */
 
-import { getAppAllEvents } from "@whatsfresh/shared-imports/events";
+import { getAppAllEvents } from "../events/index.js";
 import logger from "../utils/logger.js";
 
 const codeName = "[fetchStudioEventTypes.js]";

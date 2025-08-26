@@ -20,7 +20,8 @@
     "generate-samples": "node packages/devtools/src/automation/data/genSampleData.js",
     "route-task": "node cli/generate-prompt.js",
     "generate-prompt": "node cli/generate-prompt.js",
-    "dev": "turbo run dev --filter=wf-client",
+    "dev-client": "turbo run dev --filter=wf-client",
+    "dev-plans": "turbo run start --filter=wf-plan-management",
     "dev:all": "turbo run dev",
     "server": "turbo run dev --filter=wf-server",
     "build": "turbo run build",
@@ -38,9 +39,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.27.4",
+    "@babel/parser": "^7.28.3",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@mermaid-js/mermaid-cli": "^11.6.0",
+    "@types/bun": "latest",
     "@types/vscode": "^1.102.0",
     "babel-loader": "^10.0.0",
     "dependency-cruiser": "^16.10.2",
@@ -48,8 +51,7 @@
     "minimist": "^1.2.8",
     "module-alias": "^2.2.3",
     "turbo": "^2.5.4",
-    "vscode": "^1.1.37",
-    "@types/bun": "latest"
+    "vscode": "^1.1.37"
   },
   "_moduleAliases": {
     "@packages": "./packages",
