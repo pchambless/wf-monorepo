@@ -1,0 +1,25 @@
+graph TD
+  subgraph Data Analysis
+    A[analyzeSchemas] --> B[columnNames, types, defaults]
+    C[wf-server: query eventTypes] --> D[layoutSpec columns]
+  end
+
+  subgraph EventType Definitions
+    E[Layout EventTypes] --> F[Page, Tabs, Grids]
+    F --> G[Forms, Buttons, Selects]
+  end
+
+  subgraph Orchestration Layer
+    H[eventOrchestrator.jsx] --> I[PageRenderer.jsx]
+    I --> J[workFlowEngine.js]
+  end
+
+  subgraph Config Generation
+    K[Generate appbar/sidebar/page JSON] --> L[pageConfig/layouts]
+    K --> M[pageConfig/pages]
+  end
+
+  B --> E
+  D --> E
+  G --> H
+  J --> K

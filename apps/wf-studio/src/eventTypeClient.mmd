@@ -1,0 +1,10 @@
+graph TD
+    A[Client EventType Modified] --> B[eventType.js changed]
+    B --> C{Has qry field?}
+    C -->|Yes| D[Run schema analysis]
+    C -->|No| E[Skip schema analysis]
+    D --> F[Apply templates]
+    E --> F
+    F --> G[Regenerate pageConfig]
+    G --> H[Update Mermaid diagrams]
+    H --> I[Update artifacts]

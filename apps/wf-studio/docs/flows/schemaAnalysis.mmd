@@ -1,0 +1,18 @@
+graph TD
+    subgraph "Trigger Sources"
+        A2[Server Query EventType Modified] --> B
+        A3[Client EventType with qry Modified] --> B
+    end
+
+    B{Determine Analysis Scope}
+    B -->|Server Qry Change| C2[Find client eventTypes with matching qry]
+    B -->|Client Qry Change| C3[Extract qry name from eventType]
+    
+    C2 --> D[Map qry to schema file]
+    C3 --> D
+    
+    D --> E[Run targeted schema analysis]
+    E --> F[Parse fresh SQL schema]
+    F --> G[Generate field metadata]
+    G --> H[Enrich affected eventTypes]
+    H --> I[Trigger dependent updates]

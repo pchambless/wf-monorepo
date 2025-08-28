@@ -1,0 +1,72 @@
+{
+  "eventType": "studioPage",
+  "category": "page", 
+  "title": "Studio Designer",
+  "purpose": "Three-column layout: app/page selector + component choices + tabbed work area",
+  "layout": "three-column",
+  "components": [
+    {
+      "id": "studioSidebar",
+      "type": "sidebar",
+      "container": "column",
+      "position": "left",
+      "width": "280px",
+      "props": {
+        "title": "App Page Designer",
+        "style": {
+          "backgroundColor": "#f5f5f5",
+          "borderRight": "1px solid #e0e0e0"
+        }
+      }
+    },
+    {
+      "id": "componentChoicesPanel",
+      "type": "compactPanel", 
+      "container": "column",
+      "position": "middle",
+      "width": "200px",
+      "props": {
+        "title": "Component Choices",
+        "style": {
+          "borderRight": "1px solid #e0e0e0",
+          "backgroundColor": "#fafafa",
+          "padding": "12px"
+        }
+      }
+    },
+    {
+      "id": "workAreaTabs",
+      "type": "tabs",
+      "container": "tabs",
+      "position": "right",
+      "flex": 1,
+      "props": {
+        "title": "Work Area",
+        "defaultTab": "componentDetail", 
+        "style": {
+          "backgroundColor": "#ffffff"
+        }
+      }
+    }
+  ],
+  "workflowTriggers": {
+    "onLoad": [
+      "loadAvailableApps",
+      "initializeStudioState"
+    ],
+    "onAppSelect": [
+      "loadAppEventTypes",
+      "refreshSidebar"  
+    ],
+    "onComponentSelect": [
+      "loadComponentDetail",
+      "switchToDetailTab"
+    ]
+  },
+  "meta": {
+    "generated": "2025-08-27T00:00:00.000Z",
+    "source": "Studio eventTypes",
+    "status": "manual",
+    "componentCount": 3
+  }
+}

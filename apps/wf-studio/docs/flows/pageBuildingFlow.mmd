@@ -1,0 +1,61 @@
+graph TD
+    A[Start Page Design] --> B{Choose Building Strategy}
+    
+    %% Bottom-Up Approach (Recommended)
+    B -->|Bottom-Up| C[Create Leaf Components First]
+    C --> D[Build Form EventTypes]
+    D --> D1[formPlan.js<br/>• fields array<br/>• no components<br/>• leaf node]
+    C --> E[Build Grid EventTypes] 
+    E --> E1[gridPlans.js<br/>• fields array<br/>• width attributes<br/>• leaf node]
+    
+    D1 --> F[Test & Validate Leaves]
+    E1 --> F
+    F --> G[Build Container Components]
+    
+    G --> H[Build Tab EventTypes]
+    H --> H1[tabPlan.js<br/>• references formPlan<br/>• references gridPlans<br/>• layout components]
+    
+    H1 --> I[Build Page EventType]
+    I --> I1[pagePlanManager.js<br/>• references tabPlan<br/>• page-level layout<br/>• routing info]
+    
+    %% Top-Down Approach (Alternative)
+    B -->|Top-Down| J[Create Page Structure First]
+    J --> K[Define Component Placeholders]
+    K --> L[Build Components to Fill Placeholders]
+    L --> M[Link Components to Page]
+    
+    %% Validation Steps
+    I1 --> N[Generate PageConfig]
+    M --> N
+    N --> O[Validate Component Tree]
+    O --> P{All Components Exist?}
+    P -->|No| Q[Create Missing Components]
+    Q --> O
+    P -->|Yes| R[Pipeline Generation]
+    
+    %% Pipeline Integration
+    R --> S[Studio EventTypes → Analysis]
+    S --> T[Generate App PageConfigs]
+    T --> U[Apps Consume PageConfigs]
+    U --> V[Render Complete Page]
+    
+    %% Iteration Loop
+    V --> W[Test in Browser]
+    W --> X{Design Needs Changes?}
+    X -->|Yes| Y[Studio Visual Editor]
+    Y --> Z[Update EventTypes]
+    Z --> R
+    X -->|No| END[Page Complete]
+    
+    %% Styling
+    classDef leafNode fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+    classDef containerNode fill:#dbeafe,stroke:#3b82f6,stroke-width:2px  
+    classDef pageNode fill:#f3e8ff,stroke:#9333ea,stroke-width:2px
+    classDef pipelineNode fill:#fff7ed,stroke:#ea580c,stroke-width:2px
+    classDef validationNode fill:#fee2e2,stroke:#dc2626,stroke-width:2px
+    
+    class D1,E1 leafNode
+    class H1 containerNode
+    class I1 pageNode
+    class R,S,T pipelineNode
+    class O,P,Q validationNode
