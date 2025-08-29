@@ -1,0 +1,119 @@
+/* DataBindingCard.css - Styles for data binding configuration card */
+
+.data-binding-card {
+  border: 2px solid #16a34a;
+  border-radius: 8px;
+  background-color: #dcfce7;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.data-binding-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #16a34a;
+  color: white;
+}
+
+.data-binding-content {
+  padding: 16px;
+}
+
+.data-binding-field {
+  margin-bottom: 16px;
+}
+
+.data-binding-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #374151;
+  font-size: 14px;
+}
+
+.data-binding-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: monospace;
+  box-sizing: border-box;
+}
+
+.data-binding-input:focus {
+  outline: none;
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+.data-binding-input-path {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: monospace;
+  box-sizing: border-box;
+}
+
+.data-binding-hint {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.data-binding-hint-inline {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+  font-weight: normal;
+  margin-left: 4px;
+}
+
+.data-binding-status {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #f0fdf4;
+  border-radius: 4px;
+  border: 1px solid #bbf7d0;
+}
+
+.data-binding-status-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.data-binding-status-label {
+  font-weight: 500;
+  font-size: 12px;
+  color: #374151;
+}
+
+.data-binding-status-value {
+  font-family: monospace;
+  font-size: 12px;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* Empty state */
+.data-binding-empty {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+  background-color: #f9fafb;
+  margin-bottom: 16px;
+}
+
+.data-binding-empty-text {
+  color: #6b7280;
+  margin: 0;
+  font-style: italic;
+}

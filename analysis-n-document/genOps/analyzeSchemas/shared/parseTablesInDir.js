@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { parseSQLFile } from './parseTableSchema.js';
-import { normalizeSQL } from './normalizeSQL.js';
+import { parseSQLFile } from '../../../../apps/wf-studio/src/utils/parseTableSchema.js';
+import { normalizeSQL } from '../../../../apps/wf-studio/src/utils/normalizeSQL.js';
 
 const baseDir = '/home/paul/wf-monorepo-new/sql/database';
 const inputArg = process.argv[2]?.trim();

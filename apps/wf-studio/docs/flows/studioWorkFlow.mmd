@@ -1,18 +1,23 @@
 graph LR
-    subgraph "User Interface"
-      A["Project Explorer<br/>📁 StudioSidebar.jsx"] --> B["Select EventType<br/>🎯 eventTypeToStudio.js"]
-      B --> C["Component Detail Form<br/>📝 CanvasSidebar.jsx"]
-      C --> D["Edit Properties<br/>⚙️ WidgetCanvas.jsx"]
+    subgraph "✅ CURRENT WORKING INTERFACE"
+      A["Studio Sidebar<br/>✅ studioSidebar.js<br/>App/Page/EventType Selection"] --> B["Component Choices<br/>✅ componentChoicesPanel.js<br/>Widget/Container buttons"]
+      B --> C["Work Area Tabs<br/>✅ workAreaTabs.js<br/>Component Detail Card"]
+      C --> D["State Management<br/>✅ contextStore.js<br/>getVal/setVal pattern"]
     end
 
-    subgraph "Live Preview"
-      D --> E["Generate Preview<br/>🔍 studioPipelineBridge.js"]
-      E --> F["Mermaid Diagram<br/>📊 updateMermaidDiagrams.js"]
-      E --> G["Page Renderer<br/>🖼️ PageRenderer.jsx"]
+    subgraph "🚧 CURRENT DEVELOPMENT - Component Cards"
+      D --> E["ComponentDetailCard<br/>✅ Modularized with CSS separation<br/>Loads real eventType data"]
+      E --> F["Data Binding Card<br/>✅ Edit qry, cluster, displayConfig<br/>Real-time field updates"]
+    end
+    
+    subgraph "🚧 NEXT PHASE - More Cards & Saving"
+      F --> G["Workflow Triggers Card<br/>🚧 Edit onRefresh, onCreate, etc.<br/>Workflow configuration"]
+      F --> H["Validation Rules Card<br/>🚧 Edit field validation rules<br/>Real-time validation"]
+      G --> I["Save EventType Files<br/>🚧 Write changes to actual files<br/>File system integration"]
     end
 
-    subgraph "Save Pipeline"
-      D --> H["Update EventType File<br/>💾 eventTypeChangeHandler.js"]
-      H --> I["Regenerate pageConfig<br/>🔄 regeneratePageConfig.js"]
-      I --> J["Update Analysis<br/>🧠 targetedAnalysis.js"]
+    subgraph "🔮 FUTURE - Analysis & Preview"
+      I --> J["Schema Analysis<br/>✅ targetedAnalysis.js<br/>Validate DB compatibility"]
+      I --> K["Live Preview<br/>🔮 Enhanced PageRenderer<br/>Show eventType changes"]
+      I --> L["Mermaid Generation<br/>🔮 Dynamic diagram updates<br/>Visual workflow display"]
     end

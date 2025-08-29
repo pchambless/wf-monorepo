@@ -1,0 +1,166 @@
+/* ComponentDetailCard.css - Styles for modularized component detail interface */
+
+.component-detail-container {
+  height: 100%;
+  overflow: auto;
+}
+
+.component-detail-title {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.component-detail-empty {
+  color: #6b7280;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* 2-Column Card Grid Layout */
+.component-detail-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.full-width-card {
+  grid-column: 1 / -1;
+}
+
+/* Basic Properties Card */
+.basic-card {
+  border: 2px solid #3b82f6;
+  border-radius: 8px;
+  background-color: #dbeafe;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.basic-card-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #3b82f6;
+  color: white;
+}
+
+.card-icon {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.basic-card-content {
+  padding: 16px;
+}
+
+/* Form fields for Basic Properties */
+.property-field {
+  margin-bottom: 16px;
+}
+
+.property-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #374151;
+  font-size: 14px;
+}
+
+.property-input, 
+.property-select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+/* Make sure selects look consistent */
+select.property-input {
+  cursor: pointer;
+}
+
+.property-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.property-textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.property-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.property-hint {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.property-hint-inline {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+  font-weight: normal;
+  margin-left: 4px;
+}
+
+.property-row {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+/* Actions Card */
+.actions-card {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 12px;
+  background-color: #f9fafb;
+}
+
+.actions-title {
+  margin: 0 0 8px 0;
+  color: #9333ea;
+  font-size: 14px;
+}
+
+.action-button {
+  padding: 6px 12px;
+  font-size: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 4px;
+}
+
+.action-button:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}

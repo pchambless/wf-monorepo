@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { normalizeSQL } from './normalizeSQL.js';
-import { parseSQLFile } from './parseTableSchema.js';
-import { addFieldAttributes } from './addFieldAttributes.js';
-import { writeSchema } from './writeSchema.js';
+import { normalizeSQL } from '../../../../apps/wf-studio/src/utils/normalizeSQL.js';
+import { parseSQLFile } from '../../../../apps/wf-studio/src/utils/parseTableSchema.js';
+import { addFieldAttributes } from '../../../../apps/wf-studio/src/utils/addFieldAttributes.js';
+import { writeSchema } from '../../../../apps/wf-studio/src/utils/writeSchema.js';
 import { appSchemaMapping } from './configDB.js';
 
 const app = process.argv[2]?.trim();

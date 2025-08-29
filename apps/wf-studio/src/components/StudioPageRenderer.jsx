@@ -1,4 +1,5 @@
 import React from "react";
+import ComponentDetailCard from "./ComponentDetailCard.jsx";
 
 /**
  * Studio Page Renderer
@@ -282,11 +283,17 @@ const SidebarRenderer = ({ component }) => {
 };
 
 /**
- * Compact Panel Renderer
+ * Compact Panel Renderer - Now uses 2-column layout and shared config
  */
 const CompactPanelRenderer = ({ component }) => {
-  const containers = ["Tabs", "Containers", "Modals", "Other"];
-  const widgets = ["Grids", "Forms", "Select", "TextArea", "Text", "Date"];
+  const [categories, setCategories] = React.useState({ containers: [], widgets: [] });
+
+  React.useEffect(() => {
+    // Load categories from shared configuration
+    import('../config/componentCategories').then(({ getCategoriesGrouped }) => {
+      setCategories(getCategoriesGrouped());
+    });
+  }, []);
 
   const handleComponentClick = (componentType, category) => {
     // Update contextStore to mark as dirty and log the action
@@ -294,9 +301,12 @@ const CompactPanelRenderer = ({ component }) => {
       const selectedEventType = getVal('selectedEventType');
       if (selectedEventType) {
         setVal('isDirty', true);
-        console.log(`Adding ${componentType} (${category}) to ${selectedEventType}`);
+        console.log(`✨ Adding ${componentType.label} (${category}) to ${selectedEventType}`);
+        
+        // Future enhancement: Auto-populate Category dropdown
+        // setVal('selectedCategory', componentType.id);
       } else {
-        console.log('No eventType selected - please select an eventType first');
+        console.log('⚠️ No eventType selected - please select an eventType first');
       }
     });
   };
@@ -315,62 +325,77 @@ const CompactPanelRenderer = ({ component }) => {
   return (
     <div style={{ padding: "12px" }}>
       <h4 style={{ margin: "0 0 12px 0", fontSize: "14px" }}>
-        {component.props?.title || "Components"}
+        {component.props?.title || "Component Choices"}
       </h4>
       
-      {/* Containers */}
+      {/* Containers - 2 Column Grid */}
       <div style={{ marginBottom: "16px" }}>
-        <div style={{ fontWeight: "bold", fontSize: "12px", marginBottom: "4px" }}>
+        <div style={{ fontWeight: "bold", fontSize: "12px", marginBottom: "6px", color: "#374151" }}>
           Containers
         </div>
-        <div style={{ display: "grid", gap: "2px" }}>
-          {containers.map(item => (
+        <div style={{ 
+          display: "grid", 
+          gridTemplateColumns: "1fr 1fr", 
+          gap: "4px" 
+        }}>
+          {categories.containers.map(item => (
             <button 
-              key={item}
+              key={item.id}
               style={buttonStyle}
               onClick={() => handleComponentClick(item, 'container')}
               onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
               onMouseLeave={(e) => e.target.style.backgroundColor = '#fff'}
+              title={item.description}
             >
-              {item}
+              {item.label}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Widgets */}
+      {/* Widgets - 2 Column Grid */}
       <div style={{ marginBottom: "16px" }}>
-        <div style={{ fontWeight: "bold", fontSize: "12px", marginBottom: "4px" }}>
-          Widgets
+        <div style={{ fontWeight: "bold", fontSize: "12px", marginBottom: "6px", color: "#374151" }}>
+          Widgets  
         </div>
-        <div style={{ display: "grid", gap: "2px" }}>
-          {widgets.map(item => (
+        <div style={{ 
+          display: "grid", 
+          gridTemplateColumns: "1fr 1fr", 
+          gap: "4px" 
+        }}>
+          {categories.widgets.map(item => (
             <button 
-              key={item}
+              key={item.id}
               style={buttonStyle}
               onClick={() => handleComponentClick(item, 'widget')}
               onMouseEnter={(e) => e.target.style.backgroundColor = '#f0f0f0'}
               onMouseLeave={(e) => e.target.style.backgroundColor = '#fff'}
+              title={item.description}
             >
-              {item}
+              {item.label}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Quick Actions - 2 Column Grid */}
       <div style={{ marginBottom: "16px" }}>
-        <div style={{ fontWeight: "bold", fontSize: "12px", marginBottom: "4px" }}>
+        <div style={{ fontWeight: "bold", fontSize: "12px", marginBottom: "6px", color: "#374151" }}>
           Quick Actions
         </div>
-        <div style={{ display: "grid", gap: "2px" }}>
+        <div style={{ 
+          display: "grid", 
+          gridTemplateColumns: "1fr 1fr", 
+          gap: "4px" 
+        }}>
           <button 
             style={{...buttonStyle, backgroundColor: "#e3f2fd"}}
             onClick={() => {
               import('../stores/contextStore').then(({ getAllVals }) => {
-                console.log('Studio State:', getAllVals());
+                console.log('🔍 Studio State:', getAllVals());
               });
             }}
+            title="Show current contextStore state"
           >
             Show State
           </button>
@@ -379,9 +404,10 @@ const CompactPanelRenderer = ({ component }) => {
             onClick={() => {
               import('../stores/contextStore').then(({ setVal }) => {
                 setVal('isDirty', false);
-                console.log('Marked as saved');
+                console.log('💾 Marked as saved');
               });
             }}
+            title="Mark current changes as saved"
           >
             Mark Saved
           </button>
@@ -391,94 +417,7 @@ const CompactPanelRenderer = ({ component }) => {
   );
 };
 
-/**
- * Component Detail Card - Shows selected eventType info
- */
-const ComponentDetailCard = () => {
-  const [selectedEventType, setSelectedEventType] = React.useState(null);
-
-  React.useEffect(() => {
-    // Check for selected eventType from contextStore
-    import('../stores/contextStore').then(({ getVal }) => {
-      const eventType = getVal('selectedEventType');
-      setSelectedEventType(eventType);
-    });
-    
-    // Poll for changes (simple approach)
-    const interval = setInterval(() => {
-      import('../stores/contextStore').then(({ getVal }) => {
-        const eventType = getVal('selectedEventType');
-        setSelectedEventType(eventType);
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!selectedEventType) {
-    return (
-      <div>
-        <h4 style={{ margin: "0 0 12px 0" }}>Component Detail</h4>
-        <p style={{ color: "#666", fontSize: "14px" }}>
-          Select an eventType from the sidebar to view and edit its properties.
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <h4 style={{ margin: "0 0 12px 0" }}>Component Detail: {selectedEventType}</h4>
-      
-      {/* Basic Properties Card */}
-      <div style={{ 
-        border: "1px solid #ddd", 
-        borderRadius: "4px", 
-        padding: "12px", 
-        marginBottom: "12px",
-        backgroundColor: "#f9f9f9"
-      }}>
-        <h5 style={{ margin: "0 0 8px 0", color: "#1976d2" }}>🔵 Basic Properties</h5>
-        <div style={{ fontSize: "12px" }}>
-          <div><strong>EventType:</strong> {selectedEventType}</div>
-          <div><strong>Category:</strong> {selectedEventType.startsWith('form') ? 'form' : selectedEventType.startsWith('grid') ? 'grid' : 'component'}</div>
-          <div><strong>Title:</strong> {selectedEventType.replace(/([A-Z])/g, ' $1').trim()}</div>
-        </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div style={{ 
-        border: "1px solid #ddd", 
-        borderRadius: "4px", 
-        padding: "12px",
-        backgroundColor: "#f9f9f9"
-      }}>
-        <h5 style={{ margin: "0 0 8px 0", color: "#9333ea" }}>⚙️ Actions</h5>
-        <button style={{ 
-          padding: "4px 8px", 
-          fontSize: "11px", 
-          border: "1px solid #ddd", 
-          borderRadius: "3px",
-          backgroundColor: "#fff",
-          cursor: "pointer",
-          marginRight: "4px"
-        }}>
-          Load EventType File
-        </button>
-        <button style={{ 
-          padding: "4px 8px", 
-          fontSize: "11px", 
-          border: "1px solid #ddd", 
-          borderRadius: "3px",
-          backgroundColor: "#fff",
-          cursor: "pointer"
-        }}>
-          Save Changes
-        </button>
-      </div>
-    </div>
-  );
-};
+// ComponentDetailCard now imported from separate module
 
 /**
  * Tabs Renderer

@@ -1,5 +1,5 @@
 // Test script for targeted schema analysis
-import { runTargetedAnalysis, findClientEventTypesUsingQry } from './analysis-n-document/genOps/analyzeSchemas/shared/targetedAnalysis.js';
+import { runTargetedAnalysis, findClientEventTypesUsingQry } from './apps/wf-studio/src/utils/targetedAnalysis.js';
 
 // Get qry from command line argument
 const targetQry = process.argv[2] || 'planDtl';
@@ -7,13 +7,13 @@ const app = 'plans'; // Could also be a parameter
 
 async function testTargetedAnalysis() {
     console.log(`🧪 Testing Targeted Schema Analysis for qry: ${targetQry}\n`);
-    
+
     // Test 1: Client eventType change using specified qry
     console.log(`Test 1: Client eventType change for qry: ${targetQry}`);
     try {
         const result1 = await runTargetedAnalysis({
             eventType: `form${targetQry.replace('Dtl', '').replace('List', '')}`, // Rough guess at eventType name
-            qryName: targetQry, 
+            qryName: targetQry,
             app: app,
             showJSON: false // Set to true to see schema details
         });
@@ -26,9 +26,9 @@ async function testTargetedAnalysis() {
     } catch (err) {
         console.log('❌ Test 1 FAILED:', err.message);
     }
-    
+
     console.log('\n---\n');
-    
+
     // Test 2: Find client eventTypes using the specified qry
     console.log(`Test 2: Find client eventTypes using ${targetQry} qry`);
     try {
@@ -41,16 +41,16 @@ async function testTargetedAnalysis() {
     } catch (err) {
         console.log('❌ Test 2 FAILED:', err.message);
     }
-    
+
     console.log('\n---\n');
-    
+
     // Test 3: Server eventType change simulation
     console.log(`Test 3: Server eventType ${targetQry} change simulation`);
     try {
         const result3 = await runTargetedAnalysis({
             eventType: targetQry,
             qryName: targetQry,
-            app: app, 
+            app: app,
             showJSON: false
         });
         console.log('✅ Test 3 Result:', result3.success ? 'PASSED' : 'FAILED');
@@ -61,7 +61,7 @@ async function testTargetedAnalysis() {
     } catch (err) {
         console.log('❌ Test 3 FAILED:', err.message);
     }
-    
+
     console.log(`\n🎯 Usage: node test-targeted-analysis.js [qryName]`);
     console.log(`   Examples: node test-targeted-analysis.js planList`);
     console.log(`            node test-targeted-analysis.js planDtl`);
