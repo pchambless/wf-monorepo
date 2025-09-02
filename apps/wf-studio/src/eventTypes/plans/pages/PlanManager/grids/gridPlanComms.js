@@ -10,8 +10,6 @@ export const gridPlanComms =
     onCreate: ["createRecord"],
   },
   workflows: ["createCommunication"],
-
-  displayConfig: "/home/paul/wf-monorepo-new/analysis-n-document/genOps/workflows/output/plans/gridPlanComms-display.js",
   purpose: "Get communications for a specific plan",
 
 };

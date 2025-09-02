@@ -1,6 +1,10 @@
 # .claude/config.yaml - Claude-specific configuration for WhatsFresh monorepo
 # Working Documentation - Created: 2025-08-01
 
+Next chat text creation:
+  action: "create text summarizing the chat's accomplishments and next steps.  Present this in the chat
+           so the user can paste it into a new document in the new-chat-sessions folder"
+           
 project_context:
   name: "WhatsFresh 2.0"
   architecture: "monorepo-devtools-generated"

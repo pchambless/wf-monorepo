@@ -52,42 +52,9 @@ export * from "./utils/index.js";
 // These are temporary stubs to get the app compiling
 // They should be replaced with proper implementations or removed
 
-// === TEMPORARY STUBS FOR JSX COMPONENTS ===
-// These are temporary stubs until webpack config is fixed
-// Use '@whatsfresh/shared-imports/jsx' for actual JSX components (once webpack is configured)
-// For now, we'll import real components directly from shared-ui in client code
-// export const LoginForm = () => null;
-export const LoginView = () => null;
-export const CrudLayout = () => null;
-export const Modal = () => null;
-export const useModalStore = () => ({ isOpen: false, close: () => { } });
-export const modalStore = { isOpen: false, close: () => { } };
-export const SelAcct = ({
-  selectedAccountId,
-  accounts,
-  onChange,
-  loading,
-  size,
-}) => {
-  // Temporary debug - return simple string to test if this is causing the React error
-  console.log("SelAcct called with:", {
-    selectedAccountId,
-    accounts,
-    loading,
-    size,
-  });
-  return "Account Selector (Debug)";
-};
-
-export function initEventTypeService() {
-  console.log("initEventTypeService stub called");
-  return Promise.resolve(true);
-}
-
-export function isEventTypeServiceInitialized() {
-  console.log("isEventTypeServiceInitialized stub called");
-  return true;
-}
+// === LEGACY STUBS REMOVED ===
+// Temporary JSX component stubs removed - use jsx.js for components
+// Event service stubs removed - implement properly when needed
 
 // === STORE UTILITIES ===
 export {
@@ -100,14 +67,16 @@ export {
  * Package metadata
  */
 // === EVENT UTILITIES ===
-export {
-  getClientSafeEventTypes,
-  getAdminSafeEventTypes,
-  getSafeEventTypes,
-  getEventType,
-  getEventTypes,
-  eventTypes,
-} from "../../../apps/wf-server/server/events/index.js";
+// COMMENTED OUT: Hard-coded server imports don't work in browser
+// TODO: Replace with API calls - fetchEventTypes(), fetchEventType(name), etc.
+// export {
+//   getClientSafeEventTypes,
+//   getAdminSafeEventTypes,
+//   getSafeEventTypes,
+//   getEventType,
+//   getEventTypes,
+//   eventTypes,
+// } from "../../../apps/wf-server/server/events/index.js";
 
 // === API UTILITIES ===
 export { execEvent, createApi, api } from "./api/index.js";

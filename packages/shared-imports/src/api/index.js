@@ -3,6 +3,13 @@
  * @module api
  */
 
+import { execEvent as execEventFn } from './execEvent.js';
+import { fetchParams as fetchParamsFn } from './fetchParams.js';
+import { execCreateDoc as execCreateDocFn } from './execCreateDoc.js';
+import { execDml as execDmlFn } from './execDml.js';
+import { execDmlWithRefresh as execDmlWithRefreshFn } from './execDmlWithRefresh.js';
+import { fetchStudioEventTypes as fetchStudioEventTypesFn } from './fetchStudioEventTypes.js';
+
 /**
  * Default API configuration
  */
@@ -10,101 +17,6 @@ const DEFAULT_CONFIG = {
   baseUrl: process.env.REACT_APP_API_BASE_URL || "http://localhost:3001",
   logger: console,
 };
-
-/**
- * Standalone execCreateDoc function for parameter-driven document creation
- */
-export async function execCreateDoc(params, config = {}) {
-  const { baseUrl, logger } = { ...DEFAULT_CONFIG, ...config };
-
-  try {
-    logger.debug(`Creating document:`, params);
-
-    // Basic headers
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
-    // Call the execCreateDoc endpoint with credentials
-    const response = await fetch(`${baseUrl}/api/execCreateDoc`, {
-      method: "POST",
-      headers,
-      credentials: "include", // Important for session cookies
-      body: JSON.stringify(params),
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `API call failed: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const result = await response.json();
-    logger.debug(`Document created successfully:`, result.resolvedFileName);
-    return result;
-  } catch (error) {
-    logger.error(`Document creation failed:`, error);
-    throw error;
-  }
-}
-
-/**
- * Standalone execEvent function that can be used directly
- */
-export async function execEvent(eventType, params = {}, config = {}) {
-  const { baseUrl, logger } = { ...DEFAULT_CONFIG, ...config };
-
-  try {
-    // Import dependencies (dynamic import to avoid circular deps)
-    const { getEventType } = await import("../../../../apps/wf-server/server/events/index.js");
-    const { default: contextStore } = await import("../stores/contextStore.js");
-
-    // Validate event exists in our definitions
-    const eventDef = getEventType(eventType);
-    if (!eventDef) {
-      logger.error(`Unknown event type: ${eventType}`);
-      throw new Error(`Unknown event type: ${eventType}`);
-    }
-
-    // Auto-resolve parameters using contextStore (everything is here now!)
-    const autoParams = contextStore.getEventParams(eventType);
-
-    // Merge auto-resolved params with manually passed params (manual takes priority)
-    const mergedParams = { ...autoParams, ...params };
-
-    logger.debug(`Executing event: ${eventType}`, {
-      autoParams,
-      manualParams: params,
-      mergedParams,
-    });
-
-    // Basic headers
-    const headers = {
-      "Content-Type": "application/json",
-    };
-
-    // Call the execEventType endpoint with credentials
-    const response = await fetch(`${baseUrl}/api/execEventType`, {
-      method: "POST",
-      headers,
-      credentials: "include", // Important for session cookies
-      body: JSON.stringify({ eventType, params: mergedParams }),
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `API call failed: ${response.status} ${response.statusText}`
-      );
-    }
-
-    const result = await response.json();
-    logger.debug(`Event ${eventType} completed successfully`);
-    return result;
-  } catch (error) {
-    logger.error(`Event ${eventType} failed:`, error);
-    throw error;
-  }
-}
 
 /**
  * Create an API client for WhatsFresh applications
@@ -115,205 +27,38 @@ export function createApi(options = {}) {
     logger = console,
   } = options;
 
-  /**
-   * Execute parameter-driven document creation
-   */
-  async function execCreateDoc(params) {
-    try {
-      logger.debug(`Creating document:`, params);
+  const config = { baseUrl, logger };
 
-      const headers = {
-        "Content-Type": "application/json",
-      };
-
-      // Call the execCreateDoc endpoint with credentials
-      const response = await fetch(`${baseUrl}/api/execCreateDoc`, {
-        method: "POST",
-        headers,
-        credentials: "include", // Important for session cookies
-        body: JSON.stringify(params),
-      });
-
-      if (!response.ok) {
-        const error = new Error(
-          `API Error: ${response.status} ${response.statusText}`
-        );
-        error.status = response.status;
-        throw error;
-      }
-
-      return await response.json();
-    } catch (error) {
-      logger.error(`Document Creation Error:`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Execute an event type against the API with validation
-   */
-  async function execEvent(eventType, params = {}) {
-    try {
-      logger.debug(`Executing event: ${eventType}`, params);
-
-      // Import event validation (dynamic import to avoid circular deps)
-      const { getEventType } = await import("../../../../apps/wf-server/server/events/index.js");
-
-      // Validate event exists in our definitions
-      const eventDef = getEventType(eventType);
-      if (!eventDef) {
-        logger.error(`Unknown event type: ${eventType}`);
-        throw new Error(`Unknown event type: ${eventType}`);
-      }
-
-      // Basic headers - no auth token
-      const headers = {
-        "Content-Type": "application/json",
-      };
-
-      // Call the execEventType endpoint with credentials
-      // This ensures cookies are sent if you're using session cookies
-      const response = await fetch(`${baseUrl}/api/execEventType`, {
-        method: "POST",
-        headers,
-        credentials: "include", // Important for session cookies
-        body: JSON.stringify({ eventType, params }),
-      });
-
-      if (!response.ok) {
-        const error = new Error(
-          `API Error: ${response.status} ${response.statusText}`
-        );
-        error.status = response.status;
-        throw error;
-      }
-
-      return await response.json();
-    } catch (error) {
-      logger.error(`Event Error: ${eventType}`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Execute a DML operation
-   */
-  async function execDml(operation, data = {}) {
-    try {
-      logger.debug(`Executing DML: ${operation}`, data);
-
-      const headers = {
-        "Content-Type": "application/json",
-      };
-
-      // Call the DML endpoint with credentials (for session-based auth)
-      const response = await fetch(`${baseUrl}/api/execDML`, {
-        method: "POST",
-        headers,
-        credentials: "include", // Important for session cookies
-        body: JSON.stringify(data), // Send the DML payload directly
-      });
-
-      if (!response.ok) {
-        const error = new Error(
-          `DML Error: ${response.status} ${response.statusText}`
-        );
-        error.status = response.status;
-        throw error;
-      }
-
-      return await response.json();
-    } catch (error) {
-      logger.error(`DML Error: ${operation}`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Execute DML operation followed by automatic table refresh (client-side)
-   * @param {string} operation - DML operation type
-   * @param {Object} data - DML data payload
-   * @param {string} listEvent - Event to call for refresh (optional)
-   * @returns {Object} Combined result with DML result and fresh table data
-   */
-  async function execDmlWithRefresh(operation, data = {}, listEvent = null) {
-    try {
-      logger.debug(`Executing DML with refresh: ${operation}`, {
-        data,
-        listEvent,
-      });
-
-      // Step 1: Execute the DML operation (server-side)
-      const dmlResult = await execDml(operation, data);
-
-      if (!dmlResult.success) {
-        logger.error(`DML operation failed: ${operation}`, dmlResult);
-        return dmlResult;
-      }
-
-      // Step 2: If successful and listEvent provided, refresh the table data (client-side)
-      let refreshData = null;
-      if (listEvent) {
-        try {
-          logger.debug(`Refreshing table data with event: ${listEvent}`);
-          // Auto-resolve contextStore parameters like working fetchData() pattern
-          const { default: contextStore } = await import(
-            "../stores/contextStore.js"
-          );
-          const autoParams = contextStore.getEventParams(listEvent);
-          refreshData = await execEvent(listEvent, autoParams);
-          logger.debug(`Table refresh successful for: ${listEvent}`);
-        } catch (refreshError) {
-          logger.warn(`Table refresh failed for: ${listEvent}`, refreshError);
-          // Don't fail the whole operation if refresh fails
-        }
-      }
-
-      // Step 3: Return combined result
-      return {
-        ...dmlResult,
-        refreshData,
-        refreshSuccess: !!refreshData,
-      };
-    } catch (error) {
-      logger.error(`DML with refresh failed: ${operation}`, error);
-      throw error;
-    }
-  }
-
-  /**
-   * Fetch all eventTypes for Studio use
-   */
-  async function fetchStudioEventTypes(app) {
-    try {
-      logger.debug(`Fetching Studio eventTypes for app: ${app}`);
-
-      const response = await fetch(`${baseUrl}/api/studio/eventTypes/${app}`, {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        const error = new Error(
-          `API Error: ${response.status} ${response.statusText}`
-        );
-        error.status = response.status;
-        throw error;
-      }
-
-      return await response.json();
-    } catch (error) {
-      logger.error(`Fetch Studio EventTypes Error: ${app}`, error);
-      throw error;
-    }
-  }
+  // Create bound functions with config injected
+  const boundExecEvent = (eventType, params = {}) => 
+    execEventFn(eventType, params, config);
+    
+  const boundFetchParams = (eventTypeName) => 
+    fetchParamsFn(eventTypeName, config);
+    
+  const boundExecCreateDoc = (params) => 
+    execCreateDocFn(params, config);
+    
+  const boundExecDml = (operation, data = {}) => 
+    execDmlFn(operation, data, config);
+    
+  const boundExecDmlWithRefresh = (operation, data = {}, listEvent = null) => 
+    execDmlWithRefreshFn(operation, data, listEvent, { 
+      ...config, 
+      execDml: boundExecDml, 
+      execEvent: boundExecEvent 
+    });
+    
+  const boundFetchStudioEventTypes = (app) => 
+    fetchStudioEventTypesFn(app, config);
 
   return {
-    execEvent,
-    execDml,
-    execDmlWithRefresh,
-    execCreateDoc,
-    fetchStudioEventTypes,
+    execEvent: boundExecEvent,
+    fetchParams: boundFetchParams,
+    execCreateDoc: boundExecCreateDoc,
+    execDml: boundExecDml,
+    execDmlWithRefresh: boundExecDmlWithRefresh,
+    fetchStudioEventTypes: boundFetchStudioEventTypes,
   };
 }
 
@@ -326,8 +71,10 @@ export const api = createApi();
  * Direct exports for convenience
  */
 export const {
+  execEvent,
   execDml,
   execDmlWithRefresh,
-  execCreateDoc: apiExecCreateDoc,
+  execCreateDoc,
   fetchStudioEventTypes,
+  fetchParams,
 } = api;

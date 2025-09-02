@@ -1,18 +1,19 @@
 graph TD
     subgraph "Trigger Sources"
-        A2[Server Query EventType Modified] --> B
-        A3[Client EventType with qry Modified] --> B
+        A4[User Manually kicks off Process]
+        A1[Studio Generate Fields Button] --> W1[Start genFields Process]
+        A2[Server qrySQL File Changed] --> M1[Show Modal: Schema May Have Changed]
+        A3[Client qry Property Changed] --> M2[Show Modal: Query Reference Changed]
+        M1 --> A1
+        M2 --> A1
+        A4 --> A1
     end
 
-    B{Determine Analysis Scope}
-    B -->|Server Qry Change| C2[Find client eventTypes with matching qry]
-    B -->|Client Qry Change| C3[Extract qry name from eventType]
-    
-    C2 --> D[Map qry to schema file]
-    C3 --> D
-    
-    D --> E[Run targeted schema analysis]
-    E --> F[Parse fresh SQL schema]
-    F --> G[Generate field metadata]
-    G --> H[Enrich affected eventTypes]
-    H --> I[Trigger dependent updates]
+    subgraph "Unified Workflow"
+        W1 --> W2[Load existing fields and fieldOverrides]
+        W2 --> W3[Generate new field definitions with smart defaults]
+        W3 --> W4[Merge Logic: Preserve manual customizations]
+        W4 --> W5[Add new fields, keep overrides for existing]
+        W5 --> W6[Update eventType with enhanced fields]
+        W6 --> W7[Show success notification with field count]
+    end

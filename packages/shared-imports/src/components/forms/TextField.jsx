@@ -1,8 +1,8 @@
 import React from 'react';
-import { TextField as MuiTextField, Box } from '@mui/material';
 
 /**
- * Text input field widget
+ * Vanilla React text input field - NO MUI!
+ * Unified with PageRenderer field system
  */
 const TextField = ({
   value,
@@ -23,25 +23,28 @@ const TextField = ({
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <MuiTextField
+    <div className={`field-wrapper text-field ${fullWidth ? 'full-width' : ''}`}>
+      <label className="field-label">
+        {label}
+        {required && <span className="required-indicator">*</span>}
+      </label>
+      <input
+        type="text"
         value={value || ''}
         onChange={handleChange}
-        label={label}
+        placeholder={placeholder}
         required={required}
         disabled={disabled}
-        error={error}
-        helperText={helperText}
-        placeholder={placeholder}
-        variant="outlined"
-        fullWidth={fullWidth}
-        size="small"
-        inputProps={{
-          maxLength: maxLength
-        }}
+        maxLength={maxLength}
+        className={`field-input ${error ? 'error' : ''}`}
         {...props}
       />
-    </Box>
+      {helperText && (
+        <small className={`field-hint ${error ? 'error' : ''}`}>
+          {helperText}
+        </small>
+      )}
+    </div>
   );
 };
 

@@ -22,7 +22,6 @@ export const tabPlan = {
         },
         {
             id: "btnCreate",
-            type: "button",
             container: "inline",
             position: { row: 2, col: 1 },
             props: {

@@ -1,8 +1,8 @@
 import React from 'react';
-import { TextField, Box, InputAdornment } from '@mui/material';
 
 /**
- * Decimal/currency input field widget
+ * Vanilla React decimal field - NO MUI!
+ * Unified with PageRenderer field system
  */
 const DecimalField = ({
   value,
@@ -18,6 +18,7 @@ const DecimalField = ({
   prefix = '',
   suffix = '',
   fullWidth = true,
+  placeholder = '',
   ...props
 }) => {
   // Handle change with proper numeric parsing
@@ -43,31 +44,34 @@ const DecimalField = ({
     : '';
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <TextField
-        type="number"
-        value={displayValue}
-        onChange={handleChange}
-        label={label}
-        required={required}
-        disabled={disabled}
-        error={error}
-        helperText={helperText}
-        variant="outlined"
-        fullWidth={fullWidth}
-        size="small"
-        InputProps={{
-          startAdornment: prefix ? <InputAdornment position="start">{prefix}</InputAdornment> : null,
-          endAdornment: suffix ? <InputAdornment position="end">{suffix}</InputAdornment> : null,
-        }}
-        inputProps={{
-          min: min,
-          max: max,
-          step: `0.${'0'.repeat(precision-1)}1` // Creates step like 0.01, 0.001, etc.
-        }}
-        {...props}
-      />
-    </Box>
+    <div className={`field-wrapper decimal-field ${fullWidth ? 'full-width' : ''}`}>
+      <label className="field-label">
+        {label}
+        {required && <span className="required-indicator">*</span>}
+      </label>
+      <div className="input-with-addons">
+        {prefix && <span className="input-prefix">{prefix}</span>}
+        <input
+          type="number"
+          value={displayValue}
+          onChange={handleChange}
+          placeholder={placeholder}
+          required={required}
+          disabled={disabled}
+          min={min}
+          max={max}
+          step={`0.${'0'.repeat(precision-1)}1`}
+          className={`field-input field-decimal ${error ? 'error' : ''}`}
+          {...props}
+        />
+        {suffix && <span className="input-suffix">{suffix}</span>}
+      </div>
+      {helperText && (
+        <small className={`field-hint ${error ? 'error' : ''}`}>
+          {helperText}
+        </small>
+      )}
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useContextStore } from '@whatsfresh/shared-imports';
-import { workflowEngine } from '../workflows/WorkflowEngine.js';
+import { workflowEngine } from '../../../../packages/shared-imports/src/workflows/WorkflowEngine.js';
 import PageRenderer from './PageRenderer.jsx';
 
 const EventOrchestrator = ({ eventTypes, primaryEventType }) => {
@@ -18,7 +18,7 @@ const EventOrchestrator = ({ eventTypes, primaryEventType }) => {
     workflowEngine.initialize(contextStore);
     workflowEngine.registerEventTypes(eventTypes);
     console.log('✅ EventTypes registered:', eventTypes.map(et => et.name || et.eventType));
-    
+
     // Set default planStatus if not already set
     if (!contextStore.getVal('planStatus')) {
       contextStore.setVal('planStatus', 'pending');
@@ -27,15 +27,15 @@ const EventOrchestrator = ({ eventTypes, primaryEventType }) => {
 
   useEffect(() => {
     const loadInitialData = async () => {
-      console.log('🔍 All eventTypes:', eventTypes.map(et => ({name: et.name || et.eventType, entryPoint: et.config?.entryPoint, hasOnLoad: !!et.config?.workflowTriggers?.onLoad})));
-      
+      console.log('🔍 All eventTypes:', eventTypes.map(et => ({ name: et.name || et.eventType, entryPoint: et.config?.entryPoint, hasOnLoad: !!et.config?.workflowTriggers?.onLoad })));
+
       const dataPromises = eventTypes
         .filter(et => et.config?.entryPoint && et.config?.workflowTriggers?.onLoad)
         .map(async et => {
           console.log('📥 Loading data for:', et.name);
           try {
             // Use workflow triggers instead of direct execEvent
-            const result = await workflowEngine.executeTrigger({...et.config, name: et.name}, 'onLoad');
+            const result = await workflowEngine.executeTrigger({ ...et.config, name: et.name }, 'onLoad');
             console.log('📥 Result for', et.name, ':', result);
             return { eventType: et.name, data: result };
           } catch (error) {
@@ -46,7 +46,7 @@ const EventOrchestrator = ({ eventTypes, primaryEventType }) => {
 
       const results = await Promise.all(dataPromises);
       const dataMap = {};
-      
+
       results.forEach(({ eventType, data }) => {
         dataMap[eventType] = data;
       });
@@ -72,7 +72,7 @@ const EventOrchestrator = ({ eventTypes, primaryEventType }) => {
     try {
       console.log(`🔄 EventOrchestrator received selection change in ${eventType.name}:`, selectedValue);
       console.log(`🔄 Executing workflow triggers:`, eventType.config?.workflowTriggers?.onSelectionChange);
-      await workflowEngine.executeTrigger({...eventType.config, eventType: eventType.name, name: eventType.name}, 'onSelectionChange', selectedValue);
+      await workflowEngine.executeTrigger({ ...eventType.config, eventType: eventType.name, name: eventType.name }, 'onSelectionChange', selectedValue);
     } catch (error) {
       console.error('Selection change workflow failed:', error);
     }
@@ -94,7 +94,7 @@ const EventOrchestrator = ({ eventTypes, primaryEventType }) => {
       {sortedEventTypes.map((eventType, index) => (
         <PageRenderer
           key={eventType.name || index}
-          eventType={{...eventType.config, name: eventType.name}}
+          eventType={{ ...eventType.config, name: eventType.name }}
           data={data[eventType.name]}
           onRowClick={(rowData) => handleRowClick(eventType, rowData)}
           onSelectionChange={(selectedValue) => handleSelectionChange(eventType, selectedValue)}

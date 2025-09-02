@@ -3,16 +3,16 @@
  * Middle column: Compact widget/container selection
  */
 export const componentChoicesPanel = {
-  eventType: "componentChoicesPanel", 
-  category: "panel",
+  eventType: "componentChoicesPanel",
+  category: "column",
   title: "Component Choices",
   purpose: "Compact panel for selecting containers and widgets to add to eventTypes",
 
   components: [
     // Containers Section
     {
-      id: "containersSection",
-      type: "compactSection", 
+      id: "sectionContainers",
+      type: "section",
       container: "section",
       position: { row: 1, col: 1 },
       props: {
@@ -35,10 +35,10 @@ export const componentChoicesPanel = {
     {
       id: "widgetsSection",
       type: "compactSection",
-      container: "section", 
+      container: "section",
       position: { row: 2, col: 1 },
       props: {
-        title: "Widgets", 
+        title: "Widgets",
         collapsible: true,
         defaultExpanded: true,
         items: [
@@ -64,7 +64,7 @@ export const componentChoicesPanel = {
       position: { row: 3, col: 1 },
       props: {
         title: "Quick Actions",
-        collapsible: true, 
+        collapsible: true,
         defaultExpanded: false,
         items: [
           { id: "saveAll", label: "Save All", icon: "save", description: "Save all changes" },
@@ -81,7 +81,7 @@ export const componentChoicesPanel = {
       "refreshComponentDetail"
     ],
     onWidgetSelect: [
-      "addWidgetToCurrentEventType", 
+      "addWidgetToCurrentEventType",
       "refreshComponentDetail"
     ],
     onQuickAction: [
@@ -91,6 +91,6 @@ export const componentChoicesPanel = {
   },
 
   fields: [],
-  hasComponents: true, 
+  hasComponents: true,
   hasWorkflows: true
 };

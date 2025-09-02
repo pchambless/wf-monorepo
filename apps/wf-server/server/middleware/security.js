@@ -45,7 +45,7 @@ export const securityHeaders = helmet(helmetConfig);
 export const corsOptions = {
   origin: [
     "http://localhost:3000", // wf-client app
-    "http://localhost:3003", // wf-plan-management app (Studio)
+    "http://localhost:3004", // wf-studio app (Studio)
     "http://localhost:1420", // wf-order-management app (Studio)
     "https://crisp-sharply-mutt.ngrok-free.app",
     "https://wf.new.whatsfresh.app",

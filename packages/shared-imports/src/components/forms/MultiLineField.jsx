@@ -1,50 +1,45 @@
 import React from 'react';
-import { TextField, Box } from '@mui/material';
 
 /**
- * Multi-line text field with auto-expansion
+ * Vanilla React multi-line text field - NO MUI!
+ * Unified with PageRenderer field system
  */
 const MultiLineField = ({
   value,
   onChange,
   label,
   required = false,
-  minRows = 3,
-  maxRows = 8,
+  rows = 3,
   disabled = false,
   error = false,
   helperText = '',
   fullWidth = true,
+  placeholder = '',
   ...props
 }) => {
   return (
-    <Box 
-      sx={{ 
-        width: '100%',
-        my: 2, // Extra margin to separate from other fields
-      }}
-    >
-      <TextField
-        multiline
-        minRows={minRows}
-        maxRows={maxRows}
+    <div className={`field-wrapper multiline-field ${fullWidth ? 'full-width' : ''}`}>
+      <label className="field-label">
+        {label}
+        {required && <span className="required-indicator">*</span>}
+      </label>
+      <textarea
         value={value || ''}
         onChange={(e) => onChange(e.target.value)}
-        label={label}
+        placeholder={placeholder}
         required={required}
         disabled={disabled}
-        error={error}
-        helperText={helperText}
-        variant="outlined"
-        fullWidth={fullWidth}
-        sx={{
-          '& .MuiInputBase-input': {
-            lineHeight: 1.5
-          }
-        }}
+        rows={rows}
+        className={`field-input field-textarea ${error ? 'error' : ''}`}
+        style={{ resize: 'vertical', lineHeight: 1.5 }}
         {...props}
       />
-    </Box>
+      {helperText && (
+        <small className={`field-hint ${error ? 'error' : ''}`}>
+          {helperText}
+        </small>
+      )}
+    </div>
   );
 };
 

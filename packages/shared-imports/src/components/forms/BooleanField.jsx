@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, FormControlLabel, Checkbox, Switch, FormControl, FormHelperText } from '@mui/material';
 
 /**
- * Boolean input field widget with checkbox or switch
+ * Vanilla React boolean field - NO MUI!
+ * Unified with PageRenderer field system
  */
 const BooleanField = ({
   value,
@@ -12,7 +12,8 @@ const BooleanField = ({
   disabled = false,
   error = false,
   helperText = '',
-  useSwitch = false, // Set to true for switch instead of checkbox
+  useSwitch = false,
+  fullWidth = true,
   ...props
 }) => {
   const handleChange = (event) => {
@@ -22,25 +23,30 @@ const BooleanField = ({
   // Ensure value is a boolean
   const boolValue = Boolean(value);
 
-  const Control = useSwitch ? Switch : Checkbox;
-
   return (
-    <Box sx={{ width: '100%', pt: 1.5, pb: 0.5 }}>
-      <FormControl error={error} required={required}>
-        <FormControlLabel
-          control={
-            <Control
-              checked={boolValue}
-              onChange={handleChange}
-              disabled={disabled}
-              {...props}
-            />
-          }
-          label={label}
+    <div className={`field-wrapper boolean-field ${fullWidth ? 'full-width' : ''}`}>
+      <div className="checkbox-wrapper">
+        <input
+          type="checkbox"
+          id={`${label}-checkbox`}
+          checked={boolValue}
+          onChange={handleChange}
+          disabled={disabled}
+          required={required}
+          className={`field-checkbox ${error ? 'error' : ''} ${useSwitch ? 'switch-style' : ''}`}
+          {...props}
         />
-        {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      </FormControl>
-    </Box>
+        <label htmlFor={`${label}-checkbox`} className="checkbox-label">
+          {label}
+          {required && <span className="required-indicator">*</span>}
+        </label>
+      </div>
+      {helperText && (
+        <small className={`field-hint ${error ? 'error' : ''}`}>
+          {helperText}
+        </small>
+      )}
+    </div>
   );
 };
 

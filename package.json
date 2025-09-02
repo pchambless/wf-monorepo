@@ -7,6 +7,7 @@
     "apps/wf-client",
     "apps/wf-server",
     "apps/wf-plan-management",
+    "apps/wf-studio",
     "packages/*"
   ],
   "scripts": {
@@ -22,6 +23,7 @@
     "generate-prompt": "node cli/generate-prompt.js",
     "dev-client": "turbo run dev --filter=wf-client",
     "dev-plans": "turbo run start --filter=wf-plan-management",
+    "dev-studio": "turbo run start --filter=wf-studio",
     "dev:all": "turbo run dev",
     "server": "turbo run dev --filter=wf-server",
     "build": "turbo run build",

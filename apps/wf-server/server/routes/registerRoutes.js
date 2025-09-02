@@ -4,11 +4,14 @@ import execDML from "../controller/execDML.js";
 import execCreateDoc from "../controller/execCreateDoc.js";
 import getDoc from "../controller/getDoc.js";
 import { fetchStudioEventTypes } from "../controller/fetchStudioEventTypes.js";
+import { discoverApps, discoverPages, discoverStructure } from "../controller/studioDiscovery.js";
 import writeFileDirectly from "../controller/writeFileDirectly.js";
 import initializeController from "../controller/initialize.js";
 import listRoutesController from "../controller/listRegisteredRoutes.js";
 import restartServerController from "../controller/restartServer.js";
 import { fetchEventTypes } from "../controller/fetchEventTypes.js";
+import { fetchParams } from "../controller/fetchParams.js";
+import { genFields } from "../controller/genFields.js";
 import userLogin from "../controller/userLogin.js";
 import eventTypeManager from "../utils/eventTypeManager.js";
 import logger from "../utils/logger.js";
@@ -33,6 +36,12 @@ const registerRoutes = (app) => {
   registerRoute("post", "/api/execCreateDoc", execCreateDoc);
   registerRoute("get", "/api/getDoc", getDoc);
   registerRoute("get", "/api/studio/eventTypes/:app", fetchStudioEventTypes);
+  registerRoute("post", "/api/studio/genFields", genFields);
+  
+  // Studio Discovery APIs
+  registerRoute("get", "/api/studio/apps", discoverApps);
+  registerRoute("get", "/api/studio/pages/:appName", discoverPages);
+  registerRoute("get", "/api/studio/structure", discoverStructure);
   registerRoute("post", "/api/writeFileDirectly", writeFileDirectly);
   registerRoute("post", "/api/initialize", initializeController.initialize);
   registerRoute("get", "/api/util/list-routes", (req, res) => {
@@ -45,6 +54,7 @@ const registerRoutes = (app) => {
     restartServerController.restartServer
   );
   registerRoute("get", "/api/util/fetchEventTypes", fetchEventTypes);
+  registerRoute("get", "/api/eventType/:eventTypeName/params", fetchParams);
   registerRoute("post", "/api/auth/login", userLogin);
   registerRoute("get", "/api/util/event-types-status", (req, res) => {
     logger.debug(`${codeName} Fetching event types cache status`);

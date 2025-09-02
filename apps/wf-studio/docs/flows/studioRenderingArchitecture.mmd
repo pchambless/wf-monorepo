@@ -1,0 +1,79 @@
+---
+title: "Studio Rendering Architecture - Generic PageRenderer + Studio EventTypes"
+---
+
+flowchart TD
+    %% Entry Point
+    StudioApp["🚀 Studio App<br/>pages/Studio/index.jsx"] --> LoadConfig["Load pageConfig.json"]
+    
+    %% Generic PageRenderer Layer
+    LoadConfig --> PageRenderer["📐 PageRenderer<br/>(Generic - reads ANY pageConfig)"]
+    
+    subgraph "Generic PageRenderer (Universal)"
+        PageRenderer --> ParseConfig["Parse pageConfig.json"]
+        ParseConfig --> BuildLayout["Build Layout<br/>(three-column, grid, etc.)"]
+        BuildLayout --> RenderComponents["Render Components<br/>(from components array)"]
+        RenderComponents --> GenericComponents["Generic Component Types<br/>(sidebar, tabs, grids, forms)"]
+    end
+    
+    subgraph "Studio-Specific pageConfig Structure" 
+        StudioPageConfig["📄 pageConfig.json<br/>(Generated from Studio eventTypes)"]
+        StudioPageConfig --> LeftComponent["Component: studioSidebar"]
+        StudioPageConfig --> MiddleComponent["Component: componentChoicesPanel"]  
+        StudioPageConfig --> RightComponent["Component: workAreaTabs"]
+    end
+    
+    %% Connection between layers
+    GenericComponents --> StudioComponents["Studio Uses Generic Components<br/>but with Studio eventType behavior"]
+    StudioPageConfig --> PageRenderer
+    
+    %% Studio-Specific EventType System
+    StudioComponents --> UserSelects["User Selects EventType"]
+    UserSelects --> EventTypeRenderer["🎭 EventTypeRenderer<br/>(Studio-specific)"]
+    
+    subgraph "Studio EventType Template + Card System"
+        EventTypeRenderer --> TemplateResolver["Template Resolver"]
+        TemplateResolver --> LoadTemplate["Load Template<br/>(form, grid, etc.)"]
+        LoadTemplate --> DetailCards["Get detailCards Array<br/>['cardBasics', 'cardDataBinding']"]
+        
+        DetailCards --> CardLoader["Dynamic Card Loader"]
+        CardLoader --> CardBasics["cardBasics.js"]
+        CardLoader --> CardDataBinding["cardDataBinding.js"]
+        CardLoader --> CardOverrides["cardFormOverrides.js"]
+        CardLoader --> MoreCards["...other cards"]
+        
+        CardBasics --> CardRenderer["Card Renderer"]
+        CardDataBinding --> CardRenderer
+        CardOverrides --> CardRenderer
+        MoreCards --> CardRenderer
+        
+        CardRenderer --> LiveUI["Live Editing UI"]
+    end
+    
+    %% Data Sources
+    subgraph "Data Sources"
+        StudioEventTypes["🏗️ Studio EventTypes<br/>pageStudio.js, sectionSidebar.js, etc."]
+        Templates["📋 Templates<br/>leafs/form.js, containers/tabs.js"]
+        Cards["🎴 Cards<br/>cardBasics.js, cardDataBinding.js"]
+    end
+    
+    StudioEventTypes --> StudioPageConfig
+    Templates --> TemplateResolver
+    Cards --> CardLoader
+    
+    %% Separation of Concerns
+    classDef generic fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef studio fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef data fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    
+    class PageRenderer,ParseConfig,BuildLayout,RenderComponents,GenericComponents generic
+    class EventTypeRenderer,TemplateResolver,CardLoader,CardRenderer,StudioPageConfig studio
+    class StudioEventTypes,Templates,Cards data
+    
+    %% Key Insights
+    subgraph "🔑 Key Insights"
+        Insight1["PageRenderer: Generic engine<br/>Reads ANY pageConfig (Studio, Plans, Admin)"]
+        Insight2["pageConfig.json: Generated from page's eventTypes<br/>(Studio eventTypes → Studio pageConfig)"]
+        Insight3["EventTypeRenderer: Studio's editing system<br/>Template + card orchestration for self-building"]
+        Insight4["Separation: PageRenderer (universal) vs Studio eventTypes (specific)"]
+    end

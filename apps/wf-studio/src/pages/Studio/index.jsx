@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import StudioPageRenderer from "../../components/StudioPageRenderer";
+import PageRenderer from '../../PageRenderer';
 import pageConfig from "./pageConfig.json";
 
 /**
@@ -35,7 +35,7 @@ const StudioPage = ({ mode }) => {
 
   return (
     <div style={{ height: "100vh" }}>
-      <StudioPageRenderer pageConfig={config} />
+      <PageRenderer config={config} />
     </div>
   );
 };

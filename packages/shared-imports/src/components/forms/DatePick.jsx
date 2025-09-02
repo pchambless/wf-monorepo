@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { CircularProgress } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import TextField from '@mui/material/TextField';
 import { observer } from 'mobx-react-lite';
 import { createLogger } from '@whatsfresh/shared-imports';
 // import { useForm } from '../crud/hooks/useForm.js'; // Currently empty file
 
 const log = createLogger('DatePick');
 
-// Use observer pattern for reactivity
+/**
+ * Vanilla React DatePick with MobX integration - NO MUI!
+ * Unified with PageRenderer field system but keeps form integration
+ */
 const DatePick = observer(({
   placeholder,
   onChange,
   value: propValue,
-  fieldName, // Use fieldName instead of varName to be consistent with CRUD system
+  fieldName,
   required,
-  sx
+  label,
+  disabled = false,
+  error = false,
+  helperText = '',
+  fullWidth = true
 }) => {
   // Use the form context from your existing system - fallback if hook not available
   // const form = useForm();
@@ -32,7 +35,6 @@ const DatePick = observer(({
   );
 
   const [loading] = useState(false);
-  const [error] = useState(null);
 
   // Keep local state in sync with form value changes
   useEffect(() => {
@@ -43,7 +45,16 @@ const DatePick = observer(({
     }
   }, [effectiveValue]);
 
-  const handleChange = (date) => {
+  // Format date for input
+  const formatDateForInput = (date) => {
+    if (!date) return '';
+    return date.toISOString().split('T')[0];
+  };
+
+  const handleChange = (e) => {
+    const dateString = e.target.value;
+    const date = dateString ? new Date(dateString) : null;
+    
     setSelectedDate(date);
 
     // Simpler log with just essential information
@@ -61,25 +72,29 @@ const DatePick = observer(({
   };
 
   if (loading) {
-    return <CircularProgress />;
+    return <div className="field-loading">Loading...</div>;
   }
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <DatePicker
-        label={placeholder}
-        value={selectedDate}
+    <div className={`field-wrapper datepick-field ${fullWidth ? 'full-width' : ''}`}>
+      <label className="field-label">
+        {label || placeholder}
+        {required && <span className="required-indicator">*</span>}
+      </label>
+      <input
+        type="date"
+        value={formatDateForInput(selectedDate)}
         onChange={handleChange}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            required={required}
-            error={!!error}
-            sx={sx}
-          />
-        )}
+        required={required}
+        disabled={disabled}
+        className={`field-input field-datepick ${error ? 'error' : ''}`}
       />
-    </LocalizationProvider>
+      {helperText && (
+        <small className={`field-hint ${error ? 'error' : ''}`}>
+          {helperText}
+        </small>
+      )}
+    </div>
   );
 });
 

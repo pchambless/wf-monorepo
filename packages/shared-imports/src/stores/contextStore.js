@@ -2,7 +2,9 @@
 import { makeAutoObservable } from "mobx";
 import React from "react";
 import { createLogger } from "@whatsfresh/shared-imports";
-import { getEventType } from "../../../../apps/wf-server/server/events/client/eventTypes.js";
+// REMOVED: Server eventType imports - contextStore is now a simple key-value store
+// Hierarchical clearing logic moved to WorkflowEngine where it belongs
+// import { getEventType } from "../../../../apps/wf-server/server/events/client/eventTypes.js";
 
 const log = createLogger("ContextStore");
 const STORAGE_KEY = "whatsfresh_context_state";
@@ -82,65 +84,18 @@ class ContextStore {
     return this.parameters[paramName] || null;
   }
 
-  // Set the primaryKey value for an eventType (called when user selects a row)
-  setEvent(eventType, selectedValue) {
-    const eventDef = getEventType(eventType);
-    if (eventDef?.primaryKey) {
-      this.setVal(eventDef.primaryKey, selectedValue);
-
-      // Clear child parameters when parent selection changes
-      this.clearChildParams(eventType);
-    }
-  }
-
-  // Clear parameters for child eventTypes when parent changes
-  clearChildParams(parentEventType) {
-    const parentDef = getEventType(parentEventType);
-    if (parentDef?.children) {
-      parentDef.children.forEach((childEventType) => {
-        const childDef = getEventType(childEventType);
-        if (childDef?.primaryKey) {
-          this.parameters[childDef.primaryKey] = null;
-          // Recursively clear grandchildren
-          this.clearChildParams(childEventType);
-        }
-      });
-      this.persistContext();
-    }
-  }
-
-  // Auto-resolve parameters for an eventType
-  resolveParams(eventType) {
-    const eventDef = getEventType(eventType);
-    if (!eventDef?.params) return {};
-
-    const resolvedParams = {};
-
-    for (const param of eventDef.params) {
-      const paramName = param.replace(":", "");
-
-      // Look up from contextual parameter store (everything is here now!)
-      const value = this.getVal(paramName);
-      if (value !== null) {
-        resolvedParams[paramName] = value;
-      }
-    }
-
-    log.debug("Resolved event parameters", { eventType, resolvedParams });
-    return resolvedParams;
-  }
-
-  // Get all parameters formatted for event calls (with : prefix)
-  getEventParams(eventType) {
-    const resolved = this.resolveParams(eventType);
-    const eventParams = {};
-
-    Object.entries(resolved).forEach(([key, value]) => {
-      eventParams[`:${key}`] = value;
+  // Clear multiple parameters (variable arguments)
+  clearVals(...paramNames) {
+    paramNames.forEach(name => {
+      this.parameters[name] = null;
     });
-
-    return eventParams;
+    this.persistContext();
+    log.debug("Cleared parameters", { paramNames });
   }
+
+  // DELETED: Complex eventType-aware methods moved to WorkflowEngine
+  // setEvent(), clearChildParams(), resolveParams(), getEventParams()
+  // ContextStore is now a simple key-value store
 
   // Clear all contextual parameters
   clearAllContext() {
@@ -154,23 +109,8 @@ class ContextStore {
     return { ...this.parameters };
   }
 
-  // Check if all required parameters are available for an eventType
-  hasRequiredParams(eventType) {
-    const resolved = this.resolveParams(eventType);
-    const eventDef = getEventType(eventType);
-
-    if (!eventDef?.params) return true;
-
-    for (const param of eventDef.params) {
-      const paramName = param.replace(":", "");
-      if (!resolved[paramName]) {
-        log.warn("Missing required parameter", { eventType, paramName });
-        return false;
-      }
-    }
-
-    return true;
-  }
+  // DELETED: hasRequiredParams() moved to WorkflowEngine
+  // Parameter validation now handled by workflow triggers
 
   // Helper methods for common user attributes
   get currentUser() {
@@ -206,20 +146,16 @@ class ContextStore {
     log.info("Logout called, clearing auth parameters");
 
     // Clear all authentication-related parameters but keep hierarchical selections
-    const authParams = [
+    this.clearVals(
       "userID",
-      "firstName",
+      "firstName", 
       "lastName",
       "userEmail",
       "roleID",
       "dfltAcctID",
       "acctID",
-      "sessionValid",
-    ];
-    authParams.forEach((param) => {
-      this.parameters[param] = null;
-    });
-    this.persistContext();
+      "sessionValid"
+    );
 
     log.info("User logged out, auth parameters cleared", {
       isAuthenticated: this.isAuthenticated,

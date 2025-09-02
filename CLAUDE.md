@@ -133,12 +133,6 @@ return <div style={styles.container}>...</div>;
 - **server.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server` (instead of src folder)
 - **utils/dml**: `\\wsl$\Ubuntu-22.04\home\paul\wf-monorepo-new\apps\wf-server\server\utils\dml` (dml modules)
 
-#### wf-client
-
-- **Pages**: `/apps/wf-client/src/pages/` (UI components)
-- **Config**: `/apps/wf-client/src/config/` (navigation, routes)
-- **App.jsx**: `/home/paul/wf-monorepo-new/apps/wf-client/src/App.jsx` (App.jsx)
-
 #### .kiro (plans)
 
 ## 🔧 Workflow Helpers
@@ -149,36 +143,6 @@ return <div style={styles.container}>...</div>;
 - **Document Creation**: Use createDoc.js workflow instead of direct file writing - maintains impact tracking and template consistency. This will help conserve token usage
 - **Always use createGuidance.js workflow for implementation guidance documents** - ensures proper parameter substitution and impact tracking
 - **Always use createAnalysis.js workflow for architectural analysis documents** - maintains consistent structure and automated workflows
-
-## 🤖 AgentDirector - Mandatory for Analysis
-
-**ALWAYS route analysis tasks through AgentDirector before starting work:**
-
-```bash
-node .claude/routing/AgentDirector.js "Analyze React app infrastructure"
-node .claude/routing/AgentDirector.js "Review component patterns in shared-imports"  
-node .claude/routing/AgentDirector.js "Validate eventTypes structure"
-```
-
-**Benefits:**
-- **Focused expertise** - Routes to specialized agents instead of generic analysis
-- **Token efficiency** - Agents optimized for specific domains use less context
-- **Quality analysis** - Domain experts provide deeper insights
-- **No unfocused gyrations** - Skip generic "let me look at everything" approach
-
-**Agent Ecosystem:**
-- **AppAnalyzer** - React app infrastructure, routing, startup validation
-- **ComponentAnalyzer** - React component patterns, performance, consistency
-- **EventParser** - EventTypes validation, workflow orchestration  
-- **WorkflowAnalyzer** - Workflow definitions, triggers, integration
-- **DeadCodeParser** - Unused code identification, dependency cleanup
-- **SchemaParser** - SQL schema validation, field metadata
-- **UXAnalyzer** - UI layouts, accessibility, design consistency
-
-**Auto-Registry System:**
-- Drop `.md` file in `.claude/agents/` → Instantly available for routing
-- Single source of truth - agent file contains all metadata
-- No manual registry.json maintenance required
 
 ## 📋 Quick Fix Impact Tracking
 
@@ -222,7 +186,7 @@ curl -X POST http://localhost:3001/api/execDML -H "Content-Type: application/jso
 **See `AI/planning-standards.md` for complete specifications:**
 
 - Change types (CREATE, MODIFY, DELETE, ANALYZE, DISCOVER, COMMUNICATE, PLAN)
-- Phase definitions (idea, analysis, guidance, development, adhoc)
+- Phase definitions (idea, development, adhoc)
 - Agent role assignments and responsibilities
 - Communication protocols and process quality metrics
 
@@ -245,4 +209,4 @@ const exportMatch = content.match(/regex/);
 // ✅ VERIFIED: Exports vary - updated to handle both simple and complex structures
 ```
 
-_Updated: 2025-08-19_
+_Updated: 2025-08-30_

@@ -9,8 +9,7 @@
 
   ### The Contract
   - Any eventType with `:paramName` expects that parameter in contextStore
-  - queryResolver.js (wf-monorepo-new/apps/wf-server/server/utils/queryResolver.js) expects all params to be present
-    and formatted with a leading ':' to identify the parameter for replacement with the value.
+  - queryResolver.js (wf-monorepo-new/apps/wf-server/server/utils/queryResolver.js) expects all params to be present and formatted with a leading ':' to identify the parameter for replacement with the value.
   - Components NEVER manually manage these parameters
   - Missing parameters = UI flow bug, NOT component bug
   - Let execEvent throw - errors reveal broken navigation/selection logic

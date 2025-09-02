@@ -1,0 +1,105 @@
+---
+title: "Template + Card Architecture - Studio's Building Block System"
+---
+
+graph TD
+    %% EventType Selection
+    EVENTTYPE[EventType Selected] --> RESOLVER[Template Resolver]
+    RESOLVER --> TEMPLATE{Determine Template}
+    
+    %% Template Types
+    TEMPLATE -->|category: "form"| FORM_TEMPLATE[formTemplate]
+    TEMPLATE -->|category: "grid"| GRID_TEMPLATE[gridTemplate] 
+    TEMPLATE -->|category: "tabs"| TABS_TEMPLATE[tabsTemplate]
+    TEMPLATE -->|category: "sidebar"| SIDEBAR_TEMPLATE[sidebarTemplate]
+    
+    %% Form Template Cards
+    subgraph "Form Template Building Blocks"
+        FORM_TEMPLATE --> FORM_CARDS[detailCards Array]
+        FORM_CARDS --> FORM_CARD1[cardBasics<br/>category, title, cluster]
+        FORM_CARDS --> FORM_CARD2[cardDataBinding<br/>qry + Generate Fields]
+        FORM_CARDS --> FORM_CARD3[cardFormOverrides<br/>field customization]
+        FORM_CARDS --> FORM_CARD4[cardWorkflowTriggers<br/>onSubmit, onChange]
+        FORM_CARDS --> FORM_CARD5[cardWorkflows<br/>standalone workflows]
+    end
+    
+    %% Grid Template Cards  
+    subgraph "Grid Template Building Blocks"
+        GRID_TEMPLATE --> GRID_CARDS[detailCards Array]
+        GRID_CARDS --> GRID_CARD1[cardBasics<br/>category, title, cluster]
+        GRID_CARDS --> GRID_CARD2[cardDataBinding<br/>qry + Generate Fields]
+        GRID_CARDS --> GRID_CARD3[cardGridOverrides<br/>column customization]
+        GRID_CARDS --> GRID_CARD4[cardWorkflowTriggers<br/>onRowClick, onFilter]
+        GRID_CARDS --> GRID_CARD5[cardWorkflows<br/>standalone workflows]
+    end
+    
+    %% Container Template Cards
+    subgraph "Container Template Building Blocks"
+        TABS_TEMPLATE --> TABS_CARDS[detailCards Array]
+        TABS_CARDS --> TABS_CARD1[cardBasics<br/>category, title, cluster]
+        TABS_CARDS --> TABS_CARD2[cardComponentLayout<br/>components array management]
+        
+        SIDEBAR_TEMPLATE --> SIDEBAR_CARDS[detailCards Array]
+        SIDEBAR_CARDS --> SIDEBAR_CARD1[cardBasics<br/>category, title, cluster]
+        SIDEBAR_CARDS --> SIDEBAR_CARD2[cardComponentLayout<br/>components array management]
+    end
+    
+    %% Universal Cards (Used by Multiple Templates)
+    subgraph "Universal Cards"
+        UNIVERSAL[Universal Cards<br/>Work with all eventTypes]
+        UNIVERSAL --> U_BASICS[cardBasics<br/>🔵 Basic Properties]
+        UNIVERSAL --> U_LAYOUT[cardComponentLayout<br/>🟠 Component Management]
+    end
+    
+    %% Specialized Cards (Template-Specific)
+    subgraph "Specialized Cards"
+        SPECIALIZED[Specialized Cards<br/>Domain-specific functionality]
+        SPECIALIZED --> S_DATABINDING[cardDataBinding<br/>🟢 Query + Field Generation]
+        SPECIALIZED --> S_FORM[cardFormOverrides<br/>🟡 Form Field Customization]
+        SPECIALIZED --> S_GRID[cardGridOverrides<br/>🟣 Grid Column Customization]
+        SPECIALIZED --> S_TRIGGERS[cardWorkflowTriggers<br/>⚡ Event-based Triggers]
+        SPECIALIZED --> S_WORKFLOWS[cardWorkflows<br/>⚙️ Standalone Workflows]
+    end
+    
+    %% Card Loading Process
+    FORM_CARD1 --> LOADER[Dynamic Card Loader]
+    GRID_CARD1 --> LOADER
+    TABS_CARD1 --> LOADER
+    FORM_CARD2 --> LOADER
+    GRID_CARD2 --> LOADER
+    
+    LOADER --> RENDERER[EventTypeRenderer]
+    RENDERER --> UI[Live Editing Interface]
+    
+    %% Template Validation & Expected Structure
+    subgraph "Template Validation"
+        FORM_TEMPLATE --> FORM_VALIDATION[expectedStructure<br/>category, title, qry, fields[]]
+        GRID_TEMPLATE --> GRID_VALIDATION[expectedStructure<br/>category, title, qry, fields[]]
+        TABS_TEMPLATE --> TABS_VALIDATION[expectedStructure<br/>category, title, components[]]
+    end
+    
+    %% Data Flow
+    UI --> PREVIEW[Preview Changes]
+    PREVIEW --> EVENTPREVIEW[EventPreviewView<br/>Git-style diff]
+    PREVIEW --> ACTIONS[PreviewActions<br/>Apply/Cancel]
+    
+    %% Key Insights
+    subgraph "🔑 Architecture Insights"
+        INSIGHT1[Templates = Orchestrators<br/>Define which cards to show]
+        INSIGHT2[Cards = Domain Specialists<br/>Handle specific UI/data concerns]
+        INSIGHT3[Composition = Mix & Match<br/>Different eventTypes use different card combinations]
+        INSIGHT4[Universal vs Specialized<br/>Some cards work everywhere, others are domain-specific]
+    end
+    
+    %% Styling
+    classDef template fill:#f3e8ff,stroke:#9333ea,stroke-width:2px
+    classDef universalCard fill:#dbeafe,stroke:#3b82f6,stroke-width:2px
+    classDef specializedCard fill:#dcfce7,stroke:#16a34a,stroke-width:2px
+    classDef system fill:#fff7ed,stroke:#ea580c,stroke-width:2px
+    classDef insight fill:#f0f9ff,stroke:#0284c7,stroke-width:2px
+    
+    class FORM_TEMPLATE,GRID_TEMPLATE,TABS_TEMPLATE,SIDEBAR_TEMPLATE template
+    class U_BASICS,U_LAYOUT,FORM_CARD1,GRID_CARD1,TABS_CARD1 universalCard
+    class S_DATABINDING,S_FORM,S_GRID,S_TRIGGERS,S_WORKFLOWS specializedCard
+    class RESOLVER,LOADER,RENDERER system
+    class INSIGHT1,INSIGHT2,INSIGHT3,INSIGHT4 insight

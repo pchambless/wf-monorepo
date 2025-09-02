@@ -1,8 +1,8 @@
 import React from 'react';
-import { TextField, Box } from '@mui/material';
 
 /**
- * Numeric input field widget
+ * Vanilla React numeric input field - NO MUI!
+ * Unified with PageRenderer field system
  */
 const NumberField = ({
   value,
@@ -16,6 +16,7 @@ const NumberField = ({
   max,
   step = 1,
   fullWidth = true,
+  placeholder = '',
   ...props
 }) => {
   const handleChange = (e) => {
@@ -35,27 +36,30 @@ const NumberField = ({
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <TextField
+    <div className={`field-wrapper number-field ${fullWidth ? 'full-width' : ''}`}>
+      <label className="field-label">
+        {label}
+        {required && <span className="required-indicator">*</span>}
+      </label>
+      <input
         type="number"
         value={value === null || value === undefined ? '' : value}
         onChange={handleChange}
-        label={label}
+        placeholder={placeholder}
         required={required}
         disabled={disabled}
-        error={error}
-        helperText={helperText}
-        variant="outlined"
-        fullWidth={fullWidth}
-        size="small"
-        inputProps={{
-          min: min,
-          max: max,
-          step: step
-        }}
+        min={min}
+        max={max}
+        step={step}
+        className={`field-input field-number ${error ? 'error' : ''}`}
         {...props}
       />
-    </Box>
+      {helperText && (
+        <small className={`field-hint ${error ? 'error' : ''}`}>
+          {helperText}
+        </small>
+      )}
+    </div>
   );
 };
 
