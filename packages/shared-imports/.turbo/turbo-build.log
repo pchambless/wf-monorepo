@@ -1,5 +1,5 @@
 
 > @whatsfresh/shared-imports@0.1.0 build
-> echo "No build needed for shared-imports"
+> echo "Build complete - shared-imports is source-only"
 
-No build needed for shared-imports
+Build complete - shared-imports is source-only

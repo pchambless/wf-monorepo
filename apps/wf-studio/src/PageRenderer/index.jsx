@@ -137,31 +137,9 @@ const StudioSidebar = ({ component }) => {
   const [availablePages, setAvailablePages] = React.useState({ studio: [] });
   const [loading, setLoading] = React.useState(true);
 
-  // Discover apps and pages from Studio eventTypes
+  // Discovery now handled by select widgets via WorkflowEngine
   React.useEffect(() => {
-    const discoverStructure = async () => {
-      try {
-        const { discoverMonorepoStructure } = await import('../utils/studioAppDiscovery.js');
-        const structure = await discoverMonorepoStructure();
-        
-        setAvailableApps(Object.keys(structure));
-        setAvailablePages(structure);
-        
-        // Set default selections
-        const firstApp = Object.keys(structure)[0] || 'studio';
-        const firstPage = structure[firstApp]?.[0] || '';
-        
-        setSelectedApp(firstApp);
-        setSelectedPage(firstPage);
-        
-      } catch (error) {
-        console.error('❌ Failed to discover monorepo structure:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    discoverStructure();
+    setLoading(false);
   }, []);
 
   const eventTypeHierarchy = {

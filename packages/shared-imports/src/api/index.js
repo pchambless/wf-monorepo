@@ -9,6 +9,8 @@ import { execCreateDoc as execCreateDocFn } from './execCreateDoc.js';
 import { execDml as execDmlFn } from './execDml.js';
 import { execDmlWithRefresh as execDmlWithRefreshFn } from './execDmlWithRefresh.js';
 import { fetchStudioEventTypes as fetchStudioEventTypesFn } from './fetchStudioEventTypes.js';
+import { execApps as execAppsFn } from './execApps.js';
+import { execPages as execPagesFn } from './execPages.js';
 
 /**
  * Default API configuration
@@ -51,6 +53,12 @@ export function createApi(options = {}) {
     
   const boundFetchStudioEventTypes = (app) => 
     fetchStudioEventTypesFn(app, config);
+    
+  const boundExecApps = () => 
+    execAppsFn(config);
+    
+  const boundExecPages = (appName) => 
+    execPagesFn(appName, config);
 
   return {
     execEvent: boundExecEvent,
@@ -59,6 +67,8 @@ export function createApi(options = {}) {
     execDml: boundExecDml,
     execDmlWithRefresh: boundExecDmlWithRefresh,
     fetchStudioEventTypes: boundFetchStudioEventTypes,
+    execApps: boundExecApps,
+    execPages: boundExecPages,
   };
 }
 
@@ -77,4 +87,6 @@ export const {
   execCreateDoc,
   fetchStudioEventTypes,
   fetchParams,
+  execApps,
+  execPages,
 } = api;

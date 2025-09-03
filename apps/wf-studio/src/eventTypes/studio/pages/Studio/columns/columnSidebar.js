@@ -11,7 +11,7 @@ export const columnSidebar = {
   components: [
     // App Selector
     {
-      id: "appSelector",
+      id: "selectApp",
       type: "select",
       container: "inline",
       position: { row: 1, col: 1 },

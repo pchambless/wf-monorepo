@@ -8,7 +8,7 @@ import path from 'path';
 import logger from "../utils/logger.js";
 
 const codeName = "[studioDiscovery.js]";
-const STUDIO_EVENTTYPES_PATH = path.resolve("../wf-studio/src/eventTypes");
+const STUDIO_EVENTTYPES_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/eventTypes";
 
 /**
  * Discover all apps/folders in Studio eventTypes

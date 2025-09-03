@@ -1,0 +1,13 @@
+configKey,choiceId,choiceLabel,ordr,description,color
+planStatus,pending,Pending,1,Available plan statuses for filtering and management,orange
+planStatus,active,Active,2,Available plan statuses for filtering and management,blue
+planStatus,completed,Completed,3,Available plan statuses for filtering and management,green
+planStatus,cancelled,Cancelled,4,Available plan statuses for filtering and management,red
+planStatus,on-hold,On Hold,5,Available plan statuses for filtering and management,yellow
+planStatus,archived,Archived,6,Available plan statuses for filtering and management,gray
+workflowCategories,plan-operations,Plan Operations,1,CRUD operations for plans,blue
+workflowCategories,communication,Communication,2,Communication and messaging workflows,green
+workflowCategories,impact-tracking,Impact Tracking,3,Impact tracking and analysis workflows,purple
+workflowCategories,business-process,Business Process,4,Complex business process workflows,orange
+workflowCategories,integration,Integration,5,Cross-system integration workflows,teal
+workflowCategories,utility,Utility,6,,Utility and helper workflows,gray

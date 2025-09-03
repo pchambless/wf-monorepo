@@ -1,0 +1,20 @@
+{
+  "generated": "2025-09-03T04:30:45.581Z",
+  "source": "genPageConfig.js",
+  "eventTypeCount": 1,
+  "eventType": "studioPage",
+  "category": "page",
+  "title": "Studio Designer",
+  "layout": "three-column",
+  "meta": {
+    "discoveredEventTypes": [
+      {
+        "id": "studioPage",
+        "category": "page",
+        "title": "Studio Designer",
+        "hasComponents": false,
+        "hasFields": false
+      }
+    ]
+  }
+}

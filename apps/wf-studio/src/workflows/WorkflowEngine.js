@@ -78,13 +78,15 @@ class WorkflowEngine {
   async executeAction(action, data, sourceEventType) {
     console.log(`⚡ Executing action:`, action);
 
-    // Handle string actions (like "CONFIG", "execEvent")
+    // Handle string actions (like "execEvent", "execApps", "execPages")
     if (typeof action === 'string') {
       switch (action) {
-        case 'CONFIG':
-          return await this.handleConfigLoad(sourceEventType);
         case 'execEvent':
           return await this.execEvent(sourceEventType.qry, data);
+        case 'execApps':
+          return await this.execApps();
+        case 'execPages':
+          return await this.execPages();
         default:
           console.warn(`⚠️ Unknown string action: ${action}`);
           return;
@@ -118,22 +120,6 @@ class WorkflowEngine {
     }
   }
 
-  /**
-   * Handle CONFIG loading for eventTypes
-   */
-  async handleConfigLoad(eventType) {
-    const { configKey, configOptions } = eventType;
-
-    if (!configKey) {
-      throw new Error(`CONFIG eventType '${eventType.eventType}' missing configKey`);
-    }
-
-    console.log(`[WorkflowEngine] Loading config choices for key: ${configKey}`);
-    // STUBBED: App-specific config loading removed
-    const choices = []; // TODO: Load config choices via API or app-specific extension
-    console.log('📊 CONFIG result for', configKey, ':', choices);
-    return { data: choices };
-  }
 
   /**
    * Handle setParam action
@@ -284,29 +270,42 @@ class WorkflowEngine {
   }
 
   /**
-   * Wrapper for execEvent - handles CONFIG lookups client-side, database queries server-side
+   * Execute database eventType via shared-imports
    */
   async execEvent(eventName, data = {}) {
-    // Check if this is a registered eventType with CONFIG method
-    const registeredEventType = this.eventTypeRegistry.get(eventName);
+    const { execEvent } = await import('@whatsfresh/shared-imports');
+    return await execEvent(eventName, data);
+  }
 
-    if (registeredEventType && registeredEventType.method === 'CONFIG') {
-      // Handle CONFIG lookups client-side
-      const { configKey, configOptions } = registeredEventType;
+  /**
+   * Execute Studio Apps API call via shared-imports
+   */
+  async execApps() {
+    try {
+      const { execApps } = await import('@whatsfresh/shared-imports');
+      return await execApps();
+    } catch (error) {
+      console.error('❌ execApps failed:', error);
+      return { table: "studio_apps", rows: [] };
+    }
+  }
 
-      if (!configKey) {
-        throw new Error(`CONFIG eventType '${eventName}' missing configKey`);
+  /**
+   * Execute Studio Pages API call via shared-imports
+   */
+  async execPages() {
+    try {
+      const appID = this.contextStore?.getVal('appID');
+      if (!appID) {
+        console.warn('No appID in contextStore for execPages');
+        return { table: "studio_pages", rows: [] };
       }
-
-      console.log(`[WorkflowEngine] Loading config choices for key: ${configKey}`);
-      // STUBBED: App-specific config loading removed
-      const choices = []; // TODO: Load config choices via API or app-specific extension  
-      return { data: choices };
-
-    } else {
-      // Handle database queries server-side
-      const { execEvent } = await import('@whatsfresh/shared-imports');
-      return await execEvent(eventName, data);
+      
+      const { execPages } = await import('@whatsfresh/shared-imports');
+      return await execPages(appID);
+    } catch (error) {
+      console.error('❌ execPages failed:', error);
+      return { table: "studio_pages", rows: [] };
     }
   }
 

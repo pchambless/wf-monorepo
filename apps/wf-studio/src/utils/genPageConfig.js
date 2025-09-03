@@ -100,3 +100,110 @@ export async function genPageConfig(eventTypes, outputPath) {
   console.log('💾 Generated pageConfig:', result);
   return pageConfig;
 }
+
+/**
+ * Auto-discover eventTypes from page folder structure
+ */
+async function discoverEventTypes(app, page) {
+  const eventTypes = [];
+  const { promises: fs } = await import('fs');
+  const { join } = await import('path');
+  
+  // Add page eventType
+  eventTypes.push({
+    eventType: `${page.toLowerCase()}Page`,
+    category: 'page',
+    title: `${page} Designer`,
+    layout: 'three-column'
+  });
+  
+  try {
+    const pageFolder = `./src/eventTypes/${app}/pages/${page}`;
+    console.log(`🔍 Scanning ${pageFolder} for eventTypes...`);
+    
+    // Check if page folder exists
+    try {
+      await fs.access(pageFolder);
+    } catch {
+      console.log(`⚠️ Page folder ${pageFolder} not found, using basic page eventType only`);
+      return eventTypes;
+    }
+    
+    // Recursively scan for .js files
+    async function scanFolder(folderPath, relativePath = '') {
+      const entries = await fs.readdir(folderPath, { withFileTypes: true });
+      
+      for (const entry of entries) {
+        const fullPath = join(folderPath, entry.name);
+        
+        if (entry.isDirectory()) {
+          // Recursively scan subdirectories
+          await scanFolder(fullPath, join(relativePath, entry.name));
+        } else if (entry.name.endsWith('.js')) {
+          // Import .js files
+          const importPath = join(folderPath, entry.name);
+          console.log(`📄 Found eventType: ${importPath}`);
+          
+          try {
+            const module = await import(importPath);
+            // Get all exports from the module
+            Object.values(module).forEach(exportedItem => {
+              if (exportedItem && typeof exportedItem === 'object' && exportedItem.eventType) {
+                eventTypes.push(exportedItem);
+                console.log(`✅ Imported: ${exportedItem.eventType}`);
+              }
+            });
+          } catch (error) {
+            console.error(`❌ Failed to import ${importPath}:`, error);
+          }
+        }
+      }
+    }
+    
+    await scanFolder(pageFolder);
+    
+  } catch (error) {
+    console.error(`❌ Error scanning eventTypes for ${app}/${page}:`, error);
+  }
+  
+  return eventTypes;
+}
+
+/**
+ * CLI interface - auto-discovers eventTypes and generates pageConfig
+ */
+async function runCLI() {
+  const args = process.argv.slice(2);
+  const appPage = args[0] || 'studio/Studio'; // Default to studio/Studio
+  
+  console.log(`🚀 Generating pageConfig for ${appPage}`);
+  
+  try {
+    // Parse app/page from argument
+    const [app, page] = appPage.split('/');
+    
+    if (!app || !page) {
+      throw new Error('Usage: node genPageConfig.js <app>/<page> (e.g., studio/Studio)');
+    }
+    
+    // Auto-discover eventTypes from page folder
+    const eventTypes = await discoverEventTypes(app, page);
+    
+    console.log(`📋 Discovered ${eventTypes.length} eventTypes:`, eventTypes.map(et => et.eventType));
+    
+    // Generate pageConfig
+    const outputPath = `./src/pages/${page}/pageConfig.json`;
+    await genPageConfig(eventTypes, outputPath);
+    
+    console.log(`✅ PageConfig generated for ${appPage}!`);
+    
+  } catch (error) {
+    console.error('❌ CLI generation failed:', error);
+    process.exit(1);
+  }
+}
+
+// Run CLI if called directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  runCLI();
+}
