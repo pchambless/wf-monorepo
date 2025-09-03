@@ -12,6 +12,7 @@
     "lint": "echo \"No lint script configured\""
   },
   "dependencies": {
+    "@babel/parser": "^7.28.3",
     "@whatsfresh/db-connect": "file:../../packages/db-connect",
     "@whatsfresh/shared-imports": "file:../../packages/shared-imports",
     "bcrypt": "^6.0.0",

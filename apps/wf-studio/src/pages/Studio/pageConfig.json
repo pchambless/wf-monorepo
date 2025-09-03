@@ -1,33 +1,177 @@
 {
-  "eventType": "studioPage",
-  "category": "page", 
-  "title": "Studio Designer",
+  "generated": "2025-09-03T13:18:21.131Z",
+  "source": "genPageConfig.js",
+  "eventTypeCount": 15,
+  "eventType": "pageStudio",
+  "category": "page",
+  "title": "Page Design Studio",
   "purpose": "Three-column layout: app/page selector + component choices + tabbed work area",
+  "routePath": "/studio",
   "layout": "three-column",
-  "generated": "2025-09-01T01:00:00.000Z",
-  "source": "temporary-basic-config",
-  "eventTypeCount": 1,
   "components": [
     {
-      "id": "studioSidebar",
-      "category": "column",
+      "eventType": "columnSidebar",
+      "category": "columns",
       "title": "App Page Designer",
-      "container": "column",
+      "purpose": "App selection, page navigation, and eventType hierarchy display",
+      "components": [
+        {
+          "category": "widgets",
+          "title": "App Selector",
+          "cluster": "STUDIO",
+          "purpose": "Select app for Studio page/eventType navigation",
+          "workflowTriggers": {
+            "onRefresh": [
+              "execApps"
+            ],
+            "onChange": [
+              {
+                "action": "setVal",
+                "param": "appID"
+              },
+              {
+                "action": "refresh",
+                "targets": [
+                  "selectPage"
+                ]
+              },
+              {
+                "action": "clearVals",
+                "params": [
+                  "pageID",
+                  "eventTypeID"
+                ]
+              }
+            ]
+          },
+          "placeholder": "Select App...",
+          "valueKey": "id",
+          "labelKey": "label",
+          "filePath": "apps/wf-studio/src/eventTypes/studio/pages/Studio/widgets/selectApp.js",
+          "relativePath": "widgets/selectApp.js",
+          "eventType": "selectApp",
+          "id": "selectApp",
+          "position": {
+            "row": 1,
+            "col": 1
+          },
+          "props": {
+            "title": "Select App",
+            "options": [
+              "plans",
+              "client",
+              "admin",
+              "studio"
+            ],
+            "style": {
+              "marginBottom": "16px",
+              "width": "100%"
+            }
+          }
+        },
+        {
+          "id": "pageList",
+          "type": "select",
+          "container": "inline",
+          "position": {
+            "row": 2,
+            "col": 1
+          },
+          "props": {
+            "title": "Page List (select)",
+            "dataSource": "currentAppPages",
+            "style": {
+              "marginBottom": "16px",
+              "width": "100%"
+            }
+          }
+        },
+        {
+          "id": "eventTypeHierarchy",
+          "type": "accordion",
+          "container": "accordion",
+          "position": {
+            "row": 3,
+            "col": 1
+          },
+          "span": {
+            "cols": 1,
+            "rows": 10
+          },
+          "props": {
+            "title": "Accordion List of eventTypes",
+            "expandMultiple": true,
+            "sections": [
+              {
+                "id": "pageSection",
+                "title": "Page",
+                "items": [
+                  "tabs",
+                  "layout components"
+                ]
+              },
+              {
+                "id": "tabsSection",
+                "title": "-- tabs",
+                "items": [
+                  "grids and forms",
+                  "other widgets"
+                ]
+              },
+              {
+                "id": "gridsFormsSection",
+                "title": "-- grids and forms",
+                "items": [
+                  "formPlan",
+                  "gridPlans",
+                  "formPlanComm"
+                ]
+              },
+              {
+                "id": "widgetsSection",
+                "title": "-- other widgets",
+                "items": [
+                  "btnCreate",
+                  "selectPlanStatus"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "workflowTriggers": {
+        "onAppChange": [
+          "loadAppEventTypes",
+          "refreshPageList",
+          "clearSelection"
+        ],
+        "onPageSelect": [
+          "loadPageEventTypes",
+          "refreshHierarchy"
+        ],
+        "onEventTypeSelect": [
+          "loadEventTypeDetail",
+          "highlightInHierarchy"
+        ]
+      },
+      "fields": [],
+      "hasComponents": true,
+      "hasWorkflows": true,
+      "filePath": "apps/wf-studio/src/eventTypes/studio/pages/Studio/columns/columnSidebar.js",
+      "relativePath": "columns/columnSidebar.js",
+      "id": "columnSidebar",
       "position": "left",
-      "width": "280px",
       "props": {
         "title": "Studio Sidebar",
         "style": {
           "backgroundColor": "#f5f5f5",
-          "borderRight": "1px solid #e0e0e0",
-          "padding": "16px"
+          "borderRight": "1px solid #e0e0e0"
         }
       }
     },
     {
-      "id": "componentChoicesPanel",
-      "category": "column", 
-      "title": "Component Choices",
+      "id": "columnComponents",
+      "type": "column",
       "container": "column",
       "position": "middle",
       "width": "200px",
@@ -41,18 +185,162 @@
       }
     },
     {
-      "id": "workAreaTabs",
+      "eventType": "tabsWorkArea",
       "category": "tabs",
-      "title": "Work Area",
-      "container": "tabs",
+      "title": "Work Area Tabs",
+      "cluster": "STUDIO",
+      "purpose": "Main tabbed interface for Studio work area",
+      "components": [
+        {
+          "category": "tabs",
+          "title": "Leaf Detail",
+          "cluster": "STUDIO",
+          "purpose": "Properties tab for qry-based eventTypes with field generation",
+          "components": [
+            {
+              "category": "cards",
+              "title": "Basic Properties",
+              "cluster": "STUDIO",
+              "purpose": "Basic eventType properties - category, title, cluster",
+              "workflowTriggers": {
+                "onCategoryChange": [
+                  "updateAvailablePatterns"
+                ],
+                "onTitleChange": [
+                  "generateEventTypeId"
+                ],
+                "onClusterChange": [
+                  "validateClusterExists"
+                ]
+              },
+              "fields": [
+                {
+                  "name": "category",
+                  "label": "Category",
+                  "type": "select",
+                  "required": true,
+                  "percentage": "50%",
+                  "options": "getCategoryOptions"
+                },
+                {
+                  "name": "title",
+                  "label": "Title",
+                  "type": "text",
+                  "required": true,
+                  "percentage": "50%",
+                  "breakAfter": true,
+                  "placeholder": "User-friendly display name"
+                },
+                {
+                  "name": "purpose",
+                  "label": "Purpose",
+                  "type": "textarea",
+                  "percentage": "100%",
+                  "breakAfter": true,
+                  "placeholder": "Describe what this component does..."
+                },
+                {
+                  "name": "cluster",
+                  "label": "Cluster",
+                  "type": "text",
+                  "percentage": "100%",
+                  "placeholder": "PLANS, USERS, etc."
+                }
+              ],
+              "filePath": "apps/wf-studio/src/eventTypes/studio/pages/Studio/cards/cardBasics.js",
+              "relativePath": "cards/cardBasics.js",
+              "eventType": "cardBasics",
+              "id": "cardBasics",
+              "position": {
+                "row": 1,
+                "col": 1
+              },
+              "props": {
+                "title": "Basic Properties"
+              }
+            },
+            {
+              "category": "cards",
+              "title": "Data Binding",
+              "cluster": "cards",
+              "purpose": "Query configuration and field generation with manual overrides",
+              "workflowTriggers": {
+                "onQryChange": [
+                  "validateQryExists",
+                  "clearGeneratedFields"
+                ],
+                "onGenerateFields": [
+                  "callUnifiedGenFieldsWorkflow",
+                  "populatePreview"
+                ],
+                "onApplyChanges": [
+                  "updateEventTypeWithPreview",
+                  "saveEventTypeFile"
+                ]
+              },
+              "fields": [],
+              "fieldOverrides": [],
+              "actions": [
+                {
+                  "label": "Generate Fields",
+                  "action": "generateFields",
+                  "type": "primary"
+                },
+                {
+                  "label": "Save Changes",
+                  "action": "saveChanges",
+                  "type": "secondary"
+                }
+              ],
+              "filePath": "apps/wf-studio/src/eventTypes/studio/pages/Studio/cards/cardDataBinding.js",
+              "relativePath": "cards/cardDataBinding.js",
+              "eventType": "cardDataBinding",
+              "id": "cardDataBinding",
+              "position": {
+                "row": 2,
+                "col": 1
+              },
+              "props": {
+                "title": "Data Binding"
+              }
+            }
+          ],
+          "filePath": "apps/wf-studio/src/eventTypes/studio/pages/Studio/tabs/tabLeafDtl.js",
+          "relativePath": "tabs/tabLeafDtl.js",
+          "eventType": "tabLeafDtl",
+          "id": "tabLeafDtl",
+          "position": {
+            "row": 1,
+            "col": 1
+          },
+          "props": {
+            "label": "Component Detail",
+            "icon": "edit",
+            "defaultActive": true
+          }
+        }
+      ],
+      "workflowTriggers": {
+        "onTabChange": [
+          "saveCurrentWork",
+          "loadTabContent"
+        ],
+        "onLoad": [
+          "initializeWorkArea"
+        ]
+      },
+      "fields": [],
+      "hasComponents": true,
+      "hasWorkflows": true,
+      "filePath": "apps/wf-studio/src/eventTypes/studio/pages/Studio/tabs/tabsWorkArea.js",
+      "relativePath": "tabs/tabsWorkArea.js",
+      "id": "tabsWorkArea",
       "position": "right",
-      "flex": 1,
       "props": {
         "title": "Work Area",
-        "defaultTab": "componentDetail", 
+        "defaultTab": "componentDetail",
         "style": {
-          "backgroundColor": "#ffffff",
-          "padding": "16px"
+          "backgroundColor": "#ffffff"
         }
       }
     }
@@ -64,20 +352,124 @@
     ],
     "onAppSelect": [
       "loadAppEventTypes",
-      "refreshSidebar"  
+      "refreshSidebar"
     ],
     "onComponentSelect": [
       "loadComponentDetail",
       "switchToDetailTab"
     ]
   },
+  "fields": [],
+  "hasComponents": true,
+  "hasWorkflows": true,
+  "filePath": "apps/wf-studio/src/eventTypes/studio/pages/Studio/page/pageStudio.js",
+  "relativePath": "page/pageStudio.js",
   "meta": {
-    "note": "Temporary basic pageConfig for compilation. Replace with generated version.",
     "discoveredEventTypes": [
       {
         "id": "studioPage",
         "category": "page",
-        "title": "Studio Designer"
+        "title": "Studio Designer",
+        "hasComponents": false,
+        "hasFields": false
+      },
+      {
+        "id": "cardBasics",
+        "category": "cards",
+        "title": "Basic Properties",
+        "hasComponents": false,
+        "hasFields": true
+      },
+      {
+        "id": "cardComponentLayout",
+        "category": "cards",
+        "title": "Component Layout",
+        "hasComponents": false,
+        "hasFields": true
+      },
+      {
+        "id": "cardDataBinding",
+        "category": "cards",
+        "title": "Data Binding",
+        "hasComponents": false,
+        "hasFields": false
+      },
+      {
+        "id": "cardFormOverrides",
+        "category": "cards",
+        "title": "Form Field Overrides",
+        "hasComponents": false,
+        "hasFields": true
+      },
+      {
+        "id": "cardGridOverrides",
+        "category": "cards",
+        "title": "Grid Column Overrides",
+        "hasComponents": false,
+        "hasFields": true
+      },
+      {
+        "id": "cardSelect",
+        "category": "cards",
+        "title": "cardSelect",
+        "hasComponents": false,
+        "hasFields": false
+      },
+      {
+        "id": "cardWorkflowTriggers",
+        "category": "cards",
+        "title": "Workflow Triggers",
+        "hasComponents": false,
+        "hasFields": true
+      },
+      {
+        "id": "cardWorkflows",
+        "category": "cards",
+        "title": "Standalone Workflows",
+        "hasComponents": false,
+        "hasFields": true
+      },
+      {
+        "id": "columnSidebar",
+        "category": "columns",
+        "title": "App Page Designer",
+        "hasComponents": true,
+        "hasFields": false
+      },
+      {
+        "id": "pageStudio",
+        "category": "page",
+        "title": "Page Design Studio",
+        "hasComponents": true,
+        "hasFields": false
+      },
+      {
+        "id": "tabLeafDtl",
+        "category": "tabs",
+        "title": "Leaf Detail",
+        "hasComponents": true,
+        "hasFields": false
+      },
+      {
+        "id": "tabsWorkArea",
+        "category": "tabs",
+        "title": "Work Area Tabs",
+        "hasComponents": true,
+        "hasFields": false
+      },
+      {
+        "id": "selectApp",
+        "category": "widgets",
+        "title": "App Selector",
+        "hasComponents": false,
+        "hasFields": false
+      },
+      {
+        "id": "selectPage",
+        "category": "widgets",
+        "title": "Page Selector",
+        "hasComponents": false,
+        "hasFields": false
       }
     ]
   }

@@ -7,10 +7,6 @@ export const selectApp = {
   title: "App Selector",
   cluster: "STUDIO",
   purpose: "Select app for Studio page/eventType navigation",
-
-  // Studio API endpoint instead of database qry
-  apiEndpoint: "/api/studio/apps",
-  
   workflowTriggers: {
     onRefresh: ["execApps"],
     onChange: [
@@ -19,7 +15,7 @@ export const selectApp = {
       { action: "clearVals", params: ["pageID", "eventTypeID"] }
     ]
   },
-  
+
   // UI configuration
   placeholder: "Select App...",
   valueKey: "id",

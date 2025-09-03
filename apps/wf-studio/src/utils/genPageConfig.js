@@ -11,11 +11,19 @@ import { execCreateDoc } from '@whatsfresh/shared-imports/api';
  * @returns {Object} Root page component with full hierarchy
  */
 function buildComponentHierarchy(eventTypes) {
-  // Find the root page component
-  const pageComponent = eventTypes.find(et => et.category === 'page');
+  // Find the root page component with components array (the actual page structure)
+  const pageComponent = eventTypes.find(et => et.category === 'page' && et.components && Array.isArray(et.components));
   if (!pageComponent) {
-    throw new Error('No page-level eventType found');
+    // Fallback to any page component
+    const fallbackPage = eventTypes.find(et => et.category === 'page');
+    if (!fallbackPage) {
+      throw new Error('No page-level eventType found');
+    }
+    console.warn('⚠️ Using page eventType without components array:', fallbackPage.eventType || fallbackPage.id);
+    return fallbackPage;
   }
+  
+  console.log('✅ Using page eventType with components:', pageComponent.eventType || pageComponent.id, 'Components:', pageComponent.components?.length);
   
   // Create lookup map for all eventTypes by ID
   const eventTypeMap = {};
@@ -102,12 +110,10 @@ export async function genPageConfig(eventTypes, outputPath) {
 }
 
 /**
- * Auto-discover eventTypes from page folder structure
+ * Auto-discover eventTypes from page folder using API
  */
 async function discoverEventTypes(app, page) {
   const eventTypes = [];
-  const { promises: fs } = await import('fs');
-  const { join } = await import('path');
   
   // Add page eventType
   eventTypes.push({
@@ -118,52 +124,72 @@ async function discoverEventTypes(app, page) {
   });
   
   try {
-    const pageFolder = `./src/eventTypes/${app}/pages/${page}`;
-    console.log(`🔍 Scanning ${pageFolder} for eventTypes...`);
+    console.log(`🔍 Fetching eventTypes for ${app}/${page} from API...`);
     
-    // Check if page folder exists
-    try {
-      await fs.access(pageFolder);
-    } catch {
-      console.log(`⚠️ Page folder ${pageFolder} not found, using basic page eventType only`);
+    // Fetch eventTypes from server API
+    const response = await fetch(`http://localhost:3001/api/studio/eventTypes/${app}/${page}`);
+    
+    if (!response.ok) {
+      if (response.status === 404) {
+        console.log(`⚠️ No eventTypes found for ${app}/${page}, using basic page eventType only`);
+        return eventTypes;
+      }
+      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+    }
+    
+    const data = await response.json();
+    
+    if (!data.success || !data.eventTypes) {
+      console.log(`⚠️ No eventTypes returned for ${app}/${page}, using basic page eventType only`);
       return eventTypes;
     }
     
-    // Recursively scan for .js files
-    async function scanFolder(folderPath, relativePath = '') {
-      const entries = await fs.readdir(folderPath, { withFileTypes: true });
-      
-      for (const entry of entries) {
-        const fullPath = join(folderPath, entry.name);
-        
-        if (entry.isDirectory()) {
-          // Recursively scan subdirectories
-          await scanFolder(fullPath, join(relativePath, entry.name));
-        } else if (entry.name.endsWith('.js')) {
-          // Import .js files
-          const importPath = join(folderPath, entry.name);
-          console.log(`📄 Found eventType: ${importPath}`);
-          
-          try {
-            const module = await import(importPath);
-            // Get all exports from the module
-            Object.values(module).forEach(exportedItem => {
-              if (exportedItem && typeof exportedItem === 'object' && exportedItem.eventType) {
-                eventTypes.push(exportedItem);
-                console.log(`✅ Imported: ${exportedItem.eventType}`);
-              }
-            });
-          } catch (error) {
-            console.error(`❌ Failed to import ${importPath}:`, error);
-          }
-        }
-      }
-    }
+    console.log(`📋 Found ${data.meta.eventTypeCount} eventTypes from API`);
     
-    await scanFolder(pageFolder);
+    // Process eventTypes from API response
+    Object.values(data.eventTypes).forEach(eventTypeInfo => {
+      try {
+        // Try to parse the eventType definition (it's stored as a string)
+        let definition;
+        
+        // The definition might be incomplete, so let's try to parse it safely
+        try {
+          definition = eval(`(${eventTypeInfo.definition})`);
+        } catch (evalError) {
+          // If eval fails, try to create a basic object with available info
+          console.warn(`⚠️ Could not parse ${eventTypeInfo.name}, creating basic eventType`);
+          definition = {
+            eventType: eventTypeInfo.exportName,
+            category: eventTypeInfo.category,
+            title: eventTypeInfo.name,
+            purpose: `Generated from ${eventTypeInfo.name}`
+          };
+        }
+        
+        if (definition && typeof definition === 'object') {
+          // Add metadata from API
+          definition.filePath = eventTypeInfo.filePath;
+          definition.category = eventTypeInfo.category;
+          definition.relativePath = eventTypeInfo.relativePath;
+          
+          // Ensure eventType property exists
+          if (!definition.eventType) {
+            definition.eventType = eventTypeInfo.exportName;
+          }
+          
+          eventTypes.push(definition);
+          console.log(`✅ Loaded: ${definition.eventType} (${eventTypeInfo.category})`);
+        } else {
+          console.warn(`⚠️ Invalid eventType definition in ${eventTypeInfo.name}`);
+        }
+      } catch (error) {
+        console.error(`❌ Failed to parse eventType ${eventTypeInfo.name}:`, error);
+      }
+    });
     
   } catch (error) {
-    console.error(`❌ Error scanning eventTypes for ${app}/${page}:`, error);
+    console.error(`❌ Error fetching eventTypes for ${app}/${page}:`, error);
+    console.log(`📋 Falling back to basic page eventType only`);
   }
   
   return eventTypes;
@@ -191,8 +217,8 @@ async function runCLI() {
     
     console.log(`📋 Discovered ${eventTypes.length} eventTypes:`, eventTypes.map(et => et.eventType));
     
-    // Generate pageConfig
-    const outputPath = `./src/pages/${page}/pageConfig.json`;
+    // Generate pageConfig to correct Studio path
+    const outputPath = `./apps/wf-studio/src/pages/${page}/pageConfig.json`;
     await genPageConfig(eventTypes, outputPath);
     
     console.log(`✅ PageConfig generated for ${appPage}!`);

@@ -4,7 +4,7 @@ import execDML from "../controller/execDML.js";
 import execCreateDoc from "../controller/execCreateDoc.js";
 import getDoc from "../controller/getDoc.js";
 import { fetchStudioEventTypes } from "../controller/fetchStudioEventTypes.js";
-import { discoverApps, discoverPages, discoverStructure } from "../controller/studioDiscovery.js";
+import { discoverApps, discoverPages, discoverStructure, discoverEventTypes } from "../controller/studioDiscovery.js";
 import writeFileDirectly from "../controller/writeFileDirectly.js";
 import initializeController from "../controller/initialize.js";
 import listRoutesController from "../controller/listRegisteredRoutes.js";
@@ -42,6 +42,7 @@ const registerRoutes = (app) => {
   registerRoute("get", "/api/studio/apps", discoverApps);
   registerRoute("get", "/api/studio/pages/:appName", discoverPages);
   registerRoute("get", "/api/studio/structure", discoverStructure);
+  registerRoute("get", "/api/studio/eventTypes/:appName/:pageName", discoverEventTypes);
   registerRoute("post", "/api/writeFileDirectly", writeFileDirectly);
   registerRoute("post", "/api/initialize", initializeController.initialize);
   registerRoute("get", "/api/util/list-routes", (req, res) => {

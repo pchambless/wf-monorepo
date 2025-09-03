@@ -79,7 +79,17 @@ export {
 // } from "../../../apps/wf-server/server/events/index.js";
 
 // === API UTILITIES ===
-export { execEvent, createApi, api } from "./api/index.js";
+export { 
+  execEvent, 
+  createApi, 
+  api,
+  execApps,
+  execPages,
+  execDml,
+  execCreateDoc,
+  fetchStudioEventTypes,
+  fetchParams
+} from "./api/index.js";
 
 // === WORKFLOW UTILITIES ===
 // Removed - architecture folder deleted to clean up broken dependencies

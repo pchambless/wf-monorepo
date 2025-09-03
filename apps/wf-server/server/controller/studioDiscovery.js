@@ -5,6 +5,7 @@
 
 import { promises as fs } from 'fs';
 import path from 'path';
+import { parse } from '@babel/parser';
 import logger from "../utils/logger.js";
 
 const codeName = "[studioDiscovery.js]";
@@ -171,4 +172,155 @@ async function discoverStructure(req, res) {
   }
 }
 
-export { discoverApps, discoverPages, discoverStructure };
+/**
+ * Get eventType definitions for a specific app and page
+ * GET /api/studio/eventTypes/:appName/:pageName
+ */
+async function discoverEventTypes(req, res) {
+  try {
+    const { appName, pageName } = req.params;
+
+    if (!appName || !pageName) {
+      return res.status(400).json({
+        success: false,
+        message: "Both app name and page name parameters are required"
+      });
+    }
+
+    logger.debug(`${codeName} Discovering eventTypes for ${appName}/${pageName}`);
+
+    const pageEventTypesPath = path.join(STUDIO_EVENTTYPES_PATH, appName, 'pages', pageName);
+    
+    // Check if page folder exists
+    try {
+      await fs.access(pageEventTypesPath);
+    } catch (accessError) {
+      return res.status(404).json({
+        success: false,
+        message: `Page ${pageName} not found for app ${appName}`,
+        path: pageEventTypesPath
+      });
+    }
+
+    const eventTypes = {};
+    
+    // Scan all subdirectories (cards, columns, grids, sections, widgets, etc.)
+    async function scanDirectory(dirPath, relativePath = '') {
+      try {
+        const entries = await fs.readdir(dirPath, { withFileTypes: true });
+        
+        logger.debug(`${codeName} Scanning directory ${dirPath} with ${entries.length} entries`);
+        
+        for (const entry of entries) {
+          const fullPath = path.join(dirPath, entry.name);
+          const relativeEntryPath = relativePath ? `${relativePath}/${entry.name}` : entry.name;
+          
+          logger.debug(`${codeName} Processing entry: ${entry.name} (${entry.isDirectory() ? 'directory' : 'file'})`);
+          
+          if (entry.isDirectory()) {
+            // Recursively scan subdirectories
+            await scanDirectory(fullPath, relativeEntryPath);
+          } else if (entry.isFile() && entry.name.endsWith('.js')) {
+            // Read JS file and parse with babel
+            try {
+              const fileContent = await fs.readFile(fullPath, 'utf8');
+              
+              if (!fileContent.trim()) {
+                logger.debug(`${codeName} Skipping empty file ${fullPath}`);
+                continue;
+              }
+              
+              // Parse with babel
+              const ast = parse(fileContent, {
+                sourceType: 'module',
+                plugins: ['jsx', 'typescript', 'objectRestSpread']
+              });
+              
+              let exportedObject = null;
+              let exportName = null;
+              
+              // Walk through AST nodes to find exports
+              const body = ast?.program?.body || ast?.body || [];
+              if (Array.isArray(body) && body.length > 0) {
+                for (const node of body) {
+                  if (node.type === 'ExportNamedDeclaration' && node.declaration) {
+                    // Handle: export const varName = {...}
+                    if (node.declaration.type === 'VariableDeclaration') {
+                      const declarator = node.declaration.declarations[0];
+                      if (declarator && declarator.init && declarator.init.type === 'ObjectExpression') {
+                        exportName = declarator.id.name;
+                        // Extract the complete object from source using start/end positions
+                        exportedObject = fileContent.substring(declarator.init.start, declarator.init.end);
+                        break;
+                      }
+                    }
+                  } else if (node.type === 'ExportDefaultDeclaration') {
+                    // Handle: export default {...}
+                    if (node.declaration && node.declaration.type === 'ObjectExpression') {
+                      exportName = 'default';
+                      exportedObject = fileContent.substring(node.declaration.start, node.declaration.end);
+                      break;
+                    }
+                  }
+                }
+              } else {
+                logger.warn(`${codeName} No valid AST body found for ${fullPath}: program.body=${typeof ast?.program?.body}, body=${typeof ast?.body}, length=${body.length}`);
+                continue;
+              }
+              
+              if (exportedObject && exportName) {
+                const eventTypeName = path.basename(entry.name, '.js');
+                const categoryPath = relativeEntryPath.replace(`/${entry.name}`, '');
+                
+                // Store with category path info
+                eventTypes[`${categoryPath}/${eventTypeName}`] = {
+                  name: eventTypeName,
+                  exportName: exportName,
+                  category: categoryPath,
+                  filePath: fullPath.replace('/home/paul/wf-monorepo-new/', ''),
+                  definition: exportedObject,
+                  relativePath: relativeEntryPath
+                };
+                
+                logger.debug(`${codeName} Extracted eventType ${exportName} from ${eventTypeName}`);
+              } else {
+                logger.debug(`${codeName} No valid export found in ${fullPath}`);
+              }
+            } catch (parseError) {
+              logger.warn(`${codeName} Could not parse eventType file ${fullPath}: ${parseError.message}`);
+            }
+          }
+        }
+      } catch (scanError) {
+        logger.warn(`${codeName} Could not scan directory ${dirPath}: ${scanError.message}`);
+      }
+    }
+
+    await scanDirectory(pageEventTypesPath);
+    
+    const eventTypeCount = Object.keys(eventTypes).length;
+    logger.debug(`${codeName} Found ${eventTypeCount} eventTypes for ${appName}/${pageName}`);
+
+    res.json({
+      success: true,
+      app: appName,
+      page: pageName,
+      eventTypes: eventTypes,
+      meta: {
+        eventTypeCount: eventTypeCount,
+        path: pageEventTypesPath,
+        generated: new Date().toISOString()
+      }
+    });
+
+  } catch (error) {
+    logger.error(`${codeName} Error discovering eventTypes for ${req.params.appName}/${req.params.pageName}:`, error);
+    res.status(500).json({
+      success: false,
+      message: `Failed to discover eventTypes for ${req.params.appName}/${req.params.pageName}`,
+      error: error.message
+    });
+  }
+}
+
+export { discoverApps, discoverPages, discoverStructure, discoverEventTypes };

@@ -1,0 +1,84 @@
+{
+  "eventType": "studioPage",
+  "category": "page", 
+  "title": "Studio Designer",
+  "purpose": "Three-column layout: app/page selector + component choices + tabbed work area",
+  "layout": "three-column",
+  "generated": "2025-09-01T01:00:00.000Z",
+  "source": "temporary-basic-config",
+  "eventTypeCount": 1,
+  "components": [
+    {
+      "id": "studioSidebar",
+      "category": "column",
+      "title": "App Page Designer",
+      "container": "column",
+      "position": "left",
+      "width": "280px",
+      "props": {
+        "title": "Studio Sidebar",
+        "style": {
+          "backgroundColor": "#f5f5f5",
+          "borderRight": "1px solid #e0e0e0",
+          "padding": "16px"
+        }
+      }
+    },
+    {
+      "id": "componentChoicesPanel",
+      "category": "column", 
+      "title": "Component Choices",
+      "container": "column",
+      "position": "middle",
+      "width": "200px",
+      "props": {
+        "title": "Component Choices",
+        "style": {
+          "borderRight": "1px solid #e0e0e0",
+          "backgroundColor": "#fafafa",
+          "padding": "12px"
+        }
+      }
+    },
+    {
+      "id": "workAreaTabs",
+      "category": "tabs",
+      "title": "Work Area",
+      "container": "tabs",
+      "position": "right",
+      "flex": 1,
+      "props": {
+        "title": "Work Area",
+        "defaultTab": "componentDetail", 
+        "style": {
+          "backgroundColor": "#ffffff",
+          "padding": "16px"
+        }
+      }
+    }
+  ],
+  "workflowTriggers": {
+    "onLoad": [
+      "loadAvailableApps",
+      "initializeStudioState"
+    ],
+    "onAppSelect": [
+      "loadAppEventTypes",
+      "refreshSidebar"  
+    ],
+    "onComponentSelect": [
+      "loadComponentDetail",
+      "switchToDetailTab"
+    ]
+  },
+  "meta": {
+    "note": "Temporary basic pageConfig for compilation. Replace with generated version.",
+    "discoveredEventTypes": [
+      {
+        "id": "studioPage",
+        "category": "page",
+        "title": "Studio Designer"
+      }
+    ]
+  }
+}
