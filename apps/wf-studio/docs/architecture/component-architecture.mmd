@@ -1,0 +1,34 @@
+---
+title: Component Architecture
+---
+classDiagram
+    Component <|-- PageComponent
+    Component <|-- TabComponent  
+    Component <|-- CardComponent
+    Component : +string container
+    Component : +object position
+    Component : +object props
+    Component : +validate()
+    
+    class PageComponent{
+      +string layout
+      +array components
+      +object workflowTriggers
+      +renderPage()
+    }
+    
+    class TabComponent{
+      +array components
+      +object workflowTriggers
+      +renderTab()
+    }
+    
+    class CardComponent{
+      +array fields
+      +object workflowTriggers
+      +renderCard()
+    }
+    
+    GridStandards --> Component : validates
+    PageRenderer --> Component : renders
+    GenPageConfig --> Component : processes

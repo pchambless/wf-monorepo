@@ -11,6 +11,7 @@ import { execDmlWithRefresh as execDmlWithRefreshFn } from './execDmlWithRefresh
 import { fetchStudioEventTypes as fetchStudioEventTypesFn } from './fetchStudioEventTypes.js';
 import { execApps as execAppsFn } from './execApps.js';
 import { execPages as execPagesFn } from './execPages.js';
+import { fetchQueryEvents as fetchQueryEventsFn } from './fetchQueryEvents.js';
 
 /**
  * Default API configuration
@@ -60,6 +61,9 @@ export function createApi(options = {}) {
   const boundExecPages = (appName) => 
     execPagesFn(appName, config);
 
+  const boundFetchQueryEvents = (app) => 
+    fetchQueryEventsFn(app, config);
+
   return {
     execEvent: boundExecEvent,
     fetchParams: boundFetchParams,
@@ -69,6 +73,7 @@ export function createApi(options = {}) {
     fetchStudioEventTypes: boundFetchStudioEventTypes,
     execApps: boundExecApps,
     execPages: boundExecPages,
+    fetchQueryEvents: boundFetchQueryEvents,
   };
 }
 

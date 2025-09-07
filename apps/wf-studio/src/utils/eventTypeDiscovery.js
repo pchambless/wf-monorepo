@@ -13,8 +13,8 @@ let EVENT_TYPE_REGISTRY = null;
 function loadAllEventTypes() {
   console.log('🔍 Discovering eventTypes from filesystem...');
   
-  // Webpack magic: scan all .js files in eventTypes directory
-  const eventTypeContext = require.context('../eventTypes', true, /\.js$/);
+  // Webpack magic: scan all .js files in apps/studio eventTypes directory
+  const eventTypeContext = require.context('../apps/studio/pages/Studio/eventTypes', true, /\.js$/);
   
   const eventTypeRegistry = {};
   let loadedCount = 0;

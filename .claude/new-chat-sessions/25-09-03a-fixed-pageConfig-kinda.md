@@ -62,3 +62,7 @@
   **Expected Result**: selectApp widget should now populate with all available apps instead of being stuck on just 'studio'. The full Studio workflow should be functional.
 
   **Approach Validated**: Babel-parser approach proved superior to regex parsing for complex JavaScript object definitions with nested structures and comments.
+
+  **These Files looks off**
+  /home/paul/wf-monorepo-new/apps/wf-studio/src/pages/Studio/pageConfig.json.new - I'm not sure what this is supposed to represent, maybe a list of the eventTypes for the page?
+  /home/paul/wf-monorepo-new/apps/wf-studio/src/pages/Studio/pageConfig.json - This looks like the eventTypes, kindof, all lumped together, but not processed correctly by genPageConfig?

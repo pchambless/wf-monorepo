@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PageRenderer from '../../PageRenderer';
+import PageRenderer from '../../rendering/PageRenderer';
 import pageConfig from "./pageConfig.json";
 
 /**

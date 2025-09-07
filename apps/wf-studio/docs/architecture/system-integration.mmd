@@ -1,0 +1,37 @@
+---
+title: System Integration
+---
+classDiagram
+    GridStandards --> GenPageConfig : validates
+    GridStandards --> PageRenderer : provides CSS
+    GridStandards --> CardDefinitions : validates
+    
+    class GridStandards{
+      +validatePosition()
+      +validateContainer()
+      +generateCSSProps()
+      +getLayoutPatterns()
+      +isValidPosition()
+    }
+    
+    class GenPageConfig{
+      +scanEventTypes()
+      +validateComponents()
+      +generateConfig()
+      +stripMetadata()
+    }
+    
+    class PageRenderer{
+      +applyCSS()
+      +renderComponents()
+      +handleLayout()
+      +processPosition()
+    }
+    
+    class CardDefinitions{
+      +string container
+      +object position
+      +object props
+      +array fields
+      +validate()
+    }

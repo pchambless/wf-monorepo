@@ -1,0 +1,26 @@
+---
+title: Grid Standards System Overview
+---
+flowchart TD
+    A[Grid Standards v1.0.0] --> B[Container Types]
+    A --> C[Position Schema] 
+    A --> D[Layout Patterns]
+    A --> E[CSS Generation]
+    
+    B --> B1[page - Top-level grid]
+    B --> B2[tab - Tab content grid]
+    B --> B3[card - Card internal layout]
+    B --> B4[modal - Modal dialog grid]
+    B --> B5[inline - Flow within parent]
+    
+    C --> C1["col: {start, span}"]
+    C --> C2["row: {start, span}"]
+    
+    E --> E1[CSS Custom Properties]
+    E --> E2[Grid Container Classes]
+    
+    style A fill:#e1f5fe
+    style B fill:#f3e5f5
+    style C fill:#fff3e0
+    style D fill:#e8f5e8
+    style E fill:#fce4ec

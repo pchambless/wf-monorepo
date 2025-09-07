@@ -4,12 +4,13 @@ import execDML from "../controller/execDML.js";
 import execCreateDoc from "../controller/execCreateDoc.js";
 import getDoc from "../controller/getDoc.js";
 import { fetchStudioEventTypes } from "../controller/fetchStudioEventTypes.js";
-import { discoverApps, discoverPages, discoverStructure, discoverEventTypes } from "../controller/studioDiscovery.js";
+import { discoverApps, discoverPages, discoverStructure, discoverEventTypes, genPageConfig } from "../controller/studioDiscovery.js";
 import writeFileDirectly from "../controller/writeFileDirectly.js";
 import initializeController from "../controller/initialize.js";
 import listRoutesController from "../controller/listRegisteredRoutes.js";
 import restartServerController from "../controller/restartServer.js";
 import { fetchEventTypes } from "../controller/fetchEventTypes.js";
+import { fetchQueryEvents } from "../controller/fetchQueryEvents.js";
 import { fetchParams } from "../controller/fetchParams.js";
 import { genFields } from "../controller/genFields.js";
 import userLogin from "../controller/userLogin.js";
@@ -36,6 +37,7 @@ const registerRoutes = (app) => {
   registerRoute("post", "/api/execCreateDoc", execCreateDoc);
   registerRoute("get", "/api/getDoc", getDoc);
   registerRoute("get", "/api/studio/eventTypes/:app", fetchStudioEventTypes);
+  registerRoute("get", "/api/server/queries", fetchQueryEvents);
   registerRoute("post", "/api/studio/genFields", genFields);
   
   // Studio Discovery APIs
@@ -43,6 +45,7 @@ const registerRoutes = (app) => {
   registerRoute("get", "/api/studio/pages/:appName", discoverPages);
   registerRoute("get", "/api/studio/structure", discoverStructure);
   registerRoute("get", "/api/studio/eventTypes/:appName/:pageName", discoverEventTypes);
+  registerRoute("get", "/api/studio/genPageConfig/:appName/:pageName", genPageConfig);
   registerRoute("post", "/api/writeFileDirectly", writeFileDirectly);
   registerRoute("post", "/api/initialize", initializeController.initialize);
   registerRoute("get", "/api/util/list-routes", (req, res) => {

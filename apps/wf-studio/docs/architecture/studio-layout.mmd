@@ -1,0 +1,20 @@
+---
+title: Studio Page Layout Example
+---
+block-beta
+    columns 10
+    
+    sidebar["Sidebar<br/>cols 1-3<br/>(30%)"] space:2 components["Component Panel<br/>cols 4-5<br/>(20%)"] space workArea["Work Area<br/>cols 6-10<br/>(50%)"]
+    
+    space:10
+    
+    block:tabGrid:10
+        columns 10
+        cardBasics["Basic Properties<br/>cols 1-3"] space cardData["Data Binding<br/>cols 4-6"] space cardPreview["Preview<br/>cols 7-10"]
+    end
+    
+    classDef pageLevel fill:#e3f2fd
+    classDef tabLevel fill:#f3e5f5
+    
+    class sidebar,components,workArea pageLevel
+    class cardBasics,cardData,cardPreview tabLevel

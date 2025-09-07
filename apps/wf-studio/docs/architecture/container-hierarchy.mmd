@@ -1,0 +1,24 @@
+---
+title: Container Type Hierarchy
+---
+flowchart TB
+    subgraph "Container Relationships"
+        PAGE[page<br/>Top-level grid] --> TAB[tab<br/>Tab content]
+        PAGE --> MODAL[modal<br/>Dialog overlay]
+        TAB --> CARD[card<br/>Internal layout]
+        CARD --> INLINE[inline<br/>Flow content]
+    end
+    
+    subgraph "CSS Classes"
+        PAGE --> PC[grid-container page-grid]
+        TAB --> TC[grid-container tab-grid]
+        CARD --> CC[grid-container card-grid]
+        MODAL --> MC[grid-container modal-grid]
+        INLINE --> IC[inline-flow]
+    end
+    
+    style PAGE fill:#ff9800
+    style TAB fill:#2196f3
+    style CARD fill:#4caf50
+    style MODAL fill:#9c27b0
+    style INLINE fill:#607d8b

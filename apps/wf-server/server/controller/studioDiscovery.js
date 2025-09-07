@@ -9,7 +9,7 @@ import { parse } from '@babel/parser';
 import logger from "../utils/logger.js";
 
 const codeName = "[studioDiscovery.js]";
-const STUDIO_EVENTTYPES_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/eventTypes";
+const STUDIO_APPS_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/apps";
 
 /**
  * Discover all apps/folders in Studio eventTypes
@@ -19,7 +19,7 @@ async function discoverApps(req, res) {
   try {
     logger.debug(`${codeName} Discovering apps from Studio eventTypes`);
 
-    const entries = await fs.readdir(STUDIO_EVENTTYPES_PATH, { withFileTypes: true });
+    const entries = await fs.readdir(STUDIO_APPS_PATH, { withFileTypes: true });
     
     const allFolders = entries
       .filter(entry => entry.isDirectory())
@@ -72,7 +72,7 @@ async function discoverPages(req, res) {
 
     logger.debug(`${codeName} Discovering pages for app: ${appName}`);
 
-    const appPagesPath = path.join(STUDIO_EVENTTYPES_PATH, appName, 'pages');
+    const appPagesPath = path.join(STUDIO_APPS_PATH, appName, 'pages');
     
     // Check if pages folder exists
     let pages = [];
@@ -122,7 +122,7 @@ async function discoverStructure(req, res) {
     logger.debug(`${codeName} Discovering complete monorepo structure`);
 
     // Get all apps first
-    const entries = await fs.readdir(STUDIO_EVENTTYPES_PATH, { withFileTypes: true });
+    const entries = await fs.readdir(STUDIO_APPS_PATH, { withFileTypes: true });
     const allFolders = entries
       .filter(entry => entry.isDirectory())
       .map(entry => entry.name)
@@ -132,7 +132,7 @@ async function discoverStructure(req, res) {
     
     // Get pages for each folder
     for (const folder of allFolders) {
-      const pagesPath = path.join(STUDIO_EVENTTYPES_PATH, folder, 'pages');
+      const pagesPath = path.join(STUDIO_APPS_PATH, folder, 'pages');
       
       try {
         await fs.access(pagesPath);
@@ -189,7 +189,7 @@ async function discoverEventTypes(req, res) {
 
     logger.debug(`${codeName} Discovering eventTypes for ${appName}/${pageName}`);
 
-    const pageEventTypesPath = path.join(STUDIO_EVENTTYPES_PATH, appName, 'pages', pageName);
+    const pageEventTypesPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'eventTypes');
     
     // Check if page folder exists
     try {
@@ -323,4 +323,39 @@ async function discoverEventTypes(req, res) {
   }
 }
 
-export { discoverApps, discoverPages, discoverStructure, discoverEventTypes };
+/**
+ * Generate PageConfig for a specific app/page  
+ * GET /api/studio/genPageConfig/:appName/:pageName
+ */
+async function genPageConfig(req, res) {
+  try {
+    const { appName, pageName } = req.params;
+    logger.debug(`${codeName} Generating pageConfig for ${appName}/${pageName}`);
+
+    // Import and use the server-side genPageConfig utility
+    const { genPageConfig: generatePageConfig } = await import('../utils/genPageConfig.js');
+    
+    const pageConfig = await generatePageConfig(appName, pageName);
+    
+    res.json({
+      success: true,
+      pageConfig: pageConfig,
+      meta: {
+        app: appName,
+        page: pageName,
+        eventTypesResolved: pageConfig.eventTypeCount,
+        generated: new Date().toISOString()
+      }
+    });
+
+  } catch (error) {
+    logger.error(`${codeName} Error generating pageConfig for ${req.params.appName}/${req.params.pageName}:`, error);
+    res.status(500).json({
+      success: false,
+      message: `Failed to generate pageConfig for ${req.params.appName}/${req.params.pageName}`,
+      error: error.message
+    });
+  }
+}
+
+export { discoverApps, discoverPages, discoverStructure, discoverEventTypes, genPageConfig };

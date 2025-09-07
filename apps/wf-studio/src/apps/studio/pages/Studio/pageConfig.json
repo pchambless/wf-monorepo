@@ -243,6 +243,10 @@
       ]
     }
   ],
+  "title": "Page Design Studio",
+  "routePath": "/studio",
+  "purpose": "Three-column layout: app/page selector + component choices + tabbed work area",
+  "cluster": "Page",
   "workflowTriggers": {
     "onLoad": {
       "action": "refresh",

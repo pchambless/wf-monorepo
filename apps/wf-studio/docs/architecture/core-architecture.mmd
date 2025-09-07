@@ -1,0 +1,36 @@
+---
+title: Grid Standards Core Classes
+---
+classDiagram
+    GridStandards <|-- ContainerTypes
+    GridStandards <|-- PositionSchema
+    GridStandards <|-- LayoutPatterns
+    GridStandards : +int COLUMNS
+    GridStandards : +string DEFAULT_GAP
+    GridStandards : +validatePosition()
+    GridStandards : +validateContainer()
+    GridStandards : +generateCSSProps()
+    
+    class ContainerTypes{
+      +string PAGE
+      +string TAB
+      +string CARD
+      +string MODAL
+      +string INLINE
+      +getContainerClasses()
+    }
+    
+    class PositionSchema{
+      +object col
+      +object row
+      +validate()
+      +generateCSSProps()
+    }
+    
+    class LayoutPatterns{
+      +object FULL_WIDTH
+      +object LEFT_HALF
+      +object CARD_TOP_LEFT
+      +getWidthPercentage()
+      +createExample()
+    }
