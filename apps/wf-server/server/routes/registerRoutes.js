@@ -4,7 +4,7 @@ import execDML from "../controller/execDML.js";
 import execCreateDoc from "../controller/execCreateDoc.js";
 import getDoc from "../controller/getDoc.js";
 import { fetchStudioEventTypes } from "../controller/fetchStudioEventTypes.js";
-import { discoverApps, discoverPages, discoverStructure, discoverEventTypes, genPageConfig } from "../controller/studioDiscovery.js";
+import { discoverApps, discoverPages, discoverTemplates, discoverStructure, discoverEventTypes, genPageConfig } from "../controller/studioDiscovery/index.js";
 import writeFileDirectly from "../controller/writeFileDirectly.js";
 import initializeController from "../controller/initialize.js";
 import listRoutesController from "../controller/listRegisteredRoutes.js";
@@ -43,6 +43,7 @@ const registerRoutes = (app) => {
   // Studio Discovery APIs
   registerRoute("get", "/api/studio/apps", discoverApps);
   registerRoute("get", "/api/studio/pages/:appName", discoverPages);
+  registerRoute("get", "/api/studio/templates", discoverTemplates);
   registerRoute("get", "/api/studio/structure", discoverStructure);
   registerRoute("get", "/api/studio/eventTypes/:appName/:pageName", discoverEventTypes);
   registerRoute("get", "/api/studio/genPageConfig/:appName/:pageName", genPageConfig);

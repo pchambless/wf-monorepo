@@ -1,20 +1,19 @@
 CREATE OR REPLACE VIEW whatsfresh.v_prd_btch_dtl AS
 SELECT
-  ROW_NUMBER() OVER() uID, 
   CONCAT(prd.name, ' ', c.name) AS prd_type_and_name,
   prd.name AS prd_name,
   prd.code AS prd_code,
   c.name AS prd_type,
   prd.recipe_quantity AS rcpe_qty,
-  whatsfresh.f_measure_unit(prd.global_measure_unit_id) AS rcpe_meas,
+  whatsfresh.f_measure(prd.measure_id) AS rcpe_meas,
   pb.recipe_multiply_factor AS rcpe_mult_fctr,
   IFNULL(d.ingr_maps, 0) AS ingr_maps,
   IFNULL(e.task_maps, 0) AS task_maps,
   IFNULL(d.ingr_maps + e.task_maps, 0) AS total_maps,
   IFNULL(pb.location, '') AS location,
   IFNULL(pb.batch_quantity, 0) AS btch_qty,
-  IFNULL(whatsfresh.f_measure_unit(pb.global_measure_unit_id), '') AS btch_meas,
-  IFNULL(CONCAT(pb.batch_quantity, ' ', whatsfresh.f_measure_unit(pb.global_measure_unit_id), 's'), '') AS qty_meas,
+  IFNULL(whatsfresh.f_measure(pb.measure_id), '') AS btch_meas,
+  IFNULL(CONCAT(pb.batch_quantity, ' ', whatsfresh.f_measure(pb.measure_id), 's'), '') AS qty_meas,
   IFNULL(CAST(DATE_FORMAT(pb.batch_start, '%Y-%m-%d') AS DATE), '') AS prd_btch_date,
   IFNULL(pb.batch_start, '') AS batch_start,
   IFNULL(pb.comments, '') AS comments,
@@ -28,7 +27,7 @@ SELECT
   prd.id AS prd_id,
   pb.id AS prd_btch_id,
   prd.account_id AS acct_id,
-  pb.global_measure_unit_id AS meas_unit_id
+  pb.measure_id AS meas_unit_id
 FROM
   whatsfresh.products prd
 LEFT JOIN

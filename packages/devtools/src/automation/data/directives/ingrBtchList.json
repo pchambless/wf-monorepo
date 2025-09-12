@@ -98,7 +98,7 @@
         "label": "Measure",
         "grp": "3",
         "type": "select",
-        "dbColumn": "global_measure_unit_id",
+        "dbColumn": "measure_id",
         "widget": "SelMeas",
         "width": 120,
         "tableHide": true,

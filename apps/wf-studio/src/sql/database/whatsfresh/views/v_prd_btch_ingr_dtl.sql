@@ -6,8 +6,8 @@ select		r.prd_type
 ,				DATE_FORMAT(c.batch_start,'%Y-%m-%d')   prd_btch_date
 ,				c.batch_quantity								btch_qty
 ,				c.comments										btchComments
-,				whatsfresh.f_measure_unit(c.global_measure_unit_id) unit_meas
-,           ifnull(concat(c.batch_quantity,' ', whatsfresh.f_measure_unit(c.global_measure_unit_id)),'') prd_qty_meas
+,				whatsfresh.f_measure(c.measure_id) unit_meas
+,           ifnull(concat(c.batch_quantity,' ', whatsfresh.f_measure(c.measure_id)),'') prd_qty_meas
 ,				c.batch_number									prd_btch_nbr
 ,				ifnull(c.location,'')						location
 ,				a.comments										ingrComments									
@@ -31,6 +31,7 @@ select		r.prd_type
 ,				r.prd_type_id
 ,				r.ingr_id
 ,				a.id												prd_btch_ingr_id
+,				a.measure_id									meas_id
 ,				c.id												prd_btch_id									
 ,				r.prd_rcpe_id
 ,				a.ingredient_batch_id						ingr_btch_id

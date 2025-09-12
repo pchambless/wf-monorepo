@@ -57,8 +57,8 @@ SELECT
     prd.product_type_id,
     prd.id AS product_id,
     pb.id AS product_batch_id,
-    pb.global_measure_unit_id AS batch_measure_unit_id,
-    prd.global_measure_unit_id AS recipe_measure_unit_id,
+    pb.measure_id AS batch_measure_unit_id,
+    prd.measure_id AS recipe_measure_unit_id,
     
     -- Audit Information
     pb.created_at AS batch_created_at,
@@ -68,8 +68,8 @@ SELECT
 FROM products prd
     INNER JOIN product_types pt ON prd.product_type_id = pt.id
     LEFT JOIN product_batches pb ON prd.id = pb.product_id AND pb.active = 1
-    LEFT JOIN measures rm ON prd.global_measure_unit_id = rm.id AND rm.active = 1
-    LEFT JOIN measures bm ON pb.global_measure_unit_id = bm.id AND bm.active = 1
+    LEFT JOIN measures rm ON prd.measure_id = rm.id AND rm.active = 1
+    LEFT JOIN measures bm ON pb.measure_id = bm.id AND bm.active = 1
     LEFT JOIN (
         SELECT 
             product_batch_id, 

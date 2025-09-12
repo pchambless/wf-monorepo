@@ -1,7 +1,6 @@
 create or replace view v_prd_rcpe_active
 as
 select 
-ROW_NUMBER() OVER() uID, 
   a.prd_type_n_name
 , a.ingr_ordr
 , a.ingr_name
@@ -12,4 +11,4 @@ ROW_NUMBER() OVER() uID,
 , a.acct_id
 , a.prd_rcpe_id
 from v_prd_rcpe_dtl a
-where a.prd_rcpe_actv = 'Y'
+where a.prd_rcpe_actv = 1

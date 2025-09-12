@@ -9,18 +9,21 @@
 import { useContextStore } from '@whatsfresh/shared-imports';
 
 // Import all workflow methods
-import { execApps } from './execApps.js';
-import { execPages } from './execPages.js';
-import { execEvent } from './execEvent.js';
-import { refresh } from './refresh.js';
-import { clearVals } from './clearVals.js';
-import { setVal } from './setVal.js';
-import { getVal } from './getVal.js';
+import { execApps } from './triggers/data/execApps.js';
+import { execPages } from './triggers/data/execPages.js';
+import { execEventTypes } from './triggers/data/execEventTypes.js';
+import { execEvent } from './triggers/data/execEvent.js';
+import { refresh } from './triggers/atomic/onRefresh.js';
+import { clearVals } from './triggers/atomic/clearVals.js';
+import { setVal } from './triggers/atomic/setVal.js';
+import { getVal } from './triggers/atomic/getVal.js';
 import { saveRecord } from './saveRecord.js';
-import { loadCards } from './loadCards.js';
-import { getTemplate } from './getTemplate.js';
+import { loadCards } from './triggers/data/loadCards.js';
+import { getTemplate } from './triggers/data/getTemplate.js';
 import { showNotification } from './showNotification.js';
-import { onLoad } from './onLoad.js';
+import { onLoad } from './triggers/atomic/onLoad.js';
+import { execTemplates } from './triggers/data/execTemplates.js';
+import { execGenPageConfig } from './triggers/data/execGenPageConfig.js';
 
 class WorkflowEngine {
   constructor() {
@@ -31,6 +34,7 @@ class WorkflowEngine {
     // Attach all workflow methods to this instance
     this.execApps = execApps.bind(this);
     this.execPages = execPages.bind(this);
+    this.execEventTypes = execEventTypes.bind(this);
     this.execEvent = execEvent.bind(this);
     this.refresh = refresh.bind(this);
     this.clearVals = clearVals.bind(this);
@@ -41,6 +45,8 @@ class WorkflowEngine {
     this.getTemplate = getTemplate.bind(this);
     this.showNotification = showNotification.bind(this);
     this.onLoad = onLoad.bind(this);
+    this.execTemplates = execTemplates.bind(this);
+    this.execGenPageConfig = execGenPageConfig.bind(this);
   }
 
   /**
@@ -123,7 +129,7 @@ class WorkflowEngine {
     // Handle object actions dynamically
     const methodName = action.action;
     const method = this[methodName];
-    
+
     if (typeof method === 'function') {
       return await method.call(this, action, data);
     } else {

@@ -163,7 +163,7 @@ const pageMap = {
       "btchNbr": "batch_number",
       "btchLoc": "location",
       "btchQty": "batch_quantity",
-      "measID": "global_measure_unit_id",
+      "measID": "measure_id",
       "comments": "comments",
       "prodID": "product_id"
     },

@@ -35,59 +35,12 @@ export const columnSidebar = {
       }
     },
 
-    // EventType Hierarchy (Accordion)
+    // Generate Page Config Button
     {
-      id: "eventTypeHierarchy",
-      type: "accordion",
-      container: "accordion",
-      position: { row: 3, col: 1 },
-      span: { cols: 1, rows: 10 },
-      props: {
-        title: "Accordion List of eventTypes",
-        expandMultiple: true,
-        sections: [
-          {
-            id: "pageSection",
-            title: "Page",
-            items: ["tabs", "layout components"]
-          },
-          {
-            id: "tabsSection",
-            title: "-- tabs",
-            items: ["grids and forms", "other widgets"]
-          },
-          {
-            id: "gridsFormsSection",
-            title: "-- grids and forms",
-            items: ["formPlan", "gridPlans", "formPlanComm"]
-          },
-          {
-            id: "widgetsSection",
-            title: "-- other widgets",
-            items: ["btnCreate", "selectPlanStatus"]
-          }
-        ]
-      }
+      id: "btnGenPageConfig",
+      eventType: "btnGenPageConfig",
+      container: "inline",
+      position: { row: 3, col: 1 }
     }
-  ],
-
-  workflowTriggers: {
-    onAppChange: [
-      "loadAppEventTypes",
-      "refreshPageList",
-      "clearSelection"
-    ],
-    onPageSelect: [
-      "loadPageEventTypes",
-      "refreshHierarchy"
-    ],
-    onEventTypeSelect: [
-      "loadEventTypeDetail",
-      "highlightInHierarchy"
-    ]
-  },
-
-  fields: [],
-  hasComponents: true,
-  hasWorkflows: true
+  ]
 };

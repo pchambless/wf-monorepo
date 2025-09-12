@@ -11,8 +11,8 @@ export const selectPage = {
   workflowTriggers: {
     onRefresh: ["execPages"],
     onChange: [
-      { action: "setVal", param: "pageID" },
-      { action: "refresh", targets: ["eventTypeHierarchy"] },
+      { action: "setVal", param: "pageID", value: "{{selected.value}}" },
+      { action: "refresh", targets: ["chartMermaid"] },
       { action: "clearVals", params: ["eventTypeID"] }
     ]
   },

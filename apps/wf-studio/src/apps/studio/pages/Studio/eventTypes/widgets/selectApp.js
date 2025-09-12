@@ -10,7 +10,7 @@ export const selectApp = {
   workflowTriggers: {
     onLoad: ["execApps"],
     onChange: [
-      { action: "setVal", param: "appID" },
+      { action: "setVal", param: "appID", value: "{{selected.value}}" },
       { action: "refresh", targets: ["selectPage"] },
       { action: "clearVals", params: ["pageID", "eventTypeID"] }
     ]

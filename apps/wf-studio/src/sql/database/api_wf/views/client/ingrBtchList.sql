@@ -15,7 +15,7 @@ SELECT
   ib.unit_quantity AS unitQty,
   ib.unit_price AS unitPrice,
   ib.purchase_quantity AS purchQty,
-  ib.global_measure_unit_id AS measID,
+  ib.measure_id AS measID,
   ib.lot_number AS lotNbr,
   DATE_FORMAT(ib.best_by_date, '%Y-%m-%d') AS bestByDate,
   ib.comments AS comments,

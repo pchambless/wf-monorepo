@@ -30,7 +30,7 @@ export const columnComponents = {
   ],
 
   workflowTriggers: {
-    onLoad: ["loadAvailableTemplates"],
+    onLoad: ["execTemplates"],
     onComponentSelect: ["selectComponentForDesign"]
   }
 };

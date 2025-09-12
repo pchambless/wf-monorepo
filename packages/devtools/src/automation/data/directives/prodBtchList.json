@@ -62,7 +62,7 @@
         "label": "Measure",
         "grp": "2",
         "type": "text",
-        "dbColumn": "global_measure_unit_id",
+        "dbColumn": "measure_id",
         "width": "120",
         "required": true
       }

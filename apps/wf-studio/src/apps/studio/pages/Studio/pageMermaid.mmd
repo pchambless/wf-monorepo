@@ -1,0 +1,90 @@
+graph TD
+
+    pageStudio["pageStudio
+ ctgry: [page]"]
+    columnSidebar["columnSidebar
+ ctgry: [column]"]
+    pageStudio --> columnSidebar
+    selectApp["selectApp
+ ctgry: [select]"]
+    columnSidebar --> selectApp
+    selectPage["selectPage
+ ctgry: [select]"]
+    columnSidebar --> selectPage
+    btnGenPageConfig["btnGenPageConfig
+ ctgry: [button]"]
+    columnSidebar --> btnGenPageConfig
+    columnComponents["columnComponents
+ ctgry: [column]"]
+    pageStudio --> columnComponents
+    gridComponentChoices["gridComponentChoices
+ ctgry: [grid]"]
+    columnComponents --> gridComponentChoices
+    tabsWorkArea["tabsWorkArea
+ ctgry: [tab]"]
+    pageStudio --> tabsWorkArea
+    tabMermaid["tabMermaid
+ ctgry: [tab]"]
+    tabsWorkArea --> tabMermaid
+    mermaidChart["chartMermaid
+ ctgry: [unknown]"]
+    tabMermaid --> mermaidChart
+    tabEventDtl["tabEventDtl
+ ctgry: [tab]"]
+    tabsWorkArea --> tabEventDtl
+    componentInfo["componentInfo
+ ctgry: [unknown]"]
+    tabEventDtl --> componentInfo
+    dynamicCards["dynamicCards
+ ctgry: [unknown]"]
+    tabEventDtl --> dynamicCards
+    tabPageView["tabPageView
+ ctgry: [tab]"]
+    tabsWorkArea --> tabPageView
+    pagePreview["pagePreview
+ ctgry: [unknown]"]
+    tabPageView --> pagePreview
+    previewControls["previewControls
+ ctgry: [unknown]"]
+    tabPageView --> previewControls
+    refreshPreview["refreshPreview
+ ctgry: [unknown]"]
+    previewControls --> refreshPreview
+
+    %% Individual component styling
+    style pageStudio fill:#e1f5fe,stroke:#333,stroke-width:2px;
+    style columnSidebar fill:#f5f5f5,stroke:#333,stroke-width:2px;
+    style selectApp fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style selectPage fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style btnGenPageConfig fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style columnComponents fill:#fafafa,stroke:#333,stroke-width:2px;
+    style gridComponentChoices fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style tabsWorkArea fill:#ffffff,stroke:#333,stroke-width:2px;
+    style tabMermaid fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style mermaidChart fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style tabEventDtl fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style componentInfo fill:#f0f4ff,stroke:#333,stroke-width:2px;
+    style dynamicCards fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style tabPageView fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style pagePreview fill:#ffffff,stroke:#333,stroke-width:2px;
+    style previewControls fill:#f8f9fa,stroke:#333,stroke-width:2px;
+    style refreshPreview fill:#fff3e0,stroke:#333,stroke-width:2px;
+
+    %% Click handlers for Studio integration
+    click pageStudio "selectComponent('pageStudio')"
+    click columnSidebar "selectComponent('columnSidebar')"
+    click selectApp "selectComponent('selectApp')"
+    click selectPage "selectComponent('selectPage')"
+    click btnGenPageConfig "selectComponent('btnGenPageConfig')"
+    click columnComponents "selectComponent('columnComponents')"
+    click gridComponentChoices "selectComponent('gridComponentChoices')"
+    click tabsWorkArea "selectComponent('tabsWorkArea')"
+    click tabMermaid "selectComponent('tabMermaid')"
+    click mermaidChart "selectComponent('mermaidChart')"
+    click tabEventDtl "selectComponent('tabEventDtl')"
+    click componentInfo "selectComponent('componentInfo')"
+    click dynamicCards "selectComponent('dynamicCards')"
+    click tabPageView "selectComponent('tabPageView')"
+    click pagePreview "selectComponent('pagePreview')"
+    click previewControls "selectComponent('previewControls')"
+    click refreshPreview "selectComponent('refreshPreview')"

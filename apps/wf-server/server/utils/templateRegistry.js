@@ -9,7 +9,7 @@ import { parse } from '@babel/parser';
 import logger from "./logger.js";
 
 const codeName = "[templateRegistry.js]";
-const TEMPLATES_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/apps/studio/eventBuilders/templates";
+const TEMPLATES_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/eventBuilders/templates";
 
 /**
  * Load template from JavaScript file using same AST parser as genPageConfig
@@ -95,7 +95,7 @@ let cachedRegistry = null;
 let cacheTimestamp = null;
 
 /**
- * Build template registry by scanning template folders
+ * Build template registry using discoverTemplates (orchestration!)
  * Returns Map: category -> template definition
  */
 async function buildTemplateRegistry() {
@@ -106,37 +106,17 @@ async function buildTemplateRegistry() {
   
   const registry = new Map();
   
-  async function scanTemplateDirectory(dirPath) {
-    try {
-      const entries = await fs.readdir(dirPath, { withFileTypes: true });
-      
-      for (const entry of entries) {
-        const fullPath = path.join(dirPath, entry.name);
-        
-        if (entry.isDirectory()) {
-          // Recursively scan subdirectories (containers/, leafs/, app/)
-          await scanTemplateDirectory(fullPath);
-        } else if (entry.isFile() && entry.name.endsWith('.js')) {
-          try {
-            const template = await loadTemplateFromFile(fullPath);
-            
-            if (template.category) {
-              registry.set(template.category, template);
-              logger.debug(`${codeName} Registry: ${template.category} -> ${fullPath}`);
-            } else {
-              logger.warn(`${codeName} Template missing category: ${fullPath}`);
-            }
-          } catch (error) {
-            logger.debug(`${codeName} Skipping invalid template: ${entry.name} - ${error.message}`);
-          }
-        }
-      }
-    } catch (error) {
-      logger.debug(`${codeName} Could not scan template directory ${dirPath}: ${error.message}`);
+  // Use discoverTemplates for consolidated template discovery (orchestration!)
+  const templateData = await execTemplates();
+  logger.debug(`${codeName} Building registry from ${templateData.length} discovered templates`);
+  
+  // Build registry from discovered template data (already parsed by discoverTemplates!)
+  for (const template of templateData) {
+    if (template.category) {
+      registry.set(template.category, template);
+      logger.debug(`${codeName} Registry: ${template.category} -> ${template.name} (cards: ${template.detailCards?.join(',') || 'none'})`);
     }
   }
-  
-  await scanTemplateDirectory(TEMPLATES_PATH);
   cacheTimestamp = new Date().toISOString();
   logger.debug(`${codeName} Built template registry (${cacheTimestamp}) with ${registry.size} templates`);
   
@@ -211,4 +191,35 @@ export async function validateEventTypeAgainstTemplate(eventType) {
     template: template.category,
     cards: template.detailCards
   };
+}
+
+/**
+ * Internal execTemplates function - calls discoverTemplates internally (server-side orchestration)
+ */
+async function execTemplates() {
+  try {
+    // Create a mock req/res for internal call to discoverTemplates
+    const mockReq = {};
+    let responseData = null;
+    
+    const mockRes = {
+      json: (data) => { responseData = data; },
+      status: () => mockRes
+    };
+    
+    // Import and call discoverTemplates internally
+    const { discoverTemplates } = await import('../controller/studioDiscovery/discoverTemplates.js');
+    await discoverTemplates(mockReq, mockRes);
+    
+    // Return the flat array of templates for registry building
+    if (responseData?.success && responseData.rows) {
+      return responseData.rows; // Already a flat array from enhanced discoverTemplates
+    }
+    
+    logger.warn(`${codeName} Failed to get templates from discoverTemplates`);
+    return [];
+  } catch (error) {
+    logger.error(`${codeName} Error in execTemplates:`, error);
+    return [];
+  }
 }

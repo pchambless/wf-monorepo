@@ -22,21 +22,6 @@
           "borderRight": "1px solid #e0e0e0"
         }
       },
-      "workflowTriggers": {
-        "onAppChange": [
-          "loadAppEventTypes",
-          "refreshPageList",
-          "clearSelection"
-        ],
-        "onPageSelect": [
-          "loadPageEventTypes",
-          "refreshHierarchy"
-        ],
-        "onEventTypeSelect": [
-          "loadEventTypeDetail",
-          "highlightInHierarchy"
-        ]
-      },
       "components": [
         {
           "id": "selectApp",
@@ -54,13 +39,14 @@
             }
           },
           "workflowTriggers": {
-            "onRefresh": [
+            "onLoad": [
               "execApps"
             ],
             "onChange": [
               {
                 "action": "setVal",
-                "param": "appID"
+                "param": "appID",
+                "value": "{{selected.value}}"
               },
               {
                 "action": "refresh",
@@ -97,12 +83,13 @@
             "onChange": [
               {
                 "action": "setVal",
-                "param": "pageID"
+                "param": "pageID",
+                "value": "{{selected.value}}"
               },
               {
                 "action": "refresh",
                 "targets": [
-                  "eventTypeHierarchy"
+                  "chartMermaid"
                 ]
               },
               {
@@ -115,20 +102,41 @@
           }
         },
         {
-          "id": "eventTypeHierarchy",
-          "type": "accordion",
-          "container": "accordion",
+          "id": "btnGenPageConfig",
+          "type": "button",
+          "container": "inline",
           "position": {
             "row": 3,
             "col": 1
           },
           "props": {
-            "title": "Accordion List of eventTypes",
-            "style": {}
+            "title": "Generate Page Config Button",
+            "style": {
+              "marginTop": "16px",
+              "width": "100%"
+            }
           },
-          "span": {
-            "cols": 1,
-            "rows": 10
+          "workflowTriggers": {
+            "onClick": [
+              {
+                "action": "execGenPageConfig",
+                "params": {
+                  "appID": "{{getVal.appID}}",
+                  "pageID": "{{getVal.pageID}}"
+                }
+              },
+              {
+                "action": "refresh",
+                "targets": [
+                  "tabMermaid",
+                  "tabPageView"
+                ]
+              },
+              {
+                "action": "showNotification",
+                "message": "Page config regenerated!"
+              }
+            ]
           }
         }
       ]
@@ -157,7 +165,7 @@
       },
       "workflowTriggers": {
         "onLoad": [
-          "loadAvailableTemplates"
+          "execTemplates"
         ],
         "onComponentSelect": [
           "selectComponentForDesign"
@@ -190,7 +198,7 @@
     },
     {
       "id": "tabsWorkArea",
-      "type": "tabs",
+      "type": "tab",
       "container": "tab",
       "position": {
         "col": {
@@ -208,37 +216,167 @@
           "backgroundColor": "#ffffff"
         }
       },
-      "workflowTriggers": {
-        "onTabChange": [
-          "saveCurrentWork",
-          "loadTabContent"
-        ],
-        "onLoad": [
-          "initializeWorkArea"
-        ]
-      },
       "flex": 1,
       "components": [
         {
-          "id": "tabLeafDtl",
+          "id": "tabMermaid",
           "type": "tab",
           "container": "tab",
           "position": {
             "row": 1,
-            "col": 1
+            "col": 2
           },
           "props": {
-            "title": "Leaf Detail",
+            "title": "Mermaid Page",
             "style": {}
           },
           "workflowTriggers": {
-            "onEventTypeSelect": [
-              {
-                "action": "loadCards",
-                "category": "dynamic"
-              }
+            "onRefresh": [
+              "refresh"
             ]
-          }
+          },
+          "components": [
+            {
+              "id": "mermaidChart",
+              "props": {
+                "style": {}
+              }
+            }
+          ]
+        },
+        {
+          "id": "tabEventDtl",
+          "type": "tab",
+          "container": "tab",
+          "position": {
+            "row": 1,
+            "col": 3
+          },
+          "props": {
+            "title": "Component Detail",
+            "style": {}
+          },
+          "workflowTriggers": {
+            "onComponentSelected": [
+              "loadComponentCards",
+              "refreshComponentDetail"
+            ],
+            "onCardChange": [
+              "saveComponentChanges",
+              "updatePageConfig"
+            ]
+          },
+          "components": [
+            {
+              "id": "componentInfo",
+              "type": "text",
+              "container": "inline",
+              "position": {
+                "row": 1,
+                "col": 1
+              },
+              "props": {
+                "title": "Component Information",
+                "style": {
+                  "padding": "20px",
+                  "backgroundColor": "#f0f4ff",
+                  "borderRadius": "4px",
+                  "textAlign": "center",
+                  "color": "#666"
+                }
+              }
+            },
+            {
+              "id": "dynamicCards",
+              "type": "container",
+              "container": "inline",
+              "position": {
+                "row": 2,
+                "col": 1
+              },
+              "props": {
+                "title": "Component Cards",
+                "style": {
+                  "marginTop": "20px"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "tabPageView",
+          "type": "tab",
+          "container": "tab",
+          "position": {
+            "row": 1,
+            "col": 4
+          },
+          "props": {
+            "title": "Page Rendered",
+            "style": {}
+          },
+          "workflowTriggers": {
+            "onLoad": [
+              "loadPagePreview"
+            ],
+            "onPageConfigChange": [
+              "updatePreview"
+            ]
+          },
+          "components": [
+            {
+              "id": "pagePreview",
+              "type": "iframe",
+              "container": "inline",
+              "position": {
+                "row": 1,
+                "col": 1
+              },
+              "props": {
+                "title": "Live Page Preview",
+                "style": {
+                  "width": "100%",
+                  "height": "600px",
+                  "border": "1px solid #e0e0e0",
+                  "borderRadius": "4px",
+                  "backgroundColor": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "previewControls",
+              "type": "container",
+              "container": "inline",
+              "position": {
+                "row": 2,
+                "col": 1
+              },
+              "props": {
+                "style": {
+                  "marginTop": "10px",
+                  "padding": "10px",
+                  "backgroundColor": "#f8f9fa",
+                  "borderRadius": "4px"
+                }
+              },
+              "components": [
+                {
+                  "id": "refreshPreview",
+                  "type": "button",
+                  "props": {
+                    "style": {
+                      "marginRight": "10px"
+                    }
+                  },
+                  "workflowTriggers": {
+                    "onClick": [
+                      "refreshPagePreview"
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -246,15 +384,5 @@
   "title": "Page Design Studio",
   "routePath": "/studio",
   "purpose": "Three-column layout: app/page selector + component choices + tabbed work area",
-  "cluster": "Page",
-  "workflowTriggers": {
-    "onLoad": {
-      "action": "refresh",
-      "targets": [
-        "selectApp",
-        "selectPage",
-        "gridComponentChoices"
-      ]
-    }
-  }
+  "cluster": "Page"
 }

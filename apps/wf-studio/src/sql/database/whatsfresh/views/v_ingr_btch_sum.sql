@@ -1,6 +1,5 @@
 CREATE OR REPLACE VIEW whatsfresh.v_ingr_btch_sum AS
 SELECT
-  ROW_NUMBER() OVER() uID, 
   a.ingr_name,
   COUNT(a.ingr_btch_id) AS batches,
   SUM(a.purch_qty) AS tot_qty,

@@ -80,7 +80,7 @@ SELECT
     it.id AS ingredient_type_id,
     ib.vendor_id,
     ib.brand_id,
-    ib.global_measure_unit_id AS measure_unit_id,
+    ib.measure_id AS measure_id,
     ib.shop_event_id,
     
     -- Audit Information
@@ -94,7 +94,7 @@ FROM ingredients i
         AND ib.purchase_date >= DATE_SUB(NOW(), INTERVAL 7 YEAR) -- Performance optimization
     LEFT JOIN vendors v ON ib.vendor_id = v.id AND v.active = 1
     LEFT JOIN brands b ON ib.brand_id = b.id AND b.active = 1
-    LEFT JOIN measures m ON ib.global_measure_unit_id = m.id AND m.active = 1
+    LEFT JOIN measures m ON ib.measure_id = m.id AND m.active = 1
     LEFT JOIN (
         SELECT 
             ingredient_batch_id,

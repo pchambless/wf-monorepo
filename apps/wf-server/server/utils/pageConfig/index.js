@@ -8,6 +8,7 @@ import { loadEventTypeFromFile } from './astParser.js';
 import { resolveComponentHierarchy } from './hierarchyResolver.js';
 import { cleanPageProperties } from './componentCleaner.js';
 import { validateEventTypeAgainstTemplate, clearTemplateCache } from '../templateRegistry.js';
+import { generateEnhancedMermaidData } from './mermaidGenerator.js';
 import logger from "../logger.js";
 
 const codeName = "[genPageConfig.js]";
@@ -54,10 +55,14 @@ export async function genPageConfig(appName, pageName) {
   }
   
   // Recursively resolve all component hierarchy
-  const { resolvedEventType } = await resolveComponentHierarchy(pageEventType, pageEventTypesPath);
+  const { resolvedEventType, allEventTypes } = await resolveComponentHierarchy(pageEventType, pageEventTypesPath);
   
   // Create clean pageConfig for rendering
   const pageConfig = cleanPageProperties(resolvedEventType);
+  
+  // Generate mermaid chart data for hierarchy visualization
+  const mermaidData = generateEnhancedMermaidData(resolvedEventType, allEventTypes);
+  logger.debug(`${codeName} Generated mermaid chart with ${mermaidData.totalComponents} components, max depth: ${mermaidData.maxDepth}`);
   
   // Save pageConfig.json to the page folder
   const pageConfigPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageConfig.json');
@@ -68,6 +73,24 @@ export async function genPageConfig(appName, pageName) {
     logger.warn(`${codeName} Could not save pageConfig.json to ${pageConfigPath}: ${error.message}`);
   }
   
+  // Save mermaid chart file alongside pageConfig  
+  const mermaidPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageMermaid.mmd');
+  try {
+    await fs.writeFile(mermaidPath, mermaidData.chart);
+    logger.debug(`${codeName} Saved pageMermaid.mmd to ${mermaidPath}`);
+  } catch (error) {
+    logger.warn(`${codeName} Could not save pageMermaid.mmd to ${mermaidPath}: ${error.message}`);
+  }
+  
+  // Clean up legacy pageMermaid.json if it exists
+  const legacyJsonPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageMermaid.json');
+  try {
+    await fs.unlink(legacyJsonPath);
+    logger.debug(`${codeName} Removed legacy pageMermaid.json`);
+  } catch (error) {
+    // File doesn't exist - that's fine
+  }
+  
   logger.debug(`${codeName} Generated clean pageConfig with ${pageConfig.components.length} rendering components`);
-  return pageConfig;
+  return { pageConfig, mermaidData };
 }

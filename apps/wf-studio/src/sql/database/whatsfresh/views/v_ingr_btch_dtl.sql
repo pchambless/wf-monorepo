@@ -13,13 +13,13 @@ select
 ,ifnull(ib.lot_number,'')							ingr_lot_nbr
 ,ifnull(date_format(ib.purchase_date,'%Y-%m-%d'),'') collate utf8mb4_unicode_ci purch_date
 ,ifnull(ib.purchase_quantity,'') 						purch_qty
-,whatsfresh.f_measure_unit(ib.global_measure_unit_id)	purch_meas
+,whatsfresh.f_measure(ib.measure_id)	purch_meas
 ,ib.unit_quantity 									unit_qty
 ,ib.unit_price 										unit_price
 ,cast((ifnull(ib.unit_price,0) / ifnull(ib.unit_quantity,1)) as decimal(9,4)) unit_rate
 ,ifnull(concat(ib.purchase_quantity,' @ ',concat('$',format(ifnull(ib.unit_price,0),2)),' per ',
 			(trim(round(ib.unit_quantity,2)) + 0),' ',
-			whatsfresh.f_measure_unit(ib.global_measure_unit_id)),'') purch_dtl
+			whatsfresh.f_measure(ib.measure_id)),'') purch_dtl
 ,concat('$',format(ifnull(ib.purchase_quantity * ib.unit_price,0),2)) purch_amt
 ,ifnull(ib.purchase_quantity * ib.unit_price,0)		purch_total_amt
 ,whatsfresh.f_vendor(ib.vendor_id)							vndr_name
@@ -37,7 +37,7 @@ select
 ,it.id													ingr_type_id
 ,ib.vendor_id											vndr_id
 ,ib.brand_id											brnd_id
-,cast(ib.global_measure_unit_id as signed)	meas_id
+,cast(ib.measure_id as signed)					meas_id
 ,ib.shop_event_id	
 from 			whatsfresh.ingredients				i 
 left join 	(select *

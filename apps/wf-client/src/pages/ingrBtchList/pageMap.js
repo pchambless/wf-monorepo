@@ -209,7 +209,7 @@ const pageMap = {
       "unitQty": "unit_quantity",
       "unitPrice": "unit_price",
       "purchQty": "purchase_quantity",
-      "measID": "global_measure_unit_id",
+      "measID": "measure_id",
       "lotNbr": "lot_number",
       "comments": "comments",
       "ingrID": "ingredient_id"
