@@ -55,8 +55,9 @@ export const tabPageView = {
   ],
 
   workflowTriggers: {
-    onLoad: ["loadPagePreview"],
-    onPageConfigChange: ["updatePreview"]
+    // TODO: Enable after core workflow is working
+    // onLoad: ["loadPagePreview"],
+    // onPageConfigChange: ["updatePreview"]
   },
 
   fields: [],

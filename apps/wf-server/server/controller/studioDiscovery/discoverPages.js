@@ -12,16 +12,18 @@ const STUDIO_APPS_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/apps";
 
 /**
  * Discover all pages for a specific app
- * GET /api/studio/pages/:appName
+ * POST /api/studio/pages
  */
 export async function discoverPages(req, res) {
   try {
-    const { appName } = req.params;
+    // Support both GET (query params) and POST (body params) for transition period
+    const params = req.query.params ? JSON.parse(req.query.params) : req.body?.params;
+    const appName = params?.[':appID'];
 
     if (!appName) {
       return res.status(400).json({
         success: false,
-        message: "App name parameter is required"
+        message: "App name parameter (:appID) is required"
       });
     }
 
@@ -63,10 +65,12 @@ export async function discoverPages(req, res) {
     });
 
   } catch (error) {
-    logger.error(`${codeName} Error discovering pages for ${req.params.appName}:`, error);
+    const fallbackParams = req.query.params ? JSON.parse(req.query.params) : req.body?.params;
+    const appName = fallbackParams?.[':appID'] || 'unknown';
+    logger.error(`${codeName} Error discovering pages for ${appName}:`, error);
     res.status(500).json({
       success: false,
-      message: `Failed to discover pages for ${req.params.appName}`,
+      message: `Failed to discover pages for ${appName}`,
       error: error.message
     });
   }

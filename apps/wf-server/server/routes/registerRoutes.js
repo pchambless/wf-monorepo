@@ -36,17 +36,16 @@ const registerRoutes = (app) => {
   registerRoute("post", "/api/execDML", execDML);
   registerRoute("post", "/api/execCreateDoc", execCreateDoc);
   registerRoute("get", "/api/getDoc", getDoc);
-  registerRoute("get", "/api/studio/eventTypes/:app", fetchStudioEventTypes);
   registerRoute("get", "/api/server/queries", fetchQueryEvents);
   registerRoute("post", "/api/studio/genFields", genFields);
   
   // Studio Discovery APIs
   registerRoute("get", "/api/studio/apps", discoverApps);
-  registerRoute("get", "/api/studio/pages/:appName", discoverPages);
+  registerRoute("get", "/api/studio/pages", discoverPages);
   registerRoute("get", "/api/studio/templates", discoverTemplates);
   registerRoute("get", "/api/studio/structure", discoverStructure);
-  registerRoute("get", "/api/studio/eventTypes/:appName/:pageName", discoverEventTypes);
-  registerRoute("get", "/api/studio/genPageConfig/:appName/:pageName", genPageConfig);
+  registerRoute("get", "/api/studio/eventTypes", discoverEventTypes);
+  registerRoute("get", "/api/studio/genPageConfig", genPageConfig);
   registerRoute("post", "/api/writeFileDirectly", writeFileDirectly);
   registerRoute("post", "/api/initialize", initializeController.initialize);
   registerRoute("get", "/api/util/list-routes", (req, res) => {
@@ -59,7 +58,7 @@ const registerRoutes = (app) => {
     restartServerController.restartServer
   );
   registerRoute("get", "/api/util/fetchEventTypes", fetchEventTypes);
-  registerRoute("get", "/api/eventType/:eventTypeName/params", fetchParams);
+  registerRoute("post", "/api/eventType/params", fetchParams);
   registerRoute("post", "/api/auth/login", userLogin);
   registerRoute("get", "/api/util/event-types-status", (req, res) => {
     logger.debug(`${codeName} Fetching event types cache status`);

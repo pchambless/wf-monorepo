@@ -1,207 +1,70 @@
-/**
- * MermaidRenderer - Interactive mermaid chart component for page hierarchy visualization
- * Loads .mmd files and provides clickable node interaction
- */
-
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { workflowEngine } from "../../WorkflowEngine/index.js";
+import "../../../styles/components/mermaid.css";
 
 const MermaidRenderer = ({ component, onEvent }) => {
   const { props, id } = component;
   const mermaidRef = useRef(null);
-  const [mermaidContent, setMermaidContent] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  // Load mermaid.js dynamically
   useEffect(() => {
-    const loadMermaid = async () => {
+    const renderContent = async () => {
+      // Mermaid is loaded globally, just check if it's ready
       if (!window.mermaid) {
-        try {
-          // Load mermaid from CDN
-          const script = document.createElement('script');
-          script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
-          script.onload = () => {
-            window.mermaid.initialize({
-              startOnLoad: false,
-              theme: 'default',
-              securityLevel: 'loose', // Allow click events
-              flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true
-              }
-            });
-          };
-          document.head.appendChild(script);
-        } catch (err) {
-          setError(`Failed to load mermaid: ${err.message}`);
-        }
+        console.log('🎨 MermaidRenderer: Waiting for global mermaid library...');
+        return;
       }
-    };
 
-    loadMermaid();
-  }, []);
+      const contextStore = workflowEngine?.contextStore;
+      const contentTuple = contextStore?.getVal('mermaidContent');
+      const content = contentTuple?.[1];
 
-  // Load mermaid content from file path or component data
-  useEffect(() => {
-    const loadMermaidContent = async () => {
-      setIsLoading(true);
-      setError(null);
-      
-      try {
-        // Try to get mermaid content from component props
-        let content = "";
-        
-        if (props?.mermaidPath || props?.mermaidFile) {
-          // Load from file path
-          const filePath = props.mermaidPath || props.mermaidFile;
-          const response = await fetch(filePath);
-          if (!response.ok) {
-            throw new Error(`Failed to load mermaid file: ${response.status}`);
-          }
-          content = await response.text();
-        } else if (props?.mermaidContent) {
-          // Use provided content directly
-          content = props.mermaidContent;
-        } else {
-          // Default: try to load based on current app/page
-          const appName = props?.appName || 'studio';
-          const pageName = props?.pageName || 'Studio';
-          const mermaidPath = `/apps/${appName}/pages/${pageName}/pageMermaid.mmd`;
-          
-          const response = await fetch(mermaidPath);
-          if (!response.ok) {
-            throw new Error(`No mermaid file found at ${mermaidPath}`);
-          }
-          content = await response.text();
-        }
-        
-        setMermaidContent(content);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    loadMermaidContent();
-  }, [props?.mermaidPath, props?.mermaidFile, props?.mermaidContent, props?.appName, props?.pageName]);
-
-  // Render mermaid chart when content changes
-  useEffect(() => {
-    const renderMermaid = async () => {
-      if (!window.mermaid || !mermaidContent || !mermaidRef.current) return;
-
-      try {
-        // Clear previous content
-        mermaidRef.current.innerHTML = '';
-        
-        // Generate unique ID for this chart
-        const chartId = `mermaid-${id}-${Date.now()}`;
-        
-        // Render the mermaid chart
-        const { svg } = await window.mermaid.render(chartId, mermaidContent);
-        mermaidRef.current.innerHTML = svg;
-        
-        // Set up click handlers for nodes
-        setupClickHandlers();
-        
-      } catch (err) {
-        setError(`Failed to render mermaid: ${err.message}`);
-      }
-    };
-
-    if (!isLoading) {
-      renderMermaid();
-    }
-  }, [mermaidContent, isLoading, id]);
-
-  // Set up click handlers for mermaid nodes
-  const setupClickHandlers = () => {
-    if (!mermaidRef.current) return;
-
-    // Add global click handler function for mermaid callbacks
-    window.selectComponent = (nodeId) => {
-      console.log(`🎯 Mermaid node clicked: ${nodeId}`);
-      
-      if (onEvent) {
-        onEvent('onChange', { 
-          nodeId, 
-          component,
-          action: 'selectComponent',
-          selected: { nodeId, type: 'mermaidNode' }
-        });
-      }
-    };
-
-    // Also add click listeners directly to nodes for backup
-    const nodes = mermaidRef.current.querySelectorAll('.node');
-    nodes.forEach(node => {
-      node.style.cursor = 'pointer';
-      node.addEventListener('click', (e) => {
-        const nodeId = node.id || node.getAttribute('data-id');
-        if (nodeId && onEvent) {
-          onEvent('onChange', { 
-            nodeId, 
-            component,
-            action: 'selectComponent',
-            selected: { nodeId, type: 'mermaidNode' }
-          });
-        }
+      console.log('🎨 MermaidRenderer: Render attempt', {
+        content: content?.substring(0, 50),
+        hasRef: !!mermaidRef.current
       });
-    });
-  };
 
-  if (isLoading) {
-    return (
-      <div className="wf-mermaid-loading" style={props?.style}>
-        <div style={{ textAlign: 'center', padding: '20px' }}>
-          <div>Loading mermaid chart...</div>
-        </div>
-      </div>
-    );
-  }
+      if (content && content !== 'undefined' && mermaidRef.current) {
+        const chartId = `mermaid-${id}-${Date.now()}`;
+        const { svg } = await window.mermaid.render(chartId, content);
+        mermaidRef.current.innerHTML = svg;
+        console.log('✅ Mermaid rendered, SVG length:', svg.length);
 
-  if (error) {
-    return (
-      <div className="wf-mermaid-error" style={props?.style}>
-        <div style={{ 
-          textAlign: 'center', 
-          padding: '20px', 
-          color: '#d32f2f',
-          backgroundColor: '#ffebee',
-          borderRadius: '4px',
-          margin: '20px'
-        }}>
-          <strong>Mermaid Error:</strong>
-          <br />
-          {error}
-        </div>
-      </div>
-    );
-  }
+        // Set up click handlers
+        window.selectComponent = (nodeId) => {
+          if (onEvent) {
+            onEvent('onChange', {
+              nodeId,
+              component,
+              action: 'selectComponent',
+              selected: { nodeId, type: 'mermaidNode' }
+            });
+          }
+        };
+      }
+    };
+
+    // Set up subscription for contextStore changes
+    const contextStore = workflowEngine?.contextStore;
+    const unsubscribe = contextStore?.subscribe('mermaidContent', renderContent);
+
+    // Try initial render (in case content is already available)
+    renderContent().catch(console.error);
+
+    return unsubscribe;
+  }, [id, component, onEvent]);
 
   return (
     <div className="wf-mermaid" style={props?.style}>
       {props?.title && (
-        <div style={{ 
-          fontSize: '14px', 
-          fontWeight: 'bold', 
-          marginBottom: '10px',
-          padding: '0 10px'
-        }}>
+        <div className="wf-mermaid-title">
           {props.title}
         </div>
       )}
-      
-      <div 
-        ref={mermaidRef}
-        style={{
-          width: '100%',
-          height: '100%',
-          overflow: 'auto',
-          padding: '10px'
-        }}
-      />
+      <div ref={mermaidRef} className="wf-mermaid-container">
+        <div className="wf-mermaid-placeholder">
+          Select a page to view its component hierarchy
+        </div>
+      </div>
     </div>
   );
 };

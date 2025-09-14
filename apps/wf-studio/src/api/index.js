@@ -32,8 +32,8 @@ export function createStudioApi(options = {}) {
   const boundExecApps = () => 
     execAppsFn(config);
     
-  const boundExecPages = (appID) => 
-    execPagesFn(appID, config);
+  const boundExecPages = (params) => 
+    execPagesFn(params, config);
     
   const boundExecTemplates = () => 
     execTemplatesFn(config);
@@ -41,8 +41,8 @@ export function createStudioApi(options = {}) {
   const boundExecEventTypes = (appID, pageID) => 
     execEventTypesFn(appID, pageID, config);
     
-  const boundExecGenPageConfig = (appID, pageID) => 
-    execGenPageConfigFn(appID, pageID, config);
+  const boundExecGenPageConfig = (params) => 
+    execGenPageConfigFn(params, config);
 
   return {
     execApps: boundExecApps,

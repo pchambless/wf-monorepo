@@ -13,16 +13,26 @@ const STUDIO_APPS_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/apps";
 
 /**
  * Discover all eventTypes for a specific app and page
- * GET /api/studio/eventTypes/:appName/:pageName
+ * POST /api/studio/eventTypes
  */
 export async function discoverEventTypes(req, res) {
   try {
-    const { appName, pageName } = req.params;
+    // Support both GET (query params) and POST (body params) for transition period
+    const params = req.query.params ? JSON.parse(req.query.params) : req.body?.params;
+    const appName = params?.[':appID'];
+    const pageName = params?.[':pageID'];
 
     if (!appName) {
       return res.status(400).json({
         success: false,
-        message: "App name parameter is required"
+        message: "App name parameter (:appID) is required"
+      });
+    }
+
+    if (!pageName) {
+      return res.status(400).json({
+        success: false,
+        message: "Page name parameter (:pageID) is required"
       });
     }
 

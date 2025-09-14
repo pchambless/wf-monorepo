@@ -40,26 +40,19 @@
           },
           "workflowTriggers": {
             "onLoad": [
-              "execApps"
+              {
+                "action": "studioApiCall('execApps', {})"
+              }
             ],
             "onChange": [
               {
-                "action": "setVal",
-                "param": "appID",
-                "value": "{{selected.value}}"
+                "action": "setVal('appID', {{this.value}})"
               },
               {
-                "action": "refresh",
-                "targets": [
-                  "selectPage"
-                ]
+                "action": "refresh(['selectPage'])"
               },
               {
-                "action": "clearVals",
-                "params": [
-                  "pageID",
-                  "eventTypeID"
-                ]
+                "action": "clearVals(['pageID', 'eventTypeID'])"
               }
             ]
           }
@@ -78,25 +71,19 @@
           },
           "workflowTriggers": {
             "onRefresh": [
-              "execPages"
+              {
+                "action": "studioApiCall('execPages', [\"getVal('appID')\"])"
+              }
             ],
             "onChange": [
               {
-                "action": "setVal",
-                "param": "pageID",
-                "value": "{{selected.value}}"
+                "action": "setVal('pageID', {{this.value}})"
               },
               {
-                "action": "refresh",
-                "targets": [
-                  "chartMermaid"
-                ]
+                "action": "refresh(['chartMermaid'])"
               },
               {
-                "action": "clearVals",
-                "params": [
-                  "eventTypeID"
-                ]
+                "action": "clearVals(['eventTypeID'])"
               }
             ]
           }
@@ -119,18 +106,10 @@
           "workflowTriggers": {
             "onClick": [
               {
-                "action": "execGenPageConfig",
-                "params": {
-                  "appID": "{{getVal.appID}}",
-                  "pageID": "{{getVal.pageID}}"
-                }
+                "action": "studioApiCall('execGenPageConfig', [\"getVal('appID')\", \"getVal('pageID')\"])"
               },
               {
-                "action": "refresh",
-                "targets": [
-                  "tabMermaid",
-                  "tabPageView"
-                ]
+                "action": "refresh(['tabMermaid', 'tabPageView'])"
               },
               {
                 "action": "showNotification",
@@ -162,14 +141,6 @@
           "backgroundColor": "#fafafa",
           "padding": "12px"
         }
-      },
-      "workflowTriggers": {
-        "onLoad": [
-          "execTemplates"
-        ],
-        "onComponentSelect": [
-          "selectComponentForDesign"
-        ]
       },
       "components": [
         {
@@ -237,9 +208,31 @@
           },
           "components": [
             {
-              "id": "mermaidChart",
+              "id": "chartMermaid",
+              "type": "chart",
               "props": {
-                "style": {}
+                "title": "Interactive Mermaid Chart",
+                "style": {
+                  "width": "100%",
+                  "height": "500px",
+                  "border": "1px solid #e0e0e0",
+                  "borderRadius": "4px"
+                }
+              },
+              "workflowTriggers": {
+                "onRefresh": [
+                  {
+                    "action": "getMermaidContent({ path: 'apps/wf-studio/src/apps/studio/pages/Studio/pageMermaid.mmd' })"
+                  }
+                ],
+                "onChange": [
+                  {
+                    "action": "setVal('eventTypeID', {{this.selected.nodeId}})"
+                  },
+                  {
+                    "action": "showNotification('EventType selected: {{this.selected.nodeId}}')"
+                  }
+                ]
               }
             }
           ]
@@ -314,14 +307,6 @@
           "props": {
             "title": "Page Rendered",
             "style": {}
-          },
-          "workflowTriggers": {
-            "onLoad": [
-              "loadPagePreview"
-            ],
-            "onPageConfigChange": [
-              "updatePreview"
-            ]
           },
           "components": [
             {

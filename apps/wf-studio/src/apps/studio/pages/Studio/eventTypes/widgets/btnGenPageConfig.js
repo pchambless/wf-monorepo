@@ -20,8 +20,8 @@ export const btnGenPageConfig = {
 
     workflowTriggers: {
         onClick: [
-            { action: "execGenPageConfig", params: { appID: "{{getVal.appID}}", pageID: "{{getVal.pageID}}" } },
-            { action: "refresh", targets: ["tabMermaid", "tabPageView"] },
+            { action: "studioApiCall('execGenPageConfig', [\"getVal('appID')\", \"getVal('pageID')\"])" },
+            { action: "refresh(['tabMermaid', 'tabPageView'])" },
             { action: "showNotification", message: "Page config regenerated!" }
         ]
     }

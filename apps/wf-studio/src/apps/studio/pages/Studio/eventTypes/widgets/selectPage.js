@@ -9,11 +9,13 @@ export const selectPage = {
   purpose: "Select page within chosen app for eventType navigation",
 
   workflowTriggers: {
-    onRefresh: ["execPages"],
+    onRefresh: [
+      { action: "studioApiCall('execPages', [\"getVal('appID')\"])" },
+    ],
     onChange: [
-      { action: "setVal", param: "pageID", value: "{{selected.value}}" },
-      { action: "refresh", targets: ["chartMermaid"] },
-      { action: "clearVals", params: ["eventTypeID"] }
+      { action: "setVal('pageID', {{this.value}})" },
+      { action: "refresh(['chartMermaid'])" },
+      { action: "clearVals(['eventTypeID'])" }
     ]
   },
 

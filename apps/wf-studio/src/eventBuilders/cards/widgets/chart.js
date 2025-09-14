@@ -1,4 +1,4 @@
-export const formOverrides = {
+export const chart = {
     category: "chart",
     title: "chart display",
     cluster: "Display",

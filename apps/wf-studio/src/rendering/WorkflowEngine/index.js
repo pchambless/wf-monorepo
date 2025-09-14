@@ -9,21 +9,21 @@
 import { useContextStore } from '@whatsfresh/shared-imports';
 
 // Import all workflow methods
-import { execApps } from './triggers/data/execApps.js';
-import { execPages } from './triggers/data/execPages.js';
-import { execEventTypes } from './triggers/data/execEventTypes.js';
-import { execEvent } from './triggers/data/execEvent.js';
+// database
+import { execEvent } from './triggers/data/database/execEvent.js';
+// studio - all replaced with studioApiCall except getMermaidContent
+// import { execApps, execPages, execEventTypes, execTemplates, execGenPageConfig } from './triggers/data/studio/'; // Obsolete - using studioApiCall
+import { getMermaidContent } from './triggers/data/studio/getMermaidContent.js';
+// atomic - keeping only what's still needed
 import { refresh } from './triggers/atomic/onRefresh.js';
 import { clearVals } from './triggers/atomic/clearVals.js';
 import { setVal } from './triggers/atomic/setVal.js';
 import { getVal } from './triggers/atomic/getVal.js';
-import { saveRecord } from './saveRecord.js';
-import { loadCards } from './triggers/data/loadCards.js';
-import { getTemplate } from './triggers/data/getTemplate.js';
-import { showNotification } from './showNotification.js';
+import { saveRecord } from './triggers/atomic/saveRecord.js';
+import { showNotification } from './triggers/atomic/showNotification.js';
 import { onLoad } from './triggers/atomic/onLoad.js';
-import { execTemplates } from './triggers/data/execTemplates.js';
-import { execGenPageConfig } from './triggers/data/execGenPageConfig.js';
+import { ExecFunction } from './execFunction.js';
+
 
 class WorkflowEngine {
   constructor() {
@@ -32,21 +32,51 @@ class WorkflowEngine {
     this.componentRefs = new Map();
 
     // Attach all workflow methods to this instance
-    this.execApps = execApps.bind(this);
-    this.execPages = execPages.bind(this);
-    this.execEventTypes = execEventTypes.bind(this);
+    // database
     this.execEvent = execEvent.bind(this);
+    // studio
+    this.getMermaidContent = getMermaidContent.bind(this);
+    // atomic
     this.refresh = refresh.bind(this);
     this.clearVals = clearVals.bind(this);
     this.setVal = setVal.bind(this);
     this.getVal = getVal.bind(this);
     this.saveRecord = saveRecord.bind(this);
-    this.loadCards = loadCards.bind(this);
-    this.getTemplate = getTemplate.bind(this);
     this.showNotification = showNotification.bind(this);
     this.onLoad = onLoad.bind(this);
-    this.execTemplates = execTemplates.bind(this);
-    this.execGenPageConfig = execGenPageConfig.bind(this);
+    this.studioApiCall = this.StudioApiCall.bind(this);
+
+    // Initialize function executor
+    this.execFunction = new ExecFunction(this);
+  }
+
+  /**
+   * Generic Studio API Call method
+   * Handles file-based studio API calls with configuration
+   */
+  async StudioApiCall(action, data) {
+    try {
+      const { studioApiCall } = await import('../../api/studioApiCall.js');
+
+      const params = action.params;
+      const endpoint = action.endpoint;
+
+      if (!endpoint) {
+        throw new Error('Missing endpoint in studioApiCall action');
+      }
+
+      const config = {
+        baseUrl: process.env.REACT_APP_API_BASE_URL || "http://localhost:3001",
+        logger: console
+      };
+
+      console.log(`🔄 studioApiCall: ${endpoint}`, { params });
+
+      return await studioApiCall(endpoint, params, config);
+    } catch (error) {
+      console.error(`❌ studioApiCall failed for ${action.endpoint}:`, error);
+      return { error: error.message };
+    }
   }
 
   /**
@@ -114,6 +144,13 @@ class WorkflowEngine {
 
     console.log(`⚡ Executing action:`, action);
 
+    // Handle direct function call format: { action: "setVal('appID', {{this.selected.value}})" }
+    console.log(`🔍 Checking if function call:`, ExecFunction.isFunctionCall(action));
+    if (ExecFunction.isFunctionCall(action)) {
+      console.log(`🎯 Detected function call, executing via execFunction`);
+      return await this.execFunction.execute(action, data, sourceEventType);
+    }
+
     // Handle string actions (like "execEvent", "execApps", "execPages")
     if (typeof action === 'string') {
       const method = this[action];
@@ -131,7 +168,15 @@ class WorkflowEngine {
     const method = this[methodName];
 
     if (typeof method === 'function') {
-      return await method.call(this, action, data);
+      // Process params if it's an array of getVal calls
+      let processedAction = { ...action };
+
+      if (Array.isArray(action.params)) {
+        processedAction.params = await this.resolveParams(action.params);
+        console.log(`🔧 Resolved params for ${methodName}:`, processedAction.params);
+      }
+
+      return await method.call(this, processedAction, data);
     } else {
       console.warn(`⚠️ Unknown workflow action: ${methodName}`);
     }
@@ -148,6 +193,69 @@ class WorkflowEngine {
     } else {
       console.warn(`⚠️ Unknown action method: ${action}`);
     }
+  }
+
+  /**
+   * Resolve parameters - handle both array of getVal calls and object templates
+   * @param {Array|Object} params - Array like ["getVal('appID')"] or object with templates
+   * @returns {Object} - Object with resolved parameters like {":appID": "studio"}
+   */
+  async resolveParams(params) {
+    // Handle array of getVal calls: ["getVal('appID')", "getVal('pageID')"]
+    if (Array.isArray(params)) {
+      const tuples = [];
+
+      for (const paramCall of params) {
+        if (typeof paramCall === 'string' && paramCall.startsWith("getVal('") && paramCall.endsWith("')")) {
+          // Extract parameter name: "getVal('appID')" → "appID"
+          const paramName = paramCall.slice(8, -2); // Remove "getVal('" and "')"
+
+          console.log(`🔧 Resolving getVal('${paramName}')`);
+
+          // Get tuple from contextStore: "appID" → [":appID", "studio"]
+          const tuple = this.contextStore?.getVal(paramName);
+
+          console.log(`📦 getVal('${paramName}') returned:`, tuple);
+
+          if (tuple && Array.isArray(tuple) && tuple.length === 2) {
+            tuples.push(tuple);
+          } else {
+            console.warn(`⚠️ resolveParams: No value found for ${paramName}, got:`, tuple);
+          }
+        }
+      }
+
+      // Convert array of tuples to object: [[":appID", "studio"]] → {":appID": "studio"}
+      return Object.fromEntries(tuples);
+    }
+
+    // Handle object with template strings (legacy support)
+    if (typeof params === 'object' && params !== null) {
+      const resolved = {};
+
+      for (const [key, value] of Object.entries(params)) {
+        if (typeof value === 'string' && value.startsWith('{{getVal.') && value.endsWith('}}')) {
+          // Extract parameter name: "{{getVal.appID}}" → "appID"
+          const paramName = value.slice(9, -2);
+
+          const tuple = this.contextStore?.getVal(paramName);
+
+          if (tuple && Array.isArray(tuple) && tuple.length === 2) {
+            const [queryKey, queryValue] = tuple;
+            resolved[queryKey] = queryValue;
+          } else {
+            console.warn(`⚠️ resolveParams: No value found for ${paramName}`);
+          }
+        } else {
+          // Non-template values pass through unchanged
+          resolved[key] = value;
+        }
+      }
+
+      return resolved;
+    }
+
+    return params;
   }
 
   /**
@@ -170,6 +278,22 @@ class WorkflowEngine {
   }
 }
 
-// Export singleton instance
-export const workflowEngine = new WorkflowEngine();
+// Export singleton instance with lazy initialization to avoid circular dependency issues
+let _workflowEngine = null;
+export const workflowEngine = new Proxy({}, {
+  get(target, prop) {
+    if (!_workflowEngine) {
+      _workflowEngine = new WorkflowEngine();
+    }
+    return _workflowEngine[prop];
+  },
+  set(target, prop, value) {
+    if (!_workflowEngine) {
+      _workflowEngine = new WorkflowEngine();
+    }
+    _workflowEngine[prop] = value;
+    return true;
+  }
+});
+
 export default WorkflowEngine;

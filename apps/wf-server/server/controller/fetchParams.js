@@ -5,12 +5,13 @@ const codeName = "[fetchParams.js]";
 
 async function fetchParams(req, res) {
   try {
-    const { eventTypeName } = req.params;
+    const { params } = req.body;
+    const eventTypeName = params?.[':eventTypeName'];
 
     if (!eventTypeName) {
       return res.status(400).json({
         success: false,
-        message: "EventType name is required",
+        message: "EventType name parameter (:eventTypeName) is required",
       });
     }
 
@@ -22,17 +23,17 @@ async function fetchParams(req, res) {
       });
     }
 
-    const params = eventDef.params || [];
+    const eventParams = eventDef.params || [];
 
     logger.debug(`${codeName} Returning params for eventType: ${eventTypeName}`, {
-      params,
-      count: params.length,
+      params: eventParams,
+      count: eventParams.length,
     });
 
     res.json({
       success: true,
       eventType: eventTypeName,
-      params,
+      params: eventParams,
     });
   } catch (error) {
     logger.error(`${codeName} Error fetching eventType params:`, error);

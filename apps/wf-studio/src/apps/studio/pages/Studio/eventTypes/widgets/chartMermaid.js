@@ -2,14 +2,17 @@
  * Studio Mermaid Chart Widget
  * Displays interactive mermaid charts from generated .mmd files
  */
+import { getEndpointUrl } from '../../../../../../api/config.js';
+
 export const chartMermaid = {
+  type: "chart",
   category: "chart",
   title: "Interactive Mermaid Chart",
   cluster: "STUDIO",
   purpose: "Display interactive mermaid charts with node click handlers",
 
   props: {
-    mermaidFile: "{{getVal.appID}}/pages/{{getVal.pageID}}/pageMermaid.mmd",
+    mermaidContent: "{{getVal('mermaidContent')}}",
     style: {
       width: "100%",
       height: "500px",
@@ -19,12 +22,16 @@ export const chartMermaid = {
   },
 
   workflowTriggers: {
-    onRefresh: ["refresh"],
+    //    onLoad: [
+    //      { action: "studioApiCall('getDoc', { path: 'apps/wf-studio/src/apps/studio/pages/Studio/pageMermaid.mmd' })" },
+    //      { action: "setVal('mermaidContent', '{{this.data}}')" }
+    //    ],
+    onRefresh: [
+      { action: "getMermaidContent({ path: 'apps/wf-studio/src/apps/studio/pages/Studio/pageMermaid.mmd' })" }
+    ],
     onChange: [
-      { action: "setVal", param: "eventTypeID", value: "{{selected.nodeId}}" },
-      { action: "switchTab", tabId: "tabEventDtl" },
-      { action: "loadCards", category: "dynamic" },
-      { action: "refresh", targets: ["componentDetail"] }
+      { action: "setVal('eventTypeID', {{this.selected.nodeId}})" },
+      { action: "showNotification('EventType selected: {{this.selected.nodeId}}')" }
     ]
   }
 };

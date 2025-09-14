@@ -329,7 +329,17 @@ async function discoverEventTypes(req, res) {
  */
 async function genPageConfig(req, res) {
   try {
-    const { appName, pageName } = req.params;
+    // Support both GET (query params) and POST (body params) for transition period
+    const params = req.query.params ? JSON.parse(req.query.params) : req.body?.params;
+    const { ':appID': appName, ':pageID': pageName } = params || {};
+    
+    if (!appName || !pageName) {
+      return res.status(400).json({
+        error: 'MISSING_PARAMETERS',
+        message: 'appID and pageID parameters are required'
+      });
+    }
+    
     logger.debug(`${codeName} Generating pageConfig for ${appName}/${pageName}`);
 
     // Import and use the server-side genPageConfig utility

@@ -79,9 +79,10 @@ class ContextStore {
     }
   }
 
-  // Get a parameter value
+  // Get a parameter value - returns tuple for queryResolver compatibility
   getVal(paramName) {
-    return this.parameters[paramName] || null;
+    const value = this.parameters[paramName];
+    return value !== undefined ? [`:${paramName}`, value] : null;
   }
 
   // Clear multiple parameters (variable arguments)

@@ -8,8 +8,8 @@ export async function execPages() {
       console.warn('No appID in contextStore for execPages');
       return { table: "studio_pages", rows: [] };
     }
-    
-    const { execPages } = await import('../../../../api/index.js');
+
+    const { execPages } = await import('../../../../../api/index.js');
     return await execPages(appID);
   } catch (error) {
     console.error('❌ execPages failed:', error);

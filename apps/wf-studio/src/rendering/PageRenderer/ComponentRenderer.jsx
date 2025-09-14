@@ -11,10 +11,13 @@ import ColumnRenderer from "./components/ColumnRenderer.jsx";
 import TabsRenderer from "./components/TabsRenderer.jsx";
 import GridRenderer from "./components/GridRenderer.jsx";
 import MermaidRenderer from "./components/MermaidRenderer.jsx";
+import ButtonRenderer from "./components/ButtonRenderer.jsx";
 
 const ComponentRenderer = ({ component }) => {
   const { type, id, title, props, components = [] } = component;
   const [componentData, setComponentData] = useState([]);
+
+  console.log(`🔧 ComponentRenderer: Rendering component`, { type, id, title, component });
 
 
   // Unified data fetching function for onLoad, onRefresh, etc.
@@ -24,6 +27,16 @@ const ComponentRenderer = ({ component }) => {
     if (Array.isArray(triggers)) {
       for (const trigger of triggers) {
         if (typeof trigger === "string") {
+          // Handle reload for chart/mermaid components specially
+          if (trigger === "reload" && (component.type === "chart" || component.type === "mermaid")) {
+            console.log(`🔄 ComponentRenderer: Triggering reload for ${component.type} component ${id}`);
+            // Force MermaidRenderer to reload by calling global reload function
+            if (window[`reload_${id}`]) {
+              window[`reload_${id}`]();
+            }
+            return;
+          }
+
           // Simple action: "execApps", "execPages" - capture returned data
           try {
             const result = await workflowEngine.execAction(trigger, { component });
@@ -31,6 +44,9 @@ const ComponentRenderer = ({ component }) => {
             if (result && result.rows && Array.isArray(result.rows)) {
               setComponentData(result.rows);
             } else if (Array.isArray(result)) {
+              setComponentData(result);
+            } else if (typeof result === 'string') {
+              // Handle string results (like mermaid content from getDoc)
               setComponentData(result);
             }
           } catch (error) {
@@ -41,6 +57,22 @@ const ComponentRenderer = ({ component }) => {
           workflowEngine.execTargetAction(trigger.action, trigger.targets, {
             component,
           });
+        } else if (trigger.action) {
+          // Direct function call pattern: {action: "studioApiCall('execApps', {})"}
+          try {
+            const result = await workflowEngine.execAction(trigger, { component });
+            console.log(`📦 ${trigger.action} result:`, result);
+            if (result && result.rows && Array.isArray(result.rows)) {
+              setComponentData(result.rows);
+            } else if (Array.isArray(result)) {
+              setComponentData(result);
+            } else if (typeof result === 'string') {
+              // Handle string results (like mermaid content from getDoc)
+              setComponentData(result);
+            }
+          } catch (error) {
+            console.error(`Error executing ${trigger.action}:`, error);
+          }
         }
       }
     }
@@ -117,6 +149,9 @@ const ComponentRenderer = ({ component }) => {
     case "mermaid":
     case "chart":
       return <MermaidRenderer component={component} onEvent={handleEvent} />;
+
+    case "button":
+      return <ButtonRenderer component={component} onEvent={handleEvent} />;
 
     default:
       // Generic fallback for unknown component types

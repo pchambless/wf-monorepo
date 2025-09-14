@@ -30,7 +30,8 @@ export const columnComponents = {
   ],
 
   workflowTriggers: {
-    onLoad: ["execTemplates"],
-    onComponentSelect: ["selectComponentForDesign"]
+    // TODO: Enable after core workflow is working
+    // onLoad: [{ action: "studioApiCall('execTemplates', {})" }],
+    // onComponentSelect: [{ action: "selectComponentForDesign()" }]
   }
 };

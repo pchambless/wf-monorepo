@@ -8,11 +8,13 @@ export const selectApp = {
   cluster: "STUDIO",
   purpose: "Select app for Studio page/eventType navigation",
   workflowTriggers: {
-    onLoad: ["execApps"],
+    onLoad: [
+      { action: "studioApiCall('execApps', {})" }
+    ],
     onChange: [
-      { action: "setVal", param: "appID", value: "{{selected.value}}" },
-      { action: "refresh", targets: ["selectPage"] },
-      { action: "clearVals", params: ["pageID", "eventTypeID"] }
+      { action: "setVal('appID', {{this.value}})" },
+      { action: "refresh(['selectPage'])" },
+      { action: "clearVals(['pageID', 'eventTypeID'])" }
     ]
   }
 };

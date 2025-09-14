@@ -1,19 +1,27 @@
 /**
  * Execute Generate Page Config
  */
-export async function execGenPageConfig(appID, pageID, config = {}) {
+export async function execGenPageConfig(params, config = {}) {
   try {
     const { baseUrl, logger } = config;
     
-    if (!appID || !pageID) {
-      logger?.warn('⚠️ execGenPageConfig: Missing appID or pageID');
+    if (!params || !params[':appID'] || !params[':pageID']) {
+      logger?.warn('⚠️ execGenPageConfig: Missing appID or pageID parameters');
       return { error: 'Missing required parameters' };
     }
 
-    const url = `${baseUrl}/api/studio/genPageConfig/${appID}/${pageID}`;
-    logger?.log('🔄 execGenPageConfig:', url);
+    const url = `${baseUrl}/api/studio/genPageConfig`;
+    const requestBody = { params };
+    logger?.log('🔄 execGenPageConfig:', url, { params });
+    logger?.log('📦 execGenPageConfig request body:', JSON.stringify(requestBody, null, 2));
     
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    });
     
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);

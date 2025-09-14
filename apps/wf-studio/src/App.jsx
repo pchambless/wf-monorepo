@@ -1,13 +1,19 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SimpleLayout from "./layouts/SimpleLayout";
 import { getNavigationSections, getAppBarConfig } from "./config/navigation";
 import { ROUTES } from "./config/routes";
+import { loadMermaidLibrary } from "./utils/mermaidLoader";
 
 // Import Studio page directly for full-screen rendering
 const StudioPage = lazy(() => import("./pages/Studio"));
 
 const App = () => {
+  // Load mermaid.js globally for Studio
+  useEffect(() => {
+    loadMermaidLibrary().catch(console.error);
+  }, []);
+
   // Studio-specific route generation
   const generateRoutes = () => {
     return Object.entries(ROUTES).map(([routeKey, route]) => {
