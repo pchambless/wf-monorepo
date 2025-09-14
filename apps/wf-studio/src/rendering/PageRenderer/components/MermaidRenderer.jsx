@@ -20,26 +20,36 @@ const MermaidRenderer = ({ component, onEvent }) => {
 
       console.log('🎨 MermaidRenderer: Render attempt', {
         content: content?.substring(0, 50),
-        hasRef: !!mermaidRef.current
+        hasRef: !!mermaidRef.current,
+        clickHandlersCheck: content?.includes('selectEventTypeTab') ? 'NEW FORMAT' : 'OLD FORMAT'
       });
 
       if (content && content !== 'undefined' && mermaidRef.current) {
-        const chartId = `mermaid-${id}-${Date.now()}`;
-        const { svg } = await window.mermaid.render(chartId, content);
-        mermaidRef.current.innerHTML = svg;
-        console.log('✅ Mermaid rendered, SVG length:', svg.length);
+        try {
+          const chartId = `mermaid-${id}-${Date.now()}`;
 
-        // Set up click handlers
-        window.selectComponent = (nodeId) => {
-          if (onEvent) {
-            onEvent('onChange', {
-              nodeId,
-              component,
-              action: 'selectComponent',
-              selected: { nodeId, type: 'mermaidNode' }
-            });
-          }
-        };
+          // Register selectEventTypeTab globally for javascript: hrefs
+          window.selectEventTypeTab = (nodeId) => {
+            console.log(`🎯 MermaidRenderer: selectEventTypeTab called with: ${nodeId}`);
+            if (workflowEngine && workflowEngine.selectEventTypeTab) {
+              workflowEngine.selectEventTypeTab({ nodeId });
+            } else {
+              console.error('❌ WorkflowEngine not available');
+            }
+          };
+
+          // Simple render approach
+          const { svg } = await window.mermaid.render(chartId, content);
+          mermaidRef.current.innerHTML = svg;
+          console.log('✅ Mermaid rendered, SVG length:', svg.length);
+
+          // Log if callback is registered
+          console.log('🔧 window.callback registered:', typeof window.callback);
+        } catch (error) {
+          console.error('❌ Mermaid render error:', error);
+          mermaidRef.current.innerHTML = '<div class="mermaid-error">Failed to render diagram</div>';
+          return;
+        }
       }
     };
 

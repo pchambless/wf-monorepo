@@ -4,15 +4,30 @@ import SimpleLayout from "./layouts/SimpleLayout";
 import { getNavigationSections, getAppBarConfig } from "./config/navigation";
 import { ROUTES } from "./config/routes";
 import { loadMermaidLibrary } from "./utils/mermaidLoader";
+import { useContextStore } from "@whatsfresh/shared-imports";
 
 // Import Studio page directly for full-screen rendering
 const StudioPage = lazy(() => import("./pages/Studio"));
 
 const App = () => {
-  // Load mermaid.js globally for Studio
+  const contextStore = useContextStore();
+
+  // App startup initialization
   useEffect(() => {
+    // Clear all context for clean slate on app startup
+    contextStore.clearAllContext();
+    console.log('✅ Studio App: Context cleared for clean startup');
+
+    // Load mermaid.js globally for Studio
     loadMermaidLibrary().catch(console.error);
-  }, []);
+
+    // Register global selectEventTypeTab function for mermaid
+    window.selectEventTypeTab = (nodeId) => {
+      console.log(`🎯 App: selectEventTypeTab called with: ${nodeId}`);
+      // We'll need to access workflowEngine here
+      console.log('🔧 selectEventTypeTab function registered globally');
+    };
+  }, [contextStore]);
 
   // Studio-specific route generation
   const generateRoutes = () => {

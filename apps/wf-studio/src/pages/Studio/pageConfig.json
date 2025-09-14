@@ -109,7 +109,7 @@
                 "action": "studioApiCall('execGenPageConfig', [\"getVal('appID')\", \"getVal('pageID')\"])"
               },
               {
-                "action": "refresh(['tabMermaid', 'tabPageView'])"
+                "action": "refresh(['chartMermaid', 'tabPageView'])"
               },
               {
                 "action": "showNotification",
@@ -227,10 +227,7 @@
                 ],
                 "onChange": [
                   {
-                    "action": "setVal('eventTypeID', {{this.selected.nodeId}})"
-                  },
-                  {
-                    "action": "showNotification('EventType selected: {{this.selected.nodeId}}')"
+                    "action": "selectEventTypeTab({ nodeId: '{{this.selected.nodeId}}' })"
                   }
                 ]
               }

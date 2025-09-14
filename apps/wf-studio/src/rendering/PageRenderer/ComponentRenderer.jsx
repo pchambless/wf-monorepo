@@ -133,6 +133,7 @@ const ComponentRenderer = ({ component }) => {
     case "select":
       return <SelectRenderer component={component} data={componentData} onEvent={handleEvent} />;
 
+    case "tab":
     case "tabs":
       return (
         <TabsRenderer component={component} onEvent={handleEvent}>

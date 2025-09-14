@@ -14,6 +14,8 @@ import { execEvent } from './triggers/data/database/execEvent.js';
 // studio - all replaced with studioApiCall except getMermaidContent
 // import { execApps, execPages, execEventTypes, execTemplates, execGenPageConfig } from './triggers/data/studio/'; // Obsolete - using studioApiCall
 import { getMermaidContent } from './triggers/data/studio/getMermaidContent.js';
+// ui
+import { selectEventTypeTab } from './triggers/ui/studio/selectEventTypeTab.js';
 // atomic - keeping only what's still needed
 import { refresh } from './triggers/atomic/onRefresh.js';
 import { clearVals } from './triggers/atomic/clearVals.js';
@@ -36,6 +38,8 @@ class WorkflowEngine {
     this.execEvent = execEvent.bind(this);
     // studio
     this.getMermaidContent = getMermaidContent.bind(this);
+    // ui
+    this.selectEventTypeTab = selectEventTypeTab.bind(this);
     // atomic
     this.refresh = refresh.bind(this);
     this.clearVals = clearVals.bind(this);

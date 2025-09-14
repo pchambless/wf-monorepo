@@ -103,14 +103,15 @@ Mermaid Chart Widget Implementation - Session Accomplishments
   1. Test Node Click Interactions: Click on mermaid nodes to verify onChange workflow triggers fire correctly
   2. Verify EventType Selection: Ensure setVal('eventTypeID', nodeId) and notifications work
   3. Test Page Switching: Verify different pages load different mermaid content properly
+  4. On selectApp, refresh the mermaid chart to clear the previous page mermaid render.  should initialize to the original mermaid configuration.   
 
   Architecture Improvements
 
   1. Dynamic Path Resolution: Make mermaid file paths dynamic based on selected page
   2. Error UI: Better error states instead of empty charts when API calls fail
-  3. Caching: Consider caching loaded .mmd content to reduce API calls
+  3. Caching: Consider caching loaded .mmd content to reduce API calls.  Actually, the only cache should be the originating chart info... 
 
-  Extensibility
+  Extensibility - Maybe Later.
 
   1. Multi-App Support: Move mermaidLoader.js to shared-imports when other apps need mermaid
   2. Theme Integration: Extend mermaid.css to support Studio themes/dark mode
@@ -118,7 +119,7 @@ Mermaid Chart Widget Implementation - Session Accomplishments
 
   Workflow Engine Patterns
 
-  1. Reusable Triggers: Create more encapsulated triggers following the getMermaidContent pattern
+  1. Reusable Triggers: Create more encapsulated triggers following the getMermaidContent pattern (I love this idea.  I think this would eliminate the need for workflows.  Maybe look into chaining the triggers with an actChain: so we could somehow pass info from one action to another... just a thought)
   2. Template Resolution: Fix underlying template resolution issues for future complex workflows
   3. Error Boundaries: Add proper error handling for workflow trigger failures
 

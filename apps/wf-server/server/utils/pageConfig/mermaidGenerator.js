@@ -131,7 +131,7 @@ export function generateMermaidChart(resolvedEventType, allEventTypes) {
   // Add click handlers for interactivity
   lines.push('    %% Click handlers for Studio integration');
   processedComponents.forEach(nodeId => {
-    lines.push(`    click ${nodeId} "selectComponent('${nodeId}')"`);
+    lines.push(`    click ${nodeId} href "javascript:window.selectEventTypeTab('${nodeId}')"`);
   });
 
   const mermaidChart = lines.join('\n');

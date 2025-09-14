@@ -21,7 +21,7 @@ export const btnGenPageConfig = {
     workflowTriggers: {
         onClick: [
             { action: "studioApiCall('execGenPageConfig', [\"getVal('appID')\", \"getVal('pageID')\"])" },
-            { action: "refresh(['tabMermaid', 'tabPageView'])" },
+            { action: "refresh(['chartMermaid', 'tabPageView'])" },
             { action: "showNotification", message: "Page config regenerated!" }
         ]
     }

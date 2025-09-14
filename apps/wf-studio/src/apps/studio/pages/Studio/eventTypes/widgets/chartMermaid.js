@@ -22,16 +22,11 @@ export const chartMermaid = {
   },
 
   workflowTriggers: {
-    //    onLoad: [
-    //      { action: "studioApiCall('getDoc', { path: 'apps/wf-studio/src/apps/studio/pages/Studio/pageMermaid.mmd' })" },
-    //      { action: "setVal('mermaidContent', '{{this.data}}')" }
-    //    ],
     onRefresh: [
       { action: "getMermaidContent({ path: 'apps/wf-studio/src/apps/studio/pages/Studio/pageMermaid.mmd' })" }
     ],
     onChange: [
-      { action: "setVal('eventTypeID', {{this.selected.nodeId}})" },
-      { action: "showNotification('EventType selected: {{this.selected.nodeId}}')" }
+      { action: "selectEventTypeTab({ nodeId: '{{this.selected.nodeId}}' })" }
     ]
   }
 };

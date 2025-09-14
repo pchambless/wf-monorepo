@@ -18,12 +18,18 @@ export const loadMermaidLibrary = () => {
       window.mermaid.initialize({
         startOnLoad: false,
         theme: 'default',
-        securityLevel: 'loose',
+        securityLevel: 'loose', // Allow callbacks
         flowchart: {
           useMaxWidth: true,
           htmlLabels: true
         }
       });
+
+      // Register click callback for mermaid
+      window.mermaid.parseError = function(err, hash) {
+        console.error('Mermaid parse error:', err);
+      };
+
       console.log('✅ Mermaid.js loaded globally for Studio');
       resolve();
     };
