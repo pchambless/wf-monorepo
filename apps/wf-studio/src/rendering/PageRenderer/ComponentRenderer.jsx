@@ -12,6 +12,7 @@ import TabsRenderer from "./components/TabsRenderer.jsx";
 import GridRenderer from "./components/GridRenderer.jsx";
 import MermaidRenderer from "./components/MermaidRenderer.jsx";
 import ButtonRenderer from "./components/ButtonRenderer.jsx";
+import PropRenderer from "./components/PropRenderer.jsx";
 
 const ComponentRenderer = ({ component }) => {
   const { type, id, title, props, components = [] } = component;
@@ -153,6 +154,11 @@ const ComponentRenderer = ({ component }) => {
 
     case "button":
       return <ButtonRenderer component={component} onEvent={handleEvent} />;
+
+    case "textLine":
+    case "spacer":
+    case "divider":
+      return <PropRenderer component={component} onEvent={handleEvent} />;
 
     default:
       // Generic fallback for unknown component types

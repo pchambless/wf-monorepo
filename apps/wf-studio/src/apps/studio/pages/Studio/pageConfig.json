@@ -5,55 +5,24 @@
       "id": "columnSidebar",
       "type": "sidebar",
       "container": "column",
-      "position": {
-        "col": {
-          "start": 1,
-          "span": 2
-        },
-        "row": {
-          "start": 1,
-          "span": 10
-        }
-      },
+      "position": {"col": {"start": 1, "span": 2}, "row": {"start": 1, "span": 10}},
       "props": {
         "title": "App Page Designer",
-        "style": {
-          "backgroundColor": "#f5f5f5",
-          "borderRight": "1px solid #e0e0e0"
-        }
+        "style": {"backgroundColor": "#f5f5f5", "borderRight": "1px solid #e0e0e0"}
       },
       "components": [
         {
           "id": "selectApp",
           "type": "select",
           "container": "inline",
-          "position": {
-            "row": 1,
-            "col": 1
-          },
-          "props": {
-            "title": "App Selector",
-            "style": {
-              "marginBottom": "16px",
-              "width": "100%"
-            }
-          },
+          "position": {"row": 1, "col": 1},
+          "props": {"title": "App Selector", "style": {"marginBottom": "16px", "width": "100%"}},
           "workflowTriggers": {
-            "onLoad": [
-              {
-                "action": "studioApiCall('execApps', {})"
-              }
-            ],
+            "onLoad": [{"action": "studioApiCall('execApps', {})"}],
             "onChange": [
-              {
-                "action": "setVal('appID', {{this.value}})"
-              },
-              {
-                "action": "refresh(['selectPage'])"
-              },
-              {
-                "action": "clearVals(['pageID', 'eventTypeID'])"
-              }
+              {"action": "setVal('appID', {{this.value}})"},
+              {"action": "refresh(['selectPage'])"},
+              {"action": "clearVals(['pageID', 'eventTypeID'])"}
             ]
           }
         },
@@ -61,30 +30,14 @@
           "id": "selectPage",
           "type": "select",
           "container": "inline",
-          "position": {
-            "row": 2,
-            "col": 1
-          },
-          "props": {
-            "title": "Page Selector",
-            "style": {}
-          },
+          "position": {"row": 2, "col": 1},
+          "props": {"title": "Page Selector", "style": {}},
           "workflowTriggers": {
-            "onRefresh": [
-              {
-                "action": "studioApiCall('execPages', [\"getVal('appID')\"])"
-              }
-            ],
+            "onRefresh": [{"action": "studioApiCall('execPages', [\"getVal('appID')\"])"}],
             "onChange": [
-              {
-                "action": "setVal('pageID', {{this.value}})"
-              },
-              {
-                "action": "refresh(['chartMermaid'])"
-              },
-              {
-                "action": "clearVals(['eventTypeID'])"
-              }
+              {"action": "setVal('pageID', {{this.value}})"},
+              {"action": "refresh(['chartMermaid'])"},
+              {"action": "clearVals(['eventTypeID'])"}
             ]
           }
         },
@@ -92,29 +45,18 @@
           "id": "btnGenPageConfig",
           "type": "button",
           "container": "inline",
-          "position": {
-            "row": 3,
-            "col": 1
-          },
+          "position": {"row": 3, "col": 1},
           "props": {
             "title": "Generate Page Config Button",
-            "style": {
-              "marginTop": "16px",
-              "width": "100%"
-            }
+            "style": {"marginTop": "16px", "width": "100%"}
           },
           "workflowTriggers": {
             "onClick": [
               {
                 "action": "studioApiCall('execGenPageConfig', [\"getVal('appID')\", \"getVal('pageID')\"])"
               },
-              {
-                "action": "refresh(['chartMermaid', 'tabPageView'])"
-              },
-              {
-                "action": "showNotification",
-                "message": "Page config regenerated!"
-              }
+              {"action": "refresh(['chartMermaid', 'tabPageView'])"},
+              {"action": "showNotification", "message": "Page config regenerated!"}
             ]
           }
         }
@@ -124,16 +66,7 @@
       "id": "columnComponents",
       "type": "column",
       "container": "column",
-      "position": {
-        "col": {
-          "start": 3,
-          "span": 2
-        },
-        "row": {
-          "start": 1,
-          "span": 10
-        }
-      },
+      "position": {"col": {"start": 3, "span": 2}, "row": {"start": 1, "span": 10}},
       "props": {
         "title": "Component Choices",
         "style": {
@@ -147,22 +80,11 @@
           "id": "gridComponentChoices",
           "type": "grid",
           "container": "inline",
-          "position": {
-            "row": 1,
-            "col": 1
-          },
-          "props": {
-            "title": "Available Components",
-            "style": {}
-          },
+          "position": {"row": 1, "col": 1},
+          "props": {"title": "Available Components", "style": {}},
           "workflowTriggers": {
-            "onRefresh": [
-              "execEvent:componentTemplates"
-            ],
-            "onRowSelect": [
-              "selectTemplate",
-              "showTemplateDetail"
-            ]
+            "onRefresh": ["execEvent:componentTemplates"],
+            "onRowSelect": ["selectTemplate", "showTemplateDetail"]
           }
         }
       ]
@@ -171,41 +93,17 @@
       "id": "tabsWorkArea",
       "type": "tab",
       "container": "tab",
-      "position": {
-        "col": {
-          "start": 5,
-          "span": 6
-        },
-        "row": {
-          "start": 1,
-          "span": 20
-        }
-      },
-      "props": {
-        "title": "Work Area Tabs",
-        "style": {
-          "backgroundColor": "#ffffff"
-        }
-      },
+      "position": {"col": {"start": 5, "span": 6}, "row": {"start": 1, "span": 20}},
+      "props": {"title": "Work Area Tabs", "style": {"backgroundColor": "#ffffff"}},
       "flex": 1,
       "components": [
         {
           "id": "tabMermaid",
           "type": "tab",
           "container": "tab",
-          "position": {
-            "row": 1,
-            "col": 2
-          },
-          "props": {
-            "title": "Mermaid Page",
-            "style": {}
-          },
-          "workflowTriggers": {
-            "onRefresh": [
-              "refresh"
-            ]
-          },
+          "position": {"row": 1, "col": 2},
+          "props": {"title": "Mermaid Page", "style": {}},
+          "workflowTriggers": {"onRefresh": ["refresh"]},
           "components": [
             {
               "id": "chartMermaid",
@@ -226,9 +124,7 @@
                   }
                 ],
                 "onChange": [
-                  {
-                    "action": "selectEventTypeTab({ nodeId: '{{this.selected.nodeId}}' })"
-                  }
+                  {"action": "selectEventTypeTab({ nodeId: '{{this.selected.nodeId}}' })"}
                 ]
               }
             }
@@ -238,58 +134,82 @@
           "id": "tabEventDtl",
           "type": "tab",
           "container": "tab",
-          "position": {
-            "row": 1,
-            "col": 3
-          },
-          "props": {
-            "title": "Component Detail",
-            "style": {}
-          },
+          "position": {"row": 1, "col": 3},
+          "props": {"title": "Component Detail", "style": {}},
           "workflowTriggers": {
-            "onComponentSelected": [
-              "loadComponentCards",
-              "refreshComponentDetail"
-            ],
-            "onCardChange": [
-              "saveComponentChanges",
-              "updatePageConfig"
-            ]
+            "onComponentSelected": ["loadComponentCards", "refreshComponentDetail"],
+            "onCardChange": ["saveComponentChanges", "updatePageConfig"]
           },
           "components": [
             {
-              "id": "componentInfo",
-              "type": "text",
+              "id": "selectedEventTypeId",
+              "type": "textLine",
               "container": "inline",
-              "position": {
-                "row": 1,
-                "col": 1
-              },
-              "props": {
-                "title": "Component Information",
-                "style": {
-                  "padding": "20px",
-                  "backgroundColor": "#f0f4ff",
-                  "borderRadius": "4px",
-                  "textAlign": "center",
-                  "color": "#666"
-                }
-              }
+              "position": {"row": 1, "col": 1},
+              "props": {"style": {}}
             },
             {
-              "id": "dynamicCards",
-              "type": "container",
+              "id": "componentDetailTabs",
+              "type": "tabs",
               "container": "inline",
-              "position": {
-                "row": 2,
-                "col": 1
-              },
-              "props": {
-                "title": "Component Cards",
-                "style": {
-                  "marginTop": "20px"
+              "position": {"row": 2, "col": 1},
+              "props": {"style": {"marginTop": "20px"}},
+              "components": [
+                {
+                  "id": "tabEventTypeStructure",
+                  "container": "tab",
+                  "props": {"title": "EventType Structure", "style": {}},
+                  "components": [
+                    {
+                      "id": "eventTypeStructureContent",
+                      "type": "text",
+                      "props": {
+                        "style": {
+                          "padding": "20px",
+                          "backgroundColor": "#f8f9fa",
+                          "borderRadius": "4px"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "tabComponentCards",
+                  "container": "tab",
+                  "props": {"title": "Component Cards", "style": {}},
+                  "components": [
+                    {
+                      "id": "componentCardsContent",
+                      "type": "text",
+                      "props": {
+                        "style": {
+                          "padding": "20px",
+                          "backgroundColor": "#f0f4ff",
+                          "borderRadius": "4px"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "tabCompareChanges",
+                  "container": "tab",
+                  "props": {"title": "Compare Changes", "style": {}},
+                  "components": [
+                    {
+                      "id": "compareChangesContent",
+                      "type": "text",
+                      "props": {
+                        "style": {
+                          "padding": "20px",
+                          "backgroundColor": "#fff7ed",
+                          "borderRadius": "4px"
+                        }
+                      }
+                    }
+                  ]
                 }
-              }
+              ]
             }
           ]
         },
@@ -297,23 +217,14 @@
           "id": "tabPageView",
           "type": "tab",
           "container": "tab",
-          "position": {
-            "row": 1,
-            "col": 4
-          },
-          "props": {
-            "title": "Page Rendered",
-            "style": {}
-          },
+          "position": {"row": 1, "col": 4},
+          "props": {"title": "Page Rendered", "style": {}},
           "components": [
             {
               "id": "pagePreview",
               "type": "iframe",
               "container": "inline",
-              "position": {
-                "row": 1,
-                "col": 1
-              },
+              "position": {"row": 1, "col": 1},
               "props": {
                 "title": "Live Page Preview",
                 "style": {
@@ -329,10 +240,7 @@
               "id": "previewControls",
               "type": "container",
               "container": "inline",
-              "position": {
-                "row": 2,
-                "col": 1
-              },
+              "position": {"row": 2, "col": 1},
               "props": {
                 "style": {
                   "marginTop": "10px",
@@ -345,16 +253,8 @@
                 {
                   "id": "refreshPreview",
                   "type": "button",
-                  "props": {
-                    "style": {
-                      "marginRight": "10px"
-                    }
-                  },
-                  "workflowTriggers": {
-                    "onClick": [
-                      "refreshPagePreview"
-                    ]
-                  }
+                  "props": {"style": {"marginRight": "10px"}},
+                  "workflowTriggers": {"onClick": ["refreshPagePreview"]}
                 }
               ]
             }

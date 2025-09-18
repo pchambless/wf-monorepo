@@ -32,12 +32,30 @@ graph TD
     tabEventDtl["tabEventDtl
  ctgry: [tab]"]
     tabsWorkArea --> tabEventDtl
-    componentInfo["componentInfo
+    selectedEventTypeId["selectedEventTypeId
  ctgry: [unknown]"]
-    tabEventDtl --> componentInfo
-    dynamicCards["dynamicCards
+    tabEventDtl --> selectedEventTypeId
+    componentDetailTabs["componentDetailTabs
  ctgry: [unknown]"]
-    tabEventDtl --> dynamicCards
+    tabEventDtl --> componentDetailTabs
+    tabEventTypeStructure["tabEventTypeStructure
+ ctgry: [unknown]"]
+    componentDetailTabs --> tabEventTypeStructure
+    eventTypeStructureContent["eventTypeStructureContent
+ ctgry: [unknown]"]
+    tabEventTypeStructure --> eventTypeStructureContent
+    tabComponentCards["tabComponentCards
+ ctgry: [unknown]"]
+    componentDetailTabs --> tabComponentCards
+    componentCardsContent["componentCardsContent
+ ctgry: [unknown]"]
+    tabComponentCards --> componentCardsContent
+    tabCompareChanges["tabCompareChanges
+ ctgry: [unknown]"]
+    componentDetailTabs --> tabCompareChanges
+    compareChangesContent["compareChangesContent
+ ctgry: [unknown]"]
+    tabCompareChanges --> compareChangesContent
     tabPageView["tabPageView
  ctgry: [tab]"]
     tabsWorkArea --> tabPageView
@@ -63,8 +81,14 @@ graph TD
     style tabMermaid fill:#fff3e0,stroke:#333,stroke-width:2px;
     style chartMermaid fill:#fff3e0,stroke:#333,stroke-width:2px;
     style tabEventDtl fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style componentInfo fill:#f0f4ff,stroke:#333,stroke-width:2px;
-    style dynamicCards fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style selectedEventTypeId fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style componentDetailTabs fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style tabEventTypeStructure fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style eventTypeStructureContent fill:#f8f9fa,stroke:#333,stroke-width:2px;
+    style tabComponentCards fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style componentCardsContent fill:#f0f4ff,stroke:#333,stroke-width:2px;
+    style tabCompareChanges fill:#fff3e0,stroke:#333,stroke-width:2px;
+    style compareChangesContent fill:#fff7ed,stroke:#333,stroke-width:2px;
     style tabPageView fill:#fff3e0,stroke:#333,stroke-width:2px;
     style pagePreview fill:#ffffff,stroke:#333,stroke-width:2px;
     style previewControls fill:#f8f9fa,stroke:#333,stroke-width:2px;
@@ -82,8 +106,14 @@ graph TD
     click tabMermaid href "javascript:window.selectEventTypeTab('tabMermaid')"
     click chartMermaid href "javascript:window.selectEventTypeTab('chartMermaid')"
     click tabEventDtl href "javascript:window.selectEventTypeTab('tabEventDtl')"
-    click componentInfo href "javascript:window.selectEventTypeTab('componentInfo')"
-    click dynamicCards href "javascript:window.selectEventTypeTab('dynamicCards')"
+    click selectedEventTypeId href "javascript:window.selectEventTypeTab('selectedEventTypeId')"
+    click componentDetailTabs href "javascript:window.selectEventTypeTab('componentDetailTabs')"
+    click tabEventTypeStructure href "javascript:window.selectEventTypeTab('tabEventTypeStructure')"
+    click eventTypeStructureContent href "javascript:window.selectEventTypeTab('eventTypeStructureContent')"
+    click tabComponentCards href "javascript:window.selectEventTypeTab('tabComponentCards')"
+    click componentCardsContent href "javascript:window.selectEventTypeTab('componentCardsContent')"
+    click tabCompareChanges href "javascript:window.selectEventTypeTab('tabCompareChanges')"
+    click compareChangesContent href "javascript:window.selectEventTypeTab('compareChangesContent')"
     click tabPageView href "javascript:window.selectEventTypeTab('tabPageView')"
     click pagePreview href "javascript:window.selectEventTypeTab('pagePreview')"
     click previewControls href "javascript:window.selectEventTypeTab('previewControls')"

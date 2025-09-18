@@ -11,7 +11,7 @@ export const tabsWorkArea = {
       container: "tab",
       position: { row: 1, col: 2 },
       props: {
-        label: "Mermaid Chart",
+        label: "Mermaid Page",
         icon: "account_tree"
       }
     },
@@ -29,7 +29,7 @@ export const tabsWorkArea = {
       container: "tab",
       position: { row: 1, col: 4 },
       props: {
-        label: "Page Renderer",
+        label: "Page Rendered",
         icon: "preview"
       }
     }

@@ -1,0 +1,38 @@
+/* Tab Components */
+.wf-tabs {
+  background-color: white;
+}
+
+.wf-tab-headers {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.wf-tab-header {
+  padding: 12px 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.wf-tab-header.active {
+  background-color: #f0f0f0;
+  border-bottom-color: #007bff;
+  color: #007bff;
+  font-weight: 600;
+}
+
+.wf-tab-header:hover:not(.active) {
+  background-color: #f8f9fa;
+  color: #374151;
+}
+
+.wf-tab-content {
+  padding: 16px 0;
+}

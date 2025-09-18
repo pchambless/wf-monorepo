@@ -4,6 +4,7 @@
 
 import { promises as fs } from 'fs';
 import path from 'path';
+import stringify from 'json-stringify-pretty-compact';
 import { loadEventTypeFromFile } from './astParser.js';
 import { resolveComponentHierarchy } from './hierarchyResolver.js';
 import { cleanPageProperties } from './componentCleaner.js';
@@ -13,6 +14,18 @@ import logger from "../logger.js";
 
 const codeName = "[genPageConfig.js]";
 const STUDIO_APPS_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/apps";
+
+/**
+ * Format pageConfig JSON with smart compact/multiline decisions
+ * @param {Object} pageConfig - The pageConfig object to format
+ * @returns {string} Formatted JSON string
+ */
+function formatPageConfigJson(pageConfig) {
+  return stringify(pageConfig, {
+    maxLength: 100,  // Keep objects on single line if under 100 chars
+    indent: 2        // Use 2-space indentation for multiline
+  });
+}
 
 /**
  * Generate pageConfig by scanning eventType files directly
@@ -64,10 +77,11 @@ export async function genPageConfig(appName, pageName) {
   const mermaidData = generateEnhancedMermaidData(resolvedEventType, allEventTypes);
   logger.debug(`${codeName} Generated mermaid chart with ${mermaidData.totalComponents} components, max depth: ${mermaidData.maxDepth}`);
   
-  // Save pageConfig.json to the page folder
+  // Save pageConfig.json to the page folder with custom formatting
   const pageConfigPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageConfig.json');
   try {
-    await fs.writeFile(pageConfigPath, JSON.stringify(pageConfig, null, 2));
+    const formattedJson = formatPageConfigJson(pageConfig);
+    await fs.writeFile(pageConfigPath, formattedJson);
     logger.debug(`${codeName} Saved pageConfig.json to ${pageConfigPath}`);
   } catch (error) {
     logger.warn(`${codeName} Could not save pageConfig.json to ${pageConfigPath}: ${error.message}`);

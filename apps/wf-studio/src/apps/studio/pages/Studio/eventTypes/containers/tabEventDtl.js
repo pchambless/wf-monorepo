@@ -4,37 +4,49 @@ export const tabEventDtl = {
   title: "Component Detail",
   cluster: "STUDIO",
   purpose: "Detailed component editor with dynamic cards based on selected component",
-  
+
   components: [
     {
-      id: "componentInfo",
-      type: "text",
+      id: "textHeader",
+      type: "textLine",
       container: "inline",
       position: { row: 1, col: 1 },
       props: {
-        title: "Component Information", 
-        content: "Select a component from the Mermaid Page to view and edit its details",
-        style: {
-          padding: "20px",
-          backgroundColor: "#f0f4ff",
-          borderRadius: "4px",
-          textAlign: "center",
-          color: "#666"
-        }
+        prefix: "Event Type: ",
+        contextKey: "eventTypeID",
+        size: "large",
+        color: "primary",
+        align: "left",
+        variant: "selected-component"
       }
     },
     {
-      id: "dynamicCards",
-      type: "container",
-      container: "inline", 
+      id: "tabsEventDetail",
+      type: "tabs",
+      container: "inline",
       position: { row: 2, col: 1 },
       props: {
-        title: "Component Cards",
         style: {
           marginTop: "20px"
         }
       },
-      components: []
+      components: [
+        {
+          id: "containerEventStructure",
+          eventTypeRef: 6,  // References eventTypeRegistry[6]
+          container: "tab"
+        },
+        {
+          id: "containerEventCards",
+          eventTypeRef: 7,  // References eventTypeRegistry[7]
+          container: "tab"
+        },
+        {
+          id: "containerEventChanges",
+          eventTypeRef: 8,  // References eventTypeRegistry[8]
+          container: "tab"
+        }
+      ]
     }
   ],
 

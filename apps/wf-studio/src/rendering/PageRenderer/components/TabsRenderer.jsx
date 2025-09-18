@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect } from "react";
 import { workflowEngine } from "../../WorkflowEngine/index.js";
+import "../../../styles/components/tabs.css";
 
 const TabsRenderer = ({ component, onEvent, children }) => {
   const { props, components = [] } = component;
