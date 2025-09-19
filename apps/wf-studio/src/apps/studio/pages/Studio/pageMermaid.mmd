@@ -1,120 +1,33 @@
 graph TD
 
-    pageStudio["pageStudio
- ctgry: [page]"]
-    columnSidebar["columnSidebar
- ctgry: [column]"]
-    pageStudio --> columnSidebar
-    selectApp["selectApp
- ctgry: [select]"]
+    studio["studio<br/>ctgry: [page]"]
+    pageHierarchy["pageHierarchy<br/>ctgry: [serverquery]"]
+    studio --> pageHierarchy
+    columnSidebar["columnSidebar<br/>ctgry: [sidebar]"]
+    studio --> columnSidebar
+    newComponent["newComponent<br/>ctgry: [column]"]
+    studio --> newComponent
+    tabsWorkArea["tabsWorkArea<br/>ctgry: [tabs]"]
+    studio --> tabsWorkArea
+    selectApp["selectApp<br/>ctgry: [select]"]
     columnSidebar --> selectApp
-    selectPage["selectPage
- ctgry: [select]"]
+    selectPage["selectPage<br/>ctgry: [select]"]
     columnSidebar --> selectPage
-    btnGenPageConfig["btnGenPageConfig
- ctgry: [button]"]
+    btnGenPageConfig["btnGenPageConfig<br/>ctgry: [button]"]
     columnSidebar --> btnGenPageConfig
-    columnComponents["columnComponents
- ctgry: [column]"]
-    pageStudio --> columnComponents
-    gridComponentChoices["gridComponentChoices
- ctgry: [grid]"]
-    columnComponents --> gridComponentChoices
-    tabsWorkArea["tabsWorkArea
- ctgry: [tab]"]
-    pageStudio --> tabsWorkArea
-    tabMermaid["tabMermaid
- ctgry: [tab]"]
-    tabsWorkArea --> tabMermaid
-    chartMermaid["chartMermaid
- ctgry: [chart]"]
-    tabMermaid --> chartMermaid
-    tabEventDtl["tabEventDtl
- ctgry: [tab]"]
-    tabsWorkArea --> tabEventDtl
-    selectedEventTypeId["selectedEventTypeId
- ctgry: [unknown]"]
-    tabEventDtl --> selectedEventTypeId
-    componentDetailTabs["componentDetailTabs
- ctgry: [unknown]"]
-    tabEventDtl --> componentDetailTabs
-    tabEventTypeStructure["tabEventTypeStructure
- ctgry: [unknown]"]
-    componentDetailTabs --> tabEventTypeStructure
-    eventTypeStructureContent["eventTypeStructureContent
- ctgry: [unknown]"]
-    tabEventTypeStructure --> eventTypeStructureContent
-    tabComponentCards["tabComponentCards
- ctgry: [unknown]"]
-    componentDetailTabs --> tabComponentCards
-    componentCardsContent["componentCardsContent
- ctgry: [unknown]"]
-    tabComponentCards --> componentCardsContent
-    tabCompareChanges["tabCompareChanges
- ctgry: [unknown]"]
-    componentDetailTabs --> tabCompareChanges
-    compareChangesContent["compareChangesContent
- ctgry: [unknown]"]
-    tabCompareChanges --> compareChangesContent
-    tabPageView["tabPageView
- ctgry: [tab]"]
-    tabsWorkArea --> tabPageView
-    pagePreview["pagePreview
- ctgry: [unknown]"]
-    tabPageView --> pagePreview
-    previewControls["previewControls
- ctgry: [unknown]"]
-    tabPageView --> previewControls
-    refreshPreview["refreshPreview
- ctgry: [unknown]"]
-    previewControls --> refreshPreview
-
-    %% Individual component styling
-    style pageStudio fill:#e1f5fe,stroke:#333,stroke-width:2px;
-    style columnSidebar fill:#f5f5f5,stroke:#333,stroke-width:2px;
-    style selectApp fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style selectPage fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style btnGenPageConfig fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style columnComponents fill:#fafafa,stroke:#333,stroke-width:2px;
-    style gridComponentChoices fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style tabsWorkArea fill:#ffffff,stroke:#333,stroke-width:2px;
-    style tabMermaid fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style chartMermaid fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style tabEventDtl fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style selectedEventTypeId fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style componentDetailTabs fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style tabEventTypeStructure fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style eventTypeStructureContent fill:#f8f9fa,stroke:#333,stroke-width:2px;
-    style tabComponentCards fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style componentCardsContent fill:#f0f4ff,stroke:#333,stroke-width:2px;
-    style tabCompareChanges fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style compareChangesContent fill:#fff7ed,stroke:#333,stroke-width:2px;
-    style tabPageView fill:#fff3e0,stroke:#333,stroke-width:2px;
-    style pagePreview fill:#ffffff,stroke:#333,stroke-width:2px;
-    style previewControls fill:#f8f9fa,stroke:#333,stroke-width:2px;
-    style refreshPreview fill:#fff3e0,stroke:#333,stroke-width:2px;
+    appList["appList<br/>ctgry: [serverquery]"]
+    selectApp --> appList
+    pageList["pageList<br/>ctgry: [serverquery]"]
+    selectPage --> pageList
 
     %% Click handlers for Studio integration
-    click pageStudio href "javascript:window.selectEventTypeTab('pageStudio')"
-    click columnSidebar href "javascript:window.selectEventTypeTab('columnSidebar')"
-    click selectApp href "javascript:window.selectEventTypeTab('selectApp')"
-    click selectPage href "javascript:window.selectEventTypeTab('selectPage')"
-    click btnGenPageConfig href "javascript:window.selectEventTypeTab('btnGenPageConfig')"
-    click columnComponents href "javascript:window.selectEventTypeTab('columnComponents')"
-    click gridComponentChoices href "javascript:window.selectEventTypeTab('gridComponentChoices')"
-    click tabsWorkArea href "javascript:window.selectEventTypeTab('tabsWorkArea')"
-    click tabMermaid href "javascript:window.selectEventTypeTab('tabMermaid')"
-    click chartMermaid href "javascript:window.selectEventTypeTab('chartMermaid')"
-    click tabEventDtl href "javascript:window.selectEventTypeTab('tabEventDtl')"
-    click selectedEventTypeId href "javascript:window.selectEventTypeTab('selectedEventTypeId')"
-    click componentDetailTabs href "javascript:window.selectEventTypeTab('componentDetailTabs')"
-    click tabEventTypeStructure href "javascript:window.selectEventTypeTab('tabEventTypeStructure')"
-    click eventTypeStructureContent href "javascript:window.selectEventTypeTab('eventTypeStructureContent')"
-    click tabComponentCards href "javascript:window.selectEventTypeTab('tabComponentCards')"
-    click componentCardsContent href "javascript:window.selectEventTypeTab('componentCardsContent')"
-    click tabCompareChanges href "javascript:window.selectEventTypeTab('tabCompareChanges')"
-    click compareChangesContent href "javascript:window.selectEventTypeTab('compareChangesContent')"
-    click tabPageView href "javascript:window.selectEventTypeTab('tabPageView')"
-    click pagePreview href "javascript:window.selectEventTypeTab('pagePreview')"
-    click previewControls href "javascript:window.selectEventTypeTab('previewControls')"
-    click refreshPreview href "javascript:window.selectEventTypeTab('refreshPreview')"
+    click studio href "javascript:window.selectEventTypeTab(24)"
+    click pageHierarchy href "javascript:window.selectEventTypeTab(39)"
+    click columnSidebar href "javascript:window.selectEventTypeTab(31)"
+    click newComponent href "javascript:window.selectEventTypeTab(32)"
+    click tabsWorkArea href "javascript:window.selectEventTypeTab(33)"
+    click selectApp href "javascript:window.selectEventTypeTab(35)"
+    click selectPage href "javascript:window.selectEventTypeTab(36)"
+    click btnGenPageConfig href "javascript:window.selectEventTypeTab(37)"
+    click appList href "javascript:window.selectEventTypeTab(34)"
+    click pageList href "javascript:window.selectEventTypeTab(38)"

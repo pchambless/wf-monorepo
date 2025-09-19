@@ -5,266 +5,60 @@
       "id": "columnSidebar",
       "type": "sidebar",
       "container": "column",
-      "position": {"col": {"start": 1, "span": 2}, "row": {"start": 1, "span": 10}},
-      "props": {
-        "title": "App Page Designer",
-        "style": {"backgroundColor": "#f5f5f5", "borderRight": "1px solid #e0e0e0"}
-      },
+      "position": {"row": {"start": 1, "span": 10}, "col": {"start": 1, "span": 2}},
+      "props": {"container": "column"},
       "components": [
         {
           "id": "selectApp",
           "type": "select",
           "container": "inline",
-          "position": {"row": 1, "col": 1},
-          "props": {"title": "App Selector", "style": {"marginBottom": "16px", "width": "100%"}},
-          "workflowTriggers": {
-            "onLoad": [{"action": "studioApiCall('execApps', {})"}],
-            "onChange": [
-              {"action": "setVal('appID', {{this.value}})"},
-              {"action": "refresh(['selectPage'])"},
-              {"action": "clearVals(['pageID', 'eventTypeID'])"}
-            ]
-          }
+          "position": {"row": {"start": 1, "span": 2}, "col": {"start": 1, "span": 2}},
+          "props": {
+            "workflowTriggers": {
+              "onLoad": [{"action": "execEvent(34, {})"}],
+              "onChange": [
+                {"action": "setVal('appID', {{this.value}})"},
+                {"action": "refresh(['selectPage'])"},
+                {"action": "clearVals(['pageID', 'eventTypeID'])"}
+              ]
+            }
+          },
+          "components": []
         },
         {
           "id": "selectPage",
           "type": "select",
           "container": "inline",
-          "position": {"row": 2, "col": 1},
-          "props": {"title": "Page Selector", "style": {}},
-          "workflowTriggers": {
-            "onRefresh": [{"action": "studioApiCall('execPages', [\"getVal('appID')\"])"}],
-            "onChange": [
-              {"action": "setVal('pageID', {{this.value}})"},
-              {"action": "refresh(['chartMermaid'])"},
-              {"action": "clearVals(['eventTypeID'])"}
-            ]
-          }
+          "position": {"row": {"start": 3, "span": 2}, "col": {"start": 1, "span": 2}},
+          "props": {"container": "inline"},
+          "components": []
         },
         {
           "id": "btnGenPageConfig",
           "type": "button",
           "container": "inline",
-          "position": {"row": 3, "col": 1},
-          "props": {
-            "title": "Generate Page Config Button",
-            "style": {"marginTop": "16px", "width": "100%"}
-          },
-          "workflowTriggers": {
-            "onClick": [
-              {
-                "action": "studioApiCall('execGenPageConfig', [\"getVal('appID')\", \"getVal('pageID')\"])"
-              },
-              {"action": "refresh(['chartMermaid', 'tabPageView'])"},
-              {"action": "showNotification", "message": "Page config regenerated!"}
-            ]
-          }
+          "position": {"row": {"start": 4, "span": 2}, "col": {"start": 1, "span": 2}},
+          "props": {"container": "inline"}
         }
       ]
     },
     {
-      "id": "columnComponents",
+      "id": "newComponent",
       "type": "column",
       "container": "column",
-      "position": {"col": {"start": 3, "span": 2}, "row": {"start": 1, "span": 10}},
-      "props": {
-        "title": "Component Choices",
-        "style": {
-          "borderRight": "1px solid #e0e0e0",
-          "backgroundColor": "#fafafa",
-          "padding": "12px"
-        }
-      },
-      "components": [
-        {
-          "id": "gridComponentChoices",
-          "type": "grid",
-          "container": "inline",
-          "position": {"row": 1, "col": 1},
-          "props": {"title": "Available Components", "style": {}},
-          "workflowTriggers": {
-            "onRefresh": ["execEvent:componentTemplates"],
-            "onRowSelect": ["selectTemplate", "showTemplateDetail"]
-          }
-        }
-      ]
+      "position": {"row": {"start": 1, "span": 10}, "col": {"start": 3, "span": 2}},
+      "props": {"container": "column"}
     },
     {
       "id": "tabsWorkArea",
-      "type": "tab",
+      "type": "tabs",
       "container": "tab",
-      "position": {"col": {"start": 5, "span": 6}, "row": {"start": 1, "span": 20}},
-      "props": {"title": "Work Area Tabs", "style": {"backgroundColor": "#ffffff"}},
-      "flex": 1,
-      "components": [
-        {
-          "id": "tabMermaid",
-          "type": "tab",
-          "container": "tab",
-          "position": {"row": 1, "col": 2},
-          "props": {"title": "Mermaid Page", "style": {}},
-          "workflowTriggers": {"onRefresh": ["refresh"]},
-          "components": [
-            {
-              "id": "chartMermaid",
-              "type": "chart",
-              "props": {
-                "title": "Interactive Mermaid Chart",
-                "style": {
-                  "width": "100%",
-                  "height": "500px",
-                  "border": "1px solid #e0e0e0",
-                  "borderRadius": "4px"
-                }
-              },
-              "workflowTriggers": {
-                "onRefresh": [
-                  {
-                    "action": "getMermaidContent({ path: 'apps/wf-studio/src/apps/studio/pages/Studio/pageMermaid.mmd' })"
-                  }
-                ],
-                "onChange": [
-                  {"action": "selectEventTypeTab({ nodeId: '{{this.selected.nodeId}}' })"}
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "id": "tabEventDtl",
-          "type": "tab",
-          "container": "tab",
-          "position": {"row": 1, "col": 3},
-          "props": {"title": "Component Detail", "style": {}},
-          "workflowTriggers": {
-            "onComponentSelected": ["loadComponentCards", "refreshComponentDetail"],
-            "onCardChange": ["saveComponentChanges", "updatePageConfig"]
-          },
-          "components": [
-            {
-              "id": "selectedEventTypeId",
-              "type": "textLine",
-              "container": "inline",
-              "position": {"row": 1, "col": 1},
-              "props": {"style": {}}
-            },
-            {
-              "id": "componentDetailTabs",
-              "type": "tabs",
-              "container": "inline",
-              "position": {"row": 2, "col": 1},
-              "props": {"style": {"marginTop": "20px"}},
-              "components": [
-                {
-                  "id": "tabEventTypeStructure",
-                  "container": "tab",
-                  "props": {"title": "EventType Structure", "style": {}},
-                  "components": [
-                    {
-                      "id": "eventTypeStructureContent",
-                      "type": "text",
-                      "props": {
-                        "style": {
-                          "padding": "20px",
-                          "backgroundColor": "#f8f9fa",
-                          "borderRadius": "4px"
-                        }
-                      }
-                    }
-                  ]
-                },
-                {
-                  "id": "tabComponentCards",
-                  "container": "tab",
-                  "props": {"title": "Component Cards", "style": {}},
-                  "components": [
-                    {
-                      "id": "componentCardsContent",
-                      "type": "text",
-                      "props": {
-                        "style": {
-                          "padding": "20px",
-                          "backgroundColor": "#f0f4ff",
-                          "borderRadius": "4px"
-                        }
-                      }
-                    }
-                  ]
-                },
-                {
-                  "id": "tabCompareChanges",
-                  "container": "tab",
-                  "props": {"title": "Compare Changes", "style": {}},
-                  "components": [
-                    {
-                      "id": "compareChangesContent",
-                      "type": "text",
-                      "props": {
-                        "style": {
-                          "padding": "20px",
-                          "backgroundColor": "#fff7ed",
-                          "borderRadius": "4px"
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "id": "tabPageView",
-          "type": "tab",
-          "container": "tab",
-          "position": {"row": 1, "col": 4},
-          "props": {"title": "Page Rendered", "style": {}},
-          "components": [
-            {
-              "id": "pagePreview",
-              "type": "iframe",
-              "container": "inline",
-              "position": {"row": 1, "col": 1},
-              "props": {
-                "title": "Live Page Preview",
-                "style": {
-                  "width": "100%",
-                  "height": "600px",
-                  "border": "1px solid #e0e0e0",
-                  "borderRadius": "4px",
-                  "backgroundColor": "#ffffff"
-                }
-              }
-            },
-            {
-              "id": "previewControls",
-              "type": "container",
-              "container": "inline",
-              "position": {"row": 2, "col": 1},
-              "props": {
-                "style": {
-                  "marginTop": "10px",
-                  "padding": "10px",
-                  "backgroundColor": "#f8f9fa",
-                  "borderRadius": "4px"
-                }
-              },
-              "components": [
-                {
-                  "id": "refreshPreview",
-                  "type": "button",
-                  "props": {"style": {"marginRight": "10px"}},
-                  "workflowTriggers": {"onClick": ["refreshPagePreview"]}
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      "position": {"row": {"start": 1, "span": 20}, "col": {"start": 5, "span": 6}},
+      "props": {"flex": 1, "container": "tab"}
     }
   ],
-  "title": "Page Design Studio",
+  "title": "studio",
   "routePath": "/studio",
-  "purpose": "Three-column layout: app/page selector + component choices + tabbed work area",
+  "purpose": "Database-generated page configuration",
   "cluster": "Page"
 }

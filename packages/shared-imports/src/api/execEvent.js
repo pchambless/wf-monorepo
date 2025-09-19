@@ -1,9 +1,9 @@
 /**
  * Execute an event type against the API
  */
-export async function execEvent(eventType, params = {}, { baseUrl, logger }) {
+export async function execEvent(xrefId, params = {}, { baseUrl, logger }) {
   try {
-    logger.debug(`Executing event: ${eventType}`, params);
+    logger.debug(`Executing event xrefId: ${xrefId}`, params);
 
     const headers = {
       "Content-Type": "application/json",
@@ -14,7 +14,7 @@ export async function execEvent(eventType, params = {}, { baseUrl, logger }) {
       method: "POST",
       headers,
       credentials: "include", // Important for session cookies
-      body: JSON.stringify({ eventType, params }),
+      body: JSON.stringify({ xrefId, params }),
     });
 
     if (!response.ok) {
@@ -27,7 +27,7 @@ export async function execEvent(eventType, params = {}, { baseUrl, logger }) {
 
     return await response.json();
   } catch (error) {
-    logger.error(`Event Error: ${eventType}`, error);
+    logger.error(`Event Error: xrefId ${xrefId}`, error);
     throw error;
   }
 }

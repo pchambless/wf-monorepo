@@ -331,31 +331,25 @@ async function genPageConfig(req, res) {
   try {
     // Support both GET (query params) and POST (body params) for transition period
     const params = req.query.params ? JSON.parse(req.query.params) : req.body?.params;
-    const { ':appID': appName, ':pageID': pageName } = params || {};
-    
-    if (!appName || !pageName) {
+    const pageID = params?.[':pageID'] || req.query.pageID;
+
+    if (!pageID) {
       return res.status(400).json({
         error: 'MISSING_PARAMETERS',
-        message: 'appID and pageID parameters are required'
+        message: 'pageID parameter is required (numeric xref ID)'
       });
     }
-    
-    logger.debug(`${codeName} Generating pageConfig for ${appName}/${pageName}`);
 
-    // Import and use the server-side genPageConfig utility
-    const { genPageConfig: generatePageConfig } = await import('../utils/genPageConfig.js');
-    
-    const pageConfig = await generatePageConfig(appName, pageName);
+    logger.debug(`${codeName} Generating database-driven pageConfig for page xref ID: ${pageID}`);
+
+    // Import and use the database-driven genPageConfig utility
+    const { genPageConfig: generatePageConfig } = await import('../utils/pageConfig/index.js');
+
+    const result = await generatePageConfig(pageID);
     
     res.json({
       success: true,
-      pageConfig: pageConfig,
-      meta: {
-        app: appName,
-        page: pageName,
-        eventTypesResolved: pageConfig.eventTypeCount,
-        generated: new Date().toISOString()
-      }
+      ...result
     });
 
   } catch (error) {

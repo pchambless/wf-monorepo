@@ -1,110 +1,163 @@
 /**
- * PageConfig Generator - Main orchestrator (clean and focused)
+ * Database-Driven PageConfig Generator - Clean from scratch
  */
 
 import { promises as fs } from 'fs';
 import path from 'path';
 import stringify from 'json-stringify-pretty-compact';
-import { loadEventTypeFromFile } from './astParser.js';
-import { resolveComponentHierarchy } from './hierarchyResolver.js';
-import { cleanPageProperties } from './componentCleaner.js';
-import { validateEventTypeAgainstTemplate, clearTemplateCache } from '../templateRegistry.js';
-import { generateEnhancedMermaidData } from './mermaidGenerator.js';
 import logger from "../logger.js";
 
-const codeName = "[genPageConfig.js]";
+const codeName = "[database-genPageConfig.js]";
 const STUDIO_APPS_PATH = "/home/paul/wf-monorepo-new/apps/wf-studio/src/apps";
 
 /**
- * Format pageConfig JSON with smart compact/multiline decisions
- * @param {Object} pageConfig - The pageConfig object to format
- * @returns {string} Formatted JSON string
+ * Generate mermaid chart from database hierarchy
  */
-function formatPageConfigJson(pageConfig) {
-  return stringify(pageConfig, {
-    maxLength: 100,  // Keep objects on single line if under 100 chars
-    indent: 2        // Use 2-space indentation for multiline
+function generateMermaid(hierarchyData) {
+  const lines = ['graph TD', ''];
+
+  hierarchyData.forEach(item => {
+    const nodeId = item.comp_name;
+    const nodeLabel = `${nodeId}<br/>ctgry: [${item.template.toLowerCase()}]`;
+    lines.push(`    ${nodeId}["${nodeLabel}"]`);
+
+    const parent = hierarchyData.find(p => p.id === item.parent_id);
+    if (parent) {
+      lines.push(`    ${parent.comp_name} --> ${nodeId}`);
+    }
   });
+
+  lines.push('');
+  lines.push('    %% Click handlers for Studio integration');
+  hierarchyData.forEach(item => {
+    lines.push(`    click ${item.comp_name} href "javascript:window.selectEventTypeTab(${item.id})"`);
+  });
+
+  return lines.join('\n');
 }
 
 /**
- * Generate pageConfig by scanning eventType files directly
- * @param {string} appName - App name (e.g. 'studio')
- * @param {string} pageName - Page name (e.g. 'Studio')
- * @returns {Object} Generated pageConfig
+ * Convert flat hierarchy to nested pageConfig
  */
-export async function genPageConfig(appName, pageName) {
-  logger.debug(`${codeName} Generating pageConfig for ${appName}/${pageName}`);
-  
-  // Clear template cache to get fresh templates each time (useful for development)
-  clearTemplateCache();
-  
-  const pageEventTypesPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'eventTypes');
-  
-  // Check if page folder exists
-  try {
-    await fs.access(pageEventTypesPath);
-  } catch {
-    throw new Error(`Page not found: ${appName}/${pageName} at ${pageEventTypesPath}`);
+function buildPageConfig(hierarchyData) {
+  const rootComponent = hierarchyData.find(item => item.level === 0);
+  if (!rootComponent) {
+    throw new Error('No root component found');
   }
-  
-  // Load the root page eventType
-  const pageFilePath = path.join(pageEventTypesPath, 'page', `page${pageName}.js`);
-  const pageEventType = await loadEventTypeFromFile(pageFilePath);
-  logger.debug(`${codeName} Loaded root page eventType: ${pageEventType.eventType}`);
-  
-  // Validate page eventType against its template (if available)
-  if (pageEventType.category) {
-    const validation = await validateEventTypeAgainstTemplate(pageEventType);
-    if (validation.template) {
-      logger.debug(`${codeName} Page validation - Template: ${validation.template}, Cards: [${validation.cards?.join(', ') || 'none'}]`);
-      if (validation.warnings?.length > 0) {
-        logger.warn(`${codeName} Page validation warnings: ${validation.warnings.join(', ')}`);
-      }
-      if (!validation.valid) {
-        logger.error(`${codeName} Page validation errors: ${validation.errors.join(', ')}`);
-      }
+
+  const buildChildren = (parentId, level) => {
+    return hierarchyData
+      .filter(item => item.parent_id === parentId && item.level === level)
+      .filter(item => item.template !== 'ServerQuery') // UI only
+      .map(item => {
+        // Parse posOrder: "01,01;01,02" = rowStart,rowSpan;colStart,colSpan
+        const [rowData, colData] = (item.posOrder || '00,00;00,00').split(';');
+        const [rowStart, rowSpan] = rowData.split(',').map(n => parseInt(n));
+        const [colStart, colSpan] = colData.split(',').map(n => parseInt(n));
+
+        // Parse props safely
+        const props = typeof item.props === 'string' ? JSON.parse(item.props || '{}') : item.props || {};
+
+        return {
+          id: item.comp_name,
+          type: item.template.toLowerCase(),
+          container: props.container || 'inline',
+          position: rowStart > 0 || colStart > 0 ? {
+            row: { start: rowStart, span: rowSpan },
+            col: { start: colStart, span: colSpan }
+          } : {},
+          props,
+          ...(hierarchyData.some(child => child.parent_id === item.id) && {
+            components: buildChildren(item.id, level + 1)
+          })
+        };
+      });
+  };
+
+  const rootProps = typeof rootComponent.props === 'string' ? JSON.parse(rootComponent.props || '{}') : rootComponent.props || {};
+
+  return {
+    layout: "flex",
+    components: buildChildren(rootComponent.id, 1),
+    title: rootProps.title || rootComponent.comp_name,
+    routePath: rootProps.routePath || "/studio",
+    purpose: "Database-generated page configuration",
+    cluster: "Page"
+  };
+}
+
+/**
+ * Generate pageConfig from database using pageID
+ */
+export async function genPageConfig(pageID) {
+  logger.debug(`${codeName} Generating pageConfig for page xref ID: ${pageID}`);
+
+  try {
+    // Execute pageHierarchy ServerQuery (xref 39) with the pageID
+    const { executeQuery } = await import('../dbUtils.js');
+
+    // Get pageHierarchy ServerQuery
+    const fetchSQL = `
+      SELECT CASE WHEN e.name = 'ServerQuery' THEN x.qrySQL ELSE x.props END as querySQL
+      FROM api_wf.eventType_xref x
+      JOIN api_wf.eventType e ON x.eventType_id = e.id
+      WHERE x.id = 39 AND x.active = 1
+    `;
+
+    const serverQuery = await executeQuery(fetchSQL, 'GET');
+    if (!serverQuery || serverQuery.length === 0) {
+      throw new Error('pageHierarchy ServerQuery not found (xref 39)');
     }
-  }
-  
-  // Recursively resolve all component hierarchy
-  const { resolvedEventType, allEventTypes } = await resolveComponentHierarchy(pageEventType, pageEventTypesPath);
-  
-  // Create clean pageConfig for rendering
-  const pageConfig = cleanPageProperties(resolvedEventType);
-  
-  // Generate mermaid chart data for hierarchy visualization
-  const mermaidData = generateEnhancedMermaidData(resolvedEventType, allEventTypes);
-  logger.debug(`${codeName} Generated mermaid chart with ${mermaidData.totalComponents} components, max depth: ${mermaidData.maxDepth}`);
-  
-  // Save pageConfig.json to the page folder with custom formatting
-  const pageConfigPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageConfig.json');
-  try {
-    const formattedJson = formatPageConfigJson(pageConfig);
-    await fs.writeFile(pageConfigPath, formattedJson);
-    logger.debug(`${codeName} Saved pageConfig.json to ${pageConfigPath}`);
+
+    // Execute stored procedure with pageID
+    const storedProcSQL = serverQuery[0].querySQL.replace('?', pageID);
+    const hierarchyResult = await executeQuery(storedProcSQL, 'GET');
+    const hierarchyData = Array.isArray(hierarchyResult) && hierarchyResult.length > 0 ? hierarchyResult[0] : [];
+
+    if (!hierarchyData || hierarchyData.length === 0) {
+      throw new Error(`No hierarchy data found for page ID: ${pageID}`);
+    }
+
+    logger.debug(`${codeName} Loaded ${hierarchyData.length} components from database`);
+
+    // Generate pageConfig and mermaid
+    const pageConfig = buildPageConfig(hierarchyData);
+    const mermaidChart = generateMermaid(hierarchyData);
+
+    // Save files (hardcode Studio path for now)
+    const appName = 'studio';
+    const pageName = 'Studio';
+
+    const pageConfigPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageConfig.json');
+    const mermaidPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageMermaid.mmd');
+
+    try {
+      const formattedJson = stringify(pageConfig, { maxLength: 100, indent: 2 });
+      await fs.writeFile(pageConfigPath, formattedJson);
+      logger.debug(`${codeName} Saved pageConfig.json`);
+    } catch (error) {
+      logger.warn(`${codeName} Could not save pageConfig.json: ${error.message}`);
+    }
+
+    try {
+      await fs.writeFile(mermaidPath, mermaidChart);
+      logger.debug(`${codeName} Saved pageMermaid.mmd`);
+    } catch (error) {
+      logger.warn(`${codeName} Could not save pageMermaid.mmd: ${error.message}`);
+    }
+
+    return {
+      pageConfig,
+      mermaidData: { chart: mermaidChart, totalComponents: hierarchyData.length },
+      meta: {
+        pageID,
+        componentsGenerated: hierarchyData.length,
+        generated: new Date().toISOString()
+      }
+    };
+
   } catch (error) {
-    logger.warn(`${codeName} Could not save pageConfig.json to ${pageConfigPath}: ${error.message}`);
+    logger.error(`${codeName} Error generating pageConfig:`, error);
+    throw error;
   }
-  
-  // Save mermaid chart file alongside pageConfig  
-  const mermaidPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageMermaid.mmd');
-  try {
-    await fs.writeFile(mermaidPath, mermaidData.chart);
-    logger.debug(`${codeName} Saved pageMermaid.mmd to ${mermaidPath}`);
-  } catch (error) {
-    logger.warn(`${codeName} Could not save pageMermaid.mmd to ${mermaidPath}: ${error.message}`);
-  }
-  
-  // Clean up legacy pageMermaid.json if it exists
-  const legacyJsonPath = path.join(STUDIO_APPS_PATH, appName, 'pages', pageName, 'pageMermaid.json');
-  try {
-    await fs.unlink(legacyJsonPath);
-    logger.debug(`${codeName} Removed legacy pageMermaid.json`);
-  } catch (error) {
-    // File doesn't exist - that's fine
-  }
-  
-  logger.debug(`${codeName} Generated clean pageConfig with ${pageConfig.components.length} rendering components`);
-  return { pageConfig, mermaidData };
 }

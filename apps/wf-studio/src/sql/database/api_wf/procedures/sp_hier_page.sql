@@ -9,7 +9,6 @@ BEGIN
             parent_id,
             comp_name,
             template,
-            template_cluster,
             position,
             props,
             parent_title,
@@ -17,6 +16,7 @@ BEGIN
             tmplt_def,
             app_id,
             eventType_id,
+            posOrder, 
             0 as level,
             CAST(id AS CHAR(100)) id_path
         FROM api_wf.vw_hier_components
@@ -30,7 +30,6 @@ BEGIN
             v.parent_id,
             v.comp_name,
             v.template,
-            v.template_cluster,
             v.position,
             v.props,
             v.parent_title,
@@ -38,8 +37,9 @@ BEGIN
             v.tmplt_def,
             v.app_id,
             v.eventType_id,
+            v.posOrder, 
             p.level + 1,
-           CONCAT(p.id, ',', v.id) id_path
+           CONCAT(p.id_path, ',', v.id) id_path
         FROM api_wf.vw_hier_components v
         JOIN page_hier p ON v.parent_id = p.id
         WHERE p.level < 10  -- Prevent infinite recursion
@@ -49,11 +49,11 @@ BEGIN
         parent_id,
         comp_name,
         template,
-        template_cluster,
         position,
         props,
+        posOrder, 
         level,
         id_path
     FROM page_hier
-    order by id_path;
+     ORDER BY level, parent_id, posOrder, id;
 END

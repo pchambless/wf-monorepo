@@ -1,20 +1,21 @@
 import express from "express";
 import execEventType from "../controller/execEventType.js";
+import fetchEventType from "../controller/fetchEventType.js";
 import execDML from "../controller/execDML.js";
 import execCreateDoc from "../controller/execCreateDoc.js";
 import getDoc from "../controller/getDoc.js";
-import { fetchStudioEventTypes } from "../controller/fetchStudioEventTypes.js";
-import { discoverApps, discoverPages, discoverTemplates, discoverStructure, discoverEventTypes, genPageConfig } from "../controller/studioDiscovery/index.js";
+import { genPageConfig } from "../controller/studioDiscovery/index.js";
 import writeFileDirectly from "../controller/writeFileDirectly.js";
 import initializeController from "../controller/initialize.js";
 import listRoutesController from "../controller/listRegisteredRoutes.js";
 import restartServerController from "../controller/restartServer.js";
-import { fetchEventTypes } from "../controller/fetchEventTypes.js";
-import { fetchQueryEvents } from "../controller/fetchQueryEvents.js";
-import { fetchParams } from "../controller/fetchParams.js";
+// Removed obsolete imports:
+// - fetchEventTypes (file-based)
+// - fetchQueryEvents (file-based)
+// - fetchParams (file-based)
 import { genFields } from "../controller/genFields.js";
 import userLogin from "../controller/userLogin.js";
-import eventTypeManager from "../utils/eventTypeManager.js";
+// Removed: eventTypeManager - no longer needed with database-driven system
 import logger from "../utils/logger.js";
 
 const codeName = `[registerRoutes.js]`;
@@ -33,18 +34,19 @@ const registerRoutes = (app) => {
 
   // Register all routes using the helper function
   registerRoute("post", "/api/execEventType", execEventType);
+  registerRoute("get", "/api/eventType/:xrefId", fetchEventType);
   registerRoute("post", "/api/execDML", execDML);
   registerRoute("post", "/api/execCreateDoc", execCreateDoc);
   registerRoute("get", "/api/getDoc", getDoc);
-  registerRoute("get", "/api/server/queries", fetchQueryEvents);
+  // Removed: /api/server/queries - obsolete with database-driven eventTypes
   registerRoute("post", "/api/studio/genFields", genFields);
   
-  // Studio Discovery APIs
-  registerRoute("get", "/api/studio/apps", discoverApps);
-  registerRoute("get", "/api/studio/pages", discoverPages);
-  registerRoute("get", "/api/studio/templates", discoverTemplates);
-  registerRoute("get", "/api/studio/structure", discoverStructure);
-  registerRoute("get", "/api/studio/eventTypes", discoverEventTypes);
+  // Removed Studio Discovery APIs - replaced with database queries:
+  // - /api/studio/apps -> SELECT FROM api_wf.app
+  // - /api/studio/pages -> SELECT FROM eventType_xref WHERE eventType=page
+  // - /api/studio/templates -> SELECT FROM api_wf.eventType
+  // - /api/studio/structure -> use vw_hier_components
+  // - /api/studio/eventTypes -> use vw_hier_components
   registerRoute("get", "/api/studio/genPageConfig", genPageConfig);
   registerRoute("post", "/api/writeFileDirectly", writeFileDirectly);
   registerRoute("post", "/api/initialize", initializeController.initialize);
@@ -57,14 +59,10 @@ const registerRoutes = (app) => {
     "/api/util/restart-server",
     restartServerController.restartServer
   );
-  registerRoute("get", "/api/util/fetchEventTypes", fetchEventTypes);
-  registerRoute("post", "/api/eventType/params", fetchParams);
+  // Removed: /api/util/fetchEventTypes - obsolete with database-driven eventTypes
+  // Removed: /api/eventType/params - use GET /api/eventType/:xrefId instead
   registerRoute("post", "/api/auth/login", userLogin);
-  registerRoute("get", "/api/util/event-types-status", (req, res) => {
-    logger.debug(`${codeName} Fetching event types cache status`);
-    const status = eventTypeManager.getCacheStatus();
-    res.json(status);
-  });
+  // Removed: /api/util/event-types-status - no longer needed with database-driven system
 
   // Log registered routes
   logger.info(`${codeName} Routes registered:`, routes);
