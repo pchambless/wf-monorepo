@@ -28,7 +28,7 @@ const fetchEventType = async (req, res) => {
         posOrder,
         props,
         tmplt_def
-      FROM vw_hier_components
+      FROM api_wf.vw_hier_components
       WHERE id = ?
     `;
 

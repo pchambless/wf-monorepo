@@ -1,8 +1,8 @@
 graph TD
 
     studio["studio<br/>ctgry: [page]"]
-    pageHierarchy["pageHierarchy<br/>ctgry: [serverquery]"]
-    studio --> pageHierarchy
+    pageConfigHier["pageConfigHier<br/>ctgry: [serverquery]"]
+    studio --> pageConfigHier
     columnSidebar["columnSidebar<br/>ctgry: [sidebar]"]
     studio --> columnSidebar
     newComponent["newComponent<br/>ctgry: [column]"]
@@ -22,7 +22,7 @@ graph TD
 
     %% Click handlers for Studio integration
     click studio href "javascript:window.selectEventTypeTab(24)"
-    click pageHierarchy href "javascript:window.selectEventTypeTab(39)"
+    click pageConfigHier href "javascript:window.selectEventTypeTab(39)"
     click columnSidebar href "javascript:window.selectEventTypeTab(31)"
     click newComponent href "javascript:window.selectEventTypeTab(32)"
     click tabsWorkArea href "javascript:window.selectEventTypeTab(33)"

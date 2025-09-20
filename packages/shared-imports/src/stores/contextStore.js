@@ -1,13 +1,16 @@
-// contextStore.js - Dynamic contextual parameter persistence based on eventTypes
+// contextStore.js - Database-driven contextual parameter persistence
 import { makeAutoObservable } from "mobx";
 import React from "react";
 import { createLogger } from "@whatsfresh/shared-imports";
-// REMOVED: Server eventType imports - contextStore is now a simple key-value store
-// Hierarchical clearing logic moved to WorkflowEngine where it belongs
-// import { getEventType } from "../../../../apps/wf-server/server/events/client/eventTypes.js";
+import { execEvent } from "../api/execEvent.js";
+// Database-driven context using SharedQueries: setVal(46), getVal(47), clearVals(48)
 
 const log = createLogger("ContextStore");
-const STORAGE_KEY = "whatsfresh_context_state";
+
+// SharedQueries xrefIds for context operations
+const SET_VAL_XREF = 46;
+const GET_VAL_XREF = 47;
+const CLEAR_VALS_XREF = 48;
 
 // Create context for React components
 export const ContextContext = React.createContext(null);
@@ -21,77 +24,120 @@ class ContextStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.loadPersistedContext();
+    this.initializeContext();
   }
 
-  // Load contextual parameters from localStorage
-  loadPersistedContext() {
+  // Initialize context - database-driven, no localStorage
+  initializeContext() {
+    // Context is now loaded on-demand from database
+    // No need to preload - getVal will fetch from database as needed
+    log.debug("Database-driven context initialized");
+  }
+
+  // Get user info for database operations
+  get userInfo() {
+    return {
+      email: this.parameters.userEmail || 'unknown@email.com',
+      firstName: this.parameters.firstName || 'Unknown'
+    };
+  }
+
+  // Set a parameter value - database-driven
+  async setVal(paramName, value) {
     try {
-      const savedContext = localStorage.getItem(STORAGE_KEY);
-      if (savedContext) {
-        this.parameters = JSON.parse(savedContext);
-        // Clear sessionValid flag on load - require explicit login
-        this.parameters.sessionValid = null;
-        log.debug(
-          "Restored context state (sessionValid cleared)",
-          this.parameters
-        );
+      const oldValue = this.parameters[paramName];
+      const { email, firstName } = this.userInfo;
+
+      // Store in database via setVal SharedQuery
+      await execEvent(SET_VAL_XREF, {
+        email,
+        paramName,
+        paramVal: value,
+        firstName
+      });
+
+      // Update local cache for immediate UI response
+      this.parameters[paramName] = value;
+      log.debug("Context parameter set in database", { [paramName]: value });
+
+      // Notify subscribers if value changed
+      if (oldValue !== value && this.subscribers[paramName]) {
+        this.subscribers[paramName].forEach((callback) => {
+          try {
+            callback(value, oldValue);
+          } catch (error) {
+            log.error("Error in parameter change callback", { paramName, error });
+          }
+        });
       }
     } catch (error) {
-      log.error("Failed to load persisted context", error);
+      log.error("Failed to set context parameter", { paramName, value, error });
+      throw error;
     }
   }
 
-  // Save contextual parameters to localStorage
-  persistContext() {
+  // Get a parameter value - database-driven, returns tuple for queryResolver compatibility
+  async getVal(paramName) {
     try {
-      // Only save non-null values to reduce storage size
-      const nonNullParams = Object.entries(this.parameters)
-        .filter(([_, value]) => value !== null)
-        .reduce((acc, [key, value]) => {
-          acc[key] = value;
-          return acc;
-        }, {});
+      // Check local cache first for performance
+      if (this.parameters[paramName] !== undefined) {
+        const value = this.parameters[paramName];
+        return value !== null ? [`:${paramName}`, value] : null;
+      }
 
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(nonNullParams));
-      log.debug("Persisted context state", nonNullParams);
+      // Fetch from database via getVal SharedQuery
+      const { email } = this.userInfo;
+      const result = await execEvent(GET_VAL_XREF, {
+        email,
+        paramName
+      });
+
+      if (result && result[0]?.tuple) {
+        // Parse tuple format "{:paramName,paramVal}"
+        const tuple = result[0].tuple;
+        const match = tuple.match(/\{:([^,]+),(.+)\}/);
+        if (match) {
+          const [, key, value] = match;
+          // Cache locally for future calls
+          this.parameters[paramName] = value;
+          return [`:${key}`, value];
+        }
+      }
+
+      return null;
     } catch (error) {
-      log.error("Failed to persist context", error);
+      log.error("Failed to get context parameter", { paramName, error });
+      // Fallback to local cache
+      const value = this.parameters[paramName];
+      return value !== undefined ? [`:${paramName}`, value] : null;
     }
   }
 
-  // Set a parameter value when user makes a selection
-  setVal(paramName, value) {
-    const oldValue = this.parameters[paramName];
-    this.parameters[paramName] = value;
-    this.persistContext();
-    log.debug("Context parameter set", { [paramName]: value });
+  // Clear multiple parameters - database-driven
+  async clearVals(...paramNames) {
+    try {
+      const { email, firstName } = this.userInfo;
 
-    // Notify subscribers if value changed
-    if (oldValue !== value && this.subscribers[paramName]) {
-      this.subscribers[paramName].forEach((callback) => {
-        try {
-          callback(value, oldValue);
-        } catch (error) {
-          log.error("Error in parameter change callback", { paramName, error });
-        }
+      // Clear in database via clearVals SharedQuery
+      await execEvent(CLEAR_VALS_XREF, {
+        email,
+        firstName,
+        paramNames
+      });
+
+      // Clear local cache
+      paramNames.forEach(name => {
+        this.parameters[name] = null;
+      });
+
+      log.debug("Cleared parameters in database", { paramNames });
+    } catch (error) {
+      log.error("Failed to clear context parameters", { paramNames, error });
+      // Still clear local cache on error
+      paramNames.forEach(name => {
+        this.parameters[name] = null;
       });
     }
-  }
-
-  // Get a parameter value - returns tuple for queryResolver compatibility
-  getVal(paramName) {
-    const value = this.parameters[paramName];
-    return value !== undefined ? [`:${paramName}`, value] : null;
-  }
-
-  // Clear multiple parameters (variable arguments)
-  clearVals(...paramNames) {
-    paramNames.forEach(name => {
-      this.parameters[name] = null;
-    });
-    this.persistContext();
-    log.debug("Cleared parameters", { paramNames });
   }
 
   // DELETED: Complex eventType-aware methods moved to WorkflowEngine
@@ -101,8 +147,9 @@ class ContextStore {
   // Clear all contextual parameters
   clearAllContext() {
     this.parameters = {};
-    localStorage.removeItem(STORAGE_KEY);
-    log.debug("All context parameters cleared");
+    log.debug("All context parameters cleared from cache");
+    // Note: Database clearing would require separate implementation
+    // or calling clearVals with all known parameter names
   }
 
   // Get all parameters

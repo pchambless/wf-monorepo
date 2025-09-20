@@ -11,8 +11,7 @@ SELECT
 FROM
   whatsfresh.v_ingr_btch_dtl a
 WHERE
-  a.acct_id = 1
-  AND a.purch_date > NOW() - INTERVAL 365 DAY
+  a.purch_date > NOW() - INTERVAL 365 DAY
   AND a.purch_meas <> '-'
 GROUP BY
   a.ingr_name,
