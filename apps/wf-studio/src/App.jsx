@@ -55,11 +55,23 @@ const App = () => {
     <Router>
       <Routes>
         {/* Studio route - full screen, no SimpleLayout */}
-        <Route 
+        <Route
           path="/studio"
           element={
             <Suspense fallback={<div>Loading Studio...</div>}>
               <StudioPage mode="studio" />
+            </Suspense>
+          }
+        />
+
+        {/* Login route - test database-driven rendering */}
+        <Route
+          path="/login"
+          element={
+            <Suspense fallback={<div>Loading Login...</div>}>
+              <div style={{ padding: "20px" }}>
+                {React.createElement(lazy(() => import("./pages/Login")))}
+              </div>
             </Suspense>
           }
         />

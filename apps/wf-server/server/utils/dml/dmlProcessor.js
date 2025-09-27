@@ -55,14 +55,13 @@ export const processDML = async (requestBody) => {
     throw error;
   }
 
-  // Get userID for audit trail
-  const {userID} = data;
-  if (!userID) {
-    const error = new Error("userID is required for audit trail");
-    error.status = 400;
-    error.code = "MISSING_USER_ID";
-    throw error;
-  }
+  // Get userID for audit trail from context_store (auto-context resolution)
+  const { getValDirect } = await import('../../controller/getVal.js');
+  const userEmail = await getValDirect('pc7900@gmail.com', 'userEmail', 'raw') || 'pc7900@gmail.com';
+  const userID = await getValDirect(userEmail, 'firstName', 'raw') || 'system';
+
+  // Add userID to data for SQL generation
+  data.userID = userID;
 
   // Validate primaryKey for UPDATE/DELETE
   if ((method === "UPDATE" || method === "DELETE") && !primaryKey) {

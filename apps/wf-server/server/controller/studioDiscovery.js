@@ -329,14 +329,15 @@ async function discoverEventTypes(req, res) {
  */
 async function genPageConfig(req, res) {
   try {
-    // Support both GET (query params) and POST (body params) for transition period
-    const params = req.query.params ? JSON.parse(req.query.params) : req.body?.params;
-    const pageID = params?.[':pageID'] || req.query.pageID;
+    // Get pageID from context_store (auto-context resolution like execEventType)
+    const { getValDirect } = await import('./getVal.js');
+    const userEmail = await getValDirect('pc7900@gmail.com', 'userEmail', 'raw') || 'pc7900@gmail.com';
+    const pageID = await getValDirect(userEmail, 'pageID', 'raw');
 
     if (!pageID) {
       return res.status(400).json({
-        error: 'MISSING_PARAMETERS',
-        message: 'pageID parameter is required (numeric xref ID)'
+        error: 'MISSING_PAGE_ID',
+        message: 'pageID not found in context_store. Set pageID using setVals first.'
       });
     }
 

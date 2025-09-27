@@ -1,0 +1,71 @@
+{
+  "layout": "flex",
+  "components": [
+    {
+      "id": "LoginForm",
+      "type": "form",
+      "container": "inline",
+      "position": {"row": {"start": 1, "span": 1}, "col": {"start": 1, "span": 1}},
+      "props": {
+        "title": "Login to WhatsFresh",
+        "fields": [
+          {
+            "name": "userEmail",
+            "type": "email",
+            "label": "Email Address",
+            "required": true,
+            "placeholder": "Enter your email"
+          },
+          {
+            "name": "enteredPassword",
+            "type": "password",
+            "label": "Password",
+            "required": true,
+            "placeholder": "Enter your password"
+          }
+        ],
+        "layout": "vertical"
+      },
+      "components": [
+        {
+          "id": "loginSubmit",
+          "type": "button",
+          "container": "inline",
+          "position": {"row": {"start": 2, "span": 1}, "col": {"start": 1, "span": 1}},
+          "props": {
+            "label": "Login",
+            "workflowTriggers": {
+              "onSubmit": [
+                {
+                  "action": "httpPost",
+                  "ordr": 1,
+                  "content": "{\"url\": \"/api/auth/login\", \"body\": {\"userEmail\": \"{{form.userEmail.value}}\", \"password\": \"{{form.enteredPassword.value}}\"}}"
+                }
+              ],
+              "onSuccess": [{"action": "showComponent", "ordr": 2, "content": "selectLoginApp"}]
+            }
+          }
+        },
+        {
+          "id": "selectLoginApp",
+          "type": "select",
+          "container": "inline",
+          "position": {"row": {"start": 3, "span": 1}, "col": {"start": 1, "span": 1}},
+          "props": {
+            "workflowTriggers": {
+              "onChange": [
+                {"action": "setVals", "ordr": 1, "content": "appID,{{this.value}}"},
+                {"action": "setVals", "ordr": 1, "content": "appName,{{selected.app_name}}"},
+                {"action": "navigate", "ordr": 2, "content": "{{selected.routePath}}"}
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "title": "loginPage",
+  "routePath": "/studio",
+  "purpose": "Database-generated page configuration",
+  "cluster": "Page"
+}

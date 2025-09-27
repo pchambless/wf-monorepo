@@ -1,97 +1,98 @@
 import { executeQuery } from '../utils/dbUtils.js';
 import { createRequestBody } from '../utils/queryResolver.js';
+import { getValDirect } from './getVal.js';
 import logger from '../utils/logger.js';
 
 const codeName = `[execEventType.js]`;
 
 /**
- * Execute eventType from database by xref ID
- * Database-driven replacement for file-based system
+ * Execute SQL query from eventSQL table by eventSQL ID
+ * Database-driven query execution using eventSQL architecture
  */
 const execEventType = async (req, res) => {
   logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
-  const { xrefId, params } = req.body;
+  const { eventSQLId, params } = req.body;
 
-  if (!xrefId) {
+  if (!eventSQLId) {
     return res.status(400).json({
-      error: 'MISSING_XREF_ID',
-      message: 'xrefId is required'
+      error: 'MISSING_EVENTSQL_ID',
+      message: 'eventSQLId is required'
     });
   }
 
   try {
-    // Hardcoded query to fetch eventType from database
+    // Fetch SQL query from eventSQL table
     const fetchSQL = `
-      SELECT
-        x.name as comp_name,
-        e.name as template_name,
-        CASE
-          WHEN e.name = 'ServerQuery' THEN x.qrySQL
-          ELSE x.props
-        END as querySQL,
-        x.props
-      FROM api_wf.eventType_xref x
-      JOIN api_wf.eventType e ON x.eventType_id = e.id
-      WHERE x.id = ? AND x.active = 1
+      SELECT qryName, qrySQL, description
+      FROM api_wf.eventSQL
+      WHERE id = ? AND active = 1
     `;
 
-    logger.debug(`${codeName} Fetching eventType with xrefId: ${xrefId}`);
+    logger.debug(`${codeName} Fetching eventSQL with ID: ${eventSQLId}`);
 
-    // Execute hardcoded query to get the eventType
-    const fetchResult = await executeQuery(fetchSQL.replace('?', xrefId), 'GET');
+    // Execute query to get the SQL from eventSQL table
+    const fetchResult = await executeQuery(fetchSQL.replace('?', eventSQLId), 'GET');
 
     if (!fetchResult || fetchResult.length === 0) {
       return res.status(404).json({
-        error: 'EVENTTYPE_NOT_FOUND',
-        message: `No active eventType found with xrefId: ${xrefId}`
+        error: 'EVENTSQL_NOT_FOUND',
+        message: `No active eventSQL found with ID: ${eventSQLId}`
       });
     }
 
-    const eventTypeData = fetchResult[0];
-    const { comp_name, template_name, querySQL } = eventTypeData;
+    const eventSQLData = fetchResult[0];
+    const { qryName, qrySQL } = eventSQLData;
 
-    // Only execute if it's a ServerQuery (has SQL)
-    if (template_name !== 'ServerQuery') {
-      return res.status(400).json({
-        error: 'NOT_EXECUTABLE',
-        message: `EventType '${comp_name}' is not executable (template: ${template_name})`
-      });
+    logger.debug(`${codeName} Found eventSQL: ${qryName}`);
+
+    // Auto-resolve context parameters
+    let finalSQL = qrySQL;
+    const paramMatches = finalSQL.match(/:([a-zA-Z_][a-zA-Z0-9_]*)/g);
+
+    if (paramMatches) {
+      const userEmail = params?.email || 'pc7900@gmail.com';
+
+      for (const paramMatch of paramMatches) {
+        const paramName = paramMatch.substring(1);
+
+        try {
+          const resolvedValue = await getValDirect(userEmail, paramName, 'sql');
+          if (resolvedValue !== null) {
+            finalSQL = finalSQL.replace(new RegExp(`:${paramName}`, 'g'), resolvedValue);
+            logger.debug(`${codeName} Resolved :${paramName} → ${resolvedValue}`);
+          } else {
+            logger.warn(`${codeName} No context value found for parameter: ${paramName}`);
+          }
+        } catch (error) {
+          logger.error(`${codeName} Error resolving parameter ${paramName}:`, error);
+        }
+      }
     }
 
-    logger.debug(`${codeName} Found ServerQuery: ${comp_name}`);
-
-    // Replace parameters in SQL (for stored procedure: pageID parameter)
-    let finalSQL = querySQL;
-    if (params) {
-      Object.entries(params).forEach(([key, value]) => {
-        finalSQL = finalSQL.replace(new RegExp(`\\?|:${key}`, 'g'), value);
-      });
-    }
 
     logger.debug(`${codeName} Executing SQL: ${finalSQL}`);
 
     // Execute the query using GET method
     const result = await executeQuery(finalSQL, 'GET');
 
-    logger.info(`${codeName} EventType executed successfully: ${comp_name} (xrefId: ${xrefId})`);
+    logger.info(`${codeName} EventSQL executed successfully: ${qryName} (ID: ${eventSQLId})`);
 
     res.json({
-      eventType: comp_name,
-      template: template_name,
-      xrefId: xrefId,
+      qryName: qryName,
+      eventSQLId: eventSQLId,
       data: result
     });
 
   } catch (error) {
-    logger.error(`${codeName} EventType execution failed for xrefId ${xrefId}:`, error);
+    logger.error(`${codeName} EventSQL execution failed for ID ${eventSQLId}:`, error);
 
     const status = error.status || 500;
 
     res.status(status).json({
-      error: error.code || 'EVENTTYPE_EXECUTION_FAILED',
+      error: error.code || 'EVENTSQL_EXECUTION_FAILED',
       message: error.message,
-      xrefId: xrefId
+      eventSQLId: eventSQLId
     });
   }
 };

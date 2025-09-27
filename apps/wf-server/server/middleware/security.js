@@ -46,6 +46,8 @@ export const corsOptions = {
   origin: [
     "http://localhost:3000", // wf-client app
     "http://localhost:3004", // wf-studio app (Studio)
+    "http://localhost:3006", // wf-adming app (Admin)
+    "http://localhost:3005", // wf-login app
     "http://localhost:1420", // wf-order-management app (Studio)
     "https://crisp-sharply-mutt.ngrok-free.app",
     "https://wf.new.whatsfresh.app",

@@ -1,0 +1,18 @@
+graph TD
+
+    wf-login["wf-login<br/>ctgry: [app]"]
+    loginPage["loginPage<br/>ctgry: [page]"]
+    wf-login --> loginPage
+    LoginForm["LoginForm<br/>ctgry: [form]"]
+    loginPage --> LoginForm
+    loginSubmit["loginSubmit<br/>ctgry: [button]"]
+    LoginForm --> loginSubmit
+    selectLoginApp["selectLoginApp<br/>ctgry: [select]"]
+    LoginForm --> selectLoginApp
+
+    %% Click handlers for Studio integration
+    click wf-login href "javascript:window.selectEventTypeTab(41)"
+    click loginPage href "javascript:window.selectEventTypeTab(49)"
+    click LoginForm href "javascript:window.selectEventTypeTab(43)"
+    click loginSubmit href "javascript:window.selectEventTypeTab(42)"
+    click selectLoginApp href "javascript:window.selectEventTypeTab(44)"

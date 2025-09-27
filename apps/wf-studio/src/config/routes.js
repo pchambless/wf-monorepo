@@ -8,5 +8,10 @@ export const ROUTES = {
     path: "/studio",
     component: "Studio",
     title: "EventType Designer"
+  },
+  login: {
+    path: "/login",
+    component: "Login",
+    title: "Database-driven Login"
   }
 };

@@ -4,7 +4,7 @@ import fetchEventType from "../controller/fetchEventType.js";
 import execDML from "../controller/execDML.js";
 import execCreateDoc from "../controller/execCreateDoc.js";
 import getDoc from "../controller/getDoc.js";
-import { genPageConfig } from "../controller/studioDiscovery/index.js";
+import genPageConfigController from "../controller/genPageConfigController.js";
 import writeFileDirectly from "../controller/writeFileDirectly.js";
 import initializeController from "../controller/initialize.js";
 import listRoutesController from "../controller/listRegisteredRoutes.js";
@@ -15,6 +15,9 @@ import restartServerController from "../controller/restartServer.js";
 // - fetchParams (file-based)
 import { genFields } from "../controller/genFields.js";
 import userLogin from "../controller/userLogin.js";
+import getVal from "../controller/getVal.js";
+import setVals from "../controller/setVals.js";
+import clearVals from "../controller/clearVals.js";
 // Removed: eventTypeManager - no longer needed with database-driven system
 import logger from "../utils/logger.js";
 
@@ -40,14 +43,20 @@ const registerRoutes = (app) => {
   registerRoute("get", "/api/getDoc", getDoc);
   // Removed: /api/server/queries - obsolete with database-driven eventTypes
   registerRoute("post", "/api/studio/genFields", genFields);
-  
+
+  // Context operations
+  registerRoute("get", "/api/getVal", getVal);
+  registerRoute("post", "/api/setVals", setVals);
+  registerRoute("post", "/api/clearVals", clearVals);
+
   // Removed Studio Discovery APIs - replaced with database queries:
   // - /api/studio/apps -> SELECT FROM api_wf.app
   // - /api/studio/pages -> SELECT FROM eventType_xref WHERE eventType=page
   // - /api/studio/templates -> SELECT FROM api_wf.eventType
   // - /api/studio/structure -> use vw_hier_components
   // - /api/studio/eventTypes -> use vw_hier_components
-  registerRoute("get", "/api/studio/genPageConfig", genPageConfig);
+  registerRoute("get", "/api/studio/genPageConfig", genPageConfigController);
+  registerRoute("post", "/api/genPageConfig", genPageConfigController);
   registerRoute("post", "/api/writeFileDirectly", writeFileDirectly);
   registerRoute("post", "/api/initialize", initializeController.initialize);
   registerRoute("get", "/api/util/list-routes", (req, res) => {
