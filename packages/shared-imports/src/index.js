@@ -79,16 +79,20 @@ export {
 // } from "../../../apps/wf-server/server/events/index.js";
 
 // === API UTILITIES ===
-export { 
-  execEvent, 
-  createApi, 
+export {
+  execEvent,
+  createApi,
   api,
   execApps,
   execPages,
   execDml,
   execCreateDoc,
   fetchStudioEventTypes,
-  fetchParams
+  fetchParams,
+  setVals,
+  getVal,
+  clearVals,
+  userLogin
 } from "./api/index.js";
 
 // === WORKFLOW UTILITIES ===

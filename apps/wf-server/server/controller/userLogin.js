@@ -34,18 +34,18 @@ async function login(req, res) {
         // Get login event from shared-events
         const loginEvent = getEventType('userLogin');
 
-        // Create SQL with parameters - including both email and password
-        const { qrySQL } = loginEvent;
-        const params = {
-            userEmail,
-            enteredPassword: password  // Pass the password as a parameter
-        };
-        const qryMod = createRequestBody(qrySQL, params);
+        // Simple direct SQL query - bypass broken queryResolver for now
+        const directSQL = `
+            SELECT *
+            FROM api_wf.userList
+            WHERE userEmail = '${userEmail}'
+        `;
 
-        // Execute query 
-        const users = await executeQuery(qryMod, 'GET');
+        // Execute query
+        const users = await executeQuery(directSQL, 'GET');
 
         if (!users || users.length === 0) {
+            logger.info(`${codeName} User not found: ${userEmail}`);
             return res.status(401).json({
                 success: false,
                 message: 'Invalid credentials'
@@ -53,10 +53,23 @@ async function login(req, res) {
         }
 
         const user = users[0];
-        const {enteredPassword} = user; // Get from query results
+        const enteredPassword = password; // Use password from request body
+
+        logger.debug(`${codeName} User found`, {
+            userEmail: user.userEmail,
+            hasPassword: !!user.password,
+            passwordPrefix: user.password ? user.password.substring(0, 4) : 'none',
+            availableFields: Object.keys(user)
+        });
+
+        // Handle bcrypt version compatibility ($2y$ -> $2b$)
+        let hashToCompare = user.password;
+        if (hashToCompare.startsWith('$2y$')) {
+            hashToCompare = hashToCompare.replace('$2y$', '$2b$');
+        }
 
         // Verify bcrypt password
-        const passwordMatches = await bcrypt.compare(enteredPassword, user.password);
+        const passwordMatches = await bcrypt.compare(enteredPassword, hashToCompare);
 
         logger.debug(`${codeName} Password verification result`, {
             userEmail,
@@ -82,8 +95,10 @@ async function login(req, res) {
             user: {
                 id: user.userID,
                 email: user.userEmail,
-                name: `${user.firstName} ${user.lastName}`,
-                role: user.roleID
+                firstName: user.firstName || user.userEmail.split('@')[0], // fallback to email prefix
+                name: user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : user.userEmail,
+                role: user.roleID,
+                dfltAcctID: user.dfltAcctID || user.userID // fallback to userID
             }
         };
 

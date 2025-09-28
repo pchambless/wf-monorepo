@@ -8,10 +8,10 @@ export const userLogin = {
   navChildren: ["dashboard"],
   method: "GET",
   qrySQL: `
-      SELECT *, :enteredPassword
+      SELECT *
       FROM api_wf.userList
       WHERE userEmail = :userEmail
     `,
-  params: [":userEmail", ":enteredPassword"],
+  params: [":userEmail"],
   purpose: "Authenticate user login"
 };

@@ -90,6 +90,19 @@ async function buildPageConfig(hierarchyData, userEmail = 'pc7900@gmail.com') {
         const props = item.enhancedProps ||
           (typeof item.props === 'string' ? JSON.parse(item.props || '{}') : item.props || {});
 
+        // Parse and merge styles: base_styles first, then override_styles
+        let mergedStyles = null;
+        try {
+          const baseStyles = item.base_styles ? JSON.parse(item.base_styles) : {};
+          const overrideStyles = item.override_styles ? JSON.parse(item.override_styles) : {};
+
+          if (Object.keys(baseStyles).length > 0 || Object.keys(overrideStyles).length > 0) {
+            mergedStyles = { ...baseStyles, ...overrideStyles };
+          }
+        } catch (error) {
+          logger.error(`${codeName} Error parsing styles for ${item.comp_name}:`, error);
+        }
+
         const component = {
           id: item.comp_name,
           type: item.template.toLowerCase(),
@@ -99,6 +112,7 @@ async function buildPageConfig(hierarchyData, userEmail = 'pc7900@gmail.com') {
             col: { start: colStart, span: colSpan }
           } : {},
           props,
+          ...(mergedStyles && { style: mergedStyles }),
           ...(hierarchyData.some(child => child.parent_id === item.id) && {
             components: buildChildren(item.id, level + 1)
           })

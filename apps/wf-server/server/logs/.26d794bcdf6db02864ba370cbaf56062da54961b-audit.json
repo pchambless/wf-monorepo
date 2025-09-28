@@ -6,11 +6,6 @@
     "auditLog": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/.26d794bcdf6db02864ba370cbaf56062da54961b-audit.json",
     "files": [
         {
-            "date": 1757767576327,
-            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/performance-2025-09-13.log",
-            "hash": "c50393765c8df1a346b512de0939bdaf78bdfddeb59dabf8d66c749312c4b53d"
-        },
-        {
             "date": 1757847820863,
             "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/performance-2025-09-14.log",
             "hash": "f95df34dc6959ef8ac56ba6a1a4c6dd89614c69c6e4ec86a9e6d0d7f92d044c2"
@@ -74,6 +69,11 @@
             "date": 1758969917781,
             "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/performance-2025-09-27.log",
             "hash": "d0a6884a2b12a5b96f3d00e4331b381360c221b8c7fb1645b22a82a74a74c71c"
+        },
+        {
+            "date": 1759037880920,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/performance-2025-09-28.log",
+            "hash": "28582b46b28ba06216fe1b716b9504ff01cdb9af3bcc5a88fee8998b3e30388f"
         }
     ],
     "hashType": "sha256"

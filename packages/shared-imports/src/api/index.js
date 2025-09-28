@@ -12,6 +12,10 @@ import { fetchStudioEventTypes as fetchStudioEventTypesFn } from './fetchStudioE
 import { execApps as execAppsFn } from './execApps.js';
 import { execPages as execPagesFn } from './execPages.js';
 import { fetchQueryEvents as fetchQueryEventsFn } from './fetchQueryEvents.js';
+import { setVals as setValsFn } from './setVals.js';
+import { getVal as getValFn } from './getVal.js';
+import { clearVals as clearValsFn } from './clearVals.js';
+import { userLogin as userLoginFn } from './userLogin.js';
 
 /**
  * Default API configuration
@@ -61,8 +65,20 @@ export function createApi(options = {}) {
   const boundExecPages = (appName) => 
     execPagesFn(appName, config);
 
-  const boundFetchQueryEvents = (app) => 
+  const boundFetchQueryEvents = (app) =>
     fetchQueryEventsFn(app, config);
+
+  const boundSetVals = (values) =>
+    setValsFn(values, config);
+
+  const boundGetVal = (paramName, format) =>
+    getValFn(paramName, format, config);
+
+  const boundClearVals = (paramNames) =>
+    clearValsFn(paramNames, config);
+
+  const boundUserLogin = (loginData) =>
+    userLoginFn(loginData, config);
 
   return {
     execEvent: boundExecEvent,
@@ -74,6 +90,10 @@ export function createApi(options = {}) {
     execApps: boundExecApps,
     execPages: boundExecPages,
     fetchQueryEvents: boundFetchQueryEvents,
+    setVals: boundSetVals,
+    getVal: boundGetVal,
+    clearVals: boundClearVals,
+    userLogin: boundUserLogin,
   };
 }
 
@@ -94,4 +114,8 @@ export const {
   fetchParams,
   execApps,
   execPages,
+  setVals,
+  getVal,
+  clearVals,
+  userLogin,
 } = api;

@@ -8,22 +8,21 @@
 
 import { useContextStore } from '@whatsfresh/shared-imports';
 
-// Import all workflow methods
-// database
-import { execEvent } from './triggers/data/database/execEvent.js';
+// class Triggers
+import { onLoad } from './triggers/class/onLoad.js';
+import { onRefresh } from './triggers/class/onRefresh.js';
 // studio - all replaced with studioApiCall except getMermaidContent
 // import { execApps, execPages, execEventTypes, execTemplates, execGenPageConfig } from './triggers/data/studio/'; // Obsolete - using studioApiCall
-import { getMermaidContent } from './triggers/data/studio/getMermaidContent.js';
-// ui
-import { selectEventTypeTab } from './triggers/ui/studio/selectEventTypeTab.js';
-// atomic - keeping only what's still needed
-import { refresh } from './triggers/atomic/onRefresh.js';
-import { clearVals } from './triggers/atomic/clearVals.js';
-import { setVal } from './triggers/atomic/setVal.js';
-import { getVal } from './triggers/atomic/getVal.js';
-import { saveRecord } from './triggers/atomic/saveRecord.js';
-import { showNotification } from './triggers/atomic/showNotification.js';
-import { onLoad } from './triggers/atomic/onLoad.js';
+
+// action Triggers
+import { execEvent } from './triggers/action/execEvent.js';
+import { getMermaidContent } from './triggers/action/getMermaidContent.js';
+import { refresh } from './triggers/action/refresh.js';
+import { clearVals } from './triggers/action/clearVals.js';
+import { setVals } from './triggers/action/setVals.js';
+import { getVal } from './triggers/action/getVal.js';
+import { showNotification } from './triggers/action/showNotification.js';
+
 import { ExecFunction } from './execFunction.js';
 
 

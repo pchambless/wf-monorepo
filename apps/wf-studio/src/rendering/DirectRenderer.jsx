@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+import { triggerEngine } from './WorkflowEngine/TriggerEngine.js';
 
 const DirectRenderer = ({ config }) => {
   if (!config) {
@@ -91,7 +92,12 @@ const DirectRenderer = ({ config }) => {
               if (trigger.action === 'httpPost') {
                 try {
                   const triggerContent = JSON.parse(trigger.content);
-                  const { url, body } = triggerContent;
+                  let { url, body } = triggerContent;
+
+                  // Convert relative URLs to server URLs
+                  if (url.startsWith('/api/')) {
+                    url = 'http://localhost:3001' + url;
+                  }
 
                   // Replace template variables in body
                   const requestBody = {};
@@ -123,15 +129,23 @@ const DirectRenderer = ({ config }) => {
 
                   if (result.success) {
                     console.log('✅ Login successful!');
-                    // Handle onSuccess triggers
+                    // Execute onSuccess triggers via TriggerEngine
                     if (workflowTriggers.onSuccess) {
-                      workflowTriggers.onSuccess.forEach(successTrigger => {
-                        console.log('🎉 Success trigger:', successTrigger);
-                        if (successTrigger.action === 'showComponent') {
-                          console.log(`👁️ Would show component: ${successTrigger.content}`);
-                          // TODO: Implement component visibility control
-                        }
-                      });
+                      console.log('🚀 Executing onSuccess triggers via TriggerEngine');
+                      const context = {
+                        response: result,
+                        form: formData
+                      };
+
+                      // Convert to database trigger format and execute
+                      const dbTriggers = workflowTriggers.onSuccess.map((trigger, index) => ({
+                        class: 'onSuccess',
+                        action: trigger.action,
+                        content: trigger.content,
+                        ordr: trigger.ordr || index
+                      }));
+
+                      triggerEngine.executeTriggers(dbTriggers, context);
                     }
                   } else {
                     console.error('❌ Login failed:', result.message);
