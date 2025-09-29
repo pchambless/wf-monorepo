@@ -5,7 +5,6 @@ import execDML from "../controller/execDML.js";
 import execCreateDoc from "../controller/execCreateDoc.js";
 import getDoc from "../controller/getDoc.js";
 import genPageConfigController from "../controller/genPageConfigController.js";
-import writeFileDirectly from "../controller/writeFileDirectly.js";
 import initializeController from "../controller/initialize.js";
 import listRoutesController from "../controller/listRegisteredRoutes.js";
 import restartServerController from "../controller/restartServer.js";
@@ -57,7 +56,6 @@ const registerRoutes = (app) => {
   // - /api/studio/eventTypes -> use vw_hier_components
   registerRoute("get", "/api/studio/genPageConfig", genPageConfigController);
   registerRoute("post", "/api/genPageConfig", genPageConfigController);
-  registerRoute("post", "/api/writeFileDirectly", writeFileDirectly);
   registerRoute("post", "/api/initialize", initializeController.initialize);
   registerRoute("get", "/api/util/list-routes", (req, res) => {
     logger.debug(`${codeName} Entering /util/list-routes`);
