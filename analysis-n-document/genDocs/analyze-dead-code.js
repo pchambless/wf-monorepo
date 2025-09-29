@@ -8,7 +8,6 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
-import { getAppDirectory } from '../config/appNames.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.join(__dirname, '../..');
@@ -43,12 +42,13 @@ function enhanceMadgeData(rawData) {
 
   // Helper functions
   const getPackage = (file) => {
-    const clientDir = getAppDirectory('client');
-    const serverDir = getAppDirectory('server');
-
-    if (file.startsWith(`apps/${clientDir}/`)) return clientDir;
-    if (file.startsWith(`apps/${serverDir}/`)) return serverDir;
+    if (file.startsWith('apps/wf-client/')) return 'wf-client';
+    if (file.startsWith('apps/wf-server/')) return 'wf-server';
+    if (file.startsWith('apps/wf-admin/')) return 'wf-admin';
+    if (file.startsWith('apps/wf-studio/')) return 'wf-studio';
+    if (file.startsWith('apps/wf-login/')) return 'wf-login';
     if (file.startsWith('packages/shared-imports/')) return 'shared-imports';
+    if (file.startsWith('packages/db-connect/')) return 'db-connect';
     return 'other';
   };
 
@@ -91,12 +91,14 @@ function enhanceMadgeData(rawData) {
     package_breakdown: {}
   };
 
-  // Initialize package breakdown with dynamic names
-  const clientDir = getAppDirectory('client');
-  const serverDir = getAppDirectory('server');
-  enhanced.package_breakdown[clientDir] = 0;
-  enhanced.package_breakdown[serverDir] = 0;
+  // Initialize package breakdown
+  enhanced.package_breakdown['wf-client'] = 0;
+  enhanced.package_breakdown['wf-server'] = 0;
+  enhanced.package_breakdown['wf-admin'] = 0;
+  enhanced.package_breakdown['wf-studio'] = 0;
+  enhanced.package_breakdown['wf-login'] = 0;
   enhanced.package_breakdown['shared-imports'] = 0;
+  enhanced.package_breakdown['db-connect'] = 0;
   enhanced.package_breakdown['other'] = 0;
 
   // Analyze each file
@@ -125,7 +127,7 @@ function enhanceMadgeData(rawData) {
         fileAnalysis.ai_notes.push("Test file - safe to remove if unused");
       } else if (file.includes('config')) {
         fileAnalysis.ai_notes.push("Config file - verify not used at runtime");
-      } else if (pkg === getAppDirectory('client') && file.includes('/pages/')) {
+      } else if (pkg === 'wf-client' && file.includes('/pages/')) {
         fileAnalysis.ai_notes.push("Page component - check if used by routing");
       }
     }

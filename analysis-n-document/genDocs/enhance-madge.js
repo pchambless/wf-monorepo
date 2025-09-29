@@ -7,7 +7,6 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getAppDirectory } from '../config/appNames.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -29,18 +28,13 @@ Object.keys(rawData).forEach(file => {
 
 // Helper functions
 const getPackage = (file) => {
-  const clientDir = getAppDirectory('client');
-  const serverDir = getAppDirectory('server');
-
-  if (file.startsWith(`apps/${clientDir}/`)) {
-    return clientDir;
-  }
-  if (file.startsWith(`apps/${serverDir}/`)) {
-    return serverDir;
-  }
-  if (file.startsWith('packages/shared-imports/')) {
-    return 'shared-imports';
-  }
+  if (file.startsWith('apps/wf-client/')) return 'wf-client';
+  if (file.startsWith('apps/wf-server/')) return 'wf-server';
+  if (file.startsWith('apps/wf-admin/')) return 'wf-admin';
+  if (file.startsWith('apps/wf-studio/')) return 'wf-studio';
+  if (file.startsWith('apps/wf-login/')) return 'wf-login';
+  if (file.startsWith('packages/shared-imports/')) return 'shared-imports';
+  if (file.startsWith('packages/db-connect/')) return 'db-connect';
   return 'other';
 };
 

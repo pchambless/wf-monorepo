@@ -950,15 +950,10 @@
   "packages/shared-imports/src/api/getVal.js": [],
   "packages/shared-imports/src/api/index.js": [
     "packages/shared-imports/src/api/clearVals.js",
-    "packages/shared-imports/src/api/execApps.js",
     "packages/shared-imports/src/api/execCreateDoc.js",
     "packages/shared-imports/src/api/execDml.js",
     "packages/shared-imports/src/api/execDmlWithRefresh.js",
     "packages/shared-imports/src/api/execEvent.js",
-    "packages/shared-imports/src/api/execPages.js",
-    "packages/shared-imports/src/api/fetchParams.js",
-    "packages/shared-imports/src/api/fetchQueryEvents.js",
-    "packages/shared-imports/src/api/fetchStudioEventTypes.js",
     "packages/shared-imports/src/api/getVal.js",
     "packages/shared-imports/src/api/setVals.js",
     "packages/shared-imports/src/api/userLogin.js"
@@ -999,9 +994,6 @@
   ],
   "packages/shared-imports/src/components/common/ErrorBoundary.jsx": [],
   "packages/shared-imports/src/components/common/Logo/index.jsx": [],
-  "packages/shared-imports/src/components/common/ProtectedRoute.js": [],
-  "packages/shared-imports/src/components/common/Registration.js": [],
-  "packages/shared-imports/src/components/dml/SQLPreviewContent.js": [],
   "packages/shared-imports/src/components/forms/BooleanField.jsx": [],
   "packages/shared-imports/src/components/forms/DateField.jsx": [],
   "packages/shared-imports/src/components/forms/DatePick.jsx": [],
@@ -1038,7 +1030,6 @@
     "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx"
   ],
   "packages/shared-imports/src/components/layouts/SimpleLayout.jsx": [],
-  "packages/shared-imports/src/components/modals/ErrorModal.js": [],
   "packages/shared-imports/src/components/modals/Modal.jsx": [
     "packages/shared-imports/src/components/modals/modalStore.js"
   ],
@@ -1062,8 +1053,7 @@
   "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx": [],
   "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx": [
     "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx",
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx",
-    "packages/shared-imports/src/components/selectors/SelAcct.js"
+    "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx"
   ],
   "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx": [],
   "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx": [],
@@ -1072,56 +1062,6 @@
     "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx"
   ],
   "packages/shared-imports/src/components/navigation/cc-PageHeader/Breadcrumbs.jsx": [],
-  "packages/shared-imports/src/components/selectors/SelAcct.js": [],
-  "packages/shared-imports/src/components/selectors/SelBrnd.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/components/selectors/SelIngr.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/components/selectors/SelMeas.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/components/selectors/SelPlan.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx",
-    "packages/shared-imports/src/stores/contextStore.js"
-  ],
-  "packages/shared-imports/src/components/selectors/SelProd.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/components/selectors/SelUserAcct.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/components/selectors/SelVndr.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/components/selectors/SelWrkr.js": [],
-  "packages/shared-imports/src/components/selectors/SelWrkr.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/components/selectors/SelectWidget.jsx": [
-    "packages/shared-imports/src/api/index.js",
-    "packages/shared-imports/src/stores/contextStore.js"
-  ],
-  "packages/shared-imports/src/components/selectors/createSelectWidget.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/components/selectors/index.js": [
-    "packages/shared-imports/src/components/selectors/SelBrnd.jsx",
-    "packages/shared-imports/src/components/selectors/SelIngr.jsx",
-    "packages/shared-imports/src/components/selectors/SelMeas.jsx",
-    "packages/shared-imports/src/components/selectors/SelPlan.jsx",
-    "packages/shared-imports/src/components/selectors/SelProd.jsx",
-    "packages/shared-imports/src/components/selectors/SelUserAcct.jsx",
-    "packages/shared-imports/src/components/selectors/SelVndr.jsx",
-    "packages/shared-imports/src/components/selectors/SelWrkr.jsx",
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx",
-    "packages/shared-imports/src/components/selectors/createSelectWidget.jsx"
-  ],
-  "packages/shared-imports/src/config/appNames.js": [],
-  "packages/shared-imports/src/contexts/PlanContext.jsx": [
-    "packages/shared-imports/src/stores/contextStore.js"
-  ],
   "packages/shared-imports/src/createDocs/docTypes.js": [],
   "packages/shared-imports/src/createDocs/index.js": [
     "packages/shared-imports/src/createDocs/docTypes.js",
@@ -1137,54 +1077,9 @@
   ],
   "packages/shared-imports/src/createDocs/templates/planTemplate.js": [],
   "packages/shared-imports/src/createDocs/templates/requirementsTemplate.js": [],
-  "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js": [
-    "packages/shared-imports/src/impact-tracking/types.js",
-    "packages/shared-imports/src/utils/logger.js"
-  ],
-  "packages/shared-imports/src/impact-tracking/FileSystemMonitor.js": [],
-  "packages/shared-imports/src/impact-tracking/ImpactProcessor.js": [
-    "packages/shared-imports/src/utils/logger.js"
-  ],
-  "packages/shared-imports/src/impact-tracking/ImpactTracker.js": [],
-  "packages/shared-imports/src/impact-tracking/ImpactTrackingService.js": [
-    "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js",
-    "packages/shared-imports/src/impact-tracking/ImpactProcessor.js",
-    "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js",
-    "packages/shared-imports/src/utils/logger.js"
-  ],
-  "packages/shared-imports/src/impact-tracking/PlanContextAnalyzer.js": [
-    "packages/shared-imports/src/impact-tracking/types.js",
-    "packages/shared-imports/src/utils/logger.js"
-  ],
-  "packages/shared-imports/src/impact-tracking/genConfig.js": [],
-  "packages/shared-imports/src/impact-tracking/index.js": [],
-  "packages/shared-imports/src/impact-tracking/types.js": [],
-  "packages/shared-imports/src/imports.js": [
-    "packages/shared-imports/src/paths.js"
-  ],
   "packages/shared-imports/src/index.js": [
     "packages/shared-imports/src/api/index.js",
-    "packages/shared-imports/src/stores/index.js",
     "packages/shared-imports/src/utils/logger.js"
-  ],
-  "packages/shared-imports/src/jsx.js": [
-    "packages/shared-imports/src/components/PageRenderer/index.jsx",
-    "packages/shared-imports/src/components/forms/DatePick.jsx",
-    "packages/shared-imports/src/components/forms/TextArea.jsx",
-    "packages/shared-imports/src/components/forms/index.js",
-    "packages/shared-imports/src/contexts/PlanContext.jsx"
-  ],
-  "packages/shared-imports/src/paths.js": [],
-  "packages/shared-imports/src/services/documentService.js": [
-    "packages/shared-imports/src/api/index.js",
-    "packages/shared-imports/src/stores/contextStore.js"
-  ],
-  "packages/shared-imports/src/services/impactService.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/services/index.js": [
-    "packages/shared-imports/src/services/documentService.js",
-    "packages/shared-imports/src/services/impactService.js"
   ],
   "packages/shared-imports/src/stores/contextStore.js": [
     "packages/shared-imports/src/api/execEvent.js"
@@ -1192,10 +1087,7 @@
   "packages/shared-imports/src/stores/index.js": [
     "packages/shared-imports/src/stores/contextStore.js"
   ],
-  "packages/shared-imports/src/stores/userStore.js": [],
   "packages/shared-imports/src/utils/configLoader.js": [],
-  "packages/shared-imports/src/utils/coordinationSystem.js": [],
-  "packages/shared-imports/src/utils/dml/operations.js": [],
   "packages/shared-imports/src/utils/documentMetadata.js": [],
   "packages/shared-imports/src/utils/eventTypeDiscovery.js": [],
   "packages/shared-imports/src/utils/fileOperations.js": [
@@ -1232,9 +1124,6 @@
   ],
   "packages/shared-imports/src/utils/fileOperations/security.js": [
     "packages/shared-imports/src/utils/logger.js"
-  ],
-  "packages/shared-imports/src/utils/fileOperations/simple-test.js": [
-    "packages/shared-imports/src/utils/fileOperations.js"
   ],
   "packages/shared-imports/src/utils/fileOperations/validation.js": [
     "packages/shared-imports/src/utils/logger.js"

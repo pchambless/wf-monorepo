@@ -5,10 +5,6 @@
       "path": "."
     },
     {
-      "name": "📱 Docs",
-      "path": "./Docs"
-    },
-    {
       "name": "📱 Admin",
       "path": "./apps/wf-admin"
     },
@@ -17,8 +13,16 @@
       "path": "./apps/wf-client"
     },
     {
+      "name": "🔐 Login",
+      "path": "./apps/wf-login"
+    },
+    {
       "name": "🖥️ Server",
       "path": "./apps/wf-server"
+    },
+    {
+      "name": "🎨 Studio",
+      "path": "./apps/wf-studio"
     },
     {
       "name": "📦 DB Connect",
@@ -29,16 +33,8 @@
       "path": "./packages/shared-imports"
     },
     {
-      "name": "📦 DevTools",
-      "path": "./packages/devtools"
-    },
-    {
-      "name": "📦 Views - Client",
-      "path": "./sql/views/client"
-    },
-    {
-      "name": "📦 Views - Admin",
-      "path": "./sql/views/admin"
+      "name": "🗄️ WhatsFresh SQL",
+      "path": "./apps/wf-studio/src/sql"
     }
   ],
   "settings": {
