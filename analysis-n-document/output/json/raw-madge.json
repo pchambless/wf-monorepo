@@ -1,4 +1,21 @@
 {
+  ".claude/routing/AgentDirector.js": [
+    ".claude/routing/AgentRouter.js"
+  ],
+  ".claude/routing/AgentRouter.js": [
+    ".claude/routing/RegistryBuilder.js"
+  ],
+  ".claude/routing/RegistryBuilder.js": [],
+  ".claude/routing/test-agent-system.js": [
+    ".claude/routing/AgentRouter.js"
+  ],
+  ".claude/routing/test-director.js": [
+    ".claude/routing/AgentDirector.js"
+  ],
+  ".claude/routing/test-enhanced-director.js": [
+    ".claude/routing/AgentDirector.js"
+  ],
+  ".claude/workflows/routeAnalysis.js": [],
   ".dependency-cruiser.js": [],
   ".kiro/0019/specs/code-references.js": [],
   ".kiro/workflows/createRoadmap.js": [],
@@ -7,19 +24,36 @@
   ],
   ".vscode/extensions/task-router/extension.js": [],
   ".vscode/extensions/task-router/types.ts": [],
-  "analysis-n-document/genDocs/analyze-config-flows.js": [],
-  "analysis-n-document/genDocs/analyze-dead-code.js": [],
-  "analysis-n-document/genDocs/analyze-integration-flows.js": [],
-  "analysis-n-document/genDocs/enhance-madge.js": [],
-  "analysis-n-document/genDocs/genEventTypes.js": [
-    "analysis-n-document/genDocs/utils/genGraphArtifacts.js"
+  "analysis-n-document/config/appNames.js": [],
+  "analysis-n-document/genDocs/analyze-config-flows.js": [
+    "analysis-n-document/config/appNames.js"
   ],
+  "analysis-n-document/genDocs/analyze-dead-code.js": [
+    "analysis-n-document/config/appNames.js"
+  ],
+  "analysis-n-document/genDocs/analyze-integration-flows.js": [
+    "analysis-n-document/config/appNames.js"
+  ],
+  "analysis-n-document/genDocs/enhance-madge.js": [
+    "analysis-n-document/config/appNames.js"
+  ],
+  "analysis-n-document/genDocs/genAppMapping.js": [
+    "analysis-n-document/config/appNames.js",
+    "analysis-n-document/genDocs/utils/parseEventType.js",
+    "analysis-n-document/genDocs/utils/toMermaid.js"
+  ],
+  "analysis-n-document/genDocs/genEventTypes.js": [],
   "analysis-n-document/genDocs/utils/genGraphArtifacts.js": [
     "analysis-n-document/genDocs/utils/paths.js",
     "analysis-n-document/genDocs/utils/toDot.js",
     "analysis-n-document/genDocs/utils/toMermaid.js"
   ],
-  "analysis-n-document/genDocs/utils/paths.js": [],
+  "analysis-n-document/genDocs/utils/parseEventType.js": [
+    "analysis-n-document/config/appNames.js"
+  ],
+  "analysis-n-document/genDocs/utils/paths.js": [
+    "analysis-n-document/config/appNames.js"
+  ],
   "analysis-n-document/genDocs/utils/toDot.js": [],
   "analysis-n-document/genDocs/utils/toMermaid.js": [],
   "analysis-n-document/genDocs/utils/types.js": [],
@@ -40,23 +74,19 @@
   "analysis-n-document/genOps/analyzeEvents/shared/relationshipDetector.js": [],
   "analysis-n-document/genOps/analyzeEvents/shared/schemaValidator.js": [],
   "analysis-n-document/genOps/analyzeEvents/testFormAnalyzer.js": [],
-  "analysis-n-document/genOps/analyzeSchemas/shared/addFieldAttributes.js": [],
   "analysis-n-document/genOps/analyzeSchemas/shared/baseForeignKeyMapper.js": [
     "analysis-n-document/genOps/configDirectives.js"
   ],
   "analysis-n-document/genOps/analyzeSchemas/shared/genSchemas.js": [
-    "analysis-n-document/genOps/analyzeSchemas/shared/addFieldAttributes.js",
-    "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js",
-    "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js",
-    "analysis-n-document/genOps/analyzeSchemas/shared/writeSchema.js"
+    "apps/wf-studio/src/utils/addFieldAttributes.js",
+    "apps/wf-studio/src/utils/normalizeSQL.js",
+    "apps/wf-studio/src/utils/parseTableSchema.js",
+    "apps/wf-studio/src/utils/writeSchema.js"
   ],
-  "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js": [],
-  "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js": [],
   "analysis-n-document/genOps/analyzeSchemas/shared/parseTablesInDir.js": [
-    "analysis-n-document/genOps/analyzeSchemas/shared/normalizeSQL.js",
-    "analysis-n-document/genOps/analyzeSchemas/shared/parseTableSchema.js"
+    "apps/wf-studio/src/utils/normalizeSQL.js",
+    "apps/wf-studio/src/utils/parseTableSchema.js"
   ],
-  "analysis-n-document/genOps/analyzeSchemas/shared/writeSchema.js": [],
   "analysis-n-document/genOps/configDB.js": [],
   "analysis-n-document/genOps/configDirectives.js": [],
   "analysis-n-document/genOps/configForeignKeys.js": [],
@@ -78,20 +108,6 @@
     "analysis-n-document/genOps/analyzeEvents/shared/combinedAnalyzer.js",
     "analysis-n-document/genOps/templates/shared/handlebarsProcessor.js"
   ],
-  "analysis-n-document/genOps/workflows/output/plans/formPlan-display.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/formPlan-workflow.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/formPlanComm-display.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/formPlanComm-workflow.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-display.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/formPlanImpact-workflow.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-display.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/gridPlanComms-workflow.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-display.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/gridPlanImpacts-workflow.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/gridPlans-display.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/gridPlans-workflow.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-display.js": [],
-  "analysis-n-document/genOps/workflows/output/plans/selectPlanStatus-workflow.js": [],
   "apps/wf-admin/craco.config.js": [],
   "apps/wf-admin/src/App.jsx": [
     "apps/wf-admin/src/pages/acctList/index.js",
@@ -202,21 +218,6 @@
     "apps/wf-client/src/pages/measList/pageMap.js"
   ],
   "apps/wf-client/src/pages/measList/pageMap.js": [],
-  "apps/wf-client/src/pages/plan-management/components/SelStatusWidget.jsx": [],
-  "apps/wf-client/src/pages/plan-management/index.jsx": [
-    "apps/wf-client/src/pages/plan-management/components/SelStatusWidget.jsx",
-    "apps/wf-client/src/pages/plan-management/utils/errorHandler.js",
-    "apps/wf-client/src/pages/plan-management/workflowMap.js"
-  ],
-  "apps/wf-client/src/pages/plan-management/tabMaps/communications.js": [],
-  "apps/wf-client/src/pages/plan-management/tabMaps/impacts.js": [],
-  "apps/wf-client/src/pages/plan-management/tabMaps/plan-detail.js": [],
-  "apps/wf-client/src/pages/plan-management/utils/errorHandler.js": [],
-  "apps/wf-client/src/pages/plan-management/workflowMap.js": [
-    "apps/wf-client/src/pages/plan-management/tabMaps/communications.js",
-    "apps/wf-client/src/pages/plan-management/tabMaps/impacts.js",
-    "apps/wf-client/src/pages/plan-management/tabMaps/plan-detail.js"
-  ],
   "apps/wf-client/src/pages/prodBtchList/index.jsx": [
     "apps/wf-client/src/pages/prodBtchList/pageMap.js"
   ],
@@ -291,68 +292,78 @@
   "apps/wf-client/tests/migrations/helpers.js": [],
   "apps/wf-client/tests/setup.js": [],
   "apps/wf-client/unimported.config.js": [],
+  "apps/wf-login/src/App.jsx": [
+    "apps/wf-login/src/pages/LoginPage.jsx"
+  ],
+  "apps/wf-login/src/index.js": [
+    "apps/wf-login/src/App.jsx"
+  ],
+  "apps/wf-login/src/pages/LoginPage.jsx": [],
   "apps/wf-plan-management/craco.config.js": [],
   "apps/wf-plan-management/src/App.jsx": [
     "apps/wf-plan-management/src/components/SimpleLayout.jsx",
     "apps/wf-plan-management/src/config/navigation.js",
-    "apps/wf-plan-management/src/config/routes.js",
-    "apps/wf-plan-management/src/pages/Dashboard.jsx",
-    "apps/wf-plan-management/src/pages/SketchPad.jsx",
-    "apps/wf-plan-management/src/studio/StudioApp.jsx"
+    "apps/wf-plan-management/src/config/routes.js"
   ],
   "apps/wf-plan-management/src/components/ConfigGrid.jsx": [],
-  "apps/wf-plan-management/src/components/SimpleLayout.jsx": [
-    "apps/wf-plan-management/src/studio/CanvasSidebar.jsx",
-    "apps/wf-plan-management/src/studio/StudioSidebar.jsx"
+  "apps/wf-plan-management/src/components/EventOrchestrator.jsx": [
+    "apps/wf-plan-management/src/components/PageRenderer.jsx"
   ],
+  "apps/wf-plan-management/src/components/PageRenderer.jsx": [
+    "apps/wf-plan-management/src/styles/components/FormComponent.css",
+    "apps/wf-plan-management/src/styles/components/GenericRenderer.css",
+    "apps/wf-plan-management/src/styles/components/GridComponent.css",
+    "apps/wf-plan-management/src/styles/components/PageLayout.css",
+    "apps/wf-plan-management/src/styles/components/TabComponent.css",
+    "apps/wf-plan-management/src/styles/components/TabsContainer.css"
+  ],
+  "apps/wf-plan-management/src/components/SimpleLayout.jsx": [],
   "apps/wf-plan-management/src/config/navigation.js": [],
-  "apps/wf-plan-management/src/config/routes.js": [
-    "apps/wf-plan-management/src/pages/SketchPad.jsx",
-    "apps/wf-plan-management/src/studio/StudioApp.jsx"
-  ],
-  "apps/wf-plan-management/src/index.css": [],
+  "apps/wf-plan-management/src/config/routes.js": [],
+  "apps/wf-plan-management/src/config/selectVals.js": [],
+  "apps/wf-plan-management/src/config/selectValsData.js": [],
   "apps/wf-plan-management/src/index.js": [
     "apps/wf-plan-management/src/App.jsx",
-    "apps/wf-plan-management/src/index.css"
+    "apps/wf-plan-management/src/styles/global.css"
   ],
-  "apps/wf-plan-management/src/pages/Dashboard.jsx": [],
-  "apps/wf-plan-management/src/pages/Reports.jsx": [],
-  "apps/wf-plan-management/src/pages/SketchPad.jsx": [],
-  "apps/wf-plan-management/src/studio/CanvasItem.jsx": [],
-  "apps/wf-plan-management/src/studio/CanvasSidebar.jsx": [
-    "apps/wf-plan-management/src/studio/StudioHierarchy.jsx",
-    "apps/wf-plan-management/src/studio/eventTypeComponents.js"
-  ],
-  "apps/wf-plan-management/src/studio/StudioApp.jsx": [
-    "apps/wf-plan-management/src/studio/WidgetCanvas.jsx",
-    "apps/wf-plan-management/src/studio/eventTypeToStudio.js",
-    "apps/wf-plan-management/src/studio/studio.css",
-    "apps/wf-plan-management/src/studio/useCanvasState.js"
-  ],
-  "apps/wf-plan-management/src/studio/StudioHierarchy.jsx": [],
-  "apps/wf-plan-management/src/studio/StudioLayout.jsx": [
-    "apps/wf-plan-management/src/studio/CanvasSidebar.jsx",
-    "apps/wf-plan-management/src/studio/StudioSidebar.jsx"
-  ],
-  "apps/wf-plan-management/src/studio/StudioSidebar.jsx": [
-    "apps/wf-plan-management/src/studio/TreeView.jsx"
-  ],
-  "apps/wf-plan-management/src/studio/TreeView.jsx": [],
-  "apps/wf-plan-management/src/studio/WidgetCanvas.jsx": [
-    "apps/wf-plan-management/src/studio/CanvasItem.jsx"
-  ],
-  "apps/wf-plan-management/src/studio/eventTypeComponents.js": [],
-  "apps/wf-plan-management/src/studio/eventTypeToStudio.js": [],
-  "apps/wf-plan-management/src/studio/studio.css": [],
-  "apps/wf-plan-management/src/studio/useCanvasState.js": [],
+  "apps/wf-plan-management/src/layouts/appbar.js": [],
+  "apps/wf-plan-management/src/layouts/sidebar.js": [],
+  "apps/wf-plan-management/src/styles/components/FormComponent.css": [],
+  "apps/wf-plan-management/src/styles/components/GenericRenderer.css": [],
+  "apps/wf-plan-management/src/styles/components/GridComponent.css": [],
+  "apps/wf-plan-management/src/styles/components/PageLayout.css": [],
+  "apps/wf-plan-management/src/styles/components/TabComponent.css": [],
+  "apps/wf-plan-management/src/styles/components/TabsContainer.css": [],
+  "apps/wf-plan-management/src/styles/global.css": [],
   "apps/wf-plan-management/src/utils/eventTypeIntegration.js": [],
   "apps/wf-plan-management/src/utils/impactTracking.js": [],
+  "apps/wf-plan-management/src/workflows/planManager/core/createRecord.js": [],
+  "apps/wf-plan-management/src/workflows/planManager/core/execEvent.js": [],
+  "apps/wf-plan-management/src/workflows/planManager/core/refreshContext.js": [],
+  "apps/wf-plan-management/src/workflows/planManager/core/updateRecord.js": [],
+  "apps/wf-plan-management/src/workflows/planManager/core/validateAccess.js": [],
+  "apps/wf-plan-management/src/workflows/planManager/createCommunication.js": [],
+  "apps/wf-plan-management/src/workflows/planManager/createPlanImpact.js": [],
+  "apps/wf-plan-management/src/workflows/planManager/index.js": [
+    "apps/wf-plan-management/src/workflows/planManager/core/createRecord.js",
+    "apps/wf-plan-management/src/workflows/planManager/core/execEvent.js",
+    "apps/wf-plan-management/src/workflows/planManager/core/refreshContext.js",
+    "apps/wf-plan-management/src/workflows/planManager/core/updateRecord.js",
+    "apps/wf-plan-management/src/workflows/planManager/core/validateAccess.js",
+    "apps/wf-plan-management/src/workflows/planManager/createCommunication.js",
+    "apps/wf-plan-management/src/workflows/planManager/createPlanImpact.js"
+  ],
   "apps/wf-server/postcss.config.js": [],
   "apps/wf-server/server/app.js": [
     "apps/wf-server/server/controller/execEventType.js",
     "apps/wf-server/server/controller/userLogin.js",
     "apps/wf-server/server/middleware/errorHandler.js",
     "apps/wf-server/server/middleware/security.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/clearVals.js": [
+    "apps/wf-server/server/controller/getVal.js",
+    "apps/wf-server/server/controller/setVals.js",
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/controller/execCreateDoc.js": [
@@ -364,16 +375,32 @@
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/controller/execEventType.js": [
-    "apps/wf-server/server/utils/executeEventType.js",
+    "apps/wf-server/server/controller/getVal.js",
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/queryResolver.js"
+  ],
+  "apps/wf-server/server/controller/fetchEventType.js": [
+    "apps/wf-server/server/utils/dbUtils.js",
     "apps/wf-server/server/utils/logger.js"
   ],
-  "apps/wf-server/server/controller/fetchEventTypes.js": [
+  "apps/wf-server/server/controller/fetchParams.js": [
+    "apps/wf-server/server/events/index.js",
     "apps/wf-server/server/utils/logger.js"
   ],
-  "apps/wf-server/server/controller/fetchStudioEventTypes.js": [
+  "apps/wf-server/server/controller/genFields.js": [
+    "apps/wf-server/server/events/index.js",
     "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/genPageConfigController.js": [
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/pageConfig/index.js"
   ],
   "apps/wf-server/server/controller/getDoc.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/getVal.js": [
+    "apps/wf-server/server/utils/dbUtils.js",
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/controller/initialize.js": [],
@@ -381,7 +408,38 @@
   "apps/wf-server/server/controller/restartServer.js": [
     "apps/wf-server/server/utils/logger.js"
   ],
+  "apps/wf-server/server/controller/setVals.js": [
+    "apps/wf-server/server/controller/getVal.js",
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/studioDiscovery.js": [
+    "apps/wf-server/server/controller/getVal.js",
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/pageConfig/index.js"
+  ],
+  "apps/wf-server/server/controller/studioDiscovery/discoverApps.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/studioDiscovery/discoverEventTypes.js": [
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/pageConfig/astParser.js"
+  ],
+  "apps/wf-server/server/controller/studioDiscovery/discoverPages.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/studioDiscovery/discoverTemplates.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/controller/studioDiscovery/index.js": [
+    "apps/wf-server/server/controller/studioDiscovery.js",
+    "apps/wf-server/server/controller/studioDiscovery/discoverApps.js",
+    "apps/wf-server/server/controller/studioDiscovery/discoverEventTypes.js",
+    "apps/wf-server/server/controller/studioDiscovery/discoverPages.js",
+    "apps/wf-server/server/controller/studioDiscovery/discoverTemplates.js"
+  ],
   "apps/wf-server/server/controller/userLogin.js": [
+    "apps/wf-server/server/events/index.js",
     "apps/wf-server/server/utils/dbUtils.js",
     "apps/wf-server/server/utils/logger.js",
     "apps/wf-server/server/utils/queryResolver.js"
@@ -390,6 +448,78 @@
     "apps/wf-server/server/utils/logger.js",
     "apps/wf-server/server/workflows/impact-tracking/index.js"
   ],
+  "apps/wf-server/server/events/admin/acctList.js": [],
+  "apps/wf-server/server/events/admin/index.js": [
+    "apps/wf-server/server/events/admin/acctList.js",
+    "apps/wf-server/server/events/admin/userList.js",
+    "apps/wf-server/server/events/admin/userLogin.js"
+  ],
+  "apps/wf-server/server/events/admin/userList.js": [],
+  "apps/wf-server/server/events/admin/userLogin.js": [],
+  "apps/wf-server/server/events/client/brndList.js": [],
+  "apps/wf-server/server/events/client/btchMapping.js": [],
+  "apps/wf-server/server/events/client/eventTypes.js": [],
+  "apps/wf-server/server/events/client/gridAvailable.js": [],
+  "apps/wf-server/server/events/client/gridMapped.js": [],
+  "apps/wf-server/server/events/client/gridRcpe.js": [],
+  "apps/wf-server/server/events/client/index.js": [
+    "apps/wf-server/server/events/client/brndList.js",
+    "apps/wf-server/server/events/client/btchMapping.js",
+    "apps/wf-server/server/events/client/gridAvailable.js",
+    "apps/wf-server/server/events/client/gridMapped.js",
+    "apps/wf-server/server/events/client/gridRcpe.js",
+    "apps/wf-server/server/events/client/ingrBtchList.js",
+    "apps/wf-server/server/events/client/ingrList.js",
+    "apps/wf-server/server/events/client/ingrTypeList.js",
+    "apps/wf-server/server/events/client/measList.js",
+    "apps/wf-server/server/events/client/prodBtchList.js",
+    "apps/wf-server/server/events/client/prodList.js",
+    "apps/wf-server/server/events/client/prodListAll.js",
+    "apps/wf-server/server/events/client/prodTypeList.js",
+    "apps/wf-server/server/events/client/rcpeList.js",
+    "apps/wf-server/server/events/client/rptWrkShtIngr.js",
+    "apps/wf-server/server/events/client/rptWrkShtTask.js",
+    "apps/wf-server/server/events/client/taskList.js",
+    "apps/wf-server/server/events/client/userAcctList.js",
+    "apps/wf-server/server/events/client/userLogin.js",
+    "apps/wf-server/server/events/client/vndrList.js",
+    "apps/wf-server/server/events/client/wrkrList.js"
+  ],
+  "apps/wf-server/server/events/client/ingrBtchList.js": [],
+  "apps/wf-server/server/events/client/ingrList.js": [],
+  "apps/wf-server/server/events/client/ingrTypeList.js": [],
+  "apps/wf-server/server/events/client/measList.js": [],
+  "apps/wf-server/server/events/client/prodBtchList.js": [],
+  "apps/wf-server/server/events/client/prodList.js": [],
+  "apps/wf-server/server/events/client/prodListAll.js": [],
+  "apps/wf-server/server/events/client/prodTypeList.js": [],
+  "apps/wf-server/server/events/client/rcpeList.js": [],
+  "apps/wf-server/server/events/client/rptWrkShtIngr.js": [],
+  "apps/wf-server/server/events/client/rptWrkShtTask.js": [],
+  "apps/wf-server/server/events/client/taskList.js": [],
+  "apps/wf-server/server/events/client/userAcctList.js": [],
+  "apps/wf-server/server/events/client/userLogin.js": [],
+  "apps/wf-server/server/events/client/vndrList.js": [],
+  "apps/wf-server/server/events/client/wrkrList.js": [],
+  "apps/wf-server/server/events/index.js": [
+    "apps/wf-server/server/events/client/index.js",
+    "apps/wf-server/server/events/plans/index.js"
+  ],
+  "apps/wf-server/server/events/plans/index.js": [
+    "apps/wf-server/server/events/plans/planCommDtl.js",
+    "apps/wf-server/server/events/plans/planCommList.js",
+    "apps/wf-server/server/events/plans/planDtl.js",
+    "apps/wf-server/server/events/plans/planImpactDtl.js",
+    "apps/wf-server/server/events/plans/planImpactList.js",
+    "apps/wf-server/server/events/plans/planList.js"
+  ],
+  "apps/wf-server/server/events/plans/planCommDtl.js": [],
+  "apps/wf-server/server/events/plans/planCommList.js": [],
+  "apps/wf-server/server/events/plans/planDtl.js": [],
+  "apps/wf-server/server/events/plans/planImpactDtl.js": [],
+  "apps/wf-server/server/events/plans/planImpactList.js": [],
+  "apps/wf-server/server/events/plans/planList.js": [],
+  "apps/wf-server/server/events/plans/planStatusList.js": [],
   "apps/wf-server/server/middleware/errorHandler.js": [],
   "apps/wf-server/server/middleware/security.js": [],
   "apps/wf-server/server/routes/index.js": [
@@ -397,18 +527,21 @@
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/routes/registerRoutes.js": [
+    "apps/wf-server/server/controller/clearVals.js",
     "apps/wf-server/server/controller/execCreateDoc.js",
     "apps/wf-server/server/controller/execDML.js",
     "apps/wf-server/server/controller/execEventType.js",
-    "apps/wf-server/server/controller/fetchEventTypes.js",
-    "apps/wf-server/server/controller/fetchStudioEventTypes.js",
+    "apps/wf-server/server/controller/fetchEventType.js",
+    "apps/wf-server/server/controller/genFields.js",
+    "apps/wf-server/server/controller/genPageConfigController.js",
     "apps/wf-server/server/controller/getDoc.js",
+    "apps/wf-server/server/controller/getVal.js",
     "apps/wf-server/server/controller/initialize.js",
     "apps/wf-server/server/controller/listRegisteredRoutes.js",
     "apps/wf-server/server/controller/restartServer.js",
+    "apps/wf-server/server/controller/setVals.js",
     "apps/wf-server/server/controller/userLogin.js",
     "apps/wf-server/server/controller/writeFileDirectly.js",
-    "apps/wf-server/server/utils/eventTypeManager.js",
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/server.js": [
@@ -425,6 +558,7 @@
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/utils/dml/dmlProcessor.js": [
+    "apps/wf-server/server/controller/getVal.js",
     "apps/wf-server/server/utils/dbUtils.js",
     "apps/wf-server/server/utils/dml/sqlBuilder.js",
     "apps/wf-server/server/utils/enhanceErrorResponse.js",
@@ -436,16 +570,68 @@
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/utils/eventTypeManager.js": [
+    "apps/wf-server/server/events/index.js",
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/utils/executeCreateDoc.js": [],
   "apps/wf-server/server/utils/executeEventType.js": [
+    "apps/wf-server/server/events/index.js",
     "apps/wf-server/server/utils/dbUtils.js",
     "apps/wf-server/server/utils/logger.js",
     "apps/wf-server/server/utils/queryResolver.js"
   ],
+  "apps/wf-server/server/utils/genPageConfig.js": [
+    "apps/wf-server/server/utils/pageConfig/index.js"
+  ],
   "apps/wf-server/server/utils/logger.js": [],
+  "apps/wf-server/server/utils/pageConfig/astParser.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/pageConfig/componentCleaner.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/pageConfig/hierarchyResolver.js": [
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/pageConfig/astParser.js",
+    "apps/wf-server/server/utils/pageConfig/registryBuilder.js",
+    "apps/wf-server/server/utils/templateRegistry.js"
+  ],
+  "apps/wf-server/server/utils/pageConfig/index-old.js": [
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/pageConfig/astParser.js",
+    "apps/wf-server/server/utils/pageConfig/componentCleaner.js",
+    "apps/wf-server/server/utils/pageConfig/hierarchyResolver.js",
+    "apps/wf-server/server/utils/pageConfig/mermaidGenerator.js",
+    "apps/wf-server/server/utils/templateRegistry.js"
+  ],
+  "apps/wf-server/server/utils/pageConfig/index.js": [
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/pageConfig/propsRetriever.js",
+    "apps/wf-server/server/utils/pageConfig/triggersRetriever.js"
+  ],
+  "apps/wf-server/server/utils/pageConfig/mermaidGenerator.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/pageConfig/propsRetriever.js": [
+    "apps/wf-server/server/controller/setVals.js",
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/pageConfig/registryBuilder.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/pageConfig/triggersRetriever.js": [
+    "apps/wf-server/server/controller/setVals.js",
+    "apps/wf-server/server/utils/dbUtils.js",
+    "apps/wf-server/server/utils/logger.js"
+  ],
   "apps/wf-server/server/utils/queryResolver.js": [
+    "apps/wf-server/server/utils/logger.js"
+  ],
+  "apps/wf-server/server/utils/templateRegistry.js": [
+    "apps/wf-server/server/controller/studioDiscovery/discoverTemplates.js",
     "apps/wf-server/server/utils/logger.js"
   ],
   "apps/wf-server/server/workflows/impact-tracking/DatabaseWriter.js": [
@@ -470,7 +656,240 @@
     "apps/wf-server/server/workflows/impact-tracking/config.js"
   ],
   "apps/wf-server/tailwind.config.js": [],
+  "apps/wf-server/test-genPageConfig.js": [
+    "apps/wf-server/server/utils/logger.js",
+    "apps/wf-server/server/utils/pageConfig/index.js"
+  ],
   "apps/wf-server/unitTest.js": [],
+  "apps/wf-studio/craco.config.js": [],
+  "apps/wf-studio/src/App.jsx": [
+    "apps/wf-studio/src/config/navigation.js",
+    "apps/wf-studio/src/config/routes.js",
+    "apps/wf-studio/src/layouts/SimpleLayout.jsx",
+    "apps/wf-studio/src/pages/Login/index.jsx",
+    "apps/wf-studio/src/pages/Studio/index.jsx",
+    "apps/wf-studio/src/utils/mermaidLoader.js"
+  ],
+  "apps/wf-studio/src/api/config.js": [],
+  "apps/wf-studio/src/api/execApps.js": [],
+  "apps/wf-studio/src/api/execEventTypes.js": [],
+  "apps/wf-studio/src/api/execGenPageConfig.js": [],
+  "apps/wf-studio/src/api/execPages.js": [],
+  "apps/wf-studio/src/api/execTemplates.js": [],
+  "apps/wf-studio/src/api/index.js": [
+    "apps/wf-studio/src/api/execApps.js",
+    "apps/wf-studio/src/api/execEventTypes.js",
+    "apps/wf-studio/src/api/execGenPageConfig.js",
+    "apps/wf-studio/src/api/execPages.js",
+    "apps/wf-studio/src/api/execTemplates.js"
+  ],
+  "apps/wf-studio/src/api/studioApiCall.js": [
+    "apps/wf-studio/src/api/config.js"
+  ],
+  "apps/wf-studio/src/apps/plans/layout/appbar.js": [],
+  "apps/wf-studio/src/apps/plans/layout/sidebar.js": [],
+  "apps/wf-studio/src/apps/plans/pages/Dashboard/index.jsx": [
+    "apps/wf-studio/src/apps/plans/pages/Dashboard/page/pageDashboard.js"
+  ],
+  "apps/wf-studio/src/apps/plans/pages/Dashboard/page/pageDashboard.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/forms/formPlan.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/forms/formPlanComm.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/forms/formPlanImpact.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/grids/gridPlanComms.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/grids/gridPlanImpacts.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/grids/gridPlans.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/index.jsx": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/page/pagePlanManager.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/tabs/tabPlan.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/tabs/tabPlanComms.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/tabs/tabPlanImpacts.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/tabs/tabsPlanTabs.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/widgets/btnCreate.js": [],
+  "apps/wf-studio/src/apps/plans/pages/PlanManager/widgets/selectPlanStatus.js": [],
+  "apps/wf-studio/src/apps/plans/pages/SketchPad/index.jsx": [
+    "apps/wf-studio/src/apps/plans/pages/SketchPad/page/pageSketchPad.js"
+  ],
+  "apps/wf-studio/src/apps/plans/pages/SketchPad/page/pageSketchPad.js": [],
+  "apps/wf-studio/src/apps/shared/page/pageLogin.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/columnComponents.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/columnSidebar.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/containerEventCards.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/containerEventChanges.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/containerEventStructure.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/sectionWidgets.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/tabEventDtl.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/tabLeafDtl.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/tabMermaid.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/tabPageChart.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/tabPageView.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/containers/tabsWorkArea.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/eventTypeRegistry.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/page/pageStudio.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/widgets/btnGenPageConfig.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/widgets/chartMermaid.js": [
+    "apps/wf-studio/src/api/config.js"
+  ],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/widgets/gridComponentChoices.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/widgets/selectApp.js": [],
+  "apps/wf-studio/src/apps/studio/pages/Studio/eventTypes/widgets/selectPage.js": [],
+  "apps/wf-studio/src/apps/wf-login/loginPage/index.jsx": [
+    "apps/wf-studio/src/apps/wf-login/loginPage/pageConfig.json",
+    "apps/wf-studio/src/rendering/DirectRenderer.jsx"
+  ],
+  "apps/wf-studio/src/apps/wf-login/loginPage/pageConfig.json": [],
+  "apps/wf-studio/src/architecture/generate-grid-docs.js": [
+    "apps/wf-studio/src/architecture/grid-standards.js"
+  ],
+  "apps/wf-studio/src/architecture/grid-standards.js": [],
+  "apps/wf-studio/src/architecture/test-validation.js": [
+    "apps/wf-studio/src/architecture/validate-eventtype.js"
+  ],
+  "apps/wf-studio/src/architecture/validate-eventtype.js": [
+    "apps/wf-studio/src/architecture/grid-standards.js"
+  ],
+  "apps/wf-studio/src/components/EventPreviewView.jsx": [],
+  "apps/wf-studio/src/components/PreviewActions.jsx": [],
+  "apps/wf-studio/src/config/navigation.js": [],
+  "apps/wf-studio/src/config/routes.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/containers/columnLayout.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/containers/componentLayout.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/containers/containerLayout.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/containers/modalLayout.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/containers/sectionLayout.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/containers/tabLayout.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/dataBinding.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/page/pageRouting.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/shared/basics.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/shared/button.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/shared/textLine.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/shared/workflowTriggers.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/shared/workflows.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/widgets/chart.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/widgets/dbQuery.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/widgets/formOverrides.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/widgets/gridOverrides.js": [],
+  "apps/wf-studio/src/eventBuilders/cards/widgets/select.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/app/app.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/app/layout/appbar.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/app/layout/sidebar.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/containers/column.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/containers/modal.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/containers/section.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/containers/tabs.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/page/page.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/widgets/button.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/widgets/chart.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/widgets/form.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/widgets/grid.js": [],
+  "apps/wf-studio/src/eventBuilders/templates/widgets/select.js": [],
+  "apps/wf-studio/src/index.js": [
+    "apps/wf-studio/src/App.jsx",
+    "apps/wf-studio/src/styles/global.css"
+  ],
+  "apps/wf-studio/src/layouts/SimpleLayout.jsx": [],
+  "apps/wf-studio/src/pages/Login/index.jsx": [
+    "apps/wf-studio/src/apps/wf-login/loginPage/index.jsx"
+  ],
+  "apps/wf-studio/src/pages/Studio/index.jsx": [
+    "apps/wf-studio/src/pages/Studio/pageConfig.json",
+    "apps/wf-studio/src/rendering/PageRenderer/index.jsx"
+  ],
+  "apps/wf-studio/src/pages/Studio/pageConfig.json": [],
+  "apps/wf-studio/src/rendering/DirectRenderer.jsx": [
+    "apps/wf-studio/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
+  "apps/wf-studio/src/rendering/PageRenderer/ComponentRenderer.jsx": [
+    "apps/wf-studio/src/rendering/PageRenderer/components/ButtonRenderer.jsx",
+    "apps/wf-studio/src/rendering/PageRenderer/components/ColumnRenderer.jsx",
+    "apps/wf-studio/src/rendering/PageRenderer/components/GridRenderer.jsx",
+    "apps/wf-studio/src/rendering/PageRenderer/components/MermaidRenderer.jsx",
+    "apps/wf-studio/src/rendering/PageRenderer/components/PropRenderer.jsx",
+    "apps/wf-studio/src/rendering/PageRenderer/components/SelectRenderer.jsx",
+    "apps/wf-studio/src/rendering/PageRenderer/components/TabsRenderer.jsx",
+    "apps/wf-studio/src/rendering/WorkflowEngine/index.js"
+  ],
+  "apps/wf-studio/src/rendering/PageRenderer/LayoutRenderer.jsx": [
+    "apps/wf-studio/src/rendering/PageRenderer/ComponentRenderer.jsx"
+  ],
+  "apps/wf-studio/src/rendering/PageRenderer/components/ButtonRenderer.jsx": [],
+  "apps/wf-studio/src/rendering/PageRenderer/components/ColumnRenderer.jsx": [],
+  "apps/wf-studio/src/rendering/PageRenderer/components/GridRenderer.jsx": [],
+  "apps/wf-studio/src/rendering/PageRenderer/components/MermaidRenderer.jsx": [
+    "apps/wf-studio/src/rendering/WorkflowEngine/index.js",
+    "apps/wf-studio/src/styles/components/mermaid.css"
+  ],
+  "apps/wf-studio/src/rendering/PageRenderer/components/PropRenderer.jsx": [
+    "apps/wf-studio/src/rendering/WorkflowEngine/index.js",
+    "apps/wf-studio/src/styles/components/textline.css"
+  ],
+  "apps/wf-studio/src/rendering/PageRenderer/components/SelectRenderer.jsx": [],
+  "apps/wf-studio/src/rendering/PageRenderer/components/TabsRenderer.jsx": [
+    "apps/wf-studio/src/rendering/WorkflowEngine/index.js",
+    "apps/wf-studio/src/styles/components/tabs.css"
+  ],
+  "apps/wf-studio/src/rendering/PageRenderer/index.jsx": [
+    "apps/wf-studio/src/rendering/PageRenderer/LayoutRenderer.jsx",
+    "apps/wf-studio/src/rendering/WorkflowEngine/index.js",
+    "apps/wf-studio/src/styles/base-components.css"
+  ],
+  "apps/wf-studio/src/rendering/WorkflowEngine/TriggerEngine.js": [
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/setVals.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/visible.js"
+  ],
+  "apps/wf-studio/src/rendering/WorkflowEngine/WorkflowEngine.js": [
+    "apps/wf-studio/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
+  "apps/wf-studio/src/rendering/WorkflowEngine/execFunction.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/index.js": [
+    "apps/wf-studio/src/api/studioApiCall.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/execFunction.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/getVal.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/refresh.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/setVals.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/showNotification.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/class/onLoad.js",
+    "apps/wf-studio/src/rendering/WorkflowEngine/triggers/class/onRefresh.js"
+  ],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/clearVals.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/execEvent.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/getVal.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/refresh.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/reload.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/setVals.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/showNotification.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/userLogin.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/action/visible.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/class/onLoad.js": [],
+  "apps/wf-studio/src/rendering/WorkflowEngine/triggers/class/onRefresh.js": [],
+  "apps/wf-studio/src/stores/studioStore.js": [],
+  "apps/wf-studio/src/styles/base-components.css": [],
+  "apps/wf-studio/src/styles/components/mermaid.css": [],
+  "apps/wf-studio/src/styles/components/tabs.css": [],
+  "apps/wf-studio/src/styles/components/textline.css": [],
+  "apps/wf-studio/src/styles/global.css": [],
+  "apps/wf-studio/src/utils/addFieldAttributes.js": [],
+  "apps/wf-studio/src/utils/eventTypeDiscovery.js": [],
+  "apps/wf-studio/src/utils/genPageConfig.js": [],
+  "apps/wf-studio/src/utils/mermaidLoader.js": [],
+  "apps/wf-studio/src/utils/normalizeSQL.js": [],
+  "apps/wf-studio/src/utils/parseTableSchema.js": [],
+  "apps/wf-studio/src/utils/queryDiscovery.js": [],
+  "apps/wf-studio/src/utils/studioAppDiscovery.js": [],
+  "apps/wf-studio/src/utils/targetedAnalysis.js": [
+    "apps/wf-studio/src/utils/addFieldAttributes.js",
+    "apps/wf-studio/src/utils/normalizeSQL.js",
+    "apps/wf-studio/src/utils/parseTableSchema.js",
+    "apps/wf-studio/src/utils/writeSchema.js"
+  ],
+  "apps/wf-studio/src/utils/writeSchema.js": [],
+  "apps/wf-studio/src/workflows/genFields.js": [],
+  "apps/wf-studio/src/workflows/studioPipelineBridge.js": [],
+  "apps/wf-studio/src/workflows/unifiedGenFields.js": [],
   "cli/ModelExecutor.js": [
     "cli/services/ModelService.js"
   ],
@@ -518,329 +937,51 @@
   "packages/db-connect/src/migrate-plans.js": [
     "packages/db-connect/query.js"
   ],
-  "packages/devtools/src/automation/core/genPageMaps.js": [
-    "packages/devtools/src/toolConfig.js"
-  ],
-  "packages/devtools/src/automation/detectChanges.js": [],
-  "packages/devtools/src/automation/runCore.js": [],
-  "packages/devtools/src/automation/runTriggered.js": [],
-  "packages/devtools/src/automation/static/genPageIndex.js": [
-    "packages/shared-imports/src/events/client/eventTypes.js"
-  ],
-  "packages/devtools/src/automation/triggered/genDirectives.js": [],
-  "packages/devtools/src/automation/triggered/genSampleData.js": [],
-  "packages/devtools/src/docs/graph/utils/paths.js": [],
-  "packages/devtools/src/docs/graph/utils/writeGraphJson.js": [],
-  "packages/devtools/src/documentation/generators/formatSqlValue.js": [],
-  "packages/devtools/src/documentation/generators/genAutomation.js": [],
-  "packages/devtools/src/documentation/generators/genBatchMapping.js": [],
-  "packages/devtools/src/documentation/generators/genCode/genAutomation.js": [],
-  "packages/devtools/src/documentation/generators/genCode/genBatchMapping.js": [],
-  "packages/devtools/src/documentation/generators/genDocs.js": [],
-  "packages/devtools/src/documentation/generators/genFormHtml.js": [],
-  "packages/devtools/src/documentation/generators/genHtmlPreviews.js": [],
-  "packages/devtools/src/documentation/generators/getCss.js": [],
-  "packages/devtools/src/generate.js": [],
-  "packages/devtools/src/index.js": [
-    "packages/devtools/src/utils/abbreviationMap.js"
-  ],
-  "packages/devtools/src/scaffold/data/dbQuery.js": [],
-  "packages/devtools/src/toolConfig.js": [],
-  "packages/devtools/src/toolsets/low-complexity/patterns.ts": [],
-  "packages/devtools/src/toolsets/low-complexity/runner.ts": [],
-  "packages/devtools/src/utils/abbreviationMap.js": [],
-  "packages/devtools/src/utils/directiveBasedWidgetAnalyzer.js": [],
-  "packages/devtools/src/utils/directiveWidgetAnalyzer.js": [],
-  "packages/devtools/src/utils/toolManager.ts": [],
-  "packages/devtools/src/utils/widgetUsageAnalyzer.js": [],
-  "packages/shared-imports/src/api/dml/dmlBuilder.js": [
-    "packages/shared-imports/src/api/dml/sqlFormatter.js"
-  ],
-  "packages/shared-imports/src/api/dml/index.js": [
-    "packages/shared-imports/src/api/dml/operations.js",
-    "packages/shared-imports/src/api/dml/sqlFormatter.js"
-  ],
-  "packages/shared-imports/src/api/dml/operations.js": [
-    "packages/shared-imports/src/api/dml/dmlBuilder.js",
-    "packages/shared-imports/src/api/dml/sqlFormatter.js",
-    "packages/shared-imports/src/api/index.js",
-    "packages/shared-imports/src/utils/logger.js"
-  ],
-  "packages/shared-imports/src/api/dml/sqlFormatter.js": [],
+  "packages/shared-imports/src/api/clearVals.js": [],
+  "packages/shared-imports/src/api/execApps.js": [],
+  "packages/shared-imports/src/api/execCreateDoc.js": [],
+  "packages/shared-imports/src/api/execDml.js": [],
+  "packages/shared-imports/src/api/execDmlWithRefresh.js": [],
+  "packages/shared-imports/src/api/execEvent.js": [],
+  "packages/shared-imports/src/api/execPages.js": [],
+  "packages/shared-imports/src/api/fetchParams.js": [],
+  "packages/shared-imports/src/api/fetchQueryEvents.js": [],
+  "packages/shared-imports/src/api/fetchStudioEventTypes.js": [],
+  "packages/shared-imports/src/api/getVal.js": [],
   "packages/shared-imports/src/api/index.js": [
-    "packages/shared-imports/src/events/index.js",
-    "packages/shared-imports/src/stores/contextStore.js"
+    "packages/shared-imports/src/api/clearVals.js",
+    "packages/shared-imports/src/api/execApps.js",
+    "packages/shared-imports/src/api/execCreateDoc.js",
+    "packages/shared-imports/src/api/execDml.js",
+    "packages/shared-imports/src/api/execDmlWithRefresh.js",
+    "packages/shared-imports/src/api/execEvent.js",
+    "packages/shared-imports/src/api/execPages.js",
+    "packages/shared-imports/src/api/fetchParams.js",
+    "packages/shared-imports/src/api/fetchQueryEvents.js",
+    "packages/shared-imports/src/api/fetchStudioEventTypes.js",
+    "packages/shared-imports/src/api/getVal.js",
+    "packages/shared-imports/src/api/setVals.js",
+    "packages/shared-imports/src/api/userLogin.js"
   ],
-  "packages/shared-imports/src/architecture/components/ArchDashboard.jsx": [
-    "packages/shared-imports/src/architecture/components/PlanCommunicationTab.jsx",
-    "packages/shared-imports/src/architecture/components/PlanToolsTab.jsx",
-    "packages/shared-imports/src/architecture/components/StructureRelationshipsTab.jsx",
-    "packages/shared-imports/src/architecture/intelligence.js"
+  "packages/shared-imports/src/api/setVals.js": [],
+  "packages/shared-imports/src/api/userLogin.js": [],
+  "packages/shared-imports/src/components/FormComponent.jsx": [],
+  "packages/shared-imports/src/components/FormComponent.tsx": [],
+  "packages/shared-imports/src/components/PageRenderer/ActionHandler.jsx": [],
+  "packages/shared-imports/src/components/PageRenderer/ContainerRenderer.jsx": [],
+  "packages/shared-imports/src/components/PageRenderer/FieldRenderer.jsx": [],
+  "packages/shared-imports/src/components/PageRenderer/LayoutEngine.jsx": [],
+  "packages/shared-imports/src/components/PageRenderer/LeafRenderer.jsx": [
+    "packages/shared-imports/src/components/PageRenderer/ActionHandler.jsx",
+    "packages/shared-imports/src/components/PageRenderer/FieldRenderer.jsx",
+    "packages/shared-imports/src/components/PageRenderer/LayoutEngine.jsx"
   ],
-  "packages/shared-imports/src/architecture/components/PlanCommunicationTab.jsx": [
-    "packages/shared-imports/src/architecture/components/communication/CommunicationHistory.jsx",
-    "packages/shared-imports/src/architecture/components/communication/UserCommunicationForm.jsx",
-    "packages/shared-imports/src/stores/contextStore.js"
+  "packages/shared-imports/src/components/PageRenderer/index.jsx": [
+    "packages/shared-imports/src/components/PageRenderer/ContainerRenderer.jsx",
+    "packages/shared-imports/src/components/PageRenderer/LeafRenderer.jsx",
+    "packages/shared-imports/src/stores/index.js"
   ],
-  "packages/shared-imports/src/architecture/components/PlanToolsTab.jsx": [
-    "packages/shared-imports/src/architecture/components/plan-tools/CreatePlanForm.jsx",
-    "packages/shared-imports/src/architecture/components/plan-tools/ImpactTrackingEditor.jsx",
-    "packages/shared-imports/src/architecture/components/plan-tools/PlanStatusUpdateForm.jsx"
-  ],
-  "packages/shared-imports/src/architecture/components/StructureRelationshipsTab.jsx": [
-    "packages/shared-imports/src/architecture/components/structure-analysis/CriticalNodesView.jsx",
-    "packages/shared-imports/src/architecture/components/structure-analysis/CrossPackageView.jsx",
-    "packages/shared-imports/src/architecture/components/structure-analysis/DeadCodeView.jsx",
-    "packages/shared-imports/src/architecture/components/structure-analysis/FileCategoriesView.jsx",
-    "packages/shared-imports/src/architecture/components/structure-analysis/VisualizationView.jsx"
-  ],
-  "packages/shared-imports/src/architecture/components/communication/AgentCoordinationModal.jsx": [],
-  "packages/shared-imports/src/architecture/components/communication/CommunicationHistory.jsx": [
-    "packages/shared-imports/src/contexts/PlanContext.jsx",
-    "packages/shared-imports/src/stores/contextStore.js"
-  ],
-  "packages/shared-imports/src/architecture/components/communication/UserCommunicationForm.jsx": [
-    "packages/shared-imports/src/architecture/components/communication/AgentCoordinationModal.jsx",
-    "packages/shared-imports/src/architecture/config/workflowConfig.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-    "packages/shared-imports/src/stores/contextStore.js",
-    "packages/shared-imports/src/utils/configLoader.js"
-  ],
-  "packages/shared-imports/src/architecture/components/plan-tools/CompletePlanForm.jsx": [],
-  "packages/shared-imports/src/architecture/components/plan-tools/CreatePlanForm.jsx": [
-    "packages/shared-imports/src/architecture/config/index.js",
-    "packages/shared-imports/src/architecture/config/workflowConfig.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js"
-  ],
-  "packages/shared-imports/src/architecture/components/plan-tools/ImpactTrackingEditor.jsx": [
-    "packages/shared-imports/src/architecture/config/workflowConfig.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-    "packages/shared-imports/src/contexts/PlanContext.jsx"
-  ],
-  "packages/shared-imports/src/architecture/components/plan-tools/PlanStatusUpdateForm.jsx": [
-    "packages/shared-imports/src/architecture/workflows/index.js"
-  ],
-  "packages/shared-imports/src/architecture/components/structure-analysis/CriticalNodesView.jsx": [],
-  "packages/shared-imports/src/architecture/components/structure-analysis/CrossPackageView.jsx": [],
-  "packages/shared-imports/src/architecture/components/structure-analysis/DeadCodeView.jsx": [],
-  "packages/shared-imports/src/architecture/components/structure-analysis/FileCategoriesView.jsx": [],
-  "packages/shared-imports/src/architecture/components/structure-analysis/VisualizationView.jsx": [],
-  "packages/shared-imports/src/architecture/config/clusters.json": [],
-  "packages/shared-imports/src/architecture/config/communication-types.json": [],
-  "packages/shared-imports/src/architecture/config/complexities.json": [],
-  "packages/shared-imports/src/architecture/config/index.js": [
-    "packages/shared-imports/src/architecture/config/clusters.json",
-    "packages/shared-imports/src/architecture/config/communication-types.json",
-    "packages/shared-imports/src/architecture/config/complexities.json",
-    "packages/shared-imports/src/architecture/config/priorities.json",
-    "packages/shared-imports/src/architecture/config/selectValsHelper.js"
-  ],
-  "packages/shared-imports/src/architecture/config/priorities.json": [],
-  "packages/shared-imports/src/architecture/config/selectValsData.js": [],
-  "packages/shared-imports/src/architecture/config/selectValsHelper.js": [],
-  "packages/shared-imports/src/architecture/config/selectValsLoader.js": [],
-  "packages/shared-imports/src/architecture/config/workflowConfig.js": [
-    "packages/shared-imports/src/architecture/config/selectValsData.js"
-  ],
-  "packages/shared-imports/src/architecture/index.js": [],
-  "packages/shared-imports/src/architecture/intelligence.js": [],
-  "packages/shared-imports/src/architecture/scripts/enhance-madge.js": [],
-  "packages/shared-imports/src/architecture/workflows/ComponentLifecycleManager.js": [],
-  "packages/shared-imports/src/architecture/workflows/ContextIntegrator.js": [
-    "packages/shared-imports/src/stores/contextStore.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/ErrorHandler.js": [],
-  "packages/shared-imports/src/architecture/workflows/ProgressTracker.js": [],
-  "packages/shared-imports/src/architecture/workflows/WorkflowComposer.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/WorkflowInstance.js": [
-    "packages/shared-imports/src/architecture/workflows/ComponentLifecycleManager.js",
-    "packages/shared-imports/src/architecture/workflows/ContextIntegrator.js",
-    "packages/shared-imports/src/architecture/workflows/ErrorHandler.js",
-    "packages/shared-imports/src/architecture/workflows/ProgressTracker.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-    "packages/shared-imports/src/architecture/workflows/monitoring/WorkflowMonitor.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js": [
-    "packages/shared-imports/src/architecture/config/workflowConfig.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowInstance.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/analysis/Template.js": [],
-  "packages/shared-imports/src/architecture/workflows/analysis/createAnalysis.js": [
-    "packages/shared-imports/src/api/index.js",
-    "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.browser.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/analysis/index.js": [
-    "packages/shared-imports/src/architecture/workflows/analysis/Template.js",
-    "packages/shared-imports/src/architecture/workflows/analysis/createAnalysis.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/communication/CommunicationWorkflow.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-    "packages/shared-imports/src/architecture/workflows/communication/ModalCoordinator.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/communication/ModalCoordinator.js": [],
-  "packages/shared-imports/src/architecture/workflows/communication/useAgentCoordination.js": [],
-  "packages/shared-imports/src/architecture/workflows/communications/createCommunication.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/communications/index.js": [
-    "packages/shared-imports/src/architecture/workflows/communications/createCommunication.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/components/WorkflowProgressIndicator.jsx": [
-    "packages/shared-imports/src/architecture/workflows/hooks/useWorkflowProgress.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/eventType/ContextRefreshManager.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/eventType/EventTypeParser.js": [
-    "packages/shared-imports/src/architecture/config/selectValsHelper.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/eventType/WorkflowTriggerMap.js": [
-    "packages/shared-imports/src/architecture/workflows/eventType/EventTypeParser.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/eventType/execOrchestrator.js": [],
-  "packages/shared-imports/src/architecture/workflows/eventType/index.js": [
-    "packages/shared-imports/src/architecture/workflows/eventType/ContextRefreshManager.js",
-    "packages/shared-imports/src/architecture/workflows/eventType/EventTypeParser.js",
-    "packages/shared-imports/src/architecture/workflows/eventType/WorkflowTriggerMap.js",
-    "packages/shared-imports/src/architecture/workflows/eventType/execOrchestrator.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/examples/BasicWorkflowExamples.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/examples/CompositionExamples.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowComposer.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/guidance/Template.js": [],
-  "packages/shared-imports/src/architecture/workflows/guidance/createGuidance.js": [
-    "packages/shared-imports/src/api/index.js",
-    "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.browser.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/guidance/index.js": [
-    "packages/shared-imports/src/architecture/workflows/guidance/Template.js",
-    "packages/shared-imports/src/architecture/workflows/guidance/createGuidance.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/hooks/useWorkflowProgress.js": [
-    "packages/shared-imports/src/architecture/workflows/ProgressTracker.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/impact/ImpactTracker.js": [
-    "packages/shared-imports/src/architecture/workflows/ContextIntegrator.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/index.js": [
-    "packages/shared-imports/src/architecture/config/workflowConfig.js",
-    "packages/shared-imports/src/architecture/workflows/ComponentLifecycleManager.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowComposer.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowInstance.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-    "packages/shared-imports/src/architecture/workflows/analysis/index.js",
-    "packages/shared-imports/src/architecture/workflows/communication/CommunicationWorkflow.js",
-    "packages/shared-imports/src/architecture/workflows/communications/index.js",
-    "packages/shared-imports/src/architecture/workflows/guidance/index.js",
-    "packages/shared-imports/src/architecture/workflows/impact/ImpactTracker.js",
-    "packages/shared-imports/src/architecture/workflows/integration/WorkflowIntegrator.js",
-    "packages/shared-imports/src/architecture/workflows/monitoring/WorkflowDebugger.js",
-    "packages/shared-imports/src/architecture/workflows/monitoring/WorkflowMonitor.js",
-    "packages/shared-imports/src/architecture/workflows/plan/PlanOperationsWorkflow.js",
-    "packages/shared-imports/src/architecture/workflows/plans/index.js",
-    "packages/shared-imports/src/architecture/workflows/testing/IntegrationTestHelpers.js",
-    "packages/shared-imports/src/architecture/workflows/testing/WorkflowTestFramework.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/integration/IntegrationPatterns.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-    "packages/shared-imports/src/architecture/workflows/integration/WorkflowIntegrator.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/integration/WorkflowIntegrator.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/monitoring/WorkflowDebugger.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-    "packages/shared-imports/src/architecture/workflows/monitoring/WorkflowMonitor.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/monitoring/WorkflowMonitor.js": [
-    "packages/shared-imports/src/architecture/config/workflowConfig.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/orchestration/WorkflowOrchestrator.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/plan/PlanOperationsWorkflow.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js",
-    "packages/shared-imports/src/architecture/workflows/impact/ImpactTracker.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/plans/completePlan.js": [
-    "packages/shared-imports/src/api/index.js",
-    "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.browser.js",
-    "packages/shared-imports/src/architecture/workflows/shared/utils/getPlanDetail.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/plans/createPlan.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/plans/deletePlan.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/plans/index.js": [
-    "packages/shared-imports/src/architecture/workflows/plans/completePlan.js",
-    "packages/shared-imports/src/architecture/workflows/plans/createPlan.js",
-    "packages/shared-imports/src/architecture/workflows/plans/deletePlan.js",
-    "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.browser.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/CompletePlanExample.js": [
-    "packages/shared-imports/src/architecture/workflows/plans/completePlan.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/CompleteWorkflowExample.jsx": [],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/DocumentWorkflowExample.jsx": [
-    "packages/shared-imports/src/architecture/workflows/shared/hooks/useDeliveryModal.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/ImpactTrackingExample.jsx": [],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/ParameterDrivenExample.jsx": [],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/PlanDetailTest.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/ReactIntegrationExample.jsx": [],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/SimpleIntegrationTest.js": [],
-  "packages/shared-imports/src/architecture/workflows/shared/examples/WorkflowIntegrationTest.js": [
-    "packages/shared-imports/src/architecture/workflows/analysis/createAnalysis.js",
-    "packages/shared-imports/src/architecture/workflows/communications/createCommunication.js",
-    "packages/shared-imports/src/architecture/workflows/guidance/createGuidance.js",
-    "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/hooks/useDeliveryModal.js": [],
-  "packages/shared-imports/src/architecture/workflows/shared/utils/claudeTemplate.js": [],
-  "packages/shared-imports/src/architecture/workflows/shared/utils/createDoc.js": [
-    "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.browser.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/utils/getPlanDetail.js": [
-    "packages/shared-imports/src/api/index.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/utils/index.js": [
-    "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.browser.js",
-    "packages/shared-imports/src/architecture/workflows/shared/utils/pathUtils.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/shared/utils/pathUtils.js": [],
-  "packages/shared-imports/src/architecture/workflows/shared/utils/trackImpact.js": [
-    "packages/shared-imports/src/architecture/workflows/shared/utils/createPlanImpact.browser.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/testing/IntegrationTestHelpers.js": [
-    "packages/shared-imports/src/architecture/workflows/integration/WorkflowIntegrator.js",
-    "packages/shared-imports/src/architecture/workflows/testing/WorkflowTestFramework.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/testing/LifecycleTestUtils.js": [
-    "packages/shared-imports/src/architecture/workflows/ComponentLifecycleManager.js"
-  ],
-  "packages/shared-imports/src/architecture/workflows/testing/WorkflowTestFramework.js": [
-    "packages/shared-imports/src/architecture/workflows/WorkflowInstance.js",
-    "packages/shared-imports/src/architecture/workflows/WorkflowRegistry.js"
-  ],
-  "packages/shared-imports/src/components/auth.jsx": [
-    "packages/shared-imports/src/events/index.js"
-  ],
+  "packages/shared-imports/src/components/auth.jsx": [],
   "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx": [
     "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js",
     "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx",
@@ -860,38 +1001,6 @@
   "packages/shared-imports/src/components/common/Logo/index.jsx": [],
   "packages/shared-imports/src/components/common/ProtectedRoute.js": [],
   "packages/shared-imports/src/components/common/Registration.js": [],
-  "packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx": [
-    "packages/shared-imports/src/components/crud/CrudLayout/components/AddButton.jsx",
-    "packages/shared-imports/src/components/crud/Form/index.js",
-    "packages/shared-imports/src/components/crud/Table/index.js"
-  ],
-  "packages/shared-imports/src/components/crud/CrudLayout/components/AddButton.jsx": [],
-  "packages/shared-imports/src/components/crud/CrudLayout/components/ConfigError.jsx": [],
-  "packages/shared-imports/src/components/crud/CrudLayout/components/FormSection.jsx": [],
-  "packages/shared-imports/src/components/crud/CrudLayout/components/PageMapError.jsx": [],
-  "packages/shared-imports/src/components/crud/CrudLayout/components/TableSection.jsx": [
-    "packages/shared-imports/src/components/crud/CrudLayout/components/AddButton.jsx"
-  ],
-  "packages/shared-imports/src/components/crud/CrudLayout/hooks/usePageMapValidation.js": [],
-  "packages/shared-imports/src/components/crud/CrudLayout/hooks/useParentID.js": [],
-  "packages/shared-imports/src/components/crud/CrudLayout/index.js": [
-    "packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx"
-  ],
-  "packages/shared-imports/src/components/crud/Form/Form.jsx": [
-    "packages/shared-imports/src/components/crud/Form/stores/FormStore.js",
-    "packages/shared-imports/src/components/forms/index.js",
-    "packages/shared-imports/src/components/selectors/index.js",
-    "packages/shared-imports/src/stores/contextStore.js"
-  ],
-  "packages/shared-imports/src/components/crud/Form/index.js": [
-    "packages/shared-imports/src/components/crud/Form/Form.jsx"
-  ],
-  "packages/shared-imports/src/components/crud/Form/stores/FormStore.js": [],
-  "packages/shared-imports/src/components/crud/Table/Table.jsx": [],
-  "packages/shared-imports/src/components/crud/Table/index.js": [
-    "packages/shared-imports/src/components/crud/Table/Table.jsx"
-  ],
-  "packages/shared-imports/src/components/crud/hooks/useForm.js": [],
   "packages/shared-imports/src/components/dml/SQLPreviewContent.js": [],
   "packages/shared-imports/src/components/forms/BooleanField.jsx": [],
   "packages/shared-imports/src/components/forms/DateField.jsx": [],
@@ -928,6 +1037,7 @@
     "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx",
     "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx"
   ],
+  "packages/shared-imports/src/components/layouts/SimpleLayout.jsx": [],
   "packages/shared-imports/src/components/modals/ErrorModal.js": [],
   "packages/shared-imports/src/components/modals/Modal.jsx": [
     "packages/shared-imports/src/components/modals/modalStore.js"
@@ -993,10 +1103,8 @@
     "packages/shared-imports/src/api/index.js",
     "packages/shared-imports/src/stores/contextStore.js"
   ],
-  "packages/shared-imports/src/components/selectors/createSelectWidget.js": [],
   "packages/shared-imports/src/components/selectors/createSelectWidget.jsx": [
-    "packages/shared-imports/src/components/selectors/SelectWidget.jsx",
-    "packages/shared-imports/src/events/index.js"
+    "packages/shared-imports/src/components/selectors/SelectWidget.jsx"
   ],
   "packages/shared-imports/src/components/selectors/index.js": [
     "packages/shared-imports/src/components/selectors/SelBrnd.jsx",
@@ -1010,6 +1118,7 @@
     "packages/shared-imports/src/components/selectors/SelectWidget.jsx",
     "packages/shared-imports/src/components/selectors/createSelectWidget.jsx"
   ],
+  "packages/shared-imports/src/config/appNames.js": [],
   "packages/shared-imports/src/contexts/PlanContext.jsx": [
     "packages/shared-imports/src/stores/contextStore.js"
   ],
@@ -1028,119 +1137,6 @@
   ],
   "packages/shared-imports/src/createDocs/templates/planTemplate.js": [],
   "packages/shared-imports/src/createDocs/templates/requirementsTemplate.js": [],
-  "packages/shared-imports/src/devtools/pageMapAccess.js": [],
-  "packages/shared-imports/src/events/admin/eventTypes.js": [],
-  "packages/shared-imports/src/events/admin/eventTypes/acctList.js": [],
-  "packages/shared-imports/src/events/admin/eventTypes/index.js": [
-    "packages/shared-imports/src/events/admin/eventTypes/acctList.js",
-    "packages/shared-imports/src/events/admin/eventTypes/userList.js",
-    "packages/shared-imports/src/events/admin/eventTypes/userLogin.js"
-  ],
-  "packages/shared-imports/src/events/admin/eventTypes/userList.js": [],
-  "packages/shared-imports/src/events/admin/eventTypes/userLogin.js": [],
-  "packages/shared-imports/src/events/admin/layoutIdx/index.js": [],
-  "packages/shared-imports/src/events/admin/queryIdx/index.js": [],
-  "packages/shared-imports/src/events/client/eventTypes.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/brndList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/btchMapping.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/gridAvailable.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/gridMapped.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/gridRcpe.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/index.js": [
-    "packages/shared-imports/src/events/client/eventTypes/brndList.js",
-    "packages/shared-imports/src/events/client/eventTypes/btchMapping.js",
-    "packages/shared-imports/src/events/client/eventTypes/gridAvailable.js",
-    "packages/shared-imports/src/events/client/eventTypes/gridMapped.js",
-    "packages/shared-imports/src/events/client/eventTypes/gridRcpe.js",
-    "packages/shared-imports/src/events/client/eventTypes/ingrBtchList.js",
-    "packages/shared-imports/src/events/client/eventTypes/ingrList.js",
-    "packages/shared-imports/src/events/client/eventTypes/ingrTypeList.js",
-    "packages/shared-imports/src/events/client/eventTypes/measList.js",
-    "packages/shared-imports/src/events/client/eventTypes/prodBtchList.js",
-    "packages/shared-imports/src/events/client/eventTypes/prodList.js",
-    "packages/shared-imports/src/events/client/eventTypes/prodListAll.js",
-    "packages/shared-imports/src/events/client/eventTypes/prodTypeList.js",
-    "packages/shared-imports/src/events/client/eventTypes/rcpeList.js",
-    "packages/shared-imports/src/events/client/eventTypes/rptWrkShtIngr.js",
-    "packages/shared-imports/src/events/client/eventTypes/rptWrkShtTask.js",
-    "packages/shared-imports/src/events/client/eventTypes/taskList.js",
-    "packages/shared-imports/src/events/client/eventTypes/userAcctList.js",
-    "packages/shared-imports/src/events/client/eventTypes/userLogin.js",
-    "packages/shared-imports/src/events/client/eventTypes/vndrList.js",
-    "packages/shared-imports/src/events/client/eventTypes/wrkrList.js"
-  ],
-  "packages/shared-imports/src/events/client/eventTypes/ingrBtchList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/ingrList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/ingrTypeList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/measList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/prodBtchList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/prodList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/prodListAll.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/prodTypeList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/rcpeList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/rptWrkShtIngr.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/rptWrkShtTask.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/taskList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/userAcctList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/userLogin.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/vndrList.js": [],
-  "packages/shared-imports/src/events/client/eventTypes/wrkrList.js": [],
-  "packages/shared-imports/src/events/client/layoutIdx/index.js": [],
-  "packages/shared-imports/src/events/client/queryIdx/index.js": [],
-  "packages/shared-imports/src/events/index.js": [
-    "packages/shared-imports/src/events/admin/layoutIdx/index.js",
-    "packages/shared-imports/src/events/admin/queryIdx/index.js",
-    "packages/shared-imports/src/events/client/layoutIdx/index.js",
-    "packages/shared-imports/src/events/client/queryIdx/index.js",
-    "packages/shared-imports/src/events/plans/layoutIdx/index.js",
-    "packages/shared-imports/src/events/plans/queryIdx/index.js"
-  ],
-  "packages/shared-imports/src/events/plans/eventTypes/app/appbar.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/app/sidebar.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/index.js": [
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js"
-  ],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlan.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanComm.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanImpact.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanComms.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanImpacts.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlans.js": [],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js": [
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlan.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanComm.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/formPlanImpact.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanComms.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlanImpacts.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/gridPlans.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/selectPlanStatus.js"
-  ],
-  "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/selectPlanStatus.js": [],
-  "packages/shared-imports/src/events/plans/index.js": [],
-  "packages/shared-imports/src/events/plans/layoutIdx/index.js": [
-    "packages/shared-imports/src/events/plans/eventTypes/app/appbar.js",
-    "packages/shared-imports/src/events/plans/eventTypes/app/sidebar.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/pagePlanManager.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanComms.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlanImpacts.js",
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabsPlanTabs.js"
-  ],
-  "packages/shared-imports/src/events/plans/queryIdx/index.js": [
-    "packages/shared-imports/src/events/plans/eventTypes/pages/planManager/query/index.js"
-  ],
-  "packages/shared-imports/src/events/studio-integration-example.js": [
-    "packages/shared-imports/src/events/index.js"
-  ],
   "packages/shared-imports/src/impact-tracking/CrossAppAnalyzer.js": [
     "packages/shared-imports/src/impact-tracking/types.js",
     "packages/shared-imports/src/utils/logger.js"
@@ -1168,40 +1164,17 @@
   ],
   "packages/shared-imports/src/index.js": [
     "packages/shared-imports/src/api/index.js",
-    "packages/shared-imports/src/architecture/workflows/index.js",
-    "packages/shared-imports/src/events/index.js",
     "packages/shared-imports/src/stores/index.js",
-    "packages/shared-imports/src/utils/index.js",
     "packages/shared-imports/src/utils/logger.js"
   ],
   "packages/shared-imports/src/jsx.js": [
-    "packages/shared-imports/src/architecture/components/ArchDashboard.jsx",
-    "packages/shared-imports/src/components/auth.jsx",
-    "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-    "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx",
-    "packages/shared-imports/src/components/common/EntitySelector.jsx",
-    "packages/shared-imports/src/components/common/ErrorBoundary.jsx",
-    "packages/shared-imports/src/components/common/Logo/index.jsx",
-    "packages/shared-imports/src/components/crud/CrudLayout/CrudLayout.jsx",
-    "packages/shared-imports/src/components/crud/Form/Form.jsx",
-    "packages/shared-imports/src/components/crud/Table/Table.jsx",
+    "packages/shared-imports/src/components/PageRenderer/index.jsx",
     "packages/shared-imports/src/components/forms/DatePick.jsx",
     "packages/shared-imports/src/components/forms/TextArea.jsx",
     "packages/shared-imports/src/components/forms/index.js",
-    "packages/shared-imports/src/components/grids/DataGrid.jsx",
-    "packages/shared-imports/src/components/layouts/AuthLayout.jsx",
-    "packages/shared-imports/src/components/layouts/MainLayout.jsx",
-    "packages/shared-imports/src/components/modals/Modal.jsx",
-    "packages/shared-imports/src/components/modals/modalStore.js",
-    "packages/shared-imports/src/components/modals/useModal.js",
-    "packages/shared-imports/src/components/modals/useModalStore.js",
-    "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx",
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx",
-    "packages/shared-imports/src/components/selectors/index.js",
     "packages/shared-imports/src/contexts/PlanContext.jsx"
   ],
   "packages/shared-imports/src/paths.js": [],
-  "packages/shared-imports/src/server/auth.jsx": [],
   "packages/shared-imports/src/services/documentService.js": [
     "packages/shared-imports/src/api/index.js",
     "packages/shared-imports/src/stores/contextStore.js"
@@ -1214,7 +1187,7 @@
     "packages/shared-imports/src/services/impactService.js"
   ],
   "packages/shared-imports/src/stores/contextStore.js": [
-    "packages/shared-imports/src/events/client/eventTypes.js"
+    "packages/shared-imports/src/api/execEvent.js"
   ],
   "packages/shared-imports/src/stores/index.js": [
     "packages/shared-imports/src/stores/contextStore.js"
@@ -1224,6 +1197,7 @@
   "packages/shared-imports/src/utils/coordinationSystem.js": [],
   "packages/shared-imports/src/utils/dml/operations.js": [],
   "packages/shared-imports/src/utils/documentMetadata.js": [],
+  "packages/shared-imports/src/utils/eventTypeDiscovery.js": [],
   "packages/shared-imports/src/utils/fileOperations.js": [
     "packages/shared-imports/src/utils/fileOperations/indexWithTracking.js"
   ],
@@ -1268,6 +1242,9 @@
   "packages/shared-imports/src/utils/fileOperations/writer.js": [
     "packages/shared-imports/src/utils/logger.js"
   ],
+  "packages/shared-imports/src/utils/genPageConfig.js": [
+    "packages/shared-imports/src/utils/eventTypeDiscovery.js"
+  ],
   "packages/shared-imports/src/utils/index.js": [
     "packages/shared-imports/src/api/index.js",
     "packages/shared-imports/src/utils/documentMetadata.js",
@@ -1279,11 +1256,13 @@
     "packages/shared-imports/src/utils/logger.js"
   ],
   "packages/shared-imports/src/utils/server.js": [
-    "packages/shared-imports/src/architecture/workflows/analysis/index.js",
-    "packages/shared-imports/src/architecture/workflows/guidance/index.js",
-    "packages/shared-imports/src/architecture/workflows/plans/index.js",
     "packages/shared-imports/src/utils/fileOperations.js"
   ],
+  "test-babel-parser.js": [
+    "analysis-n-document/genDocs/utils/parseEventType.js"
+  ],
+  "test-ccflare.ts": [],
+  "test-direct-request.js": [],
   "test-gen-workflows.js": [
     "analysis-n-document/genOps/workflows/genEntityWorkflows.js"
   ],
@@ -1292,6 +1271,9 @@
   ],
   "test-output-display.js": [],
   "test-output-workflow.js": [],
+  "test-targeted-analysis.js": [
+    "apps/wf-studio/src/utils/targetedAnalysis.js"
+  ],
   "test-template-processing.js": [],
   "tools/asciip/e2e/fixtures/delete.spec.ts/data_01.json": [],
   "tools/asciip/e2e/fixtures/fixture.ts": [

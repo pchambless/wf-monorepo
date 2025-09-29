@@ -4,18 +4,16 @@ import SimpleLayout from "./layouts/SimpleLayout";
 import { getNavigationSections, getAppBarConfig } from "./config/navigation";
 import { ROUTES } from "./config/routes";
 import { loadMermaidLibrary } from "./utils/mermaidLoader";
-import { useContextStore } from "@whatsfresh/shared-imports";
+import { clearVals } from "@whatsfresh/shared-imports";
 
 // Import Studio page directly for full-screen rendering
 const StudioPage = lazy(() => import("./pages/Studio"));
 
 const App = () => {
-  const contextStore = useContextStore();
-
   // App startup initialization
   useEffect(() => {
     // Clear all context for clean slate on app startup
-    contextStore.clearAllContext();
+    clearVals();
     console.log('✅ Studio App: Context cleared for clean startup');
 
     // Load mermaid.js globally for Studio

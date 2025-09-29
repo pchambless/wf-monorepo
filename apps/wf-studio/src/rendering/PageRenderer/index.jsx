@@ -7,17 +7,16 @@
 
 import React, { useEffect, useState } from "react";
 import { workflowEngine } from "../WorkflowEngine/index.js";
-import { useContextStore } from "@whatsfresh/shared-imports";
+// Database-driven context - no local context store needed
 import LayoutRenderer from "./LayoutRenderer.jsx";
 import "../../styles/base-components.css";
 
 const PageRenderer = ({ config }) => {
-  const contextStore = useContextStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Initialize WorkflowEngine with contextStore
-    workflowEngine.initialize(contextStore);
+    // Initialize WorkflowEngine (now uses database-driven context)
+    workflowEngine.initialize();
 
     // Execute page-level onLoad workflow triggers if they exist
     if (config?.workflowTriggers?.onLoad) {

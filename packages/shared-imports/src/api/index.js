@@ -4,14 +4,9 @@
  */
 
 import { execEvent as execEventFn } from './execEvent.js';
-import { fetchParams as fetchParamsFn } from './fetchParams.js';
 import { execCreateDoc as execCreateDocFn } from './execCreateDoc.js';
 import { execDml as execDmlFn } from './execDml.js';
 import { execDmlWithRefresh as execDmlWithRefreshFn } from './execDmlWithRefresh.js';
-import { fetchStudioEventTypes as fetchStudioEventTypesFn } from './fetchStudioEventTypes.js';
-import { execApps as execAppsFn } from './execApps.js';
-import { execPages as execPagesFn } from './execPages.js';
-import { fetchQueryEvents as fetchQueryEventsFn } from './fetchQueryEvents.js';
 import { setVals as setValsFn } from './setVals.js';
 import { getVal as getValFn } from './getVal.js';
 import { clearVals as clearValsFn } from './clearVals.js';
@@ -37,36 +32,21 @@ export function createApi(options = {}) {
   const config = { baseUrl, logger };
 
   // Create bound functions with config injected
-  const boundExecEvent = (eventType, params = {}) => 
+  const boundExecEvent = (eventType, params = {}) =>
     execEventFn(eventType, params, config);
-    
-  const boundFetchParams = (eventTypeName) => 
-    fetchParamsFn(eventTypeName, config);
-    
-  const boundExecCreateDoc = (params) => 
-    execCreateDocFn(params, config);
-    
-  const boundExecDml = (operation, data = {}) => 
-    execDmlFn(operation, data, config);
-    
-  const boundExecDmlWithRefresh = (operation, data = {}, listEvent = null) => 
-    execDmlWithRefreshFn(operation, data, listEvent, { 
-      ...config, 
-      execDml: boundExecDml, 
-      execEvent: boundExecEvent 
-    });
-    
-  const boundFetchStudioEventTypes = (app) => 
-    fetchStudioEventTypesFn(app, config);
-    
-  const boundExecApps = () => 
-    execAppsFn(config);
-    
-  const boundExecPages = (appName) => 
-    execPagesFn(appName, config);
 
-  const boundFetchQueryEvents = (app) =>
-    fetchQueryEventsFn(app, config);
+  const boundExecCreateDoc = (params) =>
+    execCreateDocFn(params, config);
+
+  const boundExecDml = (operation, data = {}) =>
+    execDmlFn(operation, data, config);
+
+  const boundExecDmlWithRefresh = (operation, data = {}, listEvent = null) =>
+    execDmlWithRefreshFn(operation, data, listEvent, {
+      ...config,
+      execDml: boundExecDml,
+      execEvent: boundExecEvent
+    });
 
   const boundSetVals = (values) =>
     setValsFn(values, config);
@@ -82,14 +62,9 @@ export function createApi(options = {}) {
 
   return {
     execEvent: boundExecEvent,
-    fetchParams: boundFetchParams,
     execCreateDoc: boundExecCreateDoc,
     execDml: boundExecDml,
     execDmlWithRefresh: boundExecDmlWithRefresh,
-    fetchStudioEventTypes: boundFetchStudioEventTypes,
-    execApps: boundExecApps,
-    execPages: boundExecPages,
-    fetchQueryEvents: boundFetchQueryEvents,
     setVals: boundSetVals,
     getVal: boundGetVal,
     clearVals: boundClearVals,
@@ -110,10 +85,6 @@ export const {
   execDml,
   execDmlWithRefresh,
   execCreateDoc,
-  fetchStudioEventTypes,
-  fetchParams,
-  execApps,
-  execPages,
   setVals,
   getVal,
   clearVals,
