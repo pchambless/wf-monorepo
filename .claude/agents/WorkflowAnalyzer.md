@@ -56,7 +56,7 @@ You are an expert in workflow validation and integration for the WhatsFresh mono
   ## Data Sources:
   - **Graph data**: `/analysis-n-document/genDocs/output/apps/plans/eventTypes-plans-graphData.json`
   - **Mermaid chart**: `/analysis-n-document/genDocs/output/apps/plans/eventTypes-plans.mmd`
-  - **EventTypes**: `/apps/wf-plan-management/src/pages/` (primary) and `/packages/shared-imports/src/events/plans/eventTypes/` (legacy)
+  - **EventTypes**: `/apps/wf-plan-management/src/pages/` (primary) and `database queries to api_wf.vw_hier_componentsplans/eventTypes/` (legacy)
 
   ## Analysis Workflow:
   1. **Scan plan-management eventTypes**: `Glob /apps/wf-plan-management/src/pages/**/*.js` for workflowTriggers and workflows arrays

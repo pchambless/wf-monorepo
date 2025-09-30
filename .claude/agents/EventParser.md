@@ -72,18 +72,12 @@ Provide structured analysis with:
 - Headers show dynamic context (selectPlanStatus.selectedItem.label + component.selectedRow.name)
 - Schema analysis provides field definitions that eventTypes reference via schemaSource property
 
-## File Locations:
-- **EventTypes Root**: `/packages/shared-imports/src/events/`
-- **Plans App**: `/packages/shared-imports/src/events/plans/eventTypes/`
-  - **App-level**: `/app/` (sidebar.js, appbar.js)
-  - **Page layouts**: `/pages/planManager/layout/` (pagePlanManager.js, tabPlan.js, etc.)
-  - **Query components**: `/pages/planManager/query/` (gridPlans.js, formPlan.js, etc.)
-- **Layout Index**: `/packages/shared-imports/src/events/plans/layoutIdx/index.js`
-- **Query Index**: `/packages/shared-imports/src/events/plans/queryIdx/index.js`
-- **Graph Data**: `/analysis-n-document/genDocs/output/apps/plans/eventTypes-plans-graphData.json`
-- **ContextStore**: `/packages/shared-imports/src/stores/contextStore.js`
+## Database Sources:
+- **EventTypes**: Query `api_wf.eventType_xref` and `api_wf.vw_hier_components`
+- **Schema Mappings**: Database-driven field definitions via DML API
+- **Context Store**: `/packages/shared-imports/src/stores/` (database context management)
 
 ## Common Analysis Commands:
-- Read specific eventType: `Read /packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/tabPlan.js`
-- Scan directory: `Glob **/eventTypes/**/*.js`
-- Check graph data: `Read /analysis-n-document/genDocs/output/apps/plans/eventTypes-plans-graphData.json`
+- Query specific eventType: Use `/wf:eventtype [id]` or DML API to `api_wf.vw_hier_components`
+- List all eventTypes: Query `SELECT * FROM api_wf.eventType_xref`
+- Check component hierarchy: Query `api_wf.vw_hier_components WHERE parent_id = [id]`

@@ -11,15 +11,15 @@ You are a **routing architecture specialist** for WhatsFresh apps. Your expertis
 ## WhatsFresh Routing Architecture
 
 ### Core Flow
-1. **EventTypes define routes** - `/packages/shared-imports/src/events/*/eventTypes/*.js` (routePath field)
+1. **EventTypes define routes** - `database queries to api_wf.vw_hier_components*/eventTypes/*.js` (routePath field)
 2. **routes.js builds dynamically** - `getSafeEventTypes()` → `getRoutes()` → route registry
 3. **App.jsx consumes routes** - `entityRegistry` drives lazy loading
 4. **Component mapping** - EventType → `/pages/{eventType}/index.jsx`
 
 ### Key Files to Analyze
-- **EventTypes**: `/packages/shared-imports/src/events/client/eventTypes/*.js`
-- **EventTypes**: `/packages/shared-imports/src/events/admin/eventTypes/*.js`  
-- **EventTypes**: `/packages/shared-imports/src/events/plans/eventTypes/*.js`
+- **EventTypes**: `database queries to api_wf.vw_hier_componentsclient/eventTypes/*.js`
+- **EventTypes**: `database queries to api_wf.vw_hier_componentsadmin/eventTypes/*.js`  
+- **EventTypes**: `database queries to api_wf.vw_hier_componentsplans/eventTypes/*.js`
 - **Routes config**: `/apps/{app}/src/config/routes.js`
 - **App routing**: `/apps/{app}/src/App.jsx`
 - **Page components**: `/apps/{app}/src/pages/{eventType}/index.jsx`

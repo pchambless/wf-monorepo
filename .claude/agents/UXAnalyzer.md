@@ -75,15 +75,15 @@ Provide structured analysis with:
 - **Typography**: Clear hierarchy using consistent font sizes and weights
 
 ## File Locations:
-- **EventTypes**: `/packages/shared-imports/src/events/`
 - **Components**: `/packages/shared-imports/src/components/`
+- **Database EventTypes**: Query `api_wf.vw_hier_components` for UI structure
 - **Styles**: Component-level style objects within component files
 - **Theme**: Centralized theme configuration (when implemented)
 - **Layout Examples**: Reference existing clean implementations
 
 ## Common Analysis Commands:
 - Read component: `Read /packages/shared-imports/src/components/SimpleLayout.jsx`
-- Check eventType layout: `Read /packages/shared-imports/src/events/plans/eventTypes/pages/planManager/layout/gridPlans.js`
+- Query eventType layouts: Use `/wf:eventtype [id]` to analyze UI structure
 - Scan styling patterns: `Glob **/*.jsx` for style object analysis
 - Review accessibility: Check for ARIA attributes and semantic HTML usage
 

@@ -41,10 +41,10 @@ model: claude-sonnet-4-20250514
   - **Graph data**: `/analysis-n-document/genDocs/output/apps/plans/eventTypes-plans-graphData.json`
 
   ## File Locations:
-  - **Events root**: `/packages/shared-imports/src/events/`
   - **Components**: `/packages/shared-imports/src/components/`
-  - **Architecture**: `/packages/shared-imports/src/architecture/`
-  - **Apps**: `/apps/wf-client/`, `/apps/wf-plan-management/`, `/apps/wf-server/`
+  - **API Layer**: `/packages/shared-imports/src/api/`
+  - **Utils**: `/packages/shared-imports/src/utils/`
+  - **Apps**: `/apps/wf-client/`, `/apps/wf-server/`, `/apps/wf-studio/`, `/apps/wf-admin/`, `/apps/wf-login/`
   - **Analysis tools**: `/analysis-n-document/`
 
   ## Analysis Workflow:
@@ -74,7 +74,7 @@ model: claude-sonnet-4-20250514
   - Read madge data: `Read /analysis-n-document/genDocs/output/monorepo/madge-analysis.json`
   - Check dead code: `Read /analysis-n-document/output/json/dead-code-analysis.json`
   - Scan for orphans: `Glob **/src/**/*.js` + compare with dependency data
-  - Verify eventTypes: `Read /packages/shared-imports/src/events/plans/layoutIdx/index.js`
+  - Check database eventTypes: Query `api_wf.vw_hier_components` via DML API
 
   ## Context:
   - Monorepo recently reorganized with many file moves and refactoring

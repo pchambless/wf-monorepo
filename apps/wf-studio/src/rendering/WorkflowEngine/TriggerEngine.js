@@ -29,24 +29,26 @@ export class TriggerEngine {
       // Add contextStore to context
       const fullContext = { ...context, contextStore: this.contextStore };
 
-      // Temporary: Test with static imports first, then make dynamic
+      // Dynamic import with explicit path context for webpack
       let module;
-      if (trigType === 'action' && actionName === 'setVals') {
-        module = await import('./triggers/action/setVals.js');
-      } else if (trigType === 'action' && actionName === 'visible') {
-        module = await import('./triggers/action/visible.js');
-      } else {
-        // Fallback to dynamic import
-        const modulePath = `./triggers/${trigType}/${actionName}.js`;
-        console.log(`🔍 TriggerEngine attempting dynamic import: ${modulePath}`);
-        module = await import(modulePath);
+      try {
+        if (trigType === 'action') {
+          // Webpack can analyze this pattern: import(`./triggers/action/${variable}.js`)
+          module = await import(/* webpackChunkName: "trigger-action-[request]" */ `./triggers/action/${actionName}.js`);
+        } else if (trigType === 'class') {
+          module = await import(/* webpackChunkName: "trigger-class-[request]" */ `./triggers/class/${actionName}.js`);
+        } else {
+          throw new Error(`Unknown trigger type: ${trigType}`);
+        }
+      } catch (error) {
+        throw new Error(`Failed to load trigger ${trigType}/${actionName}: ${error.message}`);
       }
 
       // Get the function (should match the actionName)
       const triggerFunction = module[actionName];
 
       if (!triggerFunction || typeof triggerFunction !== 'function') {
-        throw new Error(`Function ${actionName} not found in ${modulePath}`);
+        throw new Error(`Function ${actionName} not found in ${trigType}/${actionName}.js`);
       }
 
       // Execute with standard signature: (content, context)

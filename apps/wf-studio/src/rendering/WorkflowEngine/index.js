@@ -6,7 +6,6 @@
  * Philosophy: Declarative workflows defined in EventTypes
  */
 
-import { useContextStore } from '@whatsfresh/shared-imports';
 
 // class Triggers
 import { onLoad } from './triggers/class/onLoad.js';

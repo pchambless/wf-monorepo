@@ -86,31 +86,7 @@
           "type": "button",
           "container": "inline",
           "position": {"row": {"start": 2, "span": 1}, "col": {"start": 1, "span": 1}},
-          "props": {
-            "label": "Login",
-            "workflowTriggers": {
-              "onSubmit": [
-                {
-                  "action": "userLogin",
-                  "ordr": 1,
-                  "content": "{\"url\": \"/api/auth/login\", \r\n\"body\": {\r\n\t\"userEmail\": \"{{form.userEmail.value}}\", \r\n\t\"password\": \"{{form.enteredPassword.value}}\"\r\n\t}\r\n}"
-                }
-              ],
-              "onSuccess": [
-                {
-                  "action": "setVals",
-                  "ordr": 2,
-                  "content": "{\r\n  userID,{{response.user.id}},\r\n  userEmail,{{response.user.email}},\r\n  firstName,{{response.user.firstName}},\r\n  userName,{{response.user.name}},\r\n  userRole,{{response.user.role}},\r\n  acctID,{{response.user.dfltAcctID}}\r\n}"
-                },
-                {"action": "refresh", "ordr": 3, "content": "['selectLoginApp']"},
-                {
-                  "action": "visible",
-                  "ordr": 4,
-                  "content": "{\r\n\t\"comp_name\": \"selectLoginApp\", \r\n\t\"value\": true\r\n}"
-                }
-              ]
-            }
-          },
+          "props": {"label": "Login"},
           "style": {
             "display": "inline-flex",
             "alignItems": "center",
@@ -124,6 +100,28 @@
             "fontWeight": "500",
             "cursor": "pointer",
             "transition": "background-color 0.2s ease"
+          },
+          "workflowTriggers": {
+            "onClick": [
+              {
+                "ordr": 1,
+                "action": "userLogin",
+                "content": "{\"url\": \"/api/auth/login\", \r\n\"body\": {\r\n\t\"userEmail\": \"{{form.userEmail.value}}\", \r\n\t\"password\": \"{{form.enteredPassword.value}}\"\r\n\t}\r\n}"
+              }
+            ],
+            "onSuccess": [
+              {
+                "ordr": 2,
+                "action": "setVals",
+                "content": "{\r\n  userID,{{response.user.id}},\r\n  userEmail,{{response.user.email}},\r\n  firstName,{{response.user.firstName}},\r\n  userName,{{response.user.name}},\r\n  userRole,{{response.user.role}},\r\n  acctID,{{response.user.dfltAcctID}}\r\n}"
+              },
+              {"ordr": 3, "action": "refresh", "content": "['selectLoginApp']"},
+              {
+                "ordr": 4,
+                "action": "visible",
+                "content": "{\r\n\t\"comp_name\": \"selectLoginApp\", \r\n\t\"value\": true\r\n}"
+              }
+            ]
           }
         },
         {
@@ -131,18 +129,7 @@
           "type": "grid",
           "container": "inline",
           "position": {"row": {"start": 3, "span": 1}, "col": {"start": 1, "span": 1}},
-          "props": {
-            "rowKey": "comp_name",
-            "selectable": true,
-            "workflowTriggers": {
-              "onChange": [
-                {"action": "setVals", "ordr": 2, "content": "appID,{{this.value}}"},
-                {"action": "setVals", "ordr": 3, "content": "appName,{{selected.app_name}}"},
-                {"action": "navigate", "ordr": 4, "content": "{{selected.routePath}}"}
-              ],
-              "onRefresh": [{"action": "execEvent", "ordr": 1, "content": "5"}]
-            }
-          },
+          "props": {"rowKey": "comp_name", "selectable": true},
           "style": {
             "display": "block",
             "width": "100%",
@@ -150,6 +137,14 @@
             "borderRadius": "4px",
             "backgroundColor": "#ffffff",
             "overflow": "auto"
+          },
+          "workflowTriggers": {
+            "onChange": [
+              {"ordr": 2, "action": "setVals", "content": "appID,{{this.value}}"},
+              {"ordr": 3, "action": "setVals", "content": "appName,{{selected.app_name}}"},
+              {"ordr": 4, "action": "navigate", "content": "{{selected.routePath}}"}
+            ],
+            "onRefresh": [{"ordr": 1, "action": "execEvent", "content": "5"}]
           },
           "components": [
             {
@@ -259,7 +254,7 @@
     }
   ],
   "title": "loginPage",
-  "routePath": "/studio",
+  "routePath": "/wf-login/loginPage",
   "purpose": "Database-generated page configuration",
   "cluster": "Page"
 }

@@ -35,6 +35,12 @@ export async function getComponentProps(xrefId, userEmail = 'pc7900@gmail.com') 
     const props = {};
     if (propsResult && propsResult.length > 0) {
       propsResult.forEach(prop => {
+        // Filter out workflowTriggers - they belong in triggersRetriever.js
+        if (prop.paramName === 'workflowTriggers') {
+          logger.debug(`${codeName} Skipping workflowTriggers in props for xref_id: ${xrefId} (should come from eventTrigger table)`);
+          return;
+        }
+        
         try {
           props[prop.paramName] = JSON.parse(prop.paramVal);
         } catch {
