@@ -92,8 +92,8 @@ BEGIN
           WHERE ep.xref_id = h.id
             AND ep.paramName != 'workflowTriggers'
           ) as enhancedProps,
-          -- Add aggregated triggers from vw_eventTrigger as JSON
-          -- Returns: {"onClick": [{"action":"setVals", "ordr":1, "content":"..."}], "onSubmit": [...]}
+          -- Add aggregated triggers from vw_eventTrigger as JSON with is_dom_event flag
+          -- Returns: {"onClick": [{"action":"setVals", "ordr":1, "content":"...", "is_dom_event":true}], "onSuccess": [...]}
           (SELECT
               CONCAT('{',
                   GROUP_CONCAT(
@@ -104,7 +104,8 @@ BEGIN
                               JSON_OBJECT(
                                   'action', t2.action,
                                   'ordr', t2.ordr,
-                                  'content', t2.content
+                                  'content', t2.content,
+                                  'is_dom_event', CASE WHEN t2.is_dom_event = 1 THEN true ELSE false END
                               )
                               ORDER BY t2.ordr
                           )
@@ -119,7 +120,25 @@ BEGIN
           FROM api_wf.vw_eventTrigger t1
           WHERE t1.xref_id = h.id
           GROUP BY t1.xref_id
-          ) as workflowTriggers
+          ) as workflowTriggers,
+          -- Add triggers metadata for DirectRenderer to distinguish DOM events vs workflow callbacks
+          -- Returns: [{"name":"onClick","is_dom_event":true}, {"name":"onSuccess","is_dom_event":false}, ...]
+          (SELECT
+              CONCAT('[',
+                  GROUP_CONCAT(
+                      JSON_OBJECT(
+                          'id', tr.id,
+                          'name', tr.name,
+                          'trigType', tr.trigType,
+                          'is_dom_event', CASE WHEN tr.is_dom_event = 1 THEN true ELSE false END,
+                          'description', tr.description
+                      )
+                      ORDER BY tr.trigType, tr.name
+                  ),
+              ']')
+          FROM api_wf.triggers tr
+          WHERE tr.active = 1
+          ) as triggersMetadata
       FROM wf_hier h
       ORDER BY id_path, posOrder, id;
 END$$

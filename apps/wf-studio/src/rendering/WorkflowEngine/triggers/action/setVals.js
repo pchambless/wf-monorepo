@@ -2,10 +2,10 @@
  * Set multiple values in context store via shared-imports API
  */
 export async function setVals(content, context) {
-  const sharedImports = await import('@whatsfresh/shared-imports');
-  console.log('🔍 Available in shared-imports:', Object.keys(sharedImports));
-  console.log('🔍 Has setVals?', 'setVals' in sharedImports);
-  const { setVals: setValsAPI } = sharedImports;
+  const { setVals: setValsAPI } = await import('@whatsfresh/shared-imports');
+
+  console.log('🔍 setVals context keys:', Object.keys(context));
+  console.log('🔍 setVals context.response:', context.response);
 
   // Format content for API call
   let values = [];
@@ -14,6 +14,7 @@ export async function setVals(content, context) {
     // DB format: {"userID": "{{response.user.id}}", "userEmail": "{{response.user.email}}"}
     for (const [paramName, template] of Object.entries(content)) {
       const paramVal = resolveTemplate(template, context);
+      console.log(`🔍 Resolved ${paramName}: ${template} -> ${paramVal}`);
       values.push({ paramName, paramVal });
     }
   } else if (typeof content === 'string' && content.includes(',')) {
@@ -23,6 +24,7 @@ export async function setVals(content, context) {
     values.push({ paramName, paramVal });
   }
 
+  console.log('Setting', values.length, 'context values', values);
   return await setValsAPI(values);
 }
 

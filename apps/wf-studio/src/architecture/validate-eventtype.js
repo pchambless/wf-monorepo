@@ -69,38 +69,6 @@ export function validateEventType(eventType, filePath = 'unknown') {
   };
 }
 
-/**
- * Validate eventType from file path
- */
-export async function validateEventTypeFile(filePath) {
-  try {
-    const module = await import(filePath);
-    
-    // Try to find the eventType export (could be named various ways)
-    const eventType = module.default || 
-                     module[Object.keys(module).find(key => key.includes('Page') || key.includes('Card') || key.includes('Tab'))] ||
-                     module[Object.keys(module)[0]];
-    
-    if (!eventType) {
-      return {
-        valid: false,
-        violations: ['No eventType export found in file'],
-        warnings: [],
-        summary: '1 violation, 0 warnings'
-      };
-    }
-
-    return validateEventType(eventType, filePath);
-    
-  } catch (error) {
-    return {
-      valid: false,
-      violations: [`Failed to load file: ${error.message}`],
-      warnings: [],
-      summary: '1 violation, 0 warnings'
-    };
-  }
-}
 
 /**
  * Format validation results for console output

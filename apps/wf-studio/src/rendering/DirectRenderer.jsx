@@ -14,6 +14,15 @@ const DirectRenderer = ({ config }) => {
     return <div>No config provided</div>;
   }
 
+  // Data store for grid/component data keyed by componentId
+  const [dataStore, setDataStore] = React.useState({});
+
+  // Callback for triggers to store data
+  const setData = React.useCallback((componentId, data) => {
+    console.log(`📦 Storing data for ${componentId}:`, data);
+    setDataStore(prev => ({ ...prev, [componentId]: data }));
+  }, []);
+
   // Initialize TriggerEngine once
   React.useEffect(() => {
     triggerEngine.initialize(null); // TODO: Wire up contextStore for visibility
@@ -35,32 +44,48 @@ const DirectRenderer = ({ config }) => {
   };
 
   /**
-   * Build event handlers from workflowTriggers
+   * Build event handlers from workflowTriggers - only for DOM events
    */
   const buildEventHandlers = (workflowTriggers) => {
     if (!workflowTriggers) return {};
 
     const handlers = {};
     Object.entries(workflowTriggers).forEach(([eventType, triggers]) => {
+      // Check if any trigger in this eventType is a DOM event
+      const hasDomEventTrigger = triggers.some(trigger => trigger.is_dom_event);
+
+      if (!hasDomEventTrigger) {
+        console.log(`⏭️ Skipping ${eventType} - workflow callback, not DOM event`);
+        return;
+      }
+
       const handlerName = {
-        'onSubmit': 'onSubmit', 'onClick': 'onClick', 'onChange': 'onChange'
+        'onSubmit': 'onSubmit', 'onClick': 'onClick', 'onChange': 'onChange', 'onLoad': 'onLoad'
       }[eventType] || 'onClick';
 
-      console.log(`🔧 Building handler: ${handlerName} for eventType: ${eventType}, triggers:`, triggers);
+      console.log(`🔧 Building DOM handler: ${handlerName} for eventType: ${eventType}, triggers:`, triggers);
 
       handlers[handlerName] = async (e) => {
-        console.log(`🎯 Handler fired: ${handlerName}`, e.target);
-        if (eventType === 'onSubmit') e.preventDefault();
+        console.log(`🎯 DOM Handler fired: ${handlerName}`, e.target);
+        // Prevent default for form submissions and button clicks inside forms
+        if (eventType === 'onSubmit' || eventType === 'onClick') {
+          e.preventDefault();
+        }
 
         const context = {
           event: e,
           form: e.target.closest('form'),
           formData: e.target.closest('form') ?
-            Object.fromEntries(new FormData(e.target.closest('form'))) : null
+            Object.fromEntries(new FormData(e.target.closest('form'))) : null,
+          workflowTriggers, // Pass all triggers for success/error callbacks
+          pageConfig: config, // Add pageConfig for refresh action
+          setData // Add setData callback for execEvent
         };
 
-        console.log(`🔄 Executing triggers:`, triggers, context);
-        await triggerEngine.executeTriggers(triggers, context);
+        // Only execute DOM event triggers, TriggerEngine will handle callbacks
+        const domTriggers = triggers.filter(trigger => trigger.is_dom_event);
+        console.log(`🔄 Executing DOM triggers:`, domTriggers, context);
+        await triggerEngine.executeTriggers(domTriggers, context);
       };
     });
 
@@ -101,8 +126,28 @@ const DirectRenderer = ({ config }) => {
       columns: _cols,
       ...domProps
     } = props;
-    
-    // Pure pageConfig rendering - no special cases
+
+    // Handle tbody with dataSource - dynamic row rendering
+    let children;
+    if (type === 'tbody' && props.dataSource) {
+      const gridId = findParentGridId(component, config);
+      const data = dataStore[gridId];
+
+      if (data && data.length > 0 && components.length > 0) {
+        // Clone placeholder row for each data item
+        const placeholder = components[0];
+        children = data.map((row, idx) => renderRow(placeholder, row, idx));
+      } else {
+        // No data yet or placeholder not found
+        children = components.map(child => renderComponent(child));
+      }
+    } else {
+      // Normal rendering
+      children = textContent ||
+        (components.length > 0 ? components.map(child => renderComponent(child)) :
+         (props.label || props.title || null));
+    }
+
     return React.createElement(
       htmlElement,
       {
@@ -112,11 +157,58 @@ const DirectRenderer = ({ config }) => {
         ...domProps,         // FROM pageConfig (filtered)
         ...eventHandlers     // FROM pageConfig via TriggerEngine
       },
-      // Content: textContent, children components, or props content
-      textContent ||
-      (components.length > 0 ? components.map(child => renderComponent(child)) :
-       (props.label || props.title || null))
+      children
     );
+  };
+
+  /**
+   * Find parent grid ID for tbody
+   */
+  const findParentGridId = (component, pageConfig) => {
+    // Look for a grid component in the config tree
+    // For now, simple approach: find grid with tbody as descendant
+    const findGrid = (comp) => {
+      if (comp.type === 'grid') return comp.id;
+      if (comp.components) {
+        for (const child of comp.components) {
+          const found = findGrid(child);
+          if (found) return found;
+        }
+      }
+      return null;
+    };
+
+    for (const root of pageConfig.components || []) {
+      const gridId = findGrid(root);
+      if (gridId) return gridId;
+    }
+    return null;
+  };
+
+  /**
+   * Render row from placeholder, replacing {tokens} with data
+   */
+  const renderRow = (placeholder, rowData, idx) => {
+    const cloneWithData = (comp) => {
+      let textContent = comp.textContent;
+
+      // Replace {fieldName} tokens with actual values
+      if (textContent && textContent.includes('{')) {
+        Object.entries(rowData).forEach(([field, value]) => {
+          textContent = textContent.replace(`{${field}}`, value);
+        });
+      }
+
+      return {
+        ...comp,
+        id: `${comp.id}_${idx}`,
+        key: `${comp.id}_${idx}`,
+        textContent,
+        components: comp.components?.map(child => cloneWithData(child))
+      };
+    };
+
+    return renderComponent(cloneWithData(placeholder));
   };
 
   return (

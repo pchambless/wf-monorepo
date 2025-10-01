@@ -92,9 +92,9 @@ FROM whatsfresh.ingredient_batches ib
     GROUP BY ingredient_batch_id
   ) pbi ON ib.id = pbi.ingredient_batch_id
 
-WHERE ib.active = 'Y'
-  AND i.active = 'Y'
-  AND it.active ='Y'
+WHERE ib.active = 1
+  AND i.active = 1
+  AND it.active = 1
   AND ib.purchase_date >= DATE_SUB(NOW(), INTERVAL 7 YEAR)
 
 ORDER BY ib.purchase_date DESC, ib.batch_number;

@@ -14,4 +14,4 @@ SELECT
   a.comments AS vndrComments,
   a.account_id AS acctID
 FROM whatsfresh.vendors a
-WHERE a.active = 'Y';
+WHERE a.active = 1;

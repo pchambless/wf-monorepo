@@ -12,5 +12,5 @@ SELECT
   a.url AS brndURL,
   a.account_id AS acctID
 FROM whatsfresh.brands a
-WHERE a.active = 'Y'
+WHERE a.active = 1
 ORDER BY a.account_id, a.name;

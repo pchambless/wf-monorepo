@@ -18,9 +18,9 @@ SELECT
     c.name AS acctName,
     a.id AS userID,
     a.first_name AS firstName
-FROM users a
-JOIN accounts_users b ON a.id = b.user_id
-JOIN accounts c ON b.account_id = c.id
-WHERE a.active = 'Y' 
-  AND c.active = 'Y'
-ORDER BY a.id, c.name;
+FROM whatsfresh.users a
+JOIN whatsfresh.accounts_users b ON a.id = b.user_id
+JOIN whatsfresh.accounts c ON b.account_id = c.id
+WHERE a.active = 1 
+  AND c.active = 1
+ORDER BY c.id, c.name;

@@ -5,5 +5,5 @@ Select a.prd_rcpe_id prodRcpeID
 , a.ingr_id ingrID
 , prd_id	prodID
 from whatsfresh.v_prd_rcpe_dtl a
-where a.prd_rcpe_actv = 'Y'
+where a.prd_rcpe_actv = 1
 order by a.prd_id, a.ingr_ordr

@@ -66,7 +66,7 @@ export class TriggerEngine {
   /**
    * Execute database triggers for a component
    * @param {Array} triggers - Array from database: [{class, action, content, ordr}]
-   * @param {Object} context - Execution context
+   * @param {Object} context - Execution context (should include workflowTriggers for callbacks)
    */
   async executeTriggers(triggers, context = {}) {
     if (!Array.isArray(triggers)) {
@@ -78,7 +78,10 @@ export class TriggerEngine {
     const sortedTriggers = triggers.sort((a, b) => (a.ordr || 0) - (b.ordr || 0));
 
     const results = [];
+    let overallSuccess = true;
+    let lastError = null;
 
+    let lastResult = null;
     for (const trigger of sortedTriggers) {
       try {
         // Determine trigType based on trigger data
@@ -87,11 +90,47 @@ export class TriggerEngine {
         const content = this.parseContent(trigger.content);
 
         const result = await this.execute(trigType, actionName, content, context);
-        results.push({ trigger, result });
+        results.push({ trigger, result, success: true });
+        lastResult = result; // Store for onSuccess callbacks
+
+        // If execEvent returned data, store it in DirectRenderer
+        if (result?.componentId && result?.data && context.setData) {
+          context.setData(result.componentId, result.data);
+        }
 
       } catch (error) {
         console.error('❌ Trigger execution failed:', trigger, error);
-        results.push({ trigger, error: error.message });
+        results.push({ trigger, error: error.message, success: false });
+        overallSuccess = false;
+        lastError = error;
+      }
+    }
+
+    // After executing all primary triggers, check for success/error callbacks
+    const { workflowTriggers } = context;
+    if (workflowTriggers) {
+      try {
+        if (overallSuccess && workflowTriggers.onSuccess) {
+          console.log('🎉 Executing onSuccess callbacks:', workflowTriggers.onSuccess);
+          // Add response to context for template resolution
+          // Remove workflowTriggers to prevent infinite recursion
+          const successContext = {
+            ...context,
+            response: lastResult,
+            workflowTriggers: undefined
+          };
+          await this.executeTriggers(workflowTriggers.onSuccess, successContext);
+        } else if (!overallSuccess && workflowTriggers.onError) {
+          console.log('💥 Executing onError callbacks:', workflowTriggers.onError);
+          const errorContext = {
+            ...context,
+            error: lastError,
+            workflowTriggers: undefined
+          };
+          await this.executeTriggers(workflowTriggers.onError, errorContext);
+        }
+      } catch (callbackError) {
+        console.error('❌ Callback execution failed:', callbackError);
       }
     }
 

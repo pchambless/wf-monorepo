@@ -12,6 +12,31 @@
         "boxShadow": "0 4px 12px rgba(0,0,0,0.1)",
         "borderRadius": "8px"
       },
+      "workflowTriggers": {
+        "onSubmit": [
+          {
+            "ordr": 1,
+            "action": "userLogin",
+            "content": "{\"url\": \"/api/auth/login\", \r\n\"body\": {\r\n\t\"userEmail\": \"{{form.userEmail.value}}\", \r\n\t\"password\": \"{{form.enteredPassword.value}}\"\r\n\t}\r\n}",
+            "is_dom_event": 1
+          }
+        ],
+        "onSuccess": [
+          {
+            "ordr": 2,
+            "action": "setVals",
+            "content": "{\r\n    \"userID\": \"{{response.user.id}}\",\r\n    \"userEmail\": \"{{response.user.email}}\",\r\n    \"firstName\": \"{{response.user.firstName}}\",\r\n    \"userName\": \"{{response.user.name}}\",\r\n    \"userRole\": \"{{response.user.role}}\",\r\n    \"acctID\": \"{{response.user.dfltAcctID}}\"\r\n  }",
+            "is_dom_event": 0
+          },
+          {"ordr": 3, "action": "refresh", "content": "[\"selectLoginApp\"]", "is_dom_event": 0},
+          {
+            "ordr": 4,
+            "action": "visible",
+            "content": "{\r\n\t\"comp_name\": \"selectLoginApp\", \r\n\t\"value\": true\r\n}",
+            "is_dom_event": 0
+          }
+        ]
+      },
       "components": [
         {
           "id": "LoginForm_title",
@@ -100,28 +125,6 @@
             "fontWeight": "500",
             "cursor": "pointer",
             "transition": "background-color 0.2s ease"
-          },
-          "workflowTriggers": {
-            "onClick": [
-              {
-                "ordr": 1,
-                "action": "userLogin",
-                "content": "{\"url\": \"/api/auth/login\", \r\n\"body\": {\r\n\t\"userEmail\": \"{{form.userEmail.value}}\", \r\n\t\"password\": \"{{form.enteredPassword.value}}\"\r\n\t}\r\n}"
-              }
-            ],
-            "onSuccess": [
-              {
-                "ordr": 2,
-                "action": "setVals",
-                "content": "{\r\n  userID,{{response.user.id}},\r\n  userEmail,{{response.user.email}},\r\n  firstName,{{response.user.firstName}},\r\n  userName,{{response.user.name}},\r\n  userRole,{{response.user.role}},\r\n  acctID,{{response.user.dfltAcctID}}\r\n}"
-              },
-              {"ordr": 3, "action": "refresh", "content": "['selectLoginApp']"},
-              {
-                "ordr": 4,
-                "action": "visible",
-                "content": "{\r\n\t\"comp_name\": \"selectLoginApp\", \r\n\t\"value\": true\r\n}"
-              }
-            ]
           }
         },
         {
@@ -140,11 +143,26 @@
           },
           "workflowTriggers": {
             "onChange": [
-              {"ordr": 2, "action": "setVals", "content": "appID,{{this.value}}"},
-              {"ordr": 3, "action": "setVals", "content": "appName,{{selected.app_name}}"},
-              {"ordr": 4, "action": "navigate", "content": "{{selected.routePath}}"}
+              {
+                "ordr": 2,
+                "action": "setVals",
+                "content": "\"appID\": \"{{this.value}}\"",
+                "is_dom_event": 1
+              },
+              {
+                "ordr": 3,
+                "action": "setVals",
+                "content": "\"appName\": \"{{selected.app_name}}\"",
+                "is_dom_event": 1
+              },
+              {
+                "ordr": 4,
+                "action": "navigate",
+                "content": "{{selected.routePath}}",
+                "is_dom_event": 1
+              }
             ],
-            "onRefresh": [{"ordr": 1, "action": "execEvent", "content": "5"}]
+            "onRefresh": [{"ordr": 1, "action": "execEvent", "content": "5", "is_dom_event": 0}]
           },
           "components": [
             {

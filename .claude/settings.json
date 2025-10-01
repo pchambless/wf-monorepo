@@ -11,8 +11,8 @@
     },
     "permissions": {
         "allow": [
-            "Bash(npm run *)",
-            "Bash(git *)",
+            "Bash(npm run :*)",
+            "Bash(git :*)",
             "Bash(node packages/devtools/src/automation/*)",
             "Edit",
             "Read(**)",

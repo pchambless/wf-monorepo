@@ -10,4 +10,4 @@ SELECT
   a.name AS wrkrName,
   a.account_id AS acctID
 FROM whatsfresh.workers a
-WHERE a.active = 'y';
+WHERE a.active = 1;

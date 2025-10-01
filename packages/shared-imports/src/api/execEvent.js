@@ -10,11 +10,12 @@ export async function execEvent(xrefId, params = {}, { baseUrl, logger }) {
     };
 
     // Call the execEventType endpoint with credentials
+    // Server expects eventSQLId parameter
     const response = await fetch(`${baseUrl}/api/execEventType`, {
       method: "POST",
       headers,
       credentials: "include", // Important for session cookies
-      body: JSON.stringify({ xrefId, params }),
+      body: JSON.stringify({ eventSQLId: xrefId, params }),
     });
 
     if (!response.ok) {

@@ -12,5 +12,5 @@ SELECT
   a.ordr AS taskOrder,
   a.product_type_id AS prodTypeID
 FROM whatsfresh.tasks a
-WHERE a.active = 'Y'
+WHERE a.active = 1
 ORDER BY a.product_type_id, a.ordr;

@@ -17,5 +17,5 @@ SELECT
   a.product_type_id AS prodTypeID, 
   a.account_id AS acctID
 FROM whatsfresh.products a
-WHERE a.active = 'Y'
+WHERE a.active = 1
 ORDER BY a.product_type_id, a.name;
