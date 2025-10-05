@@ -1,0 +1,55 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/.d30e0eec910d1e93b8f997a27bd67bb4d2a5d885-audit.json",
+    "files": [
+        {
+            "date": 1758305522473,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-09-19.log",
+            "hash": "a19f0e4c64dedd4334cc8b5bd6e68df37f6de090263343d0b352939139b25d1e"
+        },
+        {
+            "date": 1758370598004,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-09-20.log",
+            "hash": "116f73aa15feb506eeb9129ccfe97df5e1ef1ee86584543c613c224a7430e7ce"
+        },
+        {
+            "date": 1758978138052,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-09-27.log",
+            "hash": "6643e55a2e8a1974f3caaa80ea6c71d812efec086b1e2a074811f163d0023d70"
+        },
+        {
+            "date": 1759087160523,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-09-28.log",
+            "hash": "58bac975056f387993be63c55db9428780e258c9669766133163c8d8954246ee"
+        },
+        {
+            "date": 1759147772960,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-09-29.log",
+            "hash": "9fe659f19ae679eff384dfa3868384c525486eaabb984ff510725be390efffb6"
+        },
+        {
+            "date": 1759241398328,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-09-30.log",
+            "hash": "30fac157fc3811ff9602b4d2e9cbcd813313852f25c5763bddc74fc1a8565758"
+        },
+        {
+            "date": 1759325103199,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-10-01.log",
+            "hash": "fe2d330d4fa0a650687ec13401e33b275b03d65f40783e3769cf4b2a8843fa07"
+        },
+        {
+            "date": 1759405467100,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-10-02.log",
+            "hash": "2c4dd96db19ba163672f6192be62eca718860a576914d7c5cf6f37f591bee585"
+        },
+        {
+            "date": 1759495679105,
+            "name": "/home/paul/wf-monorepo-new/apps/wf-server/server/logs/error-2025-10-03.log",
+            "hash": "77ba93e5d35b329f0eef78736054a22d4b9f40c7fb5f4a2126edef02ba08cfb4"
+        }
+    ],
+    "hashType": "sha256"
+}

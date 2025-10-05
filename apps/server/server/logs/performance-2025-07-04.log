@@ -1,0 +1,22 @@
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 00:31:14"}
+{"level":"info","message":"Log file rotated","newFilename":"/app/server/logs/application-2025-07-04.log","oldFilename":"/app/server/logs/application-2025-07-03.log","timestamp":"2025-07-04 00:31:14"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 01:31:28"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 05:08:00"}
+{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"level":"error","message":"[dbManager.js] Database connection test failed: connect ETIMEDOUT","stack":"Error: connect ETIMEDOUT\n    at PoolConnection._handleTimeoutError (/app/node_modules/mysql2/lib/connection.js:189:17)\n    at listOnTimeout (node:internal/timers:569:17)\n    at process.processTimers (node:internal/timers:512:7)","syscall":"connect","timestamp":"2025-07-04 10:07:07"}
+{"code":"ETIMEDOUT","errorno":"ETIMEDOUT","fatal":true,"level":"warn","message":"[dbManager.js] Health check failed: connect ETIMEDOUT","stack":"Error: connect ETIMEDOUT\n    at PoolConnection._handleTimeoutError (/app/node_modules/mysql2/lib/connection.js:189:17)\n    at listOnTimeout (node:internal/timers:569:17)\n    at process.processTimers (node:internal/timers:512:7)","syscall":"connect","timestamp":"2025-07-04 10:07:07"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-07-04 10:22:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 10:22:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 11:30:14"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 12:30:33"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 13:30:53"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 14:31:14"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 15:31:28"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 16:31:38"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 17:31:46"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 18:31:56"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 19:32:05"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 20:32:16"}
+{"level":"http","message":"[app.js]  Request","method":"GET","path":"/","query":{"id":"bdd95ab2-0eff-4f03-ae6a-aae925cc8c75","vscodeBrowserReqId":"1751663660917"},"timestamp":"2025-07-04 21:14:20"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 21:32:27"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-04 22:32:39"}
+{"level":"info","message":"[server.js] SIGTERM received, shutting down gracefully","timestamp":"2025-07-04 22:53:17"}

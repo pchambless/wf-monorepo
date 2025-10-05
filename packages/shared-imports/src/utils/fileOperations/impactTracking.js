@@ -5,7 +5,7 @@
  * Part of automatic-impact-tracking spec - Task 3.1
  */
 
-import { trackFileChange } from "../../../../../apps/wf-server/server/workflows/impact-tracking/index.js";
+import { trackFileChange } from "../../../../../apps/server/server/workflows/impact-tracking/index.js";
 import createLogger from "../logger.js";
 
 const logger = createLogger("FileOperationsImpactTracking");

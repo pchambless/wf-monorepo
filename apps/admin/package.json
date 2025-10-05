@@ -1,0 +1,36 @@
+{
+  "name": "admin",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@craco/craco": "^7.1.0",
+    "@mui/icons-material": "^7.1.1",
+    "@mui/material": "^7.1.1",
+    "@whatsfresh/shared-imports": "file:../../packages/shared-imports",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-scripts": "^5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

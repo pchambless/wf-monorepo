@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/paul/wf-monorepo-new/apps/server/server/logs/.5bb02631725586d7fa9621fdbab055fe71373737-audit.json",
+    "files": [
+        {
+            "date": 1759504865391,
+            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-03.log",
+            "hash": "72c0e68786c0ebf91b691d01cb60b3aaf4669b2418f052e623f192e2628ec28a"
+        },
+        {
+            "date": 1759585527720,
+            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-04.log",
+            "hash": "3c0bddff26619a57bd6ce558a75acaa5d4635adaccc76247243e272854025c82"
+        }
+    ],
+    "hashType": "sha256"
+}

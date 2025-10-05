@@ -123,15 +123,15 @@ return <div style={styles.container}>...</div>;
 - **EventTypes**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/events` (admin, client, plans)
 - **Workflows**: `/home/paul/wf-monorepo-new/packages/shared-imports/src/architecture/workflows` (Planning workflows)
 
-### wf-server
+### server
 
-- **Controllers**: `/apps/wf-server/server/controller/` (business logic)
-- **Utils**: `/apps/wf-server/server/utils/` (dml, queryResolver)
-- **Workflows**: `/home/paul/wf-monorepo-new/apps/wf-server/server/workflows` (plans, communications, impact-tracking)
-- **Routes**: `/home/paul/wf-monorepo-new/apps/wf-server/server/routes/registerRoutes.js` (controllers, routes)
-- **app.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server/app.js` (app.js, app start)
-- **server.js**: `/home/paul/wf-monorepo-new/apps/wf-server/server` (instead of src folder)
-- **utils/dml**: `\\wsl$\Ubuntu-22.04\home\paul\wf-monorepo-new\apps\wf-server\server\utils\dml` (dml modules)
+- **Controllers**: `/apps/server/server/controller/` (business logic)
+- **Utils**: `/apps/server/server/utils/` (dml, queryResolver)
+- **Workflows**: `/home/paul/wf-monorepo-new/apps/server/server/workflows` (plans, communications, impact-tracking)
+- **Routes**: `/home/paul/wf-monorepo-new/apps/server/server/routes/registerRoutes.js` (controllers, routes)
+- **app.js**: `/home/paul/wf-monorepo-new/apps/server/server/app.js` (app.js, app start)
+- **server.js**: `/home/paul/wf-monorepo-new/apps/server/server` (instead of src folder)
+- **utils/dml**: `\\wsl$\Ubuntu-22.04\home\paul\wf-monorepo-new\apps\server\server\utils\dml` (dml modules)
 
 #### .kiro (plans)
 

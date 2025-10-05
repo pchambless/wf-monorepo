@@ -1,0 +1,253 @@
+{
+  "layout": "flex",
+  "components": [
+    {
+      "id": "LoginForm",
+      "comp_type": "Form",
+      "xref_id": 43,
+      "container": "inline",
+      "position": {"row": {"start": 1, "span": 1}, "col": {"start": 1, "span": 1}},
+      "props": {"layout": "vertical"},
+      "workflowTriggers": {
+        "onSubmit": [
+          {
+            "ordr": 1,
+            "action": "userLogin",
+            "content": "{\"url\": \"/api/auth/login\", \r\n\"body\": {\r\n\t\"userEmail\": \"{{form.userEmail.value}}\", \r\n\t\"password\": \"{{form.enteredPassword.value}}\"\r\n\t}\r\n}",
+            "is_dom_event": 1
+          }
+        ],
+        "onSuccess": [
+          {
+            "ordr": 2,
+            "action": "setVals",
+            "content": "{\r\n    \"userID\": \"{{response.user.id}}\",\r\n    \"userEmail\": \"{{response.user.email}}\",\r\n    \"firstName\": \"{{response.user.firstName}}\",\r\n    \"userName\": \"{{response.user.name}}\",\r\n    \"userRole\": \"{{response.user.role}}\",\r\n    \"acctID\": \"{{response.user.dfltAcctID}}\"\r\n  }",
+            "is_dom_event": 0
+          },
+          {"ordr": 3, "action": "refresh", "content": "[\"selectLoginApp\"]", "is_dom_event": 0},
+          {
+            "ordr": 4,
+            "action": "visible",
+            "content": "{\r\n\t\"comp_name\": \"selectLoginApp\", \r\n\t\"value\": true\r\n}",
+            "is_dom_event": 0
+          }
+        ]
+      },
+      "components": [
+        {
+          "id": "title",
+          "type": "h3",
+          "textContent": "Login to WhatsFresh",
+          "style": {"marginTop": 0}
+        },
+        {
+          "id": "userEmail",
+          "type": "div",
+          "style": {"marginBottom": "16px"},
+          "components": [
+            {
+              "id": "label_userEmail",
+              "type": "label",
+              "textContent": "Email Address*",
+              "props": {"htmlFor": "userEmail"},
+              "style": {"display": "block", "marginBottom": "4px", "fontWeight": "500"}
+            },
+            {
+              "id": "input_userEmail",
+              "type": "input",
+              "props": {
+                "name": "userEmail",
+                "type": "email",
+                "placeholder": "Enter your email",
+                "required": true
+              },
+              "style": {
+                "width": "100%",
+                "padding": "8px 12px",
+                "border": "1px solid #ccc",
+                "borderRadius": "4px",
+                "fontSize": "14px"
+              }
+            }
+          ]
+        },
+        {
+          "id": "enteredPassword",
+          "type": "div",
+          "style": {"marginBottom": "16px"},
+          "components": [
+            {
+              "id": "label_enteredPassword",
+              "type": "label",
+              "textContent": "Password*",
+              "props": {"htmlFor": "enteredPassword"},
+              "style": {"display": "block", "marginBottom": "4px", "fontWeight": "500"}
+            },
+            {
+              "id": "input_enteredPassword",
+              "type": "input",
+              "props": {
+                "name": "enteredPassword",
+                "type": "password",
+                "placeholder": "Enter your password",
+                "required": true
+              },
+              "style": {
+                "width": "100%",
+                "padding": "8px 12px",
+                "border": "1px solid #ccc",
+                "borderRadius": "4px",
+                "fontSize": "14px"
+              }
+            }
+          ]
+        },
+        {
+          "id": "loginSubmit",
+          "comp_type": "Button",
+          "xref_id": 42,
+          "container": "inline",
+          "position": {"row": {"start": 2, "span": 1}, "col": {"start": 1, "span": 1}},
+          "props": {"label": "Login"}
+        },
+        {
+          "id": "selectLoginApp",
+          "comp_type": "Grid",
+          "xref_id": 44,
+          "container": "inline",
+          "position": {"row": {"start": 3, "span": 1}, "col": {"start": 1, "span": 1}},
+          "props": {"rowKey": "comp_name", "selectable": true},
+          "workflowTriggers": {
+            "onChange": [
+              {
+                "ordr": 2,
+                "action": "refresh",
+                "content": "\"appID\": \"{{this.value}}\"",
+                "is_dom_event": 1
+              },
+              {
+                "ordr": 3,
+                "action": "setVals",
+                "content": "\"appName\": \"{{selected.app_name}}\"",
+                "is_dom_event": 1
+              },
+              {
+                "ordr": 4,
+                "action": "navigate",
+                "content": "{{selected.routePath}}",
+                "is_dom_event": 1
+              }
+            ],
+            "onRefresh": [
+              {"ordr": 1, "action": "execEvent", "content": "authAppList", "is_dom_event": 0}
+            ]
+          },
+          "components": [
+            {
+              "id": "title",
+              "type": "h2",
+              "textContent": "Select Application",
+              "style": {"marginTop": 0, "marginBottom": "16px"}
+            },
+            {
+              "id": "table",
+              "type": "table",
+              "style": {
+                "width": "100%",
+                "borderCollapse": "collapse",
+                "border": "1px solid #e0e0e0"
+              },
+              "components": [
+                {
+                  "id": "thead",
+                  "type": "thead",
+                  "style": {"backgroundColor": "#f5f5f5"},
+                  "components": [
+                    {
+                      "id": "headerRow",
+                      "type": "tr",
+                      "components": [
+                        {
+                          "id": "header_comp_name",
+                          "type": "th",
+                          "textContent": "App",
+                          "style": {
+                            "padding": "12px 8px",
+                            "textAlign": "left",
+                            "borderBottom": "1px solid #e0e0e0",
+                            "fontWeight": "600",
+                            "width": "120px"
+                          }
+                        },
+                        {
+                          "id": "header_routePath",
+                          "type": "th",
+                          "textContent": "Route",
+                          "style": {
+                            "padding": "12px 8px",
+                            "textAlign": "left",
+                            "borderBottom": "1px solid #e0e0e0",
+                            "fontWeight": "600",
+                            "width": "150px"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "tbody",
+                  "type": "tbody",
+                  "props": {
+                    "dataSource": "selectLoginApp",
+                    "rowKey": "comp_name",
+                    "selectable": true,
+                    "columns": [
+                      {"field": "comp_name", "header": "App", "width": "120px", "align": "left"},
+                      {"field": "routePath", "header": "Route", "width": "150px", "align": "left"}
+                    ]
+                  },
+                  "components": [
+                    {
+                      "id": "placeholderRow",
+                      "type": "tr",
+                      "style": {},
+                      "components": [
+                        {
+                          "id": "placeholder_comp_name",
+                          "type": "td",
+                          "textContent": "{comp_name}",
+                          "style": {
+                            "padding": "6px 12px",
+                            "borderBottom": "1px solid #e1e4e8",
+                            "fontSize": "14px",
+                            "cursor": "pointer"
+                          }
+                        },
+                        {
+                          "id": "placeholder_routePath",
+                          "type": "td",
+                          "textContent": "{routePath}",
+                          "style": {
+                            "padding": "6px 12px",
+                            "borderBottom": "1px solid #e1e4e8",
+                            "fontSize": "14px",
+                            "cursor": "pointer"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "title": "loginPage",
+  "routePath": "/login/loginPage",
+  "purpose": "Database-generated page configuration",
+  "cluster": "Page"
+}

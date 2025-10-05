@@ -14,11 +14,11 @@ const logger = createLogger("FileSecurity");
  * @throws {Error} If path resolution fails
  */
 export function resolvePath(filePath) {
-  // Determine project root - if we're in apps/wf-server, go up to workspace root
+  // Determine project root - if we're in apps/server, go up to workspace root
   let projectRoot = process.cwd();
   if (
-    projectRoot.endsWith("apps/wf-server") ||
-    projectRoot.endsWith("apps\\wf-server")
+    projectRoot.endsWith("apps/server") ||
+    projectRoot.endsWith("apps\\server")
   ) {
     projectRoot = path.resolve(projectRoot, "../..");
   }

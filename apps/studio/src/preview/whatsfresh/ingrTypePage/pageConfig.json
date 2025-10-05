@@ -1,0 +1,277 @@
+{
+  "layout": "flex",
+  "workflowTriggers": {
+    "onLoad": [
+      {
+        "ordr": 1,
+        "action": "clearVals",
+        "content": "[\"ingrTypeID\", \"ingrID\", \"ingrBtchID\"]",
+        "is_dom_event": 1
+      },
+      {"ordr": 2, "action": "refresh", "content": "[\"ingrTypeGrid\"]", "is_dom_event": 1}
+    ]
+  },
+  "components": [
+    {
+      "id": "crudContainer",
+      "comp_type": "Container",
+      "xref_id": 60,
+      "container": "inline",
+      "position": {},
+      "props": {},
+      "components": [
+        {
+          "id": "ingrTypeGrid",
+          "comp_type": "Grid",
+          "xref_id": 56,
+          "container": "inline",
+          "position": {"row": {"start": 1, "span": 5}, "col": {"start": 1, "span": 6}},
+          "props": {"rowKey": "id", "selectable": true},
+          "workflowTriggers": {
+            "onChange": [
+              {"ordr": 3, "action": "refresh", "content": "[\"ingrTypeForm\"]", "is_dom_event": 1}
+            ],
+            "onRefresh": [
+              {"ordr": 1, "action": "execEvent", "content": "ingrTypeList", "is_dom_event": 0}
+            ]
+          },
+          "components": [
+            {
+              "id": "table",
+              "type": "table",
+              "style": {
+                "width": "100%",
+                "borderCollapse": "collapse",
+                "border": "1px solid #e0e0e0"
+              },
+              "components": [
+                {
+                  "id": "thead",
+                  "type": "thead",
+                  "style": {"backgroundColor": "#f5f5f5"},
+                  "components": [
+                    {
+                      "id": "headerRow",
+                      "type": "tr",
+                      "components": [
+                        {
+                          "id": "header_id",
+                          "type": "th",
+                          "textContent": "ID",
+                          "style": {
+                            "padding": "12px 8px",
+                            "textAlign": "left",
+                            "borderBottom": "1px solid #e0e0e0",
+                            "fontWeight": "600",
+                            "width": "80px"
+                          }
+                        },
+                        {
+                          "id": "header_name",
+                          "type": "th",
+                          "textContent": "Type Name",
+                          "style": {
+                            "padding": "12px 8px",
+                            "textAlign": "left",
+                            "borderBottom": "1px solid #e0e0e0",
+                            "fontWeight": "600",
+                            "width": "200px"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "tbody",
+                  "type": "tbody",
+                  "props": {
+                    "dataSource": "ingrTypeGrid",
+                    "rowKey": "id",
+                    "selectable": true,
+                    "columns": [
+                      {"field": "id", "header": "ID", "width": "80px", "hidden": true},
+                      {"field": "name", "header": "Type Name", "width": "200px"}
+                    ]
+                  },
+                  "components": [
+                    {
+                      "id": "placeholderRow",
+                      "type": "tr",
+                      "style": {},
+                      "components": [
+                        {
+                          "id": "placeholder_id",
+                          "type": "td",
+                          "textContent": "{id}",
+                          "style": {
+                            "padding": "6px 12px",
+                            "borderBottom": "1px solid #e1e4e8",
+                            "fontSize": "14px",
+                            "cursor": "pointer"
+                          }
+                        },
+                        {
+                          "id": "placeholder_name",
+                          "type": "td",
+                          "textContent": "{name}",
+                          "style": {
+                            "padding": "6px 12px",
+                            "borderBottom": "1px solid #e1e4e8",
+                            "fontSize": "14px",
+                            "cursor": "pointer"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ingrTypeForm",
+          "comp_type": "Form",
+          "xref_id": 59,
+          "container": "inline",
+          "position": {"row": {"start": 1, "span": 5}, "col": {"start": 6, "span": 6}},
+          "props": {},
+          "workflowTriggers": {
+            "onSubmit": [
+              {
+                "ordr": 2,
+                "action": "execDML",
+                "content": "{\"method\": \"INSERT\", \"table\": \"whatsfresh.ingredient_types\"}",
+                "is_dom_event": 1
+              }
+            ],
+            "onSuccess": [
+              {"ordr": 3, "action": "refresh", "content": "[\"ingrTypeGrid\"]", "is_dom_event": 0}
+            ]
+          },
+          "components": [
+            {
+              "id": "id",
+              "type": "div",
+              "style": {"marginBottom": "16px"},
+              "components": [
+                {
+                  "id": "label_id",
+                  "type": "label",
+                  "textContent": "ID",
+                  "props": {"htmlFor": "id"},
+                  "style": {"display": "block", "marginBottom": "4px", "fontWeight": "500"}
+                },
+                {
+                  "id": "input_id",
+                  "type": "input",
+                  "props": {"name": "id", "type": "number", "placeholder": "", "required": false},
+                  "style": {
+                    "width": "100%",
+                    "padding": "8px 12px",
+                    "border": "1px solid #ccc",
+                    "borderRadius": "4px",
+                    "fontSize": "14px"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "name",
+              "type": "div",
+              "style": {"marginBottom": "16px"},
+              "components": [
+                {
+                  "id": "label_name",
+                  "type": "label",
+                  "textContent": "Type Name*",
+                  "props": {"htmlFor": "name"},
+                  "style": {"display": "block", "marginBottom": "4px", "fontWeight": "500"}
+                },
+                {
+                  "id": "input_name",
+                  "type": "input",
+                  "props": {"name": "name", "type": "text", "placeholder": "", "required": true},
+                  "style": {
+                    "width": "100%",
+                    "padding": "8px 12px",
+                    "border": "1px solid #ccc",
+                    "borderRadius": "4px",
+                    "fontSize": "14px"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "description",
+              "type": "div",
+              "style": {"marginBottom": "16px"},
+              "components": [
+                {
+                  "id": "label_description",
+                  "type": "label",
+                  "textContent": "Description",
+                  "props": {"htmlFor": "description"},
+                  "style": {"display": "block", "marginBottom": "4px", "fontWeight": "500"}
+                },
+                {
+                  "id": "input_description",
+                  "type": "input",
+                  "props": {
+                    "name": "description",
+                    "type": "textarea",
+                    "placeholder": "",
+                    "required": false
+                  },
+                  "style": {
+                    "width": "100%",
+                    "padding": "8px 12px",
+                    "border": "1px solid #ccc",
+                    "borderRadius": "4px",
+                    "fontSize": "14px"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "account_id",
+              "type": "div",
+              "style": {"marginBottom": "16px"},
+              "components": [
+                {
+                  "id": "label_account_id",
+                  "type": "label",
+                  "textContent": "Account ID",
+                  "props": {"htmlFor": "account_id"},
+                  "style": {"display": "block", "marginBottom": "4px", "fontWeight": "500"}
+                },
+                {
+                  "id": "input_account_id",
+                  "type": "input",
+                  "props": {
+                    "name": "account_id",
+                    "type": "number",
+                    "placeholder": "",
+                    "required": false
+                  },
+                  "style": {
+                    "width": "100%",
+                    "padding": "8px 12px",
+                    "border": "1px solid #ccc",
+                    "borderRadius": "4px",
+                    "fontSize": "14px"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "title": "ingrTypePage",
+  "routePath": "/whatsfresh/ingrTypePage",
+  "purpose": "Database-generated page configuration",
+  "cluster": "Page"
+}

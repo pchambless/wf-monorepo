@@ -1,0 +1,488 @@
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-07-05 11:47:02"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-07-05 11:47:02"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-07-05 11:47:02"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-07-05 11:47:02"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-07-05 11:47:02"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-07-05 11:47:02"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-07-05 11:47:02"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-07-05 11:47:02"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-07-05 11:47:02"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-07-05 11:47:02"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-07-05 11:47:02"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-07-05 11:47:02"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 12:02:02"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:22:17"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:22:17"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 12:22:17"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:22:17"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 12:22:17"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:22:18"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":622.678912,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 12:22:18"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (637ms)","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":637.226355,"method":"POST","operation":"http_request","path":"/api/execEventType","status":200},"timestamp":"2025-07-05 12:22:18"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:22:18"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:22:18"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 12:22:18"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:22:18"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 12:22:18"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:22:18"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":529.418304,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 12:22:18"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (535ms)","timestamp":"2025-07-05 12:22:18"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":535.269634,"method":"POST","operation":"http_request","path":"/api/execEventType","status":200},"timestamp":"2025-07-05 12:22:18"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:27:45"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:27:45"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:27:45"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 12:27:45"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":45.908362,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:27:45"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 12:27:45"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (52ms)","timestamp":"2025-07-05 12:27:45"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:27:45"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:27:45"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:27:45"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 12:27:45"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":126.220568,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 12:27:45"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:27:45"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 12:27:45"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (131ms)","timestamp":"2025-07-05 12:27:45"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:28:46"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:28:46"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:28:46"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 12:28:46"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":45.57701,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:28:46"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 12:28:46"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (48ms)","timestamp":"2025-07-05 12:28:46"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:28:46"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:28:46"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:28:46"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 12:28:46"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":45.203916,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 12:28:46"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:28:46"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 12:28:46"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (48ms)","timestamp":"2025-07-05 12:28:46"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:30:15"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:30:15"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:30:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 12:30:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":153.171998,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:30:15"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 12:30:15"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (157ms)","timestamp":"2025-07-05 12:30:15"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:30:15"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:30:15"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:30:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 12:30:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":85.968784,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 12:30:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:30:15"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 12:30:15"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (90ms)","timestamp":"2025-07-05 12:30:15"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:35:14"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:35:14"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:35:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 12:35:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":51.535219,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:35:14"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 12:35:14"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (55ms)","timestamp":"2025-07-05 12:35:14"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:35:14"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:35:14"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:35:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 12:35:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":45.332768,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 12:35:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:35:14"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 12:35:14"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (47ms)","timestamp":"2025-07-05 12:35:14"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:36:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:36:56"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:36:56"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 12:36:56"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":116.837817,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:36:56"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 12:36:56"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (121ms)","timestamp":"2025-07-05 12:36:56"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:36:56"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:36:56"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:36:56"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 12:36:56"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":96.828195,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 12:36:56"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:36:56"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 12:36:56"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (99ms)","timestamp":"2025-07-05 12:36:56"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:39:23"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:39:23"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:39:23"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 12:39:23"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":52.075919,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:39:23"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 12:39:23"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (61ms)","timestamp":"2025-07-05 12:39:23"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:39:23"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:39:23"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:39:23"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 12:39:23"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":110.086793,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 12:39:23"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:39:23"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 12:39:23"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (112ms)","timestamp":"2025-07-05 12:39:23"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:41:04"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:41:04"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:41:04"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 12:41:04"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":38.898866,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:41:04"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 12:41:04"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (42ms)","timestamp":"2025-07-05 12:41:04"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 12:41:04"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 12:41:04"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 12:41:04"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 12:41:04"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 12:41:05"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":81.439851,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 12:41:05"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 12:41:05"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 12:41:05"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (83ms)","timestamp":"2025-07-05 12:41:05"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:00:02"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:00:02"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:00:02"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 13:00:02"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":49.358575,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:00:02"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 13:00:02"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (52ms)","timestamp":"2025-07-05 13:00:02"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:00:02"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:00:02"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:00:02"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:00:02"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":103.776195,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:00:02"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:00:02"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:00:02"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (106ms)","timestamp":"2025-07-05 13:00:02"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:12:24"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:12:24"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:12:24"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 13:12:24"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":43.827216,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:12:24"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 13:12:24"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (52ms)","timestamp":"2025-07-05 13:12:24"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:12:24"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:12:24"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:12:24"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:12:24"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":35.142389,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (40ms)","timestamp":"2025-07-05 13:12:25"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:12:25"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:12:25"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:12:25"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:12:25"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:12:25"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":119.911582,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (124ms)","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":301.874784,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:12:25"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (310ms)","timestamp":"2025-07-05 13:12:25"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 13:17:01"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:23:10"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:23:10"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:23:10"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 13:23:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":44.355367,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:23:10"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 13:23:10"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (47ms)","timestamp":"2025-07-05 13:23:10"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:23:10"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:23:10"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:23:10"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:23:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":60.506775,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:23:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:23:10"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:23:10"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (64ms)","timestamp":"2025-07-05 13:23:10"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:26:44"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:26:44"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:26:44"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 13:26:44"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":127.410385,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:26:44"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 13:26:44"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (132ms)","timestamp":"2025-07-05 13:26:44"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:26:44"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:26:44"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:26:44"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:26:44"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":85.05202,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:26:44"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:26:44"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:26:44"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (90ms)","timestamp":"2025-07-05 13:26:44"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:26:45"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:26:45"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:26:45"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:26:45"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:26:45"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:26:45"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:26:45"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":120.641824,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:26:45"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:26:45"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (126ms)","timestamp":"2025-07-05 13:26:45"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:26:45"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":255.379119,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:26:45"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:26:45"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:26:45"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (261ms)","timestamp":"2025-07-05 13:26:45"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:27:30"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:27:30"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":45.072774,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (59ms)","timestamp":"2025-07-05 13:27:30"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:27:30"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:27:30"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":53.267455,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (55ms)","timestamp":"2025-07-05 13:27:30"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:27:30"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:27:30"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:27:30"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 13:27:30"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 13:27:30"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":66.955377,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (70ms)","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":57.990985,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 13:27:30"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (65ms)","timestamp":"2025-07-05 13:27:30"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 14:32:00"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 15:46:58"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 19:02:42"}
+{"level":"info","message":"[server.js] SIGTERM received, shutting down gracefully","timestamp":"2025-07-05 19:30:25"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-07-05 19:34:58"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-07-05 19:34:58"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-07-05 19:34:58"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-07-05 19:34:58"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-07-05 19:34:58"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-07-05 19:34:58"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-07-05 19:34:58"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-07-05 19:34:58"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-07-05 19:34:58"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-07-05 19:34:58"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-07-05 19:34:58"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-07-05 19:34:58"}
+{"level":"http","message":"[app.js]  Request","method":"HEAD","path":"/","timestamp":"2025-07-05 19:38:51"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 19:49:58"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 21:04:57"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 22:19:57"}
+{"level":"info","message":"[server.js] SIGTERM received, shutting down gracefully","timestamp":"2025-07-05 22:37:01"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-07-05 22:39:31"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-07-05 22:39:32"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-07-05 22:39:32"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-07-05 22:39:32"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-07-05 22:39:32"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-07-05 22:39:32"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-07-05 22:39:32"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-07-05 22:39:32"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-07-05 22:39:32"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-07-05 22:39:32"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-07-05 22:39:32"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-07-05 22:39:32"}
+{"level":"info","message":"[server.js] SIGTERM received, shutting down gracefully","timestamp":"2025-07-05 22:40:20"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-07-05 22:41:44"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-07-05 22:41:44"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-07-05 22:41:44"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-07-05 22:41:44"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-07-05 22:41:44"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-07-05 22:41:44"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-07-05 22:41:44"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-07-05 22:41:44"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-07-05 22:41:44"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-07-05 22:41:44"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-07-05 22:41:44"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-07-05 22:41:44"}
+{"level":"http","message":"[app.js]  Request","method":"GET","path":"/api","query":{"id":"90b14ffb-1c06-41d7-aab1-93764937febe","vscodeBrowserReqId":"1751755395753"},"timestamp":"2025-07-05 22:43:15"}
+{"level":"warn","message":"[server.js] Route not found: GET /api","timestamp":"2025-07-05 22:43:15"}
+{"level":"info","message":"[app.js]  Response: GET /api 404 (4ms)","timestamp":"2025-07-05 22:43:15"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":4.303681,"method":"GET","operation":"http_request","path":"/api","status":404},"timestamp":"2025-07-05 22:43:15"}
+{"level":"info","message":"[server.js] SIGTERM received, shutting down gracefully","timestamp":"2025-07-05 22:46:29"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-07-05 22:46:43"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-07-05 22:46:43"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-07-05 22:46:43"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-07-05 22:46:43"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-07-05 22:46:43"}
+{"0":"POST /api/execEventType","1":"POST /api/initialize","2":"GET /api/util/list-routes","3":"POST /api/util/restart-server","4":"GET /api/util/fetchEventTypes","5":"POST /api/auth/login","6":"GET /api/util/event-types-status","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-07-05 22:46:43"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-07-05 22:46:43"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-07-05 22:46:43"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-07-05 22:46:43"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-07-05 22:46:43"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-07-05 22:46:43"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-07-05 22:46:43"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-07-05 23:01:43"}
+{"contentType":"application/json","eventType":"userLogin","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 23:08:15"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 23:08:15"}
+{":enteredPassword":"********",":userEmail":"pc7900@gmail.com","level":"debug","message":"[execEventType.js] Event: userLogin, Params:","timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":enteredPassword":"********",":userEmail":"pc7900@gmail.com"},"qrySQL":"\n      SELECT *, :enteredPassword\n      FROM api_wf.userList\n      WHERE userEmail = :userEmail\n    ","timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 23:08:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-07-05 23:08:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":308.208913,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 23:08:15"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userLogin","timestamp":"2025-07-05 23:08:15"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (320ms)","timestamp":"2025-07-05 23:08:15"}
+{"contentType":"application/json","eventType":"userAcctList","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEventType","timestamp":"2025-07-05 23:08:15"}
+{"level":"http","message":"[execEventType.js] POST /api/execEventType","timestamp":"2025-07-05 23:08:15"}
+{":userID":2,"level":"debug","message":"[execEventType.js] Event: userAcctList, Params:","timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[execEventType.js] Executing query with method: GET","timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[queryResolver.js] Original query:","params":{":userID":2},"qrySQL":"\n      SELECT *\n      FROM api_wf.userAcctList\n      WHERE userID = :userID\n      ORDER BY acctName\n    ","timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-07-05 23:08:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-07-05 23:08:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 10","timestamp":"2025-07-05 23:08:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":79.693709,"method":"GET","operation":"database_query","rowCount":10,"success":true},"timestamp":"2025-07-05 23:08:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-07-05 23:08:16"}
+{"level":"info","message":"[execEventType.js] Query executed successfully for userAcctList","timestamp":"2025-07-05 23:08:16"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (83ms)","timestamp":"2025-07-05 23:08:16"}

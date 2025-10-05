@@ -20,9 +20,12 @@ agent_behavior:
 
 monorepo_structure:
   apps:
-    - wf-client
-    - wf-admin
-    - wf-server
+    - whatsfresh
+    - admin
+    - server
+    - studio
+    - planner
+    - login
   packages:
     - shared-imports
 

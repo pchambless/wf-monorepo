@@ -1,0 +1,711 @@
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 00:38:00"}
+{"level":"info","message":"Log file rotated","newFilename":"/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-09-28.log","oldFilename":"/home/paul/wf-monorepo-new/apps/wf-server/server/logs/application-2025-09-27.log","timestamp":"2025-09-28 00:38:00"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 01:38:00"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 02:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 03:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 04:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 05:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 06:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 07:38:01"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 07:47:13"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 07:47:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 07:47:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 07:47:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 07:47:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":228.421947,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 07:47:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 07:47:13"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 07:47:13","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 07:47:13","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 07:47:13","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (277ms)","timestamp":"2025-09-28 07:47:13"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 07:57:25"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 07:57:25"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 07:57:25"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 07:57:25"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 07:57:25"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":205.684064,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 07:57:25"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 07:57:25"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 07:57:25","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 07:57:26","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 07:57:26","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (254ms)","timestamp":"2025-09-28 07:57:26"}
+{"body":{"pageID":41},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/genPageConfig","timestamp":"2025-09-28 08:10:11"}
+{"level":"http","message":"[genPageConfigController.js] POST /api/genPageConfig","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[genPageConfigController.js] Generating pageConfig for pageID: 41","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[database-genPageConfig.js] Generating pageConfig for page xref ID: 41","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:11"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 2","timestamp":"2025-09-28 08:10:11"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":192.567201,"method":"GET","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[database-genPageConfig.js] Loaded 6 components from database","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[database-genPageConfig.js] Enhancing 6 components with props and triggers","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[propsRetriever.js] Getting props for xref_id: 1","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[triggersRetriever.js] Getting triggers for xref_id: 1","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:11"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:11"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:12"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":362.737989,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:12"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:12"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:12"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:12"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:12"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:12"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:12"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":1466.329002,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:13"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":1103.448403,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":239.767964,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":344.921215,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":586.360454,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":68.767076,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":103.116699,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[database-genPageConfig.js] Enhanced wf-monorepo: 0 props, 0 trigger classes","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[propsRetriever.js] Getting props for xref_id: 41","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[triggersRetriever.js] Getting triggers for xref_id: 41","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":160.67182,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:14"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":162.368436,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:14"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":657.839812,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":52.819693,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":711.133766,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":141.129218,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":143.234212,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":161.967061,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[database-genPageConfig.js] Enhanced wf-login: 0 props, 0 trigger classes","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[propsRetriever.js] Getting props for xref_id: 49","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[triggersRetriever.js] Getting triggers for xref_id: 49","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":87.546054,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":89.250164,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":523.553166,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":89.772611,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":618.115689,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":105.009873,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":207.037937,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":140.45081,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[database-genPageConfig.js] Enhanced loginPage: 0 props, 0 trigger classes","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[propsRetriever.js] Getting props for xref_id: 43","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[triggersRetriever.js] Getting triggers for xref_id: 43","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":160.515561,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":162.159132,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":201.639584,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":34.931214,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":245.927809,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":43.349328,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 3","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":66.582883,"method":"GET","operation":"database_query","rowCount":3,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[propsRetriever.js] Found 3 props for xref_id: 43","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":72.160811,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[database-genPageConfig.js] Enhanced LoginForm: 3 props, 0 trigger classes","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[propsRetriever.js] Getting props for xref_id: 42","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[triggersRetriever.js] Getting triggers for xref_id: 42","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":36.52348,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":37.803119,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":154.655585,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":34.806913,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":203.544262,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":31.590315,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":73.781569,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[propsRetriever.js] Found 1 props for xref_id: 42","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 8","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":69.051321,"method":"GET","operation":"database_query","rowCount":8,"success":true},"timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[triggersRetriever.js] Found 8 triggers for xref_id: 42","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[database-genPageConfig.js] Enhanced loginSubmit: 1 props, 2 trigger classes","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[propsRetriever.js] Getting props for xref_id: 44","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[triggersRetriever.js] Getting triggers for xref_id: 44","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":34.232545,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:17"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":36.684066,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:17"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":155.659744,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":37.05658,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":197.848751,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":35.366904,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":65.494456,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 3","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":71.359678,"method":"GET","operation":"database_query","rowCount":3,"success":true},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[triggersRetriever.js] Found 3 triggers for xref_id: 44","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[database-genPageConfig.js] Enhanced selectLoginApp: 0 props, 1 trigger classes","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[database-genPageConfig.js] Saved pageConfig.json to /home/paul/wf-monorepo-new/apps/wf-studio/src/apps/wf-login/loginPage/pageConfig.json","timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[database-genPageConfig.js] Saved pageMermaid.mmd to /home/paul/wf-monorepo-new/apps/wf-studio/src/apps/wf-login/loginPage/pageMermaid.mmd","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"[genPageConfigController.js] PageConfig generated successfully for pageID: 41","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"[app.js]  Response: POST /api/genPageConfig 200 (5774ms)","timestamp":"2025-09-28 08:10:17"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":5774.305381,"method":"POST","operation":"http_request","path":"/api/genPageConfig","status":200},"timestamp":"2025-09-28 08:10:17"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 08:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 09:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 10:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 11:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 12:38:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 13:38:01"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 13:49:53"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 13:49:53"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 13:49:53"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 13:49:53"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 13:49:53"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":190.974545,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 13:49:53"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 13:49:53"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 13:49:53","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 13:49:53","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 13:49:53","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (238ms)","timestamp":"2025-09-28 13:49:53"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 13:58:17"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 13:58:17"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 13:58:17"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 13:58:17"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 13:58:17"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":278.086602,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 13:58:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 13:58:17"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 13:58:17","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 13:58:17","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 13:58:17","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (327ms)","timestamp":"2025-09-28 13:58:17"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 13:59:30"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 13:59:30"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 13:59:30"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 13:59:30"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 13:59:30"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":242.644829,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 13:59:30"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 13:59:30"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 13:59:30","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 13:59:30","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 13:59:30","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (287ms)","timestamp":"2025-09-28 13:59:30"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 14:01:53"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 14:01:53"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:01:53"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:01:53"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:01:53"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":272.708588,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:01:53"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:01:53"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 14:01:53","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 14:01:53","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 14:01:53","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (319ms)","timestamp":"2025-09-28 14:01:53"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 14:06:21"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 14:06:21"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:06:21"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:06:21"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:06:21"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":257.908146,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:06:21"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:06:21"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 14:06:21","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 14:06:21","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 14:06:21","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (305ms)","timestamp":"2025-09-28 14:06:21"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 14:07:48"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 14:07:48"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:07:48"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:07:48"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:07:48"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":298.268924,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:07:48"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:07:48"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 14:07:48","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 14:07:48","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 14:07:48","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (367ms)","timestamp":"2025-09-28 14:07:48"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 14:09:42"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 14:09:42"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:09:42"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:09:42"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:09:42"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":296.307674,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:09:42"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:09:42"}
+{"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 14:09:42","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 14:09:42","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 14:09:42","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (346ms)","timestamp":"2025-09-28 14:09:42"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-09-28 14:19:20"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-09-28 14:19:21"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-09-28 14:19:21"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-09-28 14:19:21"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-09-28 14:19:21"}
+{"0":"POST /api/execEventType","1":"GET /api/eventType/:xrefId","10":"POST /api/genPageConfig","11":"POST /api/writeFileDirectly","12":"POST /api/initialize","13":"GET /api/util/list-routes","14":"POST /api/util/restart-server","15":"POST /api/auth/login","2":"POST /api/execDML","3":"POST /api/execCreateDoc","4":"GET /api/getDoc","5":"POST /api/studio/genFields","6":"GET /api/getVal","7":"POST /api/setVals","8":"POST /api/clearVals","9":"GET /api/studio/genPageConfig","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-09-28 14:19:21"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-09-28 14:19:21"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-09-28 14:19:21"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-09-28 14:19:21"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-09-28 14:19:21"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-09-28 14:19:21"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-09-28 14:19:21"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 14:19:40"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 14:19:40"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:19:41"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:19:41"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:19:41"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":454.657427,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:19:41"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:19:41"}
+{"availableFields":{"0":"userID","1":"lastName","2":"firstName","3":"userEmail","4":"password","5":"roleID","6":"dfltAcctID","7":"lastLogin"},"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 14:19:41","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 14:19:41","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 14:19:41","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (506ms)","timestamp":"2025-09-28 14:19:41"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":505.624616,"method":"POST","operation":"http_request","path":"/api/auth/login","status":200},"timestamp":"2025-09-28 14:19:41"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 14:24:42"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 14:24:42"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:24:42"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:24:42"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:24:43"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":168.900524,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:24:43"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:24:43"}
+{"availableFields":{"0":"userID","1":"lastName","2":"firstName","3":"userEmail","4":"password","5":"roleID","6":"dfltAcctID","7":"lastLogin"},"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 14:24:43","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 14:24:43","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 14:24:43","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (222ms)","timestamp":"2025-09-28 14:24:43"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-09-28 14:29:57"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-09-28 14:29:58"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-09-28 14:29:58"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-09-28 14:29:58"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-09-28 14:29:58"}
+{"0":"POST /api/execEventType","1":"GET /api/eventType/:xrefId","10":"POST /api/genPageConfig","11":"POST /api/writeFileDirectly","12":"POST /api/initialize","13":"GET /api/util/list-routes","14":"POST /api/util/restart-server","15":"POST /api/auth/login","2":"POST /api/execDML","3":"POST /api/execCreateDoc","4":"GET /api/getDoc","5":"POST /api/studio/genFields","6":"GET /api/getVal","7":"POST /api/setVals","8":"POST /api/clearVals","9":"GET /api/studio/genPageConfig","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-09-28 14:29:58"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-09-28 14:29:58"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-09-28 14:29:58"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-09-28 14:29:58"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-09-28 14:29:58"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-09-28 14:29:58"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-09-28 14:29:58"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 14:30:12"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 14:30:12"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:12"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:12"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:30:12"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":664.49838,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:30:12"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:12"}
+{"availableFields":{"0":"userID","1":"lastName","2":"firstName","3":"userEmail","4":"password","5":"roleID","6":"dfltAcctID","7":"lastLogin"},"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 14:30:12","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 14:30:12","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 14:30:12","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (713ms)","timestamp":"2025-09-28 14:30:12"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":712.809668,"method":"POST","operation":"http_request","path":"/api/auth/login","status":200},"timestamp":"2025-09-28 14:30:12"}
+{"body":{"values":{"0":{"paramName":"userID","paramVal":2}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 14:30:13"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":192.74774,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:13"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: userEmail","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":240.980028,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:13"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":408.45999,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (845ms)","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":845.491864,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 14:30:13"}
+{"body":{"values":{"0":{"paramName":"userEmail","paramVal":"pc7900@gmail.com"}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 14:30:13"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":91.066373,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:13"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: userEmail","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":36.029365,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:13"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 14:30:13"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 14:30:13"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":372.903492,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (503ms)","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":503.358668,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 14:30:14"}
+{"body":{"values":{"0":{"paramName":"firstName","paramVal":"Paul"}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 14:30:14"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":61.228697,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 0","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":132.456683,"method":"GET","operation":"database_query","rowCount":0,"success":true},"timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:14"}
+{"level":"warn","message":"[getVal.js] No value found for parameter: firstName","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":304.048717,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (500ms)","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":500.477883,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 14:30:14"}
+{"body":{"values":{"0":{"paramName":"userName","paramVal":"Paul Chambless"}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 14:30:14"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":48.494699,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":55.955004,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 14:30:14"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 14:30:14"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":395.130238,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 14:30:15"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (502ms)","timestamp":"2025-09-28 14:30:15"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":502.345812,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 14:30:15"}
+{"body":{"values":{"0":{"paramName":"userRole","paramVal":1}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 14:30:15"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:30:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":90.749242,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:15"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:30:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":102.743833,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 14:30:15"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 14:30:15"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":707.559539,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 14:30:16"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (904ms)","timestamp":"2025-09-28 14:30:16"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":904.025845,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 14:30:16"}
+{"body":{"values":{"0":{"paramName":"acctID","paramVal":1}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 14:30:16"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:30:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":295.872047,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 14:30:16"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 14:30:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":265.038699,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 14:30:16"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 14:30:16"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":651.713458,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 14:30:17"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 14:30:17"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 14:30:17"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (1215ms)","timestamp":"2025-09-28 14:30:17"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":1215.17475,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 14:30:17"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 14:44:57"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 15:44:57"}
+{"body":{"password":"********","userEmail":"pc7900@gmail.com"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/auth/login","timestamp":"2025-09-28 16:40:07"}
+{"level":"info","message":"[userLogin.js] Login attempt started","timestamp":"2025-09-28 16:40:07"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:07"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:07"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":47.126674,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:08"}
+{"availableFields":{"0":"userID","1":"lastName","2":"firstName","3":"userEmail","4":"password","5":"roleID","6":"dfltAcctID","7":"lastLogin"},"hasPassword":"********","level":"debug","message":"[userLogin.js] User found","passwordPrefix":"********","timestamp":"2025-09-28 16:40:08","userEmail":"pc7900@gmail.com"}
+{"level":"debug","matched":true,"message":"[userLogin.js] Password verification result","needsRehash":false,"timestamp":"2025-09-28 16:40:08","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[userLogin.js] Login successful","timestamp":"2025-09-28 16:40:08","userEmail":"pc7900@gmail.com"}
+{"level":"info","message":"[app.js]  Response: POST /api/auth/login 200 (93ms)","timestamp":"2025-09-28 16:40:08"}
+{"body":{"values":{"0":{"paramName":"userID","paramVal":2}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 16:40:08"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":306.275327,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":93.887186,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":416.155973,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (819ms)","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":818.8701,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 16:40:08"}
+{"body":{"values":{"0":{"paramName":"userEmail","paramVal":"pc7900@gmail.com"}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 16:40:08"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:08"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:08"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":87.432793,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":95.850951,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":420.23782,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (606ms)","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":606.164799,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 16:40:09"}
+{"body":{"values":{"0":{"paramName":"firstName","paramVal":"Paul"}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 16:40:09"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":87.508154,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":36.671767,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":252.290237,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (379ms)","timestamp":"2025-09-28 16:40:09"}
+{"body":{"values":{"0":{"paramName":"userName","paramVal":"Paul Chambless"}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 16:40:09"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:09"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:09"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":102.948932,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":41.881326,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":354.548158,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (505ms)","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":504.762111,"method":"POST","operation":"http_request","path":"/api/setVals","status":200},"timestamp":"2025-09-28 16:40:10"}
+{"body":{"values":{"0":{"paramName":"userRole","paramVal":1}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 16:40:10"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":46.490984,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":140.326769,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":304.816241,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (496ms)","timestamp":"2025-09-28 16:40:10"}
+{"body":{"values":{"0":{"paramName":"acctID","paramVal":1}}},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/setVals","timestamp":"2025-09-28 16:40:10"}
+{"level":"http","message":"[setVals.js] POST /api/setVals","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":37.22902,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-09-28 16:40:10"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-09-28 16:40:10"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-09-28 16:40:11"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":66.136651,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-09-28 16:40:11"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:11"}
+{"level":"debug","message":"[dbUtils.js] Executing POST query: ********","timestamp":"2025-09-28 16:40:11"}
+{"level":"debug","message":"[dbUtils.js] Handling POST-specific logic","timestamp":"2025-09-28 16:40:11"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":188.522947,"method":"POST","operation":"database_query","rowCount":2,"success":true},"timestamp":"2025-09-28 16:40:11"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-09-28 16:40:11"}
+{"level":"debug","message":"[setVals.js] Set 1 values for pc7900@gmail.com","timestamp":"2025-09-28 16:40:11"}
+{"level":"info","message":"[app.js]  Response: POST /api/setVals 200 (295ms)","timestamp":"2025-09-28 16:40:11"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 16:44:57"}
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-09-28 17:12:59"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-09-28 17:13:00"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-09-28 17:13:00"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-09-28 17:13:00"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-09-28 17:13:00"}
+{"0":"POST /api/execEventType","1":"GET /api/eventType/:xrefId","10":"POST /api/genPageConfig","11":"POST /api/writeFileDirectly","12":"POST /api/initialize","13":"GET /api/util/list-routes","14":"POST /api/util/restart-server","15":"POST /api/auth/login","2":"POST /api/execDML","3":"POST /api/execCreateDoc","4":"GET /api/getDoc","5":"POST /api/studio/genFields","6":"GET /api/getVal","7":"POST /api/setVals","8":"POST /api/clearVals","9":"GET /api/studio/genPageConfig","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-09-28 17:13:00"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-09-28 17:13:00"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-09-28 17:13:00"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-09-28 17:13:00"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-09-28 17:13:00"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-09-28 17:13:00"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-09-28 17:13:00"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 17:27:59"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 18:27:59"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 19:28:00"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-09-28 20:28:00"}

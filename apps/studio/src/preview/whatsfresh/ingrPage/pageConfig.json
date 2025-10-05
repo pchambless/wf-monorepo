@@ -1,0 +1,8 @@
+{
+  "layout": "flex",
+  "components": [],
+  "title": "ingrPage",
+  "routePath": "/whatsfresh/ingrPage",
+  "purpose": "Database-generated page configuration",
+  "cluster": "Page"
+}
