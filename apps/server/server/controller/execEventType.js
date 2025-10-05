@@ -62,12 +62,26 @@ const execEventType = async (req, res) => {
         const paramName = paramMatch.substring(1);
 
         try {
-          const resolvedValue = await getValDirect(userEmail, paramName, 'sql');
+          let resolvedValue = null;
+
+          // First check if param was passed directly in request
+          if (params && params[paramName] !== undefined) {
+            const rawValue = String(params[paramName]);
+            // Format for SQL - quote strings, leave numbers unquoted
+            resolvedValue = /^[0-9]+$/.test(rawValue) ? rawValue : `'${rawValue}'`;
+            logger.debug(`${codeName} Using passed param :${paramName} → ${resolvedValue}`);
+          } else {
+            // Fall back to context_store
+            resolvedValue = await getValDirect(userEmail, paramName, 'sql');
+            if (resolvedValue !== null) {
+              logger.debug(`${codeName} Resolved from context :${paramName} → ${resolvedValue}`);
+            }
+          }
+
           if (resolvedValue !== null) {
             finalSQL = finalSQL.replace(new RegExp(`:${paramName}`, 'g'), resolvedValue);
-            logger.debug(`${codeName} Resolved :${paramName} → ${resolvedValue}`);
           } else {
-            logger.warn(`${codeName} No context value found for parameter: ${paramName}`);
+            logger.warn(`${codeName} No value found for parameter: ${paramName}`);
           }
         } catch (error) {
           logger.error(`${codeName} Error resolving parameter ${paramName}:`, error);

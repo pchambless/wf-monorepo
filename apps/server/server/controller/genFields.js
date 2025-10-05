@@ -1,35 +1,43 @@
 /**
  * genFields Controller
  * Extract table and field names from eventType for schema analysis
+ * OR generate field configurations using AI stored procedure
  * POST /api/studio/genFields
  */
 
 import { getEventType } from "../events/index.js";
+import { executeQuery } from "../utils/dbUtils.js";
 import logger from "../utils/logger.js";
 
 const codeName = "[genFields.js]";
 
 /**
- * Extract db_table and fieldNames from eventType
+ * Dual-purpose field generation endpoint:
+ * 1. Extract fields from eventType SQL: { qry: "planDtl" }
+ * 2. Generate fields from schema: { tableName: "ingredient_types", componentType: "Form" }
  * POST /api/studio/genFields
- * Body: { qry: "planDtl" }
  */
 async function genFields(req, res) {
   try {
-    const { qry } = req.body;
+    const { qry, tableName, componentType } = req.body;
 
+    // Route 1: Generate fields from table schema using stored procedure
+    if (tableName && componentType) {
+      return await generateFieldsFromSchema(req, res);
+    }
+
+    // Route 2: Extract fields from eventType SQL (legacy)
     if (!qry) {
       return res.status(400).json({
         success: false,
-        message: "qry parameter is required",
+        message: "Either 'qry' or 'tableName+componentType' required",
       });
     }
 
     logger.debug(`${codeName} Extracting schema info for: ${qry}`);
 
-    // Get the eventType definition
     const eventType = getEventType(qry);
-    
+
     if (!eventType) {
       return res.status(404).json({
         success: false,
@@ -44,7 +52,6 @@ async function genFields(req, res) {
       });
     }
 
-    // Extract field names from SELECT statement
     const fieldNames = extractFieldsFromSQL(eventType.qrySQL);
 
     const result = {
@@ -64,6 +71,53 @@ async function genFields(req, res) {
     res.status(500).json({
       success: false,
       message: "Failed to extract schema info",
+      error: error.message
+    });
+  }
+}
+
+/**
+ * Generate field configurations using sp_ai_generate_fields
+ * Body: { tableName: "ingredient_types", componentType: "Form" }
+ */
+async function generateFieldsFromSchema(req, res) {
+  try {
+    const { tableName, componentType } = req.body;
+
+    if (!['Form', 'Grid', 'Select'].includes(componentType)) {
+      return res.status(400).json({
+        success: false,
+        message: 'componentType must be Form, Grid, or Select',
+      });
+    }
+
+    logger.debug(`${codeName} Calling sp_ai_generate_fields for: ${tableName}, type: ${componentType}`);
+
+    const query = `CALL api_wf.sp_ai_generate_fields('${tableName}', '${componentType}')`;
+    const results = await executeQuery(query, 'GET');
+
+    if (!results || results.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: `No columns found for table: ${tableName}`,
+      });
+    }
+
+    logger.info(`${codeName} Generated ${results.length} field configurations`);
+
+    res.json({
+      success: true,
+      data: results,
+      count: results.length,
+      tableName,
+      componentType
+    });
+
+  } catch (error) {
+    logger.error(`${codeName} Error generating fields from schema:`, error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to generate fields',
       error: error.message
     });
   }

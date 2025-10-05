@@ -57,7 +57,8 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
     if (pageID) {
       await setVals([
         { paramName: 'pageID', paramVal: pageID },
-        { paramName: 'pageName', paramVal: pageName }
+        { paramName: 'pageName', paramVal: pageName },
+        { paramName: 'xrefID', paramVal: pageID }  // Set xrefID for triggers
       ]);
       await loadPageConfig(pageID);
     } else {
@@ -68,17 +69,20 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
   const loadPageConfig = async (pageID) => {
     setLoading(true);
     try {
-      console.log('📄 Fetching pageConfig for pageID:', pageID);
-      const response = await fetch('http://localhost:3001/api/genPageConfig', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pageID })
-      });
-      const data = await response.json();
-      console.log('📦 PageConfig received:', data.pageConfig);
-      onPageConfigLoaded(data.pageConfig);
+      console.log('📄 Fetching page structure for pageID:', pageID);
+      // Use sp_hier_structure directly (structure-only, no props/triggers)
+      const result = await execEvent('xrefHierarchy', { xrefID: pageID });
+      console.log('📦 Page structure received:', result.data);
+
+      // Stored procedures return [resultSet, metadata] - extract the first element
+      const hierarchyData = Array.isArray(result.data) && Array.isArray(result.data[0])
+        ? result.data[0]
+        : result.data;
+
+      console.log('📊 Hierarchy data extracted:', hierarchyData);
+      onPageConfigLoaded(hierarchyData);
     } catch (error) {
-      console.error('❌ Failed to load pageConfig:', error);
+      console.error('❌ Failed to load page structure:', error);
       onPageConfigLoaded(null);
     } finally {
       setLoading(false);

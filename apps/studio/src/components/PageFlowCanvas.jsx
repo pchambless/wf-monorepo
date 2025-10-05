@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import ReactFlow, {
   Background,
   Controls,
-  MiniMap,
   useNodesState,
   useEdgesState,
   MarkerType,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
+import { execEvent, setVals } from '@whatsfresh/shared-imports';
 
 import GridNode from './FlowNodes/GridNode';
 import FormNode from './FlowNodes/FormNode';
@@ -17,6 +17,7 @@ import DefaultNode from './FlowNodes/DefaultNode';
 import { pageConfigToFlow } from '../utils/pageConfigToFlow';
 
 const nodeTypes = {
+  app: PageNode,  // Use PageNode for App root
   grid: GridNode,
   form: FormNode,
   container: ContainerNode,
@@ -30,9 +31,11 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
+  const [appName, setAppName] = useState('');
+
   useEffect(() => {
     if (pageConfig) {
-      const { nodes: flowNodes, edges: flowEdges } = pageConfigToFlow(pageConfig);
+      const { nodes: flowNodes, edges: flowEdges, appInfo } = pageConfigToFlow(pageConfig);
 
       const enhancedEdges = flowEdges.map(edge => ({
         ...edge,
@@ -46,18 +49,52 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
 
       setNodes(flowNodes);
       setEdges(enhancedEdges);
+      setAppName(appInfo?.title || '');
     }
   }, [pageConfig, setNodes, setEdges]);
 
   const onNodeClick = useCallback(
-    (event, node) => {
-      if (onNodeSelect) {
+    async (event, node) => {
+      if (!onNodeSelect) return;
+
+      const xref_id = node.data.xref_id;
+
+      try {
+        // Set xrefID in context
+        await setVals([{ paramName: 'xrefID', paramVal: xref_id }]);
+
+        // Fetch props and triggers in parallel
+        const [propsResult, triggersResult] = await Promise.all([
+          execEvent('xrefPropList', { xrefID: xref_id }),
+          execEvent('xrefTriggerList', { xrefID: xref_id })
+        ]);
+
+        // Transform props array to object
+        const propsObj = {};
+        if (propsResult.data) {
+          propsResult.data.forEach(prop => {
+            propsObj[prop.paramName] = prop.paramVal;
+          });
+        }
+
         onNodeSelect({
-          xref_id: node.data.xref_id,
+          xref_id,
           comp_type: node.data.comp_type,
           label: node.data.label,
-          eventProps: node.data.eventProps,
           container: node.data.container,
+          eventProps: propsObj,
+          triggers: triggersResult.data || [],
+        });
+      } catch (error) {
+        console.error('Failed to fetch node details:', error);
+        // Still show basic info even if fetch fails
+        onNodeSelect({
+          xref_id,
+          comp_type: node.data.comp_type,
+          label: node.data.label,
+          container: node.data.container,
+          eventProps: {},
+          triggers: [],
         });
       }
     },
@@ -72,34 +109,46 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
   );
 
   return (
-    <div style={{ width: '100%', height: '600px', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onNodeClick={onNodeClick}
-        onNodeDragStop={onNodeDragStop}
-        nodeTypes={nodeTypes}
-        fitView
-        attributionPosition="bottom-left"
-      >
-        <Background color="#94a3b8" gap={16} />
-        <Controls />
-        <MiniMap
-          nodeColor={(node) => {
-            switch (node.type) {
-              case 'grid': return '#6366f1';
-              case 'form': return '#14b8a6';
-              case 'container': return '#f97316';
-              case 'page': return '#a855f7';
-              default: return '#94a3b8';
-            }
-          }}
-          position="bottom-right"
-          style={{ backgroundColor: '#f8fafc' }}
-        />
-      </ReactFlow>
+    <div style={{ width: '100%' }}>
+      {appName && (
+        <div style={{
+          padding: '12px 16px',
+          backgroundColor: '#f8fafc',
+          borderBottom: '2px solid #e2e8f0',
+          borderTopLeftRadius: '8px',
+          borderTopRightRadius: '8px',
+          fontWeight: 600,
+          fontSize: '16px',
+          color: '#1e293b'
+        }}>
+          📱 {appName}
+        </div>
+      )}
+      <div style={{
+        width: '100%',
+        height: '600px',
+        border: '1px solid #e2e8f0',
+        borderTop: appName ? 'none' : '1px solid #e2e8f0',
+        borderBottomLeftRadius: '8px',
+        borderBottomRightRadius: '8px',
+        borderTopLeftRadius: appName ? '0' : '8px',
+        borderTopRightRadius: appName ? '0' : '8px'
+      }}>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onNodeClick={onNodeClick}
+          onNodeDragStop={onNodeDragStop}
+          nodeTypes={nodeTypes}
+          fitView
+          attributionPosition="bottom-left"
+        >
+          <Background color="#94a3b8" gap={16} />
+          <Controls />
+        </ReactFlow>
+      </div>
     </div>
   );
 };

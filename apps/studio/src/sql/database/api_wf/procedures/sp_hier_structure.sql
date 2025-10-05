@@ -13,10 +13,8 @@ BEGIN
               a.comp_name,
               a.title,
               a.posOrder,
-              a.comp_name  as level_name,
               a.comp_type,
               a.container,
-              a.override_styles,
               -1 as level,
               CAST(a.id AS CHAR(100)) id_path,
               a.parent_id
@@ -31,10 +29,8 @@ BEGIN
               p.comp_name,
               p.title,
               p.posOrder,
-              p.comp_name as level_name,
               p.comp_type,
               p.container,
-              p.override_styles,
               0 as level,
               CONCAT((SELECT CAST(parent_id AS CHAR) FROM api_wf.vw_hier_components WHERE id = xrefID), ',', p.id) id_path,
               p.parent_id
@@ -49,10 +45,8 @@ BEGIN
               v.comp_name,
               v.title,
               v.posOrder,
-              CONCAT(REPEAT(':-', p.level + 1), v.comp_name) as level_name,
               v.comp_type,
               v.container,
-              v.override_styles,
               p.level + 1,
               CONCAT(p.id_path, ',', v.id) id_path,
               v.parent_id
@@ -61,66 +55,15 @@ BEGIN
           WHERE p.level >= 0 AND p.level < 10
       )
       SELECT
-          h.*,
-          -- Add enhanced props from vw_eventProp as JSON object
-          -- Returns: {"title": "Login Form", "fields": [...], "columns": [...]}
-          (SELECT
-              CONCAT('{',
-                  GROUP_CONCAT(
-                      CONCAT(
-                          '"', ep.paramName, '":',
-                          CASE
-                              -- Detect JSON arrays/objects (starts with [ or {)
-                              WHEN LEFT(TRIM(ep.paramVal), 1) IN ('[', '{') THEN ep.paramVal
-                              -- Detect boolean values
-                              WHEN LOWER(ep.paramVal) IN ('true', 'false') THEN LOWER(ep.paramVal)
-                              -- Detect numbers (integer or decimal)
-                              WHEN ep.paramVal REGEXP '^-?[0-9]+(\\.[0-9]+)?$' THEN ep.paramVal
-                              -- Everything else is a string - strip outer quotes if present, then quote
-                              ELSE CONCAT('"',
-                                   REPLACE(
-                                       REPLACE(TRIM(BOTH '"' FROM ep.paramVal), '\\', '\\\\'),
-                                       '"', '\\"'
-                                   ),
-                                   '"')
-                          END
-                      )
-                      SEPARATOR ','
-                  ),
-              '}')
-          FROM api_wf.vw_eventProp ep
-          WHERE ep.xref_id = h.id
-            AND ep.paramName != 'workflowTriggers'
-          ) as enhancedProps,
-          -- Add aggregated triggers from vw_eventTrigger as JSON with is_dom_event flag
-          -- Returns: {"onClick": [{"action":"setVals", "ordr":1, "content":"...", "is_dom_event":true}], "onSuccess": [...]}
-          (SELECT
-              CONCAT('{',
-                  GROUP_CONCAT(
-                      DISTINCT CONCAT(
-                          '"', class, '":',
-                          '[',
-                          (SELECT GROUP_CONCAT(
-                              JSON_OBJECT(
-                                  'action', t2.action,
-                                  'ordr', t2.ordr,
-                                  'content', t2.content,
-                                  'is_dom_event', CASE WHEN t2.is_dom_event = 1 THEN true ELSE false END
-                              )
-                              ORDER BY t2.ordr
-                          )
-                          FROM api_wf.vw_eventTrigger t2
-                          WHERE t2.xref_id = h.id AND t2.class = t1.class
-                          ),
-                          ']'
-                      )
-                      SEPARATOR ','
-                  ),
-              '}')
-          FROM api_wf.vw_eventTrigger t1
-          WHERE t1.xref_id = h.id
-          GROUP BY t1.xref_id
-          ) as workflowTriggers
+          h.id,
+          h.comp_name,
+          h.title,
+          h.comp_type,
+          h.container,
+          h.parent_id,
+          h.posOrder,
+          h.level,
+          h.id_path
       FROM wf_hier h
       ORDER BY id_path, posOrder, id;
 END$$

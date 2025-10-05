@@ -1,7 +1,111 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { execEvent } from '@whatsfresh/shared-imports';
+import { formatPropsForDisplay, parseProps } from '../utils/formatProps';
+import ColumnSelector from './PropertyEditors/ColumnSelector';
+import SchemaViewer from './PropertyEditors/SchemaViewer';
+import OverrideEditor from './PropertyEditors/OverrideEditor';
+import QuerySetup from './PropertyEditors/QuerySetup';
 
 const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
   const [activeTab, setActiveTab] = useState('component');
+  const [editedTitle, setEditedTitle] = useState('');
+  const [editedContainer, setEditedContainer] = useState('');
+  const [editedProps, setEditedProps] = useState('{}');
+  const [hasChanges, setHasChanges] = useState(false);
+
+  // Column editor state (for Grids)
+  const [selectedColumn, setSelectedColumn] = useState(null);
+  const [columnOverrides, setColumnOverrides] = useState({});
+
+  // Update local state when selectedComponent changes
+  useEffect(() => {
+    if (selectedComponent) {
+      setEditedTitle(selectedComponent.label || '');
+      setEditedContainer(selectedComponent.container || '');
+      setEditedProps(formatPropsForDisplay(selectedComponent.eventProps));
+
+      // Parse column overrides for Grid components
+      const parsed = parseProps(selectedComponent.eventProps);
+      setColumnOverrides(parsed.columnOverrides || {});
+
+      setHasChanges(false);
+      setSelectedColumn(null);
+    }
+  }, [selectedComponent]);
+
+  const handleTitleChange = (e) => {
+    setEditedTitle(e.target.value);
+    setHasChanges(true);
+  };
+
+  const handleContainerChange = (e) => {
+    setEditedContainer(e.target.value);
+    setHasChanges(true);
+  };
+
+  const handlePropsChange = (e) => {
+    setEditedProps(e.target.value);
+    setHasChanges(true);
+  };
+
+  const handleSave = () => {
+    try {
+      const parsedProps = JSON.parse(editedProps);
+      onSave({
+        xref_id: selectedComponent.xref_id,
+        title: editedTitle,
+        container: editedContainer,
+        eventProps: parsedProps,
+      });
+      setHasChanges(false);
+    } catch (error) {
+      alert('Invalid JSON in props field: ' + error.message);
+    }
+  };
+
+  // Column editor handlers
+  const handleSaveColumn = (columnName, override) => {
+    const updated = {
+      ...columnOverrides,
+      [columnName]: override,
+    };
+    setColumnOverrides(updated);
+    setHasChanges(true);
+    console.log('Column override saved:', columnName, override);
+  };
+
+  const handleResetColumn = (columnName) => {
+    const updated = { ...columnOverrides };
+    delete updated[columnName];
+    setColumnOverrides(updated);
+    setHasChanges(true);
+    console.log('Column override reset:', columnName);
+  };
+
+  const handleGenerateFields = async () => {
+    const xref_id = selectedComponent?.xref_id;
+
+    if (!xref_id) {
+      throw new Error('No component selected');
+    }
+
+    console.log('Generating fields for xref_id:', xref_id);
+
+    try {
+      const result = await execEvent('xrefFieldGen', { xref_id });
+
+      if (!result.success) {
+        throw new Error(result.message || 'Field generation failed');
+      }
+
+      console.log('Generated fields:', result);
+      return result;
+
+    } catch (error) {
+      console.error('Field generation error:', error);
+      throw error;
+    }
+  };
 
   if (!selectedComponent) {
     return (
@@ -16,7 +120,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
     <div style={styles.panel}>
       <div style={styles.header}>
         <h3 style={styles.title}>{selectedComponent.label}</h3>
-        <span style={styles.badge}>{selectedComponent.comp_type}</span>
+        <span style={styles.badgeLarge}>{selectedComponent.comp_type}</span>
       </div>
 
       <div style={styles.tabs}>
@@ -26,6 +130,14 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
         >
           Component
         </button>
+        {(selectedComponent.comp_type === 'Grid' || selectedComponent.comp_type === 'Form') && (
+          <button
+            style={activeTab === 'query' ? styles.tabActive : styles.tab}
+            onClick={() => setActiveTab('query')}
+          >
+            Query
+          </button>
+        )}
         <button
           style={activeTab === 'props' ? styles.tabActive : styles.tab}
           onClick={() => setActiveTab('props')}
@@ -56,8 +168,9 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
               <label style={styles.label}>Title</label>
               <input
                 type="text"
-                value={selectedComponent.label}
-                style={styles.input}
+                value={editedTitle}
+                readOnly
+                style={styles.inputDisabled}
               />
             </div>
             <div style={styles.field}>
@@ -65,7 +178,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
               <input
                 type="text"
                 value={selectedComponent.comp_type}
-                disabled
+                readOnly
                 style={styles.inputDisabled}
               />
             </div>
@@ -73,44 +186,118 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
               <label style={styles.label}>Container</label>
               <input
                 type="text"
-                value={selectedComponent.container || 'None'}
-                style={styles.input}
+                value={editedContainer}
+                readOnly
+                style={styles.inputDisabled}
               />
             </div>
+          </div>
+        )}
+
+        {activeTab === 'query' && (
+          <div style={styles.tabContent}>
+            <QuerySetup
+              component={selectedComponent}
+              onGenerateFields={handleGenerateFields}
+            />
           </div>
         )}
 
         {activeTab === 'props' && (
           <div style={styles.tabContent}>
-            <div style={styles.field}>
-              <label style={styles.label}>Event Properties</label>
-              <textarea
-                value={JSON.stringify(selectedComponent.eventProps || {}, null, 2)}
-                style={styles.textarea}
-                rows={15}
-              />
-            </div>
+            {selectedComponent.comp_type === 'Grid' || selectedComponent.comp_type === 'Form' ? (
+              // Grid/Form column/field editor
+              (() => {
+                const parsed = parseProps(selectedComponent.eventProps);
+                const items = parsed.columns || parsed.fields || [];
+                const fieldName = selectedColumn?.field || selectedColumn?.name;
+
+                return (
+                  <div>
+                    <ColumnSelector
+                      columns={items}
+                      selectedColumn={selectedColumn}
+                      onSelect={setSelectedColumn}
+                    />
+
+                    <SchemaViewer column={selectedColumn} />
+
+                    <OverrideEditor
+                      column={selectedColumn}
+                      override={fieldName ? columnOverrides[fieldName] : null}
+                      onSave={handleSaveColumn}
+                      onReset={handleResetColumn}
+                      componentType={selectedComponent.comp_type}
+                    />
+                  </div>
+                );
+              })()
+            ) : (
+              // Default JSON view for other component types
+              <div style={styles.field}>
+                <label style={styles.label}>Event Properties (JSON)</label>
+                <textarea
+                  value={editedProps}
+                  readOnly
+                  style={styles.textarea}
+                  rows={15}
+                  spellCheck={false}
+                />
+              </div>
+            )}
           </div>
         )}
 
         {activeTab === 'triggers' && (
           <div style={styles.tabContent}>
-            <div style={styles.comingSoon}>
-              <div style={styles.comingSoonIcon}>⚡</div>
-              <div style={styles.comingSoonText}>Trigger editor coming soon</div>
-              <div style={styles.comingSoonSubtext}>
-                Workflows: onLoad, onClick, onRefresh, etc.
+            {selectedComponent.triggers && selectedComponent.triggers.length > 0 ? (
+              <div>
+                {selectedComponent.triggers.map((trigger, idx) => (
+                  <div key={idx} style={styles.triggerItem}>
+                    <div style={styles.triggerHeader}>
+                      <span style={styles.triggerClass}>{trigger.class}</span>
+                      <span style={styles.triggerAction}>{trigger.action}</span>
+                    </div>
+                    <div style={styles.field}>
+                      <label style={styles.label}>Content</label>
+                      <textarea
+                        value={trigger.content || ''}
+                        style={styles.textarea}
+                        rows={4}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
+            ) : (
+              <div style={styles.comingSoon}>
+                <div style={styles.comingSoonIcon}>⚡</div>
+                <div style={styles.comingSoonText}>No triggers defined</div>
+                <div style={styles.comingSoonSubtext}>
+                  Workflows: onLoad, onClick, onRefresh, etc.
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
 
+      {/* Save button hidden - editing disabled until orchestration is ready
       <div style={styles.footer}>
-        <button style={styles.saveButton} onClick={onSave}>
-          Save Changes
+        <button
+          style={{
+            ...styles.saveButton,
+            opacity: hasChanges ? 1 : 0.5,
+            cursor: hasChanges ? 'pointer' : 'default',
+          }}
+          onClick={handleSave}
+          disabled={!hasChanges}
+        >
+          {hasChanges ? '💾 Save Changes' : '✓ Saved'}
         </button>
       </div>
+      */}
     </div>
   );
 };
@@ -159,6 +346,14 @@ const styles = {
     borderRadius: '4px',
     fontSize: '12px',
     fontWeight: 500,
+  },
+  badgeLarge: {
+    padding: '8px 16px',
+    backgroundColor: '#dbeafe',
+    color: '#1e40af',
+    borderRadius: '6px',
+    fontSize: '16px',
+    fontWeight: 700,
   },
   tabs: {
     display: 'flex',
@@ -248,6 +443,12 @@ const styles = {
   comingSoonSubtext: {
     fontSize: '13px',
   },
+  sectionTitle: {
+    margin: '0 0 16px 0',
+    fontSize: '15px',
+    fontWeight: 600,
+    color: '#1e293b',
+  },
   footer: {
     padding: '16px 20px',
     borderTop: '1px solid #e2e8f0',
@@ -262,6 +463,35 @@ const styles = {
     fontSize: '14px',
     fontWeight: 600,
     cursor: 'pointer',
+  },
+  triggerItem: {
+    marginBottom: '20px',
+    padding: '12px',
+    backgroundColor: '#f8fafc',
+    borderRadius: '6px',
+    border: '1px solid #e2e8f0',
+  },
+  triggerHeader: {
+    display: 'flex',
+    gap: '8px',
+    marginBottom: '12px',
+    alignItems: 'center',
+  },
+  triggerClass: {
+    padding: '4px 8px',
+    backgroundColor: '#dbeafe',
+    color: '#1e40af',
+    borderRadius: '4px',
+    fontSize: '12px',
+    fontWeight: 600,
+  },
+  triggerAction: {
+    padding: '4px 8px',
+    backgroundColor: '#fef3c7',
+    color: '#92400e',
+    borderRadius: '4px',
+    fontSize: '12px',
+    fontWeight: 500,
   },
 };
 

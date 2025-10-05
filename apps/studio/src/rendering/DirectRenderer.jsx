@@ -1,10 +1,10 @@
 /**
- * DirectRenderer - Modularized PageConfig Renderer
+ * DirectRenderer - Modularized PageConfig Renderer (Flex-only Layout)
  *
  * Orchestrates rendering with extracted modules for:
  * - Modal management (useModalManager hook)
  * - Template loading (useTemplateLoader hook)
- * - Style utilities (getGridPosition, getHtmlElement)
+ * - Style utilities (getFlexPosition, getHtmlElement)
  * - Event handlers (buildEventHandlers)
  * - Row rendering (renderRow)
  */
@@ -13,7 +13,7 @@ import React from 'react';
 import { triggerEngine } from './WorkflowEngine/TriggerEngine.js';
 import { useModalManager } from './hooks/useModalManager.js';
 import { useTemplateLoader } from './hooks/useTemplateLoader.js';
-import { getGridPosition, getHtmlElement } from './utils/styleUtils.js';
+import { getFlexPosition, getHtmlElement } from './utils/styleUtils.js';
 import { buildEventHandlers } from './utils/eventHandlerBuilder.js';
 import { renderRow } from './utils/rowRenderer.js';
 import StudioCanvasWrapper from '../components/StudioCanvasWrapper.jsx';
@@ -139,8 +139,8 @@ const DirectRenderer = ({ config }) => {
       });
     }
 
-    const gridPosition = getGridPosition(position);
-    const mergedStyle = { ...style, ...gridPosition };
+    const flexPosition = getFlexPosition(position);
+    const mergedStyle = { ...style, ...flexPosition };
 
     return React.createElement(
       htmlElement,
@@ -155,16 +155,32 @@ const DirectRenderer = ({ config }) => {
     );
   };
 
+  // Group components by row for flex layout
+  const groupByRow = (components) => {
+    const rows = {};
+    components.forEach(comp => {
+      const row = comp.position?.row || 0;
+      if (!rows[row]) rows[row] = [];
+      rows[row].push(comp);
+    });
+
+    // Sort components within each row by order
+    Object.keys(rows).forEach(rowKey => {
+      rows[rowKey].sort((a, b) =>
+        (a.position?.order || 0) - (b.position?.order || 0)
+      );
+    });
+
+    return rows;
+  };
+
   const containerStyle = {
     fontFamily: 'system-ui, sans-serif',
-    ...(config.layout === 'flex' && {
-      display: 'grid',
-      gap: '16px',
-      gridTemplateColumns: 'repeat(12, 1fr)',
-      gridTemplateRows: 'auto',
-      width: '100%',
-      height: '100%'
-    })
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+    width: '100%',
+    height: '100%'
   };
 
   if (!templatesLoaded) {
@@ -174,10 +190,42 @@ const DirectRenderer = ({ config }) => {
   const regularComponents = config.components?.filter(c => c.container !== 'Modal') || [];
   const modalComponents = config.components?.filter(c => c.container === 'Modal') || [];
 
+  // Get row alignment from first component in row
+  const getRowAlignment = (components) => {
+    const firstAlign = components[0]?.position?.align || 'left';
+    const alignMap = {
+      'left': 'flex-start',
+      'center': 'center',
+      'right': 'flex-end'
+    };
+    return alignMap[firstAlign] || 'flex-start';
+  };
+
+  // Group regular components by row
+  const componentRows = groupByRow(regularComponents);
+  const sortedRowKeys = Object.keys(componentRows).sort((a, b) => parseInt(a) - parseInt(b));
+
   return (
     <>
       <div className="direct-renderer" style={containerStyle}>
-        {regularComponents.map(component => renderComponent(component))}
+        {sortedRowKeys.map(rowKey => {
+          const rowComponents = componentRows[rowKey];
+          const justifyContent = getRowAlignment(rowComponents);
+
+          return (
+            <div
+              key={`row-${rowKey}`}
+              style={{
+                display: 'flex',
+                gap: '16px',
+                width: '100%',
+                justifyContent
+              }}
+            >
+              {rowComponents.map(component => renderComponent(component))}
+            </div>
+          );
+        })}
       </div>
 
       {modalComponents.map(modalComp => {

@@ -16,9 +16,64 @@ const StudioLayout = () => {
     setSelectedComponent(component);
   };
 
-  const handleSaveComponent = async () => {
-    console.log('Saving component:', selectedComponent);
-    // TODO: Wire up database UPDATE
+  const handleSaveComponent = async (updatedData) => {
+    try {
+      console.log('Saving component:', updatedData);
+
+      // Update title in eventType_xref
+      if (updatedData.title !== selectedComponent.label) {
+        await fetch('http://localhost:3001/api/execDML', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            method: 'UPDATE',
+            table: 'api_wf.eventType_xref',
+            data: { title: updatedData.title },
+            where: { xref_id: updatedData.xref_id }
+          })
+        });
+      }
+
+      // Update container if changed
+      if (updatedData.container !== selectedComponent.container) {
+        await fetch('http://localhost:3001/api/execDML', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            method: 'UPDATE',
+            table: 'api_wf.eventType_xref',
+            data: { container: updatedData.container },
+            where: { xref_id: updatedData.xref_id }
+          })
+        });
+      }
+
+      // Update props by updating/inserting into eventProps table
+      const propsEntries = Object.entries(updatedData.eventProps);
+      for (const [paramName, paramVal] of propsEntries) {
+        await fetch('http://localhost:3001/api/execDML', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            method: 'UPSERT',
+            table: 'api_wf.eventProps',
+            data: {
+              xref_id: updatedData.xref_id,
+              paramName,
+              paramVal: typeof paramVal === 'object' ? JSON.stringify(paramVal) : String(paramVal),
+              active: 1
+            }
+          })
+        });
+      }
+
+      console.log('✅ Component saved successfully');
+      alert('Component saved successfully!');
+
+    } catch (error) {
+      console.error('❌ Failed to save component:', error);
+      alert('Failed to save component: ' + error.message);
+    }
   };
 
   return (
@@ -74,7 +129,7 @@ const styles = {
     position: 'relative',
   },
   properties: {
-    width: '360px',
+    width: '480px',
     flexShrink: 0,
     borderLeft: '1px solid #e2e8f0',
     backgroundColor: '#ffffff',

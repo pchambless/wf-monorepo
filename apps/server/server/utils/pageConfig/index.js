@@ -144,10 +144,9 @@ async function buildPageConfig(hierarchyData, userEmail = 'pc7900@gmail.com') {
       .filter(item => item.parent_id === parentId && item.level === level)
       .filter(item => item.comp_type !== 'Query') // UI only
       .map(item => {
-        // Parse posOrder: "01,01;01,02" = rowStart,rowSpan;colStart,colSpan
-        const [rowData, colData] = (item.posOrder || '00,00;00,00').split(';');
-        const [rowStart, rowSpan] = rowData.split(',').map(n => parseInt(n));
-        const [colStart, colSpan] = colData.split(',').map(n => parseInt(n));
+        // Parse posOrder using new flex-based parser
+        const { parsePosOrder } = require('../posOrderParser');
+        const { row, order, width, align } = parsePosOrder(item.posOrder || '0,0,auto');
 
         // Use enhanced props from eventProps table, fallback to old props
         let props = {};
@@ -185,9 +184,11 @@ async function buildPageConfig(hierarchyData, userEmail = 'pc7900@gmail.com') {
           comp_type: item.comp_type,
           xref_id: item.xref_id,
           container: item.container || 'inline',
-          position: rowStart > 0 || colStart > 0 ? {
-            row: { start: rowStart, span: rowSpan },
-            col: { start: colStart, span: colSpan }
+          position: row > 0 ? {
+            row,
+            order,
+            width,
+            align
           } : {},
           props: { ...cleanProps },
           ...(overrideStyles && { override_styles: overrideStyles }),

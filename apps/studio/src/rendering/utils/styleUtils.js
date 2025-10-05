@@ -1,13 +1,15 @@
 /**
- * Convert position object to CSS grid properties
+ * Convert position object to flexbox width
+ * Position format: { row, order, width }
  */
-export function getGridPosition(position) {
-  if (!position || !position.row || !position.col) return {};
+export function getFlexPosition(position) {
+  if (!position || !position.width) return {};
 
-  const { row, col } = position;
   return {
-    gridRow: `${row.start} / span ${row.span}`,
-    gridColumn: `${col.start} / span ${col.span}`
+    flexBasis: position.width,
+    flexGrow: 0,
+    flexShrink: 1,
+    minWidth: 0  // Allows flex items to shrink below content size
   };
 }
 
