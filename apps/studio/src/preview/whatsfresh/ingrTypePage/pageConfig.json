@@ -2,13 +2,8 @@
   "layout": "flex",
   "workflowTriggers": {
     "onLoad": [
-      {
-        "ordr": 1,
-        "action": "clearVals",
-        "content": "[\"ingrTypeID\", \"ingrID\", \"ingrBtchID\"]",
-        "is_dom_event": 1
-      },
-      {"ordr": 2, "action": "refresh", "content": "[\"ingrTypeGrid\"]", "is_dom_event": 1}
+      {"action": "clearVals", "ordr": 1, "content": "[\"ingrTypeID\", \"ingrID\", \"ingrBtchID\"]"},
+      {"action": "refresh", "ordr": 2, "content": "[\"ingrTypeGrid\"]"}
     ]
   },
   "components": [
@@ -17,7 +12,7 @@
       "comp_type": "Container",
       "xref_id": 60,
       "container": "inline",
-      "position": {},
+      "position": {"row": 1, "order": 1, "width": "98%", "align": "center"},
       "props": {},
       "components": [
         {
@@ -25,15 +20,11 @@
           "comp_type": "Grid",
           "xref_id": 56,
           "container": "inline",
-          "position": {"row": {"start": 1, "span": 5}, "col": {"start": 1, "span": 6}},
+          "position": {"row": 1, "order": 1, "width": "50%", "align": "left"},
           "props": {"rowKey": "id", "selectable": true},
           "workflowTriggers": {
-            "onChange": [
-              {"ordr": 3, "action": "refresh", "content": "[\"ingrTypeForm\"]", "is_dom_event": 1}
-            ],
-            "onRefresh": [
-              {"ordr": 1, "action": "execEvent", "content": "ingrTypeList", "is_dom_event": 0}
-            ]
+            "onChange": [{"action": "refresh", "ordr": 3, "content": "[\"ingrTypeForm\"]"}],
+            "onRefresh": [{"action": "execEvent", "ordr": 1, "content": "ingrTypeList"}]
           },
           "components": [
             {
@@ -135,20 +126,18 @@
           "comp_type": "Form",
           "xref_id": 59,
           "container": "inline",
-          "position": {"row": {"start": 1, "span": 5}, "col": {"start": 6, "span": 6}},
+          "position": {"row": 1, "order": 2, "width": "50%", "align": "right"},
           "props": {},
           "workflowTriggers": {
+            "onRefresh": [{"action": "execEvent", "ordr": 1, "content": "ingrTypeDtl"}],
             "onSubmit": [
               {
-                "ordr": 2,
                 "action": "execDML",
-                "content": "{\"method\": \"INSERT\", \"table\": \"whatsfresh.ingredient_types\"}",
-                "is_dom_event": 1
+                "ordr": 2,
+                "content": "{\r\n\t\"method\": \"INSERT\", \r\n\t\"table\": \"whatsfresh.ingredient_types\"\r\n}"
               }
             ],
-            "onSuccess": [
-              {"ordr": 3, "action": "refresh", "content": "[\"ingrTypeGrid\"]", "is_dom_event": 0}
-            ]
+            "onSuccess": [{"action": "refresh", "ordr": 3, "content": "[\"ingrTypeGrid\"]"}]
           },
           "components": [
             {
@@ -264,6 +253,14 @@
                   }
                 }
               ]
+            },
+            {
+              "id": "submitButton",
+              "comp_type": "Button",
+              "xref_id": 63,
+              "container": "inline",
+              "position": {"row": 3, "order": 1, "width": "25%", "align": "right"},
+              "props": {}
             }
           ]
         }

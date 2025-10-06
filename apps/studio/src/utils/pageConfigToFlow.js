@@ -97,7 +97,7 @@ export const pageConfigToFlow = (hierarchyData) => {
 
   // Parse posOrder format: "row,order,width,align"
   const parsePosOrder = (posOrder) => {
-    if (!posOrder || posOrder === '0,0,auto') return null;
+    if (!posOrder || posOrder === '0,0,auto' || posOrder === '00,00,00') return null;
 
     // Format: "row,order,width,align" (e.g., "1,1,50,right")
     const parts = posOrder.split(',').map(p => p.trim());
@@ -105,6 +105,11 @@ export const pageConfigToFlow = (hierarchyData) => {
     if (parts.length >= 3) {
       // Parse width - add % if not present
       const widthValue = parts[2];
+      const widthNum = parseInt(widthValue);
+
+      // Treat "00" or 0 as "no positioning" (return null)
+      if (widthNum === 0) return null;
+
       const width = widthValue.includes('%') ? widthValue : `${widthValue}%`;
 
       // Parse alignment (optional, defaults to 'left')

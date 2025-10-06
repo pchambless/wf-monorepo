@@ -17,7 +17,8 @@ import DefaultNode from './FlowNodes/DefaultNode';
 import { pageConfigToFlow } from '../utils/pageConfigToFlow';
 
 const nodeTypes = {
-  app: PageNode,  // Use PageNode for App root
+  app: PageNode,
+  crud: PageNode,      // CRUD template uses PageNode
   grid: GridNode,
   form: FormNode,
   container: ContainerNode,

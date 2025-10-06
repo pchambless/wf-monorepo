@@ -55,7 +55,7 @@ BEGIN
           WHERE p.level >= 0 AND p.level < 10
       )
       SELECT
-          h.id,
+          h.id as xref_id,
           h.comp_name,
           h.title,
           h.comp_type,
@@ -65,7 +65,7 @@ BEGIN
           h.level,
           h.id_path
       FROM wf_hier h
-      ORDER BY id_path, posOrder, id;
+      ORDER BY id_path, posOrder, h.id;
 END$$
 
 DELIMITER ;

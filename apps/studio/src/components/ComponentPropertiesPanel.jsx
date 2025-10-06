@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { execEvent } from '@whatsfresh/shared-imports';
 import { formatPropsForDisplay, parseProps } from '../utils/formatProps';
 import ColumnSelector from './PropertyEditors/ColumnSelector';
-import SchemaViewer from './PropertyEditors/SchemaViewer';
+import PreviewPane from './PropertyEditors/PreviewPane';
 import OverrideEditor from './PropertyEditors/OverrideEditor';
 import QuerySetup from './PropertyEditors/QuerySetup';
 
@@ -94,15 +94,68 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
     try {
       const result = await execEvent('xrefFieldGen', { xref_id });
 
-      if (!result.success) {
-        throw new Error(result.message || 'Field generation failed');
+      if (!result.data) {
+        throw new Error('No data returned from field generation');
       }
 
-      console.log('Generated fields:', result);
-      return result;
+      // Stored procedures return: data: [[metadata], [fields], OkPacket]
+      const [metadata, fields] = result.data;
+
+      console.log('Generated fields metadata:', metadata);
+      console.log('Generated fields:', fields);
+
+      return { metadata: metadata[0], fields };
 
     } catch (error) {
       console.error('Field generation error:', error);
+      throw error;
+    }
+  };
+
+  const handleSaveFields = async (fields) => {
+    const xref_id = selectedComponent?.xref_id;
+
+    if (!xref_id) {
+      throw new Error('No component selected');
+    }
+
+    try {
+      // Save as JSON blob to eventProps
+      const propVal = JSON.stringify(fields);
+
+      // Use execDML to insert/update
+      const response = await fetch('http://localhost:3001/api/execDML', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          method: 'INSERT',
+          table: 'api_wf.eventProps',
+          data: {
+            xref_id,
+            propName: 'columns',
+            propType: 'json',
+            propVal,
+            created_by: 'Studio'
+          },
+          onDuplicateKey: {
+            propVal,
+            updated_at: 'NOW()',
+            updated_by: 'Studio'
+          }
+        })
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.message || 'Save failed');
+      }
+
+      console.log('Fields saved successfully:', result);
+      return result;
+
+    } catch (error) {
+      console.error('Save error:', error);
       throw error;
     }
   };
@@ -199,6 +252,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
             <QuerySetup
               component={selectedComponent}
               onGenerateFields={handleGenerateFields}
+              onSaveFields={handleSaveFields}
             />
           </div>
         )}
@@ -220,14 +274,18 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
                       onSelect={setSelectedColumn}
                     />
 
-                    <SchemaViewer column={selectedColumn} />
-
                     <OverrideEditor
                       column={selectedColumn}
                       override={fieldName ? columnOverrides[fieldName] : null}
                       onSave={handleSaveColumn}
                       onReset={handleResetColumn}
                       componentType={selectedComponent.comp_type}
+                    />
+
+                    <PreviewPane
+                      column={selectedColumn}
+                      override={fieldName ? columnOverrides[fieldName] : null}
+                      onChange={(merged) => console.log('Preview edited:', merged)}
                     />
                   </div>
                 );

@@ -6,6 +6,9 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import stringify from 'json-stringify-pretty-compact';
 import logger from "../logger.js";
+import { getComponentProps } from './propsRetriever.js';
+import { getComponentTriggers } from './triggersRetriever.js';
+import { parsePosOrder } from '../posOrderParser.js';
 
 const codeName = "[database-genPageConfig.js]";
 const STUDIO_PREVIEW_PATH = "/home/paul/wf-monorepo-new/apps/studio/src/preview";
@@ -108,34 +111,27 @@ async function buildPageConfig(hierarchyData, userEmail = 'pc7900@gmail.com') {
     throw new Error('No root component found');
   }
 
-  // Parse JSON strings from database (enhancedProps and workflowTriggers come from sp_hier_structure)
-  logger.debug(`${codeName} Processing ${hierarchyData.length} components from database`);
+  // Fetch props and triggers for each component using retriever modules
+  logger.debug(`${codeName} Fetching props and triggers for ${hierarchyData.length} components`);
 
   for (const component of hierarchyData) {
     try {
-      // Parse enhancedProps if it's a JSON string from database
-      if (component.enhancedProps && typeof component.enhancedProps === 'string') {
-        try {
-          component.enhancedProps = JSON.parse(component.enhancedProps);
-          logger.debug(`${codeName} Parsed enhancedProps for ${component.comp_name}: ${Object.keys(component.enhancedProps).length} props`);
-        } catch (error) {
-          logger.error(`${codeName} Error parsing enhancedProps for ${component.comp_name}:`, error);
-          component.enhancedProps = null;
-        }
-      }
+      // Fetch props using propsRetriever
+      const props = await getComponentProps(component.xref_id, userEmail);
+      component.enhancedProps = props;
+      logger.debug(`${codeName} Fetched ${Object.keys(props).length} props for ${component.comp_name} (xref_id: ${component.xref_id})`);
 
-      // Parse workflowTriggers if it's a JSON string from database
-      if (component.workflowTriggers && typeof component.workflowTriggers === 'string') {
-        try {
-          component.workflowTriggers = JSON.parse(component.workflowTriggers);
-          logger.debug(`${codeName} Parsed workflowTriggers for ${component.comp_name}: ${Object.keys(component.workflowTriggers).length} trigger classes`);
-        } catch (error) {
-          logger.error(`${codeName} Error parsing workflowTriggers for ${component.comp_name}:`, error);
-          component.workflowTriggers = null;
-        }
+      // Fetch triggers using triggersRetriever
+      const triggers = await getComponentTriggers(component.xref_id, userEmail);
+      component.workflowTriggers = triggers;
+      if (triggers) {
+        const triggerCount = Object.values(triggers).flat().length;
+        logger.debug(`${codeName} Fetched ${triggerCount} triggers for ${component.comp_name} (xref_id: ${component.xref_id})`);
       }
     } catch (error) {
-      logger.error(`${codeName} Error processing component ${component.comp_name}:`, error);
+      logger.error(`${codeName} Error fetching props/triggers for ${component.comp_name}:`, error);
+      component.enhancedProps = {};
+      component.workflowTriggers = null;
     }
   }
 
@@ -145,7 +141,6 @@ async function buildPageConfig(hierarchyData, userEmail = 'pc7900@gmail.com') {
       .filter(item => item.comp_type !== 'Query') // UI only
       .map(item => {
         // Parse posOrder using new flex-based parser
-        const { parsePosOrder } = require('../posOrderParser');
         const { row, order, width, align } = parsePosOrder(item.posOrder || '0,0,auto');
 
         // Use enhanced props from eventProps table, fallback to old props

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { execEvent, setVals } from '@whatsfresh/shared-imports';
+import PreviewModal from './PreviewModal';
 
 const StudioSidebar = ({ onPageConfigLoaded }) => {
   const [apps, setApps] = useState([]);
@@ -7,6 +8,8 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
   const [selectedApp, setSelectedApp] = useState('');
   const [selectedPage, setSelectedPage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewConfig, setPreviewConfig] = useState(null);
 
   useEffect(() => {
     loadApps();
@@ -89,6 +92,71 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
     }
   };
 
+  const handleGeneratePageConfig = async () => {
+    if (!selectedApp || !selectedPage) {
+      alert('Please select both an app and a page first');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      console.log('🔧 Generating pageConfig for app:', selectedApp, 'page:', selectedPage);
+
+      const response = await fetch('http://localhost:3001/api/genPageConfig', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pageID: selectedPage })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('✅ PageConfig generated successfully!');
+        console.log('✅ PageConfig generation result:', result);
+      } else {
+        alert('⚠️ PageConfig generation completed with warnings: ' + (result.message || 'Unknown issue'));
+      }
+    } catch (error) {
+      console.error('❌ Failed to generate pageConfig:', error);
+      alert('❌ Failed to generate pageConfig: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePreviewPage = async () => {
+    if (!selectedApp || !selectedPage) {
+      alert('Please select both an app and a page first');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      console.log('👁️ Generating and previewing page for app:', selectedApp, 'page:', selectedPage);
+
+      const response = await fetch('http://localhost:3001/api/genPageConfig', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pageID: selectedPage })
+      });
+
+      const result = await response.json();
+
+      if (result.success && result.pageConfig) {
+        setPreviewConfig(result.pageConfig);
+        setShowPreview(true);
+        console.log('✅ Preview loaded with pageConfig:', result.pageConfig);
+      } else {
+        alert('⚠️ Failed to load preview: ' + (result.message || 'No pageConfig returned'));
+      }
+    } catch (error) {
+      console.error('❌ Failed to preview page:', error);
+      alert('❌ Failed to preview page: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.header}>
@@ -134,12 +202,38 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
         </div>
       )}
 
+      {selectedPage && (
+        <div style={styles.section}>
+          <button
+            onClick={handleGeneratePageConfig}
+            style={styles.generateButton}
+            disabled={loading}
+          >
+            📄 Generate PageConfig
+          </button>
+          <button
+            onClick={handlePreviewPage}
+            style={{ ...styles.generateButton, ...styles.previewButton }}
+            disabled={loading}
+          >
+            👁️ Preview Page
+          </button>
+        </div>
+      )}
+
       <div style={styles.divider} />
 
       <div style={styles.section}>
         <h3 style={styles.sectionTitle}>Component Palette</h3>
         <div style={styles.comingSoon}>Coming soon...</div>
       </div>
+
+      {showPreview && previewConfig && (
+        <PreviewModal
+          config={previewConfig}
+          onClose={() => setShowPreview(false)}
+        />
+      )}
     </div>
   );
 };
@@ -207,6 +301,22 @@ const styles = {
     fontSize: '13px',
     color: '#94a3b8',
     textAlign: 'center',
+  },
+  generateButton: {
+    width: '100%',
+    padding: '10px 16px',
+    backgroundColor: '#3b82f6',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+  },
+  previewButton: {
+    marginTop: '8px',
+    backgroundColor: '#10b981',
   },
 };
 

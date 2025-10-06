@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { execEvent } from '@whatsfresh/shared-imports';
 
-const QuerySetup = ({ component, onGenerateFields }) => {
+const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
   const [queryName, setQueryName] = useState('');
   const [querySQL, setQuerySQL] = useState('');
   const [tableName, setTableName] = useState('');
@@ -38,8 +38,22 @@ const QuerySetup = ({ component, onGenerateFields }) => {
   const handleGenerate = async () => {
     setGenerating(true);
     try {
-      await onGenerateFields();
-      alert('Fields generated successfully!');
+      const result = await onGenerateFields();
+
+      if (result && result.fields) {
+        // Ask user if they want to save
+        const save = window.confirm(
+          `Generated ${result.fields.length} fields. Save to component?`
+        );
+
+        if (save) {
+          // Save the fields
+          await onSaveFields(result.fields);
+          alert(`Saved ${result.fields.length} fields successfully!`);
+        }
+      } else {
+        alert('Fields generated successfully! Check console for details.');
+      }
     } catch (error) {
       alert('Failed to generate fields: ' + error.message);
     } finally {

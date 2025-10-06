@@ -70,7 +70,7 @@ const groupComponentsByRow = (components) => {
   return rows;
 };
 
-module.exports = {
+export {
   parsePosOrder,
   formatPosOrder,
   groupComponentsByRow

@@ -47,69 +47,58 @@ const OverrideEditor = ({ column, override, onSave, onReset, componentType = 'Gr
     <div style={styles.container}>
       <h3 style={styles.title}>✏️ Overrides (editable)</h3>
 
-      <div style={styles.fields}>
-        <div style={styles.field}>
-          <label style={styles.label}>Label</label>
+      {/* Single row layout - all inputs horizontal */}
+      <div style={styles.compactRow}>
+        <div style={styles.compactField}>
+          <label style={styles.compactLabel}>Label</label>
           <input
             type="text"
             value={editedOverride.label || editedOverride.header || ''}
             onChange={(e) => handleChange('label', e.target.value)}
             placeholder={currentHeader || fieldName}
-            style={styles.input}
+            style={styles.compactInput}
           />
         </div>
 
         {componentType === 'Grid' && (
-          <div style={styles.field}>
-            <label style={styles.label}>Width</label>
+          <div style={styles.compactField}>
+            <label style={styles.compactLabel}>Width</label>
             <input
               type="text"
               value={editedOverride.width || ''}
               onChange={(e) => handleChange('width', e.target.value)}
               placeholder="auto"
-              style={styles.input}
+              style={styles.compactInput}
             />
           </div>
         )}
 
         {componentType === 'Form' && (
           <>
-            <div style={styles.fieldRow}>
-              <div style={styles.fieldHalf}>
-                <label style={styles.label}>Row</label>
-                <input
-                  type="number"
-                  value={editedOverride.row || ''}
-                  onChange={(e) => handleChange('row', e.target.value)}
-                  placeholder="1"
-                  style={styles.input}
-                />
-              </div>
-              <div style={styles.fieldHalf}>
-                <label style={styles.label}>Column</label>
-                <input
-                  type="number"
-                  value={editedOverride.col || ''}
-                  onChange={(e) => handleChange('col', e.target.value)}
-                  placeholder="1"
-                  style={styles.input}
-                />
-              </div>
-            </div>
-            <div style={styles.field}>
-              <label style={styles.label}>Group</label>
+            <div style={styles.compactField}>
+              <label style={styles.compactLabel}>Row</label>
               <input
-                type="text"
-                value={editedOverride.group || ''}
-                onChange={(e) => handleChange('group', e.target.value)}
-                placeholder="Basic Info"
-                style={styles.input}
+                type="number"
+                value={editedOverride.row || ''}
+                onChange={(e) => handleChange('row', e.target.value)}
+                placeholder="1"
+                style={styles.compactInput}
+              />
+            </div>
+            <div style={styles.compactField}>
+              <label style={styles.compactLabel}>Column</label>
+              <input
+                type="number"
+                value={editedOverride.col || ''}
+                onChange={(e) => handleChange('col', e.target.value)}
+                placeholder="1"
+                style={styles.compactInput}
               />
             </div>
           </>
         )}
 
-        <div style={styles.checkboxRow}>
+        <div style={styles.checkboxContainer}>
           <label style={styles.checkbox}>
             <input
               type="checkbox"
@@ -175,43 +164,39 @@ const styles = {
     border: '1px solid #e2e8f0',
     borderRadius: '8px',
   },
-  fields: {
+  compactRow: {
     display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
+    gap: '8px',
+    alignItems: 'flex-end',
+    flexWrap: 'wrap',
   },
-  field: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '4px',
-  },
-  fieldRow: {
-    display: 'flex',
-    gap: '12px',
-  },
-  fieldHalf: {
-    flex: 1,
+  compactField: {
+    flex: '1 1 auto',
+    minWidth: '100px',
     display: 'flex',
     flexDirection: 'column',
     gap: '4px',
   },
-  label: {
-    fontSize: '13px',
+  compactLabel: {
+    fontSize: '11px',
     fontWeight: 500,
     color: '#475569',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
   },
-  input: {
-    padding: '8px 12px',
+  compactInput: {
+    padding: '6px 8px',
     border: '1px solid #cbd5e1',
     borderRadius: '4px',
-    fontSize: '14px',
+    fontSize: '13px',
     color: '#1e293b',
   },
-  checkboxRow: {
+  checkboxContainer: {
     display: 'flex',
-    gap: '16px',
-    flexWrap: 'wrap',
-    paddingTop: '8px',
+    gap: '12px',
+    alignItems: 'center',
+    paddingLeft: '8px',
+    borderLeft: '1px solid #e2e8f0',
   },
   checkbox: {
     display: 'flex',
