@@ -16,6 +16,7 @@ try {
 
 // Import Studio page directly for full-screen rendering
 const StudioPage = lazy(() => import("./pages/Studio/index.jsx"));
+const DBBrowser = lazy(() => import("./pages/DBBrowser/index.jsx"));
 
 const App = () => {
   // App startup initialization
@@ -82,6 +83,16 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading Studio...</div>}>
               <StudioPage mode="studio" />
+            </Suspense>
+          }
+        />
+
+        {/* DB Browser route - full screen */}
+        <Route
+          path="/db-browser"
+          element={
+            <Suspense fallback={<div>Loading DB Browser...</div>}>
+              <DBBrowser />
             </Suspense>
           }
         />

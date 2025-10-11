@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { execEvent } from '@whatsfresh/shared-imports';
+import { db } from '../../db/studioDb';
 
 const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
   const [queryName, setQueryName] = useState('');
@@ -8,6 +9,21 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
   const [generating, setGenerating] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showHelp, setShowHelp] = useState(false);
+  const [availableQueries, setAvailableQueries] = useState([]);
+
+  // Load available queries from refSQL
+  useEffect(() => {
+    const loadQueries = async () => {
+      try {
+        const queries = await db.refSQL.toArray();
+        setAvailableQueries(queries);
+      } catch (error) {
+        console.error('Failed to load query references:', error);
+      }
+    };
+
+    loadQueries();
+  }, []);
 
   // Fetch existing query on mount
   useEffect(() => {
@@ -106,27 +122,25 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
         <div style={styles.field}>
           <label style={styles.label}>Query Name</label>
           <div style={styles.inputRow}>
-            <input
-              type="text"
+            <select
               value={queryName}
               onChange={(e) => setQueryName(e.target.value)}
-              placeholder="Select or enter query name"
               style={{...styles.input, flex: 1}}
-              readOnly={hasExistingQuery}
-              list="query-suggestions"
-            />
+            >
+              <option value="">Select a query...</option>
+              {availableQueries.map((query) => (
+                <option key={query.qryName} value={query.qryName}>
+                  {query.qryName}
+                </option>
+              ))}
+            </select>
             {!hasExistingQuery && (
               <button style={styles.newButton}>+ New</button>
             )}
           </div>
-          <datalist id="query-suggestions">
-            <option value="ingrTypeList" />
-            <option value="planList" />
-            <option value="userList" />
-          </datalist>
           <div style={styles.hint}>
             {hasExistingQuery
-              ? 'Query detected from onRefresh trigger (read-only)'
+              ? 'Query detected from onRefresh trigger'
               : 'Select from existing queries or create new'}
           </div>
         </div>

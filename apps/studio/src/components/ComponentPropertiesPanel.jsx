@@ -5,10 +5,15 @@ import ColumnSelector from './PropertyEditors/ColumnSelector';
 import PreviewPane from './PropertyEditors/PreviewPane';
 import OverrideEditor from './PropertyEditors/OverrideEditor';
 import QuerySetup from './PropertyEditors/QuerySetup';
+import { loadPropsForComponent, updatePropValue, updateAllProps } from '../utils/propUpdater';
+import { loadTriggersForComponent } from '../utils/triggerUpdater';
+import { savePropsToMySQL } from '../utils/propSaver';
+import { db } from '../db/studioDb';
 
-const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
+const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
   const [activeTab, setActiveTab] = useState('component');
   const [editedTitle, setEditedTitle] = useState('');
+  const [editedType, setEditedType] = useState('');
   const [editedContainer, setEditedContainer] = useState('');
   const [editedProps, setEditedProps] = useState('{}');
   const [hasChanges, setHasChanges] = useState(false);
@@ -16,25 +21,64 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
   // Column editor state (for Grids)
   const [selectedColumn, setSelectedColumn] = useState(null);
   const [columnOverrides, setColumnOverrides] = useState({});
+  const [previewData, setPreviewData] = useState(null);
 
-  // Update local state when selectedComponent changes
+  // Triggers from IndexedDB
+  const [triggers, setTriggers] = useState([]);
+
+  // Reference data for dropdowns
+  const [refComponents, setRefComponents] = useState([]);
+  const [refContainers, setRefContainers] = useState([]);
+
+  // Load reference data on mount
   useEffect(() => {
-    if (selectedComponent) {
-      setEditedTitle(selectedComponent.label || '');
-      setEditedContainer(selectedComponent.container || '');
-      setEditedProps(formatPropsForDisplay(selectedComponent.eventProps));
+    const loadReferences = async () => {
+      try {
+        const components = await db.refComponents.toArray();
+        const containers = await db.refContainers.toArray();
+        setRefComponents(components);
+        setRefContainers(containers);
+      } catch (error) {
+        console.error('Failed to load references:', error);
+      }
+    };
 
-      // Parse column overrides for Grid components
-      const parsed = parseProps(selectedComponent.eventProps);
-      setColumnOverrides(parsed.columnOverrides || {});
+    loadReferences();
+  }, []);
 
-      setHasChanges(false);
-      setSelectedColumn(null);
+  // Load props and triggers from IndexedDB when selectedComponent changes
+  useEffect(() => {
+    if (selectedComponent?.xref_id) {
+      loadComponentData(selectedComponent.xref_id);
     }
-  }, [selectedComponent]);
+  }, [selectedComponent?.xref_id]);
+
+  const loadComponentData = async (xref_id) => {
+    console.log('🔍 ComponentPropertiesPanel selectedComponent:', selectedComponent);
+    console.log('🔍 comp_type:', selectedComponent?.comp_type);
+
+    setEditedTitle(selectedComponent.title || selectedComponent.label || '');
+    setEditedType(selectedComponent.comp_type || '');
+    setEditedContainer(selectedComponent.container || '');
+
+    const props = await loadPropsForComponent(xref_id);
+    setEditedProps(JSON.stringify(props, null, 2));
+    setColumnOverrides(props.columnOverrides || {});
+
+    const loadedTriggers = await loadTriggersForComponent(xref_id);
+    setTriggers(loadedTriggers);
+
+    setHasChanges(false);
+    setSelectedColumn(null);
+  };
 
   const handleTitleChange = (e) => {
     setEditedTitle(e.target.value);
+    setHasChanges(true);
+  };
+
+  const handleTypeChange = (e) => {
+    setEditedType(e.target.value);
     setHasChanges(true);
   };
 
@@ -43,28 +87,39 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
     setHasChanges(true);
   };
 
-  const handlePropsChange = (e) => {
+  const handlePropsChange = async (e) => {
     setEditedProps(e.target.value);
     setHasChanges(true);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    console.log('🔍 handleSave called - xref_id:', selectedComponent?.xref_id);
+
+    if (!selectedComponent?.xref_id) {
+      alert('No component selected');
+      return;
+    }
+
     try {
       const parsedProps = JSON.parse(editedProps);
-      onSave({
-        xref_id: selectedComponent.xref_id,
-        title: editedTitle,
-        container: editedContainer,
-        eventProps: parsedProps,
-      });
+      console.log('🔍 Parsed props:', parsedProps);
+
+      await updateAllProps(selectedComponent.xref_id, parsedProps);
+      console.log('✅ Props marked with _dmlMethod in IndexedDB');
+
+      await savePropsToMySQL(selectedComponent.xref_id);
+      console.log('✅ Props saved to MySQL');
+
       setHasChanges(false);
+      console.log('✅ Component props updated');
     } catch (error) {
-      alert('Invalid JSON in props field: ' + error.message);
+      console.error('❌ Save error:', error);
+      alert('Failed to save: ' + error.message);
     }
   };
 
   // Column editor handlers
-  const handleSaveColumn = (columnName, override) => {
+  const handleSaveColumn = async (columnName, override) => {
     const updated = {
       ...columnOverrides,
       [columnName]: override,
@@ -72,6 +127,20 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
     setColumnOverrides(updated);
     setHasChanges(true);
     console.log('Column override saved:', columnName, override);
+
+    if (selectedComponent?.xref_id) {
+      try {
+        const currentProps = JSON.parse(editedProps);
+        currentProps.columnOverrides = updated;
+
+        await updatePropValue(selectedComponent.xref_id, 'columnOverrides', updated);
+
+        setEditedProps(JSON.stringify(currentProps, null, 2));
+        console.log('✅ Column override marked with _dmlMethod in IndexedDB');
+      } catch (error) {
+        console.error('❌ Failed to save column override:', error);
+      }
+    }
   };
 
   const handleResetColumn = (columnName) => {
@@ -81,6 +150,50 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
     setHasChanges(true);
     console.log('Column override reset:', columnName);
   };
+
+  const loadPreviewData = async (xref_id) => {
+    try {
+      console.log('Loading preview data for xref_id:', xref_id);
+
+      // Fetch complete data using the 3 queries
+      const [basicResult, triggersResult, propsResult] = await Promise.all([
+        execEvent('xrefBasicDtl', { xrefID: xref_id }),
+        execEvent('xrefTriggerList', { xrefID: xref_id }),
+        execEvent('xrefPropList', { xrefID: xref_id })
+      ]);
+
+      console.log('Basic result:', basicResult);
+      console.log('Triggers result:', triggersResult);
+      console.log('Props result:', propsResult);
+
+      const basic = basicResult.data?.[0] || {};
+      const triggers = triggersResult.data || [];
+
+      // Convert props array to object
+      const propsArray = propsResult.data || [];
+      const props = {};
+      propsArray.forEach(prop => {
+        try {
+          props[prop.paramName] = JSON.parse(prop.paramVal);
+        } catch {
+          props[prop.paramName] = prop.paramVal;
+        }
+      });
+
+      const preview = { basic, triggers, props };
+      console.log('Setting preview data:', preview);
+      setPreviewData(preview);
+    } catch (error) {
+      console.error('Failed to load preview data:', error);
+      setPreviewData({ error: error.message });
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 'preview' && selectedComponent?.xref_id) {
+      loadPreviewData(selectedComponent.xref_id);
+    }
+  }, [activeTab, selectedComponent?.xref_id]);
 
   const handleGenerateFields = async () => {
     const xref_id = selectedComponent?.xref_id;
@@ -104,12 +217,60 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
       console.log('Generated fields metadata:', metadata);
       console.log('Generated fields:', fields);
 
-      return { metadata: metadata[0], fields };
+      // Load existing saved fields to preserve overrides
+      const existingFields = await loadExistingFields(xref_id);
+
+      // Merge: schema properties from generated, overrides from existing
+      const mergedFields = mergeFields(fields, existingFields);
+
+      console.log('Merged fields (schema + overrides):', mergedFields);
+
+      return { metadata: metadata[0], fields: mergedFields };
 
     } catch (error) {
       console.error('Field generation error:', error);
       throw error;
     }
+  };
+
+  const loadExistingFields = async (xref_id) => {
+    try {
+      const props = await loadPropsForComponent(xref_id);
+      return props.columns || null;
+    } catch (error) {
+      console.log('No existing fields found, using generated only');
+      return null;
+    }
+  };
+
+  const mergeFields = (generatedFields, existingFields) => {
+    if (!existingFields || existingFields.length === 0) {
+      return generatedFields;
+    }
+
+    const existingMap = {};
+    existingFields.forEach(field => {
+      existingMap[field.name] = field;
+    });
+
+    return generatedFields.map(genField => {
+      const existing = existingMap[genField.name];
+
+      if (!existing) {
+        return genField;
+      }
+
+      return {
+        ...genField,
+        label: existing.label,
+        width: existing.width,
+        hidden: existing.hidden,
+        required: existing.required,
+        sortable: existing.sortable,
+        filterable: existing.filterable,
+        placeholder: existing.placeholder,
+      };
+    });
   };
 
   const handleSaveFields = async (fields) => {
@@ -120,39 +281,13 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
     }
 
     try {
-      // Save as JSON blob to eventProps
-      const propVal = JSON.stringify(fields);
+      await updatePropValue(xref_id, 'columns', fields);
+      console.log('✅ columns marked with _dmlMethod in IndexedDB');
 
-      // Use execDML to insert/update
-      const response = await fetch('http://localhost:3001/api/execDML', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          method: 'INSERT',
-          table: 'api_wf.eventProps',
-          data: {
-            xref_id,
-            propName: 'columns',
-            propType: 'json',
-            propVal,
-            created_by: 'Studio'
-          },
-          onDuplicateKey: {
-            propVal,
-            updated_at: 'NOW()',
-            updated_by: 'Studio'
-          }
-        })
-      });
+      await loadComponentData(xref_id);
+      console.log('✅ Component data reloaded');
 
-      const result = await response.json();
-
-      if (!result.success) {
-        throw new Error(result.message || 'Save failed');
-      }
-
-      console.log('Fields saved successfully:', result);
-      return result;
+      return { success: true, count: fields.length };
 
     } catch (error) {
       console.error('Save error:', error);
@@ -203,46 +338,67 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
         >
           Triggers
         </button>
+        <button
+          style={activeTab === 'preview' ? styles.tabActive : styles.tab}
+          onClick={() => setActiveTab('preview')}
+        >
+          Event Preview
+        </button>
       </div>
 
       <div style={styles.content}>
         {activeTab === 'component' && (
           <div style={styles.tabContent}>
-            <div style={styles.field}>
-              <label style={styles.label}>ID</label>
-              <input
-                type="text"
-                value={selectedComponent.xref_id}
-                disabled
-                style={styles.inputDisabled}
-              />
-            </div>
-            <div style={styles.field}>
-              <label style={styles.label}>Title</label>
-              <input
-                type="text"
-                value={editedTitle}
-                readOnly
-                style={styles.inputDisabled}
-              />
+            <div style={{display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
+              <div style={{...styles.field, flex: '0 0 80px'}}>
+                <label style={styles.label}>ID</label>
+                <input
+                  type="text"
+                  value={selectedComponent.xref_id}
+                  disabled
+                  style={{...styles.inputDisabled, fontSize: '12px', padding: '6px 8px'}}
+                />
+              </div>
+              <div style={{...styles.field, flex: 1}}>
+                <label style={styles.label}>Title</label>
+                <input
+                  type="text"
+                  value={editedTitle}
+                  onChange={handleTitleChange}
+                  placeholder="Component title"
+                  style={styles.input}
+                />
+              </div>
             </div>
             <div style={styles.field}>
               <label style={styles.label}>Type</label>
-              <input
-                type="text"
-                value={selectedComponent.comp_type}
-                readOnly
-                style={styles.inputDisabled}
-              />
+              <select
+                value={editedType}
+                onChange={handleTypeChange}
+                style={styles.input}
+              >
+                <option value="">Select type...</option>
+                {refComponents.map((comp) => (
+                  <option key={comp.name} value={comp.name}>
+                    {comp.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <div style={styles.field}>
               <label style={styles.label}>Container</label>
-              <input
-                type="text"
+              <select
                 value={editedContainer}
-                readOnly
-                style={styles.inputDisabled}
-              />
+                onChange={handleContainerChange}
+                style={styles.input}
+              >
+                <option value="">Select container...</option>
+                {refContainers.map((cont) => (
+                  <option key={cont.name} value={cont.name}>
+                    {cont.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         )}
@@ -260,11 +416,11 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
         {activeTab === 'props' && (
           <div style={styles.tabContent}>
             {selectedComponent.comp_type === 'Grid' || selectedComponent.comp_type === 'Form' ? (
-              // Grid/Form column/field editor
+              // Grid/Form: Show column editor + full JSON view
               (() => {
-                const parsed = parseProps(selectedComponent.eventProps);
-                const items = parsed.columns || parsed.fields || [];
-                const fieldName = selectedColumn?.field || selectedColumn?.name;
+                const parsed = JSON.parse(editedProps);
+                const items = parsed.columns || [];
+                const fieldName = selectedColumn?.name;
 
                 return (
                   <div>
@@ -287,6 +443,19 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
                       override={fieldName ? columnOverrides[fieldName] : null}
                       onChange={(merged) => console.log('Preview edited:', merged)}
                     />
+
+                    <div style={styles.divider}></div>
+
+                    <div style={styles.field}>
+                      <label style={styles.label}>All Props (JSON)</label>
+                      <textarea
+                        value={editedProps}
+                        onChange={handlePropsChange}
+                        style={styles.textarea}
+                        rows={12}
+                        spellCheck={false}
+                      />
+                    </div>
                   </div>
                 );
               })()
@@ -296,7 +465,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
                 <label style={styles.label}>Event Properties (JSON)</label>
                 <textarea
                   value={editedProps}
-                  readOnly
+                  onChange={handlePropsChange}
                   style={styles.textarea}
                   rows={15}
                   spellCheck={false}
@@ -308,9 +477,9 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
 
         {activeTab === 'triggers' && (
           <div style={styles.tabContent}>
-            {selectedComponent.triggers && selectedComponent.triggers.length > 0 ? (
+            {triggers && triggers.length > 0 ? (
               <div>
-                {selectedComponent.triggers.map((trigger, idx) => (
+                {triggers.map((trigger, idx) => (
                   <div key={idx} style={styles.triggerItem}>
                     <div style={styles.triggerHeader}>
                       <span style={styles.triggerClass}>{trigger.class}</span>
@@ -339,9 +508,30 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
             )}
           </div>
         )}
+
+        {activeTab === 'preview' && (
+          <div style={styles.tabContent}>
+            <div style={styles.previewSection}>
+              <h4 style={styles.previewSectionTitle}>📋 Event Preview (JSON)</h4>
+              {previewData ? (
+                <>
+                  <pre style={styles.previewJsonBlock}>
+                    {JSON.stringify(previewData, null, 2)}
+                  </pre>
+                  <div style={styles.previewHint}>
+                    Complete configuration loaded from database queries
+                  </div>
+                </>
+              ) : (
+                <div style={styles.previewEmpty}>
+                  Loading preview data...
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Save button hidden - editing disabled until orchestration is ready
       <div style={styles.footer}>
         <button
           style={{
@@ -355,7 +545,6 @@ const ComponentPropertiesPanel = ({ selectedComponent, onSave }) => {
           {hasChanges ? '💾 Save Changes' : '✓ Saved'}
         </button>
       </div>
-      */}
     </div>
   );
 };
@@ -407,8 +596,8 @@ const styles = {
   },
   badgeLarge: {
     padding: '8px 16px',
-    backgroundColor: '#dbeafe',
-    color: '#1e40af',
+    backgroundColor: '#4cfce7',
+    color: '#0f766e',
     borderRadius: '6px',
     fontSize: '16px',
     fontWeight: 700,
@@ -550,6 +739,129 @@ const styles = {
     borderRadius: '4px',
     fontSize: '12px',
     fontWeight: 500,
+  },
+  previewContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px',
+  },
+  previewSection: {
+    padding: '16px',
+    backgroundColor: '#f8fafc',
+    borderRadius: '8px',
+    border: '1px solid #e2e8f0',
+  },
+  previewSectionTitle: {
+    margin: '0 0 16px 0',
+    fontSize: '15px',
+    fontWeight: 600,
+    color: '#1e293b',
+  },
+  previewGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '12px',
+  },
+  previewItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+  },
+  previewLabel: {
+    fontSize: '11px',
+    fontWeight: 500,
+    color: '#64748b',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  previewValue: {
+    fontSize: '14px',
+    color: '#1e293b',
+    fontWeight: 500,
+  },
+  previewList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+  },
+  previewTrigger: {
+    padding: '12px',
+    backgroundColor: '#ffffff',
+    borderRadius: '6px',
+    border: '1px solid #e2e8f0',
+  },
+  previewTriggerHeader: {
+    display: 'flex',
+    gap: '8px',
+    marginBottom: '8px',
+    alignItems: 'center',
+  },
+  previewTriggerClass: {
+    padding: '4px 8px',
+    backgroundColor: '#dbeafe',
+    color: '#1e40af',
+    borderRadius: '4px',
+    fontSize: '11px',
+    fontWeight: 600,
+  },
+  previewTriggerAction: {
+    padding: '4px 8px',
+    backgroundColor: '#fef3c7',
+    color: '#92400e',
+    borderRadius: '4px',
+    fontSize: '11px',
+    fontWeight: 500,
+  },
+  previewTriggerOrder: {
+    padding: '4px 8px',
+    backgroundColor: '#f1f5f9',
+    color: '#475569',
+    borderRadius: '4px',
+    fontSize: '11px',
+    fontWeight: 500,
+  },
+  previewCode: {
+    margin: 0,
+    padding: '12px',
+    backgroundColor: '#1e293b',
+    color: '#e2e8f0',
+    borderRadius: '6px',
+    fontSize: '12px',
+    fontFamily: 'monospace',
+    overflow: 'auto',
+    maxHeight: '200px',
+  },
+  previewEmpty: {
+    textAlign: 'center',
+    padding: '24px',
+    color: '#94a3b8',
+    fontSize: '14px',
+  },
+  previewJsonBlock: {
+    margin: 0,
+    padding: '16px',
+    backgroundColor: '#1e293b',
+    color: '#e2e8f0',
+    borderRadius: '8px',
+    fontSize: '13px',
+    fontFamily: 'monospace',
+    overflow: 'auto',
+    maxHeight: '70vh',
+    lineHeight: '1.6',
+  },
+  previewHint: {
+    marginTop: '12px',
+    padding: '12px',
+    backgroundColor: '#fef3c7',
+    color: '#92400e',
+    borderRadius: '6px',
+    fontSize: '13px',
+    textAlign: 'center',
+  },
+  divider: {
+    height: '1px',
+    backgroundColor: '#e2e8f0',
+    margin: '24px 0',
   },
 };
 

@@ -169,6 +169,24 @@ curl -X POST http://localhost:3001/api/execDML -H "Content-Type: application/jso
 
 **Note**: AgentCoordinationModal should trigger after communication creation but may not work for programmatic inserts.
 
+## 📄 Session Summary Command
+
+When user says **"create session summary"** or **"generate accomplishments"**:
+
+1. **Output markdown text ONLY** (no file writing)
+2. **Format:** Include ✅ Accomplishments, 📊 Statistics, 🚀 Next Steps, 💡 Key Learnings
+3. **Token-efficient:** User will copy/paste into their own file
+4. **Structure:**
+   ```markdown
+   # [Session Topic] - [Date]
+
+   ## ✅ Accomplishments
+   ## 📊 Statistics
+   ## 🚀 Next Steps
+   ## 💡 Key Learnings
+   ```
+5. **Do NOT** use Write tool - just output text for copy/paste
+
 ## 🤝 Collaboration
 
 - **Claude**: Architecture, analysis, investigation support

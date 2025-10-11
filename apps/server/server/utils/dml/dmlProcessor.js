@@ -90,7 +90,7 @@ export const processDML = async (requestBody) => {
       break;
 
     case "UPDATE":
-      sql = buildUpdateSQL(table, data, "id", userID); // All tables use 'id' as primary key field
+      sql = buildUpdateSQL(table, data, "id", userID);
       httpMethod = "PATCH";
       break;
 

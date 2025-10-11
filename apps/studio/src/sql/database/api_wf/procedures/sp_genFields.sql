@@ -52,36 +52,23 @@ BEGIN
 
     -- RESULT SET 2: Field configurations (only columns in SELECT)
     SELECT
-        column_name as field_name,
-        data_type,
-        is_nullable,
-        column_default,
+        column_name as name,
+        data_type as dataType,
+        is_nullable as nullable,
+        column_default as defaultValue,
         CASE
-            WHEN column_name LIKE '%\\_id' AND column_name != CONCAT(v_table_name, '_id') THEN 'hidden'
-            WHEN column_name IN ('created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'deleted_by') THEN 'hidden'
             WHEN data_type IN ('text', 'longtext') THEN 'textarea'
             WHEN data_type IN ('datetime', 'timestamp') THEN 'datetime-local'
             WHEN data_type = 'date' THEN 'date'
             WHEN data_type IN ('int', 'bigint', 'decimal', 'float', 'double') THEN 'number'
             WHEN data_type = 'tinyint' THEN 'checkbox'
             ELSE 'text'
-        END as suggested_input_type,
+        END as inputType,
         CASE
-            WHEN v_component_type = 'Grid' THEN JSON_OBJECT(
-                'sortable', true,
-                'filterable', true,
-                'width', CASE
-                    WHEN data_type IN ('text', 'longtext') THEN 200
-                    WHEN data_type IN ('datetime', 'timestamp') THEN 150
-                    ELSE 100
-                END
-            )
-            WHEN v_component_type = 'Form' THEN JSON_OBJECT(
-                'required', is_nullable = 'NO',
-                'placeholder', CONCAT('Enter ', REPLACE(column_name, '_', ' '))
-            )
-            ELSE JSON_OBJECT()
-        END as component_props
+            WHEN column_name LIKE '%\\_id' AND column_name != CONCAT(v_table_name, '_id') THEN TRUE
+            WHEN column_name IN ('created_at', 'updated_at', 'deleted_at', 'created_by', 'updated_by', 'deleted_by') THEN TRUE
+            ELSE FALSE
+        END as defaultHidden
     FROM information_schema.columns
     WHERE table_schema = v_schema_name
       AND table_name = v_table_name

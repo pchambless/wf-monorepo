@@ -11,7 +11,7 @@ export function buildEventHandlers(workflowTriggers, config, setData) {
     const hasDomEventTrigger = triggers.some(trigger => trigger.is_dom_event);
 
     if (!hasDomEventTrigger) {
-      console.log(`⏭️ Skipping ${eventType} - workflow callback, not DOM event`);
+      //  console.log(`⏭️ Skipping ${eventType} - workflow callback, not DOM event`);
       return;
     }
 

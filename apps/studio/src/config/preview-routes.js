@@ -29,7 +29,7 @@ export const PREVIEW_ROUTES = [
     "title": "ingrTypePage",
     "appName": "whatsfresh",
     "pageName": "ingrTypePage",
-    "generated": "2025-10-06T11:22:37.214Z"
+    "generated": "2025-10-06T12:19:27.402Z"
   },
   {
     "path": "/preview/whatsfresh/ingrPage",

@@ -14,8 +14,8 @@ const ColumnSelector = ({ columns, selectedColumn, onSelect }) => {
       <h3 style={styles.title}>📊 Select Column</h3>
       <div style={styles.pillsContainer}>
         {columns.map((column, idx) => {
-          const fieldName = column.field || column.name;
-          const isSelected = selectedColumn?.field === fieldName || selectedColumn?.name === fieldName;
+          const fieldName = column.name;
+          const isSelected = selectedColumn?.name === fieldName;
 
           return (
             <button

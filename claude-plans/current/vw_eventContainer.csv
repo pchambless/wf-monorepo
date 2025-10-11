@@ -1,0 +1,50 @@
+vw_eventContainer:  
+"name","title","category","purpose","style"
+Column,Column Layout,container,Vertical column container for stacking components,"{
+	""display"": ""flex"", 
+	""flexDirection"": ""column"", 
+	""gap"": ""8px"", 
+	""padding"": ""8px"", 
+	""flex"": ""1""
+}"
+Modal,Modal Dialog,container,Overlay dialog container,"{
+	""position"": ""fixed"", 
+	""top"": ""50%"", 
+	""left"": ""50%"", 
+	""transform"": ""translate(-50%, -50%)"", 
+	""backgroundColor"": ""white"", 
+	""borderRadius"": ""8px"",
+  	""boxShadow"": ""0 10px 30px rgba(0,0,0,0.3)"", 
+  	""zIndex"": 2000, 
+  	""maxWidth"": ""90vw"", 
+  	""maxHeight"": ""90vh"", 
+  	""overflow"": ""auto
+ }"
+Section,Section Container,container,Grouped content section,"{
+	""display"": ""flex"",
+	""flexDirection"": ""column"",
+	""gap"": ""12px"",
+	""padding"": ""16px"",
+	""border"": ""1px solid #e0e0e0"",
+	""borderRadius"": ""4px"",
+	""backgroundColor"": ""#fafafa""
+ }"
+Tabs,Tab Container,container,Tabbed interface container,"{
+	""display"": ""flex"", 
+	""flexDirection"": ""column"", 
+	""width"": ""100%"", 
+	""height"": ""100%""
+}"
+Container,Container,container,Generic layout container for grouping components,"{
+	""display"": ""flex"",
+	""flexDirection"": ""column"",
+	""gap"": ""16px"",
+	""width"": ""100%"",
+	""padding"": ""16px"",
+	""border"": ""1px solid #e1e4e8"",
+	""borderRadius"": ""6px"",
+	""backgroundColor"": ""#dcfce7"",
+	""boxShadow"": ""0 1px 3px rgba(0,0,0,0.05)""
+  }"
+Inline,Inline Placement,container,Place the component inline.,
+

@@ -2,23 +2,22 @@
 
 CREATE OR REPLACE
 ALGORITHM = UNDEFINED VIEW api_wf.vw_hier_components AS
-SELECT
-      x.id AS id,
-      x.name AS comp_name,
-      c.name AS template,
-      x.posOrder AS posOrder,
-      c.style AS base_styles,
-      x.style AS override_styles,
-      c.config AS tmplt_def,
-      x.parent_id AS parent_id,
-      x.eventType_id AS eventType_id
+select
+    x.xref_id,
+    api_wf.f_xrefParent(x.parent_id) parent_name,
+    x.comp_name AS comp_name,
+	concat(api_wf.f_xrefParent(x.parent_id),'.',x.comp_name) parentCompName,
+    x.title AS title,
+	x.comp_type,
+    x.container AS container,
+    x.posOrder AS posOrder,
+    x.style AS override_styles,
+    x.description AS description
 from
-    ((api_wf.eventType_xref x
-join api_wf.eventType_xref p on
-    ((x.parent_id = p.id)))
-join api_wf.eventType c on
-    ((x.eventType_id = c.id)))
+    api_wf.eventComp_xref x
 where
-    ((x.active = 1)
-        and (p.active = 1)
-            and (c.active = 1));
+    x.active = 1
+    and parent_name <> comp_name
+order by
+    api_wf.f_xrefParent(x.parent_id), comp_name, 
+    x.posOrder;

@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import StudioSidebar from './StudioSidebar';
 import PageFlowCanvas from './PageFlowCanvas';
 import ComponentPropertiesPanel from './ComponentPropertiesPanel';
+import PageDraftControls from './PageDraftControls';
 
 const StudioLayout = () => {
   const [pageConfig, setPageConfig] = useState(null);
   const [selectedComponent, setSelectedComponent] = useState(null);
+  const [currentPageID, setCurrentPageID] = useState(null);
 
-  const handlePageConfigLoaded = (config) => {
+  const handlePageConfigLoaded = (config, pageID) => {
     setPageConfig(config);
     setSelectedComponent(null);
+    setCurrentPageID(pageID);
   };
 
   const handleNodeSelect = (component) => {
@@ -83,6 +86,7 @@ const StudioLayout = () => {
       </div>
 
       <div style={styles.canvas}>
+        <PageDraftControls pageID={currentPageID} />
         {pageConfig ? (
           <PageFlowCanvas
             pageConfig={pageConfig}
@@ -99,6 +103,7 @@ const StudioLayout = () => {
       <div style={styles.properties}>
         <ComponentPropertiesPanel
           selectedComponent={selectedComponent}
+          pageID={currentPageID}
           onSave={handleSaveComponent}
         />
       </div>

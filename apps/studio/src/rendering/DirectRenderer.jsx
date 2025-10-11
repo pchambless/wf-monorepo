@@ -31,6 +31,17 @@ const DirectRenderer = ({ config }) => {
   const { templates, templatesLoaded } = useTemplateLoader();
   const { openModals } = useModalManager();
 
+  const findComponentById = React.useCallback((components, targetId) => {
+    for (const comp of components) {
+      if (comp.id === targetId) return comp;
+      if (comp.components && comp.components.length > 0) {
+        const found = findComponentById(comp.components, targetId);
+        if (found) return found;
+      }
+    }
+    return null;
+  }, []);
+
   const setData = React.useCallback((componentId, data) => {
     console.log(`📦 Storing data for ${componentId}:`, data);
     setDataStore(prev => ({ ...prev, [componentId]: data }));
@@ -47,6 +58,36 @@ const DirectRenderer = ({ config }) => {
       triggerEngine.executeTriggers(config.workflowTriggers.onLoad, context);
     }
   }, [config, setData]);
+
+  // Group components by row for flex layout
+  const groupByRow = (components) => {
+    const rows = {};
+    components.forEach(comp => {
+      const row = comp.position?.row || 0;
+      if (!rows[row]) rows[row] = [];
+      rows[row].push(comp);
+    });
+
+    // Sort components within each row by order
+    Object.keys(rows).forEach(rowKey => {
+      rows[rowKey].sort((a, b) =>
+        (a.position?.order || 0) - (b.position?.order || 0)
+      );
+    });
+
+    return rows;
+  };
+
+  // Get row alignment from first component in row
+  const getRowAlignment = (components) => {
+    const firstAlign = components[0]?.position?.align || 'left';
+    const alignMap = {
+      'left': 'flex-start',
+      'center': 'center',
+      'right': 'flex-end'
+    };
+    return alignMap[firstAlign] || 'flex-start';
+  };
 
   const renderComponent = (component) => {
     const {
@@ -110,9 +151,7 @@ const DirectRenderer = ({ config }) => {
       const gridId = props.dataSource;
       const data = dataStore[gridId];
 
-      console.log(`🔍 tbody rendering - gridId: ${gridId}, data:`, data);
-
-      const gridComponent = config.components?.find(c => c.id === gridId);
+      const gridComponent = findComponentById(config.components || [], gridId);
       const gridOnChangeTriggers = gridComponent?.workflowTriggers?.onChange;
 
       if (data && data.length > 0 && components.length > 0) {
@@ -123,6 +162,29 @@ const DirectRenderer = ({ config }) => {
       } else {
         children = components.map(child => renderComponent(child));
       }
+    } else if (comp_type === 'Container' && components.length > 0) {
+      // Container: Group children by row for flex layout
+      const childRows = groupByRow(components);
+      const sortedChildRowKeys = Object.keys(childRows).sort((a, b) => parseInt(a) - parseInt(b));
+
+      children = sortedChildRowKeys.map(rowKey => {
+        const rowComponents = childRows[rowKey];
+        const justifyContent = getRowAlignment(rowComponents);
+
+        return (
+          <div
+            key={`container-row-${id}-${rowKey}`}
+            style={{
+              display: 'flex',
+              gap: '16px',
+              width: '100%',
+              justifyContent
+            }}
+          >
+            {rowComponents.map(child => renderComponent(child))}
+          </div>
+        );
+      });
     } else {
       children = textContent ||
         (components.length > 0 ? components.map(child => renderComponent(child)) :
@@ -155,25 +217,6 @@ const DirectRenderer = ({ config }) => {
     );
   };
 
-  // Group components by row for flex layout
-  const groupByRow = (components) => {
-    const rows = {};
-    components.forEach(comp => {
-      const row = comp.position?.row || 0;
-      if (!rows[row]) rows[row] = [];
-      rows[row].push(comp);
-    });
-
-    // Sort components within each row by order
-    Object.keys(rows).forEach(rowKey => {
-      rows[rowKey].sort((a, b) =>
-        (a.position?.order || 0) - (b.position?.order || 0)
-      );
-    });
-
-    return rows;
-  };
-
   const containerStyle = {
     fontFamily: 'system-ui, sans-serif',
     display: 'flex',
@@ -189,17 +232,6 @@ const DirectRenderer = ({ config }) => {
 
   const regularComponents = config.components?.filter(c => c.container !== 'Modal') || [];
   const modalComponents = config.components?.filter(c => c.container === 'Modal') || [];
-
-  // Get row alignment from first component in row
-  const getRowAlignment = (components) => {
-    const firstAlign = components[0]?.position?.align || 'left';
-    const alignMap = {
-      'left': 'flex-start',
-      'center': 'center',
-      'right': 'flex-end'
-    };
-    return alignMap[firstAlign] || 'flex-start';
-  };
 
   // Group regular components by row
   const componentRows = groupByRow(regularComponents);

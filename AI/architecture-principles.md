@@ -8,8 +8,7 @@
   3. **execEvent Call** (with confidence parameters exist)
 
   ### The Contract
-  - Any eventType with `:paramName` expects that parameter in contextStore
-  - queryResolver.js (wf-monorepo-new/apps/wf-server/server/utils/queryResolver.js) expects all params to be present and formatted with a leading ':' to identify the parameter for replacement with the value.
+  - Any eventType with `:paramName` expects that parameter in database api_wf.context_store.
   - Components NEVER manually manage these parameters
   - Missing parameters = UI flow bug, NOT component bug
   - Let execEvent throw - errors reveal broken navigation/selection logic
@@ -19,13 +18,21 @@
 
 ## Database & SQL Principles:
   - Audit trail fields (created_at/by, updated_at/by) are auto-injected - never manually specify
+  - table 'active' column is virtual based on the deleted_at null (1) not null (0).  1=active.
   - Parent keys are always type: "number", required: true, hidden: true
   - Field naming: camelCase in forms → snake_case in database via pageMap.fieldMappings
 
+## Column/Field Metadata Standards:
+  - **Field identifier**: Always use `name` property (never `field_name`, `field`, or `fieldName`)
+  - **Visibility**: Use `hidden` boolean (true = hidden, false = visible) - never use `visible`
+  - **Data transformation**: Convert MySQL `field_name` → `name` at load time in pageLoader.js
+  - **No fallback chains**: Code should never use `column.name || column.field_name` - standardize at data boundary
+  - **Prop naming**: Always use `columns` for both Grid and Form components (never `fields`) - simplifies logic and maintains consistency
+
 ## EventType System Sacred Rules:
-  - Never modify core processing utilities (queryResolver, dmlProcessor) without system-wide impact analysis
+  - Never modify core processing utilities (dmlProcessor) without system-wide impact analysis
   - eventType definitions are contracts - changing them affects every caller
-  - The : prefix in SQL parameters is a delimiter, not decoration
+  - The : prefix in SQL parameters is a delimiter, not decoration.  It signals that a parameter is present.  
 
 ## Blast Radius Awareness:
   - EVENTS, API, SHARED clusters = "high blast radius, tread carefully"
@@ -38,7 +45,6 @@
   - Impact tracking prevents "surprise" breakages across the monorepo
 
 ## CRUD Architecture
-  - **Evaluate CRUD compatibility first**: Before building custom data entry, analyze the existing CRUD system (`/home/paul/wf-monorepo-new/packages/shared-imports/src/components/crud`) to determine if the table/workflow fits the established patterns
   - **CRUD components handle standard operations**: List views, form entry, edit flows, and delete operations follow consistent patterns
   - **Custom solutions only when necessary**: If data doesn't fit CRUD patterns (complex workflows, multi-step processes), then build custom components
   - **Leverage existing patterns**: The CRUD system provides proven UI/UX patterns for data management

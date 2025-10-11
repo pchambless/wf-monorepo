@@ -23,7 +23,14 @@
           "position": {"row": 1, "order": 1, "width": "50%", "align": "left"},
           "props": {"rowKey": "id", "selectable": true},
           "workflowTriggers": {
-            "onChange": [{"action": "refresh", "ordr": 3, "content": "[\"ingrTypeForm\"]"}],
+            "onChange": [
+              {
+                "action": "setVals",
+                "ordr": 2,
+                "content": "{\r\n\t\"ingrTypeID\": \"{{selected.id}}\"\r\n}"
+              },
+              {"action": "refresh", "ordr": 3, "content": "[\"ingrTypeForm\"]"}
+            ],
             "onRefresh": [{"action": "execEvent", "ordr": 1, "content": "ingrTypeList"}]
           },
           "components": [

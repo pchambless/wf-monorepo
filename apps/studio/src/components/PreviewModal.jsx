@@ -2,6 +2,8 @@ import React from 'react';
 import DirectRenderer from '../rendering/DirectRenderer';
 
 const PreviewModal = ({ config, onClose }) => {
+  console.log('🎭 PreviewModal config:', config);
+
   return (
     <div style={styles.overlay} onClick={onClose}>
       <div style={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -12,6 +14,9 @@ const PreviewModal = ({ config, onClose }) => {
           </button>
         </div>
         <div style={styles.content}>
+          <div style={{marginBottom: '16px', padding: '12px', backgroundColor: '#f3f4f6', borderRadius: '6px'}}>
+            <strong>Preview Status:</strong> Showing {config.components?.length || 0} components from IndexedDB
+          </div>
           <DirectRenderer config={config} />
         </div>
       </div>

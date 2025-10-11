@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { execEvent, setVals } from '@whatsfresh/shared-imports';
 import PreviewModal from './PreviewModal';
+import DBBrowserModal from './DBBrowserModal';
+import { loadPageForEditing } from '../utils/pageLoader';
+import { buildPageConfig } from '../utils/componentConfigBuilder';
+import { initializeApp, navigateToPage, warnBeforeNavigation, clearWorkingData, syncToMySQL, hasPendingChanges } from '../db/operations';
 
 const StudioSidebar = ({ onPageConfigLoaded }) => {
   const [apps, setApps] = useState([]);
@@ -10,9 +14,23 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
   const [loading, setLoading] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewConfig, setPreviewConfig] = useState(null);
+  const [showDBBrowser, setShowDBBrowser] = useState(false);
+  const [hasPending, setHasPending] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     loadApps();
+    initializeApp();
+  }, []);
+
+  useEffect(() => {
+    const checkPending = async () => {
+      const pending = await hasPendingChanges();
+      setHasPending(pending);
+    };
+
+    const interval = setInterval(checkPending, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const loadApps = async () => {
@@ -37,10 +55,19 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
     const appID = e.target.value;
     const appName = e.target.options[e.target.selectedIndex]?.text;
 
+    const canNavigate = await warnBeforeNavigation();
+
+    if (!canNavigate) {
+      e.target.value = selectedApp; // Reset dropdown to previous value
+      return;
+    }
+
     setSelectedApp(appID);
     setSelectedPage('');
     setPages([]);
     onPageConfigLoaded(null);
+
+    await clearWorkingData();
 
     if (appID) {
       await setVals([
@@ -72,21 +99,26 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
   const loadPageConfig = async (pageID) => {
     setLoading(true);
     try {
-      console.log('📄 Fetching page structure for pageID:', pageID);
-      // Use sp_hier_structure directly (structure-only, no props/triggers)
-      const result = await execEvent('xrefHierarchy', { xrefID: pageID });
-      console.log('📦 Page structure received:', result.data);
+      const result = await navigateToPage(pageID, loadPageForEditing);
 
-      // Stored procedures return [resultSet, metadata] - extract the first element
-      const hierarchyData = Array.isArray(result.data) && Array.isArray(result.data[0])
-        ? result.data[0]
-        : result.data;
+      if (result.cancelled) {
+        console.log('⚠️ Navigation cancelled - unsaved changes');
+        setLoading(false);
+        return;
+      }
 
-      console.log('📊 Hierarchy data extracted:', hierarchyData);
-      onPageConfigLoaded(hierarchyData);
+      if (result.success) {
+        console.log('✅ Loaded:', result.counts);
+
+        const pageConfig = await buildPageConfig(pageID);
+        onPageConfigLoaded(pageConfig.components, pageID);
+      } else {
+        console.error('❌ Load failed:', result.error);
+        onPageConfigLoaded(null, null);
+      }
     } catch (error) {
-      console.error('❌ Failed to load page structure:', error);
-      onPageConfigLoaded(null);
+      console.error('❌ Failed to load page:', error);
+      onPageConfigLoaded(null, null);
     } finally {
       setLoading(false);
     }
@@ -124,30 +156,47 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
     }
   };
 
+  const handleSaveChanges = async () => {
+    setSaving(true);
+    try {
+      const results = await syncToMySQL();
+      const successCount = results.filter(r => r.success).length;
+      const failCount = results.filter(r => !r.success).length;
+
+      if (failCount > 0) {
+        alert(`Saved ${successCount} changes, ${failCount} failed. Check console for details.`);
+        console.error('Failed syncs:', results.filter(r => !r.success));
+      } else {
+        alert(`✅ Successfully saved ${successCount} changes to MySQL!`);
+      }
+
+      setHasPending(await hasPendingChanges());
+    } catch (error) {
+      alert('Failed to save changes: ' + error.message);
+      console.error('Save error:', error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const handlePreviewPage = async () => {
-    if (!selectedApp || !selectedPage) {
-      alert('Please select both an app and a page first');
+    if (!selectedPage) {
+      alert('Please select a page first');
       return;
     }
 
     setLoading(true);
     try {
-      console.log('👁️ Generating and previewing page for app:', selectedApp, 'page:', selectedPage);
+      console.log('👁️ Building virtual preview from IndexedDB for page:', selectedPage);
 
-      const response = await fetch('http://localhost:3001/api/genPageConfig', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pageID: selectedPage })
-      });
+      const pageConfig = await buildPageConfig(selectedPage);
 
-      const result = await response.json();
-
-      if (result.success && result.pageConfig) {
-        setPreviewConfig(result.pageConfig);
+      if (pageConfig && pageConfig.components) {
+        setPreviewConfig(pageConfig);
         setShowPreview(true);
-        console.log('✅ Preview loaded with pageConfig:', result.pageConfig);
+        console.log('✅ Virtual preview loaded from IndexedDB:', pageConfig);
       } else {
-        alert('⚠️ Failed to load preview: ' + (result.message || 'No pageConfig returned'));
+        alert('⚠️ Failed to build preview - no components found');
       }
     } catch (error) {
       console.error('❌ Failed to preview page:', error);
@@ -205,21 +254,52 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
       {selectedPage && (
         <div style={styles.section}>
           <button
-            onClick={handleGeneratePageConfig}
-            style={styles.generateButton}
-            disabled={loading}
-          >
-            📄 Generate PageConfig
-          </button>
-          <button
             onClick={handlePreviewPage}
             style={{ ...styles.generateButton, ...styles.previewButton }}
             disabled={loading}
           >
-            👁️ Preview Page
+            {loading ? '⏳ Loading...' : '👁️ Preview Changes'}
+          </button>
+          <button
+            onClick={handleSaveChanges}
+            disabled={!hasPending || saving}
+            style={{
+              ...styles.generateButton,
+              backgroundColor: hasPending ? '#10b981' : '#94a3b8',
+              color: '#ffffff',
+              fontWeight: 600
+            }}
+          >
+            {saving ? '⏳ Saving...' : hasPending ? '💾 Save to MySQL' : '✓ No Changes'}
+          </button>
+          <button
+            onClick={handleGeneratePageConfig}
+            style={styles.generateButton}
+            disabled={loading}
+          >
+            📄 Generate PageConfig File
           </button>
         </div>
       )}
+
+      <div style={styles.divider} />
+
+      <div style={styles.section}>
+        <button
+          onClick={() => setShowDBBrowser(true)}
+          style={styles.dbBrowserButton}
+        >
+          🗄️ IndexedDB Browser
+        </button>
+        <a
+          href="https://claude.ai/settings/usage"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={styles.usageLink}
+        >
+          📊 Claude Usage Stats
+        </a>
+      </div>
 
       <div style={styles.divider} />
 
@@ -233,6 +313,10 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
           config={previewConfig}
           onClose={() => setShowPreview(false)}
         />
+      )}
+
+      {showDBBrowser && (
+        <DBBrowserModal onClose={() => setShowDBBrowser(false)} />
       )}
     </div>
   );
@@ -317,6 +401,34 @@ const styles = {
   previewButton: {
     marginTop: '8px',
     backgroundColor: '#10b981',
+  },
+  dbBrowserButton: {
+    width: '100%',
+    padding: '10px 16px',
+    backgroundColor: '#64748b',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+    marginBottom: '8px',
+  },
+  usageLink: {
+    display: 'block',
+    width: '100%',
+    padding: '10px 16px',
+    backgroundColor: '#f1f5f9',
+    color: '#475569',
+    border: '1px solid #cbd5e1',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 500,
+    textAlign: 'center',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
   },
 };
 

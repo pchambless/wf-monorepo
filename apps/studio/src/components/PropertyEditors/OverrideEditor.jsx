@@ -22,13 +22,13 @@ const OverrideEditor = ({ column, override, onSave, onReset, componentType = 'Gr
   };
 
   const handleSave = () => {
-    const fieldName = column.field || column.name;
+    const fieldName = column.name;
     onSave(fieldName, editedOverride);
   };
 
   const handleReset = () => {
     setEditedOverride({});
-    const fieldName = column.field || column.name;
+    const fieldName = column.name;
     onReset(fieldName);
   };
 
@@ -40,7 +40,7 @@ const OverrideEditor = ({ column, override, onSave, onReset, componentType = 'Gr
     );
   }
 
-  const fieldName = column.field || column.name;
+  const fieldName = column.name;
   const currentHeader = column.header || column.label;
 
   return (

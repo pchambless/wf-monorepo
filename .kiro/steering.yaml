@@ -35,6 +35,36 @@ monorepo_structure:
       to constantly refine guiding principles and rules for the architecture of the monorepo.
     reference: "/home/paul/wf-monorepo-new/AI/architecture-principles.md"
 
+  # Frequently accessed paths - reference these to avoid repeated searches
+  frequent_paths:
+    studio:
+      components: "/home/paul/wf-monorepo-new/apps/studio/src/components"
+      rendering: "/home/paul/wf-monorepo-new/apps/studio/src/rendering"
+      utils: "/home/paul/wf-monorepo-new/apps/studio/src/utils"
+      preview: "/home/paul/wf-monorepo-new/apps/studio/src/preview"
+      db: "/home/paul/wf-monorepo-new/apps/studio/src/db"
+      hooks: "/home/paul/wf-monorepo-new/apps/studio/src/hooks"
+      pages: "/home/paul/wf-monorepo-new/apps/studio/src/pages"
+      sql: "/home/paul/wf-monorepo-new/apps/studio/src/sql"
+
+    shared_for_studio:
+      components: "/home/paul/wf-monorepo-new/packages/shared-imports/src/components"
+      architecture: "/home/paul/wf-monorepo-new/packages/shared-imports/src/architecture"
+      events: "/home/paul/wf-monorepo-new/packages/shared-imports/src/events"
+      utils: "/home/paul/wf-monorepo-new/packages/shared-imports/src/utils"
+      navigation: "/home/paul/wf-monorepo-new/packages/shared-imports/src/components/navigation"
+
+    server:
+      controllers: "/home/paul/wf-monorepo-new/apps/server/server/controller"
+      workflows: "/home/paul/wf-monorepo-new/apps/server/server/workflows"
+      utils: "/home/paul/wf-monorepo-new/apps/server/server/utils"
+      dml: "/home/paul/wf-monorepo-new/apps/server/server/utils/dml"
+
+    planning:
+      kiro: "/home/paul/wf-monorepo-new/.kiro"
+      ai_docs: "/home/paul/wf-monorepo-new/AI"
+      current_plans: "/home/paul/wf-monorepo-new/.kiro/plans/current"
+
   # Core architectural patterns - enforce these, don't re-investigate
   established_patterns:
     - "SQL views drive UI generation (views → directives → pageMap → React)"
