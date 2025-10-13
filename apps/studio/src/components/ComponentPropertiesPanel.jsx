@@ -9,12 +9,17 @@ import { loadPropsForComponent, updatePropValue, updateAllProps } from '../utils
 import { loadTriggersForComponent } from '../utils/triggerUpdater';
 import { savePropsToMySQL } from '../utils/propSaver';
 import { db } from '../db/studioDb';
+import { createComponent } from '../db/operations';
 
 const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
+  const [isCreating, setIsCreating] = useState(false);
   const [activeTab, setActiveTab] = useState('component');
+  const [editedCompName, setEditedCompName] = useState('');
   const [editedTitle, setEditedTitle] = useState('');
   const [editedType, setEditedType] = useState('');
-  const [editedContainer, setEditedContainer] = useState('');
+  const [editedPosOrder, setEditedPosOrder] = useState('');
+  const [editedDescription, setEditedDescription] = useState('');
+  const [editedParentId, setEditedParentId] = useState('');
   const [editedProps, setEditedProps] = useState('{}');
   const [hasChanges, setHasChanges] = useState(false);
 
@@ -26,24 +31,33 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
   // Triggers from IndexedDB
   const [triggers, setTriggers] = useState([]);
 
-  // Reference data for dropdowns
-  const [refComponents, setRefComponents] = useState([]);
-  const [refContainers, setRefContainers] = useState([]);
+  // Reference data for dropdowns - query master tables directly
+  const [eventTypes, setEventTypes] = useState([]);
+  const [availableParents, setAvailableParents] = useState([]);
 
-  // Load reference data on mount
+  // Load event types on mount
   useEffect(() => {
-    const loadReferences = async () => {
+    const loadEventTypes = async () => {
       try {
-        const components = await db.refComponents.toArray();
-        const containers = await db.refContainers.toArray();
-        setRefComponents(components);
-        setRefContainers(containers);
+        // Query eventTypes table directly, sorted by name
+        const types = await db.eventTypes
+          .orderBy('name')
+          .toArray();
+
+        // Format as "Name (category)" for display
+        const formatted = types.map(t => ({
+          name: t.name,
+          category: t.category,
+          displayName: `${t.name} (${t.category})`
+        }));
+
+        setEventTypes(formatted);
       } catch (error) {
-        console.error('Failed to load references:', error);
+        console.error('Failed to load event types:', error);
       }
     };
 
-    loadReferences();
+    loadEventTypes();
   }, []);
 
   // Load props and triggers from IndexedDB when selectedComponent changes
@@ -57,9 +71,15 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     console.log('🔍 ComponentPropertiesPanel selectedComponent:', selectedComponent);
     console.log('🔍 comp_type:', selectedComponent?.comp_type);
 
-    setEditedTitle(selectedComponent.title || selectedComponent.label || '');
-    setEditedType(selectedComponent.comp_type || '');
-    setEditedContainer(selectedComponent.container || '');
+    // Load from IndexedDB to get latest values
+    const component = await db.eventComp_xref.where('id').equals(xref_id).first();
+
+    setEditedCompName(component?.comp_name || selectedComponent.comp_name || selectedComponent.name || '');
+    setEditedTitle(component?.title || selectedComponent.title || selectedComponent.label || '');
+    setEditedType(component?.comp_type || selectedComponent.comp_type || '');
+    setEditedPosOrder(component?.posOrder || selectedComponent.posOrder || '');
+    setEditedDescription(component?.description || selectedComponent.description || '');
+    setEditedParentId(component?.parent_id || selectedComponent.parent_id || '');
 
     const props = await loadPropsForComponent(xref_id);
     setEditedProps(JSON.stringify(props, null, 2));
@@ -68,8 +88,17 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     const loadedTriggers = await loadTriggersForComponent(xref_id);
     setTriggers(loadedTriggers);
 
+    // Load available parents for dropdown
+    const components = await db.eventComp_xref.toArray();
+    setAvailableParents(components);
+
     setHasChanges(false);
     setSelectedColumn(null);
+  };
+
+  const handleCompNameChange = (e) => {
+    setEditedCompName(e.target.value);
+    setHasChanges(true);
   };
 
   const handleTitleChange = (e) => {
@@ -82,14 +111,84 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     setHasChanges(true);
   };
 
-  const handleContainerChange = (e) => {
-    setEditedContainer(e.target.value);
+  const handlePosOrderChange = (e) => {
+    setEditedPosOrder(e.target.value);
+    setHasChanges(true);
+  };
+
+  const handleDescriptionChange = (e) => {
+    setEditedDescription(e.target.value);
+    setHasChanges(true);
+  };
+
+  const handleParentIdChange = (e) => {
+    setEditedParentId(e.target.value);
     setHasChanges(true);
   };
 
   const handlePropsChange = async (e) => {
     setEditedProps(e.target.value);
     setHasChanges(true);
+  };
+
+  const handleNewComponent = async () => {
+    if (!pageID) {
+      alert('Please select a page first');
+      return;
+    }
+
+    setIsCreating(true);
+    setEditedCompName('');
+    setEditedTitle('');
+    setEditedType('');
+    setEditedPosOrder('');
+    setEditedDescription('');
+    setEditedParentId('');
+    setEditedProps('{}');
+    setHasChanges(false);
+    setActiveTab('component');
+
+    const components = await db.eventComp_xref.toArray();
+    setAvailableParents(components);
+  };
+
+  const handleCancelCreate = () => {
+    setIsCreating(false);
+    setEditedCompName('');
+    setEditedTitle('');
+    setEditedType('');
+    setEditedPosOrder('');
+    setEditedDescription('');
+    setEditedParentId('');
+  };
+
+  const handleCreateSave = async () => {
+    if (!editedType || !pageID) {
+      alert('Type and Page are required');
+      return;
+    }
+
+    try {
+      const componentData = {
+        comp_name: editedCompName || editedType.toLowerCase(),
+        comp_type: editedType,
+        title: editedTitle || editedType,
+        posOrder: editedPosOrder || '',
+        description: editedDescription || '',
+        parent_id: editedParentId ? parseInt(editedParentId) : null
+      };
+
+      const result = await createComponent(componentData);
+      console.log('✅ Component created:', result);
+
+      alert(`Component created successfully! ID: ${result.id}`);
+
+      setIsCreating(false);
+      window.location.reload();
+    } catch (error) {
+      console.error('❌ Create error:', error);
+      alert('Failed to create component: ' + error.message);
+    }
   };
 
   const handleSave = async () => {
@@ -101,6 +200,19 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     }
 
     try {
+      // Update component metadata in IndexedDB
+      await db.eventComp_xref.update(selectedComponent.xref_id, {
+        comp_name: editedCompName,
+        title: editedTitle,
+        comp_type: editedType,
+        posOrder: editedPosOrder,
+        description: editedDescription,
+        parent_id: editedParentId ? parseInt(editedParentId) : null,
+        _dmlMethod: 'UPDATE'
+      });
+      console.log('✅ Component metadata updated in IndexedDB');
+
+      // Update props
       const parsedProps = JSON.parse(editedProps);
       console.log('🔍 Parsed props:', parsedProps);
 
@@ -111,7 +223,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       console.log('✅ Props saved to MySQL');
 
       setHasChanges(false);
-      console.log('✅ Component props updated');
+      console.log('✅ Component updated successfully');
     } catch (error) {
       console.error('❌ Save error:', error);
       alert('Failed to save: ' + error.message);
@@ -295,11 +407,21 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     }
   };
 
-  if (!selectedComponent) {
+  if (!selectedComponent && !isCreating) {
     return (
       <div style={styles.emptyState}>
         <div style={styles.emptyIcon}>🎯</div>
         <div style={styles.emptyText}>Select a component to edit</div>
+        <button
+          style={styles.newButton}
+          onClick={handleNewComponent}
+          disabled={!pageID}
+        >
+          + New Component
+        </button>
+        {!pageID && (
+          <div style={styles.hint}>Select a page first</div>
+        )}
       </div>
     );
   }
@@ -307,8 +429,24 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
   return (
     <div style={styles.panel}>
       <div style={styles.header}>
-        <h3 style={styles.title}>{selectedComponent.label}</h3>
-        <span style={styles.badgeLarge}>{selectedComponent.comp_type}</span>
+        {isCreating ? (
+          <>
+            <h3 style={styles.title}>New Component</h3>
+            <button style={styles.cancelButton} onClick={handleCancelCreate}>
+              Cancel
+            </button>
+          </>
+        ) : (
+          <>
+            <h3 style={styles.title}>{selectedComponent.label}</h3>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={styles.badgeLarge}>{selectedComponent.comp_type}</span>
+              <button style={styles.newButtonSmall} onClick={handleNewComponent} disabled={!pageID}>
+                + New
+              </button>
+            </div>
+          </>
+        )}
       </div>
 
       <div style={styles.tabs}>
@@ -318,7 +456,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
         >
           Component
         </button>
-        {(selectedComponent.comp_type === 'Grid' || selectedComponent.comp_type === 'Form') && (
+        {!isCreating && (selectedComponent?.comp_type === 'Grid' || selectedComponent?.comp_type === 'Form') && (
           <button
             style={activeTab === 'query' ? styles.tabActive : styles.tab}
             onClick={() => setActiveTab('query')}
@@ -326,49 +464,84 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
             Query
           </button>
         )}
-        <button
-          style={activeTab === 'props' ? styles.tabActive : styles.tab}
-          onClick={() => setActiveTab('props')}
-        >
-          Props
-        </button>
-        <button
-          style={activeTab === 'triggers' ? styles.tabActive : styles.tab}
-          onClick={() => setActiveTab('triggers')}
-        >
-          Triggers
-        </button>
-        <button
-          style={activeTab === 'preview' ? styles.tabActive : styles.tab}
-          onClick={() => setActiveTab('preview')}
-        >
-          Event Preview
-        </button>
+        {!isCreating && (
+          <>
+            <button
+              style={activeTab === 'props' ? styles.tabActive : styles.tab}
+              onClick={() => setActiveTab('props')}
+            >
+              Props
+            </button>
+            <button
+              style={activeTab === 'triggers' ? styles.tabActive : styles.tab}
+              onClick={() => setActiveTab('triggers')}
+            >
+              Triggers
+            </button>
+            <button
+              style={activeTab === 'preview' ? styles.tabActive : styles.tab}
+              onClick={() => setActiveTab('preview')}
+            >
+              Event Preview
+            </button>
+          </>
+        )}
       </div>
 
       <div style={styles.content}>
         {activeTab === 'component' && (
           <div style={styles.tabContent}>
-            <div style={{display: 'flex', gap: '16px', alignItems: 'flex-start'}}>
-              <div style={{...styles.field, flex: '0 0 80px'}}>
-                <label style={styles.label}>ID</label>
-                <input
-                  type="text"
-                  value={selectedComponent.xref_id}
-                  disabled
-                  style={{...styles.inputDisabled, fontSize: '12px', padding: '6px 8px'}}
-                />
-              </div>
+            <div style={{display: 'flex', gap: '12px', alignItems: 'flex-start'}}>
+              {!isCreating && (
+                <div style={{...styles.field, flex: '0 0 60px'}}>
+                  <label style={styles.label}>ID</label>
+                  <input
+                    type="text"
+                    value={selectedComponent?.xref_id || ''}
+                    disabled
+                    style={{...styles.inputDisabled, fontSize: '12px', padding: '6px 8px', textAlign: 'center'}}
+                  />
+                </div>
+              )}
               <div style={{...styles.field, flex: 1}}>
-                <label style={styles.label}>Title</label>
+                <label style={styles.label}>Component Name</label>
                 <input
                   type="text"
-                  value={editedTitle}
-                  onChange={handleTitleChange}
-                  placeholder="Component title"
+                  value={editedCompName}
+                  onChange={handleCompNameChange}
+                  placeholder="Component name (e.g., ingrTypeGrid)"
                   style={styles.input}
                 />
               </div>
+              <div style={{...styles.field, flex: '0 0 140px'}}>
+                <label style={styles.label}>Position Order</label>
+                <input
+                  type="text"
+                  value={editedPosOrder}
+                  onChange={handlePosOrderChange}
+                  placeholder="row,col,width"
+                  style={styles.input}
+                />
+              </div>
+            </div>
+            <div style={styles.field}>
+              <label style={styles.label}>Title</label>
+              <input
+                type="text"
+                value={editedTitle}
+                onChange={handleTitleChange}
+                placeholder="Display title"
+                style={styles.input}
+              />
+            </div>
+            <div style={styles.field}>
+              <label style={styles.label}>Description</label>
+              <textarea
+                value={editedDescription}
+                onChange={handleDescriptionChange}
+                placeholder="Component description (optional)"
+                style={{...styles.input, minHeight: '60px', resize: 'vertical'}}
+              />
             </div>
             <div style={styles.field}>
               <label style={styles.label}>Type</label>
@@ -378,24 +551,24 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
                 style={styles.input}
               >
                 <option value="">Select type...</option>
-                {refComponents.map((comp) => (
-                  <option key={comp.name} value={comp.name}>
-                    {comp.name}
+                {eventTypes.map((type) => (
+                  <option key={type.name} value={type.name}>
+                    {type.displayName}
                   </option>
                 ))}
               </select>
             </div>
             <div style={styles.field}>
-              <label style={styles.label}>Container</label>
+              <label style={styles.label}>Parent Component</label>
               <select
-                value={editedContainer}
-                onChange={handleContainerChange}
+                value={editedParentId}
+                onChange={handleParentIdChange}
                 style={styles.input}
               >
-                <option value="">Select container...</option>
-                {refContainers.map((cont) => (
-                  <option key={cont.name} value={cont.name}>
-                    {cont.name}
+                <option value="">None (top-level)</option>
+                {availableParents.map((parent) => (
+                  <option key={parent.id} value={parent.id}>
+                    {parent.comp_name || parent.title} ({parent.comp_type})
                   </option>
                 ))}
               </select>
@@ -533,17 +706,26 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       </div>
 
       <div style={styles.footer}>
-        <button
-          style={{
-            ...styles.saveButton,
-            opacity: hasChanges ? 1 : 0.5,
-            cursor: hasChanges ? 'pointer' : 'default',
-          }}
-          onClick={handleSave}
-          disabled={!hasChanges}
-        >
-          {hasChanges ? '💾 Save Changes' : '✓ Saved'}
-        </button>
+        {isCreating ? (
+          <button
+            style={styles.saveButton}
+            onClick={handleCreateSave}
+          >
+            ✨ Create Component
+          </button>
+        ) : (
+          <button
+            style={{
+              ...styles.saveButton,
+              opacity: hasChanges ? 1 : 0.5,
+              cursor: hasChanges ? 'pointer' : 'default',
+            }}
+            onClick={handleSave}
+            disabled={!hasChanges}
+          >
+            {hasChanges ? '💾 Save Changes' : '✓ Saved'}
+          </button>
+        )}
       </div>
     </div>
   );
@@ -862,6 +1044,42 @@ const styles = {
     height: '1px',
     backgroundColor: '#e2e8f0',
     margin: '24px 0',
+  },
+  newButton: {
+    marginTop: '24px',
+    padding: '12px 24px',
+    backgroundColor: '#10b981',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 600,
+    cursor: 'pointer',
+  },
+  newButtonSmall: {
+    padding: '6px 12px',
+    backgroundColor: '#10b981',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '12px',
+    fontWeight: 600,
+    cursor: 'pointer',
+  },
+  cancelButton: {
+    padding: '6px 16px',
+    backgroundColor: '#ef4444',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '14px',
+    fontWeight: 500,
+    cursor: 'pointer',
+  },
+  hint: {
+    marginTop: '12px',
+    fontSize: '13px',
+    color: '#94a3b8',
   },
 };
 

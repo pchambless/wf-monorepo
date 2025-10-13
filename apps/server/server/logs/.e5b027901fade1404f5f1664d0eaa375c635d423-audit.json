@@ -39,6 +39,11 @@
             "date": 1760186225162,
             "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/error-2025-10-11.log",
             "hash": "98882e9e37fc406b0f771eaeb6886b6981ba3de4fec0d00c03ab8ec5be048c64"
+        },
+        {
+            "date": 1760271908914,
+            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/error-2025-10-12.log",
+            "hash": "0ba2fa7a307fc8185466b7966b21be0af76dbc8f3e4cfa59c3b73eeae846ca97"
         }
     ],
     "hashType": "sha256"

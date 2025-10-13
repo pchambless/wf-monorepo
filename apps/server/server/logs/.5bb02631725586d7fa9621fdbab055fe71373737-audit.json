@@ -49,6 +49,16 @@
             "date": 1760184376830,
             "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-11.log",
             "hash": "ef73b572fb1d2f1b55469ce40fd29186a19699223c24cfb24b5eb43fc157bf05"
+        },
+        {
+            "date": 1760269063795,
+            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-12.log",
+            "hash": "f452fcca121096c44901f08843018d741270bd747f87981d334fd1f64c17f862"
+        },
+        {
+            "date": 1760357929345,
+            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-13.log",
+            "hash": "3f0ab1bbfd52c067fc955e25bd2b2f60e0787568976d218145fc86d5d77b63b5"
         }
     ],
     "hashType": "sha256"

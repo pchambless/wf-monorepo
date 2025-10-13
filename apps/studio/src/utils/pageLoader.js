@@ -51,13 +51,11 @@ export const loadPageForEditing = async (pageID) => {
 
       try {
         await db.eventComp_xref.add({
-          pageID,
           id: compId, // MySQL id (from server)
           comp_name: cleanComp.comp_name,
           parent_id: cleanComp.parent_id,
           parent_name: cleanComp.parent_name,
           comp_type: cleanComp.comp_type,
-          container: cleanComp.container,
           posOrder: cleanComp.posOrder,
           title: cleanComp.title,
           description: cleanComp.description,
@@ -148,7 +146,10 @@ export const loadPageForEditing = async (pageID) => {
 };
 
 export const clearPageData = async (pageID) => {
-  const components = await db.eventComp_xref.where('pageID').equals(pageID).toArray();
+  // pageID param kept for API compatibility but unused
+  // Since pageID removed from schema, just clear all working data
+  // (Only one page loaded at a time anyway due to clearWorkingData on page switch)
+  const components = await db.eventComp_xref.toArray();
   const xrefIds = components.map(c => c.id);
 
   if (xrefIds.length > 0) {
@@ -156,7 +157,7 @@ export const clearPageData = async (pageID) => {
     await db.eventTriggers.where('xref_id').anyOf(xrefIds).delete();
   }
 
-  await db.eventComp_xref.where('pageID').equals(pageID).delete();
+  await db.eventComp_xref.clear();
 
-  console.log(`✅ Cleared data for page ${pageID} (${xrefIds.length} components)`);
+  console.log(`✅ Cleared working data (${xrefIds.length} components)`);
 };

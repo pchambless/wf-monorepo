@@ -32,9 +32,9 @@ export const buildComponentConfig = async (xref_id) => {
     parentID: component.parent_id,
     parentName: component.parent_name,
     title: component.title,
-    container: component.container,
     posOrder: component.posOrder,
     level: component.level,
+    description: component.description,
     props,
     triggers: triggers.map(t => ({
       id: t.id,
@@ -48,9 +48,9 @@ export const buildComponentConfig = async (xref_id) => {
 };
 
 export const buildPageConfig = async (pageID) => {
-  const components = await db.eventComp_xref
-    .where('pageID').equals(pageID)
-    .toArray();
+  // pageID param kept for API compatibility but unused
+  // All components in IndexedDB are for current page
+  const components = await db.eventComp_xref.toArray();
 
   const configs = await Promise.all(
     components.map(c => buildComponentConfig(c.id))

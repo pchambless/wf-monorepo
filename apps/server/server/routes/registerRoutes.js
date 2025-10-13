@@ -10,6 +10,7 @@ import genPageConfigController from "../controller/genPageConfigController.js";
 import initializeController from "../controller/initialize.js";
 import listRoutesController from "../controller/listRegisteredRoutes.js";
 import restartServerController from "../controller/restartServer.js";
+import githubController from "../controller/githubController.js";
 // Removed obsolete imports:
 // - fetchEventTypes (file-based)
 // - fetchQueryEvents (file-based)
@@ -74,6 +75,13 @@ const registerRoutes = (app) => {
   // Removed: /api/eventType/params - use GET /api/eventType/:xrefId instead
   registerRoute("post", "/api/auth/login", userLogin);
   // Removed: /api/util/event-types-status - no longer needed with database-driven system
+
+  // GitHub integration routes
+  registerRoute("get", "/api/github/labels", githubController.getLabels);
+  registerRoute("get", "/api/github/issues", githubController.listIssues);
+  registerRoute("post", "/api/github/issues", githubController.createIssue);
+  registerRoute("get", "/api/github/issues/:issue_number/comments", githubController.getIssueComments);
+  registerRoute("post", "/api/github/upload-image", githubController.uploadImage);
 
   // Log registered routes
   logger.info(`${codeName} Routes registered:`, routes);

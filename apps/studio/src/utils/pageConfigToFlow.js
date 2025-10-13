@@ -16,18 +16,28 @@ export const pageConfigToFlow = (hierarchyData) => {
   const edges = [];
 
   // Group components by parent_id
+  // IMPORTANT: Use the same ID field (xref_id || id) for both parent and child matching
   const componentsByParent = {};
   components.forEach(comp => {
-    const parentId = comp.parent_id || 'root';
-    if (!componentsByParent[parentId]) {
-      componentsByParent[parentId] = [];
+    // Handle both parentID (from buildComponentConfig) and parent_id (from direct DB)
+    const rawParentId = comp.parentID || comp.parent_id;
+    const parentKey = rawParentId ? String(rawParentId) : 'root';
+
+    if (!componentsByParent[parentKey]) {
+      componentsByParent[parentKey] = [];
     }
-    componentsByParent[parentId].push(comp);
+    componentsByParent[parentKey].push(comp);
   });
 
-  // Debug: Check if button is grouped under form
+  // Debug: Check component grouping
   console.log('🔍 Components by parent:', componentsByParent);
-  console.log('🔍 Form children (59):', componentsByParent[59]);
+  console.log('🔍 All components with parent_id:', components.map(c => ({
+    id: c.xref_id || c.id,
+    name: c.comp_name,
+    parent_id: c.parent_id,
+    level: c.level,
+    raw: c
+  })));
 
   // Sort children within each parent by posOrder
   Object.keys(componentsByParent).forEach(parentId => {
@@ -142,9 +152,14 @@ export const pageConfigToFlow = (hierarchyData) => {
   // Create nodes with parent-child relationships
   sortedComponents.forEach((component) => {
     const nodeId = String(component.xref_id || component.id);
-    const parentId = component.parent_id ? String(component.parent_id) : null;
+    // Handle both parentID (from buildComponentConfig) and parent_id (from direct DB)
+    const rawParentId = component.parentID || component.parent_id;
+    const parentId = rawParentId ? String(rawParentId) : null;
     const level = component.level || 0;
     const flexPos = parsePosOrder(component.posOrder);
+
+    // Debug parent_id mapping
+    console.log(`🔗 Component ${nodeId} (${component.comp_name || component.name}): parentID/parent_id=${rawParentId} → parentId=${parentId}, level=${level}`);
 
     // Skip level -1 (App) - we'll show it as a heading instead
     if (level === -1) {
@@ -156,12 +171,13 @@ export const pageConfigToFlow = (hierarchyData) => {
     }
 
     // Position calculation
+    // NOTE: When using parentNode in React Flow, child positions are RELATIVE to parent's top-left
     let position;
     if (level === 0) {
-      // Page - top level (App is just a heading now)
+      // Page - top level (App is just a heading now) - ABSOLUTE position
       position = { x: 50, y: 50 };
     } else if (parentId && flexPos) {
-      // Use flex position (row/order/width) for layout within parent
+      // RELATIVE position for children (0,0 = parent's top-left)
       const rowHeight = 140; // pixels per row (increased for better spacing)
 
       // Get parent's FINAL dimensions (after percentage applied)
@@ -190,12 +206,13 @@ export const pageConfigToFlow = (hierarchyData) => {
         xOffset += (containerWidth * widthPercent) + 10; // Add gap between siblings
       });
 
+      // RELATIVE position (relative to parent's interior, not screen)
       position = {
         x: leftPadding + xOffset,
         y: headerHeight + (flexPos.row - 1) * rowHeight,
       };
     } else if (parentId) {
-      // Fallback: stack vertically by posOrder
+      // Fallback: stack vertically by posOrder - RELATIVE position
       const siblings = componentsByParent[parentId] || [];
       const index = siblings.findIndex(s => (s.xref_id || s.id) === component.xref_id || s.id === component.id);
       position = {
@@ -203,7 +220,7 @@ export const pageConfigToFlow = (hierarchyData) => {
         y: 50 + (index * 120),
       };
     } else {
-      // Fallback for orphaned nodes
+      // Fallback for orphaned nodes - ABSOLUTE position
       position = { x: 100, y: level * 150 };
     }
 
@@ -254,6 +271,7 @@ export const pageConfigToFlow = (hierarchyData) => {
     if (parentId && level > 0) {
       node.parentNode = parentId;
       node.extent = 'parent'; // Constrains dragging to parent bounds
+      node.expandParent = true; // Allow parent to expand to fit children
     }
 
     // Debug: Log button node
@@ -264,6 +282,17 @@ export const pageConfigToFlow = (hierarchyData) => {
         position,
         dimensions,
         level
+      });
+    }
+
+    // Debug: Log all nodes with parent info
+    if (level > 0) {
+      console.log(`📍 Node ${nodeId} (${component.comp_name}):`, {
+        level,
+        parentNode: node.parentNode,
+        position,
+        dimensions,
+        expandParent: node.expandParent
       });
     }
 

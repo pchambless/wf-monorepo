@@ -3,9 +3,9 @@ import { v01 } from './versions/index.js';
 
 export const db = new Dexie('StudioDB');
 
-// Development: Just use v01 and delete DB when schema changes
-// Production: Add v02, v03, etc. for migrations
-db.version(1).stores(v01);
+// Development: Increment version when schema changes
+// Version 2: Removed pageID from eventComp_xref (redundant with clearWorkingData)
+db.version(2).stores(v01);
 
 export const clearAllData = async () => {
   await db.eventComp_xref.clear();
@@ -17,13 +17,10 @@ export const clearAllData = async () => {
   console.log('✅ All draft data cleared');
 };
 
+// Reference data is now queried directly from master tables, no separate ref* tables
 export const clearReferenceData = async () => {
-  await db.refContainers.clear();
-  await db.refComponents.clear();
-  await db.refTriggerActions.clear();
-  await db.refTriggerClasses.clear();
-  await db.refSQL.clear();
-  console.log('✅ All reference data cleared');
+  // No-op: ref* tables removed, query master tables directly
+  console.log('✅ Reference data is queried from master tables (no separate ref* tables)');
 };
 
 export const exportAllData = async () => {
@@ -33,12 +30,7 @@ export const exportAllData = async () => {
     eventProps: await db.eventProps.toArray(),
     eventTypes: await db.eventTypes.toArray(),
     eventSQL: await db.eventSQL.toArray(),
-    triggers: await db.triggers.toArray(),
-    refContainers: await db.refContainers.toArray(),
-    refComponents: await db.refComponents.toArray(),
-    refTriggerActions: await db.refTriggerActions.toArray(),
-    refTriggerClasses: await db.refTriggerClasses.toArray(),
-    refSQL: await db.refSQL.toArray()
+    triggers: await db.triggers.toArray()
   };
   return data;
 };

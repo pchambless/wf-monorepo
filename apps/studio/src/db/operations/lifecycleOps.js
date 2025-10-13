@@ -1,37 +1,46 @@
 import { db } from '../studioDb.js';
 import {
-  loadContainerReference,
-  loadComponentReference,
-  loadTriggerActionReference,
-  loadTriggerClassReference,
-  loadSQLReference,
   loadEventTypes,
   loadEventSQL,
   loadTriggers
 } from '../../utils/referenceLoaders.js';
 
+// Prevent multiple simultaneous initialization (React StrictMode calls useEffect twice)
+let initializePromise = null;
+
 /**
- * App Startup - Load all master data and references once
+ * App Startup - Load all master data
  * Called when Studio app first loads
+ * Note: ref* tables removed - dropdowns query master tables directly
  */
 export const initializeApp = async () => {
+  // Return existing promise if already initializing
+  if (initializePromise) {
+    console.log('⏳ Initialization already in progress, waiting...');
+    return initializePromise;
+  }
+
   console.log('🚀 Initializing Studio app...');
 
-  const results = await Promise.all([
-    loadEventTypes(),
-    loadEventSQL(),
-    loadTriggers(),
-    loadContainerReference(),
-    loadComponentReference(),
-    loadTriggerActionReference(),
-    loadTriggerClassReference(),
-    loadSQLReference()
-  ]);
+  initializePromise = (async () => {
+    try {
+      const results = await Promise.all([
+        loadEventTypes(),
+        loadEventSQL(),
+        loadTriggers()
+      ]);
 
-  const allSuccess = results.every(r => r.success);
-  console.log(allSuccess ? '✅ App initialized' : '⚠️ Some data failed to load');
+      const allSuccess = results.every(r => r.success);
+      console.log(allSuccess ? '✅ App initialized' : '⚠️ Some data failed to load');
 
-  return { success: allSuccess, results };
+      return { success: allSuccess, results };
+    } finally {
+      // Clear promise after completion so it can be called again later if needed
+      setTimeout(() => { initializePromise = null; }, 100);
+    }
+  })();
+
+  return initializePromise;
 };
 
 /**
@@ -52,52 +61,38 @@ export const clearWorkingData = async () => {
 };
 
 /**
- * Refresh Container/Component References
+ * Refresh EventTypes Master Table
  * Called after eventTypes INSERT/UPDATE/DELETE
+ * Dropdowns query this table directly - no separate ref* tables needed
  */
 export const refreshEventTypeReferences = async () => {
-  console.log('🔄 Refreshing eventType references...');
-
-  const results = await Promise.all([
-    loadContainerReference(),
-    loadComponentReference()
-  ]);
-
-  const allSuccess = results.every(r => r.success);
-  console.log(allSuccess ? '✅ EventType references refreshed' : '⚠️ Some references failed');
-
-  return { success: allSuccess, results };
+  console.log('🔄 Refreshing eventTypes master table...');
+  const result = await loadEventTypes();
+  console.log(result.success ? '✅ EventTypes refreshed' : '⚠️ EventTypes refresh failed');
+  return result;
 };
 
 /**
- * Refresh Trigger Action/Class References
+ * Refresh Triggers Master Table
  * Called after triggers INSERT/UPDATE/DELETE
+ * Dropdowns query this table directly - no separate ref* tables needed
  */
 export const refreshTriggerReferences = async () => {
-  console.log('🔄 Refreshing trigger references...');
-
-  const results = await Promise.all([
-    loadTriggerActionReference(),
-    loadTriggerClassReference()
-  ]);
-
-  const allSuccess = results.every(r => r.success);
-  console.log(allSuccess ? '✅ Trigger references refreshed' : '⚠️ Some references failed');
-
-  return { success: allSuccess, results };
+  console.log('🔄 Refreshing triggers master table...');
+  const result = await loadTriggers();
+  console.log(result.success ? '✅ Triggers refreshed' : '⚠️ Triggers refresh failed');
+  return result;
 };
 
 /**
- * Refresh SQL References
+ * Refresh EventSQL Master Table
  * Called after eventSQL INSERT/UPDATE/DELETE
+ * Dropdowns query this table directly - no separate ref* tables needed
  */
 export const refreshSQLReferences = async () => {
-  console.log('🔄 Refreshing SQL references...');
-
-  const result = await loadSQLReference();
-
-  console.log(result.success ? '✅ SQL references refreshed' : '⚠️ SQL references failed');
-
+  console.log('🔄 Refreshing eventSQL master table...');
+  const result = await loadEventSQL();
+  console.log(result.success ? '✅ EventSQL refreshed' : '⚠️ EventSQL refresh failed');
   return result;
 };
 

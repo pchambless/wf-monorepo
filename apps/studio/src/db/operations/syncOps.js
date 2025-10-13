@@ -26,17 +26,17 @@ export const syncToMySQL = async () => {
 
   // Sync each table type
   for (const component of pending.components) {
-    const result = await syncRecord('eventComp_xref', component);
+    const result = await syncRecord('api_wf.eventComp_xref', component);
     results.push(result);
   }
 
   for (const prop of pending.props) {
-    const result = await syncRecord('eventProps', prop);
+    const result = await syncRecord('api_wf.eventProps', prop);
     results.push(result);
   }
 
   for (const trigger of pending.triggers) {
-    const result = await syncRecord('eventTriggers', trigger);
+    const result = await syncRecord('api_wf.eventTriggers', trigger);
     results.push(result);
   }
 

@@ -3,11 +3,14 @@ import StudioSidebar from './StudioSidebar';
 import PageFlowCanvas from './PageFlowCanvas';
 import ComponentPropertiesPanel from './ComponentPropertiesPanel';
 import PageDraftControls from './PageDraftControls';
+import FloatingActionButton from './FloatingActionButton';
+import IssuesModal from './IssuesModal';
 
 const StudioLayout = () => {
   const [pageConfig, setPageConfig] = useState(null);
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [currentPageID, setCurrentPageID] = useState(null);
+  const [isIssuesModalOpen, setIsIssuesModalOpen] = useState(false);
 
   const handlePageConfigLoaded = (config, pageID) => {
     setPageConfig(config);
@@ -107,6 +110,12 @@ const StudioLayout = () => {
           onSave={handleSaveComponent}
         />
       </div>
+
+      <FloatingActionButton onClick={() => setIsIssuesModalOpen(true)} />
+      <IssuesModal
+        isOpen={isIssuesModalOpen}
+        onClose={() => setIsIssuesModalOpen(false)}
+      />
     </div>
   );
 };

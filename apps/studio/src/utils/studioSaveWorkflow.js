@@ -14,7 +14,8 @@ export const savePageToMySQL = async (pageID) => {
     const componentResults = await saveComponentsToMySQL(pageID);
     allOperations.push(...componentResults);
 
-    const components = await db.componentDrafts.where('pageID').equals(pageID).toArray();
+    // All components in IndexedDB are for current page
+    const components = await db.componentDrafts.toArray();
 
     for (const comp of components) {
       const propResults = await savePropsToMySQL(comp.xref_id);

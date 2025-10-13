@@ -11,14 +11,16 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
   const [showHelp, setShowHelp] = useState(false);
   const [availableQueries, setAvailableQueries] = useState([]);
 
-  // Load available queries from refSQL
+  // Load available queries from eventSQL (master table)
   useEffect(() => {
     const loadQueries = async () => {
       try {
-        const queries = await db.refSQL.toArray();
+        const queries = await db.eventSQL
+          .orderBy('qryName')
+          .toArray();
         setAvailableQueries(queries);
       } catch (error) {
-        console.error('Failed to load query references:', error);
+        console.error('Failed to load queries:', error);
       }
     };
 

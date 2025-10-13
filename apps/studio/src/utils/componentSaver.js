@@ -3,8 +3,9 @@ import { db } from '../db/studioDb';
 const SERVER_URL = 'http://localhost:3001';
 
 export const saveComponentsToMySQL = async (pageID) => {
+  // pageID param kept for API compatibility but unused
+  // All components in IndexedDB are for current page
   const components = await db.componentDrafts
-    .where('pageID').equals(pageID)
     .filter(c => c._dmlMethod !== null)
     .toArray();
 

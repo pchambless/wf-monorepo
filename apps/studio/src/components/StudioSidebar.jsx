@@ -5,6 +5,7 @@ import DBBrowserModal from './DBBrowserModal';
 import { loadPageForEditing } from '../utils/pageLoader';
 import { buildPageConfig } from '../utils/componentConfigBuilder';
 import { initializeApp, navigateToPage, warnBeforeNavigation, clearWorkingData, syncToMySQL, hasPendingChanges } from '../db/operations';
+import { db } from '../db/studioDb';
 
 const StudioSidebar = ({ onPageConfigLoaded }) => {
   const [apps, setApps] = useState([]);
@@ -290,6 +291,17 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
           style={styles.dbBrowserButton}
         >
           🗄️ IndexedDB Browser
+        </button>
+        <button
+          onClick={async () => {
+            if (window.confirm('Delete IndexedDB and reload? This will clear all local data.')) {
+              await db.delete();
+              window.location.reload();
+            }
+          }}
+          style={{...styles.dbBrowserButton, backgroundColor: '#ef4444', marginTop: '8px'}}
+        >
+          🗑️ Delete IndexedDB
         </button>
         <a
           href="https://claude.ai/settings/usage"

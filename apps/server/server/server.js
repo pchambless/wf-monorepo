@@ -4,9 +4,14 @@ import { app } from './app.js';
 import logger from './utils/logger.js';
 import initializeRoutes from './routes/index.js';
 import dbManager from './utils/dbManager.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Configure environment variables
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Configure environment variables from monorepo root
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 const codeName = '[server.js]';
 
 // Simple test route to verify routing
