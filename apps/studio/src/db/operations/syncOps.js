@@ -45,17 +45,17 @@ export const syncToMySQL = async () => {
 
 const syncRecord = async (tableName, record) => {
   const { idbID, _dmlMethod, id, ...data } = record;
+  const tableShortName = tableName.split('.')[1];
 
   try {
     if (_dmlMethod === 'INSERT') {
-      const response = await execDml({
+      const response = await execDml(`${tableName}_INSERT`, {
         method: 'INSERT',
         table: tableName,
         data
       });
 
-      // Update IndexedDB with MySQL-assigned id
-      await db[tableName].update(idbID, {
+      await db[tableShortName].update(idbID, {
         id: response.insertId,
         _dmlMethod: null
       });
@@ -64,13 +64,18 @@ const syncRecord = async (tableName, record) => {
     }
 
     if (_dmlMethod === 'UPDATE') {
-      await execDml({
+      if (!id || id === null) {
+        throw new Error(`Cannot UPDATE record with null id. Record might need INSERT instead. idbID: ${idbID}, table: ${tableName}`);
+      }
+
+      await execDml(`${tableName}_UPDATE`, {
         method: 'UPDATE',
         table: tableName,
-        data: { id, ...data }
+        data,
+        primaryKey: { id }
       });
 
-      await db[tableName].update(idbID, {
+      await db[tableShortName].update(idbID, {
         _dmlMethod: null
       });
 
@@ -78,13 +83,13 @@ const syncRecord = async (tableName, record) => {
     }
 
     if (_dmlMethod === 'DELETE') {
-      await execDml({
+      await execDml(`${tableName}_DELETE`, {
         method: 'DELETE',
         table: tableName,
-        data: { id }
+        primaryKey: { id }
       });
 
-      await db[tableName].delete(idbID);
+      await db[tableShortName].delete(idbID);
 
       return { success: true, idbID, mysqlId: id, deleted: true };
     }

@@ -12,6 +12,7 @@ import { parsePosOrder } from '../posOrderParser.js';
 
 const codeName = "[database-genPageConfig.js]";
 const STUDIO_PREVIEW_PATH = "/home/paul/wf-monorepo-new/apps/studio/src/preview";
+const PRODUCTION_APPS_PATH = "/home/paul/wf-monorepo-new/apps";
 const PREVIEW_ROUTES_FILE = "/home/paul/wf-monorepo-new/apps/studio/src/config/preview-routes.js";
 
 /**
@@ -414,27 +415,36 @@ export async function genPageConfig(pageID) {
     const appName = appComponent.comp_name;  // wf-login
     const pageName = pageComponent.comp_name; // loginPage
 
-    const pageConfigPath = path.join(STUDIO_PREVIEW_PATH, appName, pageName, 'pageConfig.json');
-    const mermaidPath = path.join(STUDIO_PREVIEW_PATH, appName, pageName, 'pageMermaid.mmd');
-    const indexPath = path.join(STUDIO_PREVIEW_PATH, appName, pageName, 'index.jsx');
-    const targetDir = path.join(STUDIO_PREVIEW_PATH, appName, pageName);
+    const previewDir = path.join(STUDIO_PREVIEW_PATH, appName, pageName);
+    const productionDir = path.join(PRODUCTION_APPS_PATH, appName, 'src', 'pages', pageName);
+
+    const previewPaths = {
+      pageConfig: path.join(previewDir, 'pageConfig.json'),
+      mermaid: path.join(previewDir, 'pageMermaid.mmd'),
+      index: path.join(previewDir, 'index.jsx')
+    };
+
+    const productionPaths = {
+      pageConfig: path.join(productionDir, 'pageConfig.json'),
+      mermaid: path.join(productionDir, 'pageMermaid.mmd'),
+      index: path.join(productionDir, 'index.jsx')
+    };
 
     try {
-      // Ensure directory exists
-      await fs.mkdir(targetDir, { recursive: true });
+      await fs.mkdir(previewDir, { recursive: true });
+      await fs.mkdir(productionDir, { recursive: true });
 
       const formattedJson = stringify(pageConfig, { maxLength: 100, indent: 2 });
-      await fs.writeFile(pageConfigPath, formattedJson);
-      logger.debug(`${codeName} Saved pageConfig.json to ${pageConfigPath}`);
-    } catch (error) {
-      logger.warn(`${codeName} Could not save pageConfig.json: ${error.message}`);
-    }
 
-    try {
-      await fs.writeFile(mermaidPath, mermaidChart);
-      logger.debug(`${codeName} Saved pageMermaid.mmd to ${mermaidPath}`);
+      await fs.writeFile(previewPaths.pageConfig, formattedJson);
+      await fs.writeFile(productionPaths.pageConfig, formattedJson);
+      logger.debug(`${codeName} Saved pageConfig.json to preview and production`);
+
+      await fs.writeFile(previewPaths.mermaid, mermaidChart);
+      await fs.writeFile(productionPaths.mermaid, mermaidChart);
+      logger.debug(`${codeName} Saved pageMermaid.mmd to preview and production`);
     } catch (error) {
-      logger.warn(`${codeName} Could not save pageMermaid.mmd: ${error.message}`);
+      logger.warn(`${codeName} Could not save files: ${error.message}`);
     }
 
     try {

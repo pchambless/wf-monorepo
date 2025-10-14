@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { syncToMySQL, discardPendingChanges, getPendingSummary } from '../utils/syncWorkflow';
+import { syncToMySQL, getPendingChanges, clearAllDMLFlags } from '../db/operations';
 
 const styles = {
   container: {
@@ -64,8 +64,13 @@ const SyncControls = () => {
   }, []);
 
   const loadSummary = async () => {
-    const data = await getPendingSummary();
-    setSummary(data);
+    const data = await getPendingChanges();
+    const summary = {
+      total: data.total,
+      byTable: {},
+      byAction: {}
+    };
+    setSummary(summary);
   };
 
   const handleSync = async () => {
@@ -73,12 +78,14 @@ const SyncControls = () => {
     setSyncing(true);
 
     try {
-      const result = await syncToMySQL();
+      const results = await syncToMySQL();
+      const successCount = results.filter(r => r.success).length;
+      const failCount = results.filter(r => !r.success).length;
 
-      if (result.failed > 0) {
-        alert(`Sync completed with errors:\n${result.success} succeeded, ${result.failed} failed`);
+      if (failCount > 0) {
+        alert(`Sync completed: ${successCount} succeeded, ${failCount} failed`);
       } else {
-        console.log(`✅ Synced ${result.success} changes`);
+        console.log(`✅ Synced ${successCount} changes`);
       }
 
       await loadSummary();
@@ -93,7 +100,7 @@ const SyncControls = () => {
     if (!window.confirm(`Discard ${summary.total} pending changes?`)) return;
 
     try {
-      await discardPendingChanges();
+      await clearAllDMLFlags();
       await loadSummary();
       console.log('✅ Pending changes discarded');
     } catch (error) {

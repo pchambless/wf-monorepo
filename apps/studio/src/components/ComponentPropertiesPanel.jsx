@@ -5,15 +5,16 @@ import ColumnSelector from './PropertyEditors/ColumnSelector';
 import PreviewPane from './PropertyEditors/PreviewPane';
 import OverrideEditor from './PropertyEditors/OverrideEditor';
 import QuerySetup from './PropertyEditors/QuerySetup';
-import { loadPropsForComponent, updatePropValue, updateAllProps } from '../utils/propUpdater';
-import { loadTriggersForComponent } from '../utils/triggerUpdater';
-import { savePropsToMySQL } from '../utils/propSaver';
+import TriggerBuilder from './PropertyEditors/TriggerBuilder';
+import { upsertPropByName } from '../db/operations/eventProps/update';
+import { syncToMySQL } from '../db/operations';
 import { db } from '../db/studioDb';
 import { createComponent } from '../db/operations';
 
 const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
   const [isCreating, setIsCreating] = useState(false);
   const [activeTab, setActiveTab] = useState('component');
+  const [showTriggersModal, setShowTriggersModal] = useState(false);
   const [editedCompName, setEditedCompName] = useState('');
   const [editedTitle, setEditedTitle] = useState('');
   const [editedType, setEditedType] = useState('');
@@ -81,11 +82,16 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     setEditedDescription(component?.description || selectedComponent.description || '');
     setEditedParentId(component?.parent_id || selectedComponent.parent_id || '');
 
-    const props = await loadPropsForComponent(xref_id);
+    const propsArray = await db.eventProps.where('xref_id').equals(xref_id).toArray();
+    const props = {};
+    propsArray.forEach(p => {
+      try { props[p.paramName] = JSON.parse(p.paramVal); }
+      catch { props[p.paramName] = p.paramVal; }
+    });
     setEditedProps(JSON.stringify(props, null, 2));
     setColumnOverrides(props.columnOverrides || {});
 
-    const loadedTriggers = await loadTriggersForComponent(xref_id);
+    const loadedTriggers = await db.eventTriggers.where('xref_id').equals(xref_id).toArray();
     setTriggers(loadedTriggers);
 
     // Load available parents for dropdown
@@ -216,11 +222,10 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       const parsedProps = JSON.parse(editedProps);
       console.log('🔍 Parsed props:', parsedProps);
 
-      await updateAllProps(selectedComponent.xref_id, parsedProps);
-      console.log('✅ Props marked with _dmlMethod in IndexedDB');
-
-      await savePropsToMySQL(selectedComponent.xref_id);
-      console.log('✅ Props saved to MySQL');
+      for (const [paramName, paramVal] of Object.entries(parsedProps)) {
+        await upsertPropByName(selectedComponent.xref_id, paramName, paramVal);
+      }
+      console.log('✅ Props marked for sync');
 
       setHasChanges(false);
       console.log('✅ Component updated successfully');
@@ -245,7 +250,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
         const currentProps = JSON.parse(editedProps);
         currentProps.columnOverrides = updated;
 
-        await updatePropValue(selectedComponent.xref_id, 'columnOverrides', updated);
+        await upsertPropByName(selectedComponent.xref_id, 'columnOverrides', updated);
 
         setEditedProps(JSON.stringify(currentProps, null, 2));
         console.log('✅ Column override marked with _dmlMethod in IndexedDB');
@@ -263,11 +268,74 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     console.log('Column override reset:', columnName);
   };
 
+  const parsePosOrder = (posOrder) => {
+    if (!posOrder || posOrder === '0,0,auto') {
+      return { row: 0, order: 0, width: 'auto', align: 'left' };
+    }
+
+    const parts = posOrder.split(',').map(p => p.trim());
+
+    if (parts.length >= 3) {
+      const widthValue = parts[2];
+      const width = widthValue.includes('%') ? widthValue : `${widthValue}%`;
+      const align = parts[3] || 'left';
+
+      return {
+        row: parseInt(parts[0]) || 0,
+        order: parseInt(parts[1]) || 0,
+        width,
+        align
+      };
+    }
+
+    return { row: 0, order: 0, width: 'auto', align: 'left' };
+  };
+
+  const transformPreviewData = (basic, triggers, props) => {
+    const position = parsePosOrder(basic.posOrder);
+
+    const workflowTriggers = {};
+    triggers.forEach(trigger => {
+      if (!workflowTriggers[trigger.class]) {
+        workflowTriggers[trigger.class] = [];
+      }
+
+      let params = {};
+      try {
+        params = JSON.parse(trigger.content || '{}');
+      } catch (e) {
+        params = trigger.content || {};
+      }
+
+      workflowTriggers[trigger.class].push({
+        action: trigger.action,
+        params
+      });
+    });
+
+    triggers.forEach(cls => {
+      if (workflowTriggers[cls]) {
+        workflowTriggers[cls].sort((a, b) => (a.ordr || 0) - (b.ordr || 0));
+      }
+    });
+
+    const componentPreview = {
+      id: basic.comp_name,
+      comp_type: basic.comp_type,
+      xref_id: basic.xref_id,
+      container: basic.container || 'inline',
+      ...(position.row > 0 && { position }),
+      props: { ...props },
+      ...(Object.keys(workflowTriggers).length > 0 && { workflowTriggers })
+    };
+
+    return componentPreview;
+  };
+
   const loadPreviewData = async (xref_id) => {
     try {
       console.log('Loading preview data for xref_id:', xref_id);
 
-      // Fetch complete data using the 3 queries
       const [basicResult, triggersResult, propsResult] = await Promise.all([
         execEvent('xrefBasicDtl', { xrefID: xref_id }),
         execEvent('xrefTriggerList', { xrefID: xref_id }),
@@ -281,7 +349,6 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       const basic = basicResult.data?.[0] || {};
       const triggers = triggersResult.data || [];
 
-      // Convert props array to object
       const propsArray = propsResult.data || [];
       const props = {};
       propsArray.forEach(prop => {
@@ -292,9 +359,9 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
         }
       });
 
-      const preview = { basic, triggers, props };
-      console.log('Setting preview data:', preview);
-      setPreviewData(preview);
+      const componentPreview = transformPreviewData(basic, triggers, props);
+      console.log('Transformed component preview:', componentPreview);
+      setPreviewData(componentPreview);
     } catch (error) {
       console.error('Failed to load preview data:', error);
       setPreviewData({ error: error.message });
@@ -347,7 +414,12 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
 
   const loadExistingFields = async (xref_id) => {
     try {
-      const props = await loadPropsForComponent(xref_id);
+      const propsArray = await db.eventProps.where('xref_id').equals(xref_id).toArray();
+      const props = {};
+      propsArray.forEach(p => {
+        try { props[p.paramName] = JSON.parse(p.paramVal); }
+        catch { props[p.paramName] = p.paramVal; }
+      });
       return props.columns || null;
     } catch (error) {
       console.log('No existing fields found, using generated only');
@@ -393,7 +465,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     }
 
     try {
-      await updatePropValue(xref_id, 'columns', fields);
+      await upsertPropByName(xref_id, 'columns', fields);
       console.log('✅ columns marked with _dmlMethod in IndexedDB');
 
       await loadComponentData(xref_id);
@@ -474,7 +546,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
             </button>
             <button
               style={activeTab === 'triggers' ? styles.tabActive : styles.tab}
-              onClick={() => setActiveTab('triggers')}
+              onClick={() => setShowTriggersModal(true)}
             >
               Triggers
             </button>
@@ -648,51 +720,38 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
           </div>
         )}
 
-        {activeTab === 'triggers' && (
-          <div style={styles.tabContent}>
-            {triggers && triggers.length > 0 ? (
-              <div>
-                {triggers.map((trigger, idx) => (
-                  <div key={idx} style={styles.triggerItem}>
-                    <div style={styles.triggerHeader}>
-                      <span style={styles.triggerClass}>{trigger.class}</span>
-                      <span style={styles.triggerAction}>{trigger.action}</span>
-                    </div>
-                    <div style={styles.field}>
-                      <label style={styles.label}>Content</label>
-                      <textarea
-                        value={trigger.content || ''}
-                        style={styles.textarea}
-                        rows={4}
-                        readOnly
-                      />
-                    </div>
-                  </div>
-                ))}
+        {showTriggersModal && (
+          <div style={styles.modalOverlay} onClick={() => setShowTriggersModal(false)}>
+            <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+              <div style={styles.modalHeader}>
+                <h2 style={styles.modalTitle}>
+                  Triggers - {selectedComponent?.comp_name || selectedComponent?.title}
+                </h2>
+                <button
+                  style={styles.modalClose}
+                  onClick={() => setShowTriggersModal(false)}
+                >
+                  ✕
+                </button>
               </div>
-            ) : (
-              <div style={styles.comingSoon}>
-                <div style={styles.comingSoonIcon}>⚡</div>
-                <div style={styles.comingSoonText}>No triggers defined</div>
-                <div style={styles.comingSoonSubtext}>
-                  Workflows: onLoad, onClick, onRefresh, etc.
-                </div>
+              <div style={styles.modalBody}>
+                <TriggerBuilder component={selectedComponent} />
               </div>
-            )}
+            </div>
           </div>
         )}
 
         {activeTab === 'preview' && (
           <div style={styles.tabContent}>
             <div style={styles.previewSection}>
-              <h4 style={styles.previewSectionTitle}>📋 Event Preview (JSON)</h4>
+              <h4 style={styles.previewSectionTitle}>📋 PageConfig Component Format</h4>
               {previewData ? (
                 <>
                   <pre style={styles.previewJsonBlock}>
                     {JSON.stringify(previewData, null, 2)}
                   </pre>
                   <div style={styles.previewHint}>
-                    Complete configuration loaded from database queries
+                    This component format matches genPageConfig output and can be used directly in pageConfig.json
                   </div>
                 </>
               ) : (
@@ -738,6 +797,55 @@ const styles = {
     flexDirection: 'column',
     backgroundColor: '#ffffff',
     borderLeft: '1px solid #e2e8f0',
+  },
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderRadius: '8px',
+    width: '90vw',
+    maxWidth: '1400px',
+    height: '85vh',
+    display: 'flex',
+    flexDirection: 'column',
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+  },
+  modalHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '20px 24px',
+    borderBottom: '1px solid #e2e8f0',
+  },
+  modalTitle: {
+    margin: 0,
+    fontSize: '18px',
+    fontWeight: 600,
+    color: '#1e293b',
+  },
+  modalClose: {
+    padding: '8px 12px',
+    fontSize: '18px',
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
+    color: '#64748b',
+    borderRadius: '4px',
+  },
+  modalBody: {
+    flex: 1,
+    overflow: 'auto',
+    padding: '0',
   },
   emptyState: {
     display: 'flex',
