@@ -94,7 +94,7 @@ export class TriggerEngine {
         // Determine trigType based on trigger data
         const trigType = this.getTriggerType(trigger);
         const actionName = trigger.action;
-        const content = this.parseContent(trigger.content);
+        const content = trigger.params !== undefined ? trigger.params : this.parseContent(trigger.content);
 
         const result = await this.execute(trigType, actionName, content, context);
         results.push({ trigger, result, success: true });

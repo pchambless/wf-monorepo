@@ -7,22 +7,24 @@ export async function setVals(content, context) {
   console.log('🔍 setVals context keys:', Object.keys(context));
   console.log('🔍 setVals context.response:', context.response);
 
-  // Format content for API call
-  let values = [];
-
-  if (typeof content === 'object' && content !== null) {
-    // DB format: {"userID": "{{response.user.id}}", "userEmail": "{{response.user.email}}"}
-    for (const [paramName, template] of Object.entries(content)) {
-      const paramVal = resolveTemplate(template, context);
-      console.log(`🔍 Resolved ${paramName}: ${template} -> ${paramVal}`);
-      values.push({ paramName, paramVal });
-    }
-  } else if (typeof content === 'string' && content.includes(',')) {
-    // Legacy format: "pageID,{{this.value}}"
-    const [paramName, template] = content.split(',');
-    const paramVal = resolveTemplate(template, context);
-    values.push({ paramName, paramVal });
+  // Expect array of objects: [{"key1": "val1"}, {"key2": "val2"}]
+  // Each array item should have exactly ONE key-value pair
+  if (!Array.isArray(content)) {
+    console.error('setVals expects array format: [{"key": "value"}, ...]');
+    throw new Error('setVals: content must be an array');
   }
+
+  const values = content.map(item => {
+    const entries = Object.entries(item);
+    if (entries.length !== 1) {
+      console.warn('setVals: each array item should have exactly one key-value pair');
+    }
+
+    const [paramName, template] = entries[0];
+    const paramVal = resolveTemplate(template, context);
+    console.log(`🔍 Resolved ${paramName}: ${template} -> ${paramVal}`);
+    return { paramName, paramVal };
+  });
 
   console.log('Setting', values.length, 'context values', values);
   return await setValsAPI(values);

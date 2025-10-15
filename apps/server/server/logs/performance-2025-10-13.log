@@ -7752,3 +7752,4 @@
 {"level":"warn","message":"[getEventTypes.js] Invalid JSON in style for Modal: Bad control character in string literal in JSON at position 300 (line 12 column 21)","timestamp":"2025-10-13 18:55:48"}
 {"level":"info","message":"[getEventTypes.js] Fetched 19 eventTypes","timestamp":"2025-10-13 18:55:48"}
 {"level":"info","message":"[app.js]  Response: GET /api/eventTypes 304 (183ms)","timestamp":"2025-10-13 18:55:48"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-10-13 19:53:54"}

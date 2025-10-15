@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../db/studioDb';
+import ParamEditor from './ParamEditor';
+import { execDml } from '@whatsfresh/shared-imports';
 
 const TriggerBuilder = ({ component }) => {
   const [classes, setClasses] = useState([]);
@@ -9,6 +11,8 @@ const TriggerBuilder = ({ component }) => {
   const [availableClasses, setAvailableClasses] = useState([]);
   const [workflowPreview, setWorkflowPreview] = useState({});
   const [showClassDropdown, setShowClassDropdown] = useState(false);
+  const [showActionDropdown, setShowActionDropdown] = useState(false);
+  const [editingAction, setEditingAction] = useState(null);
 
   useEffect(() => {
     loadAvailableTriggers();
@@ -30,9 +34,12 @@ const TriggerBuilder = ({ component }) => {
   };
 
   const loadTriggers = async () => {
-    const triggers = await db.eventTriggers
+    const allTriggers = await db.eventTriggers
       .where('xref_id').equals(component.xref_id)
       .toArray();
+
+    // Filter out deleted items
+    const triggers = allTriggers.filter(t => t._dmlMethod !== 'DELETE' && !t.deleted_at);
 
     // Group by class
     const grouped = {};
@@ -73,20 +80,14 @@ const TriggerBuilder = ({ component }) => {
   const handleAddClass = async (className) => {
     if (!className) return;
 
-    // Create first empty action for new class
-    await db.eventTriggers.add({
-      id: null,
-      xref_id: component.xref_id,
-      class: className,
-      action: '',
-      ordr: 1,
-      content: '{}',
-      _dmlMethod: 'INSERT'
-    });
+    // Just add to classes list and select it (no trigger created yet)
+    if (!classes.includes(className)) {
+      setClasses([...classes, className]);
+    }
 
-    await loadTriggers();
     setShowClassDropdown(false);
     setSelectedClass(className);
+    setActions([]); // Empty actions for new class
   };
 
   const handleSelectClass = async (className) => {
@@ -100,6 +101,170 @@ const TriggerBuilder = ({ component }) => {
     setActions(classActions);
   };
 
+  const handleAddAction = async (actionName) => {
+    if (!selectedClass || !actionName) return;
+
+    const maxOrder = actions.length > 0
+      ? Math.max(...actions.map(a => a.ordr || 0))
+      : 0;
+
+    const newTrigger = {
+      xref_id: component.xref_id,
+      class: selectedClass,
+      action: actionName,
+      ordr: maxOrder + 1,
+      content: '{}'
+    };
+
+    try {
+      console.log('🔨 Adding trigger to MySQL:', newTrigger);
+
+      // Save to MySQL first
+      const response = await execDml('INSERT', {
+        method: 'INSERT',
+        table: 'api_wf.eventTrigger',
+        data: newTrigger
+      });
+
+      console.log('✅ MySQL INSERT response:', response);
+
+      // Then save to IndexedDB with MySQL id
+      await db.eventTriggers.add({
+        ...newTrigger,
+        id: response.insertId
+      });
+
+      console.log('✅ Saved to IndexedDB with id:', response.insertId);
+
+      await loadTriggers();
+      await handleSelectClass(selectedClass);
+      setShowActionDropdown(false);
+    } catch (error) {
+      console.error('❌ Add action failed:', error);
+      alert(`❌ Failed to add action: ${error.message}`);
+    }
+  };
+
+  const handleEditAction = (action) => {
+    setEditingAction(action);
+  };
+
+  const handleSaveParams = async (newContent) => {
+    if (!editingAction) return;
+
+    try {
+      // Check if record exists in MySQL
+      if (!editingAction.id) {
+        throw new Error('Cannot update trigger: Missing MySQL id. Record may not exist in database yet.');
+      }
+
+      // Save to MySQL
+      await execDml('UPDATE', {
+        method: 'UPDATE',
+        table: 'api_wf.eventTrigger',
+        data: { content: newContent },
+        primaryKey: { id: editingAction.id }
+      });
+
+      // Update IndexedDB
+      await db.eventTriggers.update(editingAction.idbID, {
+        content: newContent
+      });
+
+      await loadTriggers();
+      await handleSelectClass(selectedClass);
+      setEditingAction(null);
+    } catch (error) {
+      console.error('Save params error:', error);
+      alert(`❌ Failed to save params: ${error.message}`);
+    }
+  };
+
+  const handleDeleteAction = async (action) => {
+    if (!confirm(`Delete action "${action.action}"?`)) return;
+
+    try {
+      // Delete from MySQL
+      await execDml('DELETE', {
+        method: 'DELETE',
+        table: 'api_wf.eventTrigger',
+        primaryKey: { id: action.id }
+      });
+
+      // Delete from IndexedDB
+      await db.eventTriggers.delete(action.idbID);
+
+      await loadTriggers();
+      await handleSelectClass(selectedClass);
+    } catch (error) {
+      alert(`❌ Failed to delete action: ${error.message}`);
+    }
+  };
+
+  const handleClearBadTriggers = async () => {
+    if (!confirm('Delete all triggers for this component from IndexedDB? This will help reset corrupted data.')) return;
+
+    try {
+      // Delete all triggers for this component from IndexedDB
+      const triggersToDelete = await db.eventTriggers
+        .where('xref_id').equals(component.xref_id)
+        .toArray();
+
+      for (const trigger of triggersToDelete) {
+        await db.eventTriggers.delete(trigger.idbID);
+      }
+
+      alert(`✅ Cleared ${triggersToDelete.length} triggers from IndexedDB`);
+
+      await loadTriggers();
+      setSelectedClass(null);
+      setActions([]);
+    } catch (error) {
+      alert(`❌ Failed to clear triggers: ${error.message}`);
+    }
+  };
+
+  const handleMoveAction = async (action, direction) => {
+    const currentIndex = actions.findIndex(a => a.idbID === action.idbID);
+    if (currentIndex === -1) return;
+
+    const swapIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+    if (swapIndex < 0 || swapIndex >= actions.length) return;
+
+    const swapAction = actions[swapIndex];
+
+    try {
+      // Update both in MySQL
+      await execDml('UPDATE', {
+        method: 'UPDATE',
+        table: 'api_wf.eventTrigger',
+        data: { ordr: swapAction.ordr },
+        primaryKey: { id: action.id }
+      });
+
+      await execDml('UPDATE', {
+        method: 'UPDATE',
+        table: 'api_wf.eventTrigger',
+        data: { ordr: action.ordr },
+        primaryKey: { id: swapAction.id }
+      });
+
+      // Update IndexedDB
+      await db.eventTriggers.update(action.idbID, {
+        ordr: swapAction.ordr
+      });
+
+      await db.eventTriggers.update(swapAction.idbID, {
+        ordr: action.ordr
+      });
+
+      await loadTriggers();
+      await handleSelectClass(selectedClass);
+    } catch (error) {
+      alert(`❌ Failed to reorder actions: ${error.message}`);
+    }
+  };
+
   if (!component) {
     return <div style={styles.empty}>Select a component to edit triggers</div>;
   }
@@ -110,27 +275,32 @@ const TriggerBuilder = ({ component }) => {
       <div style={styles.section}>
         <div style={styles.header}>
           <h3 style={styles.sectionTitle}>Classes</h3>
-          <div style={{ position: 'relative' }}>
-            <button onClick={() => setShowClassDropdown(!showClassDropdown)} style={styles.addButton}>
-              + Add Class
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button onClick={handleClearBadTriggers} style={{...styles.addButton, backgroundColor: '#ef4444'}}>
+              🗑️ Clear All Triggers
             </button>
-            {showClassDropdown && (
-              <div style={styles.dropdown}>
-                {availableClasses
-                  .filter(c => !classes.includes(c.name))
-                  .map(cls => (
-                    <div
-                      key={cls.id}
-                      onClick={() => handleAddClass(cls.name)}
-                      style={styles.dropdownItem}
-                      title={cls.description}
-                    >
-                      <span style={styles.dropdownName}>{cls.name}</span>
-                      {cls.is_dom_event === 1 && <span style={styles.domBadge}>DOM</span>}
-                    </div>
-                  ))}
-              </div>
-            )}
+            <div style={{ position: 'relative' }}>
+              <button onClick={() => setShowClassDropdown(!showClassDropdown)} style={styles.addButton}>
+                + Add Class
+              </button>
+              {showClassDropdown && (
+                <div style={styles.dropdown}>
+                  {availableClasses
+                    .filter(c => !classes.includes(c.name))
+                    .map(cls => (
+                      <div
+                        key={cls.id}
+                        onClick={() => handleAddClass(cls.name)}
+                        style={styles.dropdownItem}
+                        title={cls.description}
+                      >
+                        <span style={styles.dropdownName}>{cls.name}</span>
+                        {cls.is_dom_event === 1 && <span style={styles.domBadge}>DOM</span>}
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div style={styles.classGrid}>
@@ -157,7 +327,25 @@ const TriggerBuilder = ({ component }) => {
         <div style={styles.section}>
           <div style={styles.header}>
             <h3 style={styles.sectionTitle}>Actions for: {selectedClass}</h3>
-            <button style={styles.addButton}>+ Add Action</button>
+            <div style={{ position: 'relative' }}>
+              <button onClick={() => setShowActionDropdown(!showActionDropdown)} style={styles.addButton}>
+                + Add Action
+              </button>
+              {showActionDropdown && (
+                <div style={styles.dropdown}>
+                  {availableTriggers.map(trigger => (
+                    <div
+                      key={trigger.id}
+                      onClick={() => handleAddAction(trigger.name)}
+                      style={styles.dropdownItem}
+                      title={trigger.description}
+                    >
+                      <span style={styles.dropdownName}>{trigger.name}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           <div style={styles.actionGrid}>
             <div style={styles.actionHeader}>
@@ -180,8 +368,24 @@ const TriggerBuilder = ({ component }) => {
                   })()}
                 </span>
                 <span style={styles.colControls}>
-                  <button style={styles.iconButton}>✎</button>
-                  <button style={styles.iconButton}>×</button>
+                  <button
+                    onClick={() => handleMoveAction(action, 'up')}
+                    style={styles.iconButton}
+                    disabled={actions.indexOf(action) === 0}
+                    title="Move up"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    onClick={() => handleMoveAction(action, 'down')}
+                    style={styles.iconButton}
+                    disabled={actions.indexOf(action) === actions.length - 1}
+                    title="Move down"
+                  >
+                    ↓
+                  </button>
+                  <button onClick={() => handleEditAction(action)} style={styles.iconButton} title="Edit">✎</button>
+                  <button onClick={() => handleDeleteAction(action)} style={styles.iconButton} title="Delete">×</button>
                 </span>
               </div>
             ))}
@@ -204,6 +408,20 @@ ${Object.entries(workflowPreview).map(([cls, acts]) =>
   }
 }`}
           </pre>
+        </div>
+      )}
+
+      {/* Param Editor Modal */}
+      {editingAction && (
+        <div style={styles.modalOverlay} onClick={() => setEditingAction(null)}>
+          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <ParamEditor
+              action={editingAction.action}
+              currentParams={editingAction.content}
+              onSave={handleSaveParams}
+              onCancel={() => setEditingAction(null)}
+            />
+          </div>
         </div>
       )}
     </div>
@@ -310,6 +528,27 @@ const styles = {
     display: 'flex',
     gap: '4px',
   },
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderRadius: '8px',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+    maxWidth: '600px',
+    width: '90%',
+    maxHeight: '80vh',
+    overflow: 'auto',
+  },
   iconButton: {
     padding: '4px 8px',
     fontSize: '14px',
@@ -332,6 +571,22 @@ const styles = {
     padding: '32px',
     textAlign: 'center',
     color: '#94a3b8',
+  },
+  saveButtonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: '16px',
+  },
+  saveButton: {
+    padding: '10px 20px',
+    fontSize: '14px',
+    fontWeight: 600,
+    backgroundColor: '#10b981',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
   },
   dropdown: {
     position: 'absolute',

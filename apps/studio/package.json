@@ -5,6 +5,8 @@
   "dependencies": {
     "@whatsfresh/shared-imports": "file:../../packages/shared-imports",
     "dexie": "^4.2.1",
+    "json-stringify-pretty-compact": "^4.0.0",
+    "mermaid": "^11.12.0",
     "nanoid": "^5.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

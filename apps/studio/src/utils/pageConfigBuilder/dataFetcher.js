@@ -16,7 +16,12 @@ export const getComponentProps = async (xref_id) => {
 };
 
 export const getComponentTriggers = async (xref_id) => {
-  const triggers = await db.eventTriggers.where('xref_id').equals(xref_id).toArray();
+  const numericId = typeof xref_id === 'string' ? parseInt(xref_id, 10) : xref_id;
+  const allTriggers = await db.eventTriggers.toArray();
+  const triggers = allTriggers.filter(t => {
+    const triggerXrefId = typeof t.xref_id === 'string' ? parseInt(t.xref_id, 10) : t.xref_id;
+    return triggerXrefId === numericId;
+  });
   return triggers;
 };
 

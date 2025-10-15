@@ -1,18 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { buildPageConfig } from '../utils/pageConfigBuilder';
+import { formatPageConfig } from '../utils/pageConfigBuilder/formatPageConfig';
 import DirectRenderer from '../rendering/DirectRenderer';
+import mermaid from 'mermaid';
 
 const PagePreviewPanel = ({ pageID }) => {
   const [activeTab, setActiveTab] = useState('code');
   const [pageConfig, setPageConfig] = useState(null);
+  const [mermaidText, setMermaidText] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const mermaidRef = useRef(null);
+
+  useEffect(() => {
+    mermaid.initialize({ startOnLoad: false, theme: 'default' });
+  }, []);
 
   useEffect(() => {
     if (pageID) {
       loadPageConfig();
     }
   }, [pageID]);
+
+  useEffect(() => {
+    const renderMermaid = async () => {
+      if (mermaidText && mermaidRef.current && activeTab === 'mermaid') {
+        try {
+          mermaidRef.current.innerHTML = '';
+          const { svg } = await mermaid.render('mermaid-diagram', mermaidText);
+          mermaidRef.current.innerHTML = svg;
+        } catch (err) {
+          console.error('Mermaid render error:', err);
+          mermaidRef.current.innerHTML = `<pre style="color: red;">Mermaid Error: ${err.message}</pre>`;
+        }
+      }
+    };
+    renderMermaid();
+  }, [mermaidText, activeTab]);
 
   const loadPageConfig = async () => {
     setLoading(true);
@@ -23,6 +47,7 @@ const PagePreviewPanel = ({ pageID }) => {
 
       if (result.success) {
         setPageConfig(result.pageConfig);
+        setMermaidText(result.mermaidText);
         console.log('✅ PageConfig built:', result);
       } else {
         setError(result.error);
@@ -48,6 +73,7 @@ const PagePreviewPanel = ({ pageID }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           pageConfig,
+          mermaidText,
           appName: pageConfig.routePath?.split('/')[1] || 'whatsfresh',
           pageName: pageConfig.routePath?.split('/')[2] || 'unknown',
           pageID
@@ -91,6 +117,12 @@ const PagePreviewPanel = ({ pageID }) => {
           >
             🎨 Rendered Page
           </button>
+          <button
+            style={activeTab === 'mermaid' ? styles.tabActive : styles.tab}
+            onClick={() => setActiveTab('mermaid')}
+          >
+            📊 Mermaid Diagram
+          </button>
         </div>
 
         <div style={styles.actions}>
@@ -133,7 +165,7 @@ const PagePreviewPanel = ({ pageID }) => {
         {!loading && !error && pageConfig && activeTab === 'code' && (
           <div style={styles.codeView}>
             <pre style={styles.codeBlock}>
-              {JSON.stringify(pageConfig, null, 2)}
+              {formatPageConfig(pageConfig)}
             </pre>
           </div>
         )}
@@ -141,6 +173,12 @@ const PagePreviewPanel = ({ pageID }) => {
         {!loading && !error && pageConfig && activeTab === 'rendered' && (
           <div style={styles.renderedView}>
             <DirectRenderer config={pageConfig} />
+          </div>
+        )}
+
+        {!loading && !error && mermaidText && activeTab === 'mermaid' && (
+          <div style={styles.mermaidView}>
+            <div ref={mermaidRef} style={styles.mermaidContainer}></div>
           </div>
         )}
       </div>
@@ -302,6 +340,17 @@ const styles = {
     overflow: 'auto',
     padding: '20px',
     backgroundColor: '#f8fafc',
+  },
+  mermaidView: {
+    height: '100%',
+    overflow: 'auto',
+    padding: '20px',
+    backgroundColor: '#fff',
+  },
+  mermaidContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
 };
 

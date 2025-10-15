@@ -10,18 +10,26 @@ export const buildWorkflowTriggers = (triggers) => {
       workflowTriggers[trigger.class] = [];
     }
 
-    let params = {};
+    let params;
     try {
       params = JSON.parse(trigger.content || '{}');
     } catch (e) {
       params = trigger.content || {};
     }
 
-    workflowTriggers[trigger.class].push({
-      action: trigger.action,
-      params,
-      _order: trigger.ordr || 0
-    });
+    const triggerObj = { action: trigger.action, _order: trigger.ordr || 0 };
+
+    if (params !== null && params !== undefined) {
+      if (Array.isArray(params) && params.length > 0) {
+        triggerObj.params = params;
+      } else if (typeof params === 'object' && Object.keys(params).length > 0) {
+        triggerObj.params = params;
+      } else if (typeof params === 'string' && params.length > 0) {
+        triggerObj.params = params;
+      }
+    }
+
+    workflowTriggers[trigger.class].push(triggerObj);
   });
 
   Object.keys(workflowTriggers).forEach(cls => {

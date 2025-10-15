@@ -1,6 +1,7 @@
 import { buildComponentConfig } from './componentBuilder.js';
 import { buildWorkflowTriggers } from './triggersBuilder.js';
 import { getComponent, getComponentProps, getComponentTriggers, getChildComponents } from './dataFetcher.js';
+import { generateMermaid } from './genMermaid.js';
 import { db } from '../../db/studioDb';
 
 export const buildPageConfig = async (pageID) => {
@@ -46,18 +47,22 @@ export const buildPageConfig = async (pageID) => {
     const defaultRoutePath = appName ? `/${appName}/${pageComponent.comp_name}` : `/${pageComponent.comp_name}`;
 
     const pageConfig = {
+      pageName: pageComponent.comp_name,
+      title: pageComponent.title || pageComponent.comp_name,
+      ...(pageComponent.description && { description: pageComponent.description }),
+      routePath: pageProps.routePath || defaultRoutePath,
+      cluster: 'Page',
       layout: 'flex',
       ...(workflowTriggers && { workflowTriggers }),
-      components,
-      title: pageProps.title || pageComponent.comp_name,
-      routePath: pageProps.routePath || defaultRoutePath,
-      purpose: 'Database-generated page configuration',
-      cluster: 'Page'
+      components
     };
+
+    const mermaidText = generateMermaid(pageConfig);
 
     return {
       success: true,
       pageConfig,
+      mermaidText,
       meta: {
         pageID,
         pageName: pageComponent.comp_name,

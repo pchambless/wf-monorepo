@@ -1,16 +1,27 @@
 /**
- * Convert position object to flexbox width
- * Position format: { row, order, width }
+ * Convert position object to flexbox styles
+ * Position format: { row, order, width, align }
  */
 export function getFlexPosition(position) {
-  if (!position || !position.width) return {};
+  if (!position) return {};
 
-  return {
-    flexBasis: position.width,
-    flexGrow: 0,
-    flexShrink: 1,
-    minWidth: 0  // Allows flex items to shrink below content size
-  };
+  const styles = {};
+
+  if (position.width) {
+    styles.flexBasis = position.width;
+    styles.flexGrow = 0;
+    styles.flexShrink = 1;
+    styles.minWidth = 0;  // Allows flex items to shrink below content size
+  }
+
+  if (position.align === 'right') {
+    styles.marginLeft = 'auto';
+  } else if (position.align === 'center') {
+    styles.marginLeft = 'auto';
+    styles.marginRight = 'auto';
+  }
+
+  return styles;
 }
 
 /**

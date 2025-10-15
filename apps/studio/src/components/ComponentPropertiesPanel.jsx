@@ -15,6 +15,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
   const [isCreating, setIsCreating] = useState(false);
   const [activeTab, setActiveTab] = useState('component');
   const [showTriggersModal, setShowTriggersModal] = useState(false);
+  const [fullComponent, setFullComponent] = useState(null);
   const [editedCompName, setEditedCompName] = useState('');
   const [editedTitle, setEditedTitle] = useState('');
   const [editedType, setEditedType] = useState('');
@@ -720,12 +721,18 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
           </div>
         )}
 
-        {showTriggersModal && (
+        {showTriggersModal && (() => {
+          console.log('🔍 Triggers Modal - selectedComponent:', selectedComponent);
+          return (
           <div style={styles.modalOverlay} onClick={() => setShowTriggersModal(false)}>
             <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
               <div style={styles.modalHeader}>
                 <h2 style={styles.modalTitle}>
-                  Triggers - {selectedComponent?.comp_name || selectedComponent?.title}
+                  Triggers - {(() => {
+                    const name = editedCompName || selectedComponent?.comp_name || selectedComponent?.label || 'Unknown';
+                    const title = editedTitle || selectedComponent?.title;
+                    return title && title !== name ? `${name} (${title})` : name;
+                  })()}
                 </h2>
                 <button
                   style={styles.modalClose}
@@ -739,7 +746,8 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
               </div>
             </div>
           </div>
-        )}
+          );
+        })()}
 
         {activeTab === 'preview' && (
           <div style={styles.tabContent}>

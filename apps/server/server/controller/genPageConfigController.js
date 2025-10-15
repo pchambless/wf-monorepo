@@ -14,7 +14,7 @@ const PRODUCTION_APPS_PATH = '/home/paul/wf-monorepo-new/apps';
 const genPageConfigController = async (req, res) => {
   logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
-  const { pageConfig, appName, pageName, pageID } = req.body;
+  const { pageConfig, mermaidText, appName, pageName, pageID } = req.body;
 
   if (!pageConfig) {
     return res.status(400).json({
@@ -39,7 +39,8 @@ const genPageConfigController = async (req, res) => {
 
     const productionPaths = {
       pageConfig: path.join(productionDir, 'pageConfig.json'),
-      index: path.join(productionDir, 'index.jsx')
+      index: path.join(productionDir, 'index.jsx'),
+      mermaid: path.join(productionDir, 'pageMermaid.mmd')
     };
 
     await fs.mkdir(productionDir, { recursive: true });
@@ -71,6 +72,11 @@ export default ${componentName};
     await fs.writeFile(productionPaths.index, indexTemplate);
     logger.debug(`${codeName} Saved index.jsx to ${productionPaths.index}`);
 
+    if (mermaidText) {
+      await fs.writeFile(productionPaths.mermaid, mermaidText);
+      logger.debug(`${codeName} Saved pageMermaid.mmd to ${productionPaths.mermaid}`);
+    }
+
     logger.info(`${codeName} PageConfig written successfully for ${appName}/${pageName}`);
 
     res.json({
@@ -84,7 +90,8 @@ export default ${componentName};
         generatedAt: new Date().toISOString(),
         files: {
           pageConfig: productionPaths.pageConfig,
-          index: productionPaths.index
+          index: productionPaths.index,
+          ...(mermaidText && { mermaid: productionPaths.mermaid })
         }
       }
     });
