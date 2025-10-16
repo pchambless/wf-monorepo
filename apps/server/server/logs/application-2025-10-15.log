@@ -5122,3 +5122,16 @@
 {"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-10-15 14:03:01"}
 {"level":"info","message":"[execEventType.js] EventSQL executed successfully: xrefPropList (ID: 7)","timestamp":"2025-10-15 14:03:01"}
 {"level":"info","message":"[app.js]  Response: POST /api/execEventType 200 (126ms)","timestamp":"2025-10-15 14:03:01"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-10-15 14:36:17"}
+{"level":"http","message":"[app.js]  Request","method":"GET","path":"/api/github/issues","timestamp":"2025-10-15 15:24:55"}
+{"level":"http","message":"[githubController.js] GET /api/github/issues","timestamp":"2025-10-15 15:24:55"}
+{"level":"info","message":"[githubController.js] Retrieved 11 issues","timestamp":"2025-10-15 15:24:55"}
+{"level":"info","message":"[app.js]  Response: GET /api/github/issues 200 (551ms)","timestamp":"2025-10-15 15:24:55"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":550.809547,"method":"GET","operation":"http_request","path":"/api/github/issues","status":200},"timestamp":"2025-10-15 15:24:55"}
+{"level":"http","message":"[app.js]  Request","method":"GET","path":"/api/github/issues","timestamp":"2025-10-15 15:25:06"}
+{"level":"http","message":"[githubController.js] GET /api/github/issues","timestamp":"2025-10-15 15:25:06"}
+{"level":"info","message":"[githubController.js] Retrieved 11 issues","timestamp":"2025-10-15 15:25:06"}
+{"level":"info","message":"[app.js]  Response: GET /api/github/issues 200 (403ms)","timestamp":"2025-10-15 15:25:06"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-10-15 15:36:17"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-10-15 16:36:17"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-10-15 17:36:17"}

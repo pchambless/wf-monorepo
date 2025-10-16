@@ -15,7 +15,7 @@ export const getPendingChanges = async () => {
     props,
     eventTypes,
     eventSQL,
-    triggers: triggerDefs,
+    triggerDefs,
     total: components.length + triggers.length + props.length + eventTypes.length + eventSQL.length + triggerDefs.length
   };
 };
@@ -36,7 +36,7 @@ export const syncToMySQL = async () => {
   }
 
   for (const trigger of pending.triggers) {
-    const result = await syncRecord('api_wf.eventTriggers', trigger);
+    const result = await syncRecord('api_wf.eventTrigger', trigger);
     results.push(result);
   }
 

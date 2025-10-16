@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../db/studioDb';
 import ParamEditor from './ParamEditor';
-import { execDml } from '@whatsfresh/shared-imports';
+import { insertTrigger, updateTrigger, deleteTrigger, syncTriggers } from '../../db/operations/eventTriggers';
+import { loadTriggers as loadTriggersFromMySQL } from '../../utils/referenceLoaders';
 
 const TriggerBuilder = ({ component }) => {
   const [classes, setClasses] = useState([]);
@@ -15,10 +16,22 @@ const TriggerBuilder = ({ component }) => {
   const [editingAction, setEditingAction] = useState(null);
 
   useEffect(() => {
-    loadAvailableTriggers();
-    if (component?.xref_id) {
-      loadTriggers();
-    }
+    const init = async () => {
+      // Load trigger definitions from MySQL if IndexedDB is empty
+      const count = await db.triggers.count();
+      if (count === 0) {
+        console.log('📥 Loading triggers from MySQL...');
+        await loadTriggersFromMySQL();
+      }
+
+      await loadAvailableTriggers();
+
+      if (component?.xref_id) {
+        loadTriggers();
+      }
+    };
+
+    init();
   }, [component?.xref_id]);
 
   const loadAvailableTriggers = async () => {
@@ -28,6 +41,9 @@ const TriggerBuilder = ({ component }) => {
     const classTriggers = await db.triggers
       .where('trigType').equals('class')
       .toArray();
+
+    console.log('📋 Loaded action triggers:', actionTriggers.length);
+    console.log('📋 Loaded class triggers:', classTriggers.length, classTriggers);
 
     setAvailableTriggers(actionTriggers);
     setAvailableClasses(classTriggers);
@@ -78,6 +94,7 @@ const TriggerBuilder = ({ component }) => {
   };
 
   const handleAddClass = async (className) => {
+    console.log('🎯 handleAddClass called with:', className);
     if (!className) return;
 
     // Just add to classes list and select it (no trigger created yet)
@@ -88,6 +105,7 @@ const TriggerBuilder = ({ component }) => {
     setShowClassDropdown(false);
     setSelectedClass(className);
     setActions([]); // Empty actions for new class
+    console.log('✅ Class added:', className);
   };
 
   const handleSelectClass = async (className) => {
@@ -108,41 +126,18 @@ const TriggerBuilder = ({ component }) => {
       ? Math.max(...actions.map(a => a.ordr || 0))
       : 0;
 
-    const newTrigger = {
+    // Use dedicated insertTrigger operation
+    await insertTrigger({
       xref_id: component.xref_id,
       class: selectedClass,
       action: actionName,
       ordr: maxOrder + 1,
       content: '{}'
-    };
+    });
 
-    try {
-      console.log('🔨 Adding trigger to MySQL:', newTrigger);
-
-      // Save to MySQL first
-      const response = await execDml('INSERT', {
-        method: 'INSERT',
-        table: 'api_wf.eventTrigger',
-        data: newTrigger
-      });
-
-      console.log('✅ MySQL INSERT response:', response);
-
-      // Then save to IndexedDB with MySQL id
-      await db.eventTriggers.add({
-        ...newTrigger,
-        id: response.insertId
-      });
-
-      console.log('✅ Saved to IndexedDB with id:', response.insertId);
-
-      await loadTriggers();
-      await handleSelectClass(selectedClass);
-      setShowActionDropdown(false);
-    } catch (error) {
-      console.error('❌ Add action failed:', error);
-      alert(`❌ Failed to add action: ${error.message}`);
-    }
+    await loadTriggers();
+    await handleSelectClass(selectedClass);
+    setShowActionDropdown(false);
   };
 
   const handleEditAction = (action) => {
@@ -152,53 +147,30 @@ const TriggerBuilder = ({ component }) => {
   const handleSaveParams = async (newContent) => {
     if (!editingAction) return;
 
-    try {
-      // Check if record exists in MySQL
-      if (!editingAction.id) {
-        throw new Error('Cannot update trigger: Missing MySQL id. Record may not exist in database yet.');
-      }
+    // Update in IndexedDB with _dmlMethod flag
+    const dmlMethod = editingAction.id ? 'UPDATE' : 'INSERT';
 
-      // Save to MySQL
-      await execDml('UPDATE', {
-        method: 'UPDATE',
-        table: 'api_wf.eventTrigger',
-        data: { content: newContent },
-        primaryKey: { id: editingAction.id }
-      });
+    await db.eventTriggers.update(editingAction.idbID, {
+      content: newContent,
+      _dmlMethod: dmlMethod
+    });
 
-      // Update IndexedDB
-      await db.eventTriggers.update(editingAction.idbID, {
-        content: newContent
-      });
-
-      await loadTriggers();
-      await handleSelectClass(selectedClass);
-      setEditingAction(null);
-    } catch (error) {
-      console.error('Save params error:', error);
-      alert(`❌ Failed to save params: ${error.message}`);
-    }
+    await loadTriggers();
+    await handleSelectClass(selectedClass);
+    setEditingAction(null);
   };
 
   const handleDeleteAction = async (action) => {
     if (!confirm(`Delete action "${action.action}"?`)) return;
 
-    try {
-      // Delete from MySQL
-      await execDml('DELETE', {
-        method: 'DELETE',
-        table: 'api_wf.eventTrigger',
-        primaryKey: { id: action.id }
-      });
+    // Mark as deleted in IndexedDB
+    await db.eventTriggers.update(action.idbID, {
+      _dmlMethod: 'DELETE',
+      deleted_at: new Date().toISOString()
+    });
 
-      // Delete from IndexedDB
-      await db.eventTriggers.delete(action.idbID);
-
-      await loadTriggers();
-      await handleSelectClass(selectedClass);
-    } catch (error) {
-      alert(`❌ Failed to delete action: ${error.message}`);
-    }
+    await loadTriggers();
+    await handleSelectClass(selectedClass);
   };
 
   const handleClearBadTriggers = async () => {
@@ -233,35 +205,39 @@ const TriggerBuilder = ({ component }) => {
 
     const swapAction = actions[swapIndex];
 
+    // Swap order in IndexedDB with _dmlMethod flag
+    const dmlMethod1 = action.id ? 'UPDATE' : 'INSERT';
+    const dmlMethod2 = swapAction.id ? 'UPDATE' : 'INSERT';
+
+    await db.eventTriggers.update(action.idbID, {
+      ordr: swapAction.ordr,
+      _dmlMethod: dmlMethod1
+    });
+
+    await db.eventTriggers.update(swapAction.idbID, {
+      ordr: action.ordr,
+      _dmlMethod: dmlMethod2
+    });
+
+    await loadTriggers();
+    await handleSelectClass(selectedClass);
+  };
+
+  const handleSaveTriggers = async () => {
     try {
-      // Update both in MySQL
-      await execDml('UPDATE', {
-        method: 'UPDATE',
-        table: 'api_wf.eventTrigger',
-        data: { ordr: swapAction.ordr },
-        primaryKey: { id: action.id }
-      });
+      const results = await syncTriggers();
+      const failed = results.filter(r => !r.success);
 
-      await execDml('UPDATE', {
-        method: 'UPDATE',
-        table: 'api_wf.eventTrigger',
-        data: { ordr: action.ordr },
-        primaryKey: { id: swapAction.id }
-      });
-
-      // Update IndexedDB
-      await db.eventTriggers.update(action.idbID, {
-        ordr: swapAction.ordr
-      });
-
-      await db.eventTriggers.update(swapAction.idbID, {
-        ordr: action.ordr
-      });
+      if (failed.length > 0) {
+        alert(`❌ Some triggers failed to sync:\n${failed.map(r => r.error).join('\n')}`);
+      } else {
+        alert(`✅ Triggers saved successfully! (${results.length} records synced)`);
+      }
 
       await loadTriggers();
-      await handleSelectClass(selectedClass);
     } catch (error) {
-      alert(`❌ Failed to reorder actions: ${error.message}`);
+      console.error('Save error:', error);
+      alert(`❌ Save failed: ${error.message}`);
     }
   };
 
@@ -271,6 +247,13 @@ const TriggerBuilder = ({ component }) => {
 
   return (
     <div style={styles.container}>
+      {/* Save Button */}
+      <div style={styles.saveButtonContainer}>
+        <button onClick={handleSaveTriggers} style={styles.saveButton}>
+          💾 Save Triggers to MySQL
+        </button>
+      </div>
+
       {/* Class Grid */}
       <div style={styles.section}>
         <div style={styles.header}>
