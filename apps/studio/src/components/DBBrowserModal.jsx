@@ -291,7 +291,7 @@ const DBBrowserModal = ({ onClose }) => {
                         <td style={styles.td}>
                           <button
                             style={styles.button}
-                            onClick={() => deleteRecord(selectedStore, record.id)}
+                            onClick={() => deleteRecord(selectedStore, record.idbID)}
                           >
                             Delete
                           </button>

@@ -6,7 +6,7 @@ import { db } from '../../db/studioDb';
  * Uses param_schema from triggers table to render appropriate inputs
  */
 const ParamEditor = ({ action, currentParams, onSave, onCancel }) => {
-  const [schema, setSchema] = useState(null);
+  const [contentType, setContentType] = useState('json');
   const [example, setExample] = useState(null);
   const [params, setParams] = useState(currentParams || '{}');
   const [error, setError] = useState(null);
@@ -23,59 +23,57 @@ const ParamEditor = ({ action, currentParams, onSave, onCancel }) => {
       .first();
 
     if (trigger) {
-      try {
-        setSchema(JSON.parse(trigger.param_schema));
-        setExample(trigger.example);
-      } catch (err) {
-        console.error('Failed to parse param_schema:', err);
-      }
+      setContentType(trigger.content_type || 'json');
+      setExample(trigger.example);
     }
   };
 
   const handleSave = () => {
-    try {
-      // Validate JSON
-      JSON.parse(params);
-      onSave(params);
-    } catch (err) {
-      setError(`Invalid JSON: ${err.message}`);
+    const trimmed = params.trim();
+
+    if (contentType === 'string') {
+      // Plain string - no JSON validation required
+      onSave(trimmed);
+    } else if (contentType === 'number') {
+      // Validate number
+      if (isNaN(trimmed)) {
+        setError('Invalid number');
+        return;
+      }
+      onSave(trimmed);
+    } else {
+      // JSON validation required (object or array)
+      try {
+        const parsed = JSON.parse(trimmed);
+
+        // Validate type matches
+        if (contentType === 'array' && !Array.isArray(parsed)) {
+          setError('Expected array format: [...]');
+          return;
+        }
+        if (contentType === 'object' && (Array.isArray(parsed) || typeof parsed !== 'object')) {
+          setError('Expected object format: {...}');
+          return;
+        }
+
+        onSave(trimmed);
+      } catch (err) {
+        setError(`Invalid JSON: ${err.message}`);
+      }
     }
   };
-
-  if (!schema) {
-    return (
-      <div style={styles.container}>
-        <h3 style={styles.title}>Edit Parameters</h3>
-        <div style={styles.basicEditor}>
-          <label style={styles.label}>Parameters (JSON):</label>
-          <textarea
-            value={params}
-            onChange={(e) => setParams(e.target.value)}
-            style={styles.textarea}
-            rows={6}
-          />
-          {error && <div style={styles.error}>{error}</div>}
-        </div>
-        <div style={styles.actions}>
-          <button onClick={onCancel} style={styles.cancelButton}>Cancel</button>
-          <button onClick={handleSave} style={styles.saveButton}>Save</button>
-        </div>
-      </div>
-    );
-  }
-
-  // TODO: Render smart form based on schema
-  // For now, show JSON editor with schema reference
 
   return (
     <div style={styles.container}>
       <h3 style={styles.title}>Edit Parameters: {action}</h3>
 
       <div style={styles.schemaInfo}>
-        <div style={styles.schemaLabel}>Schema Type: <strong>{schema.type}</strong></div>
-        {schema.description && <div style={styles.description}>{schema.description}</div>}
+        <div style={styles.schemaLabel}>Content Type: <strong>{contentType}</strong></div>
         <div style={styles.schemaNote}>
-          💡 Tip: Some actions accept multiple formats. See example below.
+          💡 {contentType === 'string' && 'Enter a plain string (no quotes needed)'}
+          {contentType === 'number' && 'Enter a numeric value'}
+          {contentType === 'object' && 'Enter a JSON object: {...}'}
+          {contentType === 'array' && 'Enter a JSON array: [...]'}
         </div>
       </div>
 
@@ -95,7 +93,16 @@ const ParamEditor = ({ action, currentParams, onSave, onCancel }) => {
 
       {example && (
         <div style={styles.exampleSection}>
-          <div style={styles.exampleLabel}>Example:</div>
+          <div style={styles.exampleHeader}>
+            <div style={styles.exampleLabel}>Example:</div>
+            <button
+              onClick={() => setParams(example)}
+              style={styles.useTemplateButton}
+              title="Copy example to editor"
+            >
+              📋 Use Template
+            </button>
+          </div>
           <pre style={styles.exampleCode}>{example}</pre>
         </div>
       )}
@@ -176,10 +183,25 @@ const styles = {
     flexDirection: 'column',
     gap: '8px',
   },
+  exampleHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   exampleLabel: {
     fontSize: '13px',
     fontWeight: 500,
     color: '#475569',
+  },
+  useTemplateButton: {
+    padding: '4px 12px',
+    fontSize: '12px',
+    border: '1px solid #cbd5e1',
+    borderRadius: '4px',
+    backgroundColor: '#fff',
+    cursor: 'pointer',
+    fontWeight: 500,
+    color: '#3b82f6',
   },
   exampleCode: {
     fontFamily: 'monospace',

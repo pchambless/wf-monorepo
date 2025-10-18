@@ -43,7 +43,7 @@ export const buildComponentConfig = async (component, level = 0) => {
   const position = parsePosOrder(component.posOrder);
   let props = await getComponentProps(component.id);
   const triggers = await getComponentTriggers(component.id);
-  const workflowTriggers = buildWorkflowTriggers(triggers);
+  const workflowTriggers = await buildWorkflowTriggers(triggers);
 
   props = mergeColumnOverrides(props);
 

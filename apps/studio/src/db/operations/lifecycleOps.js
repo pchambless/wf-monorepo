@@ -111,14 +111,44 @@ export const hasPendingChanges = async () => {
 /**
  * Warn Before Navigation
  * Check for unsaved changes before clearing working data
+ * Offers to save changes before navigating
  */
 export const warnBeforeNavigation = async () => {
   const hasChanges = await hasPendingChanges();
 
   if (hasChanges) {
-    return window.confirm(
-      'You have unsaved changes. Navigating away will lose these changes. Continue?'
+    const result = window.confirm(
+      'You have unsaved changes.\n\nClick OK to save and continue.\nClick Cancel to discard changes and continue anyway.'
     );
+
+    if (result) {
+      // User chose to save - sync all pending changes
+      const { syncComponents } = await import('./eventComp_xref/index.js');
+      const { syncProps } = await import('./eventProps/index.js');
+      const { syncTriggers } = await import('./eventTriggers/index.js');
+
+      try {
+        const [compResults, propResults, triggerResults] = await Promise.all([
+          syncComponents(),
+          syncProps(),
+          syncTriggers()
+        ]);
+
+        const allResults = [...compResults, ...propResults, ...triggerResults];
+        const failed = allResults.filter(r => !r.success);
+
+        if (failed.length > 0) {
+          alert(`⚠️ Some changes failed to save:\n${failed.map(r => r.error).join('\n')}\n\nNavigating anyway.`);
+        } else {
+          console.log(`✅ Saved ${allResults.length} changes before navigation`);
+        }
+      } catch (error) {
+        alert(`❌ Failed to save changes: ${error.message}\n\nNavigating anyway.`);
+      }
+    }
+
+    // Continue navigation regardless (changes saved or discarded)
+    return true;
   }
 
   return true;

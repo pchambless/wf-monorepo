@@ -8,3 +8,4 @@ export {
   getComponentHierarchy,
   getComponentChildren
 } from './read.js';
+export { syncComponents } from './sync.js';

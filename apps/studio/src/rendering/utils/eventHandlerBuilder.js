@@ -3,7 +3,7 @@ import { triggerEngine } from '../WorkflowEngine/TriggerEngine.js';
 /**
  * Build event handlers from workflowTriggers - only for DOM events
  */
-export function buildEventHandlers(workflowTriggers, config, setData) {
+export function buildEventHandlers(workflowTriggers, config, setData, contextStore = {}) {
   if (!workflowTriggers) return {};
 
   const handlers = {};
@@ -34,7 +34,8 @@ export function buildEventHandlers(workflowTriggers, config, setData) {
           Object.fromEntries(new FormData(e.target.closest('form'))) : null,
         workflowTriggers,
         pageConfig: config,
-        setData
+        setData,
+        contextStore: contextStore  // Add runtime context for visibility
       };
 
       const domTriggers = triggers.filter(trigger => trigger.is_dom_event);

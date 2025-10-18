@@ -228,6 +228,24 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       }
       console.log('✅ Props marked for sync');
 
+      // Sync to MySQL
+      const { syncComponents } = await import('../db/operations/eventComp_xref');
+      const { syncProps } = await import('../db/operations/eventProps');
+
+      const [compResults, propResults] = await Promise.all([
+        syncComponents(),
+        syncProps()
+      ]);
+
+      const allResults = [...compResults, ...propResults];
+      const failed = allResults.filter(r => !r.success);
+
+      if (failed.length > 0) {
+        alert(`⚠️ Some changes failed to save:\n${failed.map(r => r.error).join('\n')}`);
+      } else {
+        console.log(`✅ Saved ${allResults.length} changes to MySQL`);
+      }
+
       setHasChanges(false);
       console.log('✅ Component updated successfully');
     } catch (error) {
@@ -421,7 +439,13 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
         try { props[p.paramName] = JSON.parse(p.paramVal); }
         catch { props[p.paramName] = p.paramVal; }
       });
-      return props.columns || null;
+
+      // Ensure columns is actually an array
+      if (props.columns && Array.isArray(props.columns)) {
+        return props.columns;
+      }
+
+      return null;
     } catch (error) {
       console.log('No existing fields found, using generated only');
       return null;

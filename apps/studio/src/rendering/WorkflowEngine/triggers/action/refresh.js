@@ -1,18 +1,24 @@
 /**
  * Refresh target components by executing their onRefresh triggers
- * Content must be an array of component IDs: ["comp1", "comp2"]
+ *
+ * Supports multiple formats:
+ * 1. String: "userGrid" → refreshes single component
+ * 2. Array: ["userGrid", "statsPanel"] → refreshes multiple components
  */
 export async function refresh(content, context) {
   const { triggerEngine } = await import('../../TriggerEngine.js');
 
-  if (!Array.isArray(content)) {
-    throw new Error(`refresh: content must be an array, got ${typeof content}`);
+  // Normalize to array
+  const componentIds = typeof content === 'string' ? [content] : content;
+
+  if (!Array.isArray(componentIds)) {
+    throw new Error(`refresh: content must be string or array, got ${typeof content}`);
   }
 
-  console.log('🔄 refresh: Looking for components:', content);
+  console.log('🔄 refresh: Looking for components:', componentIds);
 
   // Execute onRefresh for each target component
-  for (const componentId of content) {
+  for (const componentId of componentIds) {
     const component = findComponentById(context.pageConfig, componentId);
 
     if (!component) {

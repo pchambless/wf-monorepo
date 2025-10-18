@@ -40,7 +40,7 @@ export const buildPageConfig = async (pageID) => {
 
     const pageProps = await getComponentProps(pageID);
     const pageTriggers = await getComponentTriggers(pageID);
-    const workflowTriggers = buildWorkflowTriggers(pageTriggers);
+    const workflowTriggers = await buildWorkflowTriggers(pageTriggers);
 
     const appComponent = await getComponent(pageComponent.parent_id);
     const appName = appComponent ? appComponent.comp_name : '';

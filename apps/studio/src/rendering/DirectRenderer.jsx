@@ -47,6 +47,9 @@ const DirectRenderer = ({ config }) => {
     setDataStore(prev => ({ ...prev, [componentId]: data }));
   }, []);
 
+  // Runtime context store for visibility and other temporary UI state
+  const [contextStore, setContextStore] = React.useState({});
+
   React.useEffect(() => {
     triggerEngine.initialize({});
   }, []);
@@ -54,10 +57,15 @@ const DirectRenderer = ({ config }) => {
   React.useEffect(() => {
     if (config.workflowTriggers?.onLoad) {
       console.log('🚀 Executing page-level onLoad triggers:', config.workflowTriggers.onLoad);
-      const context = { pageConfig: config, setData, workflowTriggers: config.workflowTriggers };
+      const context = {
+        pageConfig: config,
+        setData,
+        workflowTriggers: config.workflowTriggers,
+        contextStore: contextStore
+      };
       triggerEngine.executeTriggers(config.workflowTriggers.onLoad, context);
     }
-  }, [config, setData]);
+  }, [config, setData, contextStore]);
 
   // Group components by row for flex layout
   const groupByRow = (components) => {
@@ -103,6 +111,13 @@ const DirectRenderer = ({ config }) => {
       textContent
     } = component;
 
+    // Check visibility in runtime context
+    const visibilityKey = `${id}_visible`;
+    if (contextStore[visibilityKey] === false) {
+      console.log(`🙈 Component ${id} hidden by visibility context`);
+      return null;
+    }
+
     if (comp_type && customComponents[comp_type]) {
       const CustomComponent = customComponents[comp_type];
       return (
@@ -127,7 +142,7 @@ const DirectRenderer = ({ config }) => {
 
     const type = (comp_type || legacyType || 'div').toLowerCase();
     const htmlElement = getHtmlElement(type);
-    const eventHandlers = buildEventHandlers(workflowTriggers, config, setData);
+    const eventHandlers = buildEventHandlers(workflowTriggers, config, setData, contextStore);
 
     const {
       workflowTriggers: _wt,
@@ -192,17 +207,49 @@ const DirectRenderer = ({ config }) => {
     }
 
     let inputKey = id;
-    if (type === 'input' && domProps.name) {
+    let fieldValue = null;
+    let hasData = false;
+    if ((type === 'input' || type === 'textarea') && domProps.name) {
       Object.entries(dataStore).forEach(([storeKey, data]) => {
-        if (data && data.length > 0 && data[0][domProps.name] !== undefined) {
-          domProps.defaultValue = data[0][domProps.name];
-          inputKey = `${id}_${data[0][domProps.name]}`;
+        if (data && Array.isArray(data)) {
+          hasData = true;
+          if (data.length > 0 && data[0][domProps.name] !== undefined) {
+            fieldValue = data[0][domProps.name];
+          } else {
+            // Data exists but is empty array - clear the field
+            fieldValue = '';
+          }
         }
       });
+
+      if (hasData) {
+        console.log(`🔍 Setting ${type} field "${domProps.name}" = "${fieldValue}"`);
+        // Use defaultValue with timestamp in key to force complete recreation
+        domProps.defaultValue = fieldValue || '';
+        // Add timestamp to force truly unique key
+        inputKey = `${id}_${Date.now()}_${Math.random()}`;
+      }
     }
 
     const flexPosition = getFlexPosition(position);
     const mergedStyle = { ...style, ...flexPosition };
+
+    // For textarea with defaultValue, children must be undefined
+    if (type === 'textarea' && domProps.defaultValue !== undefined) {
+      children = undefined;
+      console.log(`🔍 Textarea "${id}" - defaultValue: "${domProps.defaultValue}", key: "${inputKey}"`);
+    }
+
+    // Debug: Log final props being passed to React.createElement
+    if (type === 'textarea') {
+      console.log(`🔍 Creating textarea element:`, {
+        key: inputKey,
+        id: id,
+        name: domProps.name,
+        defaultValue: domProps.defaultValue,
+        children: children
+      });
+    }
 
     return React.createElement(
       htmlElement,

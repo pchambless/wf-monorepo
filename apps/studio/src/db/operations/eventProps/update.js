@@ -39,9 +39,17 @@ export const upsertPropByName = async (xref_id, paramName, paramVal) => {
     ? JSON.stringify(paramVal)
     : String(paramVal);
 
-  if (existing) {
+  if (existing && existing.id !== null) {
+    // Record exists in MySQL - UPDATE it
     await updateProp(existing.idbID, { paramVal: serializedVal });
+  } else if (existing && existing.id === null) {
+    // Record exists in IndexedDB but not MySQL - just update the value, keep INSERT flag
+    await db.eventProps.update(existing.idbID, {
+      paramVal: serializedVal
+      // Don't change _dmlMethod - it's already 'INSERT'
+    });
   } else {
+    // No existing record - INSERT new
     await db.eventProps.add({
       id: null,
       xref_id,

@@ -30,7 +30,7 @@ export function getFlexPosition(position) {
 export function getHtmlElement(type) {
   const elementMap = {
     'page': 'div', 'form': 'form', 'button': 'button', 'select': 'select',
-    'input': 'input', 'label': 'label', 'div': 'div', 'span': 'span',
+    'input': 'input', 'textarea': 'textarea', 'label': 'label', 'div': 'div', 'span': 'span',
     'h1': 'h1', 'h2': 'h2', 'h3': 'h3', 'p': 'p',
     'modal': 'div', 'section': 'section', 'nav': 'nav', 'header': 'header',
     'grid': 'div', 'table': 'table', 'thead': 'thead', 'tbody': 'tbody',
