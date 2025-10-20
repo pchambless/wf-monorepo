@@ -3,14 +3,30 @@
  * @module api
  */
 
-import { execEvent as execEventFn } from './execEvent.js';
-import { execCreateDoc as execCreateDocFn } from './execCreateDoc.js';
-import { execDml as execDmlFn } from './execDml.js';
-import { execDmlWithRefresh as execDmlWithRefreshFn } from './execDmlWithRefresh.js';
-import { setVals as setValsFn } from './setVals.js';
-import { getVal as getValFn } from './getVal.js';
-import { clearVals as clearValsFn } from './clearVals.js';
-import { userLogin as userLoginFn } from './userLogin.js';
+import { execEvent as execEventFn } from "./execEvent.js";
+import { execCreateDoc as execCreateDocFn } from "./execCreateDoc.js";
+import { execDml as execDmlFn } from "./execDml.js";
+import { execDmlWithRefresh as execDmlWithRefreshFn } from "./execDmlWithRefresh.js";
+import { setVals as setValsFn } from "./setVals.js";
+import { getVal as getValFn } from "./getVal.js";
+import { clearVals as clearValsFn } from "./clearVals.js";
+import { userLogin as userLoginFn } from "./userLogin.js";
+import {
+  logImpact as logImpactFn,
+  logBatchImpacts as logBatchImpactsFn,
+  getRecentImpacts as getRecentImpactsFn,
+  getBatchImpacts as getBatchImpactsFn,
+  logFileCreate as logFileCreateFn,
+  logFileModify as logFileModifyFn,
+  logFileDelete as logFileDeleteFn,
+} from "./logImpact.js";
+import {
+  FileImpactLogger,
+  createSession,
+  addFileCreate as addFileCreateFn,
+  addFileModify as addFileModifyFn,
+  addFileDelete as addFileDeleteFn,
+} from "./impactFileLogger.js";
 
 /**
  * Default API configuration
@@ -35,8 +51,7 @@ export function createApi(options = {}) {
   const boundExecEvent = (eventType, params = {}) =>
     execEventFn(eventType, params, config);
 
-  const boundExecCreateDoc = (params) =>
-    execCreateDocFn(params, config);
+  const boundExecCreateDoc = (params) => execCreateDocFn(params, config);
 
   const boundExecDml = (operation, data = {}) =>
     execDmlFn(operation, data, config);
@@ -45,20 +60,36 @@ export function createApi(options = {}) {
     execDmlWithRefreshFn(operation, data, listEvent, {
       ...config,
       execDml: boundExecDml,
-      execEvent: boundExecEvent
+      execEvent: boundExecEvent,
     });
 
-  const boundSetVals = (values) =>
-    setValsFn(values, config);
+  const boundSetVals = (values) => setValsFn(values, config);
 
   const boundGetVal = (paramName, format) =>
     getValFn(paramName, format, config);
 
-  const boundClearVals = (paramNames) =>
-    clearValsFn(paramNames, config);
+  const boundClearVals = (paramNames) => clearValsFn(paramNames, config);
 
-  const boundUserLogin = (loginData) =>
-    userLoginFn(loginData, config);
+  const boundUserLogin = (loginData) => userLoginFn(loginData, config);
+
+  const boundLogImpact = (impactData) => logImpactFn(impactData, config);
+
+  const boundLogBatchImpacts = (impacts, planId = 1) =>
+    logBatchImpactsFn(impacts, planId, config);
+
+  const boundGetRecentImpacts = (hours = 24) =>
+    getRecentImpactsFn(hours, config);
+
+  const boundGetBatchImpacts = (batchId) => getBatchImpactsFn(batchId, config);
+
+  const boundLogFileCreate = (filePath, description, affectedApps = []) =>
+    logFileCreateFn(filePath, description, affectedApps, config);
+
+  const boundLogFileModify = (filePath, description, affectedApps = []) =>
+    logFileModifyFn(filePath, description, affectedApps, config);
+
+  const boundLogFileDelete = (filePath, description, affectedApps = []) =>
+    logFileDeleteFn(filePath, description, affectedApps, config);
 
   return {
     execEvent: boundExecEvent,
@@ -69,6 +100,19 @@ export function createApi(options = {}) {
     getVal: boundGetVal,
     clearVals: boundClearVals,
     userLogin: boundUserLogin,
+    logImpact: boundLogImpact,
+    logBatchImpacts: boundLogBatchImpacts,
+    getRecentImpacts: boundGetRecentImpacts,
+    getBatchImpacts: boundGetBatchImpacts,
+    logFileCreate: boundLogFileCreate,
+    logFileModify: boundLogFileModify,
+    logFileDelete: boundLogFileDelete,
+    // File-based impact logging
+    FileImpactLogger,
+    createSession,
+    addFileCreate: addFileCreateFn,
+    addFileModify: addFileModifyFn,
+    addFileDelete: addFileDeleteFn,
   };
 }
 
@@ -89,4 +133,17 @@ export const {
   getVal,
   clearVals,
   userLogin,
+  logImpact,
+  logBatchImpacts,
+  getRecentImpacts,
+  getBatchImpacts,
+  logFileCreate,
+  logFileModify,
+  logFileDelete,
+  addFileCreate,
+  addFileModify,
+  addFileDelete,
 } = api;
+
+// Re-export classes that were imported (already declared above)
+export { FileImpactLogger, createSession };

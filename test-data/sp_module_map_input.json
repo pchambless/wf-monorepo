@@ -1,0 +1,62 @@
+[
+  {
+    "from_path": "apps/server/server/app.js",
+    "to_path": "apps/server/server/middleware/errorHandler.js"
+  },
+  {
+    "from_path": "apps/server/server/app.js",
+    "to_path": "apps/server/server/routes/api.js"
+  },
+  {
+    "from_path": "apps/server/server/app.js",
+    "to_path": "apps/server/server/config/config.js"
+  },
+  {
+    "from_path": "apps/server/server/routes/api.js",
+    "to_path": "apps/server/server/controllers/userController.js"
+  },
+  {
+    "from_path": "apps/server/server/controllers/userController.js",
+    "to_path": "apps/server/server/models/User.js"
+  },
+  {
+    "from_path": "apps/server/server/controllers/userController.js",
+    "to_path": "apps/server/server/utils/database.js"
+  },
+  {
+    "from_path": "apps/server/server/models/User.js",
+    "to_path": "apps/server/server/utils/database.js"
+  },
+  {
+    "from_path": "apps/client/src/App.jsx",
+    "to_path": "apps/client/src/components/Layout.jsx"
+  },
+  {
+    "from_path": "apps/client/src/App.jsx",
+    "to_path": "apps/client/src/pages/Dashboard.jsx"
+  },
+  {
+    "from_path": "apps/client/src/App.jsx",
+    "to_path": "apps/client/src/services/api.js"
+  },
+  {
+    "from_path": "apps/client/src/components/Layout.jsx",
+    "to_path": "packages/shared-imports/jsx.js"
+  },
+  {
+    "from_path": "apps/client/src/services/api.js",
+    "to_path": "packages/shared-imports/index.js"
+  },
+  {
+    "from_path": "apps/client/src/utils/helpers.js",
+    "to_path": "packages/shared-imports/utils/logger.js"
+  },
+  {
+    "from_path": "packages/shared-imports/jsx.js",
+    "to_path": "packages/shared-imports/index.js"
+  },
+  {
+    "from_path": "packages/shared-imports/utils/logger.js",
+    "to_path": "packages/shared-imports/index.js"
+  }
+]

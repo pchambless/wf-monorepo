@@ -9,17 +9,17 @@
  * - Row rendering (renderRow)
  */
 
-import React from 'react';
-import { triggerEngine } from './WorkflowEngine/TriggerEngine.js';
-import { useModalManager } from './hooks/useModalManager.js';
-import { useTemplateLoader } from './hooks/useTemplateLoader.js';
-import { getFlexPosition, getHtmlElement } from './utils/styleUtils.js';
-import { buildEventHandlers } from './utils/eventHandlerBuilder.js';
-import { renderRow } from './utils/rowRenderer.js';
-import StudioCanvasWrapper from '../components/StudioCanvasWrapper.jsx';
+import React from "react";
+import { triggerEngine } from "./WorkflowEngine/TriggerEngine.js";
+import { useModalManager } from "./hooks/useModalManager.js";
+import { useTemplateLoader } from "./hooks/useTemplateLoader.js";
+import { getFlexPosition, getHtmlElement } from "./utils/styleUtils.js";
+import { buildEventHandlers } from "./utils/eventHandlerBuilder.js";
+import { renderRow } from "./utils/rowRenderer.js";
+import StudioCanvasWrapper from "../components/StudioCanvasWrapper.jsx";
 
 const customComponents = {
-  StudioCanvasWrapper
+  StudioCanvasWrapper,
 };
 
 const DirectRenderer = ({ config }) => {
@@ -31,24 +31,33 @@ const DirectRenderer = ({ config }) => {
   const { templates, templatesLoaded } = useTemplateLoader();
   const { openModals } = useModalManager();
 
-  const findComponentById = React.useCallback((components, targetId) => {
-    for (const comp of components) {
-      if (comp.id === targetId) return comp;
-      if (comp.components && comp.components.length > 0) {
-        const found = findComponentById(comp.components, targetId);
-        if (found) return found;
-      }
-    }
-    return null;
-  }, []);
+  // Task 3: Cache Component Lookups with memoized Map
+  const componentMap = React.useMemo(() => {
+    const map = new Map();
+    const traverse = (components) => {
+      components?.forEach((comp) => {
+        map.set(comp.id, comp);
+        if (comp.components) traverse(comp.components);
+      });
+    };
+    traverse(config.components);
+    return map;
+  }, [config.components]);
+
+  const findComponentById = React.useCallback(
+    (targetId) => componentMap.get(targetId),
+    [componentMap]
+  );
 
   const setData = React.useCallback((componentId, data) => {
-    console.log(`📦 Storing data for ${componentId}:`, data);
-    setDataStore(prev => ({ ...prev, [componentId]: data }));
+    setDataStore((prev) => ({ ...prev, [componentId]: data }));
   }, []);
 
   // Runtime context store for visibility and other temporary UI state
   const [contextStore, setContextStore] = React.useState({});
+
+  // Task 2: Controlled Form Data State
+  const [formData, setFormData] = React.useState({});
 
   React.useEffect(() => {
     triggerEngine.initialize({});
@@ -56,30 +65,50 @@ const DirectRenderer = ({ config }) => {
 
   React.useEffect(() => {
     if (config.workflowTriggers?.onLoad) {
-      console.log('🚀 Executing page-level onLoad triggers:', config.workflowTriggers.onLoad);
       const context = {
         pageConfig: config,
         setData,
         workflowTriggers: config.workflowTriggers,
-        contextStore: contextStore
+        contextStore: contextStore,
       };
       triggerEngine.executeTriggers(config.workflowTriggers.onLoad, context);
     }
   }, [config, setData, contextStore]);
 
+  // Task 2: Sync dataStore → formData for controlled components
+  React.useEffect(() => {
+    const firstRowData = {};
+    let hasEmptyArray = false;
+
+    Object.entries(dataStore).forEach(([key, data]) => {
+      if (Array.isArray(data) && data.length > 0) {
+        Object.assign(firstRowData, data[0]);
+      } else if (Array.isArray(data) && data.length === 0) {
+        hasEmptyArray = true;
+      }
+    });
+
+    // If any dataStore entry is an empty array, clear the form completely
+    if (hasEmptyArray) {
+      setFormData({});
+    } else {
+      setFormData(firstRowData);
+    }
+  }, [dataStore]);
+
   // Group components by row for flex layout
   const groupByRow = (components) => {
     const rows = {};
-    components.forEach(comp => {
+    components.forEach((comp) => {
       const row = comp.position?.row || 0;
       if (!rows[row]) rows[row] = [];
       rows[row].push(comp);
     });
 
     // Sort components within each row by order
-    Object.keys(rows).forEach(rowKey => {
-      rows[rowKey].sort((a, b) =>
-        (a.position?.order || 0) - (b.position?.order || 0)
+    Object.keys(rows).forEach((rowKey) => {
+      rows[rowKey].sort(
+        (a, b) => (a.position?.order || 0) - (b.position?.order || 0)
       );
     });
 
@@ -88,13 +117,13 @@ const DirectRenderer = ({ config }) => {
 
   // Get row alignment from first component in row
   const getRowAlignment = (components) => {
-    const firstAlign = components[0]?.position?.align || 'left';
+    const firstAlign = components[0]?.position?.align || "left";
     const alignMap = {
-      'left': 'flex-start',
-      'center': 'center',
-      'right': 'flex-end'
+      left: "flex-start",
+      center: "center",
+      right: "flex-end",
     };
-    return alignMap[firstAlign] || 'flex-start';
+    return alignMap[firstAlign] || "flex-start";
   };
 
   const renderComponent = (component) => {
@@ -108,25 +137,18 @@ const DirectRenderer = ({ config }) => {
       position,
       workflowTriggers,
       components = [],
-      textContent
+      textContent,
     } = component;
 
     // Check visibility in runtime context
     const visibilityKey = `${id}_visible`;
     if (contextStore[visibilityKey] === false) {
-      console.log(`🙈 Component ${id} hidden by visibility context`);
       return null;
     }
 
     if (comp_type && customComponents[comp_type]) {
       const CustomComponent = customComponents[comp_type];
-      return (
-        <CustomComponent
-          key={id}
-          id={id}
-          {...props}
-        />
-      );
+      return <CustomComponent key={id} id={id} {...props} />;
     }
 
     const template = comp_type ? templates[comp_type] : null;
@@ -137,12 +159,17 @@ const DirectRenderer = ({ config }) => {
     const style = {
       ...(template?.style || {}),
       ...override_styles,
-      ...legacyStyle
+      ...legacyStyle,
     };
 
-    const type = (comp_type || legacyType || 'div').toLowerCase();
+    const type = (comp_type || legacyType || "div").toLowerCase();
     const htmlElement = getHtmlElement(type);
-    const eventHandlers = buildEventHandlers(workflowTriggers, config, setData, contextStore);
+    const eventHandlers = buildEventHandlers(
+      workflowTriggers,
+      config,
+      setData,
+      contextStore
+    );
 
     const {
       workflowTriggers: _wt,
@@ -158,31 +185,42 @@ const DirectRenderer = ({ config }) => {
 
     const finalEventHandlers = {
       ...eventHandlers,
-      ...(_onClick && { onClick: _onClick })
+      ...(_onClick && { onClick: _onClick }),
     };
 
     let children;
-    if (type === 'tbody' && props.dataSource) {
+    if (type === "tbody" && props.dataSource) {
       const gridId = props.dataSource;
       const data = dataStore[gridId];
 
-      const gridComponent = findComponentById(config.components || [], gridId);
+      const gridComponent = findComponentById(gridId);
       const gridOnChangeTriggers = gridComponent?.workflowTriggers?.onChange;
 
       if (data && data.length > 0 && components.length > 0) {
         const placeholder = components[0];
         children = data.map((row, idx) =>
-          renderRow(placeholder, row, idx, gridOnChangeTriggers, props.rowKey, renderComponent, config, setData)
+          renderRow(
+            placeholder,
+            row,
+            idx,
+            gridOnChangeTriggers,
+            props.rowKey,
+            renderComponent,
+            config,
+            setData
+          )
         );
       } else {
-        children = components.map(child => renderComponent(child));
+        children = components.map((child) => renderComponent(child));
       }
-    } else if (comp_type === 'Container' && components.length > 0) {
+    } else if (comp_type === "Container" && components.length > 0) {
       // Container: Group children by row for flex layout
       const childRows = groupByRow(components);
-      const sortedChildRowKeys = Object.keys(childRows).sort((a, b) => parseInt(a) - parseInt(b));
+      const sortedChildRowKeys = Object.keys(childRows).sort(
+        (a, b) => parseInt(a) - parseInt(b)
+      );
 
-      children = sortedChildRowKeys.map(rowKey => {
+      children = sortedChildRowKeys.map((rowKey) => {
         const rowComponents = childRows[rowKey];
         const justifyContent = getRowAlignment(rowComponents);
 
@@ -190,104 +228,84 @@ const DirectRenderer = ({ config }) => {
           <div
             key={`container-row-${id}-${rowKey}`}
             style={{
-              display: 'flex',
-              gap: '16px',
-              width: '100%',
-              justifyContent
+              display: "flex",
+              gap: "16px",
+              width: "100%",
+              justifyContent,
             }}
           >
-            {rowComponents.map(child => renderComponent(child))}
+            {rowComponents.map((child) => renderComponent(child))}
           </div>
         );
       });
     } else {
-      children = textContent ||
-        (components.length > 0 ? components.map(child => renderComponent(child)) :
-         (props.label || props.title || null));
+      children =
+        textContent ||
+        (components.length > 0
+          ? components.map((child) => renderComponent(child))
+          : props.label || props.title || null);
     }
 
-    let inputKey = id;
-    let fieldValue = null;
-    let hasData = false;
-    if ((type === 'input' || type === 'textarea') && domProps.name) {
-      Object.entries(dataStore).forEach(([storeKey, data]) => {
-        if (data && Array.isArray(data)) {
-          hasData = true;
-          if (data.length > 0 && data[0][domProps.name] !== undefined) {
-            fieldValue = data[0][domProps.name];
-          } else {
-            // Data exists but is empty array - clear the field
-            fieldValue = '';
-          }
-        }
-      });
-
-      if (hasData) {
-        console.log(`🔍 Setting ${type} field "${domProps.name}" = "${fieldValue}"`);
-        // Use defaultValue with timestamp in key to force complete recreation
-        domProps.defaultValue = fieldValue || '';
-        // Add timestamp to force truly unique key
-        inputKey = `${id}_${Date.now()}_${Math.random()}`;
-      }
+    // Task 2: Replace hacky field population with controlled components
+    if ((type === "input" || type === "textarea") && domProps.name) {
+      domProps.value = formData[domProps.name] || "";
+      domProps.onChange = (e) => {
+        setFormData((prev) => ({
+          ...prev,
+          [domProps.name]: e.target.value,
+        }));
+      };
     }
 
     const flexPosition = getFlexPosition(position);
     const mergedStyle = { ...style, ...flexPosition };
 
-    // For textarea with defaultValue, children must be undefined
-    if (type === 'textarea' && domProps.defaultValue !== undefined) {
+    // For textarea with controlled value, children must be undefined
+    if (type === "textarea") {
       children = undefined;
-      console.log(`🔍 Textarea "${id}" - defaultValue: "${domProps.defaultValue}", key: "${inputKey}"`);
-    }
-
-    // Debug: Log final props being passed to React.createElement
-    if (type === 'textarea') {
-      console.log(`🔍 Creating textarea element:`, {
-        key: inputKey,
-        id: id,
-        name: domProps.name,
-        defaultValue: domProps.defaultValue,
-        children: children
-      });
     }
 
     return React.createElement(
       htmlElement,
       {
-        key: inputKey,
+        key: id,
         id: id,
         style: mergedStyle,
         ...domProps,
-        ...finalEventHandlers
+        ...finalEventHandlers,
       },
       children
     );
   };
 
   const containerStyle = {
-    fontFamily: 'system-ui, sans-serif',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-    width: '100%',
-    height: '100%'
+    fontFamily: "system-ui, sans-serif",
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+    width: "100%",
+    height: "100%",
   };
 
   if (!templatesLoaded) {
-    return <div style={{ padding: '20px' }}>Loading templates...</div>;
+    return <div style={{ padding: "20px" }}>Loading templates...</div>;
   }
 
-  const regularComponents = config.components?.filter(c => c.container !== 'Modal') || [];
-  const modalComponents = config.components?.filter(c => c.container === 'Modal') || [];
+  const regularComponents =
+    config.components?.filter((c) => c.container !== "Modal") || [];
+  const modalComponents =
+    config.components?.filter((c) => c.container === "Modal") || [];
 
   // Group regular components by row
   const componentRows = groupByRow(regularComponents);
-  const sortedRowKeys = Object.keys(componentRows).sort((a, b) => parseInt(a) - parseInt(b));
+  const sortedRowKeys = Object.keys(componentRows).sort(
+    (a, b) => parseInt(a) - parseInt(b)
+  );
 
   return (
     <>
       <div className="direct-renderer" style={containerStyle}>
-        {sortedRowKeys.map(rowKey => {
+        {sortedRowKeys.map((rowKey) => {
           const rowComponents = componentRows[rowKey];
           const justifyContent = getRowAlignment(rowComponents);
 
@@ -295,53 +313,50 @@ const DirectRenderer = ({ config }) => {
             <div
               key={`row-${rowKey}`}
               style={{
-                display: 'flex',
-                gap: '16px',
-                width: '100%',
-                justifyContent
+                display: "flex",
+                gap: "16px",
+                width: "100%",
+                justifyContent,
               }}
             >
-              {rowComponents.map(component => renderComponent(component))}
+              {rowComponents.map((component) => renderComponent(component))}
             </div>
           );
         })}
       </div>
 
-      {modalComponents.map(modalComp => {
+      {modalComponents.map((modalComp) => {
         if (!openModals.has(modalComp.id)) return null;
 
-        const modalTemplate = templates['Modal'];
+        const modalTemplate = templates["Modal"];
         const modalStyle = {
           ...(modalTemplate?.style || {}),
-          ...modalComp.override_styles
+          ...modalComp.override_styles,
         };
 
         return (
           <React.Fragment key={modalComp.id}>
             <div
               style={{
-                position: 'fixed',
+                position: "fixed",
                 top: 0,
                 left: 0,
                 right: 0,
                 bottom: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
                 zIndex: 1999,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onClick={() => {
-                const event = new CustomEvent('closeModal', {
-                  detail: { modalId: modalComp.id }
+                const event = new CustomEvent("closeModal", {
+                  detail: { modalId: modalComp.id },
                 });
                 window.dispatchEvent(event);
               }}
             >
-              <div
-                style={modalStyle}
-                onClick={(e) => e.stopPropagation()}
-              >
+              <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
                 {renderComponent(modalComp)}
               </div>
             </div>

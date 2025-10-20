@@ -1,0 +1,15 @@
+{
+  "method": "INSERT",
+  "table": "api_wf.plan_impacts",
+  "data": {
+    "plan_id": 0,
+    "impact_type": "implementation",
+    "affected_module": "sql/database/whatsfresh/stored_procedures/sp_module_load.sql",
+    "change_description": "Fixed parameter alignment (p_modules, firstName), simplified JSON processing, added last_detected_at support",
+    "blast_radius": "medium",
+    "change_type": "modified",
+    "ai_agent": "kiro",
+    "session_date": "2025-10-19",
+    "userID": "Paul"
+  }
+}

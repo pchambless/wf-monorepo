@@ -1,0 +1,10 @@
+
+> whatsfresh@0.1.0 build
+> npx craco build
+
+Shared package path: /home/paul/wf-monorepo-new/packages/shared-imports
+Node modules shared path: /home/paul/wf-monorepo-new/apps/whatsfresh/node_modules/@whatsfresh/shared-imports
+Test file would be included: true
+Added high-priority babel rule for shared-imports package
+Total module rules: 2
+Creating an optimized production build...

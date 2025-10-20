@@ -54,11 +54,11 @@ class WorkflowEngine {
 
   /**
    * Generic Studio API Call method
-   * Handles file-based studio API calls with configuration
+   * Uses shared-imports API (DB-based strategy)
    */
   async StudioApiCall(action, data) {
     try {
-      const { studioApiCall } = await import('../../api/studioApiCall.js');
+      const { execEvent } = await import('@whatsfresh/shared-imports');
 
       const params = action.params;
       const endpoint = action.endpoint;
@@ -67,14 +67,10 @@ class WorkflowEngine {
         throw new Error('Missing endpoint in studioApiCall action');
       }
 
-      const config = {
-        baseUrl: process.env.REACT_APP_API_BASE_URL || "http://localhost:3001",
-        logger: console
-      };
-
       console.log(`🔄 studioApiCall: ${endpoint}`, { params });
 
-      return await studioApiCall(endpoint, params, config);
+      // Map old file-based endpoints to new eventType calls
+      return await execEvent(endpoint, params);
     } catch (error) {
       console.error(`❌ studioApiCall failed for ${action.endpoint}:`, error);
       return { error: error.message };

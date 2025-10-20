@@ -1,0 +1,6 @@
+
+> studio@0.1.0 build
+> craco build
+
+Added babel rule for shared-imports in Studio
+Creating an optimized production build...

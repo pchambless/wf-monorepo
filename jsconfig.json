@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@whatsfresh/shared-imports/*": [
+        "packages/shared-imports/src/*"
+      ],
+      "@whatsfresh/shared-imports": [
+        "packages/shared-imports/src/index.js"
+      ],
+      "@whatsfresh/db-connect/*": [
+        "packages/db-connect/src/*"
+      ],
+      "@whatsfresh/db-connect": [
+        "packages/db-connect/src/index.js"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
+  ]
+}

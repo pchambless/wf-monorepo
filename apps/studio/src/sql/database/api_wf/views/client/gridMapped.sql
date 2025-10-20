@@ -1,5 +1,5 @@
 create or replace view gridMapped as
-select a.prd_btch_ingr_id mapID
+select a.prd_btch_ingr_id id
 , a.ingr_btch_nbr ingrBtchNbr
 , a.purch_date purchDate
 , a.vndr_name vndrName

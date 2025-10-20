@@ -20,6 +20,10 @@ import userLogin from "../controller/userLogin.js";
 import getVal from "../controller/getVal.js";
 import setVals from "../controller/setVals.js";
 import clearVals from "../controller/clearVals.js";
+import logImpactController, {
+  getRecentImpacts,
+  getBatchImpacts,
+} from "../controller/logImpact.js";
 // Removed: eventTypeManager - no longer needed with database-driven system
 import logger from "../utils/logger.js";
 
@@ -53,6 +57,11 @@ const registerRoutes = (app) => {
   registerRoute("post", "/api/setVals", setVals);
   registerRoute("post", "/api/clearVals", clearVals);
 
+  // Impact logging for Claude/Kiro coordination
+  registerRoute("post", "/api/logImpact", logImpactController);
+  registerRoute("get", "/api/impacts/recent", getRecentImpacts);
+  registerRoute("get", "/api/impacts/batch/:batchId", getBatchImpacts);
+
   // Removed Studio Discovery APIs - replaced with database queries:
   // - /api/studio/apps -> SELECT FROM api_wf.app
   // - /api/studio/pages -> SELECT FROM eventType_xref WHERE eventType=page
@@ -80,8 +89,16 @@ const registerRoutes = (app) => {
   registerRoute("get", "/api/github/labels", githubController.getLabels);
   registerRoute("get", "/api/github/issues", githubController.listIssues);
   registerRoute("post", "/api/github/issues", githubController.createIssue);
-  registerRoute("get", "/api/github/issues/:issue_number/comments", githubController.getIssueComments);
-  registerRoute("post", "/api/github/upload-image", githubController.uploadImage);
+  registerRoute(
+    "get",
+    "/api/github/issues/:issue_number/comments",
+    githubController.getIssueComments
+  );
+  registerRoute(
+    "post",
+    "/api/github/upload-image",
+    githubController.uploadImage
+  );
 
   // Log registered routes
   logger.info(`${codeName} Routes registered:`, routes);
