@@ -4,6 +4,8 @@
  * Orchestrates rendering with extracted modules for:
  * - Modal management (useModalManager hook)
  * - Template loading (useTemplateLoader hook)
+ * - App layout rendering (renderAppBar, renderSidebar)
+ * - Layout utilities (groupByRow, getRowAlignment, separateComponentsByType)
  * - Style utilities (getFlexPosition, getHtmlElement)
  * - Event handlers (buildEventHandlers)
  * - Row rendering (renderRow)
@@ -16,6 +18,8 @@ import { useTemplateLoader } from "./hooks/useTemplateLoader.js";
 import { getFlexPosition, getHtmlElement } from "./utils/styleUtils.js";
 import { buildEventHandlers } from "./utils/eventHandlerBuilder.js";
 import { renderRow } from "./utils/rowRenderer.js";
+import { renderAppBar, renderSidebar } from "./utils/appLayoutRenderer.js";
+import { groupByRow, getRowAlignment, separateComponentsByType } from "./utils/layoutUtils.js";
 import StudioCanvasWrapper from "../components/StudioCanvasWrapper.jsx";
 
 const customComponents = {
@@ -96,36 +100,6 @@ const DirectRenderer = ({ config }) => {
     }
   }, [dataStore]);
 
-  // Group components by row for flex layout
-  const groupByRow = (components) => {
-    const rows = {};
-    components.forEach((comp) => {
-      const row = comp.position?.row || 0;
-      if (!rows[row]) rows[row] = [];
-      rows[row].push(comp);
-    });
-
-    // Sort components within each row by order
-    Object.keys(rows).forEach((rowKey) => {
-      rows[rowKey].sort(
-        (a, b) => (a.position?.order || 0) - (b.position?.order || 0)
-      );
-    });
-
-    return rows;
-  };
-
-  // Get row alignment from first component in row
-  const getRowAlignment = (components) => {
-    const firstAlign = components[0]?.position?.align || "left";
-    const alignMap = {
-      left: "flex-start",
-      center: "center",
-      right: "flex-end",
-    };
-    return alignMap[firstAlign] || "flex-start";
-  };
-
   const renderComponent = (component) => {
     const {
       comp_type,
@@ -144,6 +118,16 @@ const DirectRenderer = ({ config }) => {
     const visibilityKey = `${id}_visible`;
     if (contextStore[visibilityKey] === false) {
       return null;
+    }
+
+    // Handle AppBar comp_type with vanilla React
+    if (comp_type === "AppBar") {
+      return renderAppBar(component, config, renderComponent);
+    }
+
+    // Handle Sidebar comp_type with vanilla React
+    if (comp_type === "Sidebar") {
+      return renderSidebar(component, config, renderComponent);
     }
 
     if (comp_type && customComponents[comp_type]) {
@@ -291,10 +275,9 @@ const DirectRenderer = ({ config }) => {
     return <div style={{ padding: "20px" }}>Loading templates...</div>;
   }
 
-  const regularComponents =
-    config.components?.filter((c) => c.container !== "Modal") || [];
-  const modalComponents =
-    config.components?.filter((c) => c.container === "Modal") || [];
+  // Separate components by type: AppBar, Sidebar, Modal, Regular
+  const { appBarComponent, sidebarComponent, modalComponents, regularComponents } =
+    separateComponentsByType(config.components);
 
   // Group regular components by row
   const componentRows = groupByRow(regularComponents);
@@ -302,28 +285,48 @@ const DirectRenderer = ({ config }) => {
     (a, b) => parseInt(a) - parseInt(b)
   );
 
+  // Render main content area
+  const renderMainContent = () => (
+    <div className="direct-renderer" style={containerStyle}>
+      {sortedRowKeys.map((rowKey) => {
+        const rowComponents = componentRows[rowKey];
+        const justifyContent = getRowAlignment(rowComponents);
+
+        return (
+          <div
+            key={`row-${rowKey}`}
+            style={{
+              display: "flex",
+              gap: "16px",
+              width: "100%",
+              justifyContent,
+            }}
+          >
+            {rowComponents.map((component) => renderComponent(component))}
+          </div>
+        );
+      })}
+    </div>
+  );
+
+  // Render with app layout if AppBar or Sidebar exists
+  const hasAppLayout = appBarComponent || sidebarComponent;
+
   return (
     <>
-      <div className="direct-renderer" style={containerStyle}>
-        {sortedRowKeys.map((rowKey) => {
-          const rowComponents = componentRows[rowKey];
-          const justifyContent = getRowAlignment(rowComponents);
-
-          return (
-            <div
-              key={`row-${rowKey}`}
-              style={{
-                display: "flex",
-                gap: "16px",
-                width: "100%",
-                justifyContent,
-              }}
-            >
-              {rowComponents.map((component) => renderComponent(component))}
+      {hasAppLayout ? (
+        <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+          {appBarComponent && renderComponent(appBarComponent)}
+          <div style={{ display: "flex", flex: 1, overflow: "hidden" }}>
+            {sidebarComponent && renderComponent(sidebarComponent)}
+            <div style={{ flex: 1, overflow: "auto", padding: "16px" }}>
+              {renderMainContent()}
             </div>
-          );
-        })}
-      </div>
+          </div>
+        </div>
+      ) : (
+        renderMainContent()
+      )}
 
       {modalComponents.map((modalComp) => {
         if (!openModals.has(modalComp.id)) return null;

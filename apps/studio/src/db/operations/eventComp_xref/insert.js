@@ -21,6 +21,9 @@ export const insertComponent = async (componentData) => {
     data: componentData
   });
 
+  console.log('📝 execDml response:', response);
+  console.log('📝 response.insertId:', response.insertId);
+
   // Add to IndexedDB with MySQL ID
   const idbID = await db.eventComp_xref.add({
     ...componentData,

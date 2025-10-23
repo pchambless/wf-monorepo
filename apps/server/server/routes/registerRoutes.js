@@ -24,7 +24,9 @@ import logImpactController, {
   getRecentImpacts,
   getBatchImpacts,
 } from "../controller/logImpact.js";
-// Removed: eventTypeManager - no longer needed with database-driven system
+import runMigration from "../controller/runMigration.js";
+import getMigrationStatus from "../controller/getMigrationStatus.js";
+import openTerminal from "../controller/openTerminal.js";
 import logger from "../utils/logger.js";
 
 const codeName = `[registerRoutes.js]`;
@@ -80,8 +82,9 @@ const registerRoutes = (app) => {
     "/api/util/restart-server",
     restartServerController.restartServer
   );
-  // Removed: /api/util/fetchEventTypes - obsolete with database-driven eventTypes
-  // Removed: /api/eventType/params - use GET /api/eventType/:xrefId instead
+  registerRoute("post", "/api/util/run-migration", runMigration);
+  registerRoute("get", "/api/util/migration-status", getMigrationStatus);
+  registerRoute("post", "/api/util/open-terminal", openTerminal);
   registerRoute("post", "/api/auth/login", userLogin);
   // Removed: /api/util/event-types-status - no longer needed with database-driven system
 

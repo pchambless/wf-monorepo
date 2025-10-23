@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -7,12 +7,39 @@ import { useNavigate } from "react-router-dom";
  */
 const SimpleLayout = ({ children, navigationSections, appName, appBarConfig, onLogout }) => {
   const navigate = useNavigate();
+  const [isMigrating, setIsMigrating] = useState(false);
 
   const handleNavClick = (path, external = false) => {
     if (external) {
       window.open(path, '_blank', 'noopener,noreferrer');
     } else {
       navigate(path);
+    }
+  };
+
+  const handleRunMigration = async () => {
+    if (!window.confirm('Run production data migration? This will copy prod data to test database.')) {
+      return;
+    }
+
+    setIsMigrating(true);
+    try {
+      const response = await fetch('http://localhost:3001/api/util/run-migration', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('Migration completed successfully!');
+      } else {
+        alert(`Migration failed: ${result.message}`);
+      }
+    } catch (error) {
+      alert(`Migration error: ${error.message}`);
+    } finally {
+      setIsMigrating(false);
     }
   };
 
@@ -55,6 +82,20 @@ const SimpleLayout = ({ children, navigationSections, appName, appBarConfig, onL
       borderRadius: "4px",
       cursor: "pointer",
       fontSize: "14px",
+    },
+    migrationButton: {
+      padding: "8px 16px",
+      backgroundColor: "#ff9800",
+      border: "1px solid rgba(255,255,255,0.3)",
+      color: "white",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontSize: "14px",
+      fontWeight: "600",
+    },
+    migrationButtonDisabled: {
+      opacity: 0.6,
+      cursor: "not-allowed",
     },
     body: {
       display: "flex",
@@ -131,6 +172,17 @@ const SimpleLayout = ({ children, navigationSections, appName, appBarConfig, onL
             </select>
           </div>
         )}
+
+        <button
+          style={{
+            ...styles.migrationButton,
+            ...(isMigrating && styles.migrationButtonDisabled)
+          }}
+          onClick={handleRunMigration}
+          disabled={isMigrating}
+        >
+          {isMigrating ? "Migrating..." : "Run Migration"}
+        </button>
 
         {appBarConfig?.showUserMenu && (
           <button

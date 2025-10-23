@@ -51,3 +51,4 @@ yarn-error.log*
 
 apps/wf-server/server/logs/*
 
+apps/server/server/logs/.5bb02631725586d7fa9621fdbab055fe71373737-audit.json

@@ -287,3 +287,5 @@
 {"level":"info","message":"[logImpact.js] Impact logging completed successfully","timestamp":"2025-10-20 18:50:20"}
 {"level":"info","message":"[app.js]  Response: POST /api/logImpact 200 (566ms)","timestamp":"2025-10-20 18:50:20"}
 {"level":"info","message":"Performance measurement for http_request","performance":{"duration":566.08628,"method":"POST","operation":"http_request","path":"/api/logImpact","status":200},"timestamp":"2025-10-20 18:50:20"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-10-20 19:14:40"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-10-20 20:27:02"}

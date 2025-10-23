@@ -101,11 +101,11 @@ export class ImpactLogger {
   static async getRecentImpacts(hours = 24) {
     try {
       const sql = `
-        SELECT 
+        SELECT
           id, file_path, change_type, description, phase, status,
           batch_id, affected_apps, created_by, created_at,
           fileName, fileFolder
-        FROM plan_impacts 
+        FROM api_wf.plan_impacts
         WHERE created_at >= DATE_SUB(NOW(), INTERVAL ${hours} HOUR)
         ORDER BY created_at DESC
         LIMIT 100
@@ -125,10 +125,10 @@ export class ImpactLogger {
   static async getBatchImpacts(batchId) {
     try {
       const sql = `
-        SELECT 
+        SELECT
           id, file_path, change_type, description, phase, status,
           affected_apps, created_by, created_at, fileName, fileFolder
-        FROM plan_impacts 
+        FROM api_wf.plan_impacts
         WHERE batch_id = '${batchId}'
         ORDER BY created_at ASC
       `;

@@ -112,6 +112,7 @@ const PageDraftControls = ({ pageID }) => {
   const [saving, setSaving] = useState(false);
   const [lastSaveMessage, setLastSaveMessage] = useState('');
   const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [isMigrating, setIsMigrating] = useState(false);
 
   useEffect(() => {
     if (!pageID) {

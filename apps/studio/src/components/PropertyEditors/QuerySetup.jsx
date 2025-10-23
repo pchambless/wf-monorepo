@@ -350,6 +350,41 @@ const styles = {
     fontWeight: 600,
     marginBottom: '8px',
   },
+  actionSection: {
+    marginTop: '20px',
+    padding: '16px',
+    backgroundColor: '#fef3c7',
+    border: '1px solid #fbbf24',
+    borderRadius: '8px',
+  },
+  actionTitle: {
+    margin: '0 0 8px 0',
+    fontSize: '14px',
+    fontWeight: 600,
+    color: '#92400e',
+  },
+  actionHint: {
+    margin: '0 0 12px 0',
+    fontSize: '13px',
+    color: '#78350f',
+  },
+  actionButton: {
+    width: '100%',
+    padding: '10px 16px',
+    backgroundColor: '#f59e0b',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 600,
+    cursor: 'pointer',
+    marginBottom: '12px',
+  },
+  actionInfo: {
+    fontSize: '12px',
+    color: '#78350f',
+    lineHeight: '1.6',
+  },
 };
 
 export default QuerySetup;

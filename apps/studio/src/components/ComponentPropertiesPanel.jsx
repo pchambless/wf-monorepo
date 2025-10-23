@@ -504,6 +504,88 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     }
   };
 
+  const handleAddDeleteAction = async () => {
+    const xref_id = selectedComponent?.xref_id;
+
+    if (!xref_id) {
+      alert('No component selected');
+      return;
+    }
+
+    try {
+      const props = JSON.parse(editedProps);
+      const rowActions = props.rowActions || [];
+
+      // Check if delete action already exists
+      if (rowActions.some(a => a.id === 'delete')) {
+        alert('Delete action already exists');
+        return;
+      }
+
+      // Add delete action to rowActions array
+      const deleteAction = {
+        id: 'delete',
+        type: 'button',
+        icon: 'Delete',
+        color: 'error',
+        tooltip: 'Delete',
+        trigger: {
+          action: 'execDML',
+          content: {
+            method: 'DELETE',
+            confirm: true,
+            confirmMessage: 'Are you sure you want to delete this item?'
+          }
+        }
+      };
+
+      rowActions.push(deleteAction);
+      props.rowActions = rowActions;
+
+      // Update props
+      setEditedProps(JSON.stringify(props, null, 2));
+
+      // Save to IndexedDB
+      await upsertPropByName(xref_id, 'rowActions', rowActions);
+
+      console.log('✅ Delete action added to rowActions');
+      setHasChanges(true);
+
+    } catch (error) {
+      console.error('❌ Failed to add delete action:', error);
+      alert('Failed to add delete action: ' + error.message);
+    }
+  };
+
+  const handleRemoveRowAction = async (index) => {
+    const xref_id = selectedComponent?.xref_id;
+
+    if (!xref_id) {
+      return;
+    }
+
+    try {
+      const props = JSON.parse(editedProps);
+      const rowActions = props.rowActions || [];
+
+      rowActions.splice(index, 1);
+      props.rowActions = rowActions;
+
+      // Update props
+      setEditedProps(JSON.stringify(props, null, 2));
+
+      // Save to IndexedDB
+      await upsertPropByName(xref_id, 'rowActions', rowActions);
+
+      console.log('✅ Row action removed');
+      setHasChanges(true);
+
+    } catch (error) {
+      console.error('❌ Failed to remove row action:', error);
+      alert('Failed to remove row action: ' + error.message);
+    }
+  };
+
   if (!selectedComponent && !isCreating) {
     return (
       <div style={styles.emptyState}>
@@ -699,6 +781,48 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
                       selectedColumn={selectedColumn}
                       onSelect={setSelectedColumn}
                     />
+
+                    {selectedComponent.comp_type === 'Grid' && (
+                      <div style={styles.actionSection}>
+                        <h4 style={styles.actionTitle}>⚡ Row Actions</h4>
+                        {(() => {
+                          const props = JSON.parse(editedProps);
+                          const rowActions = props.rowActions || [];
+
+                          return (
+                            <>
+                              {rowActions.length > 0 ? (
+                                <div style={styles.actionList}>
+                                  <div style={styles.actionLabel}>Current Actions:</div>
+                                  {rowActions.map((action, idx) => (
+                                    <div key={idx} style={styles.actionItem}>
+                                      <span style={styles.actionItemText}>
+                                        {action.icon || '🔘'} {action.tooltip || action.id} ({action.trigger?.action || 'unknown'})
+                                      </span>
+                                      <button
+                                        style={styles.actionRemove}
+                                        onClick={() => handleRemoveRowAction(idx)}
+                                      >
+                                        ×
+                                      </button>
+                                    </div>
+                                  ))}
+                                </div>
+                              ) : (
+                                <p style={styles.actionHint}>No row actions configured</p>
+                              )}
+
+                              <button
+                                style={styles.actionButton}
+                                onClick={handleAddDeleteAction}
+                              >
+                                + Add Delete Action
+                              </button>
+                            </>
+                          );
+                        })()}
+                      </div>
+                    )}
 
                     <OverrideEditor
                       column={selectedColumn}
@@ -994,6 +1118,75 @@ const styles = {
     fontFamily: 'monospace',
     color: '#1e293b',
     resize: 'vertical',
+  },
+  actionSection: {
+    margin: '16px 0',
+    padding: '16px',
+    backgroundColor: '#fef3c7',
+    border: '1px solid #fbbf24',
+    borderRadius: '8px',
+  },
+  actionTitle: {
+    margin: '0 0 8px 0',
+    fontSize: '14px',
+    fontWeight: 600,
+    color: '#92400e',
+  },
+  actionHint: {
+    margin: '0 0 12px 0',
+    fontSize: '13px',
+    color: '#78350f',
+  },
+  actionButton: {
+    width: '100%',
+    padding: '10px 16px',
+    backgroundColor: '#f59e0b',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 600,
+    cursor: 'pointer',
+    marginBottom: '12px',
+  },
+  actionInfo: {
+    fontSize: '12px',
+    color: '#78350f',
+    lineHeight: '1.6',
+  },
+  actionList: {
+    marginBottom: '12px',
+  },
+  actionLabel: {
+    fontSize: '12px',
+    fontWeight: 600,
+    color: '#78350f',
+    marginBottom: '8px',
+  },
+  actionItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '8px 12px',
+    backgroundColor: '#ffffff',
+    border: '1px solid #fbbf24',
+    borderRadius: '4px',
+    marginBottom: '6px',
+  },
+  actionItemText: {
+    fontSize: '13px',
+    color: '#78350f',
+  },
+  actionRemove: {
+    padding: '2px 8px',
+    backgroundColor: '#fee2e2',
+    color: '#991b1b',
+    border: '1px solid #fca5a5',
+    borderRadius: '4px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    lineHeight: 1,
   },
   comingSoon: {
     textAlign: 'center',
