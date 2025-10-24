@@ -1,6 +1,5 @@
 CREATE TABLE `plans` (
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`cluster` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_unicode_ci',
 	`name` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_unicode_ci',
 	`status` VARCHAR(100) NOT NULL DEFAULT 'pending' COLLATE 'utf8mb4_unicode_ci',
 	`priority` VARCHAR(20) NOT NULL DEFAULT 'medium' COLLATE 'utf8mb4_unicode_ci',

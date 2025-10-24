@@ -179,6 +179,7 @@ const DirectRenderer = ({ config }) => {
 
       const gridComponent = findComponentById(gridId);
       const gridOnChangeTriggers = gridComponent?.workflowTriggers?.onChange;
+      const rowActions = gridComponent?.props?.rowActions;
 
       if (data && data.length > 0 && components.length > 0) {
         const placeholder = components[0];
@@ -191,7 +192,8 @@ const DirectRenderer = ({ config }) => {
             props.rowKey,
             renderComponent,
             config,
-            setData
+            setData,
+            rowActions
           )
         );
       } else {

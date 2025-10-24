@@ -61,7 +61,8 @@ The summary and impacts should reference the plan you WORKED ON (often plan_id: 
 - `description`: .md format of the Planned next steps
 - `comments`: ""
 - `assigned_to`: ""
-- `created_by`: AI agent
+
+**Note:** DO NOT include `created_by` - it is auto-injected from userID by execDML
 
 ## Summary Template
 
@@ -180,7 +181,8 @@ curl -X POST http://localhost:3001/api/execDML \
 ```
 
 **Notes:**
-- Replace `from_agent` and `created_by` with "kiro" if Kiro is creating the summary
+- Replace `from_agent` with "kiro" if Kiro is creating the summary
+- DO NOT include `created_by` - it is auto-injected from userID by execDML
 - Use `plan_id: 0` for general summaries not tied to a specific plan
 - Reference the plan_id from Step 1 in the summary's Next Steps section
 
