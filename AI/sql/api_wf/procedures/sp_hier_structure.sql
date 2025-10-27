@@ -1,69 +1,73 @@
-CREATE DEFINER=`wf_admin`@`%` PROCEDURE `api_wf`.`sp_hier_structure`(
-    IN `xrefID`  INT
-)
-BEGIN
-        WITH RECURSIVE wf_hier AS (
-            -- Start with the parent app as root
-            SELECT
-                a.xref_id,
-                a.comp_name,
-                a.parent_name,
-                a.parentCompName,
-                a.title,
-                a.posOrder,
-                a.comp_type,
-                a.container,
-                -1 as level,
-                CAST(a.comp_name AS AS CHAR(500)) COLLATE utf8mb4_general_ci) id_path
-            FROM api_wf.vw_hier_components a
-            WHERE a.xref_id = (SELECT parent_name FROM api_wf.vw_hier_components WHERE xref_id = xrefID)
+ CREATE OR REPLACE PROCEDURE api_wf.sp_hier_structure(
+      IN pageID INT
+  )
+  BEGIN
+      WITH RECURSIVE component_tree AS (
+          -- Base: Root Container (parent_id = id)
+          SELECT
+              x.id AS xref_id,
+              x.pageID,
+              reg.pageName,
+              reg.appName,
+              x.parent_id,
+              x.comp_name,
+              reg.pageName AS parent_name,
+              CONCAT(reg.pageName, '.', x.comp_name) AS parentCompName,
+              x.title,
+              x.comp_type,
+              x.description,
+              x.posOrder,
+              x.style AS override_styles,
+              0 AS level,
+              CAST(x.id AS CHAR(500)) AS id_path
+          FROM api_wf.eventComp_xref x
+          JOIN api_wf.page_registry reg ON x.pageID = reg.id
+          WHERE x.pageID = pageID
+            AND x.parent_id = x.id  -- Self-reference = root
+            AND x.active = 1
 
-            UNION ALL
+          UNION ALL
 
-            -- Add the specified page at level 0
-            SELECT
-                p.xref_id,
-                p.comp_name,
-                p.parent_name,
-                p.parentCompName,
-                p.title,
-                p.posOrder,
-                p.comp_type,
-                p.container,
-                0 as level,
-                CONCAT((SELECT CAST(parent_name AS CHAR(500)) COLLATE utf8mb4_general_ci) FROM api_wf.vw_hier_components WHERE xref_id = xrefID), ',', p.comp_name) id_path
-            FROM api_wf.vw_hier_components p
-            WHERE p.xref_id = xrefID
-
-            UNION ALL
-
-            -- Recurse from the page down
-            SELECT
-                v.xref_id,
-                v.comp_name,
-                v.parent_name,
-                v.parentCompName,
-                v.title,
-                v.posOrder,
-                v.comp_type,
-                v.container,
-                p.level + 1,
-                CAST(CONCAT(p.id_path, ',', v.comp_name) AS CHAR(500)) COLLATE utf8mb4_general_ci AS id_path
-            FROM api_wf.vw_hier_components v
-            JOIN wf_hier p ON v.parent_name = p.comp_name 
-            WHERE p.level >= 0 AND p.level < 10
-        )
-        SELECT
-            h.xref_id id,
-            h.comp_name,
-            h.parent_name,
-            h.parentCompName,
-            h.title,
-            h.comp_type,
-            h.container,
-            h.posOrder,
-            h.level,
-            h.id_path
-        FROM wf_hier h
-        ORDER BY id_path, posOrder, xref_id;
-  END
+          -- Recursive: All descendants
+          SELECT
+              child.id,
+              child.pageID,
+              reg.pageName,
+              reg.appName,
+              child.parent_id,
+              child.comp_name,
+              parent_tree.comp_name AS parent_name,
+              CONCAT(parent_tree.comp_name, '.', child.comp_name) AS parentCompName,
+              child.title,
+              child.comp_type,
+              child.description,
+              child.posOrder,
+              child.style,
+              parent_tree.level + 1 AS level,
+              CONCAT(parent_tree.id_path, ',', child.id) AS id_path
+          FROM api_wf.eventComp_xref child
+          JOIN component_tree parent_tree ON child.parent_id = parent_tree.xref_id
+          JOIN api_wf.page_registry reg ON child.pageID = reg.id
+          WHERE child.active = 1
+            AND child.parent_id != child.id  -- Not a root
+            AND parent_tree.level < 20  -- Prevent runaway (was 10, now 20 for complex pages)
+      )
+      SELECT
+          ct.xref_id AS id,
+          ct.parent_id,
+          ct.pageID,
+          ct.pageName,
+          ct.appName,
+          ct.comp_name,
+          ct.parent_name,
+          ct.parentCompName,
+          ct.title,
+          ct.comp_type,
+          ct.description,
+          ct.posOrder,
+          ct.override_styles,
+          ct.level,
+          ct.id_path
+      FROM component_tree ct
+      ORDER BY ct.level, ct.posOrder;
+  END;

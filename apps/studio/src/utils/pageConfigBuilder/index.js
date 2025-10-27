@@ -39,6 +39,7 @@ export const buildPageConfig = async (pageID) => {
     }
 
     const pageProps = await getComponentProps(pageID);
+    console.log('📋 pageProps loaded:', pageProps, 'keys:', Object.keys(pageProps));
     const pageTriggers = await getComponentTriggers(pageID);
     const workflowTriggers = await buildWorkflowTriggers(pageTriggers);
 
@@ -53,9 +54,11 @@ export const buildPageConfig = async (pageID) => {
       routePath: pageProps.routePath || defaultRoutePath,
       cluster: 'Page',
       layout: 'flex',
+      ...(pageProps && Object.keys(pageProps).length > 0 && { props: pageProps }),
       ...(workflowTriggers && { workflowTriggers }),
       components
     };
+    console.log('📦 Final pageConfig.props:', pageConfig.props);
 
     const mermaidText = generateMermaid(pageConfig);
 

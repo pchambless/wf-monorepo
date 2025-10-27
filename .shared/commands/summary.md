@@ -84,6 +84,17 @@ FROM api_wf.plan_communications
 WHERE type = 'summary' AND plan_id = 0
 ORDER BY created_at DESC LIMIT 2
 ```
+
+**Plan 45 Context Query:**
+
+```bash
+# Get Plan 45 architectural decisions and WhatsFresh page development context
+curl -X POST http://localhost:3001/api/execEventType \
+  -H "Content-Type: application/json" \
+  -d '{"eventSQLId": "sessionPlan45"}'
+```
+
+**Note:** If session work relates to WhatsFresh app building, template architecture, or page development, reference Plan 45 in the summary and set `plan_id: 45` in plan_communications.
 ````
 
 **Session Handoff:**
@@ -227,22 +238,22 @@ curl -X POST http://localhost:3001/api/logImpact \
     "impacts": [
       {
         "filePath": "file_path.js",
-        "changeType": "MODIFY", 
-        "description": "modifications description",
+        "changeType": "MODIFY",
+        "description": "Brief summary of modifications\n- Specific change 1\n- Specific change 2\n- Specific change 3",
         "affectedApps": ["appName"],
         "createdBy": "AI agent"
       },
       {
         "filePath": "file_path.js",
         "changeType": "CREATE",
-        "description": "New module description",
+        "description": "Created new module\n- Purpose and functionality\n- Key features added",
         "affectedApps": ["appName"],
         "createdBy": "AI agent"
       },
 	  {
         "filePath": "file_path.js",
-        "changeType": "DELETE", 
-        "description": "Reason for removal of module", 
+        "changeType": "DELETE",
+        "description": "Removed obsolete module - reason for deletion",
         "affectedApps": ["appName"],
         "createdBy": "AI agent"
       }
@@ -256,6 +267,9 @@ curl -X POST http://localhost:3001/api/logImpact \
 - Valid `changeType`: CREATE, MODIFY, DELETE, ANALYZE, DISCOVER
 - Use `planId: 0` for adhoc operations
 - Field names are camelCase: `filePath`, `changeType`, `affectedApps`, `createdBy`, `planId`
+- **Description formatting**: Use markdown with newlines and bullets for multi-part changes (improves readability in views/queries)
+  - For complex changes: `"Brief summary\n- Point 1\n- Point 2"`
+  - For simple changes: Single line without bullets is fine
 
 ## Benefits
 

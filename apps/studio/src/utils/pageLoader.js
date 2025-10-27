@@ -20,13 +20,41 @@ const normalizeFieldName = (columns) => {
   });
 };
 
+export const loadAllPageRegistry = async () => {
+  const count = await db.page_registry.count();
+  if (count > 0) {
+    console.log(`📋 Page registry already loaded (${count} pages)`);
+    return;
+  }
+
+  console.log('📥 Loading page_registry from server...');
+  const result = await execEvent('pageRegList');
+
+  if (result.data && result.data.length > 0) {
+    for (const pageReg of result.data) {
+      await db.page_registry.add({
+        id: pageReg.id,
+        pageName: pageReg.pageName,
+        appName: pageReg.appName,
+        pageTitle: pageReg.pageTitle,
+        tableName: pageReg.tableName,
+        contextKey: pageReg.contextKey,
+        routePath: pageReg.routePath,
+        tableID: pageReg.tableID
+      });
+    }
+    console.log(`✅ Loaded ${result.data.length} pages into page_registry`);
+  }
+};
+
 export const loadPageForEditing = async (pageID) => {
-  console.log(`📥 Loading page ${pageID} for editing (normalized)...`);
+  console.log(`📥 Loading page ${pageID} for editing...`);
 
   try {
     await clearPageData(pageID);
+    await loadAllPageRegistry();
 
-    const hierarchyResult = await execEvent('xrefHierarchy', { xrefID: pageID });
+    const hierarchyResult = await execEvent('xrefHierarchy', { pageID });
     const hierarchyData = Array.isArray(hierarchyResult.data?.[0])
       ? hierarchyResult.data[0]
       : hierarchyResult.data;
@@ -51,12 +79,13 @@ export const loadPageForEditing = async (pageID) => {
 
       try {
         await db.eventComp_xref.add({
-          id: compId, // MySQL id (from server)
+          id: compId,
           comp_name: cleanComp.comp_name,
           parent_id: cleanComp.parent_id,
           parent_name: cleanComp.parent_name,
           comp_type: cleanComp.comp_type,
           posOrder: cleanComp.posOrder,
+          pageID: cleanComp.pageID,
           title: cleanComp.title,
           description: cleanComp.description,
           style: cleanComp.style,
@@ -146,9 +175,6 @@ export const loadPageForEditing = async (pageID) => {
 };
 
 export const clearPageData = async (pageID) => {
-  // pageID param kept for API compatibility but unused
-  // Since pageID removed from schema, just clear all working data
-  // (Only one page loaded at a time anyway due to clearWorkingData on page switch)
   const components = await db.eventComp_xref.toArray();
   const xrefIds = components.map(c => c.id);
 

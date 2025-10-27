@@ -4,7 +4,7 @@ import React from 'react';
 /**
  * Create actions cell with action buttons for a row
  */
-function createActionsCell(rowActions, rowData, idx, config, setData) {
+function createActionsCell(rowActions, rowData, idx, config, setData, gridProps) {
   const actionButtons = rowActions.map((action) => ({
     id: `${action.id}_${idx}`,
     type: 'button',
@@ -34,41 +34,53 @@ function createActionsCell(rowActions, rowData, idx, config, setData) {
 
         console.log(`🔘 Action clicked: ${action.id}`, rowData);
 
-        // Build context with row data
+        // Build context with row data and grid props
         const context = {
           event: e,
           componentId: action.id,
           rowData: rowData,
           row: rowData,
+          props: gridProps,
           pageConfig: config,
           setData
         };
 
-        // Execute the trigger action
+        // Execute the trigger(s)
         if (action.trigger) {
-          // Merge row data into trigger content for DELETE operations
-          let triggerContent = action.trigger.content || action.trigger.params || {};
+          // Support single trigger object or array of triggers
+          const triggers = Array.isArray(action.trigger) ? action.trigger : [action.trigger];
 
-          // For DELETE: ensure we have the row ID
-          if (triggerContent.method === 'DELETE') {
-            triggerContent = {
-              ...triggerContent,
-              data: { id: rowData.id, ...triggerContent.data }
+          // Build enhanced context with row data available for template resolution
+          const enhancedContext = {
+            ...context,
+            workflowTriggers: {
+              onSuccess: action.onSuccess,
+              onError: action.onError
+            }
+          };
+
+          // Process each trigger with row data injection for DELETE
+          const processedTriggers = triggers.map(t => {
+            let triggerContent = t.content || t.params || {};
+
+            // For DELETE: ensure we have the row ID
+            if (triggerContent.method === 'DELETE') {
+              triggerContent = {
+                ...triggerContent,
+                data: { id: rowData.id, ...triggerContent.data }
+              };
+            }
+
+            return {
+              action: t.action,
+              params: triggerContent
             };
-          }
+          });
 
-          const result = await triggerEngine.executeAction(
-            action.trigger.action,
-            triggerContent,
-            context
-          );
+          // Execute all triggers in sequence
+          await triggerEngine.executeTriggers(processedTriggers, enhancedContext);
 
-          // Execute onSuccess triggers if defined
-          if (action.trigger.onSuccess && Array.isArray(action.trigger.onSuccess)) {
-            await triggerEngine.executeTriggers(action.trigger.onSuccess, context);
-          }
-
-          console.log(`✅ Action ${action.id} completed`, result);
+          console.log(`✅ Action ${action.id} completed`);
         }
       }
     }
@@ -90,7 +102,7 @@ function createActionsCell(rowActions, rowData, idx, config, setData) {
 /**
  * Render row from placeholder, replacing {tokens} with data
  */
-export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 'id', renderComponentFn, config, setData, rowActions = null) {
+export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 'id', renderComponentFn, config, setData, rowActions = null, gridProps = null) {
   const cloneWithData = (comp) => {
     let textContent = comp.textContent;
 
@@ -139,8 +151,8 @@ export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 
       };
 
       // Append actions cell if rowActions are defined
-      if (rowActions && rowActions.length > 0) {
-        const actionsCell = createActionsCell(rowActions, rowData, idx, config, setData);
+      if (rowActions && rowActions.length > 0 && gridProps) {
+        const actionsCell = createActionsCell(rowActions, rowData, idx, config, setData, gridProps);
         clonedComp.components = [...(clonedComp.components || []), actionsCell];
       }
     }

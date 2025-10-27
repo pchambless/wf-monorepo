@@ -63,8 +63,10 @@ const setVals = async (req, res) => {
   }
 
   try {
-    // Get current user email from context_store (self-describing)
-    const userEmail = await getValDirect('pc7900@gmail.com', 'userEmail', 'raw') || 'pc7900@gmail.com';
+    // Get user email from request body, session, or default
+    const userEmail = req.body.userEmail ||
+                      req.session?.userEmail ||
+                      'pc7900@gmail.com';
     const results = await setValsDirect(userEmail, values);
 
     logger.debug(`${codeName} Set ${results.length} values for ${userEmail}`);

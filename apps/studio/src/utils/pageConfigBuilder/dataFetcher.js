@@ -1,17 +1,27 @@
 import { db } from '../../db/studioDb';
 
 export const getComponentProps = async (xref_id) => {
+  console.log('🔍 getComponentProps called for xref_id:', xref_id, 'type:', typeof xref_id);
   const propsArray = await db.eventProps.where('xref_id').equals(xref_id).toArray();
+  console.log('🔍 Found props in IndexedDB:', propsArray);
   const props = {};
 
   propsArray.forEach(prop => {
     try {
-      props[prop.paramName] = JSON.parse(prop.paramVal);
+      const parsedVal = JSON.parse(prop.paramVal);
+
+      // If paramName is "props" and paramVal is an object, merge it into props
+      if (prop.paramName === 'props' && typeof parsedVal === 'object' && parsedVal !== null) {
+        Object.assign(props, parsedVal);
+      } else {
+        props[prop.paramName] = parsedVal;
+      }
     } catch {
       props[prop.paramName] = prop.paramVal;
     }
   });
 
+  console.log('🔍 Returning props object:', props);
   return props;
 };
 

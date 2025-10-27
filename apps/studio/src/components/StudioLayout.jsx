@@ -141,12 +141,16 @@ const styles = {
     minWidth: 0,
     backgroundColor: '#ffffff',
     position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
   },
   properties: {
-    width: '480px',
+    width: '280px',
     flexShrink: 0,
     borderLeft: '1px solid #e2e8f0',
     backgroundColor: '#ffffff',
+    overflowY: 'auto',
   },
   emptyState: {
     display: 'flex',

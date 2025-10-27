@@ -36,6 +36,10 @@ export class TriggerEngine {
       // Add contextStore to context
       const fullContext = { ...context, contextStore: this.contextStore };
 
+      // Resolve template tokens in content
+      const resolvedContent = await this.resolveTemplates(content, fullContext);
+      console.log(`📝 Template resolution:`, { original: content, resolved: resolvedContent });
+
       // Dynamic import with explicit path context for webpack
       let module;
       try {
@@ -58,8 +62,8 @@ export class TriggerEngine {
         throw new Error(`Function ${actionName} not found in ${trigType}/${actionName}.js`);
       }
 
-      // Execute with standard signature: (content, context)
-      const result = await triggerFunction(content, fullContext);
+      // Execute with standard signature: (resolvedContent, context)
+      const result = await triggerFunction(resolvedContent, fullContext);
 
       console.log(`✅ ${trigType}/${actionName} completed`);
       return result;
@@ -171,6 +175,89 @@ export class TriggerEngine {
       }
     }
     return content;
+  }
+
+  /**
+   * Resolve template tokens in content
+   * Supports: {{getVal:paramName}}, {{pageConfig.prop}}, {{selected.field}}, {{row.field}}
+   */
+  async resolveTemplates(content, context) {
+    console.log(`🔧 resolveTemplates called with type:`, typeof content, content);
+
+    if (!content || typeof content !== 'object') {
+      if (typeof content === 'string') {
+        console.log(`🔧 Calling resolveString for:`, content);
+        return await this.resolveString(content, context);
+      }
+      return content;
+    }
+
+    // Recursively resolve templates in objects and arrays
+    if (Array.isArray(content)) {
+      console.log(`🔧 Resolving array of length:`, content.length);
+      return await Promise.all(content.map(item => this.resolveTemplates(item, context)));
+    }
+
+    console.log(`🔧 Resolving object with keys:`, Object.keys(content));
+    const resolved = {};
+    for (const [key, value] of Object.entries(content)) {
+      console.log(`🔧 Resolving key "${key}" with value:`, value);
+      resolved[key] = await this.resolveTemplates(value, context);
+    }
+    return resolved;
+  }
+
+  /**
+   * Resolve template tokens in a string
+   */
+  async resolveString(str, context) {
+    console.log(`🔍 resolveString called with:`, str);
+    if (!str.includes('{{')) return str;
+
+    let resolved = str;
+
+    // Resolve {{getVal:paramName}} tokens (async, must be sequential)
+    const getValMatches = [...str.matchAll(/\{\{getVal:(\w+)\}\}/g)];
+    for (const match of getValMatches) {
+      const [token, paramName] = match;
+      try {
+        const { getVal } = await import('@whatsfresh/shared-imports');
+        const result = await getVal(paramName, 'raw');
+        const value = result.resolvedValue ?? result ?? '';
+        console.log(`🔍 Resolved {{getVal:${paramName}}} =>`, value);
+        resolved = resolved.replace(token, String(value));
+      } catch (error) {
+        console.warn(`⚠️ Failed to resolve {{getVal:${paramName}}}:`, error);
+        // Leave token as-is if resolution fails
+      }
+    }
+
+    // Resolve {{pageConfig.X}} tokens (sync)
+    resolved = resolved.replace(/\{\{pageConfig\.(\w+)\}\}/g, (match, prop) => {
+      const value = context.pageConfig?.[prop];
+      return value !== undefined ? String(value) : match;
+    });
+
+    // Resolve {{pageConfig.props.X}} tokens (sync)
+    resolved = resolved.replace(/\{\{pageConfig\.props\.(\w+)\}\}/g, (match, prop) => {
+      const value = context.pageConfig?.props?.[prop];
+      console.log(`🔍 Resolved {{pageConfig.props.${prop}}} =>`, value);
+      return value !== undefined ? String(value) : match;
+    });
+
+    // Resolve {{selected.X}} tokens (sync)
+    resolved = resolved.replace(/\{\{selected\.(\w+)\}\}/g, (match, prop) => {
+      const value = context.selected?.[prop];
+      return value !== undefined ? String(value) : match;
+    });
+
+    // Resolve {{row.X}} tokens (sync)
+    resolved = resolved.replace(/\{\{row\.(\w+)\}\}/g, (match, prop) => {
+      const value = context.row?.[prop] ?? context.rowData?.[prop];
+      return value !== undefined ? String(value) : match;
+    });
+
+    return resolved;
   }
 
   /**

@@ -50,7 +50,10 @@ const getVal = async (req, res) => {
   }
 
   try {
-    const userEmail = req.session?.userEmail || 'pc7900@gmail.com';
+    // Get user email from query, session, or default
+    const userEmail = req.query.userEmail ||
+                      req.session?.userEmail ||
+                      'pc7900@gmail.com';
     const resolvedValue = await getValDirect(userEmail, paramName, format);
 
     if (resolvedValue === null) {

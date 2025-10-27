@@ -3,14 +3,13 @@ import { v01 } from './versions/index.js';
 
 export const db = new Dexie('StudioDB');
 
-// Development: Increment version when schema changes
-// Version 2: Removed pageID from eventComp_xref (redundant with clearWorkingData)
-db.version(2).stores(v01);
+db.version(1).stores(v01);
 
 export const clearAllData = async () => {
   await db.eventComp_xref.clear();
   await db.eventTriggers.clear();
   await db.eventProps.clear();
+  await db.page_registry.clear();
   await db.eventTypes.clear();
   await db.eventSQL.clear();
   await db.triggers.clear();
@@ -28,6 +27,7 @@ export const exportAllData = async () => {
     eventComp_xref: await db.eventComp_xref.toArray(),
     eventTriggers: await db.eventTriggers.toArray(),
     eventProps: await db.eventProps.toArray(),
+    page_registry: await db.page_registry.toArray(),
     eventTypes: await db.eventTypes.toArray(),
     eventSQL: await db.eventSQL.toArray(),
     triggers: await db.triggers.toArray()

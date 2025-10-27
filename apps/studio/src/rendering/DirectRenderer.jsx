@@ -20,6 +20,7 @@ import { buildEventHandlers } from "./utils/eventHandlerBuilder.js";
 import { renderRow } from "./utils/rowRenderer.js";
 import { renderAppBar, renderSidebar } from "./utils/appLayoutRenderer.js";
 import { groupByRow, getRowAlignment, separateComponentsByType } from "./utils/layoutUtils.js";
+import { renderTextComponent, isTextComponent } from "./utils/textRenderer.js";
 import StudioCanvasWrapper from "../components/StudioCanvasWrapper.jsx";
 
 const customComponents = {
@@ -130,6 +131,16 @@ const DirectRenderer = ({ config }) => {
       return renderSidebar(component, config, renderComponent);
     }
 
+    // Handle text components (H1-H4, Text, Label)
+    if (isTextComponent(comp_type)) {
+      return renderTextComponent(component, getHtmlElement, buildEventHandlers, {
+        pageConfig: config,
+        setData,
+        contextStore,
+        formData
+      });
+    }
+
     if (comp_type && customComponents[comp_type]) {
       const CustomComponent = customComponents[comp_type];
       return <CustomComponent key={id} id={id} {...props} />;
@@ -180,6 +191,7 @@ const DirectRenderer = ({ config }) => {
       const gridComponent = findComponentById(gridId);
       const gridOnChangeTriggers = gridComponent?.workflowTriggers?.onChange;
       const rowActions = gridComponent?.props?.rowActions;
+      const gridProps = gridComponent?.props;
 
       if (data && data.length > 0 && components.length > 0) {
         const placeholder = components[0];
@@ -193,7 +205,8 @@ const DirectRenderer = ({ config }) => {
             renderComponent,
             config,
             setData,
-            rowActions
+            rowActions,
+            gridProps
           )
         );
       } else {

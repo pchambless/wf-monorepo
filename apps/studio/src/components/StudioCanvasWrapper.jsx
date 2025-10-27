@@ -105,7 +105,7 @@ const styles = {
     gap: '0',
   },
   canvasArea: {
-    flex: '1 1 70%',
+    flex: '1 1 60%',
     minWidth: 0,
   },
   propertiesArea: {
@@ -115,8 +115,8 @@ const styles = {
   },
   loading: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'left',
+    alignItems: 'left',
     height: '100%',
     fontSize: '16px',
     color: '#64748b',

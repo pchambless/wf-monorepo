@@ -19,8 +19,14 @@ export const pageConfigToFlow = (hierarchyData) => {
   // IMPORTANT: Use the same ID field (xref_id || id) for both parent and child matching
   const componentsByParent = {};
   components.forEach(comp => {
-    // Handle both parentID (from buildComponentConfig) and parent_id (from direct DB)
+    const compId = comp.xref_id || comp.id;
     const rawParentId = comp.parentID || comp.parent_id;
+
+    // Skip self-references (Container root where parent_id = id)
+    if (rawParentId === compId) {
+      return;
+    }
+
     const parentKey = rawParentId ? String(rawParentId) : 'root';
 
     if (!componentsByParent[parentKey]) {
@@ -46,17 +52,28 @@ export const pageConfigToFlow = (hierarchyData) => {
 
   // Calculate container dimensions based on children (recursive)
   const containerDimensionsCache = {};
+  const calculatingStack = new Set(); // Track components currently being calculated
 
   const getContainerDimensions = (componentId) => {
+    // Prevent infinite recursion - if we're already calculating this component, bail out
+    if (calculatingStack.has(componentId)) {
+      // This is normal for Container root (parent_id = id), don't warn
+      return { width: 250, height: 100 };
+    }
+
     // Return cached if already calculated
     if (containerDimensionsCache[componentId]) {
       return containerDimensionsCache[componentId];
     }
 
+    // Mark as currently calculating
+    calculatingStack.add(componentId);
+
     const children = componentsByParent[componentId] || [];
     if (children.length === 0) {
       const leafDims = { width: 250, height: 100 };
       containerDimensionsCache[componentId] = leafDims;
+      calculatingStack.delete(componentId);
       return leafDims;
     }
 
@@ -70,6 +87,8 @@ export const pageConfigToFlow = (hierarchyData) => {
     const childDimensions = children.map(child =>
       getContainerDimensions(child.xref_id || child.id)
     );
+
+    calculatingStack.delete(componentId); // Done calculating this component
 
     // Find max row to calculate height
     const maxRow = Math.max(...childrenParsed.map(c => c.flexPos?.row || 1));
@@ -95,10 +114,10 @@ export const pageConfigToFlow = (hierarchyData) => {
     const component = components.find(c => (c.xref_id || c.id) === componentId);
     const componentLevel = component?.level || 0;
 
-    // Parents (lower levels) are bigger
-    const baseWidth = 1200;
-    const widthReduction = Math.max(0, componentLevel) * 40;
-    const width = Math.max(baseWidth - widthReduction, 600);
+    // Parents (lower levels) are bigger, but keep reasonable for canvas
+    const baseWidth = 600; // Reduced from 1200 for better canvas fit
+    const widthReduction = Math.max(0, componentLevel) * 30;
+    const width = Math.max(baseWidth - widthReduction, 300);
 
     const dims = { width, height };
     containerDimensionsCache[componentId] = dims;

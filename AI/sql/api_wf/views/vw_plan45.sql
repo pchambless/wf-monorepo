@@ -4,8 +4,8 @@
     'communication' COLLATE utf8mb4_general_ci AS source, 
     from_agent COLLATE utf8mb4_general_ci AS agent, 
     type COLLATE utf8mb4_general_ci AS change_type, 
-    subject COLLATE utf8mb4_general_ci, 
-    message COLLATE utf8mb4_general_ci, 
+    subject COLLATE utf8mb4_general_ci AS subject, 
+    message COLLATE utf8mb4_general_ci AS message, 
     created_at
   FROM api_wf.plan_communications
   WHERE plan_id = 45
@@ -17,7 +17,7 @@
     'impacts' COLLATE utf8mb4_general_ci AS source, 
     created_by COLLATE utf8mb4_general_ci AS agent, 
     change_type COLLATE utf8mb4_general_ci, 
-    '' COLLATE utf8mb4_general_ci AS subject, 
+    file_path COLLATE utf8mb4_general_ci AS subject, 
     description COLLATE utf8mb4_general_ci AS message, 
     created_at
   FROM plan_impacts

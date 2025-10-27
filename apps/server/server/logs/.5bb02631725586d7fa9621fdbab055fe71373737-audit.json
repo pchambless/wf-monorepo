@@ -6,21 +6,6 @@
     "auditLog": "/home/paul/wf-monorepo-new/apps/server/server/logs/.5bb02631725586d7fa9621fdbab055fe71373737-audit.json",
     "files": [
         {
-            "date": 1760101280128,
-            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-10.log",
-            "hash": "37f89c0e726eb7ae154741ef4727d5a5e2166b8f67d6ac0c7a4733720cc7f216"
-        },
-        {
-            "date": 1760184376830,
-            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-11.log",
-            "hash": "ef73b572fb1d2f1b55469ce40fd29186a19699223c24cfb24b5eb43fc157bf05"
-        },
-        {
-            "date": 1760269063795,
-            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-12.log",
-            "hash": "f452fcca121096c44901f08843018d741270bd747f87981d334fd1f64c17f862"
-        },
-        {
             "date": 1760357929345,
             "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-13.log",
             "hash": "3f0ab1bbfd52c067fc955e25bd2b2f60e0787568976d218145fc86d5d77b63b5"
@@ -79,6 +64,21 @@
             "date": 1761306243315,
             "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-24.log",
             "hash": "8b541915085661cf069cdf511652e2f3198fa11a7d9b9e8a168ca700ab7193b5"
+        },
+        {
+            "date": 1761389720610,
+            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-25.log",
+            "hash": "c7469261cc65bdcdf769fe5fa0b17ae5fdf346829547fb5856ef2dc7591a8fc1"
+        },
+        {
+            "date": 1761484675289,
+            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-26.log",
+            "hash": "3629fbf0922c684a2a025ceb24028ebc3112fa01de67b885f0a39d296872e70a"
+        },
+        {
+            "date": 1761562840307,
+            "name": "/home/paul/wf-monorepo-new/apps/server/server/logs/performance-2025-10-27.log",
+            "hash": "c9f52e9bce78881beae67585b50193e4dd55dca884f2fd2e4b5b0b4392f2d490"
         }
     ],
     "hashType": "sha256"

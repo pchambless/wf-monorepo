@@ -36,17 +36,31 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
 
   const loadApps = async () => {
     try {
-      const result = await execEvent('appList', {});
-      setApps(result.data || []);
+      const uniqueApps = await db.page_registry
+        .orderBy('appName')
+        .uniqueKeys();
+
+      const appsData = uniqueApps.map(appName => ({
+        id: appName,
+        appName: appName
+      }));
+
+      setApps(appsData);
+      console.log(`📱 Loaded ${appsData.length} apps from page_registry`);
     } catch (error) {
       console.error('Failed to load apps:', error);
     }
   };
 
-  const loadPages = async (appID) => {
+  const loadPages = async (appName) => {
     try {
-      const result = await execEvent('pageList', { appID });
-      setPages(result.data || []);
+      const pagesData = await db.page_registry
+        .where('appName')
+        .equals(appName)
+        .toArray();
+
+      setPages(pagesData);
+      console.log(`📄 Loaded ${pagesData.length} pages for ${appName}`);
     } catch (error) {
       console.error('Failed to load pages:', error);
     }
@@ -222,8 +236,8 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
         >
           <option value="">Select an app...</option>
           {apps.map(app => (
-            <option key={app.xref_id} value={app.xref_id}>
-              {app.comp_name}
+            <option key={app.id} value={app.id}>
+              {app.appName}
             </option>
           ))}
         </select>
@@ -239,8 +253,8 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
         >
           <option value="">Select a page...</option>
           {pages.map(page => (
-            <option key={page.xref_id} value={page.xref_id}>
-              {page.comp_name}
+            <option key={page.id} value={page.id}>
+              {page.pageTitle}
             </option>
           ))}
         </select>

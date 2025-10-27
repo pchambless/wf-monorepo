@@ -4,6 +4,7 @@ import {
   loadEventSQL,
   loadTriggers
 } from '../../utils/referenceLoaders.js';
+import { loadAllPageRegistry } from '../../utils/pageLoader.js';
 
 // Prevent multiple simultaneous initialization (React StrictMode calls useEffect twice)
 let initializePromise = null;
@@ -27,10 +28,11 @@ export const initializeApp = async () => {
       const results = await Promise.all([
         loadEventTypes(),
         loadEventSQL(),
-        loadTriggers()
+        loadTriggers(),
+        loadAllPageRegistry()
       ]);
 
-      const allSuccess = results.every(r => r.success);
+      const allSuccess = results.every(r => r === undefined || r.success);
       console.log(allSuccess ? '✅ App initialized' : '⚠️ Some data failed to load');
 
       return { success: allSuccess, results };

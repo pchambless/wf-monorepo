@@ -15,23 +15,50 @@ import ContainerNode from './FlowNodes/ContainerNode';
 import PageNode from './FlowNodes/PageNode';
 import DefaultNode from './FlowNodes/DefaultNode';
 import { pageConfigToFlow } from '../utils/pageConfigToFlow';
+import { db } from '../db/studioDb';
 
-const nodeTypes = {
-  app: PageNode,
-  crud: PageNode,      // CRUD template uses PageNode
+// Specialized node types for specific components
+const specializedTypes = {
   grid: GridNode,
   form: FormNode,
   container: ContainerNode,
   page: PageNode,
-  button: DefaultNode,
-  select: DefaultNode,
+  app: PageNode,
+  crud: PageNode,
   default: DefaultNode,
 };
+
+// Static nodeTypes - built once at module load, never changes
+let nodeTypes = { ...specializedTypes };
+let nodeTypesInitialized = false;
+
+// Initialize nodeTypes from eventTypes (called once)
+const initializeNodeTypes = async () => {
+  if (nodeTypesInitialized) return;
+
+  try {
+    const eventTypes = await db.eventTypes.toArray();
+
+    eventTypes.forEach(et => {
+      const typeName = et.name.toLowerCase();
+      if (!nodeTypes[typeName]) {
+        nodeTypes[typeName] = DefaultNode;
+      }
+    });
+
+    nodeTypesInitialized = true;
+    console.log(`📦 Initialized ${Object.keys(nodeTypes).length} node types from eventTypes`);
+  } catch (error) {
+    console.error('Failed to load eventTypes:', error);
+  }
+};
+
+// Start initialization immediately
+initializeNodeTypes();
 
 const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-
   const [appName, setAppName] = useState('');
 
   useEffect(() => {
@@ -110,30 +137,27 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
   );
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
       {appName && (
         <div style={{
-          padding: '12px 16px',
+          padding: '8px 12px',
           backgroundColor: '#f8fafc',
           borderBottom: '2px solid #e2e8f0',
-          borderTopLeftRadius: '8px',
-          borderTopRightRadius: '8px',
           fontWeight: 600,
           fontSize: '16px',
-          color: '#1e293b'
+          color: '#1e293b',
+          flexShrink: 0,
         }}>
           📱 {appName}
         </div>
       )}
       <div style={{
+        flex: 1,
+        minHeight: 0,
         width: '100%',
-        height: '600px',
         border: '1px solid #e2e8f0',
         borderTop: appName ? 'none' : '1px solid #e2e8f0',
-        borderBottomLeftRadius: '8px',
-        borderBottomRightRadius: '8px',
-        borderTopLeftRadius: appName ? '0' : '8px',
-        borderTopRightRadius: appName ? '0' : '8px'
+        overflow: 'hidden',
       }}>
         <ReactFlow
           nodes={nodes}
@@ -144,6 +168,7 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
           onNodeDragStop={onNodeDragStop}
           nodeTypes={nodeTypes}
           fitView
+          fitViewOptions={{ padding: 0.2 }}
           attributionPosition="bottom-left"
         >
           <Background color="#94a3b8" gap={16} />

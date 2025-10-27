@@ -1,23 +1,25 @@
 -- api_wf.vw_hier_components source
 
-CREATE OR REPLACE
-ALGORITHM = UNDEFINED VIEW api_wf.vw_hier_components AS
-select
-    x.xref_id,
-    api_wf.f_xrefParent(x.parent_id) parent_name,
+CREATE OR REPLACE VIEW api_wf.vw_hier_components AS
+SELECT
+    x.id AS xref_id,
+    b.pageName AS pageName,
+    api_wf.f_xrefParent(x.parent_id) AS parent_name,
     x.comp_name AS comp_name,
-	concat(api_wf.f_xrefParent(x.parent_id),'.',x.comp_name) parentCompName,
+    CONCAT(api_wf.f_xrefParent(x.parent_id), '.', x.comp_name) AS parentCompName,
     x.title AS title,
-	x.comp_type,
-    x.container AS container,
+    x.comp_type AS comp_type,
     x.posOrder AS posOrder,
     x.style AS override_styles,
-    x.description AS description
-from
-    api_wf.eventComp_xref x
-where
-    x.active = 1
-    and parent_name <> comp_name
-order by
-    api_wf.f_xrefParent(x.parent_id), comp_name, 
+    x.description AS description,
+    x.parent_id,
+    x.pageID 
+FROM api_wf.eventComp_xref x
+join api_wf.page_registry b
+on   x.pageID = b.id
+WHERE x.active = 1
+ORDER BY
+    b.pageName,
+    api_wf.f_xrefParent(x.parent_id),
+    x.comp_name,
     x.posOrder;
