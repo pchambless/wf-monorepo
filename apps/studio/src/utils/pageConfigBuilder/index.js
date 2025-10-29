@@ -3,34 +3,44 @@ import { buildWorkflowTriggers } from './triggersBuilder.js';
 import { getComponent, getComponentProps, getComponentTriggers, getChildComponents } from './dataFetcher.js';
 import { generateMermaid } from './genMermaid.js';
 import { db } from '../../db/studioDb';
+import { getVal } from '@whatsfresh/shared-imports';
 
 export const buildPageConfig = async (pageID) => {
   try {
-    console.log('🔍 buildPageConfig called with pageID:', pageID, typeof pageID);
+    const contextPageIDResult = await getVal('pageID');
+    const contextPageID = contextPageIDResult?.resolvedValue || contextPageIDResult;
+    const effectivePageID = contextPageID || pageID;
+    console.log('🔍 buildPageConfig - param pageID:', pageID, 'context pageID:', contextPageID, 'using:', effectivePageID);
 
     const allComponents = await db.eventComp_xref.toArray();
     console.log('📦 All components in IndexedDB:', allComponents.map(c => ({
-      idbID: c.idbID,
       id: c.id,
-      idType: typeof c.id,
       name: c.comp_name,
-      level: c.level
+      level: c.level,
+      pageID: c.pageID
     })));
 
-    const pageComponent = await getComponent(pageID);
-    console.log('📄 Found page component:', pageComponent);
+    // Debug: Check all page_registry entries
+    const allPages = await db.page_registry.toArray();
+    console.log('📋 All page_registry entries:', allPages.map(p => ({id: p.id, pageName: p.pageName})));
 
-    // Debug: Try to find it manually
-    const manualFind = allComponents.find(c => c.id == pageID);
-    console.log('🔍 Manual find with == :', manualFind);
-    const strictFind = allComponents.find(c => c.id === pageID);
-    console.log('🔍 Manual find with === :', strictFind);
+    const pageRegistry = await db.page_registry.where('id').equals(parseInt(effectivePageID)).first();
+    console.log('📋 Looking for pageID:', effectivePageID, 'Found page registry entry:', pageRegistry);
 
-    if (!pageComponent) {
-      throw new Error(`Page component not found: ${pageID}. Available IDs: ${allComponents.map(c => c.id).join(', ')}`);
+    if (!pageRegistry) {
+      throw new Error(`Page registry entry not found for pageID: ${effectivePageID}`);
     }
 
-    const childComponents = await getChildComponents(pageID);
+    const containerComponent = allComponents.find(c =>
+      c.pageID === parseInt(effectivePageID) && c.level === 0
+    );
+    console.log('📦 Found Container component:', containerComponent);
+
+    if (!containerComponent) {
+      throw new Error(`Container component not found for pageID: ${effectivePageID}. Available components: ${allComponents.map(c => `${c.comp_name}(${c.id})`).join(', ')}`);
+    }
+
+    const childComponents = await getChildComponents(containerComponent.id);
 
     const components = [];
     for (const child of childComponents) {
@@ -38,23 +48,22 @@ export const buildPageConfig = async (pageID) => {
       components.push(childConfig);
     }
 
-    const pageProps = await getComponentProps(pageID);
-    console.log('📋 pageProps loaded:', pageProps, 'keys:', Object.keys(pageProps));
-    const pageTriggers = await getComponentTriggers(pageID);
-    const workflowTriggers = await buildWorkflowTriggers(pageTriggers);
-
-    const appComponent = await getComponent(pageComponent.parent_id);
-    const appName = appComponent ? appComponent.comp_name : '';
-    const defaultRoutePath = appName ? `/${appName}/${pageComponent.comp_name}` : `/${pageComponent.comp_name}`;
+    const containerProps = await getComponentProps(containerComponent.id);
+    const containerTriggers = await getComponentTriggers(containerComponent.id);
+    const workflowTriggers = await buildWorkflowTriggers(containerTriggers);
 
     const pageConfig = {
-      pageName: pageComponent.comp_name,
-      title: pageComponent.title || pageComponent.comp_name,
-      ...(pageComponent.description && { description: pageComponent.description }),
-      routePath: pageProps.routePath || defaultRoutePath,
+      pageName: pageRegistry.pageName,
+      title: pageRegistry.pageTitle,
+      routePath: pageRegistry.routePath,
       cluster: 'Page',
       layout: 'flex',
-      ...(pageProps && Object.keys(pageProps).length > 0 && { props: pageProps }),
+      props: {
+        tableName: pageRegistry.tableName,
+        tableID: pageRegistry.tableID,
+        contextKey: pageRegistry.contextKey,
+        ...containerProps
+      },
       ...(workflowTriggers && { workflowTriggers }),
       components
     };
@@ -67,9 +76,9 @@ export const buildPageConfig = async (pageID) => {
       pageConfig,
       mermaidText,
       meta: {
-        pageID,
-        pageName: pageComponent.comp_name,
-        appName,
+        pageID: effectivePageID,
+        pageName: pageRegistry.pageName,
+        appName: pageRegistry.appName,
         componentsCount: components.length,
         generatedAt: new Date().toISOString()
       }

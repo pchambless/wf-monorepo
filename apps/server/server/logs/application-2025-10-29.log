@@ -1,0 +1,2 @@
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-10-29 00:28:03"}
+{"level":"info","message":"Log file rotated","newFilename":"/home/paul/wf-monorepo-new/apps/server/server/logs/application-2025-10-29.log","oldFilename":"/home/paul/wf-monorepo-new/apps/server/server/logs/application-2025-10-28.log","timestamp":"2025-10-29 00:28:03"}

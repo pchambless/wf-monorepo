@@ -356,9 +356,9 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       console.log('Loading preview data for xref_id:', xref_id);
 
       const [basicResult, triggersResult, propsResult] = await Promise.all([
-        execEvent('xrefBasicDtl', { xrefID: xref_id }),
-        execEvent('xrefTriggerList', { xrefID: xref_id }),
-        execEvent('xrefPropList', { xrefID: xref_id })
+        execEvent('studio-xrefBasicDtl', { xrefID: xref_id }),
+        execEvent('studio-xrefTriggers', { xrefID: xref_id }),
+        execEvent('studio-xrefProps', { xrefID: xref_id })
       ]);
 
       console.log('Basic result:', basicResult);
@@ -403,7 +403,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     console.log('Generating fields for xref_id:', xref_id);
 
     try {
-      const result = await execEvent('xrefFieldGen', { xref_id });
+      const result = await execEvent('studio-xrefFieldGen', { xref_id });
 
       if (!result.data) {
         throw new Error('No data returned from field generation');
@@ -670,19 +670,19 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       <div style={styles.content}>
         {activeTab === 'component' && (
           <div style={styles.tabContent}>
-            <div style={{display: 'flex', gap: '12px', alignItems: 'flex-start'}}>
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
               {!isCreating && (
-                <div style={{...styles.field, flex: '0 0 60px'}}>
+                <div style={{ ...styles.field, flex: '0 0 60px' }}>
                   <label style={styles.label}>ID</label>
                   <input
                     type="text"
                     value={selectedComponent?.xref_id || ''}
                     disabled
-                    style={{...styles.inputDisabled, fontSize: '12px', padding: '6px 8px', textAlign: 'center'}}
+                    style={{ ...styles.inputDisabled, fontSize: '12px', padding: '6px 8px', textAlign: 'center' }}
                   />
                 </div>
               )}
-              <div style={{...styles.field, flex: 1}}>
+              <div style={{ ...styles.field, flex: 1 }}>
                 <label style={styles.label}>Component Name</label>
                 <input
                   type="text"
@@ -692,7 +692,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
                   style={styles.input}
                 />
               </div>
-              <div style={{...styles.field, flex: '0 0 140px'}}>
+              <div style={{ ...styles.field, flex: '0 0 140px' }}>
                 <label style={styles.label}>Position Order</label>
                 <input
                   type="text"
@@ -719,7 +719,7 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
                 value={editedDescription}
                 onChange={handleDescriptionChange}
                 placeholder="Component description (optional)"
-                style={{...styles.input, minHeight: '60px', resize: 'vertical'}}
+                style={{ ...styles.input, minHeight: '60px', resize: 'vertical' }}
               />
             </div>
             <div style={styles.field}>
@@ -872,28 +872,28 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
         {showTriggersModal && (() => {
           console.log('🔍 Triggers Modal - selectedComponent:', selectedComponent);
           return (
-          <div style={styles.modalOverlay} onClick={() => setShowTriggersModal(false)}>
-            <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-              <div style={styles.modalHeader}>
-                <h2 style={styles.modalTitle}>
-                  Triggers - {(() => {
-                    const name = editedCompName || selectedComponent?.comp_name || selectedComponent?.label || 'Unknown';
-                    const title = editedTitle || selectedComponent?.title;
-                    return title && title !== name ? `${name} (${title})` : name;
-                  })()}
-                </h2>
-                <button
-                  style={styles.modalClose}
-                  onClick={() => setShowTriggersModal(false)}
-                >
-                  ✕
-                </button>
-              </div>
-              <div style={styles.modalBody}>
-                <TriggerBuilder component={selectedComponent} />
+            <div style={styles.modalOverlay} onClick={() => setShowTriggersModal(false)}>
+              <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                <div style={styles.modalHeader}>
+                  <h2 style={styles.modalTitle}>
+                    Triggers - {(() => {
+                      const name = editedCompName || selectedComponent?.comp_name || selectedComponent?.label || 'Unknown';
+                      const title = editedTitle || selectedComponent?.title;
+                      return title && title !== name ? `${name} (${title})` : name;
+                    })()}
+                  </h2>
+                  <button
+                    style={styles.modalClose}
+                    onClick={() => setShowTriggersModal(false)}
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div style={styles.modalBody}>
+                  <TriggerBuilder component={selectedComponent} />
+                </div>
               </div>
             </div>
-          </div>
           );
         })()}
 

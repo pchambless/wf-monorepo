@@ -20,15 +20,21 @@ const normalizeFieldName = (columns) => {
   });
 };
 
-export const loadAllPageRegistry = async () => {
+export const loadAllPageRegistry = async (forceReload = false) => {
   const count = await db.page_registry.count();
-  if (count > 0) {
+
+  if (count > 0 && !forceReload) {
     console.log(`📋 Page registry already loaded (${count} pages)`);
     return;
   }
 
+  if (forceReload && count > 0) {
+    console.log('🔄 Force reloading page_registry - clearing existing data...');
+    await db.page_registry.clear();
+  }
+
   console.log('📥 Loading page_registry from server...');
-  const result = await execEvent('pageRegList');
+  const result = await execEvent('studio-pageRegistry');
 
   if (result.data && result.data.length > 0) {
     for (const pageReg of result.data) {
@@ -54,7 +60,7 @@ export const loadPageForEditing = async (pageID) => {
     await clearPageData(pageID);
     await loadAllPageRegistry();
 
-    const hierarchyResult = await execEvent('xrefHierarchy', { pageID });
+    const hierarchyResult = await execEvent('studio-xrefHierarchy', { pageID });
     const hierarchyData = Array.isArray(hierarchyResult.data?.[0])
       ? hierarchyResult.data[0]
       : hierarchyResult.data;
@@ -98,7 +104,7 @@ export const loadPageForEditing = async (pageID) => {
         throw err;
       }
 
-      const propsResult = await execEvent('xrefPropList', {
+      const propsResult = await execEvent('studio-xrefProps', {
         xrefID: cleanComp.xref_id || cleanComp.id
       });
 
@@ -131,7 +137,7 @@ export const loadPageForEditing = async (pageID) => {
         propsLoaded++;
       }
 
-      const triggersResult = await execEvent('xrefTriggerList', {
+      const triggersResult = await execEvent('studio-xrefTriggers', {
         xrefID: cleanComp.xref_id || cleanComp.id
       });
 

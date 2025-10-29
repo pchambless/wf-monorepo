@@ -1,21 +1,21 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import ReactFlow, {
   Background,
   Controls,
   useNodesState,
   useEdgesState,
   MarkerType,
-} from 'reactflow';
-import 'reactflow/dist/style.css';
-import { execEvent, setVals } from '@whatsfresh/shared-imports';
+} from "reactflow";
+import "reactflow/dist/style.css";
+import { execEvent, setVals } from "@whatsfresh/shared-imports";
 
-import GridNode from './FlowNodes/GridNode';
-import FormNode from './FlowNodes/FormNode';
-import ContainerNode from './FlowNodes/ContainerNode';
-import PageNode from './FlowNodes/PageNode';
-import DefaultNode from './FlowNodes/DefaultNode';
-import { pageConfigToFlow } from '../utils/pageConfigToFlow';
-import { db } from '../db/studioDb';
+import GridNode from "./FlowNodes/GridNode";
+import FormNode from "./FlowNodes/FormNode";
+import ContainerNode from "./FlowNodes/ContainerNode";
+import PageNode from "./FlowNodes/PageNode";
+import DefaultNode from "./FlowNodes/DefaultNode";
+import { pageConfigToFlow } from "../utils/pageConfigToFlow";
+import { db } from "../db/studioDb";
 
 // Specialized node types for specific components
 const specializedTypes = {
@@ -39,7 +39,7 @@ const initializeNodeTypes = async () => {
   try {
     const eventTypes = await db.eventTypes.toArray();
 
-    eventTypes.forEach(et => {
+    eventTypes.forEach((et) => {
       const typeName = et.name.toLowerCase();
       if (!nodeTypes[typeName]) {
         nodeTypes[typeName] = DefaultNode;
@@ -47,9 +47,12 @@ const initializeNodeTypes = async () => {
     });
 
     nodeTypesInitialized = true;
-    console.log(`📦 Initialized ${Object.keys(nodeTypes).length} node types from eventTypes`);
+    console.log(
+      `📦 Initialized ${Object.keys(nodeTypes).length
+      } node types from eventTypes`
+    );
   } catch (error) {
-    console.error('Failed to load eventTypes:', error);
+    console.error("Failed to load eventTypes:", error);
   }
 };
 
@@ -59,26 +62,37 @@ initializeNodeTypes();
 const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  const [appName, setAppName] = useState('');
+  const [appName, setAppName] = useState("");
 
   useEffect(() => {
-    if (pageConfig) {
-      const { nodes: flowNodes, edges: flowEdges, appInfo } = pageConfigToFlow(pageConfig);
+    const loadFlow = async () => {
+      if (pageConfig) {
+        // Load flat component array from IndexedDB for React Flow
+        const components = await db.eventComp_xref.toArray();
 
-      const enhancedEdges = flowEdges.map(edge => ({
-        ...edge,
-        markerEnd: {
-          type: MarkerType.ArrowClosed,
-          width: 20,
-          height: 20,
-        },
-        style: { strokeWidth: 2, stroke: '#94a3b8' },
-      }));
+        const {
+          nodes: flowNodes,
+          edges: flowEdges,
+          appInfo,
+        } = pageConfigToFlow(components);
 
-      setNodes(flowNodes);
-      setEdges(enhancedEdges);
-      setAppName(appInfo?.title || '');
-    }
+        const enhancedEdges = flowEdges.map((edge) => ({
+          ...edge,
+          markerEnd: {
+            type: MarkerType.ArrowClosed,
+            width: 20,
+            height: 20,
+          },
+          style: { strokeWidth: 2, stroke: "#94a3b8" },
+        }));
+
+        setNodes(flowNodes);
+        setEdges(enhancedEdges);
+        setAppName(appInfo?.title || pageConfig.title || "");
+      }
+    };
+
+    loadFlow();
   }, [pageConfig, setNodes, setEdges]);
 
   const onNodeClick = useCallback(
@@ -89,18 +103,18 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
 
       try {
         // Set xrefID in context
-        await setVals([{ paramName: 'xrefID', paramVal: xref_id }]);
+        await setVals([{ paramName: "xrefID", paramVal: xref_id }]);
 
         // Fetch props and triggers in parallel
         const [propsResult, triggersResult] = await Promise.all([
-          execEvent('xrefPropList', { xrefID: xref_id }),
-          execEvent('xrefTriggerList', { xrefID: xref_id })
+          execEvent("studio-xrefProps", { xrefID: xref_id }),
+          execEvent("studio-xrefTriggers", { xrefID: xref_id }),
         ]);
 
         // Transform props array to object
         const propsObj = {};
         if (propsResult.data) {
-          propsResult.data.forEach(prop => {
+          propsResult.data.forEach((prop) => {
             propsObj[prop.paramName] = prop.paramVal;
           });
         }
@@ -114,7 +128,7 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
           triggers: triggersResult.data || [],
         });
       } catch (error) {
-        console.error('Failed to fetch node details:', error);
+        console.error("Failed to fetch node details:", error);
         // Still show basic info even if fetch fails
         onNodeSelect({
           xref_id,
@@ -129,36 +143,51 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
     [onNodeSelect]
   );
 
-  const onNodeDragStop = useCallback(
-    (event, node) => {
-      console.log('Node dragged:', node.id, 'to position:', node.position);
-    },
-    []
-  );
+  const onNodeDragStop = useCallback((event, node) => {
+    console.log("Node dragged:", node.id, "to position:", node.position);
+  }, []);
 
   return (
-    <div style={{ width: '100%', flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+    <div
+      style={{
+        width: "100%",
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 0,
+        padding: "12px", // Breathing room around React Flow
+        boxSizing: "border-box",
+      }}
+    >
       {appName && (
-        <div style={{
-          padding: '8px 12px',
-          backgroundColor: '#f8fafc',
-          borderBottom: '2px solid #e2e8f0',
-          fontWeight: 600,
-          fontSize: '16px',
-          color: '#1e293b',
-          flexShrink: 0,
-        }}>
+        <div
+          style={{
+            padding: "8px 12px",
+            backgroundColor: "#f8fafc",
+            borderBottom: "2px solid #e2e8f0",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
+            fontWeight: 600,
+            fontSize: "16px",
+            color: "#1e293b",
+            flexShrink: 0,
+          }}
+        >
           📱 {appName}
         </div>
       )}
-      <div style={{
-        flex: 1,
-        minHeight: 0,
-        width: '100%',
-        border: '1px solid #e2e8f0',
-        borderTop: appName ? 'none' : '1px solid #e2e8f0',
-        overflow: 'hidden',
-      }}>
+      <div
+        style={{
+          flex: 1,
+          minHeight: 0,
+          width: "100%",
+          border: "1px solid #e2e8f0",
+          borderTop: appName ? "none" : "1px solid #e2e8f0",
+          borderRadius: appName ? "0 0 8px 8px" : "8px",
+          overflow: "hidden",
+          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+        }}
+      >
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -170,9 +199,21 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
           fitView
           fitViewOptions={{ padding: 0.2 }}
           attributionPosition="bottom-left"
+          minZoom={0.1}
+          maxZoom={4}
+          defaultZoom={1}
+          zoomOnScroll={true}
+          zoomOnPinch={true}
+          panOnScroll={false}
+          panOnScrollMode="free"
         >
           <Background color="#94a3b8" gap={16} />
-          <Controls />
+          <Controls
+            showZoom={true}
+            showFitView={true}
+            showInteractive={true}
+            position="top-left"
+          />
         </ReactFlow>
       </div>
     </div>

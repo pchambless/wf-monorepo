@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import StudioSidebar from './StudioSidebar';
-import PageFlowCanvas from './PageFlowCanvas';
-import ComponentPropertiesPanel from './ComponentPropertiesPanel';
-import PageDraftControls from './PageDraftControls';
-import FloatingActionButton from './FloatingActionButton';
-import IssuesModal from './IssuesModal';
+import React, { useState, useRef } from "react";
+import StudioSidebar from "./StudioSidebar";
+import PageFlowCanvas from "./PageFlowCanvas";
+import ComponentPropertiesPanel from "./ComponentPropertiesPanel";
+import PageDraftControls from "./PageDraftControls";
+import FloatingActionButton from "./FloatingActionButton";
+import IssuesModal from "./IssuesModal";
 
 const StudioLayout = () => {
   const [pageConfig, setPageConfig] = useState(null);
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [currentPageID, setCurrentPageID] = useState(null);
   const [isIssuesModalOpen, setIsIssuesModalOpen] = useState(false);
+  const [propertiesWidth, setPropertiesWidth] = useState(400);
+  const [isResizing, setIsResizing] = useState(false);
+  const containerRef = useRef(null);
 
   const handlePageConfigLoaded = (config, pageID) => {
     setPageConfig(config);
@@ -22,68 +25,102 @@ const StudioLayout = () => {
     setSelectedComponent(component);
   };
 
+  const handleMouseDown = (e) => {
+    setIsResizing(true);
+    e.preventDefault();
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isResizing || !containerRef.current) return;
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const newWidth = containerRect.right - e.clientX;
+
+    // Min width 300px, max width 700px (increased for better properties editing)
+    if (newWidth >= 300 && newWidth <= 700) {
+      setPropertiesWidth(newWidth);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsResizing(false);
+  };
+
+  React.useEffect(() => {
+    if (isResizing) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      return () => {
+        document.removeEventListener("mousemove", handleMouseMove);
+        document.removeEventListener("mouseup", handleMouseUp);
+      };
+    }
+  }, [isResizing]);
+
   const handleSaveComponent = async (updatedData) => {
     try {
-      console.log('Saving component:', updatedData);
+      console.log("Saving component:", updatedData);
 
       // Update title in eventType_xref
       if (updatedData.title !== selectedComponent.label) {
-        await fetch('http://localhost:3001/api/execDML', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("http://localhost:3001/api/execDML", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            method: 'UPDATE',
-            table: 'api_wf.eventType_xref',
+            method: "UPDATE",
+            table: "api_wf.eventType_xref",
             data: { title: updatedData.title },
-            where: { xref_id: updatedData.xref_id }
-          })
+            where: { xref_id: updatedData.xref_id },
+          }),
         });
       }
 
       // Update container if changed
       if (updatedData.container !== selectedComponent.container) {
-        await fetch('http://localhost:3001/api/execDML', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("http://localhost:3001/api/execDML", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            method: 'UPDATE',
-            table: 'api_wf.eventType_xref',
+            method: "UPDATE",
+            table: "api_wf.eventType_xref",
             data: { container: updatedData.container },
-            where: { xref_id: updatedData.xref_id }
-          })
+            where: { xref_id: updatedData.xref_id },
+          }),
         });
       }
 
       // Update props by updating/inserting into eventProps table
       const propsEntries = Object.entries(updatedData.eventProps);
       for (const [paramName, paramVal] of propsEntries) {
-        await fetch('http://localhost:3001/api/execDML', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        await fetch("http://localhost:3001/api/execDML", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            method: 'UPSERT',
-            table: 'api_wf.eventProps',
+            method: "UPSERT",
+            table: "api_wf.eventProps",
             data: {
               xref_id: updatedData.xref_id,
               paramName,
-              paramVal: typeof paramVal === 'object' ? JSON.stringify(paramVal) : String(paramVal),
-              active: 1
-            }
-          })
+              paramVal:
+                typeof paramVal === "object"
+                  ? JSON.stringify(paramVal)
+                  : String(paramVal),
+              active: 1,
+            },
+          }),
         });
       }
 
-      console.log('✅ Component saved successfully');
-      alert('Component saved successfully!');
-
+      console.log("✅ Component saved successfully");
+      alert("Component saved successfully!");
     } catch (error) {
-      console.error('❌ Failed to save component:', error);
-      alert('Failed to save component: ' + error.message);
+      console.error("❌ Failed to save component:", error);
+      alert("Failed to save component: " + error.message);
     }
   };
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} ref={containerRef}>
       <div style={styles.sidebar}>
         <StudioSidebar onPageConfigLoaded={handlePageConfigLoaded} />
       </div>
@@ -103,7 +140,18 @@ const StudioLayout = () => {
         )}
       </div>
 
-      <div style={styles.properties}>
+      {/* Resizable divider */}
+      <div
+        style={{
+          ...styles.resizer,
+          cursor: isResizing ? "ew-resize" : "ew-resize",
+        }}
+        onMouseDown={handleMouseDown}
+      >
+        <div style={styles.resizerHandle} />
+      </div>
+
+      <div style={{ ...styles.properties, width: `${propertiesWidth}px` }}>
         <ComponentPropertiesPanel
           selectedComponent={selectedComponent}
           pageID={currentPageID}
@@ -122,50 +170,71 @@ const StudioLayout = () => {
 
 const styles = {
   container: {
-    display: 'flex',
-    height: '100vh',
-    width: '100vw',
-    overflow: 'hidden',
-    backgroundColor: '#f8fafc',
+    display: "flex",
+    height: "100vh",
+    width: "100vw",
+    overflow: "hidden",
+    backgroundColor: "#f8fafc",
   },
   sidebar: {
-    width: '280px',
+    width: "280px",
     flexShrink: 0,
-    borderRight: '1px solid #e2e8f0',
-    backgroundColor: '#ffffff',
-    display: 'flex',
-    flexDirection: 'column',
+    borderRight: "1px solid #e2e8f0",
+    backgroundColor: "#ffffff",
+    display: "flex",
+    flexDirection: "column",
   },
   canvas: {
     flex: 1,
     minWidth: 0,
-    backgroundColor: '#ffffff',
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'hidden',
+    maxWidth: "60vw", // Prevent canvas from being too wide
+    backgroundColor: "#ffffff",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+  },
+  resizer: {
+    width: "8px",
+    flexShrink: 0,
+    backgroundColor: "#f1f5f9",
+    cursor: "ew-resize",
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    userSelect: "none",
+    transition: "background-color 0.2s",
+    ":hover": {
+      backgroundColor: "#e2e8f0",
+    },
+  },
+  resizerHandle: {
+    width: "2px",
+    height: "40px",
+    backgroundColor: "#cbd5e1",
+    borderRadius: "1px",
   },
   properties: {
-    width: '280px',
     flexShrink: 0,
-    borderLeft: '1px solid #e2e8f0',
-    backgroundColor: '#ffffff',
-    overflowY: 'auto',
+    borderLeft: "1px solid #e2e8f0",
+    backgroundColor: "#ffffff",
+    overflowY: "auto",
   },
   emptyState: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
-    color: '#94a3b8',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    color: "#94a3b8",
   },
   emptyIcon: {
-    fontSize: '64px',
-    marginBottom: '16px',
+    fontSize: "64px",
+    marginBottom: "16px",
   },
   emptyText: {
-    fontSize: '18px',
+    fontSize: "18px",
     fontWeight: 500,
   },
 };

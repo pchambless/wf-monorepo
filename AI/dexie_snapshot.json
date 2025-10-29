@@ -1,0 +1,1221 @@
+{
+    "eventComp_xref": [
+        {
+            "id": 65,
+            "comp_name": "Container",
+            "parent_id": "65",
+            "parent_name": "CRUD",
+            "comp_type": "Container",
+            "posOrder": "01,01,98,left",
+            "pageID": 11,
+            "title": "{pageName} Container",
+            "description": "{pageName} Container for Grid and Form.",
+            "level": 0,
+            "_dmlMethod": null,
+            "idbID": 41
+        },
+        {
+            "id": 77,
+            "comp_name": "Title",
+            "parent_id": "65",
+            "parent_name": "Container",
+            "comp_type": "H3",
+            "posOrder": "01,01,50,left",
+            "pageID": 11,
+            "title": "{pageName}",
+            "description": "{pageName} Page Title.",
+            "level": 1,
+            "_dmlMethod": null,
+            "idbID": 42
+        },
+        {
+            "id": 66,
+            "comp_name": "AddNew",
+            "parent_id": "65",
+            "parent_name": "Container",
+            "comp_type": "Button",
+            "posOrder": "02,01,25,left",
+            "pageID": 11,
+            "title": "{pageName} Add New",
+            "description": "{pageName} Add New Button.",
+            "level": 1,
+            "_dmlMethod": null,
+            "idbID": 43
+        },
+        {
+            "id": 67,
+            "comp_name": "Grid",
+            "parent_id": "65",
+            "parent_name": "Container",
+            "comp_type": "Grid",
+            "posOrder": "03,01,50,left",
+            "pageID": 11,
+            "title": "{pageName} ",
+            "description": "{pageName} Grid component.",
+            "level": 1,
+            "_dmlMethod": null,
+            "idbID": 44
+        },
+        {
+            "id": 68,
+            "comp_name": "Form",
+            "parent_id": "65",
+            "parent_name": "Container",
+            "comp_type": "Form",
+            "posOrder": "03,02,50,right",
+            "pageID": 11,
+            "title": "{pageName} Form",
+            "description": "{pageName} Form Component.",
+            "level": 1,
+            "_dmlMethod": null,
+            "idbID": 45
+        },
+        {
+            "id": 69,
+            "comp_name": "Submit",
+            "parent_id": "68",
+            "parent_name": "Form",
+            "comp_type": "Button",
+            "posOrder": "03,01,20,right",
+            "pageID": 11,
+            "title": "{pageName} Submit",
+            "description": "{pageName} Form Submit Button.",
+            "level": 2,
+            "_dmlMethod": null,
+            "idbID": 46
+        }
+    ],
+    "eventTriggers": [
+        {
+            "xref_id": 65,
+            "id": 65,
+            "class": "onLoad",
+            "action": "setVals",
+            "ordr": 1,
+            "content": "[\n    {\"tableName\": \"{{pageConfig.props.tableName}}\"}\n]",
+            "_dmlMethod": null,
+            "idbID": 81
+        },
+        {
+            "xref_id": 65,
+            "id": 61,
+            "class": "onLoad",
+            "action": "refresh",
+            "ordr": 2,
+            "content": "\"{pageName}Grid\"",
+            "_dmlMethod": null,
+            "idbID": 82
+        },
+        {
+            "xref_id": 66,
+            "id": 55,
+            "class": "onClick",
+            "action": "setVals",
+            "ordr": 1,
+            "content": "[{\"selectedID\":null,\n \"method\": \"INSERT\"}\n]",
+            "_dmlMethod": null,
+            "idbID": 83
+        },
+        {
+            "xref_id": 66,
+            "id": 56,
+            "class": "onClick",
+            "action": "visible",
+            "ordr": 2,
+            "content": "[\n\t{\"{pageName}Form\": true}\n]",
+            "_dmlMethod": null,
+            "idbID": 84
+        },
+        {
+            "xref_id": 66,
+            "id": 64,
+            "class": "onClick",
+            "action": "refresh",
+            "ordr": 3,
+            "content": "[\n  \"{pageName}Form\"\n]",
+            "_dmlMethod": null,
+            "idbID": 85
+        },
+        {
+            "xref_id": 67,
+            "id": 63,
+            "class": "onChange",
+            "action": "setVals",
+            "ordr": 2,
+            "content": "[\n   {\"selectedID\": \"{{selected.id}}\"}\n]",
+            "_dmlMethod": null,
+            "idbID": 86
+        },
+        {
+            "xref_id": 67,
+            "id": 53,
+            "class": "onChange",
+            "action": "refresh",
+            "ordr": 3,
+            "content": "[\"{pageName}Form\"]",
+            "_dmlMethod": null,
+            "idbID": 87
+        },
+        {
+            "xref_id": 67,
+            "id": 52,
+            "class": "onRefresh",
+            "action": "execEvent",
+            "ordr": 1,
+            "content": "{pageName}List",
+            "_dmlMethod": null,
+            "idbID": 88
+        },
+        {
+            "xref_id": 68,
+            "id": 62,
+            "class": "onRefresh",
+            "action": "execEvent",
+            "ordr": 1,
+            "content": "{pageName}Dtl",
+            "_dmlMethod": null,
+            "idbID": 89
+        },
+        {
+            "xref_id": 69,
+            "id": 60,
+            "class": "onClick",
+            "action": "captureFormData",
+            "ordr": 1,
+            "content": "{\"comp_name\":\"{pageName}Form\"}",
+            "_dmlMethod": null,
+            "idbID": 90
+        },
+        {
+            "xref_id": 69,
+            "id": 58,
+            "class": "onClick",
+            "action": "execDML",
+            "ordr": 2,
+            "content": "{\n\"method\": \"{{getVal:method}}\",\n\"table\": \"{{getVal:tableName}}\",\n\"data\": \"{{getVal:dmlData}}\",\n\"userID\": \"{{getVal:firstName}}\"\n}",
+            "_dmlMethod": null,
+            "idbID": 91
+        },
+        {
+            "xref_id": 69,
+            "id": 59,
+            "class": "onClick",
+            "action": "refresh",
+            "ordr": 3,
+            "content": " [\"{pageName}Grid\"]",
+            "_dmlMethod": null,
+            "idbID": 92
+        }
+    ],
+    "eventProps": [
+        {
+            "id": 47,
+            "xref_id": 66,
+            "paramName": "label",
+            "paramVal": "Add New",
+            "_dmlMethod": null,
+            "idbID": 51
+        },
+        {
+            "id": 57,
+            "xref_id": 67,
+            "paramName": "selectable",
+            "paramVal": "true",
+            "_dmlMethod": null,
+            "idbID": 52
+        },
+        {
+            "id": 59,
+            "xref_id": 67,
+            "paramName": "columns",
+            "paramVal": "[{\"name\":\"id\",\"dataType\":\"int\",\"nullable\":\"NO\",\"defaultValue\":null,\"inputType\":\"number\"},{\"name\":\"name\",\"dataType\":\"varchar\",\"nullable\":\"NO\",\"defaultValue\":null,\"inputType\":\"text\"},{\"name\":\"description\",\"dataType\":\"text\",\"nullable\":\"NO\",\"defaultValue\":null,\"inputType\":\"textarea\"},{\"name\":\"account_id\",\"dataType\":\"int\",\"nullable\":\"NO\",\"defaultValue\":null,\"inputType\":\"number\"}]",
+            "_dmlMethod": null,
+            "idbID": 53
+        },
+        {
+            "id": 60,
+            "xref_id": 67,
+            "paramName": "columnOverrides",
+            "paramVal": "{\"id\":{\"hidden\":true,\"required\":true},\"name\":{\"label\":\"Name\",\"width\":\"150px\",\"required\":true,\"sortable\":true},\"description\":{\"hidden\":false},\"account_id\":{\"hidden\":true,\"required\":true}}",
+            "_dmlMethod": null,
+            "idbID": 54
+        },
+        {
+            "id": 63,
+            "xref_id": 67,
+            "paramName": "rowActions",
+            "paramVal": "[{\"id\":\"delete\",\"type\":\"button\",\"icon\":\"Delete\",\"color\":\"error\",\"tooltip\":\"Delete\",\"trigger\":{\"action\":\"execDML\",\"content\":{\"method\":\"DELETE\",\"confirm\":true,\"confirmMessage\":\"Are you sure you want to delete this item?\"}}}]",
+            "_dmlMethod": null,
+            "idbID": 55
+        },
+        {
+            "id": 61,
+            "xref_id": 68,
+            "paramName": "columns",
+            "paramVal": "[{\"name\":\"id\",\"dataType\":\"int\",\"nullable\":\"NO\",\"defaultValue\":null,\"inputType\":\"number\"},{\"name\":\"name\",\"dataType\":\"varchar\",\"nullable\":\"NO\",\"defaultValue\":null,\"inputType\":\"text\"},{\"name\":\"description\",\"dataType\":\"text\",\"nullable\":\"NO\",\"defaultValue\":null,\"inputType\":\"textarea\"},{\"name\":\"account_id\",\"dataType\":\"int\",\"nullable\":\"NO\",\"defaultValue\":null,\"inputType\":\"number\"}]",
+            "_dmlMethod": null,
+            "idbID": 56
+        },
+        {
+            "id": 62,
+            "xref_id": 68,
+            "paramName": "columnOverrides",
+            "paramVal": "{\"id\":{\"hidden\":true,\"required\":true},\"name\":{\"label\":\"Name\",\"required\":true},\"description\":{\"label\":\"Description\",\"row\":\"2\"},\"account_id\":{\"hidden\":true,\"required\":true}}",
+            "_dmlMethod": null,
+            "idbID": 57
+        }
+    ],
+    "page_registry": [
+        {
+            "id": 13,
+            "pageName": "acct",
+            "appName": "admin",
+            "pageTitle": "Accounts",
+            "tableName": "whatsfresh.accounts",
+            "contextKey": "acctID",
+            "routePath": "/admin/acct",
+            "tableID": "id",
+            "idbID": 1
+        },
+        {
+            "id": 17,
+            "pageName": "acctUser",
+            "appName": "admin",
+            "pageTitle": "Account Users",
+            "tableName": "whatsfresh.accounts_users",
+            "contextKey": "acctUserID",
+            "routePath": "/admin/acctUser",
+            "tableID": "id",
+            "idbID": 2
+        },
+        {
+            "id": 14,
+            "pageName": "user",
+            "appName": "admin",
+            "pageTitle": "Users",
+            "tableName": "whatsfresh.users",
+            "contextKey": "userID",
+            "routePath": "/admin/user",
+            "tableID": "id",
+            "idbID": 3
+        },
+        {
+            "id": 12,
+            "pageName": "login",
+            "appName": "login",
+            "pageTitle": "Login to Whatsfresh",
+            "tableName": "whatsfresh.users",
+            "contextKey": "userEmail",
+            "routePath": "/login/login",
+            "tableID": "userEmail",
+            "idbID": 4
+        },
+        {
+            "id": 15,
+            "pageName": "appbar",
+            "appName": "templates",
+            "pageTitle": "appbar",
+            "tableName": "-",
+            "contextKey": "{appName}",
+            "routePath": "/templates/appbar",
+            "tableID": null,
+            "idbID": 5
+        },
+        {
+            "id": 11,
+            "pageName": "CRUD",
+            "appName": "templates",
+            "pageTitle": "CRUD Template",
+            "tableName": "whatsfresh.ingridient_types",
+            "contextKey": "{contextKey}",
+            "routePath": "/templates/CRUD",
+            "tableID": "id",
+            "idbID": 6
+        },
+        {
+            "id": 16,
+            "pageName": "sidebar",
+            "appName": "templates",
+            "pageTitle": "sidebar",
+            "tableName": "-",
+            "contextKey": "{appName}",
+            "routePath": "/templates/sidebar",
+            "tableID": null,
+            "idbID": 7
+        },
+        {
+            "id": 9,
+            "pageName": "brnd",
+            "appName": "whatsfresh",
+            "pageTitle": "Brands",
+            "tableName": "whatsfresh.brands",
+            "contextKey": "brndID",
+            "routePath": "/whatsfresh/brnd",
+            "tableID": "id",
+            "idbID": 8
+        },
+        {
+            "id": 2,
+            "pageName": "ingr",
+            "appName": "whatsfresh",
+            "pageTitle": "Ingredients",
+            "tableName": "whatsfresh.ingredients",
+            "contextKey": "ingrID",
+            "routePath": "/whatsfresh/ingr",
+            "tableID": "id",
+            "idbID": 9
+        },
+        {
+            "id": 3,
+            "pageName": "ingrBtch",
+            "appName": "whatsfresh",
+            "pageTitle": "Ingredient Batches",
+            "tableName": "whatsfresh.ingredient_batches",
+            "contextKey": "ingrBtchID",
+            "routePath": "/whatsfresh/ingrBtch",
+            "tableID": "id",
+            "idbID": 10
+        },
+        {
+            "id": 1,
+            "pageName": "ingrType",
+            "appName": "whatsfresh",
+            "pageTitle": "Ingredient Types",
+            "tableName": "whatsfresh.ingredient_types",
+            "contextKey": "ingrTypeID",
+            "routePath": "/whatsfresh/ingrType",
+            "tableID": "id",
+            "idbID": 11
+        },
+        {
+            "id": 5,
+            "pageName": "prod",
+            "appName": "whatsfresh",
+            "pageTitle": "Products",
+            "tableName": "whatsfresh.products",
+            "contextKey": "prodID",
+            "routePath": "/whatsfresh/prod",
+            "tableID": "id",
+            "idbID": 12
+        },
+        {
+            "id": 6,
+            "pageName": "prodBtch",
+            "appName": "whatsfresh",
+            "pageTitle": "Product Batches",
+            "tableName": "whatsfresh.product_batches",
+            "contextKey": "prodBtchID",
+            "routePath": "/whatsfresh/prodBtch",
+            "tableID": "id",
+            "idbID": 13
+        },
+        {
+            "id": 8,
+            "pageName": "prodBtchMap",
+            "appName": "whatsfresh",
+            "pageTitle": "Batch Mapping",
+            "tableName": "whatsfresh.product_batch_map",
+            "contextKey": "mapID",
+            "routePath": "/whatsfresh/prodBtchMap",
+            "tableID": "id",
+            "idbID": 14
+        },
+        {
+            "id": 4,
+            "pageName": "prodType",
+            "appName": "whatsfresh",
+            "pageTitle": "Product Types",
+            "tableName": "whatsfresh.product_types",
+            "contextKey": "prodTypeID",
+            "routePath": "/whatsfresh/prodType",
+            "tableID": "id",
+            "idbID": 15
+        },
+        {
+            "id": 7,
+            "pageName": "rcpe",
+            "appName": "whatsfresh",
+            "pageTitle": "Recipes",
+            "tableName": "whatsfresh.recipes",
+            "contextKey": "rcpeID",
+            "routePath": "/whatsfresh/rcpe",
+            "tableID": "id",
+            "idbID": 16
+        },
+        {
+            "id": 10,
+            "pageName": "vndr",
+            "appName": "whatsfresh",
+            "pageTitle": "Vendors",
+            "tableName": "whatsfresh.vendors",
+            "contextKey": "vndrID",
+            "routePath": "/whatsfresh/vndr",
+            "tableID": "id",
+            "idbID": 17
+        }
+    ],
+    "eventTypes": [
+        {
+            "id": 15,
+            "name": "Root",
+            "category": "root",
+            "title": "Monorepo",
+            "style": null,
+            "_dmlMethod": null,
+            "idbID": 176
+        },
+        {
+            "id": 2,
+            "name": "App",
+            "category": "app",
+            "title": "App Container",
+            "style": "{\r\n\t \"display\": \"flex\", \r\n\t \"flexDirection\": \"column\", \r\n\t \"width\": \"100vw\", \r\n\t \"height\": \"100vh\", \r\n\t \"margin\": 0, \r\n\t \"padding\": 0, \r\n\t \"fontFamily\": \"system-ui, -apple-system, sans-serif\"\r\n}",
+            "_dmlMethod": null,
+            "idbID": 177
+        },
+        {
+            "id": 3,
+            "name": "AppBar",
+            "category": "app",
+            "title": "Application Bar",
+            "style": "{\r\n\t\"display\": \"flex\", \r\n\t\"alignItems\": \"center\", \r\n\t\"height\": \"64px\", \r\n\t\"padding\": \"0 16px\", \r\n\t\"backgroundColor\": \"#1976d2\", \r\n\t\"color\": \"white\", \r\n\t\"boxShadow\": \"0 2px 4px rgba(0,0,0,0.1)\", \r\n\t\"zIndex\": 1000\r\n}",
+            "_dmlMethod": null,
+            "idbID": 178
+        },
+        {
+            "id": 4,
+            "name": "Sidebar",
+            "category": "app",
+            "title": "Sidebar Navigation",
+            "style": "{\r\n\t\"display\": \"flex\",\r\n\t\"flexDirection\": \"column\",\r\n\t\"gap\": \"12px\",\r\n\t\"height\": \"100vh\",\r\n\t\"width\": \"400px\",\r\n\t\"padding\": \"16px\",\r\n\t\"backgroundColor\": \"#f8f9fa\",\r\n\t\"borderRight\": \"1px solid #dee2e6\",\r\n\t\"overflow\": \"auto\"\r\n  }",
+            "_dmlMethod": null,
+            "idbID": 179
+        },
+        {
+            "id": 19,
+            "name": "CRUD",
+            "category": "page",
+            "title": "CRUD Template",
+            "style": "{\r\n\t\"display\": \"flex\", \r\n\t\"flexDirection\": \"column\", \r\n\t\"width\": \"100%\", \r\n\t\"height\": \"100%\", \r\n\t\"padding\": \"16px\", \r\n\t\"backgroundColor\": \"#ffffff\", \r\n\t\"overflow\": \"auto\"\r\n}",
+            "_dmlMethod": null,
+            "idbID": 180
+        },
+        {
+            "id": 1,
+            "name": "Page",
+            "category": "page",
+            "title": "Page Layout",
+            "style": "{\r\n\t\"display\": \"flex\", \r\n\t\"flexDirection\": \"column\", \r\n\t\"width\": \"100%\", \r\n\t\"height\": \"100%\", \r\n\t\"padding\": \"16px\", \r\n\t\"backgroundColor\": \"#ffffff\", \r\n\t\"overflow\": \"auto\"\r\n}",
+            "_dmlMethod": null,
+            "idbID": 181
+        },
+        {
+            "id": 5,
+            "name": "Column",
+            "category": "container",
+            "title": "Column Layout",
+            "style": "{\r\n\t\"display\": \"flex\", \r\n\t\"flexDirection\": \"column\", \r\n\t\"gap\": \"8px\", \r\n\t\"padding\": \"8px\", \r\n\t\"flex\": \"1\"\r\n}",
+            "_dmlMethod": null,
+            "idbID": 182
+        },
+        {
+            "id": 17,
+            "name": "Container",
+            "category": "container",
+            "title": "Container",
+            "style": "{\r\n\t\"display\": \"flex\",\r\n\t\"flexDirection\": \"column\",\r\n\t\"gap\": \"16px\",\r\n\t\"width\": \"100%\",\r\n\t\"padding\": \"16px\",\r\n\t\"border\": \"1px solid #e1e4e8\",\r\n\t\"borderRadius\": \"6px\",\r\n\t\"backgroundColor\": \"#dcfce7\",\r\n\t\"boxShadow\": \"0 1px 3px rgba(0,0,0,0.05)\"\r\n  }",
+            "_dmlMethod": null,
+            "idbID": 183
+        },
+        {
+            "id": 20,
+            "name": "Inline",
+            "category": "container",
+            "title": "Inline Placement",
+            "style": null,
+            "_dmlMethod": null,
+            "idbID": 184
+        },
+        {
+            "id": 6,
+            "name": "Modal",
+            "category": "container",
+            "title": "Modal Dialog",
+            "style": "{\r\n\t\"position\": \"fixed\", \r\n\t\"top\": \"50%\", \r\n\t\"left\": \"50%\", \r\n\t\"transform\": \"translate(-50%, -50%)\", \r\n\t\"backgroundColor\": \"white\", \r\n\t\"borderRadius\": \"8px\",\r\n  \t\"boxShadow\": \"0 10px 30px rgba(0,0,0,0.3)\", \r\n  \t\"zIndex\": 2000, \r\n  \t\"maxWidth\": \"90vw\", \r\n  \t\"maxHeight\": \"90vh\", \r\n  \t\"overflow\": \"auto\r\n }",
+            "_dmlMethod": null,
+            "idbID": 185
+        },
+        {
+            "id": 7,
+            "name": "Section",
+            "category": "container",
+            "title": "Section Container",
+            "style": "{\r\n\t\"display\": \"flex\",\r\n\t\"flexDirection\": \"column\",\r\n\t\"gap\": \"12px\",\r\n\t\"padding\": \"16px\",\r\n\t\"border\": \"1px solid #e0e0e0\",\r\n\t\"borderRadius\": \"4px\",\r\n\t\"backgroundColor\": \"#fafafa\"\r\n }",
+            "_dmlMethod": null,
+            "idbID": 186
+        },
+        {
+            "id": 8,
+            "name": "Tabs",
+            "category": "container",
+            "title": "Tab Container",
+            "style": "{\r\n\t\"display\": \"flex\", \r\n\t\"flexDirection\": \"column\", \r\n\t\"width\": \"100%\", \r\n\t\"height\": \"100%\"\r\n}",
+            "_dmlMethod": null,
+            "idbID": 187
+        },
+        {
+            "id": 9,
+            "name": "Button",
+            "category": "component",
+            "title": "Button",
+            "style": "{\r\n\t\"display\": \"inline-flex\", \r\n\t\"alignItems\": \"center\", \r\n\t\"justifyContent\": \"center\", \r\n\t\"padding\": \"8px 16px\", \r\n\t\"border\": \"none\", \r\n\t\"borderRadius\": \"4px\",\r\n  \t\"backgroundColor\": \"#1976d2\", \r\n  \t\"color\": \"white\", \r\n  \t\"fontSize\": \"14px\", \r\n  \t\"fontWeight\": \"500\", \r\n  \t\"cursor\": \"pointer\", \r\n  \t\"transition\": \"background-color 0.2s ease\"\r\n  }",
+            "_dmlMethod": null,
+            "idbID": 188
+        },
+        {
+            "id": 10,
+            "name": "Chart",
+            "category": "component",
+            "title": "Chart Display",
+            "style": "{\r\n\t\"display\": \"block\", \r\n\t\"width\": \"100%\", \r\n\t\"height\": \"400px\", \r\n\t\"border\": \"1px solid #e0e0e0\", \r\n\t\"borderRadius\": \"4px\", \r\n\t\"backgroundColor\": \"#ffffff\"\r\n}",
+            "_dmlMethod": null,
+            "idbID": 189
+        },
+        {
+            "id": 11,
+            "name": "Form",
+            "category": "component",
+            "title": "Form",
+            "style": "{\r\n    \"display\": \"flex\",\r\n    \"flexDirection\": \"column\",\r\n    \"gap\": \"16px\",\r\n    \"padding\": \"24px\",\r\n    \"boxShadow\": \"0 4px 12px rgba(0,0,0,0.1)\",\r\n    \"borderRadius\": \"8px\"\r\n  }",
+            "_dmlMethod": null,
+            "idbID": 190
+        },
+        {
+            "id": 12,
+            "name": "Grid",
+            "category": "component",
+            "title": "Data Grid",
+            "style": "{\r\n    \"display\": \"block\",\r\n    \"width\": \"100%\",\r\n    \"maxHeight\": \"500px\",\r\n    \"border\": \"1px solid #e1e4e8\",\r\n    \"borderRadius\": \"6px\",\r\n    \"backgroundColor\": \"#ffffff\",\r\n    \"overflow\": \"auto\",\r\n    \"boxShadow\": \"0 1px 3px rgba(0,0,0,0.08)\",\r\n    \"fontFamily\": \"system-ui, -apple-system, sans-serif\"\r\n  }",
+            "_dmlMethod": null,
+            "idbID": 191
+        },
+        {
+            "id": 18,
+            "name": "Iframe",
+            "category": "component",
+            "title": "IFrame",
+            "style": "{\"width\": \"100%\", \"height\": \"600px\", \"border\": \"none\"}",
+            "_dmlMethod": null,
+            "idbID": 192
+        },
+        {
+            "id": 13,
+            "name": "Select",
+            "category": "component",
+            "title": "Dropdown Select",
+            "style": "{\r\n\t\"display\": \"inline-block\", \r\n\t\"position\": \"relative\", \r\n\t\"width\": \"200px\", \r\n\t\"border\": \"1px solid #ccc\", \r\n\t\"borderRadius\": \"4px\", \r\n\t\"backgroundColor\": \"white\",\r\n  \t\"fontSize\": \"14px\", \r\n  \t\"cursor\": \"pointer\"\r\n}",
+            "_dmlMethod": null,
+            "idbID": 193
+        },
+        {
+            "id": 21,
+            "name": "H1",
+            "category": "component",
+            "title": "H1 Header",
+            "style": "{\"fontSize\": \"32px\", \"fontWeight\": \"700\", \"marginBottom\": \"16px\", \"color\": \"#1a1a1a\"}",
+            "_dmlMethod": null,
+            "idbID": 194
+        },
+        {
+            "id": 22,
+            "name": "H2",
+            "category": "component",
+            "title": "H2 Header",
+            "style": "{\"fontSize\": \"24px\", \"fontWeight\": \"600\", \"marginBottom\": \"12px\", \"color\": \"#2c2c2c\"}",
+            "_dmlMethod": null,
+            "idbID": 195
+        },
+        {
+            "id": 23,
+            "name": "H3",
+            "category": "component",
+            "title": "H3 Header",
+            "style": "{\"fontSize\": \"20px\", \"fontWeight\": \"600\", \"marginBottom\": \"8px\", \"color\": \"#3c3c3c\"}",
+            "_dmlMethod": null,
+            "idbID": 196
+        },
+        {
+            "id": 24,
+            "name": "H4",
+            "category": "component",
+            "title": "H4 Header",
+            "style": "{\"fontSize\": \"16px\", \"fontWeight\": \"600\", \"marginBottom\": \"8px\", \"color\": \"#4c4c4c\"}",
+            "_dmlMethod": null,
+            "idbID": 197
+        },
+        {
+            "id": 26,
+            "name": "Label",
+            "category": "component",
+            "title": "Form Labels",
+            "style": "{\"fontSize\": \"14px\", \"fontWeight\": \"500\", \"marginBottom\": \"4px\", \"display\": \"block\"}",
+            "_dmlMethod": null,
+            "idbID": 198
+        },
+        {
+            "id": 25,
+            "name": "Text",
+            "category": "component",
+            "title": "Regular TextBox",
+            "style": "{\"fontSize\": \"14px\", \"lineHeight\": \"1.5\", \"color\": \"#333\"}",
+            "_dmlMethod": null,
+            "idbID": 199
+        },
+        {
+            "id": 16,
+            "name": "Query",
+            "category": "query",
+            "title": "Operations",
+            "style": null,
+            "_dmlMethod": null,
+            "idbID": 200
+        }
+    ],
+    "eventSQL": [
+        {
+            "id": 1,
+            "qryName": "appList",
+            "qrySQL": "SELECT xref_id, comp_name\r\nFROM api_wf.vw_hier_components vhc \r\nWHERE parent_id = 70\r\nAND   comp_type = 'App'\r\nAND   xref_id <> parent_id  -- exclude root.",
+            "description": "Return list of monorepo Apps",
+            "_dmlMethod": null,
+            "idbID": 246
+        },
+        {
+            "id": 5,
+            "qryName": "authAppList",
+            "qrySQL": "select comp_name, \r\n  concat('preview/',comp_name,'/') routePath\r\nfrom   api_wf.vw_hier_components vhc \r\nwhere template = 'App'",
+            "description": "Gets the list of apps User can Access.",
+            "_dmlMethod": null,
+            "idbID": 247
+        },
+        {
+            "id": 9,
+            "qryName": "eventTypeList",
+            "qrySQL": "SELECT id, name, category, title, style\r\nFROM api_wf.eventType\r\nORDER BY Hier, name",
+            "description": "Gets the list of eventTypes.",
+            "_dmlMethod": null,
+            "idbID": 248
+        },
+        {
+            "id": 13,
+            "qryName": "getEventSQL",
+            "qrySQL": "SELECT xref_id, comp_name, comp_type, qryName, qrySQL\r\n     FROM api_wf.vw_eventSQL\r\n     WHERE xref_id = :xrefID",
+            "description": "Get associated eventSQL query for a component",
+            "_dmlMethod": null,
+            "idbID": 249
+        },
+        {
+            "id": 12,
+            "qryName": "ingrTypeDtl",
+            "qrySQL": "select \r\n\tid, \r\n\tname,\r\n\tdescription,\r\n\taccount_id\r\nfrom whatsfresh.ingredient_types\r\nwhere id = :ingredient_type_id",
+            "description": "ingrTypeGrid Columns",
+            "_dmlMethod": null,
+            "idbID": 250
+        },
+        {
+            "id": 11,
+            "qryName": "ingrTypeList",
+            "qrySQL": "select id, name, account_id\r\nfrom whatsfresh.ingredient_types\r\nwhere account_id = :account_id",
+            "description": "ingrTypeForm Fields",
+            "_dmlMethod": null,
+            "idbID": 251
+        },
+        {
+            "id": 2,
+            "qryName": "pageList",
+            "qrySQL": "SELECT xref_id, comp_name\r\nFROM api_wf.vw_hier_components vhc \r\nWHERE parent_id = :appID\r\nAND   comp_type in ('Page','CRUD')",
+            "description": "Returns a list of selected App's pages.",
+            "_dmlMethod": null,
+            "idbID": 252
+        },
+        {
+            "id": 35,
+            "qryName": "pageRegApps",
+            "qrySQL": "SELECT DISTINCT appName FROM api_wf.page_registry WHERE active = 1 ORDER BY appName",
+            "description": "Get distinct app names from page_registry",
+            "_dmlMethod": null,
+            "idbID": 253
+        },
+        {
+            "id": 36,
+            "qryName": "pageRegByApp",
+            "qrySQL": "SELECT id, pageName, pageTitle, routePath FROM api_wf.page_registry WHERE appName = :appName AND active = 1 ORDER BY pageName",
+            "description": "Get pages for selected app from page_registry",
+            "_dmlMethod": null,
+            "idbID": 254
+        },
+        {
+            "id": 34,
+            "qryName": "PageRegDtl",
+            "qrySQL": "select id, appName, pageName, pageTitle, \r\ntableName, tableID, pr.contextKey, pr.routePath\r\nfrom  api_wf.page_registry pr \r\nwhere id = :pageID",
+            "description": "Returns a selected page.",
+            "_dmlMethod": null,
+            "idbID": 255
+        },
+        {
+            "id": 32,
+            "qryName": "pageRegList",
+            "qrySQL": "select id, appName, pageName, pageTitle, \r\ntableName, tableID, pr.contextKey, pr.routePath\r\nfrom  api_wf.page_registry pr \r\norder by appName, pageName",
+            "description": "Page Registry List",
+            "_dmlMethod": null,
+            "idbID": 256
+        },
+        {
+            "id": 26,
+            "qryName": "planImpactFile",
+            "qrySQL": "select  plan_id, fileName, t.fileFolder, t.change_type, description, batch_id\r\nfrom    api_wf.plan_impacts t\r\nWHERE fileName = :fileName\r\nORDER BY created_at DESC",
+            "description": "Impacts to a specified file.  ",
+            "_dmlMethod": null,
+            "idbID": 257
+        },
+        {
+            "id": 8,
+            "qryName": "qryList",
+            "qrySQL": "SELECT id, qryName, qrySQL\r\nFROM api_wf.eventSQL\r\nORDER BY qryName",
+            "description": "The list of queries to execEvent on... ",
+            "_dmlMethod": null,
+            "idbID": 258
+        },
+        {
+            "id": 17,
+            "qryName": "qrySqlList",
+            "qrySQL": "SELECT id, qryName, qrySQL, description\r\nFROM api_wf.eventSQL\r\nWHERE active = 1\r\nORDER BY qryName",
+            "description": "get all SQL from MySQL eventSQL table",
+            "_dmlMethod": null,
+            "idbID": 259
+        },
+        {
+            "id": 14,
+            "qryName": "queryList",
+            "qrySQL": "SELECT id, qryName, qrySQL, description\r\n     FROM api_wf.eventSQL\r\n     WHERE active = 1\r\n     ORDER BY qryName",
+            "description": "Get list of all active queries for dropdown",
+            "_dmlMethod": null,
+            "idbID": 260
+        },
+        {
+            "id": 24,
+            "qryName": "recentImpactList",
+            "qrySQL": "select plan_id, fileName, t.fileFolder, t.change_type, description, batch_id, created_at, created_by\nfrom api_wf.plan_impacts t\nWHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)\nORDER BY created_at DESC\nLIMIT 30",
+            "description": "Recent impacts to the system - last 7 days, optionally filtered by created_by",
+            "_dmlMethod": null,
+            "idbID": 261
+        },
+        {
+            "id": 19,
+            "qryName": "refComponents",
+            "qrySQL": "select\r\n    a.name,\r\n    a.title\r\nfrom api_wf.eventType a\r\nwhere a.category = 'component'\r\norder by a.name;",
+            "description": "Get the list of components from the EventType table",
+            "_dmlMethod": null,
+            "idbID": 262
+        },
+        {
+            "id": 18,
+            "qryName": "refContainers",
+            "qrySQL": "select\r\n    a.name,\r\n    a.title\r\nfrom api_wf.eventType a\r\nwhere a.category = 'container'\r\norder by a.name;",
+            "description": "Get the list of containers from the EventType table",
+            "_dmlMethod": null,
+            "idbID": 263
+        },
+        {
+            "id": 20,
+            "qryName": "refTriggerActions",
+            "qrySQL": "select a.name, a.description, content_type, example\r\nfrom   api_wf.triggers a\r\nwhere a.trigType = 'action'\r\norder by a.name",
+            "description": "Get the list of trigger Actions",
+            "_dmlMethod": null,
+            "idbID": 264
+        },
+        {
+            "id": 21,
+            "qryName": "refTriggerClasses",
+            "qrySQL": "select \ta.name, a.description \r\nfrom   api_wf.triggers a\r\nwhere a.trigType = 'class'\r\norder by a.name",
+            "description": "Get the list of trigger Classes",
+            "_dmlMethod": null,
+            "idbID": 265
+        },
+        {
+            "id": 28,
+            "qryName": "sessionImpactStats",
+            "qrySQL": "SELECT\r\n    COUNT(DISTINCT file_path) as files_modified,\r\n    SUM(CASE WHEN change_type = 'CREATE' THEN 1 ELSE 0 END) as files_created,\r\n    SUM(CASE WHEN change_type = 'MODIFY' THEN 1 ELSE 0 END) as files_edited,\r\n    COUNT(*) as total_impacts\r\n  FROM api_wf.plan_impacts\r\n  WHERE created_at >= :start_time\r\n  ",
+            "description": "Get the latest impacts from plan_impacts table.",
+            "_dmlMethod": null,
+            "idbID": 266
+        },
+        {
+            "id": 31,
+            "qryName": "sessionPlan45",
+            "qrySQL": "select * \r\nfrom api_wf.vw_plan45\r\nlimit 30",
+            "description": "Get the latest updates for plan45, Whatsfresh Architectural decisions.",
+            "_dmlMethod": null,
+            "idbID": 267
+        },
+        {
+            "id": 37,
+            "qryName": "sessionPlanSelect",
+            "qrySQL": "SELECT *\r\nFROM api_wf.vw_plan_composite vpc\r\nWHERE plan_id = :planID",
+            "description": "Given a planID, return the plan composite details.",
+            "_dmlMethod": null,
+            "idbID": 268
+        },
+        {
+            "id": 30,
+            "qryName": "sessionRecentList",
+            "qrySQL": "SELECT *\r\nFROM api_wf.vw_plan_composite vpc\r\nWHERE plan_id IN (\r\n    SELECT id\r\n    FROM (\r\n        SELECT id\r\n        FROM api_wf.plans\r\n        ORDER BY id DESC\r\n        LIMIT 2\r\n    ) AS limited_plans\r\n);",
+            "description": "Recent Session Summaries",
+            "_dmlMethod": null,
+            "idbID": 269
+        },
+        {
+            "id": 27,
+            "qryName": "spModuleLoad",
+            "qrySQL": "CALL api_wf.sp_module_load(:p_modules, :firstName)",
+            "description": "Populate the monorepo modules into the modules tables",
+            "_dmlMethod": null,
+            "idbID": 270
+        },
+        {
+            "id": 29,
+            "qryName": "spModuleMap",
+            "qrySQL": "CALL api_wf.sp_module_map(:analysis_json, :firstName)",
+            "description": "Map the modules, parent to child.",
+            "_dmlMethod": null,
+            "idbID": 271
+        },
+        {
+            "id": 16,
+            "qryName": "triggerList",
+            "qrySQL": "select a.id, a.trigType, content_type, a.is_dom_event, a.name, \r\na.description, a.example \r\nfrom    api_wf.triggers a \r\norder by a.trigType, name",
+            "description": "get all the triggers from MySQL.",
+            "_dmlMethod": null,
+            "idbID": 272
+        },
+        {
+            "id": 4,
+            "qryName": "userLogin",
+            "qrySQL": "SELECT *, :enteredPassword \r\nFROM api_wf.userList \r\nWHERE userEmail = :userEmail",
+            "description": "Query to login a user.",
+            "_dmlMethod": null,
+            "idbID": 273
+        },
+        {
+            "id": 15,
+            "qryName": "xrefBasicDtl",
+            "qrySQL": "SELECT \r\n\ta.id, \r\n\ta.comp_name, \r\n\ta.title, \r\n\ta.comp_type, \r\n\ta.container , \r\n\ta.posOrder, \r\n\ta.parent_id\r\nfrom api_wf.eventType_xref a\r\nwhere id = :xrefID",
+            "description": "Gets the basic detail for a given xrefID",
+            "_dmlMethod": null,
+            "idbID": 274
+        },
+        {
+            "id": 10,
+            "qryName": "xrefFieldGen",
+            "qrySQL": "CALL api_wf.sp_genFields(:xrefID)",
+            "description": "Generate field configurations from database schema for a given component",
+            "_dmlMethod": null,
+            "idbID": 275
+        },
+        {
+            "id": 3,
+            "qryName": "xrefHierarchy",
+            "qrySQL": "CALL api_wf.sp_hier_structure(:xrefID)",
+            "description": "First Set xrefID for the Page.  ",
+            "_dmlMethod": null,
+            "idbID": 276
+        },
+        {
+            "id": 7,
+            "qryName": "xrefPropList",
+            "qrySQL": "SELECT id, xref_id, paramName, paramVal \r\nFROM api_wf.eventProps \r\nWHERE xref_id = :xrefID \r\nAND active = 1",
+            "description": "Gets the Props for a given xrefID",
+            "_dmlMethod": null,
+            "idbID": 277
+        },
+        {
+            "id": 6,
+            "qryName": "xrefTriggerList",
+            "qrySQL": "SELECT id, xref_id, class, action, ordr, content\r\nFROM api_wf.eventTrigger\r\nWHERE xref_id = :xrefID\r\nORDER BY class, ordr",
+            "description": "get the Triggers for a given xrefID",
+            "_dmlMethod": null,
+            "idbID": 278
+        },
+        {
+            "id": 23,
+            "qryName": "{pageName}Dtl",
+            "qrySQL": "select \r\n\tid, \r\n\tname,\r\n\tdescription,\r\n\taccount_id\r\nfrom whatsfresh.ingredient_types\r\nwhere id = :selectedID",
+            "description": "Test Data for {pageName}Form",
+            "_dmlMethod": null,
+            "idbID": 279
+        },
+        {
+            "id": 22,
+            "qryName": "{pageName}List",
+            "qrySQL": "SELECT id,\r\n name,\r\n description,\r\n account_id\r\nFROM whatsfresh.ingredient_types\r\nWHERE account_id = :acctID\r\n ",
+            "description": "Test Data for {pageName}Grid",
+            "_dmlMethod": null,
+            "idbID": 280
+        }
+    ],
+    "triggers": [
+        {
+            "id": 23,
+            "trigType": "action",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "buildDMLData",
+            "description": "Build dmlData from context_store fields",
+            "example": "{\"columns\": \r\n\t[\"column1\", \r\n\t \"column2\", \r\n\t \"column3\"\r\n\t ]\r\n}",
+            "_dmlMethod": null,
+            "idbID": 162
+        },
+        {
+            "id": 22,
+            "trigType": "action",
+            "content_type": "string",
+            "is_dom_event": 0,
+            "name": "captureFormData",
+            "description": "Capture form field values into dmlData",
+            "example": "comp_name",
+            "_dmlMethod": null,
+            "idbID": 163
+        },
+        {
+            "id": 11,
+            "trigType": "action",
+            "content_type": "array",
+            "is_dom_event": 0,
+            "name": "clearVals",
+            "description": "Clear multiple context values",
+            "example": "[\n  \"paramVal1\",\n  \"paramVal2\"\n]",
+            "_dmlMethod": null,
+            "idbID": 164
+        },
+        {
+            "id": 21,
+            "trigType": "action",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "closeModal",
+            "description": "Close a modal dialog by ID or all modals",
+            "example": "{\n  \"modalId\": \"modalName\"\n}",
+            "_dmlMethod": null,
+            "idbID": 165
+        },
+        {
+            "id": 19,
+            "trigType": "action",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "execDML",
+            "description": "DML Operation INSERT, UPDATE, DELETE",
+            "example": "{\n  \"method\": {{getVal: method}},\n  \"table\": {{getVal: tableName}},\n  \"data\": \"{{getVal: dmlData}}\"\n}",
+            "_dmlMethod": null,
+            "idbID": 166
+        },
+        {
+            "id": 12,
+            "trigType": "action",
+            "content_type": "string",
+            "is_dom_event": 0,
+            "name": "execEvent",
+            "description": "Execute database eventType",
+            "example": "qryName",
+            "_dmlMethod": null,
+            "idbID": 167
+        },
+        {
+            "id": 18,
+            "trigType": "action",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "getMermaidContent",
+            "description": "Load mermaid diagram content for Studio",
+            "example": "{\n  \"path\": \"/diagrams/workflow.mmd\",\n  \"storeKey\": \"mermaidContent\"\n}",
+            "_dmlMethod": null,
+            "idbID": 168
+        },
+        {
+            "id": 17,
+            "trigType": "action",
+            "content_type": "string",
+            "is_dom_event": 0,
+            "name": "getVal",
+            "description": "Get parameter from context store",
+            "example": "paramName",
+            "_dmlMethod": null,
+            "idbID": 169
+        },
+        {
+            "id": 13,
+            "trigType": "action",
+            "content_type": "string",
+            "is_dom_event": 0,
+            "name": "navigate",
+            "description": "Navigate to URL via browser",
+            "example": "\"https://example.com/pageName\"",
+            "_dmlMethod": null,
+            "idbID": 170
+        },
+        {
+            "id": 20,
+            "trigType": "action",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "openModal",
+            "description": "Open a modal dialog by component ID",
+            "example": "{\n  \"modalId\": \"modalName\"\n}",
+            "_dmlMethod": null,
+            "idbID": 171
+        },
+        {
+            "id": 14,
+            "trigType": "action",
+            "content_type": "array",
+            "is_dom_event": 0,
+            "name": "refresh",
+            "description": "Refresh target components via context signaling",
+            "example": "[\n  \"comp_name1\",\n  \"comp_name2\"\n]",
+            "_dmlMethod": null,
+            "idbID": 172
+        },
+        {
+            "id": 15,
+            "trigType": "action",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "reload",
+            "description": "Reload component content",
+            "example": "{}",
+            "_dmlMethod": null,
+            "idbID": 173
+        },
+        {
+            "id": 1,
+            "trigType": "action",
+            "content_type": "array",
+            "is_dom_event": 0,
+            "name": "setVals",
+            "description": "Set multiple context values",
+            "example": "[\r\n    {\"userID\": \"{{response.user.id}}\"},\r\n    {\"userEmail\": \"{{response.user.email}}\"}\r\n  ]",
+            "_dmlMethod": null,
+            "idbID": 174
+        },
+        {
+            "id": 16,
+            "trigType": "action",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "showNotification",
+            "description": "Show user feedback message",
+            "example": "{\n  \"message\": \"Action Successful\",\n  \"type\": \"success\"\n}",
+            "_dmlMethod": null,
+            "idbID": 175
+        },
+        {
+            "id": 2,
+            "trigType": "action",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "userLogin",
+            "description": "Make Login POST request",
+            "example": "{\r\n    \"userEmail\": \"{{formData.userEmail}}\",\r\n    \"enteredPassword\": \"{{formData.enteredPassword}}\"\r\n  }",
+            "_dmlMethod": null,
+            "idbID": 176
+        },
+        {
+            "id": 3,
+            "trigType": "action",
+            "content_type": "array",
+            "is_dom_event": 0,
+            "name": "visible",
+            "description": "Set visibility for one or more components",
+            "example": "[\n\t{\"comp_name1\": true},\n\t{\"comp_name2\": true}\n]",
+            "_dmlMethod": null,
+            "idbID": 177
+        },
+        {
+            "id": 8,
+            "trigType": "class",
+            "content_type": "object",
+            "is_dom_event": 1,
+            "name": "onChange",
+            "description": "User changes a selection in a component.",
+            "example": null,
+            "_dmlMethod": null,
+            "idbID": 178
+        },
+        {
+            "id": 5,
+            "trigType": "class",
+            "content_type": "object",
+            "is_dom_event": 1,
+            "name": "onClick",
+            "description": "Actions when component is clicked",
+            "example": null,
+            "_dmlMethod": null,
+            "idbID": 179
+        },
+        {
+            "id": 9,
+            "trigType": "class",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "onError",
+            "description": "User Action generates an Error.",
+            "example": null,
+            "_dmlMethod": null,
+            "idbID": 180
+        },
+        {
+            "id": 7,
+            "trigType": "class",
+            "content_type": "object",
+            "is_dom_event": 1,
+            "name": "onLoad",
+            "description": "Auto-load the component when the page loads",
+            "example": null,
+            "_dmlMethod": null,
+            "idbID": 181
+        },
+        {
+            "id": 4,
+            "trigType": "class",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "onRefresh",
+            "description": "Refresh the component source when directed\r\nfrom another component action.",
+            "example": null,
+            "_dmlMethod": null,
+            "idbID": 182
+        },
+        {
+            "id": 10,
+            "trigType": "class",
+            "content_type": "object",
+            "is_dom_event": 1,
+            "name": "onSubmit",
+            "description": "User Submits a component, usually a form",
+            "example": null,
+            "_dmlMethod": null,
+            "idbID": 183
+        },
+        {
+            "id": 6,
+            "trigType": "class",
+            "content_type": "object",
+            "is_dom_event": 0,
+            "name": "onSuccess",
+            "description": "group the actions when user action is successful",
+            "example": null,
+            "_dmlMethod": null,
+            "idbID": 184
+        }
+    ]
+}

@@ -40,17 +40,15 @@ export async function refresh(content, context) {
 }
 
 /**
- * Find component by ID in pageConfig (recursive search)
+ * Find component by id (comp_name) in pageConfig (recursive search)
  */
 function findComponentById(pageConfig, componentId) {
   if (!pageConfig) return null;
 
-  // Search in top-level components
   if (pageConfig.components) {
     for (const component of pageConfig.components) {
       if (component.id === componentId) return component;
 
-      // Recursively search in child components
       const found = searchComponentTree(component, componentId);
       if (found) return found;
     }
@@ -60,7 +58,7 @@ function findComponentById(pageConfig, componentId) {
 }
 
 /**
- * Recursively search component tree for ID
+ * Recursively search component tree for id (comp_name)
  */
 function searchComponentTree(component, componentId) {
   if (component.id === componentId) return component;

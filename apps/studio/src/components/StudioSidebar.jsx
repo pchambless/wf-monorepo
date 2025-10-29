@@ -3,7 +3,7 @@ import { execEvent, setVals } from '@whatsfresh/shared-imports';
 import PreviewModal from './PreviewModal';
 import DBBrowserModal from './DBBrowserModal';
 import { loadPageForEditing } from '../utils/pageLoader';
-import { buildPageConfig } from '../utils/componentConfigBuilder';
+import { buildPageConfig } from '../utils/pageConfigBuilder';
 import { initializeApp, navigateToPage, warnBeforeNavigation, clearWorkingData, syncToMySQL, hasPendingChanges } from '../db/operations';
 import { db } from '../db/studioDb';
 
@@ -125,8 +125,13 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
       if (result.success) {
         console.log('✅ Loaded:', result.counts);
 
-        const pageConfig = await buildPageConfig(pageID);
-        onPageConfigLoaded(pageConfig.components, pageID);
+        const result2 = await buildPageConfig(pageID);
+        if (result2.success) {
+          onPageConfigLoaded(result2.pageConfig, pageID);
+        } else {
+          console.error('❌ buildPageConfig failed:', result2.error);
+          onPageConfigLoaded(null, null);
+        }
       } else {
         console.error('❌ Load failed:', result.error);
         onPageConfigLoaded(null, null);

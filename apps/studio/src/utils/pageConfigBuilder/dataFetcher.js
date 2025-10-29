@@ -39,9 +39,11 @@ export const getChildComponents = async (parent_id) => {
   const numericParentId = typeof parent_id === 'string' ? parseInt(parent_id, 10) : parent_id;
   const allComponents = await db.eventComp_xref.toArray();
   // Handle both string and number parent_id in IndexedDB
+  // Exclude self-references (Container with parent_id = id)
   const children = allComponents.filter(c => {
     const childParentId = typeof c.parent_id === 'string' ? parseInt(c.parent_id, 10) : c.parent_id;
-    return childParentId === numericParentId;
+    const childId = typeof c.id === 'string' ? parseInt(c.id, 10) : c.id;
+    return childParentId === numericParentId && childId !== numericParentId;
   });
   return children;
 };

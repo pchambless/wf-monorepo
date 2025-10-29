@@ -29,7 +29,7 @@ export const initializeApp = async () => {
         loadEventTypes(),
         loadEventSQL(),
         loadTriggers(),
-        loadAllPageRegistry()
+        loadAllPageRegistry(true) // Force reload to get latest pageIDs from MySQL
       ]);
 
       const allSuccess = results.every(r => r === undefined || r.success);

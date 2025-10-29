@@ -113,11 +113,26 @@ export const pageConfigToFlow = (hierarchyData) => {
     // Width - get the component's level to determine size
     const component = components.find(c => (c.xref_id || c.id) === componentId);
     const componentLevel = component?.level || 0;
+    const comp_type = component?.comp_type?.toLowerCase();
 
     // Parents (lower levels) are bigger, but keep reasonable for canvas
     const baseWidth = 600; // Reduced from 1200 for better canvas fit
     const widthReduction = Math.max(0, componentLevel) * 30;
     const width = Math.max(baseWidth - widthReduction, 300);
+
+    // Special case: Container at root (level 0 or 1) fills the canvas
+    if (comp_type === 'container' && componentLevel <= 1) {
+      // Canvas-filling container dimensions
+      // Use calculated height from children (no artificial minimum)
+      const minWidth = 1000; // Reasonable width for canvas
+      const dims = {
+        width: Math.max(width, minWidth),
+        height: height // Use actual calculated height, no minimum
+      };
+      console.log(`📦 Container (${componentId}) dimensions:`, dims, `level: ${componentLevel}`, `calculated height: ${height}`);
+      containerDimensionsCache[componentId] = dims;
+      return dims;
+    }
 
     const dims = { width, height };
     containerDimensionsCache[componentId] = dims;
@@ -173,12 +188,16 @@ export const pageConfigToFlow = (hierarchyData) => {
     const nodeId = String(component.xref_id || component.id);
     // Handle both parentID (from buildComponentConfig) and parent_id (from direct DB)
     const rawParentId = component.parentID || component.parent_id;
-    const parentId = rawParentId ? String(rawParentId) : null;
+
+    // Skip self-references (Container root where parent_id = id)
+    const isSelfReference = rawParentId && String(rawParentId) === nodeId;
+    const parentId = (rawParentId && !isSelfReference) ? String(rawParentId) : null;
+
     const level = component.level || 0;
     const flexPos = parsePosOrder(component.posOrder);
 
     // Debug parent_id mapping
-    console.log(`🔗 Component ${nodeId} (${component.comp_name || component.name}): parentID/parent_id=${rawParentId} → parentId=${parentId}, level=${level}`);
+    console.log(`🔗 Component ${nodeId} (${component.comp_name || component.name}): parentID/parent_id=${rawParentId} → parentId=${parentId}${isSelfReference ? ' (self-ref)' : ''}, level=${level}`);
 
     // Skip level -1 (App) - we'll show it as a heading instead
     if (level === -1) {
