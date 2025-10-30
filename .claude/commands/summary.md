@@ -5,15 +5,14 @@ allowed-tools: []
 
 # Session Summary Generator
 
-This command uses the shared summary specification.
+## Fetch Instructions from Database
 
-See: `.shared/commands/summary.md` for complete instructions and template.
+```bash
+curl -X POST http://localhost:3001/api/execEventType \
+  -H "Content-Type: application/json" \
+  -d '{"eventSQLId": "AI-summary"}'
+```
 
-## Claude-Specific Implementation
+**Follow the instructions returned from the database query above.**
 
-1. Generate summary using shared template
-2. Create JSON payload file for execDML
-3. Provide curl command for user execution
-4. User stores summary in database
-
-This ensures consistent AI coordination across Claude and Kiro sessions.
+For complete documentation, see `.shared/commands/summary.md`

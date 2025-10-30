@@ -40,11 +40,11 @@ export async function execDML(content, context) {
 
   let primaryKeyValue = null;
   if (method === 'UPDATE' || method === 'DELETE') {
-    const selectedIDResult = await getVal('selectedID', 'raw');
-    primaryKeyValue = selectedIDResult?.resolvedValue || selectedIDResult;
+    const contextKeyResult = await getVal(pageRegistry.contextKey, 'raw');
+    primaryKeyValue = contextKeyResult?.resolvedValue || contextKeyResult;
 
     if (!primaryKeyValue) {
-      throw new Error(`${method} requires selectedID in context_store`);
+      throw new Error(`${method} requires ${pageRegistry.contextKey} in context_store`);
     }
 
     formData[pageRegistry.tableID] = primaryKeyValue;
@@ -65,8 +65,7 @@ export async function execDML(content, context) {
     console.log(`✅ INSERT successful, setting ${pageRegistry.contextKey} = ${result.insertId}`);
     const { setVals } = await import('@whatsfresh/shared-imports');
     await setVals([
-      { paramName: pageRegistry.contextKey, paramVal: result.insertId },
-      { paramName: 'selectedID', paramVal: result.insertId }
+      { paramName: pageRegistry.contextKey, paramVal: result.insertId }
     ]);
   }
 

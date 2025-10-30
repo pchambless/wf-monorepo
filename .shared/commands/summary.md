@@ -5,6 +5,20 @@ allowed-tools: []
 
 # Session Summary Generator (Shared Claude/Kiro)
 
+## Fetch Instructions from Database
+
+```bash
+curl -X POST http://localhost:3001/api/execEventType \
+  -H "Content-Type: application/json" \
+  -d '{"eventSQLId": "AI-summary"}'
+```
+
+**Follow the instructions returned from the database query above.**
+
+---
+
+# Instructions (Stored in Database - Reference Only)
+
 1.  Generate a comprehensive session summary and store it in the plan_communications database for persistent AI coordination.
 2.  Generate a new entry in the plans table outlining probable Next Steps to be addressed.
 
@@ -157,6 +171,7 @@ curl -X POST http://localhost:3001/api/execDML \
   -d '{
     "method": "INSERT",
     "table": "api_wf.plans",
+    "userEmail": "claude@whatsfresh.ai",
     "data": {
       "name": "Session Next Steps - [Brief Topic]",
       "status": "pending",
@@ -179,6 +194,7 @@ curl -X POST http://localhost:3001/api/execDML \
   -d '{
     "method": "INSERT",
     "table": "api_wf.plan_communications",
+    "userEmail": "claude@whatsfresh.ai",
     "data": {
       "plan_id": [ID_FROM_STEP_1],
       "from_agent": "claude",

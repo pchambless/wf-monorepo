@@ -1,5 +1,6 @@
 import { executeQuery } from '../utils/dbUtils.js';
 import logger from '../utils/logger.js';
+import { getUserEmail } from '../utils/getUserEmail.js';
 
 const codeName = '[getVal.js]';
 
@@ -50,10 +51,8 @@ const getVal = async (req, res) => {
   }
 
   try {
-    // Get user email from query, session, or default
-    const userEmail = req.query.userEmail ||
-                      req.session?.userEmail ||
-                      'pc7900@gmail.com';
+    // Get user email using centralized function
+    const userEmail = getUserEmail(req);
     const resolvedValue = await getValDirect(userEmail, paramName, format);
 
     if (resolvedValue === null) {

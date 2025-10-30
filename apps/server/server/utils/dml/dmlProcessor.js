@@ -26,7 +26,7 @@ const buildEventParams = (data) => {
 /**
  * Process DML request with validation, execution, and error handling
  */
-export const processDML = async (requestBody) => {
+export const processDML = async (requestBody, userEmail) => {
   const { method, table, data, primaryKey, listEvent } = requestBody;
 
   // Log sanitized parameters
@@ -55,9 +55,8 @@ export const processDML = async (requestBody) => {
     throw error;
   }
 
-  // Get userID for audit trail from context_store (auto-context resolution)
+  // Get userID for audit trail from context_store
   const { getValDirect } = await import('../../controller/getVal.js');
-  const userEmail = await getValDirect('pc7900@gmail.com', 'userEmail', 'raw') || 'pc7900@gmail.com';
   const userID = await getValDirect(userEmail, 'firstName', 'raw') || 'system';
 
   // Add userID to data for SQL generation

@@ -27,6 +27,7 @@ import logImpactController, {
 import runMigration from "../controller/runMigration.js";
 import getMigrationStatus from "../controller/getMigrationStatus.js";
 import openTerminal from "../controller/openTerminal.js";
+import cloneStep from "../controller/cloneStep.js";
 import logger from "../utils/logger.js";
 
 const codeName = `[registerRoutes.js]`;
@@ -63,6 +64,9 @@ const registerRoutes = (app) => {
   registerRoute("post", "/api/logImpact", logImpactController);
   registerRoute("get", "/api/impacts/recent", getRecentImpacts);
   registerRoute("get", "/api/impacts/batch/:batchId", getBatchImpacts);
+
+  // Template cloning workflow
+  registerRoute("post", "/api/cloneStep", cloneStep);
 
   // Removed Studio Discovery APIs - replaced with database queries:
   // - /api/studio/apps -> SELECT FROM api_wf.app

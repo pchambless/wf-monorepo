@@ -5,15 +5,16 @@ allowed-tools: []
 
 # Fetch Recent Summaries
 
-This command uses the shared session startup specification.
+## Fetch Instructions from Database
 
-See: `.shared/commands/startSession.md` for complete instructions and curl commands.
+```bash
+curl -X POST http://localhost:3001/api/execEventType \
+  -H "Content-Type: application/json" \
+  -d '{"eventSQLId": "AI-startSession"}'
+```
 
-## Claude-Specific Implementation
-
-1. Run curl commands to fetch recent session context
-2. Display recent AI summaries (last 2)
-3. Display recent plan impacts (last 24 hours)
-4. Ready for user task assignment
+**Follow the instructions returned from the database query above.**
 
 This ensures consistent AI coordination across Claude and Kiro sessions.
+
+For complete documentation, see `.shared/commands/startSession.md`

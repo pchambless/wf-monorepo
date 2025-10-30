@@ -88,7 +88,7 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
 
         setNodes(flowNodes);
         setEdges(enhancedEdges);
-        setAppName(appInfo?.title || pageConfig.title || "");
+        setAppName(appInfo?.title || pageConfig.props?.title || "");
       }
     };
 

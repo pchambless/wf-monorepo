@@ -1,5 +1,6 @@
 import { processDML } from '../utils/dml/dmlProcessor.js';
 import logger from '../utils/logger.js';
+import { getUserEmail } from '../utils/getUserEmail.js';
 
 const codeName = `[execDML.js]`;
 
@@ -10,7 +11,13 @@ const execDML = async (req, res) => {
     logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
     try {
-        const result = await processDML(req.body);
+        // Get user email using centralized function
+        const userEmail = getUserEmail(req);
+
+        // Remove userEmail from body to prevent it being treated as data field
+        const { userEmail: _, ...requestBody } = req.body;
+
+        const result = await processDML(requestBody, userEmail);
 
         logger.info(`${codeName} DML operation completed successfully`);
         res.json(result);

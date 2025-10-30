@@ -54,14 +54,15 @@ export const buildPageConfig = async (pageID) => {
 
     const pageConfig = {
       pageName: pageRegistry.pageName,
-      title: pageRegistry.pageTitle,
-      routePath: pageRegistry.routePath,
-      cluster: 'Page',
       layout: 'flex',
       props: {
+        pageID: effectivePageID,
+        title: pageRegistry.pageTitle,
+        routePath: pageRegistry.routePath,
         tableName: pageRegistry.tableName,
         tableID: pageRegistry.tableID,
         contextKey: pageRegistry.contextKey,
+        parentID: pageRegistry.parentID,
         ...containerProps
       },
       ...(workflowTriggers && { workflowTriggers }),

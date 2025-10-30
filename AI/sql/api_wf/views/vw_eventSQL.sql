@@ -1,10 +1,12 @@
 create or replace view vw_eventSQL as
 select
     a.xref_id,
+    a.pageName, 
     a.comp_name, 
     a.comp_type,
     c.qryName, 
-    c.qrySQL
+    c.qrySQL,
+    a.pageID
 from
     api_wf.vw_hier_components a
 left join 

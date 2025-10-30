@@ -13,7 +13,7 @@ export const generateMermaid = (pageConfig) => {
 
   // Add page node
   const pageId = sanitizeId(pageConfig.pageName || 'Page');
-  nodes.add(`${pageId}["${pageConfig.title || pageConfig.pageName}"]`);
+  nodes.add(`${pageId}["${pageConfig.props?.title || pageConfig.pageName}"]`);
 
   // Add page-level triggers
   if (pageConfig.workflowTriggers) {

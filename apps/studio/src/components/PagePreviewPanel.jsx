@@ -74,8 +74,8 @@ const PagePreviewPanel = ({ pageID }) => {
         body: JSON.stringify({
           pageConfig,
           mermaidText,
-          appName: pageConfig.routePath?.split('/')[1] || 'whatsfresh',
-          pageName: pageConfig.routePath?.split('/')[2] || 'unknown',
+          appName: pageConfig.props?.routePath?.split('/')[1] || 'whatsfresh',
+          pageName: pageConfig.props?.routePath?.split('/')[2] || 'unknown',
           pageID
         })
       });

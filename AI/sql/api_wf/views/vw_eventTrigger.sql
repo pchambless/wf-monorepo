@@ -5,12 +5,14 @@ ALGORITHM = UNDEFINED VIEW `api_wf`.`vw_eventTrigger` AS
 select
     a.id AS trigger_id,
     a.xref_id AS xref_id,
-    b.parent_id AS parent_id,
+    b.pageName,
     b.comp_name AS comp_name,
     b.comp_type AS comp_type,
     a.ordr AS ordr,
     a.class AS class,
     a.action AS action,
+    b.pageID,
+    b.parent_id AS parent_id,
 	e.api_id,
     e.wrkFlow_id,
     e.controller_id,
@@ -24,6 +26,7 @@ on     a.class = d.name
 join   api_wf.triggers e
 on     a.action = e.name
 order by
+    b.pageID,
     b.parent_id,
     a.xref_id,
     a.ordr;

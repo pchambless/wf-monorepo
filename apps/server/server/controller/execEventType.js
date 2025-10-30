@@ -2,6 +2,7 @@ import { executeQuery } from "../utils/dbUtils.js";
 import { createRequestBody } from "../utils/queryResolver.js";
 import { getValDirect } from "./getVal.js";
 import logger from "../utils/logger.js";
+import { getUserEmail } from "../utils/getUserEmail.js";
 
 const codeName = `[execEventType.js]`;
 
@@ -58,7 +59,8 @@ const execEventType = async (req, res) => {
     const paramMatches = finalSQL.match(/:([a-zA-Z_][a-zA-Z0-9_]*)/g);
 
     if (paramMatches) {
-      const userEmail = params?.email || "pc7900@gmail.com";
+      // Get user email using centralized function
+      const userEmail = getUserEmail(req);
 
       for (const paramMatch of paramMatches) {
         const paramName = paramMatch.substring(1);

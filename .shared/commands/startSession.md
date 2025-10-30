@@ -3,7 +3,21 @@ description: "To get caught up with recent Accomplishments and Next Step at Sess
 allowed-tools: []
 ---
 
-# Fetch Recent Summaries  (Shared Claude/Kiro)
+# Session Startup (Shared Claude/Kiro)
+
+## Fetch Instructions from Database
+
+```bash
+curl -X POST http://localhost:3001/api/execEventType \
+  -H "Content-Type: application/json" \
+  -d '{"eventSQLId": "AI-startSession"}'
+```
+
+**Follow the instructions returned from the database query above.**
+
+---
+
+# Instructions (Stored in Database - Reference Only)
 
 Fetch the recent summaries and module impacts from AI sessions.
 

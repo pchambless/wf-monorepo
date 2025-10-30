@@ -1,6 +1,7 @@
 import { executeQuery } from '../utils/dbUtils.js';
 import { getValDirect } from './getVal.js';
 import logger from '../utils/logger.js';
+import { getUserEmail } from '../utils/getUserEmail.js';
 
 const codeName = '[setVals.js]';
 
@@ -63,10 +64,8 @@ const setVals = async (req, res) => {
   }
 
   try {
-    // Get user email from request body, session, or default
-    const userEmail = req.body.userEmail ||
-                      req.session?.userEmail ||
-                      'pc7900@gmail.com';
+    // Get user email using centralized function
+    const userEmail = getUserEmail(req);
     const results = await setValsDirect(userEmail, values);
 
     logger.debug(`${codeName} Set ${results.length} values for ${userEmail}`);
