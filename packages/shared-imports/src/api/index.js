@@ -20,13 +20,8 @@ import {
   logFileModify as logFileModifyFn,
   logFileDelete as logFileDeleteFn,
 } from "./logImpact.js";
-import {
-  FileImpactLogger,
-  createSession,
-  addFileCreate as addFileCreateFn,
-  addFileModify as addFileModifyFn,
-  addFileDelete as addFileDeleteFn,
-} from "./impactFileLogger.js";
+// Note: FileImpactLogger is server-only (uses Node.js fs module)
+// Import from './server.js' if needed in Node.js environment
 
 /**
  * Default API configuration
@@ -107,12 +102,8 @@ export function createApi(options = {}) {
     logFileCreate: boundLogFileCreate,
     logFileModify: boundLogFileModify,
     logFileDelete: boundLogFileDelete,
-    // File-based impact logging
-    FileImpactLogger,
-    createSession,
-    addFileCreate: addFileCreateFn,
-    addFileModify: addFileModifyFn,
-    addFileDelete: addFileDeleteFn,
+    // Note: File-based logging (FileImpactLogger) is server-only
+    // Import from '@whatsfresh/shared-imports/server' if needed
   };
 }
 
@@ -140,10 +131,7 @@ export const {
   logFileCreate,
   logFileModify,
   logFileDelete,
-  addFileCreate,
-  addFileModify,
-  addFileDelete,
 } = api;
 
-// Re-export classes that were imported (already declared above)
-export { FileImpactLogger, createSession };
+// Note: FileImpactLogger, createSession, addFile* functions are server-only
+// Create a separate server.js entry point if these are needed

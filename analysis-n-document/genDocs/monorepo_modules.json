@@ -196,6 +196,9 @@
       "file_path": "apps/server/server/controller/clearVals.js"
     },
     {
+      "file_path": "apps/server/server/controller/cloneStep.js"
+    },
+    {
       "file_path": "apps/server/server/controller/execCreateDoc.js"
     },
     {
@@ -220,6 +223,9 @@
       "file_path": "apps/server/server/controller/getEventTypes.js"
     },
     {
+      "file_path": "apps/server/server/controller/getMigrationStatus.js"
+    },
+    {
       "file_path": "apps/server/server/controller/getTriggers.js"
     },
     {
@@ -238,7 +244,13 @@
       "file_path": "apps/server/server/controller/logImpact.js"
     },
     {
+      "file_path": "apps/server/server/controller/openTerminal.js"
+    },
+    {
       "file_path": "apps/server/server/controller/restartServer.js"
+    },
+    {
+      "file_path": "apps/server/server/controller/runMigration.js"
     },
     {
       "file_path": "apps/server/server/controller/setVals.js"
@@ -382,6 +394,36 @@
       "file_path": "apps/server/server/server.js"
     },
     {
+      "file_path": "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/helpers/getNextID.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/cloneTemplate/testSession.js"
+    },
+    {
       "file_path": "apps/server/server/utils/dbManager.js"
     },
     {
@@ -398,6 +440,9 @@
     },
     {
       "file_path": "apps/server/server/utils/executeEventType.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/getUserEmail.js"
     },
     {
       "file_path": "apps/server/server/utils/impactLogger.js"
@@ -572,6 +617,9 @@
     },
     {
       "file_path": "apps/studio/src/components/IssuesModal.jsx"
+    },
+    {
+      "file_path": "apps/studio/src/components/MigrationPage.jsx"
     },
     {
       "file_path": "apps/studio/src/components/PageDraftControls.jsx"
@@ -919,13 +967,22 @@
       "file_path": "apps/studio/src/rendering/hooks/useTemplateLoader.js"
     },
     {
+      "file_path": "apps/studio/src/rendering/utils/appLayoutRenderer.js"
+    },
+    {
       "file_path": "apps/studio/src/rendering/utils/eventHandlerBuilder.js"
+    },
+    {
+      "file_path": "apps/studio/src/rendering/utils/layoutUtils.js"
     },
     {
       "file_path": "apps/studio/src/rendering/utils/rowRenderer.js"
     },
     {
       "file_path": "apps/studio/src/rendering/utils/styleUtils.js"
+    },
+    {
+      "file_path": "apps/studio/src/rendering/utils/textRenderer.js"
     },
     {
       "file_path": "apps/studio/src/stores/studioStore.js"
@@ -1276,6 +1333,9 @@
       "file_path": "packages/shared-imports/src/api/fetchStudioEventTypes.js"
     },
     {
+      "file_path": "packages/shared-imports/src/api/getDefaultUserEmail.js"
+    },
+    {
       "file_path": "packages/shared-imports/src/api/getVal.js"
     },
     {
@@ -1292,144 +1352,6 @@
     },
     {
       "file_path": "packages/shared-imports/src/api/userLogin.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/FormComponent.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/FormComponent.tsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/PageRenderer/ActionHandler.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/PageRenderer/ContainerRenderer.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/PageRenderer/FieldRenderer.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/PageRenderer/LayoutEngine.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/PageRenderer/LeafRenderer.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/PageRenderer/index.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/auth.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/auth/LoginForm/index.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/common/EntitySelector.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/common/ErrorBoundary.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/common/Logo/index.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/BooleanField.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/DateField.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/DatePick.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/DecimalField.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/MultiLineField.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/NumberField.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/Select.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/TextArea.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/TextField.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/forms/index.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/grids/DataGrid.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/grids/index.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/index.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/layouts/AuthLayout.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/layouts/MainLayout.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/layouts/SimpleLayout.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/modals/Modal.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/modals/PostCreationDeliveryModal.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/modals/index.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/modals/modalStore.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/modals/useModal.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/modals/useModalStore.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNavItem.jsx"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/navigation/bb-Sidebar/index.js"
-    },
-    {
-      "file_path": "packages/shared-imports/src/components/navigation/cc-PageHeader/Breadcrumbs.jsx"
     },
     {
       "file_path": "packages/shared-imports/src/createDocs/docTypes.js"
@@ -1671,6 +1593,34 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
+      "from_path": "apps/server/server/controller/cloneStep.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/cloneStep.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/cloneStep.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/cloneStep.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/cloneStep.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/cloneStep.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/cloneStep.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/controller/execCreateDoc.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
@@ -1692,6 +1642,10 @@
     },
     {
       "from_path": "apps/server/server/controller/execDML.js",
+      "to_path": "apps/server/server/utils/getUserEmail.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/execDML.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1701,6 +1655,10 @@
     {
       "from_path": "apps/server/server/controller/execEventType.js",
       "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/execEventType.js",
+      "to_path": "apps/server/server/utils/getUserEmail.js"
     },
     {
       "from_path": "apps/server/server/controller/execEventType.js",
@@ -1747,6 +1705,10 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
+      "from_path": "apps/server/server/controller/getMigrationStatus.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/controller/getTriggers.js",
       "to_path": "apps/server/server/utils/dbUtils.js"
     },
@@ -1757,6 +1719,10 @@
     {
       "from_path": "apps/server/server/controller/getVal.js",
       "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/getVal.js",
+      "to_path": "apps/server/server/utils/getUserEmail.js"
     },
     {
       "from_path": "apps/server/server/controller/getVal.js",
@@ -1775,7 +1741,15 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
+      "from_path": "apps/server/server/controller/openTerminal.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/controller/restartServer.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/runMigration.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1785,6 +1759,10 @@
     {
       "from_path": "apps/server/server/controller/setVals.js",
       "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/setVals.js",
+      "to_path": "apps/server/server/utils/getUserEmail.js"
     },
     {
       "from_path": "apps/server/server/controller/setVals.js",
@@ -2000,6 +1978,10 @@
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
+      "to_path": "apps/server/server/controller/cloneStep.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/execCreateDoc.js"
     },
     {
@@ -2032,6 +2014,10 @@
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
+      "to_path": "apps/server/server/controller/getMigrationStatus.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/getTriggers.js"
     },
     {
@@ -2056,7 +2042,15 @@
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
+      "to_path": "apps/server/server/controller/openTerminal.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/restartServer.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/registerRoutes.js",
+      "to_path": "apps/server/server/controller/runMigration.js"
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
@@ -2085,6 +2079,142 @@
     {
       "from_path": "apps/server/server/server.js",
       "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/helpers/getNextID.js",
+      "to_path": "apps/server/server/controller/execEventType.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/sessionManager.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/sessionManager.js",
+      "to_path": "packages/db-connect/index.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+      "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+      "to_path": "apps/server/server/controller/execEventType.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+      "to_path": "apps/server/server/controller/setVals.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+      "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+      "to_path": "apps/server/server/controller/execEventType.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+      "to_path": "apps/server/server/controller/setVals.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+      "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+      "to_path": "apps/server/server/controller/execEventType.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+      "to_path": "apps/server/server/controller/setVals.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+      "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
+      "to_path": "apps/server/server/controller/execEventType.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
+      "to_path": "apps/server/server/controller/setVals.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/cloneTemplate/testSession.js",
+      "to_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
     },
     {
       "from_path": "apps/server/server/utils/dbManager.js",
@@ -2296,11 +2426,19 @@
     },
     {
       "from_path": "apps/studio/src/App.jsx",
+      "to_path": "apps/studio/src/components/MigrationPage.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/App.jsx",
       "to_path": "apps/studio/src/components/StudioLayout.jsx"
     },
     {
       "from_path": "apps/studio/src/App.jsx",
       "to_path": "apps/studio/src/db/operations/lifecycleOps.js"
+    },
+    {
+      "from_path": "apps/studio/src/App.jsx",
+      "to_path": "apps/studio/src/layouts/SimpleLayout.jsx"
     },
     {
       "from_path": "apps/studio/src/apps/plans/pages/Dashboard/index.jsx",
@@ -2376,6 +2514,10 @@
     },
     {
       "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
+      "to_path": "apps/studio/src/db/studioDb.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
       "to_path": "apps/studio/src/utils/pageConfigToFlow.js"
     },
     {
@@ -2428,7 +2570,7 @@
     },
     {
       "from_path": "apps/studio/src/components/StudioSidebar.jsx",
-      "to_path": "apps/studio/src/utils/componentConfigBuilder.js"
+      "to_path": "apps/studio/src/utils/pageConfigBuilder/index.js"
     },
     {
       "from_path": "apps/studio/src/components/StudioSidebar.jsx",
@@ -2620,6 +2762,10 @@
     },
     {
       "from_path": "apps/studio/src/db/operations/lifecycleOps.js",
+      "to_path": "apps/studio/src/utils/pageLoader.js"
+    },
+    {
+      "from_path": "apps/studio/src/db/operations/lifecycleOps.js",
       "to_path": "apps/studio/src/utils/referenceLoaders.js"
     },
     {
@@ -2700,7 +2846,15 @@
     },
     {
       "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
+      "to_path": "apps/studio/src/rendering/utils/appLayoutRenderer.js"
+    },
+    {
+      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
       "to_path": "apps/studio/src/rendering/utils/eventHandlerBuilder.js"
+    },
+    {
+      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
+      "to_path": "apps/studio/src/rendering/utils/layoutUtils.js"
     },
     {
       "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
@@ -2709,6 +2863,14 @@
     {
       "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
       "to_path": "apps/studio/src/rendering/utils/styleUtils.js"
+    },
+    {
+      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
+      "to_path": "apps/studio/src/rendering/utils/textRenderer.js"
+    },
+    {
+      "from_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
+      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/WorkflowEngine.js",
@@ -2769,6 +2931,10 @@
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
       "to_path": "packages/shared-imports/src/index.js"
+    },
+    {
+      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+      "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
@@ -2857,6 +3023,10 @@
     {
       "from_path": "apps/studio/src/utils/pageConfigBuilder/index.js",
       "to_path": "apps/studio/src/utils/pageConfigBuilder/triggersBuilder.js"
+    },
+    {
+      "from_path": "apps/studio/src/utils/pageConfigBuilder/index.js",
+      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/studio/src/utils/pageConfigBuilder/triggersBuilder.js",
@@ -3075,6 +3245,14 @@
       "to_path": "packages/db-connect/query.js"
     },
     {
+      "from_path": "packages/shared-imports/src/api/execEvent.js",
+      "to_path": "packages/shared-imports/src/api/getDefaultUserEmail.js"
+    },
+    {
+      "from_path": "packages/shared-imports/src/api/getVal.js",
+      "to_path": "packages/shared-imports/src/api/getDefaultUserEmail.js"
+    },
+    {
       "from_path": "packages/shared-imports/src/api/impactFileLogger.js",
       "to_path": "packages/shared-imports/src/api/logImpact.js"
     },
@@ -3104,10 +3282,6 @@
     },
     {
       "from_path": "packages/shared-imports/src/api/index.js",
-      "to_path": "packages/shared-imports/src/api/impactFileLogger.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/api/index.js",
       "to_path": "packages/shared-imports/src/api/logImpact.js"
     },
     {
@@ -3119,144 +3293,8 @@
       "to_path": "packages/shared-imports/src/api/userLogin.js"
     },
     {
-      "from_path": "packages/shared-imports/src/components/PageRenderer/index.jsx",
-      "to_path": "packages/shared-imports/src/stores/index.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-      "to_path": "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-      "to_path": "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-      "to_path": "packages/shared-imports/src/utils/navigation.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/auth/LoginForm/index.js",
-      "to_path": "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/auth/LoginForm/index.js",
-      "to_path": "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/auth/LoginForm/index.js",
-      "to_path": "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/common/EntitySelector.jsx",
-      "to_path": "packages/shared-imports/src/utils/logger.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/DatePick.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/index.js",
-      "to_path": "packages/shared-imports/src/components/forms/BooleanField.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/index.js",
-      "to_path": "packages/shared-imports/src/components/forms/DateField.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/index.js",
-      "to_path": "packages/shared-imports/src/components/forms/DecimalField.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/index.js",
-      "to_path": "packages/shared-imports/src/components/forms/MultiLineField.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/index.js",
-      "to_path": "packages/shared-imports/src/components/forms/NumberField.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/index.js",
-      "to_path": "packages/shared-imports/src/components/forms/Select.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/index.js",
-      "to_path": "packages/shared-imports/src/components/forms/TextArea.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/forms/index.js",
-      "to_path": "packages/shared-imports/src/components/forms/TextField.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/grids/DataGrid.jsx",
-      "to_path": "packages/shared-imports/src/api/index.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/index.js",
-      "to_path": "packages/shared-imports/src/components/auth.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/index.js",
-      "to_path": "packages/shared-imports/src/components/modals/PostCreationDeliveryModal.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/layouts/MainLayout.jsx",
-      "to_path": "packages/shared-imports/src/components/common/Logo/index.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/layouts/MainLayout.jsx",
-      "to_path": "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/layouts/MainLayout.jsx",
-      "to_path": "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/layouts/MainLayout.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/modals/Modal.jsx",
-      "to_path": "packages/shared-imports/src/components/modals/modalStore.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/modals/index.js",
-      "to_path": "packages/shared-imports/src/components/modals/Modal.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/modals/index.js",
-      "to_path": "packages/shared-imports/src/components/modals/modalStore.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/modals/index.js",
-      "to_path": "packages/shared-imports/src/components/modals/useModal.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/modals/index.js",
-      "to_path": "packages/shared-imports/src/components/modals/useModalStore.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/modals/useModal.js",
-      "to_path": "packages/shared-imports/src/components/modals/modalStore.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/modals/useModalStore.js",
-      "to_path": "packages/shared-imports/src/components/modals/modalStore.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx",
-      "to_path": "packages/shared-imports/src/components/common/Logo/index.jsx"
-    },
-    {
-      "from_path": "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
+      "from_path": "packages/shared-imports/src/api/setVals.js",
+      "to_path": "packages/shared-imports/src/api/getDefaultUserEmail.js"
     },
     {
       "from_path": "packages/shared-imports/src/createDocs/index.js",

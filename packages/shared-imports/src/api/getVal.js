@@ -1,3 +1,5 @@
+import { getDefaultUserEmail } from './getDefaultUserEmail.js';
+
 /**
  * Get a single value from context store via API
  */
@@ -9,6 +11,9 @@ export async function getVal(paramName, format = 'raw', { baseUrl, logger }) {
     if (format !== 'raw') {
       params.append('format', format);
     }
+
+    // TEMPORARY HARDCODE - bypassing env var issues
+    params.append('userEmail', 'studio@whatsfresh.ai');
 
     const response = await fetch(`${baseUrl}/api/getVal?${params}`, {
       method: "GET",

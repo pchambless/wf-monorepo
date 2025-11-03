@@ -1,3 +1,5 @@
+import { getDefaultUserEmail } from './getDefaultUserEmail.js';
+
 /**
  * Execute an event type against the API
  */
@@ -9,13 +11,17 @@ export async function execEvent(xrefId, params = {}, { baseUrl, logger }) {
       "Content-Type": "application/json",
     };
 
+    // TEMPORARY HARDCODE - bypassing env var issues
+    const body = { eventSQLId: xrefId, params };
+    body.userEmail = 'studio@whatsfresh.ai';
+
     // Call the execEventType endpoint with credentials
     // Server expects eventSQLId parameter
     const response = await fetch(`${baseUrl}/api/execEventType`, {
       method: "POST",
       headers,
       credentials: "include", // Important for session cookies
-      body: JSON.stringify({ eventSQLId: xrefId, params }),
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {

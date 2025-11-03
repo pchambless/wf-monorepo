@@ -661,6 +661,17 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/controller/cloneStep.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "controller"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/controller/execCreateDoc.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -684,13 +695,13 @@
     },
     {
       "file": "apps/server/server/controller/execEventType.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 7 dependents.",
       "tags": [
         "server",
         "controller"
       ],
-      "critical": false,
-      "blastRadius": "low",
+      "critical": true,
+      "blastRadius": "medium",
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
@@ -739,6 +750,17 @@
     },
     {
       "file": "apps/server/server/controller/getEventTypes.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "controller"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/controller/getMigrationStatus.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "server",
@@ -815,6 +837,17 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/controller/openTerminal.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "controller"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/controller/restartServer.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -826,14 +859,25 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/controller/runMigration.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "controller"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/controller/setVals.js",
-      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 8 dependents.",
       "tags": [
         "server",
         "controller"
       ],
       "critical": true,
-      "blastRadius": "medium",
+      "blastRadius": "high",
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
@@ -1306,6 +1350,116 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
+      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": true,
+      "blastRadius": "medium",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/helpers/getNextID.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
+      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": true,
+      "blastRadius": "medium",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/sessionManager.js",
+      "purpose": "Auto-inferred from dependency graph. 7 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": true,
+      "blastRadius": "medium",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/testSession.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/utils/dbManager.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -1318,7 +1472,7 @@
     },
     {
       "file": "apps/server/server/utils/dbUtils.js",
-      "purpose": "Auto-inferred from dependency graph. 14 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 18 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1372,6 +1526,17 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/utils/getUserEmail.js",
+      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": true,
+      "blastRadius": "medium",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/utils/impactLogger.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -1384,7 +1549,7 @@
     },
     {
       "file": "apps/server/server/utils/logger.js",
-      "purpose": "Auto-inferred from dependency graph. 41 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 51 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1967,6 +2132,16 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
+      "file": "apps/studio/src/components/MigrationPage.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
       "file": "apps/studio/src/components/PageDraftControls.jsx",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
@@ -2440,7 +2615,7 @@
     },
     {
       "file": "apps/studio/src/db/studioDb.js",
-      "purpose": "Auto-inferred from dependency graph. 32 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 34 dependents.",
       "tags": [
         "studio"
       ],
@@ -2800,7 +2975,7 @@
     },
     {
       "file": "apps/studio/src/layouts/SimpleLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -3119,7 +3294,29 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
+      "file": "apps/studio/src/rendering/utils/appLayoutRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
       "file": "apps/studio/src/rendering/utils/eventHandlerBuilder.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/utils/layoutUtils.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio",
@@ -3142,6 +3339,17 @@
     },
     {
       "file": "apps/studio/src/rendering/utils/styleUtils.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/utils/textRenderer.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio",
@@ -3184,7 +3392,7 @@
     },
     {
       "file": "apps/studio/src/utils/componentConfigBuilder.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "studio",
         "utility"
@@ -3316,7 +3524,7 @@
     },
     {
       "file": "apps/studio/src/utils/pageConfigBuilder/index.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio",
         "utility"
@@ -3360,12 +3568,12 @@
     },
     {
       "file": "apps/studio/src/utils/pageLoader.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
       "tags": [
         "studio",
         "utility"
       ],
-      "critical": false,
+      "critical": true,
       "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
@@ -4158,11 +4366,11 @@
     },
     {
       "file": "packages/db-connect/index.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
       "tags": [
         "db-connect"
       ],
-      "critical": false,
+      "critical": true,
       "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving db-connect."
     },
@@ -4337,6 +4545,16 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
     },
     {
+      "file": "packages/shared-imports/src/api/getDefaultUserEmail.js",
+      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
+      "tags": [
+        "shared-imports"
+      ],
+      "critical": true,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
+    },
+    {
       "file": "packages/shared-imports/src/api/getVal.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -4348,7 +4566,7 @@
     },
     {
       "file": "packages/shared-imports/src/api/impactFileLogger.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "shared-imports"
       ],
@@ -4358,7 +4576,7 @@
     },
     {
       "file": "packages/shared-imports/src/api/index.js",
-      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
       "tags": [
         "shared-imports"
       ],
@@ -4389,466 +4607,6 @@
     {
       "file": "packages/shared-imports/src/api/userLogin.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/FormComponent.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/FormComponent.tsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/PageRenderer/ActionHandler.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/PageRenderer/ContainerRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/PageRenderer/FieldRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/PageRenderer/LayoutEngine.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/PageRenderer/LeafRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/PageRenderer/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/auth.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/auth/LoginForm/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/common/EntitySelector.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/common/ErrorBoundary.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/common/Logo/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/BooleanField.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/DateField.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/DatePick.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/DecimalField.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/MultiLineField.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/NumberField.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/Select.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/TextArea.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/TextField.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/forms/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/grids/DataGrid.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/grids/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/layouts/AuthLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/layouts/MainLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/layouts/SimpleLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/modals/Modal.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/modals/PostCreationDeliveryModal.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/modals/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/modals/modalStore.js",
-      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": true,
-      "blastRadius": "medium",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/modals/useModal.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/modals/useModalStore.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNavItem.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/navigation/bb-Sidebar/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "shared-imports"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
-    },
-    {
-      "file": "packages/shared-imports/src/components/navigation/cc-PageHeader/Breadcrumbs.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "shared-imports"
       ],
@@ -4938,7 +4696,7 @@
     },
     {
       "file": "packages/shared-imports/src/index.js",
-      "purpose": "Auto-inferred from dependency graph. 37 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 34 dependents.",
       "tags": [
         "shared-imports"
       ],
@@ -4958,7 +4716,7 @@
     },
     {
       "file": "packages/shared-imports/src/stores/index.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "shared-imports"
       ],
@@ -5133,7 +4891,7 @@
     },
     {
       "file": "packages/shared-imports/src/utils/logger.js",
-      "purpose": "Auto-inferred from dependency graph. 13 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 12 dependents.",
       "tags": [
         "shared-imports",
         "utility"
@@ -5144,7 +4902,7 @@
     },
     {
       "file": "packages/shared-imports/src/utils/navigation.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "shared-imports",
         "utility"

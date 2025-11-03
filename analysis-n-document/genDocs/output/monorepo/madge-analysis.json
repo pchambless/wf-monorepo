@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated": "2025-10-20T23:30:18.871Z",
-    "total_files": 508
+    "generated": "2025-11-03T17:14:57.636Z",
+    "total_files": 482
   },
   "files": {
     ".claude/routing/AgentDirector.js": {
@@ -629,6 +629,24 @@
       "blast_radius": "low",
       "package": "server"
     },
+    "apps/server/server/controller/cloneStep.js": {
+      "dependencies": [
+        "apps/server/server/utils/cloneTemplate/sessionManager.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+        "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/routes/registerRoutes.js"
+      ],
+      "dependency_count": 7,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
     "apps/server/server/controller/execCreateDoc.js": {
       "dependencies": [
         "apps/server/server/utils/logger.js",
@@ -647,12 +665,13 @@
     "apps/server/server/controller/execDML.js": {
       "dependencies": [
         "apps/server/server/utils/dml/dmlProcessor.js",
+        "apps/server/server/utils/getUserEmail.js",
         "apps/server/server/utils/logger.js"
       ],
       "dependents": [
         "apps/server/server/routes/registerRoutes.js"
       ],
-      "dependency_count": 2,
+      "dependency_count": 3,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "server"
@@ -661,16 +680,22 @@
       "dependencies": [
         "apps/server/server/controller/getVal.js",
         "apps/server/server/utils/dbUtils.js",
+        "apps/server/server/utils/getUserEmail.js",
         "apps/server/server/utils/logger.js",
         "apps/server/server/utils/queryResolver.js"
       ],
       "dependents": [
         "apps/server/server/app.js",
-        "apps/server/server/routes/registerRoutes.js"
+        "apps/server/server/routes/registerRoutes.js",
+        "apps/server/server/utils/cloneTemplate/helpers/getNextID.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+        "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js"
       ],
-      "dependency_count": 4,
-      "dependent_count": 2,
-      "blast_radius": "low",
+      "dependency_count": 5,
+      "dependent_count": 7,
+      "blast_radius": "medium",
       "package": "server"
     },
     "apps/server/server/controller/fetchEventType.js": {
@@ -737,6 +762,18 @@
       "blast_radius": "low",
       "package": "server"
     },
+    "apps/server/server/controller/getMigrationStatus.js": {
+      "dependencies": [
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/routes/registerRoutes.js"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
     "apps/server/server/controller/getTriggers.js": {
       "dependencies": [
         "apps/server/server/utils/dbUtils.js",
@@ -753,6 +790,7 @@
     "apps/server/server/controller/getVal.js": {
       "dependencies": [
         "apps/server/server/utils/dbUtils.js",
+        "apps/server/server/utils/getUserEmail.js",
         "apps/server/server/utils/logger.js"
       ],
       "dependents": [
@@ -763,7 +801,7 @@
         "apps/server/server/routes/registerRoutes.js",
         "apps/server/server/utils/dml/dmlProcessor.js"
       ],
-      "dependency_count": 2,
+      "dependency_count": 3,
       "dependent_count": 6,
       "blast_radius": "medium",
       "package": "server"
@@ -813,7 +851,31 @@
       "blast_radius": "low",
       "package": "server"
     },
+    "apps/server/server/controller/openTerminal.js": {
+      "dependencies": [
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/routes/registerRoutes.js"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
     "apps/server/server/controller/restartServer.js": {
+      "dependencies": [
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/routes/registerRoutes.js"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/controller/runMigration.js": {
       "dependencies": [
         "apps/server/server/utils/logger.js"
       ],
@@ -829,17 +891,22 @@
       "dependencies": [
         "apps/server/server/controller/getVal.js",
         "apps/server/server/utils/dbUtils.js",
+        "apps/server/server/utils/getUserEmail.js",
         "apps/server/server/utils/logger.js"
       ],
       "dependents": [
         "apps/server/server/controller/clearVals.js",
         "apps/server/server/routes/registerRoutes.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+        "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
         "apps/server/server/utils/pageConfig/propsRetriever.js",
         "apps/server/server/utils/pageConfig/triggersRetriever.js"
       ],
-      "dependency_count": 3,
-      "dependent_count": 4,
-      "blast_radius": "medium",
+      "dependency_count": 4,
+      "dependent_count": 8,
+      "blast_radius": "high",
       "package": "server"
     },
     "apps/server/server/controller/studioDiscovery.js": {
@@ -1348,6 +1415,7 @@
     "apps/server/server/routes/registerRoutes.js": {
       "dependencies": [
         "apps/server/server/controller/clearVals.js",
+        "apps/server/server/controller/cloneStep.js",
         "apps/server/server/controller/execCreateDoc.js",
         "apps/server/server/controller/execDML.js",
         "apps/server/server/controller/execEventType.js",
@@ -1356,13 +1424,16 @@
         "apps/server/server/controller/genPageConfigController.js",
         "apps/server/server/controller/getDoc.js",
         "apps/server/server/controller/getEventTypes.js",
+        "apps/server/server/controller/getMigrationStatus.js",
         "apps/server/server/controller/getTriggers.js",
         "apps/server/server/controller/getVal.js",
         "apps/server/server/controller/githubController.js",
         "apps/server/server/controller/initialize.js",
         "apps/server/server/controller/listRegisteredRoutes.js",
         "apps/server/server/controller/logImpact.js",
+        "apps/server/server/controller/openTerminal.js",
         "apps/server/server/controller/restartServer.js",
+        "apps/server/server/controller/runMigration.js",
         "apps/server/server/controller/setVals.js",
         "apps/server/server/controller/userLogin.js",
         "apps/server/server/utils/logger.js"
@@ -1370,7 +1441,7 @@
       "dependents": [
         "apps/server/server/routes/index.js"
       ],
-      "dependency_count": 19,
+      "dependency_count": 23,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "server"
@@ -1384,6 +1455,156 @@
       ],
       "dependents": [],
       "dependency_count": 4,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 4,
+      "blast_radius": "medium",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/helpers/getNextID.js": {
+      "dependencies": [
+        "apps/server/server/controller/execEventType.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 4,
+      "blast_radius": "medium",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/sessionManager.js": {
+      "dependencies": [
+        "apps/server/server/utils/logger.js",
+        "packages/db-connect/index.js"
+      ],
+      "dependents": [
+        "apps/server/server/controller/cloneStep.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+        "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
+        "apps/server/server/utils/cloneTemplate/testSession.js"
+      ],
+      "dependency_count": 2,
+      "dependent_count": 7,
+      "blast_radius": "medium",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js": {
+      "dependencies": [
+        "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
+        "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
+        "apps/server/server/utils/cloneTemplate/sessionManager.js",
+        "apps/server/server/utils/dbUtils.js",
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/controller/cloneStep.js"
+      ],
+      "dependency_count": 5,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js": {
+      "dependencies": [
+        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/setVals.js",
+        "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
+        "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
+        "apps/server/server/utils/cloneTemplate/sessionManager.js",
+        "apps/server/server/utils/dbUtils.js",
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/controller/cloneStep.js"
+      ],
+      "dependency_count": 7,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/steps/cloneProps.js": {
+      "dependencies": [
+        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/setVals.js",
+        "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
+        "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
+        "apps/server/server/utils/cloneTemplate/sessionManager.js",
+        "apps/server/server/utils/dbUtils.js",
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/controller/cloneStep.js"
+      ],
+      "dependency_count": 7,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js": {
+      "dependencies": [
+        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/setVals.js",
+        "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
+        "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
+        "apps/server/server/utils/cloneTemplate/sessionManager.js",
+        "apps/server/server/utils/dbUtils.js",
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/controller/cloneStep.js"
+      ],
+      "dependency_count": 7,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js": {
+      "dependencies": [
+        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/setVals.js",
+        "apps/server/server/utils/cloneTemplate/sessionManager.js",
+        "apps/server/server/utils/logger.js"
+      ],
+      "dependents": [
+        "apps/server/server/controller/cloneStep.js"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/utils/cloneTemplate/testSession.js": {
+      "dependencies": [
+        "apps/server/server/utils/cloneTemplate/sessionManager.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "server"
@@ -1415,6 +1636,10 @@
         "apps/server/server/controller/getVal.js",
         "apps/server/server/controller/setVals.js",
         "apps/server/server/controller/userLogin.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
         "apps/server/server/utils/dml/dmlProcessor.js",
         "apps/server/server/utils/executeEventType.js",
         "apps/server/server/utils/impactLogger.js",
@@ -1423,7 +1648,7 @@
         "apps/server/server/utils/pageConfig/triggersRetriever.js"
       ],
       "dependency_count": 2,
-      "dependent_count": 14,
+      "dependent_count": 18,
       "blast_radius": "high",
       "package": "server"
     },
@@ -1481,6 +1706,19 @@
       "blast_radius": "low",
       "package": "server"
     },
+    "apps/server/server/utils/getUserEmail.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/server/server/controller/execDML.js",
+        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/getVal.js",
+        "apps/server/server/controller/setVals.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 4,
+      "blast_radius": "medium",
+      "package": "server"
+    },
     "apps/server/server/utils/impactLogger.js": {
       "dependencies": [
         "apps/server/server/utils/dbUtils.js",
@@ -1499,6 +1737,7 @@
       "dependents": [
         "apps/server/server/app.js",
         "apps/server/server/controller/clearVals.js",
+        "apps/server/server/controller/cloneStep.js",
         "apps/server/server/controller/execCreateDoc.js",
         "apps/server/server/controller/execDML.js",
         "apps/server/server/controller/execEventType.js",
@@ -1507,11 +1746,14 @@
         "apps/server/server/controller/genPageConfigController.js",
         "apps/server/server/controller/getDoc.js",
         "apps/server/server/controller/getEventTypes.js",
+        "apps/server/server/controller/getMigrationStatus.js",
         "apps/server/server/controller/getTriggers.js",
         "apps/server/server/controller/getVal.js",
         "apps/server/server/controller/githubController.js",
         "apps/server/server/controller/logImpact.js",
+        "apps/server/server/controller/openTerminal.js",
         "apps/server/server/controller/restartServer.js",
+        "apps/server/server/controller/runMigration.js",
         "apps/server/server/controller/setVals.js",
         "apps/server/server/controller/studioDiscovery.js",
         "apps/server/server/controller/studioDiscovery/discoverApps.js",
@@ -1522,6 +1764,12 @@
         "apps/server/server/routes/index.js",
         "apps/server/server/routes/registerRoutes.js",
         "apps/server/server/server.js",
+        "apps/server/server/utils/cloneTemplate/sessionManager.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
+        "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
+        "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
         "apps/server/server/utils/dbManager.js",
         "apps/server/server/utils/dbUtils.js",
         "apps/server/server/utils/dml/dmlProcessor.js",
@@ -1540,7 +1788,7 @@
         "apps/server/server/utils/templateRegistry.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 41,
+      "dependent_count": 51,
       "blast_radius": "high",
       "package": "server"
     },
@@ -1932,11 +2180,13 @@
     },
     "apps/studio/src/App.jsx": {
       "dependencies": [
+        "apps/studio/src/components/MigrationPage.jsx",
         "apps/studio/src/components/StudioLayout.jsx",
-        "apps/studio/src/db/operations/lifecycleOps.js"
+        "apps/studio/src/db/operations/lifecycleOps.js",
+        "apps/studio/src/layouts/SimpleLayout.jsx"
       ],
       "dependents": [],
-      "dependency_count": 2,
+      "dependency_count": 4,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
@@ -2119,6 +2369,16 @@
       "blast_radius": "low",
       "package": "studio"
     },
+    "apps/studio/src/components/MigrationPage.jsx": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/App.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
     "apps/studio/src/components/PageDraftControls.jsx": {
       "dependencies": [
         "apps/studio/src/db/operations/index.js",
@@ -2133,11 +2393,12 @@
     },
     "apps/studio/src/components/PageFlowCanvas.jsx": {
       "dependencies": [
+        "apps/studio/src/db/studioDb.js",
         "apps/studio/src/utils/pageConfigToFlow.js",
         "packages/shared-imports/src/index.js"
       ],
       "dependents": [],
-      "dependency_count": 2,
+      "dependency_count": 3,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
@@ -2276,7 +2537,7 @@
       "dependencies": [
         "apps/studio/src/db/operations/index.js",
         "apps/studio/src/db/studioDb.js",
-        "apps/studio/src/utils/componentConfigBuilder.js",
+        "apps/studio/src/utils/pageConfigBuilder/index.js",
         "apps/studio/src/utils/pageLoader.js",
         "packages/shared-imports/src/index.js"
       ],
@@ -2596,6 +2857,7 @@
         "apps/studio/src/db/operations/eventProps/index.js",
         "apps/studio/src/db/operations/eventTriggers/index.js",
         "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/pageLoader.js",
         "apps/studio/src/utils/referenceLoaders.js"
       ],
       "dependents": [
@@ -2603,7 +2865,7 @@
         "apps/studio/src/db/operations/index.js",
         "apps/studio/src/db/references/masterDataOps.js"
       ],
-      "dependency_count": 5,
+      "dependency_count": 6,
       "dependent_count": 3,
       "blast_radius": "low",
       "package": "studio"
@@ -2677,6 +2939,7 @@
         "apps/studio/src/components/ComponentPropertiesPanel.jsx",
         "apps/studio/src/components/DBBrowserModal.jsx",
         "apps/studio/src/components/PageDraftControls.jsx",
+        "apps/studio/src/components/PageFlowCanvas.jsx",
         "apps/studio/src/components/PropertyEditors/ParamEditor.jsx",
         "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
         "apps/studio/src/components/PropertyEditors/TriggerBuilder.jsx",
@@ -2700,6 +2963,7 @@
         "apps/studio/src/db/operations/syncOps.js",
         "apps/studio/src/db/references/masterDataOps.js",
         "apps/studio/src/hooks/useReactFlowPersistence.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
         "apps/studio/src/utils/componentConfigBuilder.js",
         "apps/studio/src/utils/pageConfigBuilder/dataFetcher.js",
         "apps/studio/src/utils/pageConfigBuilder/index.js",
@@ -2708,7 +2972,7 @@
         "apps/studio/src/utils/referenceLoaders.js"
       ],
       "dependency_count": 1,
-      "dependent_count": 32,
+      "dependent_count": 34,
       "blast_radius": "high",
       "package": "studio"
     },
@@ -3004,9 +3268,11 @@
     },
     "apps/studio/src/layouts/SimpleLayout.jsx": {
       "dependencies": [],
-      "dependents": [],
+      "dependents": [
+        "apps/studio/src/App.jsx"
+      ],
       "dependency_count": 0,
-      "dependent_count": 0,
+      "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
     },
@@ -3076,18 +3342,23 @@
         "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
         "apps/studio/src/rendering/hooks/useModalManager.js",
         "apps/studio/src/rendering/hooks/useTemplateLoader.js",
+        "apps/studio/src/rendering/utils/appLayoutRenderer.js",
         "apps/studio/src/rendering/utils/eventHandlerBuilder.js",
+        "apps/studio/src/rendering/utils/layoutUtils.js",
         "apps/studio/src/rendering/utils/rowRenderer.js",
-        "apps/studio/src/rendering/utils/styleUtils.js"
+        "apps/studio/src/rendering/utils/styleUtils.js",
+        "apps/studio/src/rendering/utils/textRenderer.js"
       ],
       "dependents": [],
-      "dependency_count": 7,
+      "dependency_count": 10,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js": {
-      "dependencies": [],
+      "dependencies": [
+        "packages/shared-imports/src/index.js"
+      ],
       "dependents": [
         "apps/studio/src/rendering/DirectRenderer.jsx",
         "apps/studio/src/rendering/WorkflowEngine/WorkflowEngine.js",
@@ -3095,7 +3366,7 @@
         "apps/studio/src/rendering/utils/eventHandlerBuilder.js",
         "apps/studio/src/rendering/utils/rowRenderer.js"
       ],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 5,
       "blast_radius": "medium",
       "package": "studio"
@@ -3182,10 +3453,11 @@
     },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js": {
       "dependencies": [
+        "apps/studio/src/db/studioDb.js",
         "packages/shared-imports/src/index.js"
       ],
       "dependents": [],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
@@ -3340,6 +3612,16 @@
       "blast_radius": "low",
       "package": "studio"
     },
+    "apps/studio/src/rendering/utils/appLayoutRenderer.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/DirectRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
     "apps/studio/src/rendering/utils/eventHandlerBuilder.js": {
       "dependencies": [
         "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
@@ -3348,6 +3630,16 @@
         "apps/studio/src/rendering/DirectRenderer.jsx"
       ],
       "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/utils/layoutUtils.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/DirectRenderer.jsx"
+      ],
+      "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -3365,6 +3657,16 @@
       "package": "studio"
     },
     "apps/studio/src/rendering/utils/styleUtils.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/DirectRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/utils/textRenderer.js": {
       "dependencies": [],
       "dependents": [
         "apps/studio/src/rendering/DirectRenderer.jsx"
@@ -3404,11 +3706,9 @@
       "dependencies": [
         "apps/studio/src/db/studioDb.js"
       ],
-      "dependents": [
-        "apps/studio/src/components/StudioSidebar.jsx"
-      ],
+      "dependents": [],
       "dependency_count": 1,
-      "dependent_count": 1,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
     },
@@ -3534,13 +3834,15 @@
         "apps/studio/src/utils/pageConfigBuilder/componentBuilder.js",
         "apps/studio/src/utils/pageConfigBuilder/dataFetcher.js",
         "apps/studio/src/utils/pageConfigBuilder/genMermaid.js",
-        "apps/studio/src/utils/pageConfigBuilder/triggersBuilder.js"
+        "apps/studio/src/utils/pageConfigBuilder/triggersBuilder.js",
+        "packages/shared-imports/src/index.js"
       ],
       "dependents": [
-        "apps/studio/src/components/PagePreviewPanel.jsx"
+        "apps/studio/src/components/PagePreviewPanel.jsx",
+        "apps/studio/src/components/StudioSidebar.jsx"
       ],
-      "dependency_count": 5,
-      "dependent_count": 1,
+      "dependency_count": 6,
+      "dependent_count": 2,
       "blast_radius": "low",
       "package": "studio"
     },
@@ -3584,10 +3886,11 @@
       ],
       "dependents": [
         "apps/studio/src/components/PageDraftControls.jsx",
-        "apps/studio/src/components/StudioSidebar.jsx"
+        "apps/studio/src/components/StudioSidebar.jsx",
+        "apps/studio/src/db/operations/lifecycleOps.js"
       ],
       "dependency_count": 2,
-      "dependent_count": 2,
+      "dependent_count": 3,
       "blast_radius": "low",
       "package": "studio"
     },
@@ -4360,11 +4663,12 @@
         "packages/db-connect/src/connection.js"
       ],
       "dependents": [
+        "apps/server/server/utils/cloneTemplate/sessionManager.js",
         "apps/server/server/utils/dbManager.js",
         "apps/server/server/utils/dbUtils.js"
       ],
       "dependency_count": 2,
-      "dependent_count": 2,
+      "dependent_count": 3,
       "blast_radius": "low",
       "package": "db-connect"
     },
@@ -4495,12 +4799,14 @@
       "package": "shared-imports"
     },
     "packages/shared-imports/src/api/execEvent.js": {
-      "dependencies": [],
+      "dependencies": [
+        "packages/shared-imports/src/api/getDefaultUserEmail.js"
+      ],
       "dependents": [
         "packages/shared-imports/src/api/index.js",
         "packages/shared-imports/src/stores/contextStore.js"
       ],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 2,
       "blast_radius": "low",
       "package": "shared-imports"
@@ -4537,12 +4843,26 @@
       "blast_radius": "low",
       "package": "shared-imports"
     },
-    "packages/shared-imports/src/api/getVal.js": {
+    "packages/shared-imports/src/api/getDefaultUserEmail.js": {
       "dependencies": [],
+      "dependents": [
+        "packages/shared-imports/src/api/execEvent.js",
+        "packages/shared-imports/src/api/getVal.js",
+        "packages/shared-imports/src/api/setVals.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 3,
+      "blast_radius": "low",
+      "package": "shared-imports"
+    },
+    "packages/shared-imports/src/api/getVal.js": {
+      "dependencies": [
+        "packages/shared-imports/src/api/getDefaultUserEmail.js"
+      ],
       "dependents": [
         "packages/shared-imports/src/api/index.js"
       ],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "shared-imports"
@@ -4551,11 +4871,9 @@
       "dependencies": [
         "packages/shared-imports/src/api/logImpact.js"
       ],
-      "dependents": [
-        "packages/shared-imports/src/api/index.js"
-      ],
+      "dependents": [],
       "dependency_count": 1,
-      "dependent_count": 1,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports"
     },
@@ -4567,7 +4885,6 @@
         "packages/shared-imports/src/api/execDmlWithRefresh.js",
         "packages/shared-imports/src/api/execEvent.js",
         "packages/shared-imports/src/api/getVal.js",
-        "packages/shared-imports/src/api/impactFileLogger.js",
         "packages/shared-imports/src/api/logImpact.js",
         "packages/shared-imports/src/api/setVals.js",
         "packages/shared-imports/src/api/userLogin.js"
@@ -4575,13 +4892,12 @@
       "dependents": [
         "apps/server/server/workflows/impact-tracking/DatabaseWriter.js",
         "apps/studio/src/utils/genPageConfig.js",
-        "packages/shared-imports/src/components/grids/DataGrid.jsx",
         "packages/shared-imports/src/index.js",
         "packages/shared-imports/src/utils/configLoader.js",
         "packages/shared-imports/src/utils/index.js"
       ],
-      "dependency_count": 10,
-      "dependent_count": 6,
+      "dependency_count": 9,
+      "dependent_count": 5,
       "blast_radius": "medium",
       "package": "shared-imports"
     },
@@ -4597,11 +4913,13 @@
       "package": "shared-imports"
     },
     "packages/shared-imports/src/api/setVals.js": {
-      "dependencies": [],
+      "dependencies": [
+        "packages/shared-imports/src/api/getDefaultUserEmail.js"
+      ],
       "dependents": [
         "packages/shared-imports/src/api/index.js"
       ],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "shared-imports"
@@ -4613,471 +4931,6 @@
       ],
       "dependency_count": 0,
       "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/FormComponent.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/FormComponent.tsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/PageRenderer/ActionHandler.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/PageRenderer/ContainerRenderer.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/PageRenderer/FieldRenderer.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/PageRenderer/LayoutEngine.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/PageRenderer/LeafRenderer.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/PageRenderer/index.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/stores/index.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/auth.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js",
-        "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx",
-        "packages/shared-imports/src/index.js",
-        "packages/shared-imports/src/utils/navigation.js"
-      ],
-      "dependents": [
-        "packages/shared-imports/src/components/auth/LoginForm/index.js"
-      ],
-      "dependency_count": 4,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js": {
-      "dependencies": [
-        "packages/shared-imports/src/index.js"
-      ],
-      "dependents": [
-        "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-        "packages/shared-imports/src/components/auth/LoginForm/index.js"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-        "packages/shared-imports/src/components/auth/LoginForm/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/auth/LoginForm/index.js": {
-      "dependencies": [
-        "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-        "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js",
-        "packages/shared-imports/src/components/auth/LoginForm/LoginView.jsx"
-      ],
-      "dependents": [],
-      "dependency_count": 3,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/common/EntitySelector.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/utils/logger.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/common/ErrorBoundary.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/common/Logo/index.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/layouts/MainLayout.jsx",
-        "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/BooleanField.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/forms/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/DateField.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/forms/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/DatePick.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/index.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/DecimalField.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/forms/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/MultiLineField.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/forms/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/NumberField.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/forms/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/Select.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/forms/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/TextArea.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/forms/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/TextField.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/forms/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/forms/index.js": {
-      "dependencies": [
-        "packages/shared-imports/src/components/forms/BooleanField.jsx",
-        "packages/shared-imports/src/components/forms/DateField.jsx",
-        "packages/shared-imports/src/components/forms/DecimalField.jsx",
-        "packages/shared-imports/src/components/forms/MultiLineField.jsx",
-        "packages/shared-imports/src/components/forms/NumberField.jsx",
-        "packages/shared-imports/src/components/forms/Select.jsx",
-        "packages/shared-imports/src/components/forms/TextArea.jsx",
-        "packages/shared-imports/src/components/forms/TextField.jsx"
-      ],
-      "dependents": [],
-      "dependency_count": 8,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/grids/DataGrid.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/api/index.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/grids/index.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/index.js": {
-      "dependencies": [
-        "packages/shared-imports/src/components/auth.jsx",
-        "packages/shared-imports/src/components/modals/PostCreationDeliveryModal.jsx"
-      ],
-      "dependents": [],
-      "dependency_count": 2,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/layouts/AuthLayout.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/layouts/MainLayout.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/components/common/Logo/index.jsx",
-        "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx",
-        "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx",
-        "packages/shared-imports/src/index.js"
-      ],
-      "dependents": [],
-      "dependency_count": 4,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/layouts/SimpleLayout.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/modals/Modal.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/components/modals/modalStore.js"
-      ],
-      "dependents": [
-        "packages/shared-imports/src/components/modals/index.js"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/modals/PostCreationDeliveryModal.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/modals/index.js": {
-      "dependencies": [
-        "packages/shared-imports/src/components/modals/Modal.jsx",
-        "packages/shared-imports/src/components/modals/modalStore.js",
-        "packages/shared-imports/src/components/modals/useModal.js",
-        "packages/shared-imports/src/components/modals/useModalStore.js"
-      ],
-      "dependents": [],
-      "dependency_count": 4,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/modals/modalStore.js": {
-      "dependencies": [],
-      "dependents": [
-        "packages/shared-imports/src/components/modals/Modal.jsx",
-        "packages/shared-imports/src/components/modals/index.js",
-        "packages/shared-imports/src/components/modals/useModal.js",
-        "packages/shared-imports/src/components/modals/useModalStore.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 4,
-      "blast_radius": "medium",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/modals/useModal.js": {
-      "dependencies": [
-        "packages/shared-imports/src/components/modals/modalStore.js"
-      ],
-      "dependents": [
-        "packages/shared-imports/src/components/modals/index.js"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/modals/useModalStore.js": {
-      "dependencies": [
-        "packages/shared-imports/src/components/modals/modalStore.js"
-      ],
-      "dependents": [
-        "packages/shared-imports/src/components/modals/index.js"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/navigation/aa-AppBar/AppBar.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/components/common/Logo/index.jsx"
-      ],
-      "dependents": [
-        "packages/shared-imports/src/components/layouts/MainLayout.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx": {
-      "dependencies": [
-        "packages/shared-imports/src/index.js"
-      ],
-      "dependents": [
-        "packages/shared-imports/src/components/layouts/MainLayout.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarContent.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarHeader.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNav.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/SidebarNavItem.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/navigation/bb-Sidebar/index.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "shared-imports"
-    },
-    "packages/shared-imports/src/components/navigation/cc-PageHeader/Breadcrumbs.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports"
     },
@@ -5183,6 +5036,7 @@
         "apps/studio/src/db/operations/eventTriggers/sync.js",
         "apps/studio/src/db/operations/syncOps.js",
         "apps/studio/src/db/references/masterDataOps.js",
+        "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
         "apps/studio/src/rendering/WorkflowEngine/index.js",
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
@@ -5192,6 +5046,7 @@
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/getVal.js",
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/setVals.js",
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/userLogin.js",
+        "apps/studio/src/utils/pageConfigBuilder/index.js",
         "apps/studio/src/utils/pageLoader.js",
         "apps/studio/src/utils/referenceLoaders.js",
         "apps/whatsfresh/src/App.jsx",
@@ -5201,15 +5056,10 @@
         "apps/whatsfresh/src/pages/dashboard/Presenter.js",
         "apps/whatsfresh/src/pages/login/index.js",
         "apps/whatsfresh/src/services/navService.js",
-        "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
-        "packages/shared-imports/src/components/auth/LoginForm/LoginPresenter.js",
-        "packages/shared-imports/src/components/forms/DatePick.jsx",
-        "packages/shared-imports/src/components/layouts/MainLayout.jsx",
-        "packages/shared-imports/src/components/navigation/bb-Sidebar/Sidebar.jsx",
         "packages/shared-imports/src/stores/contextStore.js"
       ],
       "dependency_count": 2,
-      "dependent_count": 37,
+      "dependent_count": 34,
       "blast_radius": "high",
       "package": "shared-imports"
     },
@@ -5230,11 +5080,9 @@
       "dependencies": [
         "packages/shared-imports/src/stores/contextStore.js"
       ],
-      "dependents": [
-        "packages/shared-imports/src/components/PageRenderer/index.jsx"
-      ],
+      "dependents": [],
       "dependency_count": 1,
-      "dependent_count": 1,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "shared-imports"
     },
@@ -5427,7 +5275,6 @@
     "packages/shared-imports/src/utils/logger.js": {
       "dependencies": [],
       "dependents": [
-        "packages/shared-imports/src/components/common/EntitySelector.jsx",
         "packages/shared-imports/src/index.js",
         "packages/shared-imports/src/utils/fileOperations/backup.js",
         "packages/shared-imports/src/utils/fileOperations/directory.js",
@@ -5442,7 +5289,7 @@
         "packages/shared-imports/src/utils/navigation.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 13,
+      "dependent_count": 12,
       "blast_radius": "high",
       "package": "shared-imports"
     },
@@ -5451,11 +5298,10 @@
         "packages/shared-imports/src/utils/logger.js"
       ],
       "dependents": [
-        "packages/shared-imports/src/components/auth/LoginForm/LoginForm.jsx",
         "packages/shared-imports/src/utils/index.js"
       ],
       "dependency_count": 1,
-      "dependent_count": 2,
+      "dependent_count": 1,
       "blast_radius": "low",
       "package": "shared-imports"
     },
@@ -5491,45 +5337,57 @@
   "hotspots": [
     {
       "file": "apps/server/server/utils/logger.js",
-      "dependents": 41,
+      "dependents": 51,
       "blast_radius": "high",
       "package": "server"
     },
     {
-      "file": "packages/shared-imports/src/index.js",
-      "dependents": 37,
-      "blast_radius": "high",
-      "package": "shared-imports"
-    },
-    {
       "file": "apps/studio/src/db/studioDb.js",
-      "dependents": 32,
+      "dependents": 34,
       "blast_radius": "high",
       "package": "studio"
     },
     {
+      "file": "packages/shared-imports/src/index.js",
+      "dependents": 34,
+      "blast_radius": "high",
+      "package": "shared-imports"
+    },
+    {
       "file": "apps/server/server/utils/dbUtils.js",
-      "dependents": 14,
+      "dependents": 18,
       "blast_radius": "high",
       "package": "server"
     },
     {
       "file": "packages/shared-imports/src/utils/logger.js",
-      "dependents": 13,
+      "dependents": 12,
       "blast_radius": "high",
       "package": "shared-imports"
+    },
+    {
+      "file": "apps/server/server/controller/setVals.js",
+      "dependents": 8,
+      "blast_radius": "high",
+      "package": "server"
+    },
+    {
+      "file": "apps/server/server/controller/execEventType.js",
+      "dependents": 7,
+      "blast_radius": "medium",
+      "package": "server"
+    },
+    {
+      "file": "apps/server/server/utils/cloneTemplate/sessionManager.js",
+      "dependents": 7,
+      "blast_radius": "medium",
+      "package": "server"
     },
     {
       "file": "apps/server/server/controller/getVal.js",
       "dependents": 6,
       "blast_radius": "medium",
       "package": "server"
-    },
-    {
-      "file": "packages/shared-imports/src/api/index.js",
-      "dependents": 6,
-      "blast_radius": "medium",
-      "package": "shared-imports"
     },
     {
       "file": "apps/studio/src/components/FlowNodes/nodeStyles.js",
@@ -5548,17 +5406,23 @@
       "dependents": 5,
       "blast_radius": "medium",
       "package": "db-connect"
+    },
+    {
+      "file": "packages/shared-imports/src/api/index.js",
+      "dependents": 5,
+      "blast_radius": "medium",
+      "package": "shared-imports"
     }
   ],
   "packages": {
     "whatsfresh": 60,
-    "server": 91,
+    "server": 106,
     "admin": 11,
-    "studio": 182,
+    "studio": 186,
     "wf-studio": 0,
     "login": 3,
     "planner": 30,
-    "shared-imports": 91,
+    "shared-imports": 46,
     "db-connect": 8,
     "other": 32
   }
