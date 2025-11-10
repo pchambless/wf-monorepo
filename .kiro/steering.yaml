@@ -24,7 +24,6 @@ monorepo_structure:
     - admin
     - server
     - studio
-    - planner
     - login
   packages:
     - shared-imports

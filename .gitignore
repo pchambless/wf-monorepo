@@ -35,8 +35,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Application logs
-/apps/wf-server/server/logs/*.log
-/apps/wf-server/server/logs/*.json
+/apps/wf-server/server/logs/*
+/apps/wf-server/server/logs/*
 .turbo/*
 
 # Editor directories and files
@@ -52,3 +52,5 @@ yarn-error.log*
 apps/wf-server/server/logs/*
 
 apps/server/server/logs/.5bb02631725586d7fa9621fdbab055fe71373737-audit.json
+package-lock.json
+apps/server/server/logs/.3f7292cbf96661a3c220dae3362507bcdca7181b-audit.json

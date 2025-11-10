@@ -1,0 +1,19 @@
+{
+  "name": "@whatsfresh/api-gateway",
+  "version": "1.0.0",
+  "description": "API Gateway for WhatsFresh monorepo - eliminates shared-imports cache hell",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-session": "^1.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -55,7 +55,7 @@ const fileRotateTransport = new winston.transports.DailyRotateFile({
   filename: path.join(LOG_DIR, 'application-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
   maxSize: '20m',
-  maxFiles: '14d',
+  maxFiles: '7d',
   format: logFormat
 });
 
@@ -64,7 +64,7 @@ const errorRotateTransport = new winston.transports.DailyRotateFile({
   filename: path.join(LOG_DIR, 'error-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
   maxSize: '20m',
-  maxFiles: '14d',
+  maxFiles: '7d',
   level: 'error',
   format: logFormat
 });
@@ -74,7 +74,7 @@ const performanceRotateTransport = new winston.transports.DailyRotateFile({
   filename: path.join(LOG_DIR, 'performance-%DATE%.log'),
   datePattern: 'YYYY-MM-DD',
   maxSize: '20m',
-  maxFiles: '14d',
+  maxFiles: '7d',
   format: logFormat
 });
 
@@ -168,7 +168,7 @@ export default {
     level: logger.level,
     logDir: LOG_DIR,
     maxSize: '20m',
-    maxFiles: '14d'
+    maxFiles: '7d'
   }),
   // Add performance measurement utility
   measurePerformance,

@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/paul/projects/github/wf-monorepo/apps/server/server/logs/.029eaf3724ea27d6bea4eff0a988abbfaa1c9643-audit.json",
+    "files": [
+        {
+            "date": 1762778874762,
+            "name": "/home/paul/projects/github/wf-monorepo/apps/server/server/logs/performance-2025-11-10.log",
+            "hash": "fb9762a769884860caa72557ed13884e5edd27071cffb11200ecd6ee285630dc"
+        }
+    ],
+    "hashType": "sha256"
+}

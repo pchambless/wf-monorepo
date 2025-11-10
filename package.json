@@ -29,7 +29,7 @@
     "dev-plans": "turbo run start --filter=planner",
     "dev-studio": "turbo run start --filter=studio",
     "dev:all": "turbo run dev",
-    "server": "turbo run dev --filter=server",
+    "server": "npm run dev --filter=server",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
@@ -68,6 +68,7 @@
     "@octokit/rest": "^22.0.0",
     "@react-pdf/renderer": "^4.3.0",
     "ccflare": "^0.0.2",
+    "dotenv": "^17.2.3",
     "express-rate-limit": "^8.1.0",
     "handlebars": "^4.7.8",
     "json-stringify-pretty-compact": "^4.0.0"
