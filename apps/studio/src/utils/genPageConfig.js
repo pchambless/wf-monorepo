@@ -127,7 +127,8 @@ async function discoverEventTypes(app, page) {
     console.log(`🔍 Fetching eventTypes for ${app}/${page} from API...`);
     
     // Fetch eventTypes from server API
-    const response = await fetch(`http://localhost:3001/api/studio/eventTypes/${app}/${page}`);
+    const { createApiUrl } = await import('../config/api.js');
+    const response = await fetch(createApiUrl(`/api/studio/eventTypes/${app}/${page}`));
     
     if (!response.ok) {
       if (response.status === 404) {

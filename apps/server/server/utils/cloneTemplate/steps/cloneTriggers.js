@@ -1,7 +1,7 @@
 import logger from '../../logger.js';
 import * as sessionManager from '../sessionManager.js';
 import { executeQuery } from '../../dbUtils.js';
-import execEventTypeController from '../../../controller/execEventType.js';
+import execEventController from '../../../controller/execEvent.js';
 import { replaceTokensInJSON } from '../helpers/replaceTokens.js';
 import { buildBulkInsertSQL } from '../helpers/buildSQL.js';
 
@@ -57,7 +57,7 @@ export async function cloneTriggers(session) {
   // Load ALL triggers for the template page in one query
   const mockReq = {
     method: 'POST',
-    originalUrl: '/api/execEventType (internal)',
+    originalUrl: '/api/execEvent (internal)',
     body: {
       eventSQLId: 'pageTriggers',
       userEmail: 'claude@whatsfresh.ai'
@@ -74,7 +74,7 @@ export async function cloneTriggers(session) {
     })
   };
 
-  await execEventTypeController(mockReq, mockRes);
+  await execEventController(mockReq, mockRes);
 
   if (!triggersResult || !triggersResult.data || triggersResult.data.length === 0) {
     logger.info(`${codeName} No triggers found for template`);

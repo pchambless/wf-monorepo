@@ -8,16 +8,17 @@ import { fileURLToPath } from 'url';
 // Create __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-import { 
-  rateLimiter, 
-  authRateLimiter, 
-  securityHeaders, 
-  corsOptions 
+import {
+  rateLimiter,
+  authRateLimiter,
+  securityHeaders,
+  corsOptions
 } from './middleware/security.js';
 import errorHandler from './middleware/errorHandler.js';
+import { injectUserEmail } from './middleware/userEmailInjection.js';
 import logger from './utils/logger.js';
 import userLogin from './controller/userLogin.js';
-import execEventType from './controller/execEventType.js';
+import execEvent from './controller/execEvent.js';
 const codeName = `[app.js] `;
 
 dotenv.config();
@@ -138,6 +139,9 @@ app.use((req, res, next) => {
   next();
 });
 
+// User email injection middleware - automatically injects userEmail based on origin port
+app.use(injectUserEmail);
+
 // Basic health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
@@ -154,7 +158,7 @@ app.get('/', (req, res) => {
         login: '/api/auth/login'
       },
       events: {
-        execute: '/api/execEventType'
+        execute: '/api/execEvent'
       },
       status: {
         health: '/health',

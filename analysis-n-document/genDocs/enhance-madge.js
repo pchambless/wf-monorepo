@@ -34,6 +34,7 @@ Object.keys(rawData).forEach(file => {
 const getPackage = (file) => {
   if (file.startsWith('apps/whatsfresh/')) return 'whatsfresh';
   if (file.startsWith('apps/server/')) return 'server';
+  if (file.startsWith('apps/api-gateway/')) return 'api-gateway';
   if (file.startsWith('apps/admin/')) return 'admin';
   if (file.startsWith('apps/studio/')) return 'studio';
   if (file.startsWith('apps/wf-studio/')) return 'wf-studio'; // Legacy

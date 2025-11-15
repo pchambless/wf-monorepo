@@ -177,7 +177,7 @@ const styles = {
     backgroundColor: "#f8fafc",
   },
   sidebar: {
-    width: "280px",
+    width: "240px",
     flexShrink: 0,
     borderRight: "1px solid #e2e8f0",
     backgroundColor: "#ffffff",
@@ -187,7 +187,6 @@ const styles = {
   canvas: {
     flex: 1,
     minWidth: 0,
-    maxWidth: "60vw", // Prevent canvas from being too wide
     backgroundColor: "#ffffff",
     position: "relative",
     display: "flex",

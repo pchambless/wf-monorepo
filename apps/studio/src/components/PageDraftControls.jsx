@@ -6,13 +6,13 @@ import PagePreviewPanel from './PagePreviewPanel';
 
 const styles = {
   container: {
-    padding: '8px 16px',
+    padding: '6px 12px',
     backgroundColor: '#f8fafc',
     borderBottom: '1px solid #e2e8f0',
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
-    minHeight: '48px'
+    minHeight: '40px'
   },
   badge: {
     display: 'inline-flex',

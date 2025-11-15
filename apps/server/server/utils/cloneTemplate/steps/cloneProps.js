@@ -1,7 +1,7 @@
 import logger from '../../logger.js';
 import * as sessionManager from '../sessionManager.js';
 import { executeQuery } from '../../dbUtils.js';
-import execEventTypeController from '../../../controller/execEventType.js';
+import execEventController from '../../../controller/execEvent.js';
 import { replaceTokens } from '../helpers/replaceTokens.js';
 import { buildBulkInsertSQL } from '../helpers/buildSQL.js';
 
@@ -56,7 +56,7 @@ export async function cloneProps(session) {
   // Load ALL props for the template page in one query
   const mockReq = {
     method: 'POST',
-    originalUrl: '/api/execEventType (internal)',
+    originalUrl: '/api/execEvent (internal)',
     body: {
       eventSQLId: 'pageProps',
       userEmail: 'claude@whatsfresh.ai'
@@ -73,7 +73,7 @@ export async function cloneProps(session) {
     })
   };
 
-  await execEventTypeController(mockReq, mockRes);
+  await execEventController(mockReq, mockRes);
 
   if (!propsResult || !propsResult.data || propsResult.data.length === 0) {
     logger.info(`${codeName} No props found for template`);

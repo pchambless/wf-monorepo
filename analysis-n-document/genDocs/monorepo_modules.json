@@ -22,19 +22,7 @@
       "file_path": ".dependency-cruiser.js"
     },
     {
-      "file_path": ".kiro/0019/specs/code-references.js"
-    },
-    {
       "file_path": ".kiro/workflows/createRoadmap.js"
-    },
-    {
-      "file_path": ".vscode/extensions/task-router/GeminiChatPanel.ts"
-    },
-    {
-      "file_path": ".vscode/extensions/task-router/extension.js"
-    },
-    {
-      "file_path": ".vscode/extensions/task-router/types.ts"
     },
     {
       "file_path": "analysis-n-document/genDocs/analyze-app.js"
@@ -86,6 +74,9 @@
     },
     {
       "file_path": "apps/admin/src/theme.js"
+    },
+    {
+      "file_path": "apps/api-gateway/server.js"
     },
     {
       "file_path": "apps/login/src/App.jsx"
@@ -385,6 +376,9 @@
       "file_path": "apps/server/server/middleware/security.js"
     },
     {
+      "file_path": "apps/server/server/middleware/userEmailInjection.js"
+    },
+    {
       "file_path": "apps/server/server/routes/index.js"
     },
     {
@@ -674,6 +668,9 @@
     },
     {
       "file_path": "apps/studio/src/components/SyncControls.jsx"
+    },
+    {
+      "file_path": "apps/studio/src/config/api.js"
     },
     {
       "file_path": "apps/studio/src/config/navigation.js"
@@ -1485,8 +1482,20 @@
       "to_path": "apps/admin/src/config/routes.js"
     },
     {
-      "from_path": "apps/login/src/pages/LoginPage.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
+      "from_path": "apps/admin/src/index.js",
+      "to_path": "apps/admin/src/App.jsx"
+    },
+    {
+      "from_path": "apps/login/src/App.jsx",
+      "to_path": "apps/login/src/pages/LoginPage.jsx"
+    },
+    {
+      "from_path": "apps/login/src/index.js",
+      "to_path": "apps/login/src/App.jsx"
+    },
+    {
+      "from_path": "apps/planner/src/App.jsx",
+      "to_path": "apps/planner/src/components/SimpleLayout.jsx"
     },
     {
       "from_path": "apps/planner/src/App.jsx",
@@ -1499,10 +1508,6 @@
     {
       "from_path": "apps/planner/src/components/EventOrchestrator.jsx",
       "to_path": "apps/planner/src/components/PageRenderer.jsx"
-    },
-    {
-      "from_path": "apps/planner/src/components/EventOrchestrator.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/planner/src/components/PageRenderer.jsx",
@@ -1527,6 +1532,10 @@
     {
       "from_path": "apps/planner/src/components/PageRenderer.jsx",
       "to_path": "apps/planner/src/styles/components/TabsContainer.css"
+    },
+    {
+      "from_path": "apps/planner/src/index.js",
+      "to_path": "apps/planner/src/App.jsx"
     },
     {
       "from_path": "apps/planner/src/index.js",
@@ -1575,6 +1584,10 @@
     {
       "from_path": "apps/server/server/app.js",
       "to_path": "apps/server/server/middleware/security.js"
+    },
+    {
+      "from_path": "apps/server/server/app.js",
+      "to_path": "apps/server/server/middleware/userEmailInjection.js"
     },
     {
       "from_path": "apps/server/server/app.js",
@@ -1627,14 +1640,6 @@
     {
       "from_path": "apps/server/server/controller/execCreateDoc.js",
       "to_path": "apps/server/server/utils/queryResolver.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/execCreateDoc.js",
-      "to_path": "packages/shared-imports/src/createDocs/index.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/execCreateDoc.js",
-      "to_path": "packages/shared-imports/src/utils/server.js"
     },
     {
       "from_path": "apps/server/server/controller/execDML.js",
@@ -1965,6 +1970,10 @@
       "to_path": "apps/server/server/events/plans/planList.js"
     },
     {
+      "from_path": "apps/server/server/middleware/userEmailInjection.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/routes/index.js",
       "to_path": "apps/server/server/routes/registerRoutes.js"
     },
@@ -2087,10 +2096,6 @@
     {
       "from_path": "apps/server/server/utils/cloneTemplate/sessionManager.js",
       "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/utils/cloneTemplate/sessionManager.js",
-      "to_path": "packages/db-connect/index.js"
     },
     {
       "from_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
@@ -2221,16 +2226,8 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/utils/dbManager.js",
-      "to_path": "packages/db-connect/index.js"
-    },
-    {
       "from_path": "apps/server/server/utils/dbUtils.js",
       "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/utils/dbUtils.js",
-      "to_path": "packages/db-connect/index.js"
     },
     {
       "from_path": "apps/server/server/utils/dml/dmlProcessor.js",
@@ -2377,10 +2374,6 @@
       "to_path": "apps/server/server/workflows/impact-tracking/config.js"
     },
     {
-      "from_path": "apps/server/server/workflows/impact-tracking/DatabaseWriter.js",
-      "to_path": "packages/shared-imports/src/api/index.js"
-    },
-    {
       "from_path": "apps/server/server/workflows/impact-tracking/ImpactTracker.server.js",
       "to_path": "apps/server/server/workflows/impact-tracking/DatabaseWriter.js"
     },
@@ -2434,6 +2427,10 @@
     },
     {
       "from_path": "apps/studio/src/App.jsx",
+      "to_path": "apps/studio/src/config/api.js"
+    },
+    {
+      "from_path": "apps/studio/src/App.jsx",
       "to_path": "apps/studio/src/db/operations/lifecycleOps.js"
     },
     {
@@ -2447,6 +2444,26 @@
     {
       "from_path": "apps/studio/src/apps/plans/pages/SketchPad/index.jsx",
       "to_path": "apps/studio/src/apps/plans/pages/SketchPad/page/pageSketchPad.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/PreviewPane.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/QuerySetup.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/TriggerBuilder.jsx"
     },
     {
       "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
@@ -2471,10 +2488,6 @@
     {
       "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
       "to_path": "apps/studio/src/utils/formatProps.js"
-    },
-    {
-      "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/studio/src/components/DBBrowserModal.jsx",
@@ -2502,6 +2515,10 @@
     },
     {
       "from_path": "apps/studio/src/components/PageDraftControls.jsx",
+      "to_path": "apps/studio/src/components/PagePreviewPanel.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/PageDraftControls.jsx",
       "to_path": "apps/studio/src/db/operations/index.js"
     },
     {
@@ -2514,6 +2531,26 @@
     },
     {
       "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
+      "to_path": "apps/studio/src/components/FlowNodes/ContainerNode.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
+      "to_path": "apps/studio/src/components/FlowNodes/DefaultNode.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
+      "to_path": "apps/studio/src/components/FlowNodes/FormNode.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
+      "to_path": "apps/studio/src/components/FlowNodes/GridNode.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
+      "to_path": "apps/studio/src/components/FlowNodes/PageNode.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
@@ -2521,8 +2558,8 @@
       "to_path": "apps/studio/src/utils/pageConfigToFlow.js"
     },
     {
-      "from_path": "apps/studio/src/components/PageFlowCanvas.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
+      "from_path": "apps/studio/src/components/PagePreviewPanel.jsx",
+      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
     },
     {
       "from_path": "apps/studio/src/components/PagePreviewPanel.jsx",
@@ -2533,6 +2570,10 @@
       "to_path": "apps/studio/src/utils/pageConfigBuilder/index.js"
     },
     {
+      "from_path": "apps/studio/src/components/PreviewModal.jsx",
+      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
+    },
+    {
       "from_path": "apps/studio/src/components/PropertyEditors/ParamEditor.jsx",
       "to_path": "apps/studio/src/db/studioDb.js"
     },
@@ -2541,8 +2582,8 @@
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
-      "from_path": "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
+      "from_path": "apps/studio/src/components/PropertyEditors/TriggerBuilder.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/ParamEditor.jsx"
     },
     {
       "from_path": "apps/studio/src/components/PropertyEditors/TriggerBuilder.jsx",
@@ -2558,7 +2599,43 @@
     },
     {
       "from_path": "apps/studio/src/components/StudioCanvasWrapper.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
+      "to_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioCanvasWrapper.jsx",
+      "to_path": "apps/studio/src/components/PageFlowCanvas.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/FloatingActionButton.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/IssuesModal.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/PageDraftControls.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/PageFlowCanvas.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/StudioSidebar.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioSidebar.jsx",
+      "to_path": "apps/studio/src/components/DBBrowserModal.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioSidebar.jsx",
+      "to_path": "apps/studio/src/components/PreviewModal.jsx"
     },
     {
       "from_path": "apps/studio/src/components/StudioSidebar.jsx",
@@ -2575,10 +2652,6 @@
     {
       "from_path": "apps/studio/src/components/StudioSidebar.jsx",
       "to_path": "apps/studio/src/utils/pageLoader.js"
-    },
-    {
-      "from_path": "apps/studio/src/components/StudioSidebar.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/studio/src/components/SyncControls.jsx",
@@ -2617,20 +2690,12 @@
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
-      "from_path": "apps/studio/src/db/operations/eventComp_xref/insert.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/studio/src/db/operations/eventComp_xref/read.js",
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
       "from_path": "apps/studio/src/db/operations/eventComp_xref/sync.js",
       "to_path": "apps/studio/src/db/studioDb.js"
-    },
-    {
-      "from_path": "apps/studio/src/db/operations/eventComp_xref/sync.js",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/studio/src/db/operations/eventComp_xref/update.js",
@@ -2673,10 +2738,6 @@
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
-      "from_path": "apps/studio/src/db/operations/eventProps/sync.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/studio/src/db/operations/eventProps/update.js",
       "to_path": "apps/studio/src/db/studioDb.js"
     },
@@ -2715,10 +2776,6 @@
     {
       "from_path": "apps/studio/src/db/operations/eventTriggers/sync.js",
       "to_path": "apps/studio/src/db/studioDb.js"
-    },
-    {
-      "from_path": "apps/studio/src/db/operations/eventTriggers/sync.js",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/studio/src/db/operations/eventTriggers/update.js",
@@ -2777,10 +2834,6 @@
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
-      "from_path": "apps/studio/src/db/operations/syncOps.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/studio/src/db/operations/triggerOps.js",
       "to_path": "apps/studio/src/db/operations/eventTriggers/index.js"
     },
@@ -2797,10 +2850,6 @@
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
-      "from_path": "apps/studio/src/db/references/masterDataOps.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/studio/src/db/studioDb.js",
       "to_path": "apps/studio/src/db/versions/index.js"
     },
@@ -2814,19 +2863,51 @@
     },
     {
       "from_path": "apps/studio/src/index.js",
+      "to_path": "apps/studio/src/App.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/index.js",
       "to_path": "apps/studio/src/styles/global.css"
+    },
+    {
+      "from_path": "apps/studio/src/layouts/SimpleLayout.jsx",
+      "to_path": "apps/studio/src/config/api.js"
+    },
+    {
+      "from_path": "apps/studio/src/preview/login/loginPage/index.jsx",
+      "to_path": "apps/studio/src/config/api.js"
     },
     {
       "from_path": "apps/studio/src/preview/login/loginPage/index.jsx",
       "to_path": "apps/studio/src/preview/login/loginPage/pageConfig.json"
     },
     {
+      "from_path": "apps/studio/src/preview/login/loginPage/index.jsx",
+      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
+      "to_path": "apps/studio/src/config/api.js"
+    },
+    {
       "from_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
       "to_path": "apps/studio/src/preview/whatsfresh/ingrPage/pageConfig.json"
     },
     {
+      "from_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
+      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
+      "to_path": "apps/studio/src/config/api.js"
+    },
+    {
       "from_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
       "to_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/pageConfig.json"
+    },
+    {
+      "from_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
+      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
     },
     {
       "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
@@ -2867,10 +2948,6 @@
     {
       "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
       "to_path": "apps/studio/src/rendering/utils/textRenderer.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/WorkflowEngine.js",
@@ -2917,48 +2994,16 @@
       "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/class/onRefresh.js"
     },
     {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
       "to_path": "apps/studio/src/db/studioDb.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/getVal.js",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/refresh.js",
       "to_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
     {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/setVals.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/userLogin.js",
-      "to_path": "packages/shared-imports/src/index.js"
+      "from_path": "apps/studio/src/rendering/hooks/useTemplateLoader.js",
+      "to_path": "apps/studio/src/config/api.js"
     },
     {
       "from_path": "apps/studio/src/rendering/utils/eventHandlerBuilder.js",
@@ -2974,7 +3019,7 @@
     },
     {
       "from_path": "apps/studio/src/utils/genPageConfig.js",
-      "to_path": "packages/shared-imports/src/api/index.js"
+      "to_path": "apps/studio/src/config/api.js"
     },
     {
       "from_path": "apps/studio/src/utils/pageConfigBuilder/componentBuilder.js",
@@ -3025,10 +3070,6 @@
       "to_path": "apps/studio/src/utils/pageConfigBuilder/triggersBuilder.js"
     },
     {
-      "from_path": "apps/studio/src/utils/pageConfigBuilder/index.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/studio/src/utils/pageConfigBuilder/triggersBuilder.js",
       "to_path": "apps/studio/src/db/studioDb.js"
     },
@@ -3037,16 +3078,12 @@
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
-      "from_path": "apps/studio/src/utils/pageLoader.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/studio/src/utils/referenceLoaders.js",
       "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
-      "from_path": "apps/studio/src/utils/referenceLoaders.js",
-      "to_path": "packages/shared-imports/src/index.js"
+      "from_path": "apps/studio/src/workflows/unifiedGenFields.js",
+      "to_path": "apps/studio/src/config/api.js"
     },
     {
       "from_path": "apps/whatsfresh/src/App.jsx",
@@ -3077,20 +3114,8 @@
       "to_path": "apps/whatsfresh/src/theme.js"
     },
     {
-      "from_path": "apps/whatsfresh/src/App.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
-      "from_path": "apps/whatsfresh/src/api/api.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx",
       "to_path": "apps/whatsfresh/src/components/reports/WorksheetPDF.jsx"
-    },
-    {
-      "from_path": "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/whatsfresh/src/hooks/useEntityNames.js",
@@ -3102,6 +3127,10 @@
     },
     {
       "from_path": "apps/whatsfresh/src/index.js",
+      "to_path": "apps/whatsfresh/src/App.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/index.js",
       "to_path": "apps/whatsfresh/src/index.css"
     },
     {
@@ -3109,12 +3138,12 @@
       "to_path": "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx"
     },
     {
-      "from_path": "apps/whatsfresh/src/layouts/BatchMapping.jsx",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/whatsfresh/src/pages/brndList/index.jsx",
       "to_path": "apps/whatsfresh/src/pages/brndList/pageMap.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/pages/btchMapping/index.jsx",
+      "to_path": "apps/whatsfresh/src/layouts/BatchMapping.jsx"
     },
     {
       "from_path": "apps/whatsfresh/src/pages/btchMapping/index.jsx",
@@ -3125,12 +3154,12 @@
       "to_path": "apps/whatsfresh/src/hooks/usePageHeader.js"
     },
     {
-      "from_path": "apps/whatsfresh/src/pages/dashboard/Presenter.js",
-      "to_path": "packages/shared-imports/src/index.js"
+      "from_path": "apps/whatsfresh/src/pages/dashboard/index.jsx",
+      "to_path": "apps/whatsfresh/src/pages/dashboard/Presenter.js"
     },
     {
       "from_path": "apps/whatsfresh/src/pages/dashboard/index.jsx",
-      "to_path": "apps/whatsfresh/src/pages/dashboard/Presenter.js"
+      "to_path": "apps/whatsfresh/src/pages/dashboard/View.jsx"
     },
     {
       "from_path": "apps/whatsfresh/src/pages/ingrBtchList/index.jsx",
@@ -3147,10 +3176,6 @@
     {
       "from_path": "apps/whatsfresh/src/pages/login/index.js",
       "to_path": "apps/whatsfresh/src/services/navService.js"
-    },
-    {
-      "from_path": "apps/whatsfresh/src/pages/login/index.js",
-      "to_path": "packages/shared-imports/src/index.js"
     },
     {
       "from_path": "apps/whatsfresh/src/pages/measList/index.jsx",
@@ -3170,11 +3195,19 @@
     },
     {
       "from_path": "apps/whatsfresh/src/pages/rcpeList/index.jsx",
+      "to_path": "apps/whatsfresh/src/layouts/RecipeLayout.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/pages/rcpeList/index.jsx",
       "to_path": "apps/whatsfresh/src/pages/rcpeList/pageMap.js"
     },
     {
       "from_path": "apps/whatsfresh/src/pages/taskList/index.jsx",
       "to_path": "apps/whatsfresh/src/pages/taskList/pageMap.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/pages/userLogin/index.jsx",
+      "to_path": "apps/whatsfresh/src/layouts/AuthLayout.jsx"
     },
     {
       "from_path": "apps/whatsfresh/src/pages/userLogin/index.jsx",
@@ -3193,10 +3226,6 @@
       "to_path": "apps/whatsfresh/src/config/routes.js"
     },
     {
-      "from_path": "apps/whatsfresh/src/services/navService.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "apps/whatsfresh/src/stores/pageStore.jsx",
       "to_path": "apps/whatsfresh/src/utils/logger.js"
     },
@@ -3211,6 +3240,22 @@
     {
       "from_path": "cli/route-task.js",
       "to_path": "cli/TaskRouter.js"
+    },
+    {
+      "from_path": "cli/toolsets/1-simple/runner.ts",
+      "to_path": "cli/toolsets/1-simple/patterns.ts"
+    },
+    {
+      "from_path": "cli/toolsets/1-simple/runner.ts",
+      "to_path": "cli/utils/toolManager.ts"
+    },
+    {
+      "from_path": "cli/toolsets/2-structured/runner.ts",
+      "to_path": "cli/toolsets/2-structured/patterns.ts"
+    },
+    {
+      "from_path": "cli/toolsets/2-structured/runner.ts",
+      "to_path": "cli/utils/toolManager.ts"
     },
     {
       "from_path": "packages/db-connect/index.js",
@@ -3329,16 +3374,8 @@
       "to_path": "packages/shared-imports/src/api/execEvent.js"
     },
     {
-      "from_path": "packages/shared-imports/src/stores/contextStore.js",
-      "to_path": "packages/shared-imports/src/index.js"
-    },
-    {
       "from_path": "packages/shared-imports/src/stores/index.js",
       "to_path": "packages/shared-imports/src/stores/contextStore.js"
-    },
-    {
-      "from_path": "packages/shared-imports/src/utils/configLoader.js",
-      "to_path": "packages/shared-imports/src/api/index.js"
     },
     {
       "from_path": "packages/shared-imports/src/utils/fileOperations.js",

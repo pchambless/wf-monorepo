@@ -65,30 +65,36 @@ const PagePreviewPanel = ({ pageID }) => {
   };
 
   const handleSync = async () => {
-    if (!pageConfig) return;
+    if (!pageConfig || !pageID) return;
 
+    setLoading(true);
     try {
-      const response = await fetch('http://localhost:3001/api/genPageConfig', {
+      // Use execDML to update page_registry.pageConfig
+      const response = await fetch('http://localhost:3002/api/execDML', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          pageConfig,
-          mermaidText,
-          appName: pageConfig.props?.routePath?.split('/')[1] || 'whatsfresh',
-          pageName: pageConfig.props?.routePath?.split('/')[2] || 'unknown',
-          pageID
+          method: 'UPDATE',
+          table: 'api_wf.page_registry',
+          data: {
+            id: pageID,
+            pageConfig: JSON.stringify(pageConfig, null, 2)
+          },
+          primaryKey: 'id'
         })
       });
 
       const result = await response.json();
 
       if (result.success) {
-        alert(`✅ PageConfig synced successfully!\n\nFiles written to:\n${result.meta.productionDir}\n\n- pageConfig.json\n- index.jsx\n- pageMermaid.mmd`);
+        alert(`✅ PageConfig saved to database!\n\nTable: page_registry\nPage ID: ${pageID}\nColumn: pageConfig`);
       } else {
-        alert(`❌ Sync failed: ${result.error || result.message}`);
+        alert(`❌ Save failed: ${result.error || result.message}`);
       }
     } catch (error) {
-      alert(`❌ Sync failed: ${error.message}`);
+      alert(`❌ Save failed: ${error.message}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -138,7 +144,7 @@ const PagePreviewPanel = ({ pageID }) => {
             onClick={handleSync}
             disabled={!pageConfig || loading}
           >
-            📤 Sync to Server
+            💾 Save PageConfig to DB
           </button>
         </div>
       </div>

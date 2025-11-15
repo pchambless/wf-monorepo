@@ -75,6 +75,13 @@ module.exports = {
       webpackConfig.module.rules.unshift(sharedPackageRule);
       console.log('Added babel rule for shared-imports in Studio');
 
+      // Fix file watcher to prevent infinite loops
+      webpackConfig.watchOptions = {
+        ignored: /node_modules\/(?!@whatsfresh)/,
+        aggregateTimeout: 300,
+        poll: false
+      };
+
       return webpackConfig;
     }
   }

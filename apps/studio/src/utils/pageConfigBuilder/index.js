@@ -3,7 +3,7 @@ import { buildWorkflowTriggers } from './triggersBuilder.js';
 import { getComponent, getComponentProps, getComponentTriggers, getChildComponents } from './dataFetcher.js';
 import { generateMermaid } from './genMermaid.js';
 import { db } from '../../db/studioDb';
-import { getVal } from '@whatsfresh/shared-imports';
+import { getVal } from '../api';
 
 export const buildPageConfig = async (pageID) => {
   try {

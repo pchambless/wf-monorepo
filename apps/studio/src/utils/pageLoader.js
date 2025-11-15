@@ -1,5 +1,5 @@
 import { db } from '../db/studioDb';
-import { execEvent } from '@whatsfresh/shared-imports';
+import { execEvent } from './api';
 
 const AUDIT_COLUMNS = ['created_at', 'created_by', 'updated_at', 'updated_by', 'deleted_at', 'deleted_by', 'active'];
 
@@ -34,7 +34,7 @@ export const loadAllPageRegistry = async (forceReload = false) => {
   }
 
   console.log('📥 Loading page_registry from server...');
-  const result = await execEvent('studio-pageRegistry');
+  const result = await execEvent('pageRegistry');
 
   if (result.data && result.data.length > 0) {
     for (const pageReg of result.data) {
@@ -60,7 +60,7 @@ export const loadPageForEditing = async (pageID) => {
     await clearPageData(pageID);
     await loadAllPageRegistry();
 
-    const hierarchyResult = await execEvent('studio-xrefHierarchy', { pageID });
+    const hierarchyResult = await execEvent('xrefHierarchy', { pageID });
     const hierarchyData = Array.isArray(hierarchyResult.data?.[0])
       ? hierarchyResult.data[0]
       : hierarchyResult.data;
@@ -74,6 +74,14 @@ export const loadPageForEditing = async (pageID) => {
       id: c.id || c.xref_id,
       comp_name: c.comp_name
     })));
+
+    const propsResult = await execEvent('pageProps', { pageID });
+    const allProps = Array.isArray(propsResult.data) ? propsResult.data : [];
+    console.log(`📥 Loaded ${allProps.length} props for page ${pageID}`);
+
+    const triggersResult = await execEvent('pageTriggers', { pageID });
+    const allTriggers = Array.isArray(triggersResult.data) ? triggersResult.data : [];
+    console.log(`📥 Loaded ${allTriggers.length} triggers for page ${pageID}`);
 
     let componentsLoaded = 0;
     let propsLoaded = 0;
@@ -104,13 +112,9 @@ export const loadPageForEditing = async (pageID) => {
         throw err;
       }
 
-      const propsResult = await execEvent('studio-xrefProps', {
-        xrefID: cleanComp.xref_id || cleanComp.id
-      });
+      const componentProps = allProps.filter(p => p.xref_id === compId);
 
-      const propsArray = Array.isArray(propsResult.data) ? propsResult.data : [];
-
-      for (const prop of propsArray) {
+      for (const prop of componentProps) {
         let paramVal = prop.paramVal;
 
         try {
@@ -122,14 +126,15 @@ export const loadPageForEditing = async (pageID) => {
         } catch {
         }
 
-        if (!prop.id) {
+        const propId = prop.id || prop.prop_id;
+        if (!propId) {
           console.error('❌ Prop missing id:', prop);
           continue;
         }
 
         await db.eventProps.add({
-          id: prop.id, // MySQL id (from server)
-          xref_id: cleanComp.xref_id || cleanComp.id,
+          id: propId,
+          xref_id: compId,
           paramName: prop.paramName,
           paramVal: paramVal,
           _dmlMethod: null
@@ -137,22 +142,18 @@ export const loadPageForEditing = async (pageID) => {
         propsLoaded++;
       }
 
-      const triggersResult = await execEvent('studio-xrefTriggers', {
-        xrefID: cleanComp.xref_id || cleanComp.id
-      });
+      const componentTriggers = allTriggers.filter(t => t.xref_id === compId);
 
-      const triggers = Array.isArray(triggersResult.data) ? triggersResult.data : [];
-
-      if (triggers.length > 0) {
-        console.log(`🔍 Triggers for ${cleanComp.comp_name}:`, triggers.map(t => ({ id: t.id, class: t.class, action: t.action })));
+      if (componentTriggers.length > 0) {
+        console.log(`🔍 Triggers for ${cleanComp.comp_name}:`, componentTriggers.map(t => ({ id: t.id, class: t.class, action: t.action })));
       }
 
-      for (const trigger of triggers) {
+      for (const trigger of componentTriggers) {
         const cleanTrigger = cleanRecord(trigger);
+        const triggerId = cleanTrigger.id || cleanTrigger.trigger_id;
         await db.eventTriggers.add({
-          xref_id: cleanComp.xref_id || cleanComp.id,
-          id: cleanTrigger.id, // MySQL id (from server)
-
+          xref_id: compId,
+          id: triggerId,
           class: cleanTrigger.class,
           action: cleanTrigger.action,
           ordr: cleanTrigger.ordr || 0,
@@ -181,15 +182,10 @@ export const loadPageForEditing = async (pageID) => {
 };
 
 export const clearPageData = async (pageID) => {
-  const components = await db.eventComp_xref.toArray();
-  const xrefIds = components.map(c => c.id);
-
-  if (xrefIds.length > 0) {
-    await db.eventProps.where('xref_id').anyOf(xrefIds).delete();
-    await db.eventTriggers.where('xref_id').anyOf(xrefIds).delete();
-  }
-
+  // Clear all working tables unconditionally to prevent accumulation
   await db.eventComp_xref.clear();
+  await db.eventProps.clear();
+  await db.eventTriggers.clear();
 
-  console.log(`✅ Cleared working data (${xrefIds.length} components)`);
+  console.log(`✅ Cleared all working data for page ${pageID}`);
 };

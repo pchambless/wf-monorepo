@@ -1,5 +1,5 @@
 import { db } from '../../studioDb.js';
-import { execDml } from '@whatsfresh/shared-imports';
+import { execDml } from '../../../utils/api';
 
 /**
  * Sync all pending eventComp_xref changes to MySQL

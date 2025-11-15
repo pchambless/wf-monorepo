@@ -9,6 +9,16 @@
             "date": 1762783879729,
             "name": "/home/paul/projects/github/wf-monorepo/apps/server/server/logs/application-2025-11-10.log",
             "hash": "a69854940bd801d0c5b1d416f69eb1a34257b9ad9ae24a8f100c81e308dbfa23"
+        },
+        {
+            "date": 1762842493660,
+            "name": "/home/paul/projects/github/wf-monorepo/apps/server/server/logs/application-2025-11-11.log",
+            "hash": "a357b869c7ba5577d186aff94079b2a0b42ddd70c43ad8a64b845bbee15a4606"
+        },
+        {
+            "date": 1762930353296,
+            "name": "/home/paul/projects/github/wf-monorepo/apps/server/server/logs/application-2025-11-12.log",
+            "hash": "ecc083097bf9ff9f8da4ffb80b491aec82230dc7cf9df69721c478edcfc9897d"
         }
     ],
     "hashType": "sha256"

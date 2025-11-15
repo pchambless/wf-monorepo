@@ -26,6 +26,13 @@ export function getRoutes() {
     temporary: true, // Remove when admin app ready
   };
 
+  // DB-driven page test (Plan 62)
+  routes.TESTING = {
+    path: "/testing/testClone",
+    component: "TestingPage", // DB-driven config demo
+    temporary: true, // Testing Plan 62 implementation
+  };
+
   // Process events with routePaths
   events.forEach((event) => {
     if (event.routePath) {

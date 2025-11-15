@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { execEvent, setVals } from '@whatsfresh/shared-imports';
+import { execEvent, setVals } from '../utils/api';
 import PreviewModal from './PreviewModal';
 import DBBrowserModal from './DBBrowserModal';
 import { loadPageForEditing } from '../utils/pageLoader';
@@ -144,38 +144,6 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
     }
   };
 
-  const handleGeneratePageConfig = async () => {
-    if (!selectedApp || !selectedPage) {
-      alert('Please select both an app and a page first');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      console.log('🔧 Generating pageConfig for app:', selectedApp, 'page:', selectedPage);
-
-      const response = await fetch('http://localhost:3001/api/genPageConfig', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pageID: selectedPage })
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        alert('✅ PageConfig generated successfully!');
-        console.log('✅ PageConfig generation result:', result);
-      } else {
-        alert('⚠️ PageConfig generation completed with warnings: ' + (result.message || 'Unknown issue'));
-      }
-    } catch (error) {
-      console.error('❌ Failed to generate pageConfig:', error);
-      alert('❌ Failed to generate pageConfig: ' + error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleSaveChanges = async () => {
     setSaving(true);
     try {
@@ -278,7 +246,7 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
             style={{ ...styles.generateButton, ...styles.previewButton }}
             disabled={loading}
           >
-            {loading ? '⏳ Loading...' : '👁️ Preview Changes'}
+            {loading ? '⏳ Loading...' : '👁️ Preview Page'}
           </button>
           <button
             onClick={handleSaveChanges}
@@ -291,13 +259,6 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
             }}
           >
             {saving ? '⏳ Saving...' : hasPending ? '💾 Save to MySQL' : '✓ No Changes'}
-          </button>
-          <button
-            onClick={handleGeneratePageConfig}
-            style={styles.generateButton}
-            disabled={loading}
-          >
-            📄 Generate PageConfig File
           </button>
         </div>
       )}

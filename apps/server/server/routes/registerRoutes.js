@@ -1,5 +1,5 @@
 import express from "express";
-import execEventType from "../controller/execEventType.js";
+import execEvent from "../controller/execEvent.js";
 import fetchEventType from "../controller/fetchEventType.js";
 import getEventTypes from "../controller/getEventTypes.js";
 import getTriggers from "../controller/getTriggers.js";
@@ -45,7 +45,7 @@ const registerRoutes = (app) => {
   };
 
   // Register all routes using the helper function
-  registerRoute("post", "/api/execEventType", execEventType);
+  registerRoute("post", "/api/execEvent", execEvent);
   registerRoute("get", "/api/eventType/:xrefId", fetchEventType);
   registerRoute("get", "/api/eventTypes", getEventTypes);
   registerRoute("get", "/api/triggers", getTriggers);

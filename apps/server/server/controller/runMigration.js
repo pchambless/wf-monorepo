@@ -7,7 +7,7 @@ const codeName = '[runMigration.js]';
 const runMigration = async (req, res) => {
     logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
-    const migrationPath = '/home/paul/a-wf-migration';
+    const migrationPath = '/home/paul/projects/github/migration';
     const scriptPath = path.join(migrationPath, 'migration/run.sh');
 
     logger.info(`${codeName} Starting migration script (SSH tunnels should already be running)`);

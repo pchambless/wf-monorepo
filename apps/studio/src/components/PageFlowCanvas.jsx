@@ -107,8 +107,8 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
 
         // Fetch props and triggers in parallel
         const [propsResult, triggersResult] = await Promise.all([
-          execEvent("studio-xrefProps", { xrefID: xref_id }),
-          execEvent("studio-xrefTriggers", { xrefID: xref_id }),
+          execEvent("pageProps", { xrefID: xref_id }),
+          execEvent("pageTriggers", { xrefID: xref_id }),
         ]);
 
         // Transform props array to object
@@ -155,20 +155,20 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
         display: "flex",
         flexDirection: "column",
         minHeight: 0,
-        padding: "12px", // Breathing room around React Flow
+        padding: "0", // No padding - maximize canvas space
         boxSizing: "border-box",
       }}
     >
       {appName && (
         <div
           style={{
-            padding: "8px 12px",
+            padding: "6px 8px",
             backgroundColor: "#f8fafc",
             borderBottom: "2px solid #e2e8f0",
-            borderTopLeftRadius: "8px",
-            borderTopRightRadius: "8px",
+            borderTopLeftRadius: "4px",
+            borderTopRightRadius: "4px",
             fontWeight: 600,
-            fontSize: "16px",
+            fontSize: "14px",
             color: "#1e293b",
             flexShrink: 0,
           }}
@@ -183,9 +183,9 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
           width: "100%",
           border: "1px solid #e2e8f0",
           borderTop: appName ? "none" : "1px solid #e2e8f0",
-          borderRadius: appName ? "0 0 8px 8px" : "8px",
+          borderRadius: appName ? "0 0 4px 4px" : "4px",
           overflow: "hidden",
-          boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
         }}
       >
         <ReactFlow
@@ -197,7 +197,7 @@ const PageFlowCanvas = ({ pageConfig, onNodeSelect }) => {
           onNodeDragStop={onNodeDragStop}
           nodeTypes={nodeTypes}
           fitView
-          fitViewOptions={{ padding: 0.2 }}
+          fitViewOptions={{ padding: 0.05 }}
           attributionPosition="bottom-left"
           minZoom={0.1}
           maxZoom={4}

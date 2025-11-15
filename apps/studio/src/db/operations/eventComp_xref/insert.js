@@ -1,5 +1,5 @@
 import { db } from '../../studioDb.js';
-import { execDml } from '@whatsfresh/shared-imports';
+import { execDml } from '../../../utils/api';
 
 /**
  * Insert new component to MySQL and IndexedDB

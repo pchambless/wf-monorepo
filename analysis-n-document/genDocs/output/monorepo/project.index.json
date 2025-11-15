@@ -76,47 +76,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": ".kiro/0019/specs/code-references.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
       "file": ".kiro/workflows/createRoadmap.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
-      "file": ".vscode/extensions/task-router/GeminiChatPanel.ts",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
-      "file": ".vscode/extensions/task-router/extension.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
-      "file": ".vscode/extensions/task-router/types.ts",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "other"
@@ -197,7 +157,7 @@
     },
     {
       "file": "apps/admin/src/App.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "admin"
       ],
@@ -297,8 +257,18 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving admin."
     },
     {
-      "file": "apps/login/src/App.jsx",
+      "file": "apps/api-gateway/server.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "api-gateway"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving api-gateway."
+    },
+    {
+      "file": "apps/login/src/App.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "login"
       ],
@@ -318,7 +288,7 @@
     },
     {
       "file": "apps/login/src/pages/LoginPage.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "login"
       ],
@@ -338,7 +308,7 @@
     },
     {
       "file": "apps/planner/src/App.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "planner"
       ],
@@ -378,7 +348,7 @@
     },
     {
       "file": "apps/planner/src/components/SimpleLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "planner"
       ],
@@ -1318,6 +1288,16 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/middleware/userEmailInjection.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/routes/index.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -1549,7 +1529,7 @@
     },
     {
       "file": "apps/server/server/utils/logger.js",
-      "purpose": "Auto-inferred from dependency graph. 51 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 52 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1943,7 +1923,7 @@
     },
     {
       "file": "apps/studio/src/App.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2023,7 +2003,7 @@
     },
     {
       "file": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio"
       ],
@@ -2033,7 +2013,7 @@
     },
     {
       "file": "apps/studio/src/components/DBBrowserModal.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2053,7 +2033,7 @@
     },
     {
       "file": "apps/studio/src/components/FloatingActionButton.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2063,7 +2043,7 @@
     },
     {
       "file": "apps/studio/src/components/FlowNodes/ContainerNode.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2073,7 +2053,7 @@
     },
     {
       "file": "apps/studio/src/components/FlowNodes/DefaultNode.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2083,7 +2063,7 @@
     },
     {
       "file": "apps/studio/src/components/FlowNodes/FormNode.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2093,7 +2073,7 @@
     },
     {
       "file": "apps/studio/src/components/FlowNodes/GridNode.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2103,7 +2083,7 @@
     },
     {
       "file": "apps/studio/src/components/FlowNodes/PageNode.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2123,7 +2103,7 @@
     },
     {
       "file": "apps/studio/src/components/IssuesModal.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2143,7 +2123,7 @@
     },
     {
       "file": "apps/studio/src/components/PageDraftControls.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2153,7 +2133,7 @@
     },
     {
       "file": "apps/studio/src/components/PageFlowCanvas.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio"
       ],
@@ -2163,7 +2143,7 @@
     },
     {
       "file": "apps/studio/src/components/PagePreviewPanel.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2183,7 +2163,7 @@
     },
     {
       "file": "apps/studio/src/components/PreviewModal.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2213,7 +2193,7 @@
     },
     {
       "file": "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2223,7 +2203,7 @@
     },
     {
       "file": "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2233,7 +2213,7 @@
     },
     {
       "file": "apps/studio/src/components/PropertyEditors/ParamEditor.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2243,7 +2223,7 @@
     },
     {
       "file": "apps/studio/src/components/PropertyEditors/PreviewPane.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2253,7 +2233,7 @@
     },
     {
       "file": "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2273,7 +2253,7 @@
     },
     {
       "file": "apps/studio/src/components/PropertyEditors/TriggerBuilder.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2303,7 +2283,7 @@
     },
     {
       "file": "apps/studio/src/components/StudioSidebar.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2319,6 +2299,16 @@
       ],
       "critical": false,
       "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/config/api.js",
+      "purpose": "Auto-inferred from dependency graph. 8 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": true,
+      "blastRadius": "high",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
@@ -3045,12 +3035,12 @@
     },
     {
       "file": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
       "tags": [
         "studio"
       ],
-      "critical": false,
-      "blastRadius": "low",
+      "critical": true,
+      "blastRadius": "medium",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
@@ -3683,7 +3673,7 @@
     },
     {
       "file": "apps/whatsfresh/src/App.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "whatsfresh"
       ],
@@ -3794,7 +3784,7 @@
     },
     {
       "file": "apps/whatsfresh/src/layouts/AuthLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "whatsfresh"
       ],
@@ -3804,7 +3794,7 @@
     },
     {
       "file": "apps/whatsfresh/src/layouts/BatchMapping.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "whatsfresh"
       ],
@@ -3814,7 +3804,7 @@
     },
     {
       "file": "apps/whatsfresh/src/layouts/RecipeLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "whatsfresh"
       ],
@@ -3904,7 +3894,7 @@
     },
     {
       "file": "apps/whatsfresh/src/pages/dashboard/View.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "whatsfresh"
       ],
@@ -4295,7 +4285,7 @@
     },
     {
       "file": "cli/toolsets/1-simple/patterns.ts",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "other"
       ],
@@ -4315,7 +4305,7 @@
     },
     {
       "file": "cli/toolsets/2-structured/patterns.ts",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "other"
       ],
@@ -4355,7 +4345,7 @@
     },
     {
       "file": "cli/utils/toolManager.ts",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "other",
         "utility"
@@ -4366,11 +4356,11 @@
     },
     {
       "file": "packages/db-connect/index.js",
-      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "db-connect"
       ],
-      "critical": true,
+      "critical": false,
       "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving db-connect."
     },
@@ -4576,12 +4566,12 @@
     },
     {
       "file": "packages/shared-imports/src/api/index.js",
-      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "shared-imports"
       ],
-      "critical": true,
-      "blastRadius": "medium",
+      "critical": false,
+      "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
     },
     {
@@ -4626,7 +4616,7 @@
     },
     {
       "file": "packages/shared-imports/src/createDocs/index.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "shared-imports"
       ],
@@ -4696,12 +4686,12 @@
     },
     {
       "file": "packages/shared-imports/src/index.js",
-      "purpose": "Auto-inferred from dependency graph. 34 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "shared-imports"
       ],
-      "critical": true,
-      "blastRadius": "high",
+      "critical": false,
+      "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
     },
     {
@@ -4913,7 +4903,7 @@
     },
     {
       "file": "packages/shared-imports/src/utils/server.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "shared-imports",
         "utility"

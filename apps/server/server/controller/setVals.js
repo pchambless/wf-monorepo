@@ -28,7 +28,8 @@ export const setValsDirect = async (userEmail, values) => {
         VALUES ('${userEmail}', '${paramName}', ${paramVal === null ? 'NULL' : `'${paramVal}'`}, '${firstName}')
         ON DUPLICATE KEY UPDATE
         paramVal = ${paramVal === null ? 'NULL' : `'${paramVal}'`},
-        updated_by = '${firstName}'
+        updated_by = '${firstName}',
+        updated_at = CURRENT_TIMESTAMP
       `;
 
       const result = await executeQuery(sql, 'POST');

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PageFlowCanvas from './PageFlowCanvas';
 import ComponentPropertiesPanel from './ComponentPropertiesPanel';
-import { getVal } from '@whatsfresh/shared-imports';
+import { getVal } from '../utils/api';
 
 const StudioCanvasWrapper = () => {
   const [pageConfig, setPageConfig] = useState(null);

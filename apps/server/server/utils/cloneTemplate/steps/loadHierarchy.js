@@ -1,6 +1,6 @@
 import logger from '../../logger.js';
 import * as sessionManager from '../sessionManager.js';
-import execEventTypeController from '../../../controller/execEventType.js';
+import execEventController from '../../../controller/execEvent.js';
 
 const codeName = '[loadHierarchy.js]';
 
@@ -38,10 +38,10 @@ export async function loadHierarchy(session) {
   // Set pageID in context_store for template queries
   await setPageIDContext(session.template_id);
 
-  // Create mock request/response objects for execEventType controller
+  // Create mock request/response objects for execEvent controller
   const mockReq = {
     method: 'POST',
-    originalUrl: '/api/execEventType (internal)',
+    originalUrl: '/api/execEvent (internal)',
     body: {
       eventSQLId: 'studio-xrefHierarchy',
       userEmail: 'claude@whatsfresh.ai'
@@ -61,7 +61,7 @@ export async function loadHierarchy(session) {
     })
   };
 
-  await execEventTypeController(mockReq, mockRes);
+  await execEventController(mockReq, mockRes);
 
   if (!hierarchyResult || !hierarchyResult.data || !hierarchyResult.data[0]) {
     throw new Error('Failed to load template hierarchy');

@@ -1,5 +1,5 @@
 import { db } from '../db/studioDb';
-import { execEvent } from '@whatsfresh/shared-imports';
+import { execEvent } from './api';
 
 const AUDIT_COLUMNS = ['created_at', 'created_by', 'updated_at', 'updated_by', 'deleted_at', 'deleted_by', 'active'];
 

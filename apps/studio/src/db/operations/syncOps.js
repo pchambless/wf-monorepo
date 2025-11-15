@@ -1,5 +1,5 @@
 import { db } from '../studioDb.js';
-import { execDml } from '@whatsfresh/shared-imports';
+import { execDml } from '../../utils/api';
 
 export const getPendingChanges = async () => {
   const components = await db.eventComp_xref.filter(c => c._dmlMethod !== null).toArray();

@@ -19,7 +19,8 @@ const LoginPage = () => {
         // Dev mode: Generate fresh config from database
         try {
           console.log('🔄 Dev mode: Generating fresh pageConfig from database...');
-          const response = await fetch('http://localhost:3001/api/genPageConfig', {
+          const { createApiUrl } = await import('../../../config/api.js');
+          const response = await fetch(createApiUrl('/api/genPageConfig'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pageID: PAGE_ID })

@@ -4,9 +4,11 @@
  * Handles smart merge logic to preserve manual customizations
  */
 
+import { getApiBaseUrl } from '../config/api.js';
+
 export class UnifiedGenFieldsWorkflow {
     constructor() {
-        this.apiBase = 'http://localhost:3001';
+        this.apiBase = getApiBaseUrl();
     }
 
     /**

@@ -1,4 +1,4 @@
-import execEventTypeController from '../../../controller/execEventType.js';
+import execEventController from '../../../controller/execEvent.js';
 
 /**
  * Get next available component ID from database
@@ -20,7 +20,7 @@ export async function getNextComponentID() {
     })
   };
 
-  await execEventTypeController(mockReq, mockRes);
+  await execEventController(mockReq, mockRes);
 
   if (!result || !result.data || !result.data[0]) {
     throw new Error('Failed to get next component ID');

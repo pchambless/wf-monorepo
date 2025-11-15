@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createApiUrl } from "../config/api.js";
 
 /**
  * Simple vanilla React layout - shared across apps
@@ -24,7 +25,7 @@ const SimpleLayout = ({ children, navigationSections, appName, appBarConfig, onL
 
     setIsMigrating(true);
     try {
-      const response = await fetch('http://localhost:3001/api/util/run-migration', {
+      const response = await fetch(createApiUrl('/api/util/run-migration'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -195,44 +196,11 @@ const SimpleLayout = ({ children, navigationSections, appName, appBarConfig, onL
       </div>
 
       <div style={styles.body}>
-        {/* Sidebar */}
-        <div style={styles.sidebar}>
-          <div style={styles.header}>
-            <h3 style={{ margin: 0 }}>{appName || "WhatsFresh"}</h3>
-          </div>
+        {/* Sidebar hidden - apps don't exist yet */}
+        {/* TODO Phase 2: Redesign navigation for Studio pages (queries, stats, etc) */}
 
-          {navigationSections?.map((section, sectionIndex) => (
-            <div key={sectionIndex} style={styles.navSection}>
-              <div style={styles.sectionTitle}>{section.title}</div>
-              {section.items?.map((item, itemIndex) => (
-                <button
-                  key={itemIndex}
-                  style={{
-                    ...styles.navItem,
-                    ...(item.external && {
-                      fontStyle: "italic",
-                      color: "#666"
-                    })
-                  }}
-                  onClick={() => handleNavClick(item.path, item.external)}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = styles.navItemHover.backgroundColor;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = "transparent";
-                  }}
-                  title={item.external ? "Opens in new tab" : ""}
-                >
-                  {item.icon && `${item.icon} `}{item.title}
-                  {item.external && " ↗"}
-                </button>
-              ))}
-            </div>
-          ))}
-        </div>
-
-        {/* Main Content */}
-        <div style={styles.main}>{children}</div>
+        {/* Main Content - full width, no padding */}
+        <div style={{ ...styles.main, padding: 0 }}>{children}</div>
       </div>
     </div>
   );

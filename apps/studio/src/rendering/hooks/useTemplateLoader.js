@@ -11,7 +11,8 @@ export function useTemplateLoader() {
   useEffect(() => {
     const loadTemplates = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/eventTypes');
+        const { createApiUrl } = await import('../../config/api.js');
+        const response = await fetch(createApiUrl('/api/eventTypes'));
         const eventTypes = await response.json();
 
         const templateMap = {};

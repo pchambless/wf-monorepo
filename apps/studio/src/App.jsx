@@ -4,6 +4,7 @@ import StudioLayout from "./components/StudioLayout.jsx";
 import MigrationPage from "./components/MigrationPage.jsx";
 import SimpleLayout from "./layouts/SimpleLayout.jsx";
 import { initializeApp } from "./db/operations/lifecycleOps.js";
+import { createApiUrl } from "./config/api.js";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -31,7 +32,7 @@ const App = () => {
 
     setIsMigrating(true);
     try {
-      const response = await fetch('http://localhost:3001/api/util/run-migration', {
+      const response = await fetch(createApiUrl('/api/util/run-migration'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -69,7 +70,7 @@ const App = () => {
     {
       title: "Developer Tools",
       items: [
-        { title: "Server Logs", path: "http://localhost:3001/health", external: true },
+        { title: "Server Logs", path: `${createApiUrl('/health')}`, external: true },
       ]
     }
   ];

@@ -1,12 +1,13 @@
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-const cors = require('cors');
-const session = require('express-session');
+import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import cors from 'cors';
+import session from 'express-session';
 
 const app = express();
 const PORT = process.env.PORT || 3002;
 const TARGET_SERVER = process.env.TARGET_SERVER || 'http://localhost:3001';
 
+// CORS configuration
 app.use(cors({
   origin: [
     'http://localhost:3000',
@@ -18,6 +19,10 @@ app.use(cors({
 
 app.use(express.json());
 
+// Serve static files from public directory
+app.use(express.static('public'));
+
+// Session configuration
 app.use(session({
   secret: process.env.SESSION_SECRET || 'whatsfresh-gateway-secret-change-in-production',
   resave: false,
@@ -25,23 +30,34 @@ app.use(session({
   cookie: {
     secure: false,
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: 'lax'
   }
 }));
 
+// Port to email mapping
 const portToEmailMap = {
   '3004': 'studio@whatsfresh.ai',
   '3000': 'admin@whatsfresh.ai',
   '3003': 'whatsfresh@whatsfresh.ai'
 };
 
+// User email injection middleware
 const injectUserEmail = (req, res, next) => {
   let userEmail;
 
+  // Debug logging
+  console.log(`[Gateway] ${req.method} ${req.path} | Cookie header:`, req.headers.cookie ? 'present' : 'missing');
+  console.log(`[Gateway] Session ID:`, req.sessionID);
+  console.log(`[Gateway] Session data:`, req.session);
+
+  // Check session first
   if (req.session && req.session.userEmail) {
     userEmail = req.session.userEmail;
     console.log(`[Gateway] ${req.method} ${req.path} | Session User: ${userEmail}`);
   } else {
+    // Fall back to origin-based detection
+    console.log(`[Gateway] No session found. Session:`, req.session ? 'exists but no userEmail' : 'null');
     const origin = req.headers.origin || req.headers.referer;
     if (origin) {
       const match = origin.match(/:(\d+)/);
@@ -51,6 +67,7 @@ const injectUserEmail = (req, res, next) => {
     }
   }
 
+  // Inject userEmail into request
   if (userEmail) {
     if (req.method === 'POST' && req.body) {
       req.body.userEmail = userEmail;
@@ -61,6 +78,7 @@ const injectUserEmail = (req, res, next) => {
   next();
 };
 
+// Login endpoint - creates session
 app.post('/api/auth/login', async (req, res) => {
   try {
     const { userEmail, password } = req.body;
@@ -77,8 +95,17 @@ app.post('/api/auth/login', async (req, res) => {
     if (response.ok && data.success) {
       req.session.userEmail = data.user.email;
       req.session.user = data.user;
-      console.log(`[Gateway] Login successful, session created for ${data.user.email}`);
-      res.json(data);
+
+      // Explicitly save session before responding
+      req.session.save((err) => {
+        if (err) {
+          console.error(`[Gateway] Session save error:`, err);
+          return res.status(500).json({ success: false, message: 'Session save failed' });
+        }
+        console.log(`[Gateway] Login successful, session saved for ${data.user.email}`);
+        console.log(`[Gateway] Session ID: ${req.sessionID}`);
+        res.json(data);
+      });
     } else {
       console.log(`[Gateway] Login failed for ${userEmail}`);
       res.status(response.status).json(data);
@@ -89,6 +116,7 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+// Logout endpoint - destroys session
 app.post('/api/auth/logout', (req, res) => {
   const userEmail = req.session?.userEmail;
   req.session.destroy((err) => {
@@ -101,16 +129,29 @@ app.post('/api/auth/logout', (req, res) => {
   });
 });
 
+// Login page routes
+app.get('/', (req, res) => {
+  res.sendFile('login.html', { root: 'public' });
+});
+
+app.get('/login', (req, res) => {
+  res.sendFile('login.html', { root: 'public' });
+});
+
+// Apply userEmail injection to all /api routes
 app.use('/api', injectUserEmail);
 
+// Proxy all /api requests to server
 app.use('/api', createProxyMiddleware({
   target: TARGET_SERVER,
   changeOrigin: true,
   onProxyReq: (proxyReq, req) => {
+    // Forward user email header
     if (req.headers['x-user-email']) {
       proxyReq.setHeader('x-user-email', req.headers['x-user-email']);
     }
 
+    // Re-write body with injected userEmail
     if (req.method === 'POST' && req.body) {
       const bodyData = JSON.stringify(req.body);
       proxyReq.setHeader('Content-Length', Buffer.byteLength(bodyData));
@@ -129,6 +170,7 @@ app.use('/api', createProxyMiddleware({
   }
 }));
 
+// Health check
 app.get('/health', (req, res) => {
   res.json({
     status: 'healthy',
@@ -138,6 +180,7 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Start server
 app.listen(PORT, () => {
   console.log(`\n🚀 API Gateway running on port ${PORT}`);
   console.log(`📡 Proxying requests to: ${TARGET_SERVER}`);

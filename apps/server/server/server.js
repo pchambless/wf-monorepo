@@ -62,7 +62,7 @@ async function startServer() {
                         login: '/api/auth/login'
                     },
                     events: {
-                        execute: '/api/execEventType'
+                        execute: '/api/execEvent'
                     },
                     status: {
                         health: '/health',

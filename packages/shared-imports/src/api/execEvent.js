@@ -15,9 +15,9 @@ export async function execEvent(xrefId, params = {}, { baseUrl, logger }) {
     const body = { eventSQLId: xrefId, params };
     body.userEmail = 'studio@whatsfresh.ai';
 
-    // Call the execEventType endpoint with credentials
+    // Call the execEvent endpoint with credentials
     // Server expects eventSQLId parameter
-    const response = await fetch(`${baseUrl}/api/execEventType`, {
+    const response = await fetch(`${baseUrl}/api/execEvent`, {
       method: "POST",
       headers,
       credentials: "include", // Important for session cookies

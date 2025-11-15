@@ -1,7 +1,7 @@
 import logger from '../../logger.js';
 import * as sessionManager from '../sessionManager.js';
 import { executeQuery } from '../../dbUtils.js';
-import execEventTypeController from '../../../controller/execEventType.js';
+import execEventController from '../../../controller/execEvent.js';
 import { replaceTokens } from '../helpers/replaceTokens.js';
 import { buildBulkInsertSQL } from '../helpers/buildSQL.js';
 
@@ -60,7 +60,7 @@ export async function cloneEventSQL(session) {
   // Load ALL eventSQL for the template page in one query
   const mockReq = {
     method: 'POST',
-    originalUrl: '/api/execEventType (internal)',
+    originalUrl: '/api/execEvent (internal)',
     body: {
       eventSQLId: 'pageSQL',
       userEmail: 'claude@whatsfresh.ai'
@@ -77,7 +77,7 @@ export async function cloneEventSQL(session) {
     })
   };
 
-  await execEventTypeController(mockReq, mockRes);
+  await execEventController(mockReq, mockRes);
 
   if (!sqlResult || !sqlResult.data || sqlResult.data.length === 0) {
     logger.info(`${codeName} No eventSQL found for template`);

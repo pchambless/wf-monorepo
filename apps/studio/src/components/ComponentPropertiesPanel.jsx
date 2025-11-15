@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { execEvent } from '@whatsfresh/shared-imports';
+import { execEvent } from '../utils/api';
 import { formatPropsForDisplay, parseProps } from '../utils/formatProps';
 import ColumnSelector from './PropertyEditors/ColumnSelector';
 import PreviewPane from './PropertyEditors/PreviewPane';
@@ -357,8 +357,8 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
 
       const [basicResult, triggersResult, propsResult] = await Promise.all([
         execEvent('studio-xrefBasicDtl', { xrefID: xref_id }),
-        execEvent('studio-xrefTriggers', { xrefID: xref_id }),
-        execEvent('studio-xrefProps', { xrefID: xref_id })
+        execEvent('pageTriggers', { xrefID: xref_id }),
+        execEvent('pageProps', { xrefID: xref_id })
       ]);
 
       console.log('Basic result:', basicResult);

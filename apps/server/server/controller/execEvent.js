@@ -4,13 +4,13 @@ import { getValDirect } from "./getVal.js";
 import logger from "../utils/logger.js";
 import { getUserEmail } from "../utils/getUserEmail.js";
 
-const codeName = `[execEventType.js]`;
+const codeName = `[execEvent.js]`;
 
 /**
  * Execute SQL query from eventSQL table by eventSQL ID
  * Database-driven query execution using eventSQL architecture
  */
-const execEventType = async (req, res) => {
+const execEvent = async (req, res) => {
   logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
   const { eventSQLId, params } = req.body;
@@ -144,4 +144,4 @@ const execEventType = async (req, res) => {
   }
 };
 
-export default execEventType;
+export default execEvent;

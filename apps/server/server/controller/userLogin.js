@@ -95,10 +95,11 @@ async function login(req, res) {
             user: {
                 id: user.userID,
                 email: user.userEmail,
-                firstName: user.firstName || user.userEmail.split('@')[0], // fallback to email prefix
+                firstName: user.firstName || user.userEmail.split('@')[0],
+                lastName: user.lastName || '',
                 name: user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : user.userEmail,
                 role: user.roleID,
-                dfltAcctID: user.dfltAcctID || user.userID // fallback to userID
+                dfltAcctID: user.dfltAcctID || null
             }
         };
 

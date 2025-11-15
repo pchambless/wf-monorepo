@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { execEvent } from '@whatsfresh/shared-imports';
+import { execEvent } from '../../utils/api';
 import { db } from '../../db/studioDb';
 
 const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
