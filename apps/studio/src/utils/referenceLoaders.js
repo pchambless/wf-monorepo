@@ -14,7 +14,7 @@ const cleanRecord = (record) => {
 
 export const loadEventTypes = async () => {
   try {
-    const result = await execEvent('studio-eventTypeList', {});
+    const result = await execEvent('eventTypeList', {});
     const eventTypes = (result.data || []).map(cleanRecord);
 
     await db.eventTypes.clear();
@@ -38,7 +38,7 @@ export const loadEventTypes = async () => {
 
 export const loadEventSQL = async () => {
   try {
-    const result = await execEvent('studio-eventSqlList', {});
+    const result = await execEvent('eventSqlList', {});
     const eventSQL = (result.data || []).map(cleanRecord);
 
     await db.eventSQL.clear();
@@ -62,7 +62,7 @@ export const loadEventSQL = async () => {
 
 export const loadTriggers = async () => {
   try {
-    const result = await execEvent('studio-triggerList', {});
+    const result = await execEvent('triggerList', {});
     const triggers = (result.data || []).map(cleanRecord);
 
     await db.triggers.clear();

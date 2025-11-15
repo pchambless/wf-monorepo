@@ -32,7 +32,7 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
     const fetchExistingQuery = async () => {
       try {
         // Query vw_eventSQL to find associated query
-        const result = await execEvent('studio-getEventSQL', { xrefID: component.xref_id });
+        const result = await execEvent('getEventSQL', { xrefID: component.xref_id });
         if (result.data && result.data.length > 0) {
           const eventSQL = result.data[0];
           setQueryName(eventSQL.qryName || '');

@@ -1749,3 +1749,76 @@
 {"level":"info","message":"[execEvent.js] EventSQL executed successfully: AI-RecentList (ID: 30)","timestamp":"2025-11-15 11:20:30"}
 {"level":"info","message":"[app.js]  Response: POST /api/execEvent 200 (582ms)","timestamp":"2025-11-15 11:20:30"}
 {"level":"info","message":"Performance measurement for http_request","performance":{"duration":582.121835,"method":"POST","operation":"http_request","path":"/api/execEvent","status":200},"timestamp":"2025-11-15 11:20:30"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-15 11:47:55"}
+{"body":{"eventSQLId":"eventTypeList","params":{},"userEmail":"studio@whatsfresh.ai"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEvent","timestamp":"2025-11-15 11:51:31"}
+{"level":"http","message":"[execEvent.js] POST /api/execEvent","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Fetching eventSQL by qryName: eventTypeList","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-11-15 11:51:31"}
+{"body":{"eventSQLId":"triggerList","params":{},"userEmail":"studio@whatsfresh.ai"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEvent","timestamp":"2025-11-15 11:51:31"}
+{"level":"http","message":"[execEvent.js] POST /api/execEvent","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Fetching eventSQL by qryName: triggerList","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-11-15 11:51:31"}
+{"body":{"eventSQLId":"eventSqlList","params":{},"userEmail":"studio@whatsfresh.ai"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEvent","timestamp":"2025-11-15 11:51:31"}
+{"level":"http","message":"[execEvent.js] POST /api/execEvent","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Fetching eventSQL by qryName: eventSqlList","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-11-15 11:51:31"}
+{"body":{"eventSQLId":"pageRegistry","params":{},"userEmail":"studio@whatsfresh.ai"},"contentType":"application/json","level":"http","message":"[app.js]  Request","method":"POST","path":"/api/execEvent","timestamp":"2025-11-15 11:51:31"}
+{"level":"http","message":"[execEvent.js] POST /api/execEvent","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Fetching eventSQL by qryName: pageRegistry","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":290.931625,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Found eventSQL: eventTypeList (ID: 9)","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Executing SQL: SELECT id, name, category, title, style\r\nFROM api_wf.eventType\r\nORDER BY Hier, name","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":275.020592,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Found eventSQL: pageRegistry (ID: 32)","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Executing SQL: select id, appName, pageName, pageTitle, \r\ntableName, tableID, pr.contextKey, pr.routePath\r\nfrom  api_wf.page_registry pr \r\norder by appName, pageName","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":289.716332,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Found eventSQL: triggerList (ID: 16)","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Executing SQL: select a.id, a.trigType, content_type, a.is_dom_event, a.name, \r\na.description, a.example \r\nfrom    api_wf.triggers a \r\norder by a.trigType, name","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 1","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":286.665438,"method":"GET","operation":"database_query","rowCount":1,"success":true},"timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Found eventSQL: eventSqlList (ID: 17)","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[execEvent.js] Executing SQL: SELECT id, qryName, qrySQL, description\r\nFROM api_wf.eventSQL\r\nWHERE active = 1\r\nORDER BY qryName","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Executing GET query: ********","timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Handling GET-specific logic","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 26","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":235.631152,"method":"GET","operation":"database_query","rowCount":26,"success":true},"timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[execEvent.js] EventSQL executed successfully: eventTypeList (ID: 9)","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEvent 200 (529ms)","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":528.745041,"method":"POST","operation":"http_request","path":"/api/execEvent","status":200},"timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 18","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":236.531706,"method":"GET","operation":"database_query","rowCount":18,"success":true},"timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[execEvent.js] EventSQL executed successfully: pageRegistry (ID: 32)","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEvent 200 (513ms)","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":513.183037,"method":"POST","operation":"http_request","path":"/api/execEvent","status":200},"timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 23","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":239.501963,"method":"GET","operation":"database_query","rowCount":23,"success":true},"timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[execEvent.js] EventSQL executed successfully: triggerList (ID: 16)","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEvent 200 (531ms)","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":531.149899,"method":"POST","operation":"http_request","path":"/api/execEvent","status":200},"timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[dbUtils.js] Query executed, rows fetched: 47","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for database_query","performance":{"duration":241.013638,"method":"GET","operation":"database_query","rowCount":47,"success":true},"timestamp":"2025-11-15 11:51:31"}
+{"level":"debug","message":"[dbUtils.js] Connection released","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[execEvent.js] EventSQL executed successfully: eventSqlList (ID: 17)","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"[app.js]  Response: POST /api/execEvent 200 (530ms)","timestamp":"2025-11-15 11:51:31"}
+{"level":"info","message":"Performance measurement for http_request","performance":{"duration":529.813411,"method":"POST","operation":"http_request","path":"/api/execEvent","status":200},"timestamp":"2025-11-15 11:51:31"}

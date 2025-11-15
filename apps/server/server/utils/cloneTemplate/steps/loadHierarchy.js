@@ -38,15 +38,6 @@ export async function loadHierarchy(session) {
   // Set pageID in context_store for template queries
   await setPageIDContext(session.template_id);
 
-  // Create mock request/response objects for execEvent controller
-  const mockReq = {
-    method: 'POST',
-    originalUrl: '/api/execEvent (internal)',
-    body: {
-      eventSQLId: 'studio-xrefHierarchy',
-      userEmail: 'claude@whatsfresh.ai'
-    }
-  };
 
   let hierarchyResult;
   const mockRes = {
@@ -67,7 +58,7 @@ export async function loadHierarchy(session) {
     throw new Error('Failed to load template hierarchy');
   }
 
-  // studio-xrefHierarchy returns data[0] as the component array
+  // xrefHierarchy returns data[0] as the component array
   const hierarchy = hierarchyResult.data[0];
   logger.info(`${codeName} Loaded ${hierarchy.length} components from template`);
 
