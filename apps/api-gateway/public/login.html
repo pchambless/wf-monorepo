@@ -284,7 +284,7 @@
 
     async function loadAuthorizedApps(userEmail) {
       try {
-        const response = await fetch(`${API_BASE}/api/execEventType`, {
+        const response = await fetch(`${API_BASE}/api/execEvent`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
