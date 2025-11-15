@@ -3,11 +3,11 @@ import { executeQuery } from './dbUtils.js';
 import logger from './logger.js';
 import { getEventType } from '../events/index.js';
 
-const codeName = `[executeEventType.js]`;
+const codeName = `[executeEvent.js]`;
 
 /**
  * Execute an event type with parameter substitution
- * Shared utility for both execEventType controller and dmlProcessor
+ * Shared utility for both execEvent controller and dmlProcessor
  * 
  * @param {string} eventType - The event type to execute
  * @param {Object} params - Parameters for query substitution

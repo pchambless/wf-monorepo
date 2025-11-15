@@ -36,11 +36,11 @@ const callApi = async (endpoint, options = {}) => {
 /**
  * Execute an event type against the API
  */
-export const execEventType = async (eventType, params = {}) => {
+export const execEvent = async (eventType, params = {}) => {
   try {
     log.debug(`Execute: ${eventType}`, { params });
 
-    const response = await callApi('/api/execEventType', {
+    const response = await callApi('/api/execEvent', {
       method: 'POST',
       body: JSON.stringify({ eventType, params })
     });
@@ -73,7 +73,7 @@ export const fetchEventList = () => {
 export const useApi = () => {
   const apiExecEvent = useCallback(async (eventType, additionalParams = {}) => {
     try {
-      return await execEventType(eventType, additionalParams);
+      return await execEvent(eventType, additionalParams);
     } catch (error) {
       log.error(`Error executing event type ${eventType}:`, error);
       throw error;
@@ -109,7 +109,7 @@ export const execDmlRequest = async (requestBody) => {
 };
 
 // Use named exports instead of default export for better IDE support and imports
-export { execEventType as default };
+export { execEvent as default };
 
 
 

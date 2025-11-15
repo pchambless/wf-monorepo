@@ -15,7 +15,7 @@ export const getApiBaseUrl = () => {
 
 /**
  * Create a full API URL from a path
- * @param {string} path - The API path (e.g., '/api/execEventType')
+ * @param {string} path - The API path (e.g., '/api/execEvent')
  * @returns {string} The full URL
  */
 export const createApiUrl = (path) => {

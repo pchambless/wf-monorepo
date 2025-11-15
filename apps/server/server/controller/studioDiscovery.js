@@ -329,7 +329,7 @@ async function discoverEventTypes(req, res) {
  */
 async function genPageConfig(req, res) {
   try {
-    // Get pageID from context_store (auto-context resolution like execEventType)
+    // Get pageID from context_store (auto-context resolution like execEvent)
     const { getValDirect } = await import('./getVal.js');
     const userEmail = await getValDirect('pc7900@gmail.com', 'userEmail', 'raw') || 'pc7900@gmail.com';
     const pageID = await getValDirect(userEmail, 'pageID', 'raw');

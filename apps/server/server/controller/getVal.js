@@ -4,7 +4,7 @@ import { getUserEmail } from '../utils/getUserEmail.js';
 
 const codeName = '[getVal.js]';
 
-// Direct function for internal use (execEventType, etc.)
+// Direct function for internal use (execEvent, etc.)
 export const getValDirect = async (userEmail, paramName, format = 'raw') => {
   try {
     const sql = `
