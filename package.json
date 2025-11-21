@@ -30,6 +30,7 @@
     "dev-studio": "turbo run start --filter=studio",
     "dev:all": "turbo run dev",
     "server": "npm run dev --filter=server",
+    "server:secure": "cd apps/server && npm run dev:secure",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",

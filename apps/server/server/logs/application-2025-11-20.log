@@ -1,0 +1,25 @@
+{"level":"info","message":"[app.js]  Application initialized","timestamp":"2025-11-20 12:33:40"}
+{"level":"info","message":"[dbManager.js] Database connection test successful","timestamp":"2025-11-20 12:33:41"}
+{"level":"info","message":"[server.js] Initializing routes","timestamp":"2025-11-20 12:33:41"}
+{"level":"debug","message":"[index.js]  Initializing routes","timestamp":"2025-11-20 12:33:41"}
+{"level":"info","message":"[registerRoutes.js] Started registering routes","timestamp":"2025-11-20 12:33:41"}
+{"0":"POST /api/execEvent","1":"GET /api/eventType/:xrefId","10":"POST /api/clearVals","11":"POST /api/logImpact","12":"GET /api/impacts/recent","13":"GET /api/impacts/batch/:batchId","14":"POST /api/cloneStep","15":"GET /api/studio/genPageConfig","16":"POST /api/genPageConfig","17":"POST /api/initialize","18":"GET /api/util/list-routes","19":"POST /api/util/restart-server","2":"GET /api/eventTypes","20":"POST /api/util/run-migration","21":"GET /api/util/migration-status","22":"POST /api/util/open-terminal","23":"POST /api/auth/login","24":"GET /api/github/labels","25":"GET /api/github/issues","26":"POST /api/github/issues","27":"GET /api/github/issues/:issue_number/comments","28":"POST /api/github/upload-image","3":"GET /api/triggers","4":"POST /api/execDML","5":"POST /api/execCreateDoc","6":"GET /api/getDoc","7":"POST /api/studio/genFields","8":"GET /api/getVal","9":"POST /api/setVals","level":"info","message":"[registerRoutes.js] Routes registered:","timestamp":"2025-11-20 12:33:41"}
+{"level":"info","message":"[registerRoutes.js] Routes setup complete","timestamp":"2025-11-20 12:33:41"}
+{"level":"debug","message":"[index.js]  Routes initialized","timestamp":"2025-11-20 12:33:41"}
+{"level":"info","message":"[server.js] Routes initialized","timestamp":"2025-11-20 12:33:41"}
+{"level":"info","message":"[server.js] Starting server on port 3001","timestamp":"2025-11-20 12:33:41"}
+{"level":"info","message":"[server.js] Server timeouts configured: keepAlive=5s, headers=6s","timestamp":"2025-11-20 12:33:41"}
+{"level":"info","message":"[server.js] Server is running on http://localhost:3001","timestamp":"2025-11-20 12:33:41"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 12:48:40"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 13:48:40"}
+{"level":"http","message":"[app.js]  Request","method":"GET","path":"/","timestamp":"2025-11-20 14:42:59"}
+{"level":"debug","message":"[userEmailInjection] Injected userEmail: default@whatsfresh.ai for GET /","timestamp":"2025-11-20 14:42:59"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 14:48:40"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 15:48:40"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 16:48:40"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 17:48:40"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 18:48:41"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 19:48:41"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 20:48:41"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 22:03:41"}
+{"level":"debug","message":"[dbManager.js] Database connected: health check passed","timestamp":"2025-11-20 23:03:41"}

@@ -1,16 +1,16 @@
-import pkg from '@whatsfresh/db-connect';
-const { createPool } = pkg;
+import mysql from 'mysql2/promise';
 import { v4 as uuidv4 } from 'uuid';
 import logger from '../logger.js';
 
 const codeName = '[sessionManager.js]';
 
-// Initialize pool
-const pool = createPool({
+const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'root',
   database: process.env.DB_NAME || 'api_wf',
+  port: process.env.DB_PORT || 3306,
+  charset: process.env.DB_CHARSET || 'utf8mb4',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

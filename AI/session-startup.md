@@ -5,6 +5,50 @@
 
 ---
 
+## 🚨 Post-Disaster Recovery Protocol
+
+**When starting after system loss/reinstall:**
+
+### 1. **Database is Source of Truth**
+- ✅ All plans, configurations, and queries are in the database
+- ✅ Use MCP MySQL connection (already configured in `.kiro/settings/mcp.json`)
+- ✅ Query `api_wf.AISql` for investigation queries
+- ✅ Query `api_wf.plans WHERE active = 1` for current work
+- ✅ Query `api_wf.eventSQL` for all system queries
+
+### 2. **Investigation: Database First, Not Login**
+- **For testing**: Use login and apps
+- **For investigation**: Go straight to database via MCP
+- **Don't waste time**: Logging in when you just need to query data
+
+### 3. **Key Recovery Queries**
+```sql
+-- Get active plans
+SELECT id, name, status, description FROM api_wf.plans WHERE active = 1 ORDER BY id DESC;
+
+-- Get investigation queries
+SELECT * FROM api_wf.AISql WHERE category = 'investigation' ORDER BY id DESC;
+
+-- Get all eventSQL queries
+SELECT id, qryName, description FROM api_wf.eventSQL WHERE active = 1 ORDER BY grp, qryName;
+
+-- Get recent plan impacts
+SELECT * FROM api_wf.plan_impacts ORDER BY created_at DESC LIMIT 20;
+```
+
+### 4. **System Dependencies**
+- **Node.js**: Upgrade to v20+ (currently v18.19.1 - some MCP servers need v20)
+- **Dependencies**: Run `npm install` in monorepo root
+- **MCP Server**: `@liangshanli/mcp-server-mysql` (configured and working)
+
+### 5. **execEvent API** (Replaces old execEventType)
+- **Endpoint**: `POST /api/execEvent`
+- **Body**: `{ "eventSQLId": "qryName or ID", "params": { "paramName": "value" } }`
+- **File**: `/apps/server/server/controller/execEvent.js`
+- **Auto-resolves**: Parameters from passed params or context_store
+
+---
+
 ## Plan-Focused Startup Protocol
 
 ### 1. **Plan Context Recovery**

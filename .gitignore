@@ -29,6 +29,9 @@ docs/*.componentInventory.csv
 .env.production.local
 .env
 
+# MCP configs with credentials (use .example templates)
+.kiro/settings/mcp.json
+.claude/mcp.json
 
 npm-debug.log*
 yarn-debug.log*

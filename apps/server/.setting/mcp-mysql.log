@@ -1,0 +1,3 @@
+2025-11-21T12:51:10.892Z | server_start | {"name":"mysql-mcp-server","version":"1.0.0","logDir":"./.setting","logFile":".setting/mcp-mysql.log"} | SUCCESS | RESPONSE: {"status":"started"}
+2025-11-21T13:13:11.867Z | SIGINT | {"signal":"SIGINT"} | SUCCESS | RESPONSE: {"status":"shutting_down"}
+2025-11-21T13:13:13.988Z | server_start | {"name":"mysql-mcp-server","version":"1.0.0","logDir":"./.setting","logFile":".setting/mcp-mysql.log"} | SUCCESS | RESPONSE: {"status":"started"}

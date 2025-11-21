@@ -1,95 +1,153 @@
 ---
-description: "To get caught up with recent Accomplishments and Next Step at Session Start."
+description: "Database-driven session startup for both Claude and Kiro"
 allowed-tools: []
 ---
 
-# Session Startup (Shared Claude/Kiro)
+# Session Startup - Database-Driven (Both Agents)
 
-## Step 1: Login (Required)
+## 🚀 Philosophy: Database as Source of Truth
+
+Both Claude and Kiro execute the same startup queries from `api_wf.AISql` table.
+
+## Quick Start: Execute Startup Queries
+
+```javascript
+// Get all startup queries
+mcp_mysql_sql_query({
+  sql: "SELECT qryName, description, qrySQL FROM api_wf.AISql WHERE category = 'startup' AND active = 1 ORDER BY id"
+})
+
+// Then execute each qrySQL returned above
+```
+
+## Standard Startup Queries
+
+The `startup` category in AISql includes:
+
+1. **startup_active_plans** - Current development work
+2. **startup_investigation_tools** - Available investigation queries
+3. **startup_recent_impacts** - Latest file changes
+4. **startup_system_health** - Key metrics
+5. **startup_recent_communications** - Agent coordination messages
+
+## Example Startup Flow
+
+```javascript
+// 1. Active Plans
+mcp_mysql_sql_query({
+  sql: "SELECT id, name, status, description FROM api_wf.plans WHERE active = 1 ORDER BY id DESC LIMIT 10"
+})
+
+// 2. Investigation Tools
+mcp_mysql_sql_query({
+  sql: "SELECT category, qryName, description FROM api_wf.AISql WHERE active = 1 AND category = 'investigation' ORDER BY usage_count DESC"
+})
+
+// 3. Recent Impacts
+mcp_mysql_sql_query({
+  sql: "SELECT plan_id, file_path, change_type, description, created_at FROM api_wf.plan_impacts ORDER BY created_at DESC LIMIT 20"
+})
+
+// 4. System Health
+mcp_mysql_sql_query({
+  sql: "SELECT (SELECT COUNT(*) FROM api_wf.plans WHERE active = 1) as active_plans, (SELECT COUNT(*) FROM api_wf.eventSQL WHERE active = 1) as active_queries"
+})
+```
+
+## Using AISql Queries with Parameters
+
+AISql queries use `:paramName` placeholders. **Agents should copy the SQL and replace parameters directly:**
+
+```javascript
+// 1. Get the query template
+mcp_mysql_sql_query({
+  sql: "SELECT qrySQL FROM api_wf.AISql WHERE qryName = 'investigate_component_props'"
+})
+// Returns: "SELECT prop_id, xref_id, prop_name, prop_val, source FROM eventProps WHERE xref_id = :xref_id ORDER BY prop_name"
+
+// 2. Replace :xref_id with actual value and execute
+mcp_mysql_sql_query({
+  sql: "SELECT prop_id, xref_id, prop_name, prop_val, source FROM eventProps WHERE xref_id = 81 ORDER BY prop_name"
+})
+```
+
+**Pattern:**
+1. Query AISql for the template SQL
+2. Copy the qrySQL text
+3. Replace `:paramName` with your value
+4. Execute the modified SQL
+
+**Note:** The `execEvent` API handles context_store lookups for apps, but agents with MCP access substitute parameters directly.
+
+## Key Investigation Tables
+
+- `api_wf.AISql` - Pre-built investigation queries by category
+- `api_wf.plans` - Active development plans
+- `api_wf.plan_impacts` - File changes and impacts
+- `api_wf.plan_communications` - Agent coordination
+- `api_wf.eventSQL` - All system queries (qryName, qrySQL)
+- `api_wf.eventType` - Event type definitions
+- `api_wf.page_registry` - Page configurations
+
+## Available MCP Tools (Both Agents)
+
+- `mcp_mysql_sql_query({ sql: "..." })` - Execute any SQL query
+- `mcp_mysql_get_database_info()` - List databases and tables
+- `mcp_mysql_check_permissions()` - Check permissions
+- `mcp_mysql_get_operation_logs()` - View query history
+
+## MCP Setup (One-Time Configuration)
+
+**See `.shared/SECURITY-SETUP.md` for complete setup instructions**
+
+Both agents need MCP MySQL access configured once. After setup, verify with:
+```bash
+claude mcp list  # Should show: mysql: ✓ Connected
+```
+
+## Login (Only for Testing Apps)
+
+**For investigation, use MCP database queries. Only login when testing UI.**
 
 ```bash
 # Claude agents:
-curl -X POST http://localhost:3002/api/auth/login \
+curl -X POST http://localhost:3001/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"userEmail": "claude.ai-agent@test.com", "password": "aiagent123"}'
 
 # Kiro agents:
-curl -X POST http://localhost:3002/api/auth/login \
+curl -X POST http://localhost:3001/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"userEmail": "kiro.ai-agent@test.com", "password": "aiagent123"}'
 ```
 
-## Step 2: Fetch Instructions from Database
+## Adding New Startup Queries
 
-```bash
-curl -X POST http://localhost:3002/api/execEventType \
-  -H "Content-Type: application/json" \
-  -d '{"eventSQLId": "AI-startSession"}'
+To add a new query to session startup:
+
+```sql
+INSERT INTO api_wf.AISql (category, qryName, qrySQL, description, created_by)
+VALUES (
+  'startup',
+  'startup_your_query_name',
+  'SELECT ... FROM ... WHERE ...',
+  'Description of what this query provides at startup',
+  'your_name'
+);
 ```
 
-**Follow the instructions returned from the database query above.**
+## Benefits of Database-Driven Startup
 
----
+✅ **Single source of truth** - Update startup in database, not files
+✅ **Version controlled** - Startup queries tracked with usage_count
+✅ **Dynamic** - Change startup process without code changes
+✅ **Consistent** - Both agents get identical instructions
+✅ **Discoverable** - Startup queries visible in AISql table
+✅ **Flexible** - Add/remove startup queries easily
 
-# Instructions (Stored in Database - Reference Only)
+## Related Documentation
 
-Fetch the recent summaries and module impacts from AI sessions.
-
-## Instructions
-
-Run curl commands to fetch recent session context:
-
-```bash
-# Get last 2 AI summaries
-curl -X POST http://localhost:3002/api/execEventType \
-  -H "Content-Type: application/json" \
-  -d '{"eventSQLId": "AI-RecentList"}'
-
-# Get recent plan impacts (last 30 impacts over last 7 days)
-curl -X POST http://localhost:3002/api/execEventType \
-  -H "Content-Type: application/json" \
-  -d '{"eventSQLId": "recentImpactList"}'
-```
-
-## Context Notes
-
-**Plan 45** is the living architecture document for WhatsFresh development:
-- Architecture decisions (form layouts, navigation patterns, {pageName} template cloning)
-- Design patterns and component templates
-- Appsmith prototypes and UI mockups (AI/reference/ui-mockups/whatsfresh/)
-- Studio updates for page generation workflows
-- Data model updates and schema changes
-
-All WhatsFresh page development work either:
-1. Tracks impacts directly to Plan 45 (architectural changes)
-2. Creates separate plans but cross-references Plan 45 via plan_communications
-
-This creates a unified AI coordination system where both Claude and Kiro contribute to a shared knowledge base.
-
-## AI-analysis Queries (Dead Code & Dependencies)
-
-**Available queries for module analysis (updated daily at 2am):**
-
-- **deadCodeList** - Files with no imports (dead code candidates)
-- **moduleDependencies** - What does file X import?
-- **moduleUsedBy** - What files depend on X? (blast radius check)
-- **moduleBlastRadius** - High-impact modules (many dependents)
-- **moduleImpactHistory** - Recently modified modules
-
-**When to use:**
-- User asks "what files are unused?" or "can we delete X?"
-- Before refactoring: check moduleUsedBy for blast radius
-- Planning cleanup: query deadCodeList or moduleBlastRadius
-
-**Example:**
-```bash
-# Set parameter first
-curl -X POST http://localhost:3002/api/setVals \
-  -d '{"values": [{"paramName": "filePath", "paramVal": "apps/server/server/controller/userLogin.js"}]}'
-
-# Execute query
-curl -X POST http://localhost:3002/api/execEventType \
-  -d '{"eventSQLId": "moduleUsedBy"}'
-```
-
-**Data refreshes:** Daily at 2am via cron (481 files, 205 dead code candidates)
+- `.shared/commands/aisql-queries.md` - AISql query reference
+- `.shared/SECURITY-SETUP.md` - Complete MCP setup guide
+- `AI/session-startup.md` - Detailed session startup protocol
+- `CLAUDE.md` - Core behavior and patterns

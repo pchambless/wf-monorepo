@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "generated": "2025-11-15T08:00:07.355Z",
-    "total_files": 481
+    "generated": "2025-11-21T16:12:43.945Z",
+    "total_files": 402
   },
   "files": {
     ".claude/routing/AgentDirector.js": {
@@ -144,9 +144,9 @@
     },
     "apps/admin/src/App.jsx": {
       "dependencies": [
-        "apps/admin/src/pages/acctList/index.js",
-        "apps/admin/src/pages/userList/index.js",
-        "apps/admin/src/theme.js"
+        "apps/admin/src/components/DirectRenderer.jsx",
+        "apps/admin/src/layouts/AppLayout.jsx",
+        "apps/admin/src/utils/fetchConfig.js"
       ],
       "dependents": [
         "apps/admin/src/index.js"
@@ -156,20 +156,10 @@
       "blast_radius": "low",
       "package": "admin"
     },
-    "apps/admin/src/config/navigation.js": {
-      "dependencies": [
-        "apps/admin/src/config/routes.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "admin"
-    },
-    "apps/admin/src/config/routes.js": {
+    "apps/admin/src/components/DirectRenderer.jsx": {
       "dependencies": [],
       "dependents": [
-        "apps/admin/src/config/navigation.js"
+        "apps/admin/src/App.jsx"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
@@ -178,65 +168,90 @@
     },
     "apps/admin/src/index.js": {
       "dependencies": [
-        "apps/admin/src/App.jsx"
+        "apps/admin/src/App.jsx",
+        "apps/admin/src/styles/global.css"
       ],
       "dependents": [],
+      "dependency_count": 2,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "admin"
+    },
+    "apps/admin/src/layouts/AppLayout.jsx": {
+      "dependencies": [
+        "apps/admin/src/layouts/Appbar.jsx",
+        "apps/admin/src/layouts/Footer.jsx",
+        "apps/admin/src/layouts/Sidebar.jsx",
+        "apps/admin/src/utils/fetchConfig.js"
+      ],
+      "dependents": [
+        "apps/admin/src/App.jsx"
+      ],
+      "dependency_count": 4,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "admin"
+    },
+    "apps/admin/src/layouts/Appbar.jsx": {
+      "dependencies": [],
+      "dependents": [
+        "apps/admin/src/layouts/AppLayout.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "admin"
+    },
+    "apps/admin/src/layouts/Footer.jsx": {
+      "dependencies": [],
+      "dependents": [
+        "apps/admin/src/layouts/AppLayout.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "admin"
+    },
+    "apps/admin/src/layouts/Sidebar.jsx": {
+      "dependencies": [],
+      "dependents": [
+        "apps/admin/src/layouts/AppLayout.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "admin"
+    },
+    "apps/admin/src/styles/global.css": {
+      "dependencies": [],
+      "dependents": [
+        "apps/admin/src/index.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "admin"
+    },
+    "apps/admin/src/utils/api.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/admin/src/utils/fetchConfig.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "admin"
+    },
+    "apps/admin/src/utils/fetchConfig.js": {
+      "dependencies": [
+        "apps/admin/src/utils/api.js"
+      ],
+      "dependents": [
+        "apps/admin/src/App.jsx",
+        "apps/admin/src/layouts/AppLayout.jsx"
+      ],
       "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "admin"
-    },
-    "apps/admin/src/navigation/sidebar.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "admin"
-    },
-    "apps/admin/src/pages/01-acctList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "admin"
-    },
-    "apps/admin/src/pages/02-userList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "admin"
-    },
-    "apps/admin/src/pages/acctList/index.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/admin/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "admin"
-    },
-    "apps/admin/src/pages/userList/index.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/admin/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "admin"
-    },
-    "apps/admin/src/theme.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/admin/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
+      "dependent_count": 2,
       "blast_radius": "low",
       "package": "admin"
     },
@@ -248,340 +263,6 @@
       "blast_radius": "low",
       "package": "api-gateway"
     },
-    "apps/login/src/App.jsx": {
-      "dependencies": [
-        "apps/login/src/pages/LoginPage.jsx"
-      ],
-      "dependents": [
-        "apps/login/src/index.js"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "login"
-    },
-    "apps/login/src/index.js": {
-      "dependencies": [
-        "apps/login/src/App.jsx"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "login"
-    },
-    "apps/login/src/pages/LoginPage.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "apps/login/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "login"
-    },
-    "apps/planner/craco.config.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/App.jsx": {
-      "dependencies": [
-        "apps/planner/src/components/SimpleLayout.jsx",
-        "apps/planner/src/config/navigation.js",
-        "apps/planner/src/config/routes.js"
-      ],
-      "dependents": [
-        "apps/planner/src/index.js"
-      ],
-      "dependency_count": 3,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/components/ConfigGrid.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/components/EventOrchestrator.jsx": {
-      "dependencies": [
-        "apps/planner/src/components/PageRenderer.jsx"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/components/PageRenderer.jsx": {
-      "dependencies": [
-        "apps/planner/src/styles/components/FormComponent.css",
-        "apps/planner/src/styles/components/GenericRenderer.css",
-        "apps/planner/src/styles/components/GridComponent.css",
-        "apps/planner/src/styles/components/PageLayout.css",
-        "apps/planner/src/styles/components/TabComponent.css",
-        "apps/planner/src/styles/components/TabsContainer.css"
-      ],
-      "dependents": [
-        "apps/planner/src/components/EventOrchestrator.jsx"
-      ],
-      "dependency_count": 6,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/components/SimpleLayout.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/config/navigation.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/config/routes.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/config/selectVals.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/config/selectValsData.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/index.js": {
-      "dependencies": [
-        "apps/planner/src/App.jsx",
-        "apps/planner/src/styles/global.css"
-      ],
-      "dependents": [],
-      "dependency_count": 2,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/layouts/appbar.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/layouts/sidebar.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/styles/components/FormComponent.css": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/components/PageRenderer.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/styles/components/GenericRenderer.css": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/components/PageRenderer.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/styles/components/GridComponent.css": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/components/PageRenderer.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/styles/components/PageLayout.css": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/components/PageRenderer.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/styles/components/TabComponent.css": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/components/PageRenderer.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/styles/components/TabsContainer.css": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/components/PageRenderer.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/styles/global.css": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/utils/eventTypeIntegration.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/utils/impactTracking.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/workflows/planManager/core/createRecord.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/workflows/planManager/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/workflows/planManager/core/execEvent.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/workflows/planManager/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/workflows/planManager/core/refreshContext.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/workflows/planManager/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/workflows/planManager/core/updateRecord.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/workflows/planManager/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/workflows/planManager/core/validateAccess.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/workflows/planManager/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/workflows/planManager/createCommunication.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/workflows/planManager/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/workflows/planManager/createPlanImpact.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/planner/src/workflows/planManager/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "planner"
-    },
-    "apps/planner/src/workflows/planManager/index.js": {
-      "dependencies": [
-        "apps/planner/src/workflows/planManager/core/createRecord.js",
-        "apps/planner/src/workflows/planManager/core/execEvent.js",
-        "apps/planner/src/workflows/planManager/core/refreshContext.js",
-        "apps/planner/src/workflows/planManager/core/updateRecord.js",
-        "apps/planner/src/workflows/planManager/core/validateAccess.js",
-        "apps/planner/src/workflows/planManager/createCommunication.js",
-        "apps/planner/src/workflows/planManager/createPlanImpact.js"
-      ],
-      "dependents": [],
-      "dependency_count": 7,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "planner"
-    },
     "apps/server/postcss.config.js": {
       "dependencies": [],
       "dependents": [],
@@ -592,7 +273,7 @@
     },
     "apps/server/server/app.js": {
       "dependencies": [
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/userLogin.js",
         "apps/server/server/middleware/errorHandler.js",
         "apps/server/server/middleware/security.js",
@@ -666,7 +347,7 @@
       "blast_radius": "low",
       "package": "server"
     },
-    "apps/server/server/controller/execEventType.js": {
+    "apps/server/server/controller/execEvent.js": {
       "dependencies": [
         "apps/server/server/controller/getVal.js",
         "apps/server/server/utils/dbUtils.js",
@@ -785,7 +466,7 @@
       ],
       "dependents": [
         "apps/server/server/controller/clearVals.js",
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/setVals.js",
         "apps/server/server/controller/studioDiscovery.js",
         "apps/server/server/routes/registerRoutes.js",
@@ -874,6 +555,14 @@
       ],
       "dependency_count": 1,
       "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "server"
+    },
+    "apps/server/server/controller/savePageConfig.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "server"
     },
@@ -1401,6 +1090,14 @@
       "blast_radius": "low",
       "package": "server"
     },
+    "apps/server/server/resetAgentPassword.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "server"
+    },
     "apps/server/server/routes/index.js": {
       "dependencies": [
         "apps/server/server/routes/registerRoutes.js",
@@ -1420,7 +1117,7 @@
         "apps/server/server/controller/cloneStep.js",
         "apps/server/server/controller/execCreateDoc.js",
         "apps/server/server/controller/execDML.js",
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/fetchEventType.js",
         "apps/server/server/controller/genFields.js",
         "apps/server/server/controller/genPageConfigController.js",
@@ -1476,7 +1173,7 @@
     },
     "apps/server/server/utils/cloneTemplate/helpers/getNextID.js": {
       "dependencies": [
-        "apps/server/server/controller/execEventType.js"
+        "apps/server/server/controller/execEvent.js"
       ],
       "dependents": [],
       "dependency_count": 1,
@@ -1533,7 +1230,7 @@
     },
     "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js": {
       "dependencies": [
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/setVals.js",
         "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
         "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
@@ -1551,7 +1248,7 @@
     },
     "apps/server/server/utils/cloneTemplate/steps/cloneProps.js": {
       "dependencies": [
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/setVals.js",
         "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
         "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
@@ -1569,7 +1266,7 @@
     },
     "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js": {
       "dependencies": [
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/setVals.js",
         "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
         "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
@@ -1587,7 +1284,7 @@
     },
     "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js": {
       "dependencies": [
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/setVals.js",
         "apps/server/server/utils/cloneTemplate/sessionManager.js",
         "apps/server/server/utils/logger.js"
@@ -1627,7 +1324,7 @@
         "apps/server/server/utils/logger.js"
       ],
       "dependents": [
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/fetchEventType.js",
         "apps/server/server/controller/genFields.js",
         "apps/server/server/controller/getEventTypes.js",
@@ -1709,7 +1406,7 @@
       "dependencies": [],
       "dependents": [
         "apps/server/server/controller/execDML.js",
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/getVal.js",
         "apps/server/server/controller/setVals.js"
       ],
@@ -1739,7 +1436,7 @@
         "apps/server/server/controller/cloneStep.js",
         "apps/server/server/controller/execCreateDoc.js",
         "apps/server/server/controller/execDML.js",
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/fetchEventType.js",
         "apps/server/server/controller/genFields.js",
         "apps/server/server/controller/genPageConfigController.js",
@@ -1910,7 +1607,7 @@
       ],
       "dependents": [
         "apps/server/server/controller/execCreateDoc.js",
-        "apps/server/server/controller/execEventType.js",
+        "apps/server/server/controller/execEvent.js",
         "apps/server/server/controller/userLogin.js",
         "apps/server/server/utils/executeEventType.js"
       ],
@@ -2269,13 +1966,14 @@
         "apps/studio/src/db/operations/eventProps/update.js",
         "apps/studio/src/db/operations/index.js",
         "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js",
         "apps/studio/src/utils/formatProps.js"
       ],
       "dependents": [
         "apps/studio/src/components/StudioCanvasWrapper.jsx",
         "apps/studio/src/components/StudioLayout.jsx"
       ],
-      "dependency_count": 11,
+      "dependency_count": 12,
       "dependent_count": 2,
       "blast_radius": "low",
       "package": "studio"
@@ -2532,12 +2230,13 @@
     },
     "apps/studio/src/components/PropertyEditors/QuerySetup.jsx": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/components/ComponentPropertiesPanel.jsx"
       ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -2568,12 +2267,13 @@
     "apps/studio/src/components/StudioCanvasWrapper.jsx": {
       "dependencies": [
         "apps/studio/src/components/ComponentPropertiesPanel.jsx",
-        "apps/studio/src/components/PageFlowCanvas.jsx"
+        "apps/studio/src/components/PageFlowCanvas.jsx",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/rendering/DirectRenderer.jsx"
       ],
-      "dependency_count": 2,
+      "dependency_count": 3,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -2601,13 +2301,14 @@
         "apps/studio/src/components/PreviewModal.jsx",
         "apps/studio/src/db/operations/index.js",
         "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js",
         "apps/studio/src/utils/pageConfigBuilder/index.js",
         "apps/studio/src/utils/pageLoader.js"
       ],
       "dependents": [
         "apps/studio/src/components/StudioLayout.jsx"
       ],
-      "dependency_count": 6,
+      "dependency_count": 7,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -2707,12 +2408,13 @@
     },
     "apps/studio/src/db/operations/eventComp_xref/insert.js": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/db/operations/eventComp_xref/index.js"
       ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -2731,12 +2433,13 @@
     },
     "apps/studio/src/db/operations/eventComp_xref/sync.js": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/db/operations/eventComp_xref/index.js"
       ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -2809,12 +2512,13 @@
     },
     "apps/studio/src/db/operations/eventProps/sync.js": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/db/operations/eventProps/index.js"
       ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -2888,12 +2592,13 @@
     },
     "apps/studio/src/db/operations/eventTriggers/sync.js": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/db/operations/eventTriggers/index.js"
       ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -2962,12 +2667,13 @@
     },
     "apps/studio/src/db/operations/syncOps.js": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/db/operations/index.js"
       ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -2997,12 +2703,13 @@
     "apps/studio/src/db/references/masterDataOps.js": {
       "dependencies": [
         "apps/studio/src/db/operations/lifecycleOps.js",
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/db/references/index.js"
       ],
-      "dependency_count": 2,
+      "dependency_count": 3,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -3777,6 +3484,28 @@
       "blast_radius": "low",
       "package": "studio"
     },
+    "apps/studio/src/utils/api.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/components/ComponentPropertiesPanel.jsx",
+        "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
+        "apps/studio/src/components/StudioCanvasWrapper.jsx",
+        "apps/studio/src/components/StudioSidebar.jsx",
+        "apps/studio/src/db/operations/eventComp_xref/insert.js",
+        "apps/studio/src/db/operations/eventComp_xref/sync.js",
+        "apps/studio/src/db/operations/eventProps/sync.js",
+        "apps/studio/src/db/operations/eventTriggers/sync.js",
+        "apps/studio/src/db/operations/syncOps.js",
+        "apps/studio/src/db/references/masterDataOps.js",
+        "apps/studio/src/utils/pageConfigBuilder/index.js",
+        "apps/studio/src/utils/pageLoader.js",
+        "apps/studio/src/utils/referenceLoaders.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 13,
+      "blast_radius": "high",
+      "package": "studio"
+    },
     "apps/studio/src/utils/componentConfigBuilder.js": {
       "dependencies": [
         "apps/studio/src/db/studioDb.js"
@@ -3906,6 +3635,7 @@
     "apps/studio/src/utils/pageConfigBuilder/index.js": {
       "dependencies": [
         "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js",
         "apps/studio/src/utils/pageConfigBuilder/componentBuilder.js",
         "apps/studio/src/utils/pageConfigBuilder/dataFetcher.js",
         "apps/studio/src/utils/pageConfigBuilder/genMermaid.js",
@@ -3915,7 +3645,7 @@
         "apps/studio/src/components/PagePreviewPanel.jsx",
         "apps/studio/src/components/StudioSidebar.jsx"
       ],
-      "dependency_count": 5,
+      "dependency_count": 6,
       "dependent_count": 2,
       "blast_radius": "low",
       "package": "studio"
@@ -3955,14 +3685,15 @@
     },
     "apps/studio/src/utils/pageLoader.js": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/components/PageDraftControls.jsx",
         "apps/studio/src/components/StudioSidebar.jsx",
         "apps/studio/src/db/operations/lifecycleOps.js"
       ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 3,
       "blast_radius": "low",
       "package": "studio"
@@ -3985,13 +3716,14 @@
     },
     "apps/studio/src/utils/referenceLoaders.js": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [
         "apps/studio/src/components/PropertyEditors/TriggerBuilder.jsx",
         "apps/studio/src/db/operations/lifecycleOps.js"
       ],
-      "dependency_count": 1,
+      "dependency_count": 2,
       "dependent_count": 2,
       "blast_radius": "low",
       "package": "studio"
@@ -4022,613 +3754,126 @@
       "blast_radius": "low",
       "package": "studio"
     },
-    "apps/whatsfresh/.storybook/main.js": {
+    "apps/templates/app-boilerplate/craco.config.js": {
       "dependencies": [],
       "dependents": [],
       "dependency_count": 0,
       "dependent_count": 0,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/babel.config.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/craco.config.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/postcss.config.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/App.jsx": {
+    "apps/templates/app-boilerplate/src/App.jsx": {
       "dependencies": [
-        "apps/whatsfresh/src/config/appbar.js",
-        "apps/whatsfresh/src/config/navigation.js",
-        "apps/whatsfresh/src/config/routes.js",
-        "apps/whatsfresh/src/layouts/AuthLayout.jsx",
-        "apps/whatsfresh/src/pages/dashboard/index.jsx",
-        "apps/whatsfresh/src/services/navService.js",
-        "apps/whatsfresh/src/theme.js"
+        "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx",
+        "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
+        "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
       ],
       "dependents": [
-        "apps/whatsfresh/src/index.js"
+        "apps/templates/app-boilerplate/src/index.js"
       ],
-      "dependency_count": 7,
+      "dependency_count": 3,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/api/api.js": {
+    "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx": {
       "dependencies": [],
-      "dependents": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/App.jsx"
+      ],
       "dependency_count": 0,
-      "dependent_count": 0,
+      "dependent_count": 1,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx": {
+    "apps/templates/app-boilerplate/src/index.js": {
       "dependencies": [
-        "apps/whatsfresh/src/components/reports/WorksheetPDF.jsx"
-      ],
-      "dependents": [
-        "apps/whatsfresh/src/layouts/BatchMapping.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/components/reports/WorksheetPDF.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/config/appbar.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/config/navigation.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/config/routes.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/App.jsx",
-        "apps/whatsfresh/src/services/navService.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/hooks/useEntityNames.js": {
-      "dependencies": [
-        "apps/whatsfresh/src/stores/index.js",
-        "apps/whatsfresh/src/utils/logger.js"
+        "apps/templates/app-boilerplate/src/App.jsx",
+        "apps/templates/app-boilerplate/src/styles/global.css"
       ],
       "dependents": [],
       "dependency_count": 2,
       "dependent_count": 0,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/hooks/usePageHeader.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/dashboard/Presenter.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/index.css": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/index.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/index.js": {
+    "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx": {
       "dependencies": [
-        "apps/whatsfresh/src/App.jsx",
-        "apps/whatsfresh/src/index.css"
-      ],
-      "dependents": [],
-      "dependency_count": 2,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/layouts/AuthLayout.jsx": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/App.jsx",
-        "apps/whatsfresh/src/pages/userLogin/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/layouts/BatchMapping.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx"
+        "apps/templates/app-boilerplate/src/layouts/Appbar.jsx",
+        "apps/templates/app-boilerplate/src/layouts/Footer.jsx",
+        "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx",
+        "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
       ],
       "dependents": [
-        "apps/whatsfresh/src/pages/btchMapping/index.jsx"
+        "apps/templates/app-boilerplate/src/App.jsx"
       ],
-      "dependency_count": 1,
+      "dependency_count": 4,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/layouts/RecipeLayout.jsx": {
+    "apps/templates/app-boilerplate/src/layouts/Appbar.jsx": {
       "dependencies": [],
       "dependents": [
-        "apps/whatsfresh/src/pages/rcpeList/index.jsx"
+        "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/models/NavigationItem.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/navigation/config.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/archDashboard/index.jsx": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/brndList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/brndList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/brndList/pageMap.js": {
+    "apps/templates/app-boilerplate/src/layouts/Footer.jsx": {
       "dependencies": [],
       "dependents": [
-        "apps/whatsfresh/src/pages/brndList/index.jsx"
+        "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/pages/btchMapping/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/layouts/BatchMapping.jsx",
-        "apps/whatsfresh/src/pages/btchMapping/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 2,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/btchMapping/pageMap.js": {
+    "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx": {
       "dependencies": [],
       "dependents": [
-        "apps/whatsfresh/src/pages/btchMapping/index.jsx"
+        "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/pages/dashboard/Presenter.js": {
-      "dependencies": [
-        "apps/whatsfresh/src/hooks/usePageHeader.js"
-      ],
-      "dependents": [
-        "apps/whatsfresh/src/pages/dashboard/index.jsx"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/dashboard/View.jsx": {
+    "apps/templates/app-boilerplate/src/styles/global.css": {
       "dependencies": [],
       "dependents": [
-        "apps/whatsfresh/src/pages/dashboard/index.jsx"
+        "apps/templates/app-boilerplate/src/index.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/pages/dashboard/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/dashboard/Presenter.js",
-        "apps/whatsfresh/src/pages/dashboard/View.jsx"
-      ],
-      "dependents": [
-        "apps/whatsfresh/src/App.jsx"
-      ],
-      "dependency_count": 2,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/ingrBtchList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/ingrBtchList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/ingrBtchList/pageMap.js": {
+    "apps/templates/app-boilerplate/src/utils/api.js": {
       "dependencies": [],
       "dependents": [
-        "apps/whatsfresh/src/pages/ingrBtchList/index.jsx"
+        "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
       ],
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
-    "apps/whatsfresh/src/pages/ingrList/index.jsx": {
+    "apps/templates/app-boilerplate/src/utils/fetchConfig.js": {
       "dependencies": [
-        "apps/whatsfresh/src/pages/ingrList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/ingrList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/ingrList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/ingrTypeList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/ingrTypeList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/ingrTypeList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/ingrTypeList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/login/index.js": {
-      "dependencies": [
-        "apps/whatsfresh/src/services/navService.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/measList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/measList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/measList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/measList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/prodBtchList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/prodBtchList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/prodBtchList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/prodBtchList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/prodList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/prodList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/prodList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/prodList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/prodTypeList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/prodTypeList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/prodTypeList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/prodTypeList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/rcpeList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/layouts/RecipeLayout.jsx",
-        "apps/whatsfresh/src/pages/rcpeList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 2,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/rcpeList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/rcpeList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/taskList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/taskList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/taskList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/taskList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/userLogin/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/layouts/AuthLayout.jsx",
-        "apps/whatsfresh/src/pages/userLogin/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 2,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/userLogin/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/userLogin/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/vndrList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/vndrList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/vndrList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/vndrList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/wrkrList/index.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/pages/wrkrList/pageMap.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/pages/wrkrList/pageMap.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/pages/wrkrList/index.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/services/navService.js": {
-      "dependencies": [
-        "apps/whatsfresh/src/config/routes.js"
+        "apps/templates/app-boilerplate/src/utils/api.js"
       ],
       "dependents": [
-        "apps/whatsfresh/src/App.jsx",
-        "apps/whatsfresh/src/pages/login/index.js"
+        "apps/templates/app-boilerplate/src/App.jsx",
+        "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx"
       ],
       "dependency_count": 1,
       "dependent_count": 2,
       "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/stores/index.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/hooks/useEntityNames.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/stores/pageStore.jsx": {
-      "dependencies": [
-        "apps/whatsfresh/src/utils/logger.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/theme.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/App.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/src/utils/logger.js": {
-      "dependencies": [],
-      "dependents": [
-        "apps/whatsfresh/src/hooks/useEntityNames.js",
-        "apps/whatsfresh/src/stores/pageStore.jsx"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/tailwind.config.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
-    },
-    "apps/whatsfresh/unimported.config.js": {
-      "dependencies": [],
-      "dependents": [],
-      "dependency_count": 0,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "whatsfresh"
+      "package": "other"
     },
     "cli/ModelExecutor.js": {
       "dependencies": [
@@ -5398,6 +4643,12 @@
       "package": "server"
     },
     {
+      "file": "apps/studio/src/utils/api.js",
+      "dependents": 13,
+      "blast_radius": "high",
+      "package": "studio"
+    },
+    {
       "file": "packages/shared-imports/src/utils/logger.js",
       "dependents": 12,
       "blast_radius": "high",
@@ -5416,7 +4667,7 @@
       "package": "studio"
     },
     {
-      "file": "apps/server/server/controller/execEventType.js",
+      "file": "apps/server/server/controller/execEvent.js",
       "dependents": 7,
       "blast_radius": "medium",
       "package": "server"
@@ -5459,16 +4710,16 @@
     }
   ],
   "packages": {
-    "whatsfresh": 60,
-    "server": 107,
+    "whatsfresh": 0,
+    "server": 109,
     "admin": 11,
-    "studio": 187,
+    "studio": 188,
     "wf-studio": 0,
-    "login": 3,
-    "planner": 30,
+    "login": 0,
+    "planner": 0,
     "shared-imports": 46,
     "db-connect": 8,
-    "other": 28,
+    "other": 39,
     "api-gateway": null
   }
 }

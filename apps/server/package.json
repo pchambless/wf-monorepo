@@ -6,14 +6,16 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
+    "start:secure": "./start-server.sh",
     "dev": "npx nodemon",
+    "dev:secure": "./start-server.sh",
     "build": "echo \"No build needed for server\"",
     "test": "echo \"No tests yet\"",
     "lint": "echo \"No lint script configured\""
   },
   "dependencies": {
     "@babel/parser": "^7.28.3",
-    "@whatsfresh/db-connect": "file:../../packages/db-connect",
+    "@octokit/rest": "^20.0.0",
     "@whatsfresh/shared-imports": "file:../../packages/shared-imports",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -22,8 +24,11 @@
     "express-rate-limit": "^6.7.0",
     "express-winston": "^4.2.0",
     "helmet": "^8.1.0",
+    "json-stringify-pretty-compact": "^4.0.0",
     "module-alias": "^2.2.3",
     "morgan": "^1.10.0",
+    "mysql2": "^3.11.5",
+    "uuid": "^11.0.3",
     "winston": "^3.17.0",
     "winston-daily-rotate-file": "^5.0.0"
   },

@@ -1,20 +1,20 @@
 ---
-description: "To get caught up with recent Accomplishments and Next Step at Session Start."
-allowed-tools: []
+description: "Session startup - see shared documentation"
 ---
 
-# Fetch Recent Summaries
+# Session Startup
 
-## Fetch Instructions from Database
+**Both Claude and Kiro use the same startup process.**
 
-```bash
-curl -X POST http://localhost:3001/api/execEventType \
-  -H "Content-Type: application/json" \
-  -d '{"eventSQLId": "AI-startSession"}'
+See: `.shared/commands/startSession.md`
+
+## Quick Start
+
+```javascript
+// Get startup queries from database
+mcp_mysql_sql_query({
+  sql: "SELECT qryName, description, qrySQL FROM api_wf.AISql WHERE category = 'startup' AND active = 1 ORDER BY id"
+})
 ```
 
-**Follow the instructions returned from the database query above.**
-
-This ensures consistent AI coordination across Claude and Kiro sessions.
-
-For complete documentation, see `.shared/commands/startSession.md`
+Execute each qrySQL returned to get session context.

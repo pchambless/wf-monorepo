@@ -56,7 +56,7 @@ async function callModuleLoad(modules, userId) {
     },
   };
 
-  const execResponse = await fetch(`${API_URL}/api/execEventType`, {
+  const execResponse = await fetch(`${API_URL}/api/execEvent`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(requestBody),
@@ -89,7 +89,7 @@ async function callModuleMap(dependencies, userId) {
     },
   };
 
-  const response = await fetch(`${API_URL}/api/execEventType`, {
+  const response = await fetch(`${API_URL}/api/execEvent`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(requestBody),

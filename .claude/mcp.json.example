@@ -5,9 +5,7 @@
       "args": [
         "-c",
         "source ~/.wf-db-credentials && exec npx -y @liangshanli/mcp-server-mysql"
-      ],
-      "disabled": false,
-      "autoApprove": []
+      ]
     }
   }
 }

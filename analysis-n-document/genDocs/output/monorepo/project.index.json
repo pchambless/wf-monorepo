@@ -166,21 +166,10 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving admin."
     },
     {
-      "file": "apps/admin/src/config/navigation.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "admin"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
-    },
-    {
-      "file": "apps/admin/src/config/routes.js",
+      "file": "apps/admin/src/components/DirectRenderer.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "admin",
-        "routing"
+        "admin"
       ],
       "critical": false,
       "blastRadius": "low",
@@ -197,37 +186,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving admin."
     },
     {
-      "file": "apps/admin/src/navigation/sidebar.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "admin"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
-    },
-    {
-      "file": "apps/admin/src/pages/01-acctList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "admin"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
-    },
-    {
-      "file": "apps/admin/src/pages/02-userList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "admin"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
-    },
-    {
-      "file": "apps/admin/src/pages/acctList/index.js",
+      "file": "apps/admin/src/layouts/AppLayout.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "admin"
@@ -237,7 +196,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving admin."
     },
     {
-      "file": "apps/admin/src/pages/userList/index.js",
+      "file": "apps/admin/src/layouts/Appbar.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "admin"
@@ -247,10 +206,52 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving admin."
     },
     {
-      "file": "apps/admin/src/theme.js",
+      "file": "apps/admin/src/layouts/Footer.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "admin"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
+    },
+    {
+      "file": "apps/admin/src/layouts/Sidebar.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "admin"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
+    },
+    {
+      "file": "apps/admin/src/styles/global.css",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "admin"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
+    },
+    {
+      "file": "apps/admin/src/utils/api.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "admin",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
+    },
+    {
+      "file": "apps/admin/src/utils/fetchConfig.js",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "tags": [
+        "admin",
+        "utility"
       ],
       "critical": false,
       "blastRadius": "low",
@@ -265,339 +266,6 @@
       "critical": false,
       "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving api-gateway."
-    },
-    {
-      "file": "apps/login/src/App.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "login"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving login."
-    },
-    {
-      "file": "apps/login/src/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "login"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving login."
-    },
-    {
-      "file": "apps/login/src/pages/LoginPage.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "login"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving login."
-    },
-    {
-      "file": "apps/planner/craco.config.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/App.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/components/ConfigGrid.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/components/EventOrchestrator.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/components/PageRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/components/SimpleLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/config/navigation.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/config/routes.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner",
-        "routing"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/config/selectVals.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/config/selectValsData.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/layouts/appbar.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/layouts/sidebar.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/styles/components/FormComponent.css",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/styles/components/GenericRenderer.css",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/styles/components/GridComponent.css",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/styles/components/PageLayout.css",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/styles/components/TabComponent.css",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/styles/components/TabsContainer.css",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/styles/global.css",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/utils/eventTypeIntegration.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner",
-        "utility"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/utils/impactTracking.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner",
-        "utility"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/workflows/planManager/core/createRecord.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/workflows/planManager/core/execEvent.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/workflows/planManager/core/refreshContext.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/workflows/planManager/core/updateRecord.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/workflows/planManager/core/validateAccess.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/workflows/planManager/createCommunication.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/workflows/planManager/createPlanImpact.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
-    },
-    {
-      "file": "apps/planner/src/workflows/planManager/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "planner"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving planner."
     },
     {
       "file": "apps/server/postcss.config.js",
@@ -664,7 +332,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/execEventType.js",
+      "file": "apps/server/server/controller/execEvent.js",
       "purpose": "Auto-inferred from dependency graph. 7 dependents.",
       "tags": [
         "server",
@@ -831,6 +499,17 @@
     {
       "file": "apps/server/server/controller/runMigration.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server",
+        "controller"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/controller/savePageConfig.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "controller"
@@ -1290,6 +969,16 @@
     {
       "file": "apps/server/server/middleware/userEmailInjection.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/resetAgentPassword.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server"
       ],
@@ -3381,6 +3070,17 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
+      "file": "apps/studio/src/utils/api.js",
+      "purpose": "Auto-inferred from dependency graph. 13 dependents.",
+      "tags": [
+        "studio",
+        "utility"
+      ],
+      "critical": true,
+      "blastRadius": "high",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
       "file": "apps/studio/src/utils/componentConfigBuilder.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
@@ -3632,606 +3332,116 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
-      "file": "apps/whatsfresh/.storybook/main.js",
+      "file": "apps/templates/app-boilerplate/craco.config.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
-        "whatsfresh"
+        "other"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": "apps/whatsfresh/babel.config.js",
+      "file": "apps/templates/app-boilerplate/src/App.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/index.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
-        "whatsfresh"
+        "other"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": "apps/whatsfresh/craco.config.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/postcss.config.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/App.jsx",
+      "file": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "whatsfresh"
+        "other"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": "apps/whatsfresh/src/api/api.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx",
+      "file": "apps/templates/app-boilerplate/src/layouts/Appbar.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "whatsfresh"
+        "other"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": "apps/whatsfresh/src/components/reports/WorksheetPDF.jsx",
+      "file": "apps/templates/app-boilerplate/src/layouts/Footer.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "whatsfresh"
+        "other"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": "apps/whatsfresh/src/config/appbar.js",
+      "file": "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "whatsfresh"
+        "other"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": "apps/whatsfresh/src/config/navigation.js",
+      "file": "apps/templates/app-boilerplate/src/styles/global.css",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "whatsfresh"
+        "other"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": "apps/whatsfresh/src/config/routes.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "whatsfresh",
-        "routing"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/hooks/useEntityNames.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/hooks/usePageHeader.js",
+      "file": "apps/templates/app-boilerplate/src/utils/api.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/index.css",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/layouts/AuthLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/layouts/BatchMapping.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/layouts/RecipeLayout.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/models/NavigationItem.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/navigation/config.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/archDashboard/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/brndList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/brndList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/btchMapping/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/btchMapping/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/dashboard/Presenter.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/dashboard/View.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/dashboard/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/ingrBtchList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/ingrBtchList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/ingrList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/ingrList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/ingrTypeList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/ingrTypeList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/login/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/measList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/measList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/prodBtchList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/prodBtchList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/prodList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/prodList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/prodTypeList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/prodTypeList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/rcpeList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/rcpeList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/taskList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/taskList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/userLogin/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/userLogin/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/vndrList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/vndrList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/wrkrList/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/pages/wrkrList/pageMap.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/services/navService.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/stores/index.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/stores/pageStore.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/theme.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/utils/logger.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "whatsfresh",
+        "other",
         "utility"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": "apps/whatsfresh/tailwind.config.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "file": "apps/templates/app-boilerplate/src/utils/fetchConfig.js",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
-        "whatsfresh"
+        "other",
+        "utility"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/unimported.config.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
       "file": "cli/ModelExecutor.js",

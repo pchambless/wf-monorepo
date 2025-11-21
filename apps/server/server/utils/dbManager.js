@@ -1,7 +1,17 @@
 import logger from './logger.js';
-import dbConnectPkg from '@whatsfresh/db-connect';
-const { createPool, getConfig } = dbConnectPkg;
+import mysql from 'mysql2/promise';
 const codeName = '[dbManager.js]';
+
+function getConfig() {
+    return {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME,
+        port: process.env.DB_PORT || 3306,
+        charset: process.env.DB_CHARSET || 'utf8mb4'
+    };
+}
 
 class DatabaseManager {
     constructor() {
@@ -17,13 +27,16 @@ class DatabaseManager {
 
     async initialize() {
         try {
-            // Use db-connect for pool creation
-            this.pool = createPool({
+            const config = {
+                ...getConfig(),
+                waitForConnections: true,
                 connectionLimit: 10,
                 queueLimit: 0,
                 enableKeepAlive: true,
                 keepAliveInitialDelay: 0
-            });
+            };
+
+            this.pool = mysql.createPool(config);
 
             // Add connection error handler
             this.pool.on('error', (err) => {

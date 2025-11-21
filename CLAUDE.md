@@ -199,6 +199,44 @@ When user says **"create session summary"** or **"generate accomplishments"**:
 - **Plan Context**: Wait for "Plan NNNN" signal
 - **Token Conservation**: Batch calls, reference docs, use TodoWrite
 
+### Database-First Investigation
+
+**For investigation, go straight to the database via MCP - don't login to apps for testing**
+
+- **MCP MySQL Connection**: Already configured in `.kiro/settings/mcp.json`
+- **Investigation Queries**: Stored in `api_wf.AISql` table with categories (investigation, context, testing)
+- **Active Plans**: Query `api_wf.plans WHERE active = 1` for current work
+- **EventSQL Architecture**: All queries stored in `api_wf.eventSQL` table
+
+### execEvent API Structure
+
+**Endpoint**: `POST /api/execEvent`
+
+**Request Body**:
+```json
+{
+  "eventSQLId": "qryName or numeric ID",
+  "params": {
+    "paramName": "value"
+  }
+}
+```
+
+**How it works**:
+1. Looks up query from `api_wf.eventSQL` by `qryName` (string) or `id` (number)
+2. Auto-resolves `:paramName` placeholders from:
+   - Passed `params` object (priority)
+   - `context_store` table (fallback)
+3. Executes resolved SQL and returns results
+
+**Parameter Resolution**:
+- JSON params (ending in `_json`): Properly quoted for MySQL JSON type
+- Numbers: Unquoted
+- Strings: Quoted and escaped
+- Context fallback: Uses `getUserEmail(req)` to fetch from context_store
+
+**File Location**: `/apps/server/server/controller/execEvent.js`
+
 ## 📝 Plan Impact Standards
 
 **See `AI/planning-standards.md` for complete specifications:**

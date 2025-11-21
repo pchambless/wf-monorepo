@@ -25,88 +25,33 @@
   "analysis-n-document/genDocs/test-transform.js": [],
   "apps/admin/craco.config.js": [],
   "apps/admin/src/App.jsx": [
-    "apps/admin/src/pages/acctList/index.js",
-    "apps/admin/src/pages/userList/index.js",
-    "apps/admin/src/theme.js"
+    "apps/admin/src/components/DirectRenderer.jsx",
+    "apps/admin/src/layouts/AppLayout.jsx",
+    "apps/admin/src/utils/fetchConfig.js"
   ],
-  "apps/admin/src/config/navigation.js": [
-    "apps/admin/src/config/routes.js"
-  ],
-  "apps/admin/src/config/routes.js": [],
+  "apps/admin/src/components/DirectRenderer.jsx": [],
   "apps/admin/src/index.js": [
-    "apps/admin/src/App.jsx"
+    "apps/admin/src/App.jsx",
+    "apps/admin/src/styles/global.css"
   ],
-  "apps/admin/src/navigation/sidebar.js": [],
-  "apps/admin/src/pages/01-acctList/pageMap.js": [],
-  "apps/admin/src/pages/02-userList/pageMap.js": [],
-  "apps/admin/src/pages/acctList/index.js": [],
-  "apps/admin/src/pages/userList/index.js": [],
-  "apps/admin/src/theme.js": [],
+  "apps/admin/src/layouts/AppLayout.jsx": [
+    "apps/admin/src/layouts/Appbar.jsx",
+    "apps/admin/src/layouts/Footer.jsx",
+    "apps/admin/src/layouts/Sidebar.jsx",
+    "apps/admin/src/utils/fetchConfig.js"
+  ],
+  "apps/admin/src/layouts/Appbar.jsx": [],
+  "apps/admin/src/layouts/Footer.jsx": [],
+  "apps/admin/src/layouts/Sidebar.jsx": [],
+  "apps/admin/src/styles/global.css": [],
+  "apps/admin/src/utils/api.js": [],
+  "apps/admin/src/utils/fetchConfig.js": [
+    "apps/admin/src/utils/api.js"
+  ],
   "apps/api-gateway/server.js": [],
-  "apps/login/src/App.jsx": [
-    "apps/login/src/pages/LoginPage.jsx"
-  ],
-  "apps/login/src/index.js": [
-    "apps/login/src/App.jsx"
-  ],
-  "apps/login/src/pages/LoginPage.jsx": [],
-  "apps/planner/craco.config.js": [],
-  "apps/planner/src/App.jsx": [
-    "apps/planner/src/components/SimpleLayout.jsx",
-    "apps/planner/src/config/navigation.js",
-    "apps/planner/src/config/routes.js"
-  ],
-  "apps/planner/src/components/ConfigGrid.jsx": [],
-  "apps/planner/src/components/EventOrchestrator.jsx": [
-    "apps/planner/src/components/PageRenderer.jsx"
-  ],
-  "apps/planner/src/components/PageRenderer.jsx": [
-    "apps/planner/src/styles/components/FormComponent.css",
-    "apps/planner/src/styles/components/GenericRenderer.css",
-    "apps/planner/src/styles/components/GridComponent.css",
-    "apps/planner/src/styles/components/PageLayout.css",
-    "apps/planner/src/styles/components/TabComponent.css",
-    "apps/planner/src/styles/components/TabsContainer.css"
-  ],
-  "apps/planner/src/components/SimpleLayout.jsx": [],
-  "apps/planner/src/config/navigation.js": [],
-  "apps/planner/src/config/routes.js": [],
-  "apps/planner/src/config/selectVals.js": [],
-  "apps/planner/src/config/selectValsData.js": [],
-  "apps/planner/src/index.js": [
-    "apps/planner/src/App.jsx",
-    "apps/planner/src/styles/global.css"
-  ],
-  "apps/planner/src/layouts/appbar.js": [],
-  "apps/planner/src/layouts/sidebar.js": [],
-  "apps/planner/src/styles/components/FormComponent.css": [],
-  "apps/planner/src/styles/components/GenericRenderer.css": [],
-  "apps/planner/src/styles/components/GridComponent.css": [],
-  "apps/planner/src/styles/components/PageLayout.css": [],
-  "apps/planner/src/styles/components/TabComponent.css": [],
-  "apps/planner/src/styles/components/TabsContainer.css": [],
-  "apps/planner/src/styles/global.css": [],
-  "apps/planner/src/utils/eventTypeIntegration.js": [],
-  "apps/planner/src/utils/impactTracking.js": [],
-  "apps/planner/src/workflows/planManager/core/createRecord.js": [],
-  "apps/planner/src/workflows/planManager/core/execEvent.js": [],
-  "apps/planner/src/workflows/planManager/core/refreshContext.js": [],
-  "apps/planner/src/workflows/planManager/core/updateRecord.js": [],
-  "apps/planner/src/workflows/planManager/core/validateAccess.js": [],
-  "apps/planner/src/workflows/planManager/createCommunication.js": [],
-  "apps/planner/src/workflows/planManager/createPlanImpact.js": [],
-  "apps/planner/src/workflows/planManager/index.js": [
-    "apps/planner/src/workflows/planManager/core/createRecord.js",
-    "apps/planner/src/workflows/planManager/core/execEvent.js",
-    "apps/planner/src/workflows/planManager/core/refreshContext.js",
-    "apps/planner/src/workflows/planManager/core/updateRecord.js",
-    "apps/planner/src/workflows/planManager/core/validateAccess.js",
-    "apps/planner/src/workflows/planManager/createCommunication.js",
-    "apps/planner/src/workflows/planManager/createPlanImpact.js"
-  ],
   "apps/server/postcss.config.js": [],
   "apps/server/server/app.js": [
-    "apps/server/server/controller/execEventType.js",
+    "apps/server/server/controller/execEvent.js",
     "apps/server/server/controller/userLogin.js",
     "apps/server/server/middleware/errorHandler.js",
     "apps/server/server/middleware/security.js",
@@ -136,7 +81,7 @@
     "apps/server/server/utils/getUserEmail.js",
     "apps/server/server/utils/logger.js"
   ],
-  "apps/server/server/controller/execEventType.js": [
+  "apps/server/server/controller/execEvent.js": [
     "apps/server/server/controller/getVal.js",
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/getUserEmail.js",
@@ -192,6 +137,7 @@
   "apps/server/server/controller/runMigration.js": [
     "apps/server/server/utils/logger.js"
   ],
+  "apps/server/server/controller/savePageConfig.js": [],
   "apps/server/server/controller/setVals.js": [
     "apps/server/server/controller/getVal.js",
     "apps/server/server/utils/dbUtils.js",
@@ -304,6 +250,7 @@
   "apps/server/server/middleware/userEmailInjection.js": [
     "apps/server/server/utils/logger.js"
   ],
+  "apps/server/server/resetAgentPassword.js": [],
   "apps/server/server/routes/index.js": [
     "apps/server/server/routes/registerRoutes.js",
     "apps/server/server/utils/logger.js"
@@ -313,7 +260,7 @@
     "apps/server/server/controller/cloneStep.js",
     "apps/server/server/controller/execCreateDoc.js",
     "apps/server/server/controller/execDML.js",
-    "apps/server/server/controller/execEventType.js",
+    "apps/server/server/controller/execEvent.js",
     "apps/server/server/controller/fetchEventType.js",
     "apps/server/server/controller/genFields.js",
     "apps/server/server/controller/genPageConfigController.js",
@@ -341,7 +288,7 @@
   ],
   "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js": [],
   "apps/server/server/utils/cloneTemplate/helpers/getNextID.js": [
-    "apps/server/server/controller/execEventType.js"
+    "apps/server/server/controller/execEvent.js"
   ],
   "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js": [],
   "apps/server/server/utils/cloneTemplate/sessionManager.js": [
@@ -355,7 +302,7 @@
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js": [
-    "apps/server/server/controller/execEventType.js",
+    "apps/server/server/controller/execEvent.js",
     "apps/server/server/controller/setVals.js",
     "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
     "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
@@ -364,7 +311,7 @@
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/utils/cloneTemplate/steps/cloneProps.js": [
-    "apps/server/server/controller/execEventType.js",
+    "apps/server/server/controller/execEvent.js",
     "apps/server/server/controller/setVals.js",
     "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
     "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
@@ -373,7 +320,7 @@
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js": [
-    "apps/server/server/controller/execEventType.js",
+    "apps/server/server/controller/execEvent.js",
     "apps/server/server/controller/setVals.js",
     "apps/server/server/utils/cloneTemplate/helpers/buildSQL.js",
     "apps/server/server/utils/cloneTemplate/helpers/replaceTokens.js",
@@ -382,7 +329,7 @@
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js": [
-    "apps/server/server/controller/execEventType.js",
+    "apps/server/server/controller/execEvent.js",
     "apps/server/server/controller/setVals.js",
     "apps/server/server/utils/cloneTemplate/sessionManager.js",
     "apps/server/server/utils/logger.js"
@@ -535,6 +482,7 @@
     "apps/studio/src/db/operations/eventProps/update.js",
     "apps/studio/src/db/operations/index.js",
     "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js",
     "apps/studio/src/utils/formatProps.js"
   ],
   "apps/studio/src/components/DBBrowserModal.jsx": [
@@ -593,7 +541,8 @@
   ],
   "apps/studio/src/components/PropertyEditors/PreviewPane.jsx": [],
   "apps/studio/src/components/PropertyEditors/QuerySetup.jsx": [
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/components/PropertyEditors/SchemaViewer.jsx": [],
   "apps/studio/src/components/PropertyEditors/TriggerBuilder.jsx": [
@@ -604,7 +553,8 @@
   ],
   "apps/studio/src/components/StudioCanvasWrapper.jsx": [
     "apps/studio/src/components/ComponentPropertiesPanel.jsx",
-    "apps/studio/src/components/PageFlowCanvas.jsx"
+    "apps/studio/src/components/PageFlowCanvas.jsx",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/components/StudioLayout.jsx": [
     "apps/studio/src/components/ComponentPropertiesPanel.jsx",
@@ -619,6 +569,7 @@
     "apps/studio/src/components/PreviewModal.jsx",
     "apps/studio/src/db/operations/index.js",
     "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js",
     "apps/studio/src/utils/pageConfigBuilder/index.js",
     "apps/studio/src/utils/pageLoader.js"
   ],
@@ -643,13 +594,15 @@
     "apps/studio/src/db/operations/eventComp_xref/update.js"
   ],
   "apps/studio/src/db/operations/eventComp_xref/insert.js": [
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/db/operations/eventComp_xref/read.js": [
     "apps/studio/src/db/studioDb.js"
   ],
   "apps/studio/src/db/operations/eventComp_xref/sync.js": [
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/db/operations/eventComp_xref/update.js": [
     "apps/studio/src/db/studioDb.js"
@@ -671,7 +624,8 @@
     "apps/studio/src/db/studioDb.js"
   ],
   "apps/studio/src/db/operations/eventProps/sync.js": [
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/db/operations/eventProps/update.js": [
     "apps/studio/src/db/studioDb.js"
@@ -693,7 +647,8 @@
     "apps/studio/src/db/studioDb.js"
   ],
   "apps/studio/src/db/operations/eventTriggers/sync.js": [
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/db/operations/eventTriggers/update.js": [
     "apps/studio/src/db/studioDb.js"
@@ -717,7 +672,8 @@
     "apps/studio/src/db/operations/eventProps/index.js"
   ],
   "apps/studio/src/db/operations/syncOps.js": [
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/db/operations/triggerOps.js": [
     "apps/studio/src/db/operations/eventTriggers/index.js"
@@ -727,7 +683,8 @@
   ],
   "apps/studio/src/db/references/masterDataOps.js": [
     "apps/studio/src/db/operations/lifecycleOps.js",
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/db/studioDb.js": [
     "apps/studio/src/db/versions/index.js"
@@ -863,6 +820,7 @@
   "apps/studio/src/stores/studioStore.js": [],
   "apps/studio/src/styles/global.css": [],
   "apps/studio/src/utils/addFieldAttributes.js": [],
+  "apps/studio/src/utils/api.js": [],
   "apps/studio/src/utils/componentConfigBuilder.js": [
     "apps/studio/src/db/studioDb.js"
   ],
@@ -890,6 +848,7 @@
   "apps/studio/src/utils/pageConfigBuilder/genMermaid.js": [],
   "apps/studio/src/utils/pageConfigBuilder/index.js": [
     "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js",
     "apps/studio/src/utils/pageConfigBuilder/componentBuilder.js",
     "apps/studio/src/utils/pageConfigBuilder/dataFetcher.js",
     "apps/studio/src/utils/pageConfigBuilder/genMermaid.js",
@@ -901,138 +860,45 @@
   ],
   "apps/studio/src/utils/pageConfigToFlow.js": [],
   "apps/studio/src/utils/pageLoader.js": [
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/utils/parseTableSchema.js": [],
   "apps/studio/src/utils/queryDiscovery.js": [],
   "apps/studio/src/utils/referenceLoaders.js": [
-    "apps/studio/src/db/studioDb.js"
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/utils/studioAppDiscovery.js": [],
   "apps/studio/src/workflows/genFields.js": [],
   "apps/studio/src/workflows/unifiedGenFields.js": [
     "apps/studio/src/config/api.js"
   ],
-  "apps/whatsfresh/.storybook/main.js": [],
-  "apps/whatsfresh/babel.config.js": [],
-  "apps/whatsfresh/craco.config.js": [],
-  "apps/whatsfresh/postcss.config.js": [],
-  "apps/whatsfresh/src/App.jsx": [
-    "apps/whatsfresh/src/config/appbar.js",
-    "apps/whatsfresh/src/config/navigation.js",
-    "apps/whatsfresh/src/config/routes.js",
-    "apps/whatsfresh/src/layouts/AuthLayout.jsx",
-    "apps/whatsfresh/src/pages/dashboard/index.jsx",
-    "apps/whatsfresh/src/services/navService.js",
-    "apps/whatsfresh/src/theme.js"
+  "apps/templates/app-boilerplate/craco.config.js": [],
+  "apps/templates/app-boilerplate/src/App.jsx": [
+    "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx",
+    "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
+    "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
   ],
-  "apps/whatsfresh/src/api/api.js": [],
-  "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx": [
-    "apps/whatsfresh/src/components/reports/WorksheetPDF.jsx"
+  "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx": [],
+  "apps/templates/app-boilerplate/src/index.js": [
+    "apps/templates/app-boilerplate/src/App.jsx",
+    "apps/templates/app-boilerplate/src/styles/global.css"
   ],
-  "apps/whatsfresh/src/components/reports/WorksheetPDF.jsx": [],
-  "apps/whatsfresh/src/config/appbar.js": [],
-  "apps/whatsfresh/src/config/navigation.js": [],
-  "apps/whatsfresh/src/config/routes.js": [],
-  "apps/whatsfresh/src/hooks/useEntityNames.js": [
-    "apps/whatsfresh/src/stores/index.js",
-    "apps/whatsfresh/src/utils/logger.js"
+  "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx": [
+    "apps/templates/app-boilerplate/src/layouts/Appbar.jsx",
+    "apps/templates/app-boilerplate/src/layouts/Footer.jsx",
+    "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx",
+    "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
   ],
-  "apps/whatsfresh/src/hooks/usePageHeader.js": [],
-  "apps/whatsfresh/src/index.css": [],
-  "apps/whatsfresh/src/index.js": [
-    "apps/whatsfresh/src/App.jsx",
-    "apps/whatsfresh/src/index.css"
+  "apps/templates/app-boilerplate/src/layouts/Appbar.jsx": [],
+  "apps/templates/app-boilerplate/src/layouts/Footer.jsx": [],
+  "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx": [],
+  "apps/templates/app-boilerplate/src/styles/global.css": [],
+  "apps/templates/app-boilerplate/src/utils/api.js": [],
+  "apps/templates/app-boilerplate/src/utils/fetchConfig.js": [
+    "apps/templates/app-boilerplate/src/utils/api.js"
   ],
-  "apps/whatsfresh/src/layouts/AuthLayout.jsx": [],
-  "apps/whatsfresh/src/layouts/BatchMapping.jsx": [
-    "apps/whatsfresh/src/components/reports/WorksheetGenerator.jsx"
-  ],
-  "apps/whatsfresh/src/layouts/RecipeLayout.jsx": [],
-  "apps/whatsfresh/src/models/NavigationItem.js": [],
-  "apps/whatsfresh/src/navigation/config.js": [],
-  "apps/whatsfresh/src/pages/archDashboard/index.jsx": [],
-  "apps/whatsfresh/src/pages/brndList/index.jsx": [
-    "apps/whatsfresh/src/pages/brndList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/brndList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/btchMapping/index.jsx": [
-    "apps/whatsfresh/src/layouts/BatchMapping.jsx",
-    "apps/whatsfresh/src/pages/btchMapping/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/btchMapping/pageMap.js": [],
-  "apps/whatsfresh/src/pages/dashboard/Presenter.js": [
-    "apps/whatsfresh/src/hooks/usePageHeader.js"
-  ],
-  "apps/whatsfresh/src/pages/dashboard/View.jsx": [],
-  "apps/whatsfresh/src/pages/dashboard/index.jsx": [
-    "apps/whatsfresh/src/pages/dashboard/Presenter.js",
-    "apps/whatsfresh/src/pages/dashboard/View.jsx"
-  ],
-  "apps/whatsfresh/src/pages/ingrBtchList/index.jsx": [
-    "apps/whatsfresh/src/pages/ingrBtchList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/ingrBtchList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/ingrList/index.jsx": [
-    "apps/whatsfresh/src/pages/ingrList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/ingrList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/ingrTypeList/index.jsx": [
-    "apps/whatsfresh/src/pages/ingrTypeList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/ingrTypeList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/login/index.js": [
-    "apps/whatsfresh/src/services/navService.js"
-  ],
-  "apps/whatsfresh/src/pages/measList/index.jsx": [
-    "apps/whatsfresh/src/pages/measList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/measList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/prodBtchList/index.jsx": [
-    "apps/whatsfresh/src/pages/prodBtchList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/prodBtchList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/prodList/index.jsx": [
-    "apps/whatsfresh/src/pages/prodList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/prodList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/prodTypeList/index.jsx": [
-    "apps/whatsfresh/src/pages/prodTypeList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/prodTypeList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/rcpeList/index.jsx": [
-    "apps/whatsfresh/src/layouts/RecipeLayout.jsx",
-    "apps/whatsfresh/src/pages/rcpeList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/rcpeList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/taskList/index.jsx": [
-    "apps/whatsfresh/src/pages/taskList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/taskList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/userLogin/index.jsx": [
-    "apps/whatsfresh/src/layouts/AuthLayout.jsx",
-    "apps/whatsfresh/src/pages/userLogin/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/userLogin/pageMap.js": [],
-  "apps/whatsfresh/src/pages/vndrList/index.jsx": [
-    "apps/whatsfresh/src/pages/vndrList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/vndrList/pageMap.js": [],
-  "apps/whatsfresh/src/pages/wrkrList/index.jsx": [
-    "apps/whatsfresh/src/pages/wrkrList/pageMap.js"
-  ],
-  "apps/whatsfresh/src/pages/wrkrList/pageMap.js": [],
-  "apps/whatsfresh/src/services/navService.js": [
-    "apps/whatsfresh/src/config/routes.js"
-  ],
-  "apps/whatsfresh/src/stores/index.js": [],
-  "apps/whatsfresh/src/stores/pageStore.jsx": [
-    "apps/whatsfresh/src/utils/logger.js"
-  ],
-  "apps/whatsfresh/src/theme.js": [],
-  "apps/whatsfresh/src/utils/logger.js": [],
-  "apps/whatsfresh/tailwind.config.js": [],
-  "apps/whatsfresh/unimported.config.js": [],
   "cli/ModelExecutor.js": [
     "cli/services/ModelService.js"
   ],
