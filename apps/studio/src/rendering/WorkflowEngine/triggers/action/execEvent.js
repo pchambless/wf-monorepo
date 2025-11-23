@@ -3,7 +3,7 @@
  * Content can be eventSQL ID (number) or qryName (string)
  */
 export async function execEvent(content, context) {
-  const { execEvent } = await import('@whatsfresh/shared-imports');
+  const { execEvent } = await import('../../../../utils/api.js');
 
   // Content can be qryName (string) or ID (number)
   // Server will resolve either type

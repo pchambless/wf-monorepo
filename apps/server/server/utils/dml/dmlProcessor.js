@@ -27,7 +27,7 @@ const buildEventParams = (data) => {
  * Process DML request with validation, execution, and error handling
  */
 export const processDML = async (requestBody, userEmail) => {
-  const { method, table, data, primaryKey, listEvent } = requestBody;
+  const { method, table, data, primaryKey, listEvent, parentID } = requestBody;
 
   // Log sanitized parameters
   const sanitizedData = logger.sanitizeLogData(data);
@@ -35,6 +35,7 @@ export const processDML = async (requestBody, userEmail) => {
     data: sanitizedData,
     primaryKey,
     listEvent,
+    parentID  // ADD THIS to see if it's being sent
   });
 
   // Validate required fields
@@ -76,6 +77,19 @@ export const processDML = async (requestBody, userEmail) => {
     error.status = 400;
     error.code = "INVALID_LIST_EVENT";
     throw error;
+  }
+
+  // Auto-inject parentID for INSERT (e.g., account_id, vendor_id)
+  if (method === 'INSERT' && parentID) {
+    const parentKey = parentID.replace(/[\[\]]/g, ''); // Remove brackets: [account_id] -> account_id
+
+    if (!data[parentKey]) {
+      const parentValue = await getValDirect(userEmail, parentKey, 'raw');
+      if (parentValue) {
+        data[parentKey] = parentValue;
+        logger.debug(`${codeName} Auto-injected ${parentKey} = ${parentValue} for INSERT`);
+      }
+    }
   }
 
   let sql;

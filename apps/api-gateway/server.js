@@ -72,6 +72,9 @@ const injectUserEmail = (req, res, next) => {
     if (req.method === 'POST' && req.body) {
       req.body.userEmail = userEmail;
     }
+    if (req.method === 'GET') {
+      req.query.userEmail = userEmail;
+    }
     req.headers['x-user-email'] = userEmail;
   }
 

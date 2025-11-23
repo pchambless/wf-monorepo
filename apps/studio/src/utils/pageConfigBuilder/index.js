@@ -55,6 +55,12 @@ export const buildPageConfig = async (pageID) => {
     const pageConfig = {
       pageName: pageRegistry.pageName,
       layout: 'flex',
+      meta: {
+        pageID: effectivePageID,
+        pageName: pageRegistry.pageName,
+        appName: pageRegistry.appName,
+        componentsCount: components.length
+      },
       props: {
         pageID: effectivePageID,
         title: pageRegistry.pageTitle,
@@ -75,14 +81,7 @@ export const buildPageConfig = async (pageID) => {
     return {
       success: true,
       pageConfig,
-      mermaidText,
-      meta: {
-        pageID: effectivePageID,
-        pageName: pageRegistry.pageName,
-        appName: pageRegistry.appName,
-        componentsCount: components.length,
-        generatedAt: new Date().toISOString()
-      }
+      mermaidText
     };
 
   } catch (error) {

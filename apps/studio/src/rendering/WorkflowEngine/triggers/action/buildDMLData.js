@@ -1,42 +1,65 @@
 /**
- * Build DML Data Trigger
- * Collects specified fields from context_store into dmlData object
- * Used for composite data from multiple sources (grid selections, context values)
- *
- * @param {Object} params - { fields: ["field1", "field2", ...] }
- * @param {Object} context - Execution context with contextStore
- * @returns {Object} The built dmlData object
+ * Build DML Data - Orchestrator
+ * Assembles complete DML data based on method (INSERT/UPDATE/DELETE)
+ * Adds system fields (parentID for INSERT, tableID for UPDATE/DELETE)
  */
+import { buildInsertData } from './dmlBuilders/buildInsertData.js';
+import { buildUpdateData } from './dmlBuilders/buildUpdateData.js';
+import { buildDeleteData } from './dmlBuilders/buildDeleteData.js';
+
 export async function buildDMLData(params, context) {
-  const { fields } = params;
+  const { getVal } = await import('../../../../utils/api.js');
+  const { db } = await import('../../../../db/studioDb.js');
 
-  if (!fields || !Array.isArray(fields)) {
-    throw new Error('buildDMLData: fields array is required');
+  // Get method from context_store
+  const methodResult = await getVal('method', 'raw');
+  const method = methodResult?.resolvedValue || methodResult;
+
+  if (!method) {
+    throw new Error('buildDMLData: method not found in context_store');
   }
 
-  // Import getVal to retrieve from context_store
-  const { getVal, setVals } = await import('@whatsfresh/shared-imports');
+  // Get pageID and load page_registry
+  const pageIDResult = await getVal('pageID', 'raw');
+  const pageID = pageIDResult?.resolvedValue || pageIDResult;
 
-  const dmlData = {};
-
-  // Collect each field from context_store
-  for (const fieldName of fields) {
-    try {
-      const result = await getVal(fieldName);
-      if (result && result.resolvedValue !== undefined) {
-        dmlData[fieldName] = result.resolvedValue;
-      } else {
-        console.warn(`⚠️ Field "${fieldName}" not found in context_store`);
-      }
-    } catch (error) {
-      console.error(`❌ Failed to get field "${fieldName}":`, error);
-    }
+  if (!pageID) {
+    throw new Error('buildDMLData: pageID not found in context_store');
   }
 
-  console.log('🔨 Built dmlData from context:', dmlData);
+  const pageRegistry = await db.page_registry.where('id').equals(parseInt(pageID)).first();
+  if (!pageRegistry) {
+    throw new Error(`buildDMLData: page_registry not found for pageID ${pageID}`);
+  }
 
-  // Store in context_store as dmlData
-  await setVals([{ paramName: 'dmlData', paramVal: dmlData }]);
+  console.log(`🔨 Building ${method} data for ${pageRegistry.tableName}`);
+
+  let dmlData;
+
+  // Get form data from context (if available)
+  const dmlDataResult = await getVal('dmlData', 'raw');
+  const formDataString = dmlDataResult?.resolvedValue || dmlDataResult;
+  const formData = formDataString ? JSON.parse(formDataString) : {};
+
+  // Build data based on method
+  switch (method) {
+    case 'INSERT':
+      dmlData = await buildInsertData(formData, pageRegistry, getVal);
+      break;
+
+    case 'UPDATE':
+      dmlData = await buildUpdateData(formData, pageRegistry, getVal);
+      break;
+
+    case 'DELETE':
+      dmlData = await buildDeleteData(pageRegistry, getVal);
+      break;
+
+    default:
+      throw new Error(`buildDMLData: Invalid method "${method}"`);
+  }
+
+  console.log(`✅ Built ${method} data:`, dmlData);
 
   return dmlData;
 }

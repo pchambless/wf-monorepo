@@ -3,7 +3,7 @@
  * Auto-resolves table, primaryKey, and data from page context
  */
 export async function execDML(content, context) {
-  const { execDml, getVal } = await import('@whatsfresh/shared-imports');
+  const { execDml, getVal } = await import('../../../../utils/api.js');
   const { db } = await import('../../../../db/studioDb.js');
 
   console.log('💾 execDML triggered with context:', {
@@ -26,7 +26,8 @@ export async function execDML(content, context) {
     pageName: pageRegistry.pageName,
     tableName: pageRegistry.tableName,
     tableID: pageRegistry.tableID,
-    contextKey: pageRegistry.contextKey
+    contextKey: pageRegistry.contextKey,
+    parentID: pageRegistry.parentID
   });
 
   const methodResult = await getVal('method', 'raw');
@@ -37,6 +38,25 @@ export async function execDML(content, context) {
   }
 
   const formData = context.formData || {};
+
+  // Handle parentID for INSERT operations (e.g., account_id)
+  if (method === 'INSERT' && pageRegistry.parentID) {
+    const parentKey = pageRegistry.parentID.replace(/[\[\]]/g, ''); // Remove brackets: [account_id] -> account_id
+    console.log(`🔍 Looking for parentID: ${parentKey} (from ${pageRegistry.parentID})`);
+
+    const parentValueResult = await getVal(parentKey, 'raw');
+    console.log(`🔍 getVal result:`, parentValueResult);
+
+    const parentValue = parentValueResult?.resolvedValue || parentValueResult;
+    console.log(`🔍 Resolved parentValue:`, parentValue);
+
+    if (parentValue) {
+      formData[parentKey] = parentValue;
+      console.log(`✅ Injected ${parentKey} = ${parentValue} for INSERT`);
+    } else {
+      console.warn(`⚠️ No value found for ${parentKey} in context_store`);
+    }
+  }
 
   let primaryKeyValue = null;
   if (method === 'UPDATE' || method === 'DELETE') {
@@ -54,7 +74,8 @@ export async function execDML(content, context) {
     method,
     table: pageRegistry.tableName,
     primaryKey: pageRegistry.tableID,
-    data: formData
+    data: formData,
+    parentID: pageRegistry.parentID  // Send parentID to server for INSERT injection
   };
 
   console.log('💾 execDML request built:', dmlRequest);
@@ -63,7 +84,7 @@ export async function execDML(content, context) {
 
   if (result.success && method === 'INSERT' && result.insertId) {
     console.log(`✅ INSERT successful, setting ${pageRegistry.contextKey} = ${result.insertId}`);
-    const { setVals } = await import('@whatsfresh/shared-imports');
+    const { setVals } = await import('../../../../utils/api.js');
     await setVals([
       { paramName: pageRegistry.contextKey, paramVal: result.insertId }
     ]);

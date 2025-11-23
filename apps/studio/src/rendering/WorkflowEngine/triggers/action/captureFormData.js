@@ -41,9 +41,9 @@ export async function captureFormData(params, context) {
 
   console.log('📋 Captured form data:', formData);
 
-  // Store in context_store as dmlData
-  const { setVals } = await import('@whatsfresh/shared-imports');
-  await setVals([{ paramName: 'dmlData', paramVal: formData }]);
+  // Store in context_store as dmlData (stringify objects)
+  const { setVals } = await import('../../../../utils/api.js');
+  await setVals([{ paramName: 'dmlData', paramVal: JSON.stringify(formData) }]);
 
   return formData;
 }

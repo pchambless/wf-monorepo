@@ -2,7 +2,7 @@
  * User login authentication via shared-imports API
  */
 export async function userLogin(content, context) {
-  const { userLogin } = await import('@whatsfresh/shared-imports');
+  const { userLogin } = await import('../../../../utils/api.js');
 
   // Map form fields to API expectations
   // Form uses 'enteredPassword' to avoid browser autocomplete issues

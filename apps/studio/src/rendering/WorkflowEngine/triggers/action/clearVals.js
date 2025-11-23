@@ -1,8 +1,8 @@
 /**
- * Clear values in context store via shared-imports API
+ * Clear values in context store via local API
  */
 export async function clearVals(content, context) {
-  const { clearVals } = await import('@whatsfresh/shared-imports');
+  const { clearVals } = await import('../../../../utils/api.js');
 
   // Format content for API call
   let paramNames = [];

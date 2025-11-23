@@ -1,8 +1,8 @@
 /**
- * Set multiple values in context store via shared-imports API
+ * Set multiple values in context store via local API
  */
 export async function setVals(content, context) {
-  const { setVals: setValsAPI } = await import('@whatsfresh/shared-imports');
+  const { setVals: setValsAPI } = await import('../../../../utils/api.js');
 
   console.log('🔍 setVals context keys:', Object.keys(context));
   console.log('🔍 setVals context.response:', context.response);

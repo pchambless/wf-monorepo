@@ -19,7 +19,7 @@ export function buildEventHandlers(workflowTriggers, config, setData, contextSto
       'onSubmit': 'onSubmit', 'onClick': 'onClick', 'onChange': 'onChange', 'onLoad': 'onLoad'
     }[eventType] || 'onClick';
 
-    console.log(`🔧 Building DOM handler: ${handlerName} for eventType: ${eventType}, triggers:`, triggers);
+  //  console.log(`🔧 Building DOM handler: ${handlerName} for eventType: ${eventType}, triggers:`, triggers);
 
     handlers[handlerName] = async (e) => {
       console.log(`🎯 DOM Handler fired: ${handlerName}`, e.target);

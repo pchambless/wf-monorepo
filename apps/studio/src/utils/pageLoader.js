@@ -46,7 +46,8 @@ export const loadAllPageRegistry = async (forceReload = false) => {
         tableName: pageReg.tableName,
         contextKey: pageReg.contextKey,
         routePath: pageReg.routePath,
-        tableID: pageReg.tableID
+        tableID: pageReg.tableID,
+        parentID: pageReg.parentID
       });
     }
     console.log(`✅ Loaded ${result.data.length} pages into page_registry`);

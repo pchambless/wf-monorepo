@@ -76,10 +76,11 @@ export const setVals = async (values) => {
 
 /**
  * Get context value
+ * Uses session-based auth via gateway - no hardcoded email
  */
 export const getVal = async (paramName, format = 'raw') => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/getVal?paramName=${paramName}&format=${format}`, {
+    const response = await fetch(`${API_BASE_URL}/api/getVal?paramName=${paramName}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include'
@@ -92,6 +93,29 @@ export const getVal = async (paramName, format = 'raw') => {
     return await response.json();
   } catch (error) {
     console.error(`getVal error (${paramName}):`, error);
+    throw error;
+  }
+};
+
+/**
+ * Clear context values
+ */
+export const clearVals = async (paramNames) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/clearVals`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ paramNames })
+    });
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('clearVals error:', error);
     throw error;
   }
 };
