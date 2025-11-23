@@ -39,7 +39,7 @@ const syncTrigger = async (trigger) => {
 
   try {
     if (_dmlMethod === 'INSERT') {
-      const response = await execDml('INSERT', {
+      const response = await execDml({
         method: 'INSERT',
         table: 'api_wf.eventTrigger',
         data
@@ -59,7 +59,7 @@ const syncTrigger = async (trigger) => {
         throw new Error(`Cannot UPDATE trigger with null id. idbID: ${idbID}`);
       }
 
-      await execDml('UPDATE', {
+      await execDml({
         method: 'UPDATE',
         table: 'api_wf.eventTrigger',
         data: { id, ...data },
@@ -75,7 +75,7 @@ const syncTrigger = async (trigger) => {
     }
 
     if (_dmlMethod === 'DELETE') {
-      await execDml('DELETE', {
+      await execDml({
         method: 'DELETE',
         table: 'api_wf.eventTrigger',
         data: { id },

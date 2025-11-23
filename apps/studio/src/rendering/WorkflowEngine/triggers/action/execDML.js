@@ -9,7 +9,9 @@ export async function execDML(content, context) {
   console.log('💾 execDML triggered with context:', {
     hasPageConfig: !!context.pageConfig,
     hasFormData: !!context.formData,
-    content
+    hasRowData: !!context.rowData,
+    content,
+    rowData: context.rowData
   });
 
   const pageID = context.pageConfig?.meta?.pageID;
@@ -30,14 +32,25 @@ export async function execDML(content, context) {
     parentID: pageRegistry.parentID
   });
 
-  const methodResult = await getVal('method', 'raw');
-  const method = methodResult?.resolvedValue || methodResult;
-
+  // Get method from content (for rowActions) or context_store (for form operations)
+  let method = content?.method;
   if (!method) {
-    throw new Error('Method not found in context_store. Set method via setVals before execDML.');
+    const methodResult = await getVal('method', 'raw');
+    method = methodResult?.resolvedValue || methodResult;
   }
 
-  const formData = context.formData || {};
+  if (!method) {
+    throw new Error('Method not found in content or context_store. Set method via setVals or provide in trigger content.');
+  }
+
+  // Get form data from content.data (for rowActions) or context.formData (for form operations)
+  let formData = content?.data || context.formData || context.rowData || {};
+
+  // For DELETE, only include the primary key (no need for other fields)
+  if (method === 'DELETE') {
+    const pkValue = formData[pageRegistry.tableID];
+    formData = pkValue ? { [pageRegistry.tableID]: pkValue } : formData;
+  }
 
   // Handle parentID for INSERT operations (e.g., account_id)
   if (method === 'INSERT' && pageRegistry.parentID) {
@@ -60,11 +73,17 @@ export async function execDML(content, context) {
 
   let primaryKeyValue = null;
   if (method === 'UPDATE' || method === 'DELETE') {
-    const contextKeyResult = await getVal(pageRegistry.contextKey, 'raw');
-    primaryKeyValue = contextKeyResult?.resolvedValue || contextKeyResult;
+    // Try to get primary key from rowData first (for grid rowActions)
+    primaryKeyValue = context.rowData?.[pageRegistry.tableID] || formData[pageRegistry.tableID];
+    
+    // Fallback to context_store (for form operations)
+    if (!primaryKeyValue) {
+      const contextKeyResult = await getVal(pageRegistry.contextKey, 'raw');
+      primaryKeyValue = contextKeyResult?.resolvedValue || contextKeyResult;
+    }
 
     if (!primaryKeyValue) {
-      throw new Error(`${method} requires ${pageRegistry.contextKey} in context_store`);
+      throw new Error(`${method} requires ${pageRegistry.tableID} in rowData, formData, or ${pageRegistry.contextKey} in context_store`);
     }
 
     formData[pageRegistry.tableID] = primaryKeyValue;
@@ -82,12 +101,33 @@ export async function execDML(content, context) {
 
   const result = await execDml(dmlRequest);
 
-  if (result.success && method === 'INSERT' && result.insertId) {
-    console.log(`✅ INSERT successful, setting ${pageRegistry.contextKey} = ${result.insertId}`);
-    const { setVals } = await import('../../../../utils/api.js');
-    await setVals([
-      { paramName: pageRegistry.contextKey, paramVal: result.insertId }
-    ]);
+  if (result.success) {
+    console.log(`✅ ${method} successful:`, result);
+
+    // Handle INSERT: set contextKey with new insertId
+    if (method === 'INSERT' && result.insertId) {
+      console.log(`✅ INSERT successful, setting ${pageRegistry.contextKey} = ${result.insertId}`);
+      const { setVals } = await import('../../../../utils/api.js');
+      await setVals([
+        { paramName: pageRegistry.contextKey, paramVal: result.insertId }
+      ]);
+    }
+
+    // Execute onSuccess workflow triggers if defined
+    if (context.workflowTriggers?.onSuccess) {
+      console.log('🔄 Executing onSuccess workflows...');
+      const { triggerEngine } = await import('../../TriggerEngine.js');
+      await triggerEngine.executeTriggers(context.workflowTriggers.onSuccess, context);
+    }
+  } else {
+    console.error(`❌ ${method} failed:`, result);
+
+    // Execute onError workflow triggers if defined
+    if (context.workflowTriggers?.onError) {
+      console.log('🔄 Executing onError workflows...');
+      const { triggerEngine } = await import('../../TriggerEngine.js');
+      await triggerEngine.executeTriggers(context.workflowTriggers.onError, context);
+    }
   }
 
   return result;

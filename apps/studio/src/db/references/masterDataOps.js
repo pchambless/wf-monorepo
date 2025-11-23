@@ -37,7 +37,7 @@ export const syncEventType = async (idbID) => {
   const { _dmlMethod, id, ...data } = record;
 
   if (_dmlMethod === 'INSERT') {
-    const response = await execDml('INSERT', {
+    const response = await execDml({
       method: 'INSERT',
       table: 'api_wf.eventTypes',
       data
@@ -48,7 +48,7 @@ export const syncEventType = async (idbID) => {
       _dmlMethod: null
     });
   } else if (_dmlMethod === 'UPDATE') {
-    await execDml('UPDATE', {
+    await execDml({
       method: 'UPDATE',
       table: 'api_wf.eventTypes',
       data: { id, ...data }
@@ -56,7 +56,7 @@ export const syncEventType = async (idbID) => {
 
     await db.eventTypes.update(idbID, { _dmlMethod: null });
   } else if (_dmlMethod === 'DELETE') {
-    await execDml('DELETE', {
+    await execDml({
       method: 'DELETE',
       table: 'api_wf.eventTypes',
       data: { id }
@@ -102,7 +102,7 @@ export const syncTriggerDef = async (idbID) => {
   const { _dmlMethod, id, ...data } = record;
 
   if (_dmlMethod === 'INSERT') {
-    const response = await execDml('INSERT', {
+    const response = await execDml({
       method: 'INSERT',
       table: 'api_wf.triggers',
       data
@@ -113,7 +113,7 @@ export const syncTriggerDef = async (idbID) => {
       _dmlMethod: null
     });
   } else if (_dmlMethod === 'UPDATE') {
-    await execDml('UPDATE', {
+    await execDml({
       method: 'UPDATE',
       table: 'api_wf.triggers',
       data: { id, ...data }
@@ -121,7 +121,7 @@ export const syncTriggerDef = async (idbID) => {
 
     await db.triggers.update(idbID, { _dmlMethod: null });
   } else if (_dmlMethod === 'DELETE') {
-    await execDml('DELETE', {
+    await execDml({
       method: 'DELETE',
       table: 'api_wf.triggers',
       data: { id }
@@ -167,7 +167,7 @@ export const syncEventSQL = async (idbID) => {
   const { _dmlMethod, id, ...data } = record;
 
   if (_dmlMethod === 'INSERT') {
-    const response = await execDml('INSERT', {
+    const response = await execDml({
       method: 'INSERT',
       table: 'api_wf.eventSQL',
       data
@@ -178,7 +178,7 @@ export const syncEventSQL = async (idbID) => {
       _dmlMethod: null
     });
   } else if (_dmlMethod === 'UPDATE') {
-    await execDml('UPDATE', {
+    await execDml({
       method: 'UPDATE',
       table: 'api_wf.eventSQL',
       data: { id, ...data }
@@ -186,7 +186,7 @@ export const syncEventSQL = async (idbID) => {
 
     await db.eventSQL.update(idbID, { _dmlMethod: null });
   } else if (_dmlMethod === 'DELETE') {
-    await execDml('DELETE', {
+    await execDml({
       method: 'DELETE',
       table: 'api_wf.eventSQL',
       data: { id }

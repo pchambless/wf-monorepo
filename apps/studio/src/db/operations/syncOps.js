@@ -47,9 +47,9 @@ const syncRecord = async (tableName, record) => {
   const { idbID, _dmlMethod, id, ...data } = record;
   const tableShortName = tableName.split('.')[1];
 
-  try {
+  try{
     if (_dmlMethod === 'INSERT') {
-      const response = await execDml(`${tableName}_INSERT`, {
+      const response = await execDml({
         method: 'INSERT',
         table: tableName,
         data
@@ -68,7 +68,7 @@ const syncRecord = async (tableName, record) => {
         throw new Error(`Cannot UPDATE record with null id. Record might need INSERT instead. idbID: ${idbID}, table: ${tableName}`);
       }
 
-      await execDml(`${tableName}_UPDATE`, {
+      await execDml({
         method: 'UPDATE',
         table: tableName,
         data,
@@ -83,7 +83,7 @@ const syncRecord = async (tableName, record) => {
     }
 
     if (_dmlMethod === 'DELETE') {
-      await execDml(`${tableName}_DELETE`, {
+      await execDml({
         method: 'DELETE',
         table: tableName,
         primaryKey: { id }

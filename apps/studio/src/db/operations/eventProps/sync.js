@@ -39,7 +39,7 @@ const syncProp = async (prop) => {
 
   try {
     if (_dmlMethod === 'INSERT') {
-      const response = await execDml('INSERT', {
+      const response = await execDml({
         method: 'INSERT',
         table: 'api_wf.eventProps',
         data
@@ -58,7 +58,7 @@ const syncProp = async (prop) => {
         throw new Error(`Cannot UPDATE prop with null id. idbID: ${idbID}`);
       }
 
-      await execDml('UPDATE', {
+      await execDml({
         method: 'UPDATE',
         table: 'api_wf.eventProps',
         data: { id, ...data },
@@ -73,7 +73,7 @@ const syncProp = async (prop) => {
     }
 
     if (_dmlMethod === 'DELETE') {
-      await execDml('DELETE', {
+      await execDml({
         method: 'DELETE',
         table: 'api_wf.eventProps',
         data: { id },

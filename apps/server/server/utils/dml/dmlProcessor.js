@@ -108,7 +108,7 @@ export const processDML = async (requestBody, userEmail) => {
       break;
 
     case "DELETE":
-      sql = buildDeleteSQL(table, data, "id", primaryKey);
+      sql = buildDeleteSQL(table, data, primaryKey);
       httpMethod = "DELETE";
       break;
   }

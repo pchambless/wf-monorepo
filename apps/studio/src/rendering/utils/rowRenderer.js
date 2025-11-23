@@ -25,9 +25,8 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
         e.stopPropagation(); // Don't trigger row selection
 
         // Handle confirmation if required
-        if (action.trigger?.content?.confirm) {
-          const confirmMessage = action.trigger.content.confirmMessage || 'Are you sure?';
-          if (!window.confirm(confirmMessage)) {
+        if (action.confirmMessage) {
+          if (!window.confirm(action.confirmMessage)) {
             return;
           }
         }

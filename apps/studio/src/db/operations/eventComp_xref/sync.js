@@ -39,7 +39,7 @@ const syncComponent = async (component) => {
 
   try {
     if (_dmlMethod === 'INSERT') {
-      const response = await execDml('INSERT', {
+      const response = await execDml({
         method: 'INSERT',
         table: 'api_wf.eventComp_xref',
         data
@@ -58,7 +58,7 @@ const syncComponent = async (component) => {
         throw new Error(`Cannot UPDATE component with null id. idbID: ${idbID}`);
       }
 
-      await execDml('UPDATE', {
+      await execDml({
         method: 'UPDATE',
         table: 'api_wf.eventComp_xref',
         data: { id, ...data },
@@ -73,7 +73,7 @@ const syncComponent = async (component) => {
     }
 
     if (_dmlMethod === 'DELETE') {
-      await execDml('DELETE', {
+      await execDml({
         method: 'DELETE',
         table: 'api_wf.eventComp_xref',
         data: { id },

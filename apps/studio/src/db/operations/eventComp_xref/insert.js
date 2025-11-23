@@ -15,7 +15,7 @@ export const insertComponent = async (componentData) => {
   }
 
   // Insert to MySQL first to get real ID
-  const response = await execDml('INSERT', {
+  const response = await execDml({
     method: 'INSERT',
     table: 'api_wf.eventComp_xref',
     data: componentData

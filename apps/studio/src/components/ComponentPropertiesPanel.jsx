@@ -523,20 +523,30 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       }
 
       // Add delete action to rowActions array
+      // Uses 'id' as the tableID (primary key) - matches page_registry.tableID
       const deleteAction = {
         id: 'delete',
         type: 'button',
         icon: 'Delete',
         color: 'error',
         tooltip: 'Delete',
-        trigger: {
-          action: 'execDML',
-          content: {
-            method: 'DELETE',
-            confirm: true,
-            confirmMessage: 'Are you sure you want to delete this item?'
+        confirmMessage: 'Are you sure you want to delete this item?',
+        trigger: [
+          {
+            action: 'setVals',
+            params: [{ method: 'DELETE', id: '{{row.id}}' }]
+          },
+          {
+            action: 'execDML',
+            content: {}
           }
-        }
+        ],
+        onSuccess: [
+          {
+            action: 'refresh',
+            params: ['Grid']
+          }
+        ]
       };
 
       rowActions.push(deleteAction);
