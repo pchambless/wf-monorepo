@@ -37,9 +37,8 @@ const getPackage = (file) => {
   if (file.startsWith('apps/api-gateway/')) return 'api-gateway';
   if (file.startsWith('apps/admin/')) return 'admin';
   if (file.startsWith('apps/studio/')) return 'studio';
-  if (file.startsWith('apps/wf-studio/')) return 'wf-studio'; // Legacy
+  if (file.startsWith('apps/templates/')) return 'templates';
   if (file.startsWith('apps/login/')) return 'login';
-  if (file.startsWith('apps/planner/')) return 'planner';
   if (file.startsWith('packages/shared-imports/')) return 'shared-imports';
   if (file.startsWith('packages/db-connect/')) return 'db-connect';
   return 'other';
@@ -54,6 +53,7 @@ const getBlastRadius = (count) => {
 // Enhanced analysis structure
 const enhanced = {
   metadata: {
+    scope: "monorepo",
     generated: new Date().toISOString(),
     total_files: Object.keys(rawData).length
   },

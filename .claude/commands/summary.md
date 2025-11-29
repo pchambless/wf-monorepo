@@ -7,10 +7,11 @@ allowed-tools: []
 
 ## Fetch Instructions from Database
 
-```bash
-curl -X POST http://localhost:3001/api/execEventType \
-  -H "Content-Type: application/json" \
-  -d '{"eventSQLId": "AI-summary"}'
+```javascript
+mcp_mysql_sql_query({
+  sql: "SELECT qrySQL FROM api_wf.AISql WHERE id = 42"
+})
+// Then execute the returned qrySQL to get the full instructions
 ```
 
 **Follow the instructions returned from the database query above.**

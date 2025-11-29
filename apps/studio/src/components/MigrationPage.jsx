@@ -107,7 +107,9 @@ const MigrationPage = () => {
 
   const pollMigrationStatus = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/util/migration-status');
+      const response = await fetch('http://localhost:3002/api/util/migration-status', {
+        credentials: 'include'
+      });
       const result = await response.json();
 
       if (result.running) {
@@ -140,9 +142,10 @@ const MigrationPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/util/open-terminal', {
+      const response = await fetch('http://localhost:3002/api/util/open-terminal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           directory: '/home/paul/a-wf-migration',
           command: './migration/run.sh'
@@ -170,9 +173,10 @@ const MigrationPage = () => {
     setLogs('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/util/run-migration', {
+      const response = await fetch('http://localhost:3002/api/util/run-migration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({}),
       });
 

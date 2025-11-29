@@ -1,75 +1,10 @@
 {
   "metadata": {
-    "generated": "2025-11-21T16:12:43.945Z",
-    "total_files": 402
+    "scope": "monorepo",
+    "generated": "2025-11-29T08:00:03.061Z",
+    "total_files": 440
   },
   "files": {
-    ".claude/routing/AgentDirector.js": {
-      "dependencies": [
-        ".claude/routing/AgentRouter.js"
-      ],
-      "dependents": [
-        ".claude/routing/test-director.js",
-        ".claude/routing/test-enhanced-director.js"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "other"
-    },
-    ".claude/routing/AgentRouter.js": {
-      "dependencies": [
-        ".claude/routing/RegistryBuilder.js"
-      ],
-      "dependents": [
-        ".claude/routing/AgentDirector.js",
-        ".claude/routing/test-agent-system.js"
-      ],
-      "dependency_count": 1,
-      "dependent_count": 2,
-      "blast_radius": "low",
-      "package": "other"
-    },
-    ".claude/routing/RegistryBuilder.js": {
-      "dependencies": [],
-      "dependents": [
-        ".claude/routing/AgentRouter.js"
-      ],
-      "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other"
-    },
-    ".claude/routing/test-agent-system.js": {
-      "dependencies": [
-        ".claude/routing/AgentRouter.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "other"
-    },
-    ".claude/routing/test-director.js": {
-      "dependencies": [
-        ".claude/routing/AgentDirector.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "other"
-    },
-    ".claude/routing/test-enhanced-director.js": {
-      "dependencies": [
-        ".claude/routing/AgentDirector.js"
-      ],
-      "dependents": [],
-      "dependency_count": 1,
-      "dependent_count": 0,
-      "blast_radius": "low",
-      "package": "other"
-    },
     ".dependency-cruiser.js": {
       "dependencies": [],
       "dependents": [],
@@ -1846,6 +1781,14 @@
       "blast_radius": "low",
       "package": "studio"
     },
+    "apps/studio/scripts/sync-rendering.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "studio"
+    },
     "apps/studio/scripts/utils/targetedAnalysis.js": {
       "dependencies": [
         "apps/studio/scripts/utils/writeSchema.js"
@@ -1863,6 +1806,14 @@
       ],
       "dependency_count": 0,
       "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/scripts/watch-rendering.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
     },
@@ -2746,6 +2697,7 @@
         "apps/studio/src/db/operations/syncOps.js",
         "apps/studio/src/db/references/masterDataOps.js",
         "apps/studio/src/hooks/useReactFlowPersistence.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
         "apps/studio/src/utils/componentConfigBuilder.js",
         "apps/studio/src/utils/pageConfigBuilder/dataFetcher.js",
@@ -2755,7 +2707,7 @@
         "apps/studio/src/utils/referenceLoaders.js"
       ],
       "dependency_count": 1,
-      "dependent_count": 34,
+      "dependent_count": 35,
       "blast_radius": "high",
       "package": "studio"
     },
@@ -3153,18 +3105,41 @@
       "blast_radius": "medium",
       "package": "studio"
     },
+    "apps/studio/src/rendering/PageRenderer.jsx": {
+      "dependencies": [
+        "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
+        "apps/studio/src/rendering/hooks/useModalManager.js",
+        "apps/studio/src/rendering/hooks/useTemplateLoader.js",
+        "apps/studio/src/rendering/renderers/AppLayoutRenderer.js",
+        "apps/studio/src/rendering/renderers/ContainerRenderer.js",
+        "apps/studio/src/rendering/renderers/GridRenderer.js",
+        "apps/studio/src/rendering/renderers/ModalRenderer.js",
+        "apps/studio/src/rendering/renderers/TextRenderer.js",
+        "apps/studio/src/rendering/utils/eventHandlerBuilder.js",
+        "apps/studio/src/rendering/utils/layoutUtils.js",
+        "apps/studio/src/rendering/utils/styleUtils.js"
+      ],
+      "dependents": [],
+      "dependency_count": 11,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "studio"
+    },
     "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js": {
       "dependencies": [],
       "dependents": [
         "apps/studio/src/rendering/DirectRenderer.jsx",
+        "apps/studio/src/rendering/PageRenderer.jsx",
         "apps/studio/src/rendering/WorkflowEngine/WorkflowEngine.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/refresh.js",
+        "apps/studio/src/rendering/renderers/GridRenderer.js",
         "apps/studio/src/rendering/utils/eventHandlerBuilder.js",
         "apps/studio/src/rendering/utils/rowRenderer.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 5,
-      "blast_radius": "medium",
+      "dependent_count": 8,
+      "blast_radius": "high",
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/WorkflowEngine.js": {
@@ -3207,27 +3182,37 @@
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
+        "apps/studio/src/utils/api.js"
+      ],
       "dependents": [],
-      "dependency_count": 0,
+      "dependency_count": 5,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/captureFormData.js": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/studio/src/utils/api.js"
+      ],
       "dependents": [],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/clearVals.js": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/studio/src/utils/api.js"
+      ],
       "dependents": [
         "apps/studio/src/rendering/WorkflowEngine/index.js"
       ],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -3240,22 +3225,56 @@
       "blast_radius": "low",
       "package": "studio"
     },
+    "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js": {
       "dependencies": [
-        "apps/studio/src/db/studioDb.js"
+        "apps/studio/src/db/studioDb.js",
+        "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
+        "apps/studio/src/utils/api.js"
       ],
       "dependents": [],
-      "dependency_count": 1,
+      "dependency_count": 3,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/execEvent.js": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/studio/src/utils/api.js"
+      ],
       "dependents": [
         "apps/studio/src/rendering/WorkflowEngine/index.js"
       ],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -3271,11 +3290,13 @@
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/getVal.js": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/studio/src/utils/api.js"
+      ],
       "dependents": [
         "apps/studio/src/rendering/WorkflowEngine/index.js"
       ],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -3317,11 +3338,13 @@
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/setVals.js": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/studio/src/utils/api.js"
+      ],
       "dependents": [
         "apps/studio/src/rendering/WorkflowEngine/index.js"
       ],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -3337,9 +3360,11 @@
       "package": "studio"
     },
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/userLogin.js": {
-      "dependencies": [],
+      "dependencies": [
+        "apps/studio/src/utils/api.js"
+      ],
       "dependents": [],
-      "dependency_count": 0,
+      "dependency_count": 1,
       "dependent_count": 0,
       "blast_radius": "low",
       "package": "studio"
@@ -3375,10 +3400,11 @@
     "apps/studio/src/rendering/hooks/useModalManager.js": {
       "dependencies": [],
       "dependents": [
-        "apps/studio/src/rendering/DirectRenderer.jsx"
+        "apps/studio/src/rendering/DirectRenderer.jsx",
+        "apps/studio/src/rendering/PageRenderer.jsx"
       ],
       "dependency_count": 0,
-      "dependent_count": 1,
+      "dependent_count": 2,
       "blast_radius": "low",
       "package": "studio"
     },
@@ -3387,9 +3413,64 @@
         "apps/studio/src/config/api.js"
       ],
       "dependents": [
-        "apps/studio/src/rendering/DirectRenderer.jsx"
+        "apps/studio/src/rendering/DirectRenderer.jsx",
+        "apps/studio/src/rendering/PageRenderer.jsx"
       ],
       "dependency_count": 1,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/renderers/AppLayoutRenderer.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/renderers/ContainerRenderer.js": {
+      "dependencies": [
+        "apps/studio/src/rendering/utils/layoutUtils.js"
+      ],
+      "dependents": [
+        "apps/studio/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/renderers/GridRenderer.js": {
+      "dependencies": [
+        "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
+      ],
+      "dependents": [
+        "apps/studio/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/renderers/ModalRenderer.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "studio"
+    },
+    "apps/studio/src/rendering/renderers/TextRenderer.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/studio/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "studio"
@@ -3409,20 +3490,23 @@
         "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
       ],
       "dependents": [
-        "apps/studio/src/rendering/DirectRenderer.jsx"
+        "apps/studio/src/rendering/DirectRenderer.jsx",
+        "apps/studio/src/rendering/PageRenderer.jsx"
       ],
       "dependency_count": 1,
-      "dependent_count": 1,
+      "dependent_count": 2,
       "blast_radius": "low",
       "package": "studio"
     },
     "apps/studio/src/rendering/utils/layoutUtils.js": {
       "dependencies": [],
       "dependents": [
-        "apps/studio/src/rendering/DirectRenderer.jsx"
+        "apps/studio/src/rendering/DirectRenderer.jsx",
+        "apps/studio/src/rendering/PageRenderer.jsx",
+        "apps/studio/src/rendering/renderers/ContainerRenderer.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 1,
+      "dependent_count": 3,
       "blast_radius": "low",
       "package": "studio"
     },
@@ -3441,10 +3525,11 @@
     "apps/studio/src/rendering/utils/styleUtils.js": {
       "dependencies": [],
       "dependents": [
-        "apps/studio/src/rendering/DirectRenderer.jsx"
+        "apps/studio/src/rendering/DirectRenderer.jsx",
+        "apps/studio/src/rendering/PageRenderer.jsx"
       ],
       "dependency_count": 0,
-      "dependent_count": 1,
+      "dependent_count": 2,
       "blast_radius": "low",
       "package": "studio"
     },
@@ -3497,12 +3582,20 @@
         "apps/studio/src/db/operations/eventTriggers/sync.js",
         "apps/studio/src/db/operations/syncOps.js",
         "apps/studio/src/db/references/masterDataOps.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/getVal.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/setVals.js",
+        "apps/studio/src/rendering/WorkflowEngine/triggers/action/userLogin.js",
         "apps/studio/src/utils/pageConfigBuilder/index.js",
         "apps/studio/src/utils/pageLoader.js",
         "apps/studio/src/utils/referenceLoaders.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 13,
+      "dependent_count": 21,
       "blast_radius": "high",
       "package": "studio"
     },
@@ -3760,7 +3853,7 @@
       "dependency_count": 0,
       "dependent_count": 0,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/App.jsx": {
       "dependencies": [
@@ -3774,7 +3867,7 @@
       "dependency_count": 3,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx": {
       "dependencies": [],
@@ -3784,7 +3877,7 @@
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/index.js": {
       "dependencies": [
@@ -3795,7 +3888,7 @@
       "dependency_count": 2,
       "dependent_count": 0,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx": {
       "dependencies": [
@@ -3810,7 +3903,7 @@
       "dependency_count": 4,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/layouts/Appbar.jsx": {
       "dependencies": [],
@@ -3820,7 +3913,7 @@
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/layouts/Footer.jsx": {
       "dependencies": [],
@@ -3830,7 +3923,7 @@
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx": {
       "dependencies": [],
@@ -3840,7 +3933,344 @@
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js",
+        "apps/templates/app-boilerplate/src/rendering/hooks/useModalManager.js",
+        "apps/templates/app-boilerplate/src/rendering/hooks/useTemplateLoader.js",
+        "apps/templates/app-boilerplate/src/rendering/renderers/AppLayoutRenderer.js",
+        "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js",
+        "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js",
+        "apps/templates/app-boilerplate/src/rendering/renderers/ModalRenderer.js",
+        "apps/templates/app-boilerplate/src/rendering/renderers/TextRenderer.js",
+        "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js",
+        "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js",
+        "apps/templates/app-boilerplate/src/rendering/utils/styleUtils.js"
+      ],
+      "dependents": [],
+      "dependency_count": 11,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/refresh.js",
+        "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js",
+        "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 5,
+      "blast_radius": "medium",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
+        "apps/templates/app-boilerplate/src/utils/api.js"
+      ],
+      "dependents": [],
+      "dependency_count": 4,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/captureFormData.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/utils/api.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/clearVals.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/utils/api.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/closeModal.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execDML.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js",
+        "apps/templates/app-boilerplate/src/utils/api.js"
+      ],
+      "dependents": [],
+      "dependency_count": 2,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execEvent.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/utils/api.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getVal.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/utils/api.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/navigate.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/openModal.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/refresh.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/reload.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/setVals.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/utils/api.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/showNotification.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/userLogin.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/utils/api.js"
+      ],
+      "dependents": [],
+      "dependency_count": 1,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/visible.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/class/onLoad.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/class/onRefresh.js": {
+      "dependencies": [],
+      "dependents": [],
+      "dependency_count": 0,
+      "dependent_count": 0,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/hooks/useModalManager.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/hooks/useTemplateLoader.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/renderers/AppLayoutRenderer.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js"
+      ],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
+      ],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/renderers/ModalRenderer.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/renderers/TextRenderer.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js": {
+      "dependencies": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
+      ],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 1,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
+        "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 2,
+      "blast_radius": "low",
+      "package": "templates"
+    },
+    "apps/templates/app-boilerplate/src/rendering/utils/styleUtils.js": {
+      "dependencies": [],
+      "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
+      ],
+      "dependency_count": 0,
+      "dependent_count": 1,
+      "blast_radius": "low",
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/styles/global.css": {
       "dependencies": [],
@@ -3850,17 +4280,25 @@
       "dependency_count": 0,
       "dependent_count": 1,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/utils/api.js": {
       "dependencies": [],
       "dependents": [
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getVal.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/setVals.js",
+        "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/userLogin.js",
         "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 1,
-      "blast_radius": "low",
-      "package": "other"
+      "dependent_count": 9,
+      "blast_radius": "high",
+      "package": "templates"
     },
     "apps/templates/app-boilerplate/src/utils/fetchConfig.js": {
       "dependencies": [
@@ -3873,7 +4311,7 @@
       "dependency_count": 1,
       "dependent_count": 2,
       "blast_radius": "low",
-      "package": "other"
+      "package": "templates"
     },
     "cli/ModelExecutor.js": {
       "dependencies": [
@@ -4632,7 +5070,13 @@
     },
     {
       "file": "apps/studio/src/db/studioDb.js",
-      "dependents": 34,
+      "dependents": 35,
+      "blast_radius": "high",
+      "package": "studio"
+    },
+    {
+      "file": "apps/studio/src/utils/api.js",
+      "dependents": 21,
       "blast_radius": "high",
       "package": "studio"
     },
@@ -4643,16 +5087,16 @@
       "package": "server"
     },
     {
-      "file": "apps/studio/src/utils/api.js",
-      "dependents": 13,
-      "blast_radius": "high",
-      "package": "studio"
-    },
-    {
       "file": "packages/shared-imports/src/utils/logger.js",
       "dependents": 12,
       "blast_radius": "high",
       "package": "shared-imports"
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/utils/api.js",
+      "dependents": 9,
+      "blast_radius": "high",
+      "package": "templates"
     },
     {
       "file": "apps/server/server/controller/setVals.js",
@@ -4662,6 +5106,12 @@
     },
     {
       "file": "apps/studio/src/config/api.js",
+      "dependents": 8,
+      "blast_radius": "high",
+      "package": "studio"
+    },
+    {
+      "file": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
       "dependents": 8,
       "blast_radius": "high",
       "package": "studio"
@@ -4697,10 +5147,10 @@
       "package": "studio"
     },
     {
-      "file": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js",
       "dependents": 5,
       "blast_radius": "medium",
-      "package": "studio"
+      "package": "templates"
     },
     {
       "file": "packages/db-connect/query.js",
@@ -4713,13 +5163,14 @@
     "whatsfresh": 0,
     "server": 109,
     "admin": 11,
-    "studio": 188,
+    "studio": 199,
     "wf-studio": 0,
     "login": 0,
     "planner": 0,
     "shared-imports": 46,
     "db-connect": 8,
-    "other": 39,
-    "api-gateway": null
+    "other": 22,
+    "api-gateway": null,
+    "templates": null
   }
 }

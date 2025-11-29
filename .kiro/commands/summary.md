@@ -5,15 +5,15 @@ allowed-tools: []
 
 # Session Summary Generator
 
-This command uses the shared summary specification.
+## Fetch Instructions from Database
 
-See: `.shared/commands/summary.md` for complete instructions and template.
+```javascript
+mcp_mysql_sql_query({
+  sql: "SELECT qrySQL FROM api_wf.AISql WHERE id = 42"
+})
+// Then execute the returned qrySQL to get the full instructions
+```
 
-## Kiro-Specific Implementation
+**Follow the instructions returned from the database query above.**
 
-1. Generate summary using shared template
-2. Create JSON payload with execDML format
-3. Execute curl command to store in database (when on Linux)
-4. Confirm storage and show record ID
-
-This ensures consistent AI coordination across Claude and Kiro sessions.
+For complete documentation, see `.shared/commands/summary.md`

@@ -27,7 +27,7 @@ import {
  * Default API configuration
  */
 const DEFAULT_CONFIG = {
-  baseUrl: process.env.REACT_APP_API_BASE_URL || "http://localhost:3001",
+  baseUrl: process.env.REACT_APP_API_BASE_URL || "http://localhost:3002",
   logger: console,
 };
 
@@ -36,7 +36,7 @@ const DEFAULT_CONFIG = {
  */
 export function createApi(options = {}) {
   const {
-    baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:3001",
+    baseUrl = process.env.REACT_APP_API_BASE_URL || "http://localhost:3002",
     logger = console,
   } = options;
 

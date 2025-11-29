@@ -6,11 +6,11 @@
  */
 
 /**
- * Get the API base URL from environment or default to localhost:3001
+ * Get the API base URL from environment or default to API Gateway
  * @returns {string} The API base URL
  */
 export const getApiBaseUrl = () => {
-  return process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001';
+  return process.env.REACT_APP_API_BASE_URL || 'http://localhost:3002';
 };
 
 /**

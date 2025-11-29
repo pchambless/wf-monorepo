@@ -1,5 +1,5 @@
 ---
-description: "Generate and store session accomplishments generate a New Plan document"
+description: "Generate and store session accomplishments and next steps summary"
 allowed-tools: []
 ---
 
@@ -7,17 +7,26 @@ allowed-tools: []
 
 ## Fetch Instructions from Database
 
-```bash
-curl -X POST http://localhost:3001/api/execEventType \
-  -H "Content-Type: application/json" \
-  -d '{"eventSQLId": "AI-summary"}'
+Both Claude and Kiro should execute this query to get the latest summary instructions:
+
+```javascript
+// Step 1: Get the query
+mcp_mysql_sql_query({
+  sql: "SELECT qrySQL FROM api_wf.AISql WHERE id = 42"
+})
+
+// Step 2: Execute the returned qrySQL to get full instructions
+// The query will return 4 records with subjects: AI-summary, AI-milestone-pattern, AI-guidance-pattern, AI-impact-pattern
 ```
 
 **Follow the instructions returned from the database query above.**
 
 ---
 
-# Instructions (Stored in Database - Reference Only)
+# Instructions (Reference Only - Actual Source is Database)
+
+The instructions below are stored in `api_wf.plan_communications` and fetched via AISql id=42.
+This section is for reference only - always fetch from database for latest version.
 
 1.  Generate a comprehensive session summary and store it in the plan_communications database for persistent AI coordination.
 2.  Generate a new entry in the plans table outlining probable Next Steps to be addressed.

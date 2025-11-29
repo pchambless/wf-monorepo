@@ -38,7 +38,9 @@ const IssuesModal = ({ isOpen, onClose }) => {
 
   const loadLabels = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/github/labels');
+      const response = await fetch('http://localhost:3002/api/github/labels', {
+        credentials: 'include'
+      });
       const data = await response.json();
       if (data.success) {
         setLabels(data.labels);
@@ -57,7 +59,9 @@ const IssuesModal = ({ isOpen, onClose }) => {
         ...(filters.labelFilter && { labels: filters.labelFilter })
       });
 
-      const response = await fetch(`http://localhost:3001/api/github/issues?${params}`);
+      const response = await fetch(`http://localhost:3002/api/github/issues?${params}`, {
+        credentials: 'include'
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -78,9 +82,10 @@ const IssuesModal = ({ isOpen, onClose }) => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:3001/api/github/issues', {
+      const response = await fetch('http://localhost:3002/api/github/issues', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           title: formData.title,
           body: formData.body,
@@ -116,7 +121,9 @@ const IssuesModal = ({ isOpen, onClose }) => {
   const loadComments = async (issueNumber) => {
     setLoadingComments(true);
     try {
-      const response = await fetch(`http://localhost:3001/api/github/issues/${issueNumber}/comments`);
+      const response = await fetch(`http://localhost:3002/api/github/issues/${issueNumber}/comments`, {
+        credentials: 'include'
+      });
       const data = await response.json();
       if (data.success) {
         setComments(data.comments);
@@ -157,8 +164,9 @@ const IssuesModal = ({ isOpen, onClose }) => {
           setFormData(prev => ({ ...prev, body: prev.body + uploadingText }));
 
           try {
-            const response = await fetch('http://localhost:3001/api/github/upload-image', {
+            const response = await fetch('http://localhost:3002/api/github/upload-image', {
               method: 'POST',
+              credentials: 'include',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
                 image: base64Image,

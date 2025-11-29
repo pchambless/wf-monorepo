@@ -63,9 +63,10 @@ const StudioLayout = () => {
 
       // Update title in eventType_xref
       if (updatedData.title !== selectedComponent.label) {
-        await fetch("http://localhost:3001/api/execDML", {
+        await fetch("http://localhost:3002/api/execDML", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({
             method: "UPDATE",
             table: "api_wf.eventType_xref",
@@ -77,9 +78,10 @@ const StudioLayout = () => {
 
       // Update container if changed
       if (updatedData.container !== selectedComponent.container) {
-        await fetch("http://localhost:3001/api/execDML", {
+        await fetch("http://localhost:3002/api/execDML", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({
             method: "UPDATE",
             table: "api_wf.eventType_xref",
@@ -92,9 +94,10 @@ const StudioLayout = () => {
       // Update props by updating/inserting into eventProps table
       const propsEntries = Object.entries(updatedData.eventProps);
       for (const [paramName, paramVal] of propsEntries) {
-        await fetch("http://localhost:3001/api/execDML", {
+        await fetch("http://localhost:3002/api/execDML", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "include",
           body: JSON.stringify({
             method: "UPSERT",
             table: "api_wf.eventProps",

@@ -32,13 +32,47 @@ export const getRowAlignment = (components) => {
 };
 
 export const separateComponentsByType = (components) => {
+  // Recursively find all modals in the component tree
+  const findModals = (comps, found = []) => {
+    comps?.forEach(c => {
+      if (c.comp_type === "Modal") {
+        found.push(c);
+      }
+      if (c.components) {
+        findModals(c.components, found);
+      }
+    });
+    return found;
+  };
+
+  // Recursively remove modals from the tree (immutable - returns new objects)
+  const removeModals = (comps) => {
+    return comps?.map(c => {
+      if (c.comp_type === "Modal") return null;
+      if (c.components) {
+        return {
+          ...c,
+          components: removeModals(c.components)
+        };
+      }
+      return c;
+    }).filter(c => c !== null);
+  };
+
   const appBarComponent = components?.find((c) => c.comp_type === "AppBar");
   const sidebarComponent = components?.find((c) => c.comp_type === "Sidebar");
-  const modalComponents = components?.filter((c) => c.container === "Modal") || [];
-  const regularComponents =
+  const modalComponents = findModals(components);
+  const regularComponents = removeModals(
     components?.filter(
-      (c) => c.container !== "Modal" && c.comp_type !== "AppBar" && c.comp_type !== "Sidebar"
-    ) || [];
+      (c) => c.comp_type !== "AppBar" && c.comp_type !== "Sidebar"
+    )
+  ) || [];
+
+  console.log('🔍 separateComponentsByType:', {
+    modalCount: modalComponents.length,
+    modalIds: modalComponents.map(m => m.id),
+    regularCount: regularComponents.length
+  });
 
   return {
     appBarComponent,

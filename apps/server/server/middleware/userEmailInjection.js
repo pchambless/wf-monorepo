@@ -3,10 +3,10 @@
  * Automatically injects userEmail into requests based on origin port
  *
  * Port Mapping:
- * - :3004 ’ studio@whatsfresh.ai
- * - :3000 ’ whatsfresh@whatsfresh.ai
- * - :3003 ’ planner@whatsfresh.ai
- * - default ’ default@whatsfresh.ai
+ * - :3004 ï¿½ studio@whatsfresh.ai
+ * - :3000 ï¿½ whatsfresh@whatsfresh.ai
+ * - :3003 ï¿½ planner@whatsfresh.ai
+ * - default ï¿½ default@whatsfresh.ai
  */
 
 import logger from '../utils/logger.js';
@@ -14,8 +14,8 @@ import logger from '../utils/logger.js';
 const codeName = '[userEmailInjection]';
 
 export const injectUserEmail = (req, res, next) => {
-  // Skip if userEmail already provided in request
-  if (req.body?.userEmail || req.query?.userEmail) {
+  // Skip if userEmail already provided in request (body, query, or header from Gateway)
+  if (req.body?.userEmail || req.query?.userEmail || req.headers['x-user-email']) {
     next();
     return;
   }

@@ -6,66 +6,6 @@
   },
   "modules": [
     {
-      "file": ".claude/routing/AgentDirector.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
-      "file": ".claude/routing/AgentRouter.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
-      "file": ".claude/routing/RegistryBuilder.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
-      "file": ".claude/routing/test-agent-system.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
-      "file": ".claude/routing/test-director.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
-      "file": ".claude/routing/test-enhanced-director.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "other"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
-    },
-    {
       "file": ".dependency-cruiser.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
@@ -1579,6 +1519,16 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
+      "file": "apps/studio/scripts/sync-rendering.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
       "file": "apps/studio/scripts/utils/targetedAnalysis.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
@@ -1595,6 +1545,16 @@
       "tags": [
         "studio",
         "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/scripts/watch-rendering.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "studio"
       ],
       "critical": false,
       "blastRadius": "low",
@@ -2294,7 +2254,7 @@
     },
     {
       "file": "apps/studio/src/db/studioDb.js",
-      "purpose": "Auto-inferred from dependency graph. 34 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 35 dependents.",
       "tags": [
         "studio"
       ],
@@ -2733,13 +2693,23 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
+      "file": "apps/studio/src/rendering/PageRenderer.jsx",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
       "file": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
-      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 8 dependents.",
       "tags": [
         "studio"
       ],
       "critical": true,
-      "blastRadius": "medium",
+      "blastRadius": "high",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
@@ -2805,6 +2775,36 @@
     {
       "file": "apps/studio/src/rendering/WorkflowEngine/triggers/action/closeModal.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2954,7 +2954,7 @@
     },
     {
       "file": "apps/studio/src/rendering/hooks/useModalManager.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio"
       ],
@@ -2964,6 +2964,56 @@
     },
     {
       "file": "apps/studio/src/rendering/hooks/useTemplateLoader.js",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/renderers/AppLayoutRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/renderers/ContainerRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/renderers/GridRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/renderers/ModalRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/rendering/renderers/TextRenderer.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
@@ -2985,7 +3035,7 @@
     },
     {
       "file": "apps/studio/src/rendering/utils/eventHandlerBuilder.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio",
         "utility"
@@ -2996,12 +3046,12 @@
     },
     {
       "file": "apps/studio/src/rendering/utils/layoutUtils.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
       "tags": [
         "studio",
         "utility"
       ],
-      "critical": false,
+      "critical": true,
       "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
@@ -3018,7 +3068,7 @@
     },
     {
       "file": "apps/studio/src/rendering/utils/styleUtils.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio",
         "utility"
@@ -3071,7 +3121,7 @@
     },
     {
       "file": "apps/studio/src/utils/api.js",
-      "purpose": "Auto-inferred from dependency graph. 13 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 21 dependents.",
       "tags": [
         "studio",
         "utility"
@@ -3335,113 +3385,446 @@
       "file": "apps/templates/app-boilerplate/craco.config.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/App.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/index.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/layouts/Appbar.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/layouts/Footer.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js",
+      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": true,
+      "blastRadius": "medium",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/closeModal.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getVal.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/navigate.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/openModal.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/refresh.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/reload.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/setVals.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/showNotification.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/userLogin.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/visible.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/class/onLoad.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/class/onRefresh.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/hooks/useModalManager.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/hooks/useTemplateLoader.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/renderers/AppLayoutRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/renderers/ModalRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/renderers/TextRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "tags": [
+        "templates",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
+    },
+    {
+      "file": "apps/templates/app-boilerplate/src/rendering/utils/styleUtils.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "templates",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/styles/global.css",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
-        "other"
+        "templates"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/utils/api.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 9 dependents.",
       "tags": [
-        "other",
+        "templates",
         "utility"
       ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "critical": true,
+      "blastRadius": "high",
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "apps/templates/app-boilerplate/src/utils/fetchConfig.js",
       "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
-        "other",
+        "templates",
         "utility"
       ],
       "critical": false,
       "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
       "file": "cli/ModelExecutor.js",

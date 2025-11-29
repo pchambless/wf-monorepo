@@ -15,9 +15,12 @@
     "source-map-loader": "^5.0.0"
   },
   "scripts": {
+    "prestart": "node scripts/sync-rendering.js --quiet",
     "start": "PORT=3004 BROWSER=none REACT_APP_DEFAULT_USER_EMAIL=studio@whatsfresh.ai craco start",
     "build": "craco build",
-    "test": "craco test"
+    "test": "craco test",
+    "dev": "concurrently \"npm run watch-template\" \"npm start\"",
+    "watch-template": "node scripts/watch-rendering.js"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",

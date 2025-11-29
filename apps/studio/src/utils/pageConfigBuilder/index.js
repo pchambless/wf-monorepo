@@ -40,15 +40,9 @@ export const buildPageConfig = async (pageID) => {
       throw new Error(`Container component not found for pageID: ${effectivePageID}. Available components: ${allComponents.map(c => `${c.comp_name}(${c.id})`).join(', ')}`);
     }
 
-    const childComponents = await getChildComponents(containerComponent.id);
+    // Build the full Container component with all its children
+    const containerConfig = await buildComponentConfig(containerComponent, 0);
 
-    const components = [];
-    for (const child of childComponents) {
-      const childConfig = await buildComponentConfig(child, 1);
-      components.push(childConfig);
-    }
-
-    const containerProps = await getComponentProps(containerComponent.id);
     const containerTriggers = await getComponentTriggers(containerComponent.id);
     const workflowTriggers = await buildWorkflowTriggers(containerTriggers);
 
@@ -59,7 +53,7 @@ export const buildPageConfig = async (pageID) => {
         pageID: effectivePageID,
         pageName: pageRegistry.pageName,
         appName: pageRegistry.appName,
-        componentsCount: components.length
+        componentsCount: containerConfig.components?.length || 0
       },
       props: {
         pageID: effectivePageID,
@@ -68,11 +62,10 @@ export const buildPageConfig = async (pageID) => {
         tableName: pageRegistry.tableName,
         tableID: pageRegistry.tableID,
         contextKey: pageRegistry.contextKey,
-        parentID: pageRegistry.parentID,
-        ...containerProps
+        parentID: pageRegistry.parentID
       },
       ...(workflowTriggers && { workflowTriggers }),
-      components
+      components: [containerConfig]
     };
     console.log('📦 Final pageConfig.props:', pageConfig.props);
 

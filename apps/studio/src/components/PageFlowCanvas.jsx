@@ -26,6 +26,15 @@ const specializedTypes = {
   app: PageNode,
   crud: PageNode,
   default: DefaultNode,
+  // Common HTML/UI elements that appear in component hierarchy
+  h3: DefaultNode,
+  h4: DefaultNode,
+  button: DefaultNode,
+  div: DefaultNode,
+  span: DefaultNode,
+  input: DefaultNode,
+  select: DefaultNode,
+  textarea: DefaultNode,
 };
 
 // Static nodeTypes - built once at module load, never changes

@@ -46,10 +46,28 @@ const portToEmailMap = {
 const injectUserEmail = (req, res, next) => {
   let userEmail;
 
-  // Debug logging
-  console.log(`[Gateway] ${req.method} ${req.path} | Cookie header:`, req.headers.cookie ? 'present' : 'missing');
-  console.log(`[Gateway] Session ID:`, req.sessionID);
-  console.log(`[Gateway] Session data:`, req.session);
+  // Enhanced logging - show what's being requested
+  const logRequest = () => {
+    const endpoint = req.path.split('/').pop();
+    switch(endpoint) {
+      case 'execEvent':
+        console.log(`[Gateway] 📊 execEvent: ${req.body?.eventSQLId || 'unknown'} | Params:`, JSON.stringify(req.body?.params || {}).substring(0, 100));
+        break;
+      case 'setVals':
+        const values = req.body?.values?.map(v => `${v.paramName}=${v.paramVal}`).join(', ') || 'unknown';
+        console.log(`[Gateway] 💾 setVals: ${values}`);
+        break;
+      case 'execDML':
+        console.log(`[Gateway] ✍️  execDML: ${req.body?.method || 'unknown'} ${req.body?.table || ''}`);
+        break;
+      case 'getVal':
+        console.log(`[Gateway] 🔍 getVal: ${req.query?.paramName || 'unknown'}`);
+        break;
+      default:
+        console.log(`[Gateway] ${req.method} ${req.path}`);
+    }
+  };
+  logRequest();
 
   // Check session first
   if (req.session && req.session.userEmail) {

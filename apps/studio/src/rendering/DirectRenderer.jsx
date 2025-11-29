@@ -80,26 +80,9 @@ const DirectRenderer = ({ config }) => {
     }
   }, [config, setData, contextStore]);
 
-  // Task 2: Sync dataStore → formData for controlled components
-  React.useEffect(() => {
-    const firstRowData = {};
-    let hasEmptyArray = false;
-
-    Object.entries(dataStore).forEach(([key, data]) => {
-      if (Array.isArray(data) && data.length > 0) {
-        Object.assign(firstRowData, data[0]);
-      } else if (Array.isArray(data) && data.length === 0) {
-        hasEmptyArray = true;
-      }
-    });
-
-    // If any dataStore entry is an empty array, clear the form completely
-    if (hasEmptyArray) {
-      setFormData({});
-    } else {
-      setFormData(firstRowData);
-    }
-  }, [dataStore]);
+  // Task 2: Form data managed via explicit triggers only (no auto-population)
+  // Forms populate only when execEvent/refresh is explicitly called on them
+  // This prevents unwanted form population from Grid data loading
 
   const renderComponent = (component) => {
     const {
@@ -118,6 +101,7 @@ const DirectRenderer = ({ config }) => {
     // Check visibility in runtime context
     const visibilityKey = `${id}_visible`;
     if (contextStore[visibilityKey] === false) {
+      console.log(`🚫 Component ${id} hidden by visibility:`, visibilityKey, contextStore[visibilityKey]);
       return null;
     }
 
@@ -137,7 +121,8 @@ const DirectRenderer = ({ config }) => {
         pageConfig: config,
         setData,
         contextStore,
-        formData
+        formData,
+        dataStore
       });
     }
 
@@ -212,6 +197,14 @@ const DirectRenderer = ({ config }) => {
       } else {
         children = components.map((child) => renderComponent(child));
       }
+    } else if (comp_type === "Modal") {
+      // Modal: Just render children directly (wrapper already rendered)
+      console.log(`🎨 Modal ${id} rendering ${components.length} children:`, components.map(c => c.id));
+      children = components.map((child) => {
+        const rendered = renderComponent(child);
+        console.log(`🎨 Modal child ${child.id} rendered:`, rendered);
+        return rendered;
+      });
     } else if (comp_type === "Container" && components.length > 0) {
       // Container: Group children by row for flex layout
       const childRows = groupByRow(components);
@@ -346,6 +339,8 @@ const DirectRenderer = ({ config }) => {
       {modalComponents.map((modalComp) => {
         if (!openModals.has(modalComp.id)) return null;
 
+        console.log('🎨 Rendering modal:', modalComp.id, 'children:', modalComp.components?.length);
+
         const modalTemplate = templates["Modal"];
         const modalStyle = {
           ...(modalTemplate?.style || {}),
@@ -375,6 +370,7 @@ const DirectRenderer = ({ config }) => {
               }}
             >
               <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
+                {console.log('🎨 About to render modal children for:', modalComp.id)}
                 {renderComponent(modalComp)}
               </div>
             </div>

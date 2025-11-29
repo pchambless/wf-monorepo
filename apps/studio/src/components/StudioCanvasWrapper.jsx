@@ -36,9 +36,10 @@ const StudioCanvasWrapper = () => {
 
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:3001/api/genPageConfig', {
+        const response = await fetch('http://localhost:3002/api/genPageConfig', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
           body: JSON.stringify({ pageID })
         });
         const data = await response.json();
