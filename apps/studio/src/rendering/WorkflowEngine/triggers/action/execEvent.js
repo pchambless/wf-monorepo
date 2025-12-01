@@ -18,9 +18,11 @@ export async function execEvent(content, context) {
   console.log('🔍 execEvent: Calling API with eventSQLId:', eventSQLId, 'params:', params);
   const result = await execEvent(eventSQLId, params);
 
-  // Return data tied to the component that requested it
+  console.log('✅ execEvent response:', result);
+
+  // Return data - let the caller decide what to do with it
   return {
-    componentId: context.componentId,  // Grid ID that triggered refresh
-    data: result.data || result         // Query results
+    componentId: context.componentId,
+    data: result.data || result
   };
 }

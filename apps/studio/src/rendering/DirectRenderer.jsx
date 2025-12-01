@@ -148,7 +148,8 @@ const DirectRenderer = ({ config }) => {
       workflowTriggers,
       config,
       setData,
-      contextStore
+      contextStore,
+      setFormData
     );
 
     const {
@@ -191,7 +192,8 @@ const DirectRenderer = ({ config }) => {
             config,
             setData,
             rowActions,
-            gridProps
+            gridProps,
+            setFormData
           )
         );
       } else {

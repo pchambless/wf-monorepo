@@ -11,9 +11,8 @@ export async function execEvent(xrefId, params = {}, { baseUrl, logger }) {
       "Content-Type": "application/json",
     };
 
-    // TEMPORARY HARDCODE - bypassing env var issues
     const body = { eventSQLId: xrefId, params };
-    body.userEmail = 'studio@whatsfresh.ai';
+    // Gateway will inject userEmail from session - no hardcoded email needed
 
     // Call the execEvent endpoint with credentials
     // Server expects eventSQLId parameter

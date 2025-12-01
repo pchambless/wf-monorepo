@@ -12,8 +12,7 @@ export async function getVal(paramName, format = 'raw', { baseUrl, logger }) {
       params.append('format', format);
     }
 
-    // TEMPORARY HARDCODE - bypassing env var issues
-    params.append('userEmail', 'studio@whatsfresh.ai');
+    // Gateway will inject userEmail from session - no hardcoded email needed
 
     const response = await fetch(`${baseUrl}/api/getVal?${params}`, {
       method: "GET",

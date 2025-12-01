@@ -35,7 +35,31 @@ export async function refresh(content, context) {
 
     // Pass componentId so execEvent knows where to store data
     const refreshContext = { ...context, componentId };
-    await triggerEngine.executeTriggers(component.workflowTriggers.onRefresh, refreshContext);
+    const results = await triggerEngine.executeTriggers(component.workflowTriggers.onRefresh, refreshContext);
+
+    // Extract data from results array (executeTriggers returns array of {trigger, result, success})
+    const dataResult = results?.find(r => r.result?.data);
+    if (dataResult && dataResult.result.data) {
+      const compType = component.comp_type;
+      const data = dataResult.result.data;
+      
+      console.log(`🔍 refresh: Component ${componentId} type is "${compType}", has setFormData: ${!!context.setFormData}`);
+      
+      if (compType === 'Grid' && context.setData) {
+        // Grid: Store array data in dataStore
+        console.log(`💾 Storing Grid data for ${componentId}:`, data);
+        context.setData(prev => ({
+          ...prev,
+          [componentId]: data
+        }));
+      } else if (compType === 'Form' && context.setFormData && Array.isArray(data) && data.length > 0) {
+        // Form: Populate formData with first row
+        console.log(`💾 Populating Form data for ${componentId}:`, data[0]);
+        context.setFormData(data[0]);
+      } else {
+        console.warn(`⚠️ refresh: Don't know how to handle component type "${compType}" for ${componentId}`);
+      }
+    }
   }
 }
 

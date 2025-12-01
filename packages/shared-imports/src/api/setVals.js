@@ -14,11 +14,7 @@ export async function setVals(values, { baseUrl, logger }) {
 
     const body = { values };
 
-    // TEMPORARY HARDCODE - bypassing env var issues
-    const defaultEmail = 'studio@whatsfresh.ai';
-    console.log('🔥 HARDCODED defaultEmail:', defaultEmail);
-    body.userEmail = defaultEmail;
-    console.log('🔥 Body with userEmail:', body);
+    // Gateway will inject userEmail from session - no hardcoded email needed
 
     const response = await fetch(`${baseUrl}/api/setVals`, {
       method: "POST",

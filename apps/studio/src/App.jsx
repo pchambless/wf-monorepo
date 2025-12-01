@@ -13,10 +13,25 @@ const App = () => {
   useEffect(() => {
     const startup = async () => {
       try {
+        // Check for valid session first
+        const sessionCheck = await fetch('http://localhost:3002/api/auth/session', {
+          credentials: 'include'
+        });
+
+        if (!sessionCheck.ok) {
+          console.log('❌ No valid session - redirecting to login');
+          window.location.href = 'http://localhost:3002/login.html';
+          return;
+        }
+
+        const sessionData = await sessionCheck.json();
+        console.log('✅ Session valid:', sessionData.email);
+
         await initializeApp();
         console.log('✅ Studio App: Startup complete');
       } catch (error) {
         console.error('❌ App startup failed:', error);
+        window.location.href = 'http://localhost:3002/login.html';
       } finally {
         setLoading(false);
       }

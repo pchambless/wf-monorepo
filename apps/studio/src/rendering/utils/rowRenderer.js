@@ -4,7 +4,7 @@ import React from 'react';
 /**
  * Create actions cell with action buttons for a row
  */
-function createActionsCell(rowActions, rowData, idx, config, setData, gridProps) {
+function createActionsCell(rowActions, rowData, idx, config, setData, gridProps, setFormData) {
   const actionButtons = rowActions.map((action) => ({
     id: `${action.id}_${idx}`,
     type: 'button',
@@ -41,7 +41,8 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
           row: rowData,
           props: gridProps,
           pageConfig: config,
-          setData
+          setData,
+          setFormData
         };
 
         // Execute the trigger(s)
@@ -101,7 +102,7 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
 /**
  * Render row from placeholder, replacing {tokens} with data
  */
-export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 'id', renderComponentFn, config, setData, rowActions = null, gridProps = null) {
+export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 'id', renderComponentFn, config, setData, rowActions = null, gridProps = null, setFormData = null) {
   const cloneWithData = (comp) => {
     let textContent = comp.textContent;
 
@@ -151,7 +152,7 @@ export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 
 
       // Append actions cell if rowActions are defined
       if (rowActions && rowActions.length > 0 && gridProps) {
-        const actionsCell = createActionsCell(rowActions, rowData, idx, config, setData, gridProps);
+        const actionsCell = createActionsCell(rowActions, rowData, idx, config, setData, gridProps, setFormData);
         clonedComp.components = [...(clonedComp.components || []), actionsCell];
       }
     }

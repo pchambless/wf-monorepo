@@ -237,3 +237,28 @@
 2025-11-29T16:51:18.351Z | INFO | MCP MySQL server process started with PID: 420445
 2025-11-29T16:51:18.352Z | INFO | Signal handlers registered for SIGINT and SIGTERM
 2025-11-29T16:51:18.352Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-11-30T14:08:28.009Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-11-30T14:08:28.011Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-11-30T14:08:28.013Z | INFO | MCP MySQL server process started with PID: 783946
+2025-11-30T14:08:28.013Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-11-30T14:08:28.013Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-11-30T17:15:02.573Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-11-30T17:15:02.576Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-11-30T17:15:02.578Z | INFO | MCP MySQL server process started with PID: 842760
+2025-11-30T17:15:02.579Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-11-30T17:15:02.579Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-11-30T17:17:55.281Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-11-30T17:17:55.284Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-11-30T17:17:55.286Z | INFO | MCP MySQL server process started with PID: 844430
+2025-11-30T17:17:55.286Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-11-30T17:17:55.287Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-11-30T18:30:25.600Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-11-30T18:30:25.603Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-11-30T18:30:25.605Z | INFO | MCP MySQL server process started with PID: 869563
+2025-11-30T18:30:25.606Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-11-30T18:30:25.606Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-11-30T19:24:32.717Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-11-30T19:24:32.722Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-11-30T19:24:32.725Z | INFO | MCP MySQL server process started with PID: 888309
+2025-11-30T19:24:32.726Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-11-30T19:24:32.726Z | INFO | Press Ctrl+C to gracefully shutdown the server

@@ -68,33 +68,12 @@ const execEvent = async (req, res) => {
         try {
           let resolvedValue = null;
 
-          // First check if param was passed directly in request
-          if (params && params[paramName] !== undefined) {
-            const rawValue = String(params[paramName]);
-            // Format for SQL - handle JSON params (ending in _json), numbers, and strings
-            const isJsonParam = paramName.toLowerCase().endsWith("_json");
-            if (isJsonParam) {
-              // JSON: properly quote for MySQL JSON parameter type
-              resolvedValue = `'${rawValue.replace(/'/g, "\\'")}'`;
-            } else if (/^[0-9]+$/.test(rawValue)) {
-              resolvedValue = rawValue; // Numbers: unquoted
-            } else {
-              resolvedValue = `'${rawValue.replace(/'/g, "\\'")}'`; // Strings: quoted and escaped
-            }
+          // Always use context_store - single source of truth
+          resolvedValue = await getValDirect(userEmail, paramName, "sql");
+          if (resolvedValue !== null) {
             logger.debug(
-              `${codeName} Using passed param :${paramName} → ${resolvedValue.substring(
-                0,
-                100
-              )}...`
+              `${codeName} Resolved from context_store :${paramName} → ${resolvedValue}`
             );
-          } else {
-            // Fall back to context_store
-            resolvedValue = await getValDirect(userEmail, paramName, "sql");
-            if (resolvedValue !== null) {
-              logger.debug(
-                `${codeName} Resolved from context :${paramName} → ${resolvedValue}`
-              );
-            }
           }
 
           if (resolvedValue !== null) {

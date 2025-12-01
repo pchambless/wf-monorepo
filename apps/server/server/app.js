@@ -15,7 +15,6 @@ import {
   corsOptions
 } from './middleware/security.js';
 import errorHandler from './middleware/errorHandler.js';
-import { injectUserEmail } from './middleware/userEmailInjection.js';
 import logger from './utils/logger.js';
 import userLogin from './controller/userLogin.js';
 import execEvent from './controller/execEvent.js';
@@ -139,8 +138,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// User email injection middleware - automatically injects userEmail based on origin port
-app.use(injectUserEmail);
+// No more port-based email injection - Gateway handles authentication via sessions
 
 // Basic health check endpoint
 app.get('/health', (req, res) => {

@@ -166,61 +166,69 @@ curl -X POST http://localhost:3001/api/execEventType \
 
 ### For Both Claude and Kiro:
 1. Generate summary markdown following template above
-2. Execute curl command to create the Next Steps plan in plans table (Step 1)
-3. Capture the returned plan_id from Step 1
-4. Execute curl command to store summary in plan_communications table with plan_id (Step 2)
-5. Execute curl command to log file impacts
+2. Use MCP to create the Next Steps plan in plans table (Step 1)
+3. Capture the returned insertId from Step 1
+4. Use MCP to store summary in plan_communications table (Step 2)
+5. Use MCP to log file impacts (Step 3)
 6. Confirm storage and show record IDs
 
 ## Step 1: Create Next Steps Plan in Database
 
-```bash
-curl -X POST http://localhost:3001/api/execDML \
-  -H "Content-Type: application/json" \
-  -d '{
-    "method": "INSERT",
-    "table": "api_wf.plans",
-    "userEmail": "claude@whatsfresh.ai",
-    "data": {
-      "name": "Session Next Steps - [Brief Topic]",
-      "status": "pending",
-      "priority": "medium",
-      "description": "# Next Steps\n\n## Immediate (Priority: high)\n- Step 1\n- Step 2\n\n## Short Term (Priority: medium)\n- Step 3\n\n## Future (Priority: low)\n- Step 4",
-      "comments": "",
-      "assigned_to": "",
-      "created_by": "claude"
-    }
-  }'
+Use MCP MySQL tool:
+
+```javascript
+mcp__mysql__sql_query({
+  sql: `INSERT INTO api_wf.plans (name, status, priority, description, comments, assigned_to, created_by)
+  VALUES (
+    'Session Next Steps - [Brief Topic]',
+    'pending',
+    'medium',
+    '# Next Steps
+
+## Immediate (Priority: high)
+- Step 1
+- Step 2
+
+## Short Term (Priority: medium)
+- Step 3
+
+## Future (Priority: low)
+- Step 4',
+    '',
+    '',
+    'claude'
+  )`
+})
 ```
 
-**Capture the returned `id` from this response to use as `plan_id` in Step 2.**
+**Capture the returned `insertId` from the result to use as `plan_id` in Step 2.**
 
 ## Step 2: Store Summary in Database
 
-```bash
-curl -X POST http://localhost:3001/api/execDML \
-  -H "Content-Type: application/json" \
-  -d '{
-    "method": "INSERT",
-    "table": "api_wf.plan_communications",
-    "userEmail": "claude@whatsfresh.ai",
-    "data": {
-      "plan_id": [ID_FROM_STEP_1],
-      "from_agent": "claude",
-      "to_agent": "any",
-      "type": "summary",
-      "subject": "Brief session topic here",
-      "message": "# Full markdown summary here\n\nUse \\n for newlines in JSON string",
-      "created_by": "claude"
-    }
-  }'
+Use MCP MySQL tool:
+
+```javascript
+mcp__mysql__sql_query({
+  sql: `INSERT INTO api_wf.plan_communications (plan_id, from_agent, to_agent, type, subject, message, created_by)
+  VALUES (
+    0,
+    'claude',
+    'any',
+    'summary',
+    'Brief session topic here',
+    '# Full markdown summary here
+
+Use proper line breaks and formatting',
+    'claude'
+  )`
+})
 ```
 
 **Notes:**
-- Replace `from_agent` with "kiro" if Kiro is creating the summary
-- DO NOT include `created_by` - it is auto-injected from userID by execDML
-- Use `plan_id: 0` for general summaries not tied to a specific plan
+- Replace `from_agent` and `created_by` with "kiro" if Kiro is creating the summary
+- Use `plan_id: 0` for adhoc work or the actual plan_id for plan-specific work
 - Reference the plan_id from Step 1 in the summary's Next Steps section
+- Use proper SQL escaping for quotes in message content
 
 ## Optional: Update Module Dependencies (when applicable)
 
@@ -251,50 +259,31 @@ npm run analyze:populate-db
 - Changes didn't affect module dependencies
 - Pure bug fixes without structural changes
 
-## Logging File Impacts
+## Step 3: Log File Impacts
 
-After completing work, log all file changes to `plan_impacts`:
+After completing work, log all file changes to `plan_impacts` using MCP MySQL tool:
 
-```bash
-# Template for multiple file modified/created/removed
-curl -X POST http://localhost:3001/api/logImpact \
-  -H "Content-Type: application/json" \
-  -d '{
-    "impacts": [
-      {
-        "filePath": "file_path.js",
-        "changeType": "MODIFY",
-        "description": "Brief summary of modifications\n- Specific change 1\n- Specific change 2\n- Specific change 3",
-        "affectedApps": ["appName"],
-        "createdBy": "AI agent"
-      },
-      {
-        "filePath": "file_path.js",
-        "changeType": "CREATE",
-        "description": "Created new module\n- Purpose and functionality\n- Key features added",
-        "affectedApps": ["appName"],
-        "createdBy": "AI agent"
-      },
-	  {
-        "filePath": "file_path.js",
-        "changeType": "DELETE",
-        "description": "Removed obsolete module - reason for deletion",
-        "affectedApps": ["appName"],
-        "createdBy": "AI agent"
-      }
-    ],
-    "planId": 0
-  }'
+```javascript
+mcp__mysql__sql_query({
+  sql: `INSERT INTO api_wf.plan_impacts (plan_id, file_path, change_type, description, created_by)
+  VALUES
+    (0, 'path/to/file1.js', 'MODIFY', 'Brief summary of modifications
+- Specific change 1
+- Specific change 2', 'claude'),
+    (0, 'path/to/file2.js', 'CREATE', 'Created new module
+- Purpose and functionality', 'claude'),
+    (0, 'path/to/file3.js', 'DELETE', 'Removed obsolete module - reason', 'claude')`
+})
 ```
 
 **Important:**
-- DO NOT include `batch_id` - it's a generated column
-- Valid `changeType`: CREATE, MODIFY, DELETE, ANALYZE, DISCOVER
-- Use `planId: 0` for adhoc operations
-- Field names are camelCase: `filePath`, `changeType`, `affectedApps`, `createdBy`, `planId`
-- **Description formatting**: Use markdown with newlines and bullets for multi-part changes (improves readability in views/queries)
-  - For complex changes: `"Brief summary\n- Point 1\n- Point 2"`
-  - For simple changes: Single line without bullets is fine
+- Valid `change_type`: CREATE, MODIFY, DELETE, ANALYZE, DISCOVER, COMMUNICATE, PLAN
+- Use `plan_id: 0` for adhoc operations
+- Field names are snake_case for database: `plan_id`, `file_path`, `change_type`, `created_by`
+- **Description formatting**: Use markdown with newlines and bullets for multi-part changes
+  - For complex changes: Multi-line with bullets
+  - For simple changes: Single line is fine
+- Replace `created_by` with 'kiro' if Kiro is creating the impacts
 
 ## Benefits
 
