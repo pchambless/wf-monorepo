@@ -8,6 +8,7 @@
     "react-router-dom": "^6.26.0"
   },
   "scripts": {
+    "prestart": "node scripts/sync-rendering.js --quiet",
     "start": "PORT=3005 BROWSER=none REACT_APP_NAME=admin REACT_APP_API_BASE_URL=http://localhost:3002 craco start",
     "build": "craco build",
     "test": "craco test"

@@ -28,6 +28,7 @@ const SimpleLayout = ({ children, navigationSections, appName, appBarConfig, onL
       const response = await fetch(createApiUrl('/api/util/run-migration'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
       });
 
       const result = await response.json();

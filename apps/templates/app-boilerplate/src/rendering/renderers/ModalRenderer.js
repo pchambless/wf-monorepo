@@ -1,13 +1,24 @@
 import React from "react";
 
-export const renderModal = (modalComp, templates, openModals, renderComponent) => {
+export const renderModal = (modalComp, openModals, renderComponent) => {
   if (!openModals.has(modalComp.id)) {
     return null;
   }
 
-  const modalTemplate = templates["Modal"];
+  // Default modal styles - can be overridden by modalComp.override_styles
+  const defaultModalStyle = {
+    position: "relative",
+    backgroundColor: "white",
+    borderRadius: "8px",
+    padding: "24px",
+    maxWidth: "600px",
+    maxHeight: "80vh",
+    overflow: "auto",
+    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  };
+
   const modalStyle = {
-    ...(modalTemplate?.style || {}),
+    ...defaultModalStyle,
     ...modalComp.override_styles,
   };
 

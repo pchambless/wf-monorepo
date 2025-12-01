@@ -1,7 +1,7 @@
 import React from "react";
 import { triggerEngine } from "./WorkflowEngine/TriggerEngine.js";
 import { useModalManager } from "./hooks/useModalManager.js";
-import { useTemplateLoader } from "./hooks/useTemplateLoader.js";
+
 import { getFlexPosition, getHtmlElement } from "./utils/styleUtils.js";
 import { buildEventHandlers } from "./utils/eventHandlerBuilder.js";
 import { groupByRow, getRowAlignment, separateComponentsByType } from "./utils/layoutUtils.js";
@@ -11,13 +11,12 @@ import { renderModal } from "./renderers/ModalRenderer.js";
 import { renderContainer } from "./renderers/ContainerRenderer.js";
 import { renderRow } from "./renderers/GridRenderer.js";
 
-const PageRenderer = ({ config, customComponents = {}, apiBaseUrl = null }) => {
+const PageRenderer = ({ config, customComponents = {} }) => {
   if (!config) {
     return <div>No config provided</div>;
   }
 
   const [dataStore, setDataStore] = React.useState({});
-  const { templates, templatesLoaded } = useTemplateLoader(apiBaseUrl);
   const { openModals } = useModalManager();
 
   const componentMap = React.useMemo(() => {
@@ -102,13 +101,8 @@ const PageRenderer = ({ config, customComponents = {}, apiBaseUrl = null }) => {
       return <CustomComponent key={id} id={id} {...props} />;
     }
 
-    const template = comp_type ? templates[comp_type] : null;
-    if (!template && comp_type) {
-      console.warn(`⚠️ No template found for comp_type: ${comp_type}`);
-    }
-
+    // Styles come from pageConfig - no template loading needed
     const style = {
-      ...(template?.style || {}),
       ...override_styles,
       ...legacyStyle,
     };
@@ -217,10 +211,6 @@ const PageRenderer = ({ config, customComponents = {}, apiBaseUrl = null }) => {
     height: "100%",
   };
 
-  if (!templatesLoaded) {
-    return <div style={{ padding: "20px" }}>Loading templates...</div>;
-  }
-
   const { appBarComponent, sidebarComponent, modalComponents, regularComponents } =
     separateComponentsByType(config.components);
 
@@ -271,7 +261,7 @@ const PageRenderer = ({ config, customComponents = {}, apiBaseUrl = null }) => {
       )}
 
       {modalComponents.map((modalComp) =>
-        renderModal(modalComp, templates, openModals, renderComponent)
+        renderModal(modalComp, openModals, renderComponent)
       )}
     </>
   );

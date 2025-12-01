@@ -21,6 +21,12 @@ docs/*.componentInventory.csv
 /claude-plans/c-archived
 /claude-plans/assets
 
+# Analysis output files
+**/madge-analysis.json
+**/dead-code-analysis.json
+analysis-n-document/output/**/*.json
+analysis-n-document/genDocs/output/**/*.json
+
 # misc
 .DS_Store
 .env.local
