@@ -1,0 +1,74 @@
+OK, could this PageRenderer be a divide and conquer effort with you and kiro?  We'd have to figure out a division of labor and a proper path.
+1.  Can we see what could be simplified?  the original DirectRenderer was a patchwork of reaction coding based on errors encountered and erroneous attempts.  I think you cleaned it up some when you cloned it to PageRenderer, but PageRenderer is missing some functionality that kiro just built in to DirectRenderer. 
+
+See below:  If we are copying the package.json and App.jsx as part of an app cloning process, I'm ok with the **package.json** and **App.jsx**.  I'm not sure what our strategy is, though.   
+
+Also:  /home/paul/Projects/wf-monorepo/apps/templates/
+└── app-boilerplate/
+    ├── craco.config.js
+    ├── package.json   -->  DevNote: This is not really a true app.  Do we need this?
+    ├── public/
+    │   └── index.html   -> DevNote: should we add the wf-icon to this folder?
+    └── src/
+        ├── App.jsx    -->  DevNote: This is not really a true app.  Do we need this?
+        ├── components/
+        │   └── DirectRenderer.jsx
+        ├── index.js
+        ├── layouts/
+        │   ├── AppLayout.jsx
+        │   ├── Appbar.jsx
+        │   ├── Footer.jsx
+        │   └── Sidebar.jsx
+        ├── rendering/
+        │   ├── PageRenderer.jsx
+        │   ├── WorkflowEngine/
+        │   │   ├── TriggerEngine.js
+        │   │   └── triggers/
+        │   │       ├── action/
+        │   │       │   ├── buildDMLData.js
+        │   │       │   ├── captureFormData.js
+        │   │       │   ├── clearVals.js
+        │   │       │   ├── closeModal.js
+        │   │       │   ├── dmlBuilders/
+        │   │       │   │   ├── buildDeleteData.js
+        │   │       │   │   ├── buildInsertData.js
+        │   │       │   │   └── buildUpdateData.js
+        │   │       │   ├── execDML.js
+        │   │       │   ├── execEvent.js
+        │   │       │   ├── getMermaidContent.js
+        │   │       │   ├── getVal.js
+        │   │       │   ├── navigate.js
+        │   │       │   ├── openModal.js
+        │   │       │   ├── refresh.js
+        │   │       │   ├── reload.js
+        │   │       │   ├── setVals.js
+        │   │       │   ├── showNotification.js
+        │   │       │   ├── userLogin.js
+        │   │       │   └── visible.js
+        │   │       └── class/
+        │   │           ├── onLoad.js
+        │   │           └── onRefresh.js
+        │   ├── hooks/
+        │   │   ├── useModalManager.js
+        │   │   └── useTemplateLoader.js
+        │   ├── renderers/
+        │   │   ├── AppLayoutRenderer.js  --> rename: AppLayout.js 
+        │   │   ├── ContainerRenderer.js  --> rename: Container.js
+        │   │   ├── GridRenderer.js       --> rename: Grid.js
+        │   │   ├── ModalRenderer.js        --> rename: Modal.js
+        │   │   └── TextRenderer.js         --> rename: Text.js
+        DevNote: Do we need to add new renderers?  Form.js, Select.js?  Any others?
+        │   └── utils/
+        │       ├── eventHandlerBuilder.js
+        │       ├── layoutUtils.js
+        │       └── styleUtils.js
+        ├── styles/
+        │   └── global.css  DevNote:  I'm ok with this, but is the styles column in eventType also providing
+                css type of functionality?
+        └── utils/
+            ├── api.js
+            └── fetchConfig.js
+
+
+
+

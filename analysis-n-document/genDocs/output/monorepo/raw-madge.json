@@ -39,7 +39,6 @@
     "apps/server/server/controller/userLogin.js",
     "apps/server/server/middleware/errorHandler.js",
     "apps/server/server/middleware/security.js",
-    "apps/server/server/middleware/userEmailInjection.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/controller/clearVals.js": [
@@ -827,7 +826,7 @@
   "apps/studio/src/rendering/WorkflowEngine/triggers/class/onRefresh.js": [],
   "apps/studio/src/rendering/hooks/useModalManager.js": [],
   "apps/studio/src/rendering/hooks/useTemplateLoader.js": [
-    "apps/studio/src/config/api.js"
+    "apps/studio/src/db/studioDb.js"
   ],
   "apps/studio/src/rendering/renderers/AppLayoutRenderer.js": [],
   "apps/studio/src/rendering/renderers/ContainerRenderer.js": [

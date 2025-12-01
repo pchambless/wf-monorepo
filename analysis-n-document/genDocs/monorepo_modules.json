@@ -1380,10 +1380,6 @@
     },
     {
       "from_path": "apps/server/server/app.js",
-      "to_path": "apps/server/server/middleware/userEmailInjection.js"
-    },
-    {
-      "from_path": "apps/server/server/app.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -2932,7 +2928,7 @@
     },
     {
       "from_path": "apps/studio/src/rendering/hooks/useTemplateLoader.js",
-      "to_path": "apps/studio/src/config/api.js"
+      "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
       "from_path": "apps/studio/src/rendering/renderers/ContainerRenderer.js",

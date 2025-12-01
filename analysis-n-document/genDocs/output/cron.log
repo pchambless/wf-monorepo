@@ -475,3 +475,53 @@ Dead code analysis and DB population completed at Sat Nov 29 02:00:03 AM CST 202
      • Modules processed: N/A
      • Dependencies mapped: N/A
 Dead code analysis and DB population completed at Sun Nov 30 02:00:06 AM CST 2025
+
+> analyze:all
+> npm run analyze-deps && npm run analyze:dead-code
+
+
+> analyze-deps
+> madge . --json > analysis-n-document/genDocs/output/monorepo/raw-madge.json && node analysis-n-document/genDocs/enhance-madge.js
+
+✅ Enhanced analysis written to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/output/monorepo/madge-analysis.json
+📁 Project index written to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/output/monorepo/project.index.json
+📊 Analyzed 440 files
+🔥 Found 16 hotspots
+
+> analyze:dead-code
+> node analysis-n-document/genDocs/analyze-dead-code.js
+
+🔍 Starting dead code analysis...
+📊 Using existing dependency graph...
+📊 Enhancing madge data for AI consumption...
+✅ Dead code analysis complete!
+📁 JSON output: /home/paul/Projects/wf-monorepo/analysis-n-document/output/json/dead-code-analysis.json
+📊 Summary:
+   💀 Dead code candidates: 205
+   🔥 Critical dependencies: 15
+   ✅ Safe removals: 19
+   ⚠️  Risky removals: 0
+
+> analyze:populate-db
+> node analysis-n-document/genDocs/populate-modules-db.js
+
+🚀 Starting module database population...
+🔌 API: http://localhost:3001
+📂 Reading from: ./output/monorepo/madge-analysis.json
+
+📊 Processing monorepo...
+   📁 Files in analysis: 440
+   🔄 Transforming to lean format...
+   📄 Saved JSON payload to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/monorepo_modules.json
+   📦 Modules: 440, Dependencies: 529
+   📤 Executing two-phase population...
+   📦 Phase 1: Loading 440 modules...
+   📊 JSON size: 30034 characters
+   🚀 Starting modules load...
+❌ Fatal error: Module load failed: No userEmail found in request. Must provide userEmail in body or have valid session.
+Error: Module load failed: No userEmail found in request. Must provide userEmail in body or have valid session.
+    at callModuleLoad (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:67:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processAnalysisFile (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:146:24)
+    at async main (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:172:18)
+Dead code analysis and DB population completed at Mon Dec  1 02:00:05 AM CST 2025

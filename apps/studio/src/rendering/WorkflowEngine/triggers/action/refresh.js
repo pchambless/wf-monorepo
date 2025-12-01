@@ -39,26 +39,21 @@ export async function refresh(content, context) {
 
     // Extract data from results array (executeTriggers returns array of {trigger, result, success})
     const dataResult = results?.find(r => r.result?.data);
-    if (dataResult && dataResult.result.data) {
+    if (dataResult && dataResult.result.data && context.setData) {
       const compType = component.comp_type;
       const data = dataResult.result.data;
       
-      console.log(`🔍 refresh: Component ${componentId} type is "${compType}", has setFormData: ${!!context.setFormData}`);
+      console.log(`🔍 refresh: Component ${componentId} type is "${compType}", storing in dataStore`);
       
-      if (compType === 'Grid' && context.setData) {
-        // Grid: Store array data in dataStore
-        console.log(`💾 Storing Grid data for ${componentId}:`, data);
-        context.setData(prev => ({
-          ...prev,
-          [componentId]: data
-        }));
-      } else if (compType === 'Form' && context.setFormData && Array.isArray(data) && data.length > 0) {
-        // Form: Populate formData with first row
-        console.log(`💾 Populating Form data for ${componentId}:`, data[0]);
-        context.setFormData(data[0]);
-      } else {
-        console.warn(`⚠️ refresh: Don't know how to handle component type "${compType}" for ${componentId}`);
-      }
+      // Universal pattern: All components store data in dataStore
+      // - Grid: stores array, renders all rows
+      // - Form: stores object or array, renders first item
+      // - Select: stores array, renders as options
+      console.log(`💾 Storing data for ${componentId}:`, data);
+      context.setData(prev => ({
+        ...prev,
+        [componentId]: data
+      }));
     }
   }
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { buildPageConfig } from '../utils/pageConfigBuilder';
 import { formatPageConfig } from '../utils/pageConfigBuilder/formatPageConfig';
-import DirectRenderer from '../rendering/DirectRenderer';
+import PageRenderer from '../rendering/PageRenderer';
 import mermaid from 'mermaid';
 
 const PagePreviewPanel = ({ pageID }) => {
@@ -178,7 +178,7 @@ const PagePreviewPanel = ({ pageID }) => {
 
         {!loading && !error && pageConfig && activeTab === 'rendered' && (
           <div style={styles.renderedView}>
-            <DirectRenderer config={pageConfig} />
+            <PageRenderer config={pageConfig} />
           </div>
         )}
 

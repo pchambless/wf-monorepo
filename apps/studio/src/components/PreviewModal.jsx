@@ -1,5 +1,5 @@
 import React from 'react';
-import DirectRenderer from '../rendering/DirectRenderer';
+import PageRenderer from '../rendering/PageRenderer';
 
 const PreviewModal = ({ config, onClose }) => {
   console.log('🎭 PreviewModal config:', config);
@@ -17,7 +17,7 @@ const PreviewModal = ({ config, onClose }) => {
           <div style={{marginBottom: '16px', padding: '12px', backgroundColor: '#f3f4f6', borderRadius: '6px'}}>
             <strong>Preview Status:</strong> Showing {config.components?.length || 0} components from IndexedDB
           </div>
-          <DirectRenderer config={config} />
+          <PageRenderer config={config} />
         </div>
       </div>
     </div>

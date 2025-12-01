@@ -1,7 +1,7 @@
 {
   "metadata": {
     "scope": "monorepo",
-    "generated": "2025-11-30T08:00:03.054Z",
+    "generated": "2025-12-01T08:00:03.839Z",
     "total_files": 440
   },
   "files": {
@@ -212,13 +212,12 @@
         "apps/server/server/controller/userLogin.js",
         "apps/server/server/middleware/errorHandler.js",
         "apps/server/server/middleware/security.js",
-        "apps/server/server/middleware/userEmailInjection.js",
         "apps/server/server/utils/logger.js"
       ],
       "dependents": [
         "apps/server/server/server.js"
       ],
-      "dependency_count": 6,
+      "dependency_count": 5,
       "dependent_count": 1,
       "blast_radius": "low",
       "package": "server"
@@ -1017,11 +1016,9 @@
       "dependencies": [
         "apps/server/server/utils/logger.js"
       ],
-      "dependents": [
-        "apps/server/server/app.js"
-      ],
+      "dependents": [],
       "dependency_count": 1,
-      "dependent_count": 1,
+      "dependent_count": 0,
       "blast_radius": "low",
       "package": "server"
     },
@@ -2282,13 +2279,12 @@
         "apps/studio/src/preview/login/loginPage/index.jsx",
         "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
         "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
-        "apps/studio/src/rendering/hooks/useTemplateLoader.js",
         "apps/studio/src/utils/genPageConfig.js",
         "apps/studio/src/workflows/unifiedGenFields.js"
       ],
       "dependency_count": 0,
-      "dependent_count": 8,
-      "blast_radius": "high",
+      "dependent_count": 7,
+      "blast_radius": "medium",
       "package": "studio"
     },
     "apps/studio/src/config/navigation.js": {
@@ -2699,6 +2695,7 @@
         "apps/studio/src/hooks/useReactFlowPersistence.js",
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
         "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+        "apps/studio/src/rendering/hooks/useTemplateLoader.js",
         "apps/studio/src/utils/componentConfigBuilder.js",
         "apps/studio/src/utils/pageConfigBuilder/dataFetcher.js",
         "apps/studio/src/utils/pageConfigBuilder/index.js",
@@ -2707,7 +2704,7 @@
         "apps/studio/src/utils/referenceLoaders.js"
       ],
       "dependency_count": 1,
-      "dependent_count": 35,
+      "dependent_count": 36,
       "blast_radius": "high",
       "package": "studio"
     },
@@ -3410,7 +3407,7 @@
     },
     "apps/studio/src/rendering/hooks/useTemplateLoader.js": {
       "dependencies": [
-        "apps/studio/src/config/api.js"
+        "apps/studio/src/db/studioDb.js"
       ],
       "dependents": [
         "apps/studio/src/rendering/DirectRenderer.jsx",
@@ -5070,7 +5067,7 @@
     },
     {
       "file": "apps/studio/src/db/studioDb.js",
-      "dependents": 35,
+      "dependents": 36,
       "blast_radius": "high",
       "package": "studio"
     },
@@ -5105,12 +5102,6 @@
       "package": "server"
     },
     {
-      "file": "apps/studio/src/config/api.js",
-      "dependents": 8,
-      "blast_radius": "high",
-      "package": "studio"
-    },
-    {
       "file": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
       "dependents": 8,
       "blast_radius": "high",
@@ -5127,6 +5118,12 @@
       "dependents": 7,
       "blast_radius": "medium",
       "package": "server"
+    },
+    {
+      "file": "apps/studio/src/config/api.js",
+      "dependents": 7,
+      "blast_radius": "medium",
+      "package": "studio"
     },
     {
       "file": "apps/server/server/controller/getVal.js",

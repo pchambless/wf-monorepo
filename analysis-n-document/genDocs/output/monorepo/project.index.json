@@ -908,7 +908,7 @@
     },
     {
       "file": "apps/server/server/middleware/userEmailInjection.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server"
       ],
@@ -1952,12 +1952,12 @@
     },
     {
       "file": "apps/studio/src/config/api.js",
-      "purpose": "Auto-inferred from dependency graph. 8 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 7 dependents.",
       "tags": [
         "studio"
       ],
       "critical": true,
-      "blastRadius": "high",
+      "blastRadius": "medium",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
@@ -2254,7 +2254,7 @@
     },
     {
       "file": "apps/studio/src/db/studioDb.js",
-      "purpose": "Auto-inferred from dependency graph. 35 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 36 dependents.",
       "tags": [
         "studio"
       ],

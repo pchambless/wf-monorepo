@@ -60,7 +60,7 @@ const PageRenderer = ({ config, customComponents = {}, apiBaseUrl = null }) => {
     }
   }, [config, setData, contextStore]);
 
-  const renderComponent = (component) => {
+  const renderComponent = (component, parentFormId = null) => {
     const {
       comp_type,
       type: legacyType,
@@ -101,6 +101,9 @@ const PageRenderer = ({ config, customComponents = {}, apiBaseUrl = null }) => {
       const CustomComponent = customComponents[comp_type];
       return <CustomComponent key={id} id={id} {...props} />;
     }
+
+    // Track if this is a Form component to pass formId to children
+    const currentFormId = comp_type === 'Form' ? id : parentFormId;
 
     const template = comp_type ? templates[comp_type] : null;
     if (!template && comp_type) {
@@ -166,20 +169,26 @@ const PageRenderer = ({ config, customComponents = {}, apiBaseUrl = null }) => {
           )
         );
       } else {
-        children = components.map((child) => renderComponent(child));
+        children = components.map((child) => renderComponent(child, currentFormId));
       }
     } else if (comp_type === "Container" && components.length > 0) {
-      children = renderContainer(component, renderComponent);
+      children = renderContainer(component, (child) => renderComponent(child, currentFormId));
     } else {
       children =
         textContent ||
         (components.length > 0
-          ? components.map((child) => renderComponent(child))
+          ? components.map((child) => renderComponent(child, currentFormId))
           : props.label || props.title || null);
     }
 
     if ((type === "input" || type === "textarea") && domProps.name) {
-      domProps.value = formData[domProps.name] || "";
+      // Unified data architecture: All components read from dataStore
+      // Priority: user edits (formData) > loaded data (dataStore[currentFormId]) > empty
+      const loadedValue = currentFormId && dataStore[currentFormId] 
+        ? (Array.isArray(dataStore[currentFormId]) ? dataStore[currentFormId][0]?.[domProps.name] : dataStore[currentFormId]?.[domProps.name])
+        : undefined;
+      
+      domProps.value = formData[domProps.name] ?? loadedValue ?? "";
       domProps.onChange = (e) => {
         setFormData((prev) => ({
           ...prev,
