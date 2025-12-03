@@ -1,9 +1,13 @@
 /**
- * Generate Mermaid diagram from pageConfig
- * Creates component hierarchy tree and workflow trigger flows
+ * Generate Structure Mermaid diagram from pageConfig
+ * Shows component hierarchy and nesting
  */
 
 export const generateMermaid = (pageConfig) => {
+  return generateStructureDiagram(pageConfig);
+};
+
+export const generateStructureDiagram = (pageConfig) => {
   const lines = ['graph TD'];
   const nodes = new Set();
   const edges = [];
@@ -189,4 +193,189 @@ const getNodeShape = (compType) => {
     'default': ['[', ']']         // Rectangle
   };
   return shapes[compType] || shapes.default;
+};
+
+/**
+ * Generate Workflow Mermaid diagram from pageConfig
+ * Shows trigger actions and data flow between components
+ */
+export const generateWorkflowDiagram = (pageConfig) => {
+  const lines = ['graph LR'];
+  const nodes = new Set();
+  const edges = [];
+  const sanitizeId = (id) => String(id).replace(/[^a-zA-Z0-9_]/g, '_');
+
+  const componentMap = new Map();
+
+  const collectComponents = (component) => {
+    if (component.id) {
+      componentMap.set(component.id, component);
+    }
+    if (component.components && component.components.length > 0) {
+      component.components.forEach(child => collectComponents(child));
+    }
+  };
+
+  if (pageConfig.components) {
+    pageConfig.components.forEach(comp => collectComponents(comp));
+  }
+
+  const processedModals = new Set(); // Track which modals we've already processed
+
+  const processModalWorkflow = (modalId) => {
+    if (processedModals.has(modalId)) return; // Already processed
+    processedModals.add(modalId);
+
+    if (componentMap.has(modalId)) {
+      const modal = componentMap.get(modalId);
+      const modalNode = sanitizeId(modalId);
+      
+      // Process modal's onLoad triggers
+      if (modal.workflowTriggers?.onLoad) {
+        modal.workflowTriggers.onLoad.forEach((modalAction) => {
+          if (modalAction.action === 'refresh' && modalAction.params && Array.isArray(modalAction.params)) {
+            modalAction.params.forEach(refreshTarget => {
+              const refreshId = sanitizeId(refreshTarget);
+              if (componentMap.has(refreshTarget)) {
+                const target = componentMap.get(refreshTarget);
+                const targetLabel = `${target.comp_type}: ${target.id}`;
+                nodes.add(`${refreshId}["${targetLabel}"]`);
+                edges.push(`${modalNode} -->|onLoad:refresh| ${refreshId}`);
+              }
+            });
+          }
+        });
+      }
+    }
+  };
+
+  const processWorkflowTriggers = (component) => {
+    const compId = sanitizeId(component.id);
+    const compLabel = `${component.comp_type || 'Component'}: ${component.props?.label || component.id}`;
+
+    let hasAnyTriggers = false;
+
+    if (component.workflowTriggers) {
+      hasAnyTriggers = true;
+    }
+
+    if (component.props?.rowActions && Array.isArray(component.props.rowActions)) {
+      hasAnyTriggers = true;
+    }
+
+    if (!hasAnyTriggers) {
+      if (component.components && component.components.length > 0) {
+        component.components.forEach(child => processWorkflowTriggers(child));
+      }
+      return;
+    }
+
+    nodes.add(`${compId}["${compLabel}"]`);
+
+    if (component.workflowTriggers) {
+      Object.entries(component.workflowTriggers).forEach(([triggerClass, actions]) => {
+      actions.forEach((action, idx) => {
+        const actionId = sanitizeId(`${component.id}_${triggerClass}_${action.action}_${idx}`);
+
+        if (action.action === 'openModal' && action.params && action.params[0]) {
+          const modalId = action.params[0];
+          const targetNode = sanitizeId(modalId);
+          if (componentMap.has(modalId)) {
+            const modal = componentMap.get(modalId);
+            const modalLabel = `${modal.comp_type}: ${modal.id}`;
+            nodes.add(`${targetNode}[["${modalLabel}"]]`);
+            processModalWorkflow(modalId); // Process modal workflow once
+          }
+          edges.push(`${compId} -->|openModal| ${targetNode}`);
+        } else if (action.action === 'closeModal') {
+          const actionLabel = 'closeModal';
+          nodes.add(`${actionId}{{"${actionLabel}"}}`);
+          edges.push(`${compId} -->|${triggerClass}| ${actionId}`);
+        } else if (action.action === 'refresh' && action.params && Array.isArray(action.params)) {
+          action.params.forEach(targetName => {
+            const targetId = sanitizeId(targetName);
+            if (componentMap.has(targetName)) {
+              const target = componentMap.get(targetName);
+              const targetLabel = `${target.comp_type}: ${target.id}`;
+              nodes.add(`${targetId}["${targetLabel}"]`);
+            }
+            edges.push(`${compId} -->|refresh| ${targetId}`);
+          });
+        } else {
+          const actionLabel = formatActionLabel(action);
+          nodes.add(`${actionId}{{"${actionLabel}"}}`);
+          edges.push(`${compId} -->|${triggerClass}| ${actionId}`);
+        }
+      });
+    });
+    }
+
+    if (component.props?.rowActions && Array.isArray(component.props.rowActions)) {
+      component.props.rowActions.forEach((rowAction) => {
+        const rowActionId = sanitizeId(`${component.id}_rowAction_${rowAction.id}`);
+        const rowActionLabel = `Row: ${rowAction.id}`;
+        nodes.add(`${rowActionId}(("${rowActionLabel}"))`);
+        edges.push(`${compId} -.->|rowAction| ${rowActionId}`);
+
+        if (rowAction.trigger && Array.isArray(rowAction.trigger)) {
+          rowAction.trigger.forEach((action, idx) => {
+            const actionId = sanitizeId(`${component.id}_${rowAction.id}_${action.action}_${idx}`);
+
+            if (action.action === 'openModal' && action.params?.modalId) {
+              const modalId = action.params.modalId;
+              const targetNode = sanitizeId(modalId);
+              if (componentMap.has(modalId)) {
+                const modal = componentMap.get(modalId);
+                const modalLabel = `${modal.comp_type}: ${modal.id}`;
+                nodes.add(`${targetNode}[["${modalLabel}"]]`);
+              }
+              edges.push(`${rowActionId} -->|openModal| ${targetNode}`);
+            } else if (action.action === 'refresh' && action.params && Array.isArray(action.params)) {
+              action.params.forEach(targetName => {
+                const targetId = sanitizeId(targetName);
+                if (componentMap.has(targetName)) {
+                  const target = componentMap.get(targetName);
+                  const targetLabel = `${target.comp_type}: ${target.id}`;
+                  nodes.add(`${targetId}["${targetLabel}"]`);
+                }
+                edges.push(`${rowActionId} -->|refresh| ${targetId}`);
+              });
+            } else {
+              const actionLabel = formatActionLabel(action);
+              nodes.add(`${actionId}{{"${actionLabel}"}}`);
+              edges.push(`${rowActionId} --> ${actionId}`);
+            }
+          });
+        }
+      });
+    }
+
+    if (component.components && component.components.length > 0) {
+      component.components.forEach(child => processWorkflowTriggers(child));
+    }
+  };
+
+  if (pageConfig.components) {
+    pageConfig.components.forEach(comp => processWorkflowTriggers(comp));
+  }
+
+  lines.push('');
+  lines.push('  %% Components and Actions');
+  nodes.forEach(node => lines.push(`  ${node}`));
+
+  lines.push('');
+  lines.push('  %% Workflow Flows');
+  edges.forEach(edge => lines.push(`  ${edge}`));
+
+  lines.push('');
+  lines.push('  %% Styling');
+  lines.push('  classDef actionNode fill:#f59e0b,stroke:#d97706,color:#fff');
+  lines.push('  classDef modalNode fill:#8b5cf6,stroke:#6d28d9,color:#fff');
+
+  return lines.join('\n');
+};
+
+const formatActionLabel = (action) => {
+  const paramStr = formatParamsPreview(action.params);
+  return paramStr ? `${action.action}#10;${paramStr}` : action.action;
 };

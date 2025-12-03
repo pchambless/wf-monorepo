@@ -28,6 +28,9 @@
       "file_path": "apps/admin/craco.config.js"
     },
     {
+      "file_path": "apps/admin/scripts/sync-rendering.js"
+    },
+    {
       "file_path": "apps/admin/src/App.jsx"
     },
     {
@@ -47,6 +50,105 @@
     },
     {
       "file_path": "apps/admin/src/layouts/Sidebar.jsx"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/PageRenderer.jsx"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/captureFormData.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/clearVals.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/closeModal.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/execDML.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/execEvent.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/getVal.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/navigate.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/openModal.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/refresh.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/reload.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/setVals.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/showNotification.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/userLogin.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/visible.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/class/onLoad.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/WorkflowEngine/triggers/class/onRefresh.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/hooks/useModalManager.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/hooks/useTemplateLoader.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/renderers/AppLayoutRenderer.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/renderers/ContainerRenderer.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/renderers/GridRenderer.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/renderers/ModalRenderer.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/renderers/TextRenderer.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/utils/eventHandlerBuilder.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/utils/layoutUtils.js"
+    },
+    {
+      "file_path": "apps/admin/src/rendering/utils/styleUtils.js"
     },
     {
       "file_path": "apps/admin/src/styles/global.css"
@@ -784,22 +886,10 @@
       "file_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/pageConfig.json"
     },
     {
-      "file_path": "apps/studio/src/rendering/DirectRenderer.jsx"
-    },
-    {
       "file_path": "apps/studio/src/rendering/PageRenderer.jsx"
     },
     {
       "file_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "file_path": "apps/studio/src/rendering/WorkflowEngine/WorkflowEngine.js"
-    },
-    {
-      "file_path": "apps/studio/src/rendering/WorkflowEngine/execFunction.js"
-    },
-    {
-      "file_path": "apps/studio/src/rendering/WorkflowEngine/index.js"
     },
     {
       "file_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
@@ -886,22 +976,13 @@
       "file_path": "apps/studio/src/rendering/renderers/TextRenderer.js"
     },
     {
-      "file_path": "apps/studio/src/rendering/utils/appLayoutRenderer.js"
-    },
-    {
       "file_path": "apps/studio/src/rendering/utils/eventHandlerBuilder.js"
     },
     {
       "file_path": "apps/studio/src/rendering/utils/layoutUtils.js"
     },
     {
-      "file_path": "apps/studio/src/rendering/utils/rowRenderer.js"
-    },
-    {
       "file_path": "apps/studio/src/rendering/utils/styleUtils.js"
-    },
-    {
-      "file_path": "apps/studio/src/rendering/utils/textRenderer.js"
     },
     {
       "file_path": "apps/studio/src/stores/studioStore.js"
@@ -1115,6 +1196,141 @@
     },
     {
       "file_path": "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/craco.config.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/scripts/sync-rendering.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/App.jsx"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/components/DirectRenderer.jsx"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/index.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/layouts/AppLayout.jsx"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/layouts/Appbar.jsx"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/layouts/Footer.jsx"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/layouts/Sidebar.jsx"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/captureFormData.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/clearVals.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/closeModal.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/execDML.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/execEvent.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/getVal.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/navigate.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/openModal.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/refresh.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/reload.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/setVals.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/showNotification.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/userLogin.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/visible.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/class/onLoad.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/class/onRefresh.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/hooks/useModalManager.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/hooks/useTemplateLoader.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/renderers/AppLayoutRenderer.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/renderers/ContainerRenderer.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/renderers/GridRenderer.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/renderers/TextRenderer.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/utils/eventHandlerBuilder.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/utils/layoutUtils.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/rendering/utils/styleUtils.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/styles/global.css"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "file_path": "apps/whatsfresh/src/utils/fetchConfig.js"
     },
     {
       "file_path": "cli/ModelExecutor.js"
@@ -1357,6 +1573,110 @@
     {
       "from_path": "apps/admin/src/layouts/AppLayout.jsx",
       "to_path": "apps/admin/src/utils/fetchConfig.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/hooks/useModalManager.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/renderers/AppLayoutRenderer.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/renderers/ContainerRenderer.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/renderers/GridRenderer.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/renderers/ModalRenderer.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/renderers/TextRenderer.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/utils/eventHandlerBuilder.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/utils/layoutUtils.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/admin/src/rendering/utils/styleUtils.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
+      "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
+      "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+      "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
+      "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/getVal.js",
+      "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/refresh.js",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/setVals.js",
+      "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/userLogin.js",
+      "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/renderers/ContainerRenderer.js",
+      "to_path": "apps/admin/src/rendering/utils/layoutUtils.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/renderers/GridRenderer.js",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/utils/eventHandlerBuilder.js",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
     {
       "from_path": "apps/admin/src/utils/fetchConfig.js",
@@ -2352,7 +2672,7 @@
     },
     {
       "from_path": "apps/studio/src/components/PagePreviewPanel.jsx",
-      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
+      "to_path": "apps/studio/src/rendering/PageRenderer.jsx"
     },
     {
       "from_path": "apps/studio/src/components/PagePreviewPanel.jsx",
@@ -2364,7 +2684,7 @@
     },
     {
       "from_path": "apps/studio/src/components/PreviewModal.jsx",
-      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
+      "to_path": "apps/studio/src/rendering/PageRenderer.jsx"
     },
     {
       "from_path": "apps/studio/src/components/PropertyEditors/ParamEditor.jsx",
@@ -2711,20 +3031,12 @@
       "to_path": "apps/studio/src/preview/login/loginPage/pageConfig.json"
     },
     {
-      "from_path": "apps/studio/src/preview/login/loginPage/index.jsx",
-      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
-    },
-    {
       "from_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
       "to_path": "apps/studio/src/config/api.js"
     },
     {
       "from_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
       "to_path": "apps/studio/src/preview/whatsfresh/ingrPage/pageConfig.json"
-    },
-    {
-      "from_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
-      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
     },
     {
       "from_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
@@ -2735,60 +3047,12 @@
       "to_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/pageConfig.json"
     },
     {
-      "from_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
-      "to_path": "apps/studio/src/rendering/DirectRenderer.jsx"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/components/StudioCanvasWrapper.jsx"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/hooks/useModalManager.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/hooks/useTemplateLoader.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/utils/appLayoutRenderer.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/utils/eventHandlerBuilder.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/utils/layoutUtils.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/utils/rowRenderer.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/utils/styleUtils.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/DirectRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/utils/textRenderer.js"
-    },
-    {
       "from_path": "apps/studio/src/rendering/PageRenderer.jsx",
       "to_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
     {
       "from_path": "apps/studio/src/rendering/PageRenderer.jsx",
       "to_path": "apps/studio/src/rendering/hooks/useModalManager.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/studio/src/rendering/hooks/useTemplateLoader.js"
     },
     {
       "from_path": "apps/studio/src/rendering/PageRenderer.jsx",
@@ -2821,50 +3085,6 @@
     {
       "from_path": "apps/studio/src/rendering/PageRenderer.jsx",
       "to_path": "apps/studio/src/rendering/utils/styleUtils.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/WorkflowEngine.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/execFunction.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/clearVals.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/execEvent.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/getVal.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/refresh.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/setVals.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/showNotification.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/class/onLoad.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/index.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/class/onRefresh.js"
     },
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
@@ -2928,7 +3148,7 @@
     },
     {
       "from_path": "apps/studio/src/rendering/hooks/useTemplateLoader.js",
-      "to_path": "apps/studio/src/db/studioDb.js"
+      "to_path": "apps/studio/src/config/api.js"
     },
     {
       "from_path": "apps/studio/src/rendering/renderers/ContainerRenderer.js",
@@ -2940,10 +3160,6 @@
     },
     {
       "from_path": "apps/studio/src/rendering/utils/eventHandlerBuilder.js",
-      "to_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/utils/rowRenderer.js",
       "to_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
     {
@@ -3076,10 +3292,6 @@
     },
     {
       "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/hooks/useTemplateLoader.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
       "to_path": "apps/templates/app-boilerplate/src/rendering/renderers/AppLayoutRenderer.js"
     },
     {
@@ -3177,6 +3389,150 @@
     {
       "from_path": "apps/templates/app-boilerplate/src/utils/fetchConfig.js",
       "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/App.jsx",
+      "to_path": "apps/whatsfresh/src/components/DirectRenderer.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/App.jsx",
+      "to_path": "apps/whatsfresh/src/layouts/AppLayout.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/App.jsx",
+      "to_path": "apps/whatsfresh/src/utils/fetchConfig.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/index.js",
+      "to_path": "apps/whatsfresh/src/App.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/index.js",
+      "to_path": "apps/whatsfresh/src/styles/global.css"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/layouts/AppLayout.jsx",
+      "to_path": "apps/whatsfresh/src/layouts/Appbar.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/layouts/AppLayout.jsx",
+      "to_path": "apps/whatsfresh/src/layouts/Footer.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/layouts/AppLayout.jsx",
+      "to_path": "apps/whatsfresh/src/layouts/Sidebar.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/layouts/AppLayout.jsx",
+      "to_path": "apps/whatsfresh/src/utils/fetchConfig.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/hooks/useModalManager.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/renderers/AppLayoutRenderer.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/renderers/ContainerRenderer.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/renderers/GridRenderer.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/renderers/TextRenderer.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/utils/eventHandlerBuilder.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/utils/layoutUtils.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/utils/styleUtils.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/execDML.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/getVal.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/refresh.js",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/setVals.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/userLogin.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/renderers/ContainerRenderer.js",
+      "to_path": "apps/whatsfresh/src/rendering/utils/layoutUtils.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/renderers/GridRenderer.js",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/utils/eventHandlerBuilder.js",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/utils/fetchConfig.js",
+      "to_path": "apps/whatsfresh/src/utils/api.js"
     },
     {
       "from_path": "cli/ModelExecutor.js",

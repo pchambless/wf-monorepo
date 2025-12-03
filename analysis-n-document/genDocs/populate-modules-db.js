@@ -42,69 +42,91 @@ function transformAnalysisToLeanFormat(analysis, scope) {
 }
 
 async function callModuleLoad(modules, userId) {
-  // Phase 1: Load modules only
-  const jsonString = JSON.stringify(modules);
-  console.log(`   📦 Phase 1: Loading ${modules.length} modules...`);
-  console.log(`   📊 JSON size: ${jsonString.length} characters`);
-  console.log(`   🚀 Starting modules load...`);
+  // Phase 1: Load modules in batches (to avoid packet size limits)
+  const BATCH_SIZE = 50;
+  const batches = [];
 
-  const requestBody = {
-    eventSQLId: 27, // spModuleLoad
-    params: {
-      p_modules: jsonString,
-      firstName: userId,
-    },
-  };
-
-  const execResponse = await fetch(`${API_URL}/api/execEvent`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(requestBody),
-  });
-
-  if (!execResponse.ok) {
-    const error = await execResponse.json();
-    throw new Error(
-      `Module load failed: ${error.message || execResponse.statusText}`
-    );
+  for (let i = 0; i < modules.length; i += BATCH_SIZE) {
+    batches.push(modules.slice(i, i + BATCH_SIZE));
   }
 
-  const result = await execResponse.json();
+  console.log(`   📦 Phase 1: Loading ${modules.length} modules in ${batches.length} batches...`);
+
+  let finalResult;
+
+  for (let i = 0; i < batches.length; i++) {
+    const batch = batches[i];
+    console.log(`   🚀 Batch ${i+1}/${batches.length}: ${batch.length} modules (${JSON.stringify(batch).length} chars)`);
+
+    const requestBody = {
+      operation: "load",
+      modules: batch,
+      userId: userId,
+      userEmail: "system@whatsfresh.ai",
+    };
+
+    const execResponse = await fetch(`${API_URL}/api/populateModules`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!execResponse.ok) {
+      const error = await execResponse.json();
+      throw new Error(
+        `Module load failed (batch ${i+1}): ${error.message || execResponse.statusText}`
+      );
+    }
+
+    finalResult = await execResponse.json();
+  }
+
   console.log(`   ✅ Completed modules load successfully`);
-  return result;
+  return finalResult;
 }
 
 async function callModuleMap(dependencies, userId) {
-  // Phase 2: Map dependencies
-  const jsonString = JSON.stringify(dependencies);
-  console.log(`   🔗 Phase 2: Mapping ${dependencies.length} dependencies...`);
-  console.log(`   📊 JSON size: ${jsonString.length} characters`);
-  console.log(`   🚀 Starting modules map...`);
+  // Phase 2: Map dependencies in batches (to avoid packet size limits)
+  const BATCH_SIZE = 50;
+  const batches = [];
 
-  const requestBody = {
-    eventSQLId: 29, // spModuleMap
-    params: {
-      analysis_json: jsonString,
-      firstName: userId,
-    },
-  };
-
-  const response = await fetch(`${API_URL}/api/execEvent`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(requestBody),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(
-      `Module mapping failed: ${error.message || response.statusText}`
-    );
+  for (let i = 0; i < dependencies.length; i += BATCH_SIZE) {
+    batches.push(dependencies.slice(i, i + BATCH_SIZE));
   }
 
-  const result = await response.json();
+  console.log(`   🔗 Phase 2: Mapping ${dependencies.length} dependencies in ${batches.length} batches...`);
+
+  let finalResult;
+
+  for (let i = 0; i < batches.length; i++) {
+    const batch = batches[i];
+    console.log(`   🚀 Batch ${i+1}/${batches.length}: ${batch.length} deps (${JSON.stringify(batch).length} chars)`);
+
+    const requestBody = {
+      operation: "map",
+      dependencies: batch,
+      userId: userId,
+      userEmail: "system@whatsfresh.ai",
+    };
+
+    const response = await fetch(`${API_URL}/api/populateModules`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(
+        `Module mapping failed (batch ${i+1}): ${error.message || response.statusText}`
+      );
+    }
+
+    finalResult = await response.json();
+  }
+
   console.log(`   ✅ Completed modules map successfully`);
-  return result;
+  return finalResult;
 }
 
 async function processAnalysisFile() {

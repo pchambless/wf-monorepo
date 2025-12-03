@@ -38,9 +38,10 @@ function sanitizeQuery(query) {
  * Executes a database query with proper error handling and logging
  * @param {string} query - SQL query to execute
  * @param {string} method - HTTP method (GET, POST, etc.)
+ * @param {Array} params - Optional parameters for parameterized queries
  * @returns {Promise<Object>} Query results
  */
-async function executeQuery(query, method = 'GET') {
+async function executeQuery(query, method = 'GET', params = []) {
     let connection;
     const start = process.hrtime();
 
@@ -49,16 +50,19 @@ async function executeQuery(query, method = 'GET') {
 
         // Log sanitized query
         logger.debug(`${fileName} Executing ${method} query: ${sanitizeQuery(query)}`);
+        if (params.length > 0) {
+            logger.debug(`${fileName} With ${params.length} parameters (sizes: ${params.map(p => typeof p === 'string' ? p.length : 'N/A').join(', ')} chars)`);
+        }
 
         let results;
         if (['POST', 'PATCH', 'DELETE'].includes(method)) {
-            logger.debug(`${fileName} Handling ${method}-specific logic`);
+//            logger.debug(`${fileName} Handling ${method}-specific logic`);
             await connection.beginTransaction();
-            results = await connection.execute(query);
+            results = await connection.execute(query, params);
             await connection.commit();
         } else if (method === 'GET') {
-            logger.debug(`${fileName} Handling GET-specific logic`);
-            const [rows] = await connection.execute(query);
+//            logger.debug(`${fileName} Handling GET-specific logic`);
+            const [rows] = await connection.execute(query, params);
             logger.info(`${fileName} Query executed, rows fetched: ${rows.length}`);
             results = rows;
         } else {
@@ -69,9 +73,9 @@ async function executeQuery(query, method = 'GET') {
         const duration = seconds * 1000 + nanoseconds / 1000000;
 
         logger.logPerformance('database_query', duration, {
-            method,
+//            method,
             rowCount: Array.isArray(results) ? results.length : undefined,
-            success: true
+//            success: true
         });
 
         return results;
@@ -89,7 +93,7 @@ async function executeQuery(query, method = 'GET') {
         logger.error(`${fileName} Error executing query:`, error);
         // Use sanitized query in error logs
         logger.error(`${fileName} Query: ${sanitizeQuery(query)}`);
-        logger.error(`${fileName} Stack trace: ${new Error().stack}`);
+//        logger.error(`${fileName} Stack trace: ${new Error().stack}`);
         if (['POST', 'PATCH', 'DELETE'].includes(method) && connection) {
             await connection.rollback();
         }
@@ -97,7 +101,7 @@ async function executeQuery(query, method = 'GET') {
     } finally {
         if (connection) {
             connection.release();
-            logger.debug(`${fileName} Connection released`);
+//            logger.debug(`${fileName} Connection released`);
         }
     }
 }

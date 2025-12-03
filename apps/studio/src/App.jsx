@@ -6,6 +6,9 @@ import SimpleLayout from "./layouts/SimpleLayout.jsx";
 import { initializeApp } from "./db/operations/lifecycleOps.js";
 import { createApiUrl } from "./config/api.js";
 
+// Global eventTypeConfig - loaded once at startup
+window.eventTypeConfig = {};
+
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [isMigrating, setIsMigrating] = useState(false);
@@ -27,6 +30,9 @@ const App = () => {
         const sessionData = await sessionCheck.json();
         console.log('✅ Session valid:', sessionData.email);
 
+        // Load eventTypeConfig at startup
+        await loadEventTypeConfig();
+
         await initializeApp();
         console.log('✅ Studio App: Startup complete');
       } catch (error) {
@@ -39,6 +45,38 @@ const App = () => {
 
     startup();
   }, []);
+
+  const loadEventTypeConfig = async () => {
+    try {
+      console.log('📦 Loading eventTypeConfig at startup...');
+      const response = await fetch('http://localhost:3002/api/execEvent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ eventSQLId: 'fetchEventTypeConfig', params: {} })
+      });
+
+      const result = await response.json();
+      console.log('📦 fetchEventTypeConfig response:', result);
+
+      if (result.data && result.data.length > 0) {
+        const eventTypeMap = {};
+        result.data.forEach(row => {
+          eventTypeMap[row.eventType] = {
+            styles: row.styles ? JSON.parse(row.styles) : {},
+            config: row.config ? JSON.parse(row.config) : {}
+          };
+        });
+        window.eventTypeConfig = eventTypeMap;
+        console.log('✅ Loaded eventTypeConfig:', Object.keys(eventTypeMap).length, 'types');
+        console.log('📦 Sample eventTypes:', Object.keys(eventTypeMap).slice(0, 5));
+      } else {
+        console.warn('⚠️ No eventType data returned');
+      }
+    } catch (error) {
+      console.error('❌ Error loading eventTypeConfig:', error);
+    }
+  };
 
   const handleRunMigration = async () => {
     if (!window.confirm('Run production data migration? This will copy prod data to test database.')) {

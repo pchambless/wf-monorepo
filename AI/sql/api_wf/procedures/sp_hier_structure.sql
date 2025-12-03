@@ -1,4 +1,4 @@
- CREATE OR REPLACE PROCEDURE api_wf.sp_hier_structure(
+ CREATE PROCEDURE api_wf.sp_hier_structure(
       IN pageID INT
   )
   BEGIN
@@ -66,8 +66,14 @@
           ct.description,
           ct.posOrder,
           ct.override_styles,
-          ct.level,
+          -- Force Modals to level 0 for consistent top-level rendering
+          CASE 
+            WHEN ct.comp_type = 'Modal' THEN 0
+            ELSE ct.level
+          END AS level,
           ct.id_path
       FROM component_tree ct
-      ORDER BY ct.level, ct.posOrder;
+      ORDER BY 
+        CASE WHEN ct.comp_type = 'Modal' THEN 0 ELSE ct.level END, 
+        ct.posOrder;
   END;

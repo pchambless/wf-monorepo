@@ -113,6 +113,12 @@ export async function execDML(content, context) {
       ]);
     }
 
+    // Clear formData after successful DML to prevent stale values
+    if (context.setFormData) {
+      console.log('🧹 Clearing formData after successful DML');
+      context.setFormData({});
+    }
+
     // Execute onSuccess workflow triggers if defined
     if (context.workflowTriggers?.onSuccess) {
       console.log('🔄 Executing onSuccess workflows...');

@@ -17,7 +17,7 @@ const PreviewModal = ({ config, onClose }) => {
           <div style={{marginBottom: '16px', padding: '12px', backgroundColor: '#f3f4f6', borderRadius: '6px'}}>
             <strong>Preview Status:</strong> Showing {config.components?.length || 0} components from IndexedDB
           </div>
-          <PageRenderer config={config} />
+          <PageRenderer config={config} eventTypeConfig={window.eventTypeConfig || {}} />
         </div>
       </div>
     </div>

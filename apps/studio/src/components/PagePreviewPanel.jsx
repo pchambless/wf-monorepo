@@ -3,17 +3,29 @@ import { buildPageConfig } from '../utils/pageConfigBuilder';
 import { formatPageConfig } from '../utils/pageConfigBuilder/formatPageConfig';
 import PageRenderer from '../rendering/PageRenderer';
 import mermaid from 'mermaid';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 const PagePreviewPanel = ({ pageID }) => {
   const [activeTab, setActiveTab] = useState('code');
+  const [mermaidSubTab, setMermaidSubTab] = useState('structure');
+  const [mermaidOrientation, setMermaidOrientation] = useState('TD'); // TD or LR
   const [pageConfig, setPageConfig] = useState(null);
-  const [mermaidText, setMermaidText] = useState(null);
+  const [structureDiagram, setStructureDiagram] = useState(null);
+  const [workflowDiagram, setWorkflowDiagram] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const mermaidRef = useRef(null);
+  const transformRef = useRef(null);
 
   useEffect(() => {
-    mermaid.initialize({ startOnLoad: false, theme: 'default' });
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -24,19 +36,24 @@ const PagePreviewPanel = ({ pageID }) => {
 
   useEffect(() => {
     const renderMermaid = async () => {
-      if (mermaidText && mermaidRef.current && activeTab === 'mermaid') {
-        try {
-          mermaidRef.current.innerHTML = '';
-          const { svg } = await mermaid.render('mermaid-diagram', mermaidText);
-          mermaidRef.current.innerHTML = svg;
-        } catch (err) {
-          console.error('Mermaid render error:', err);
-          mermaidRef.current.innerHTML = `<pre style="color: red;">Mermaid Error: ${err.message}</pre>`;
+      if (mermaidRef.current && activeTab === 'mermaid') {
+        const currentDiagram = mermaidSubTab === 'structure' ? structureDiagram : workflowDiagram;
+        if (currentDiagram) {
+          try {
+            mermaidRef.current.innerHTML = '';
+            // Replace orientation in diagram (graph TD or graph LR)
+            const orientedDiagram = currentDiagram.replace(/graph (TD|LR)/, `graph ${mermaidOrientation}`);
+            const { svg } = await mermaid.render('mermaid-diagram', orientedDiagram);
+            mermaidRef.current.innerHTML = svg;
+          } catch (err) {
+            console.error('Mermaid render error:', err);
+            mermaidRef.current.innerHTML = `<pre style="color: red;">Mermaid Error: ${err.message}</pre>`;
+          }
         }
       }
     };
     renderMermaid();
-  }, [mermaidText, activeTab]);
+  }, [structureDiagram, workflowDiagram, activeTab, mermaidSubTab, mermaidOrientation]);
 
   const loadPageConfig = async () => {
     setLoading(true);
@@ -47,7 +64,8 @@ const PagePreviewPanel = ({ pageID }) => {
 
       if (result.success) {
         setPageConfig(result.pageConfig);
-        setMermaidText(result.mermaidText);
+        setStructureDiagram(result.structureDiagram);
+        setWorkflowDiagram(result.workflowDiagram);
         console.log('✅ PageConfig built:', result);
       } else {
         setError(result.error);
@@ -115,7 +133,7 @@ const PagePreviewPanel = ({ pageID }) => {
             style={activeTab === 'code' ? styles.tabActive : styles.tab}
             onClick={() => setActiveTab('code')}
           >
-            📋 PageConfig Code
+            📋 pageConfig
           </button>
           <button
             style={activeTab === 'rendered' ? styles.tabActive : styles.tab}
@@ -127,7 +145,7 @@ const PagePreviewPanel = ({ pageID }) => {
             style={activeTab === 'mermaid' ? styles.tabActive : styles.tab}
             onClick={() => setActiveTab('mermaid')}
           >
-            📊 Mermaid Diagram
+            📊 Mermaid Diagrams
           </button>
         </div>
 
@@ -178,13 +196,88 @@ const PagePreviewPanel = ({ pageID }) => {
 
         {!loading && !error && pageConfig && activeTab === 'rendered' && (
           <div style={styles.renderedView}>
-            <PageRenderer config={pageConfig} />
+            <PageRenderer config={pageConfig} eventTypeConfig={window.eventTypeConfig || {}} />
           </div>
         )}
 
-        {!loading && !error && mermaidText && activeTab === 'mermaid' && (
+        {!loading && !error && (structureDiagram || workflowDiagram) && activeTab === 'mermaid' && (
           <div style={styles.mermaidView}>
-            <div ref={mermaidRef} style={styles.mermaidContainer}></div>
+            <div style={styles.mermaidSubTabs}>
+              <button
+                style={mermaidSubTab === 'structure' ? styles.subTabActive : styles.subTab}
+                onClick={() => setMermaidSubTab('structure')}
+              >
+                🏗️ Structure
+              </button>
+              <button
+                style={mermaidSubTab === 'workflow' ? styles.subTabActive : styles.subTab}
+                onClick={() => setMermaidSubTab('workflow')}
+              >
+                🔄 Workflow
+              </button>
+            </div>
+            <TransformWrapper
+              ref={transformRef}
+              initialScale={0.8}
+              minScale={0.3}
+              maxScale={8}
+              centerOnInit={true}
+              wheel={{ step: 0.15 }}
+              doubleClick={{ disabled: false, step: 0.7 }}
+            >
+              {({ zoomIn, zoomOut, resetTransform, centerView }) => {
+                React.useEffect(() => {
+                  resetTransform();
+                }, [mermaidSubTab, resetTransform]);
+
+                return (
+                <>
+                  <div style={styles.mermaidControls}>
+                    <button style={styles.controlButton} onClick={() => zoomIn()}>
+                      🔍+ Zoom In
+                    </button>
+                    <button style={styles.controlButton} onClick={() => zoomOut()}>
+                      🔍- Zoom Out
+                    </button>
+                    <button style={styles.controlButton} onClick={() => resetTransform()}>
+                      ↺ Reset View
+                    </button>
+                    <button
+                      style={styles.controlButton}
+                      onClick={() => {
+                        setMermaidOrientation(prev => prev === 'TD' ? 'LR' : 'TD');
+                        resetTransform();
+                      }}
+                    >
+                      🔄 {mermaidOrientation === 'TD' ? 'Top→Down' : 'Left→Right'}
+                    </button>
+                    <button
+                      style={styles.controlButton}
+                      onClick={() => {
+                        const currentDiagram = mermaidSubTab === 'structure' ? structureDiagram : workflowDiagram;
+                        navigator.clipboard.writeText(currentDiagram);
+                        alert('Mermaid code copied to clipboard!');
+                      }}
+                    >
+                      📋 Copy Code
+                    </button>
+                  </div>
+                  <TransformComponent
+                    wrapperStyle={styles.mermaidWrapper}
+                    contentStyle={styles.mermaidContent}
+                  >
+                    <div ref={mermaidRef} style={styles.mermaidContainer}></div>
+                  </TransformComponent>
+                </>
+                );
+              }}
+            </TransformWrapper>
+            <details style={styles.mermaidCodeSection}>
+              <summary style={styles.mermaidCodeSummary}>View Mermaid Code</summary>
+              <pre style={styles.mermaidCodeBlock}>
+                {mermaidSubTab === 'structure' ? structureDiagram : workflowDiagram}
+              </pre>
+            </details>
           </div>
         )}
       </div>
@@ -349,14 +442,100 @@ const styles = {
   },
   mermaidView: {
     height: '100%',
-    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
     padding: '20px',
     backgroundColor: '#fff',
   },
-  mermaidContainer: {
+  mermaidSubTabs: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    gap: '8px',
+    paddingBottom: '12px',
+    borderBottom: '2px solid #e2e8f0',
+  },
+  subTab: {
+    padding: '8px 16px',
+    border: 'none',
+    backgroundColor: 'transparent',
+    color: '#64748b',
+    fontSize: '14px',
+    fontWeight: 500,
+    cursor: 'pointer',
+    borderRadius: '6px 6px 0 0',
+    transition: 'all 0.15s',
+  },
+  subTabActive: {
+    padding: '8px 16px',
+    border: 'none',
+    backgroundColor: '#f1f5f9',
+    color: '#3b82f6',
+    fontSize: '14px',
+    fontWeight: 600,
+    cursor: 'pointer',
+    borderRadius: '6px 6px 0 0',
+    borderBottom: '2px solid #3b82f6',
+    marginBottom: '-2px',
+  },
+  mermaidControls: {
+    display: 'flex',
+    gap: '8px',
+    padding: '8px',
+    backgroundColor: '#f8fafc',
+    borderRadius: '6px',
+    border: '1px solid #e2e8f0',
+  },
+  controlButton: {
+    padding: '6px 12px',
+    border: '1px solid #cbd5e1',
+    backgroundColor: '#fff',
+    color: '#475569',
+    fontSize: '13px',
+    fontWeight: 500,
+    cursor: 'pointer',
+    borderRadius: '4px',
+    transition: 'all 0.15s',
+  },
+  mermaidWrapper: {
+    flex: 1,
+    width: '100%',
+    height: '600px',
+    border: '1px solid #e2e8f0',
+    borderRadius: '6px',
+    backgroundColor: '#fafafa',
+    overflow: 'hidden',
+  },
+  mermaidContent: {
+    display: 'inline-block',
+  },
+  mermaidContainer: {
+    padding: '40px',
+    display: 'inline-block',
+    minWidth: '100%',
+    minHeight: '100%',
+  },
+  mermaidCodeSection: {
+    marginTop: '16px',
+    border: '1px solid #e2e8f0',
+    borderRadius: '6px',
+    backgroundColor: '#f8fafc',
+  },
+  mermaidCodeSummary: {
+    padding: '12px',
+    cursor: 'pointer',
+    fontWeight: 500,
+    fontSize: '14px',
+    color: '#475569',
+  },
+  mermaidCodeBlock: {
+    margin: 0,
+    padding: '16px',
+    backgroundColor: '#1e293b',
+    color: '#e2e8f0',
+    fontSize: '12px',
+    fontFamily: 'monospace',
+    overflow: 'auto',
+    borderRadius: '0 0 6px 6px',
   },
 };
 

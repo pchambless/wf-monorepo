@@ -8,19 +8,19 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
     textContent: action.icon || action.label || action.id,
     style: {
       padding: '4px 8px',
-      marginRight: '4px',
       border: 'none',
       borderRadius: '4px',
       cursor: 'pointer',
       backgroundColor: action.color === 'error' ? '#dc3545' : '#007bff',
       color: '#fff',
-      fontSize: '12px'
+      fontSize: '12px',
+      whiteSpace: 'nowrap'
     },
     props: {
       title: action.tooltip,
       _onClick: async (e) => {
-        e.stopPropagation();
-
+        // Don't stop propagation - let row onClick fire first to set context
+        
         if (action.confirmMessage) {
           if (!window.confirm(action.confirmMessage)) {
             return;
@@ -83,7 +83,17 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
       textAlign: 'center',
       width: '120px'
     },
-    components: actionButtons
+    components: [{
+      id: `actions_container_${idx}`,
+      type: 'div',
+      style: {
+        display: 'flex',
+        gap: '4px',
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
+      components: actionButtons
+    }]
   };
 }
 

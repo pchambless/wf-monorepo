@@ -42,6 +42,12 @@ module.exports = {
         return true;
       });
 
+      // Ignore source map warnings from node_modules
+      webpackConfig.ignoreWarnings = [
+        /Failed to parse source map/,
+        /source-map-loader/,
+      ];
+
       // Add babel processing rule for shared-imports package
       const sharedPackageRule = {
         test: /\.(js|jsx|ts|tsx)$/,

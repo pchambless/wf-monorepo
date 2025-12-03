@@ -36,14 +36,14 @@ const StudioCanvasWrapper = () => {
 
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:3002/api/genPageConfig', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ pageID })
-        });
-        const data = await response.json();
-        setPageConfig(data.pageConfig);
+        const { buildPageConfig } = await import('../utils/pageConfigBuilder');
+        const result = await buildPageConfig(pageID);
+        if (result.success) {
+          setPageConfig(result.pageConfig);
+        } else {
+          console.error('Failed to build pageConfig:', result.error);
+          setPageConfig(null);
+        }
       } catch (error) {
         console.error('Failed to load pageConfig:', error);
         setPageConfig(null);

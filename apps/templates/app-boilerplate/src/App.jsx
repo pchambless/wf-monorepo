@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout';
-import DirectRenderer from './components/DirectRenderer';
-import { fetchPageConfig } from './utils/fetchConfig';
+import PageRenderer from './rendering/PageRenderer';
+import { fetchPageConfig, fetchEventTypeConfig } from './utils/fetchConfig';
 
-const PageWrapper = ({ pageName }) => {
+const PageWrapper = ({ pageName, eventTypeConfig }) => {
   const [pageConfig, setPageConfig] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,17 +42,43 @@ const PageWrapper = ({ pageName }) => {
     );
   }
 
-  return <DirectRenderer pageConfig={pageConfig} />;
+  return <PageRenderer config={pageConfig} eventTypeConfig={eventTypeConfig} />;
 };
 
 const App = () => {
   const appName = process.env.REACT_APP_NAME || 'app';
+  const [eventTypeConfig, setEventTypeConfig] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadAppConfig = async () => {
+      try {
+        const eventTypes = await fetchEventTypeConfig();
+        setEventTypeConfig(eventTypes);
+      } catch (err) {
+        console.error('Failed to load eventType config:', err);
+        setEventTypeConfig({}); // Use empty object as fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAppConfig();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ padding: '20px', color: '#666' }}>
+        Loading app configuration...
+      </div>
+    );
+  }
 
   return (
     <AppLayout appName={appName}>
       <Routes>
-        <Route path="/" element={<PageWrapper pageName={`${appName}/dashboard`} />} />
-        <Route path="/:pageName" element={<PageWrapper pageName={`${appName}/:pageName`} />} />
+        <Route path="/" element={<PageWrapper pageName={`${appName}/dashboard`} eventTypeConfig={eventTypeConfig} />} />
+        <Route path="/:pageName" element={<PageWrapper pageName={`${appName}/:pageName`} eventTypeConfig={eventTypeConfig} />} />
       </Routes>
     </AppLayout>
   );

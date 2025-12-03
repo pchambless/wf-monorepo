@@ -1,7 +1,7 @@
 import { buildComponentConfig } from './componentBuilder.js';
 import { buildWorkflowTriggers } from './triggersBuilder.js';
 import { getComponent, getComponentProps, getComponentTriggers, getChildComponents } from './dataFetcher.js';
-import { generateMermaid } from './genMermaid.js';
+import { generateStructureDiagram, generateWorkflowDiagram } from './genMermaid.js';
 import { db } from '../../db/studioDb';
 import { getVal } from '../api';
 
@@ -43,8 +43,20 @@ export const buildPageConfig = async (pageID) => {
     // Build the full Container component with all its children
     const containerConfig = await buildComponentConfig(containerComponent, 0);
 
-    const containerTriggers = await getComponentTriggers(containerComponent.id);
-    const workflowTriggers = await buildWorkflowTriggers(containerTriggers);
+    // Build Modal components (any level, but top-level in pageConfig)
+    const modalComponents = allComponents.filter(c =>
+      c.pageID === parseInt(effectivePageID) && 
+      c.comp_type === 'Modal'
+    );
+    console.log('🎭 Found Modal components:', modalComponents.map(m => `${m.comp_name} (level ${m.level})`));
+
+    const modalConfigs = [];
+    for (const modal of modalComponents) {
+      const modalConfig = await buildComponentConfig(modal, 0);
+      modalConfigs.push(modalConfig);
+    }
+
+    const allTopLevelComponents = [containerConfig, ...modalConfigs];
 
     const pageConfig = {
       pageName: pageRegistry.pageName,
@@ -53,7 +65,7 @@ export const buildPageConfig = async (pageID) => {
         pageID: effectivePageID,
         pageName: pageRegistry.pageName,
         appName: pageRegistry.appName,
-        componentsCount: containerConfig.components?.length || 0
+        componentsCount: allTopLevelComponents.length
       },
       props: {
         pageID: effectivePageID,
@@ -64,17 +76,18 @@ export const buildPageConfig = async (pageID) => {
         contextKey: pageRegistry.contextKey,
         parentID: pageRegistry.parentID
       },
-      ...(workflowTriggers && { workflowTriggers }),
-      components: [containerConfig]
+      components: allTopLevelComponents
     };
     console.log('📦 Final pageConfig.props:', pageConfig.props);
 
-    const mermaidText = generateMermaid(pageConfig);
+    const structureDiagram = generateStructureDiagram(pageConfig);
+    const workflowDiagram = generateWorkflowDiagram(pageConfig);
 
     return {
       success: true,
       pageConfig,
-      mermaidText
+      structureDiagram,
+      workflowDiagram
     };
 
   } catch (error) {
