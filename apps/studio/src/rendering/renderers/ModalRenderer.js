@@ -1,24 +1,29 @@
 import React from "react";
 
-export const renderModal = (modalComp, openModals, renderComponent) => {
+export const renderModal = (modalComp, openModals, renderComponent, eventTypeConfig = {}) => {
   if (!openModals.has(modalComp.id)) {
     return null;
   }
 
-  // Default modal styles - can be overridden by modalComp.override_styles
-  const defaultModalStyle = {
+  // Get Modal styles from eventTypeConfig (database-driven)
+  const eventTypeStyles = eventTypeConfig.Modal?.styles || {};
+  
+  // Fallback styles if eventTypeConfig not loaded
+  const fallbackStyles = {
     position: "relative",
     backgroundColor: "white",
     borderRadius: "8px",
     padding: "24px",
-    maxWidth: "600px",
+    minWidth: "600px",
+    maxWidth: "90vw",
     maxHeight: "80vh",
     overflow: "auto",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   };
 
   const modalStyle = {
-    ...defaultModalStyle,
+    ...fallbackStyles,
+    ...eventTypeStyles,
     ...modalComp.override_styles,
   };
 

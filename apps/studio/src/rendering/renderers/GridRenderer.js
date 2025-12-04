@@ -97,7 +97,7 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
   };
 }
 
-export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 'id', renderComponentFn, config, setData, rowActions = null, gridProps = null) {
+export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 'id', renderComponentFn, config, setData, rowActions = null, gridProps = null, selectedRowId = null, setSelectedRowId = null, expansionStyles = null) {
   const cloneWithData = (comp) => {
     let textContent = comp.textContent;
 
@@ -117,18 +117,29 @@ export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 
 
     if (comp.type === 'tr' && onChangeTriggers) {
       const rowValue = rowData[rowKey];
+      const isSelected = selectedRowId === rowValue;
+
+      const baseStyle = isSelected && expansionStyles?.trSelected
+        ? expansionStyles.trSelected
+        : {
+            backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f5f5f5',
+            cursor: 'pointer',
+            transition: 'background-color 0.15s ease'
+          };
 
       clonedComp.style = {
         ...(comp.style || {}),
-        backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f5f5f5',
-        cursor: 'pointer',
-        transition: 'background-color 0.15s ease'
+        ...baseStyle
       };
 
       clonedComp.props = {
         ...(comp.props || {}),
         _onClick: async (e) => {
           console.log(`🎯 Row clicked: ${rowValue}`, rowData);
+
+          if (setSelectedRowId) {
+            setSelectedRowId(rowValue);
+          }
 
           const context = {
             event: e,

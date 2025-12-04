@@ -17,6 +17,7 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
   }
 
   const [dataStore, setDataStore] = React.useState({});
+  const [selectedRows, setSelectedRows] = React.useState({});
   const { openModals } = useModalManager();
 
   const componentMap = React.useMemo(() => {
@@ -176,7 +177,10 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
             config,
             setData,
             rowActions,
-            gridProps
+            gridProps,
+            selectedRows[gridId],
+            (rowId) => setSelectedRows(prev => ({ ...prev, [gridId]: rowId })),
+            eventTypeConfig.Grid?.config?.expansionStyles
           )
         );
       } else {
@@ -289,7 +293,7 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
       )}
 
       {modalComponents.map((modalComp) =>
-        renderModal(modalComp, openModals, renderComponent)
+        renderModal(modalComp, openModals, renderComponent, eventTypeConfig)
       )}
     </>
   );

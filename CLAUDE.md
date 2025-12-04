@@ -13,11 +13,24 @@ _Working documentation - stays current because Claude depends on it daily_
 
 ## 📖 Documentation Priority
 
-1. **`.kiro/steering.yaml`** - Live project patterns and file paths
-2. **`CLAUDE.md`** - This file - behavioral preferences
-3. **`AI/planning-standards.md`** - Plan phases, impact types, and agent roles
-4. **`AI/collaboration-rules.md`** - Role boundaries
-5. **`AI/session-startup.md`** - Context recovery
+1. **`Plan 1`** (Database) - Agent System Knowledge & Workflows - investigation techniques, page cloning, coordination patterns
+2. **`.kiro/steering.yaml`** - Live project patterns and file paths
+3. **`CLAUDE.md`** - This file - behavioral preferences
+4. **`AI/planning-standards.md`** - Plan phases, impact types, and agent roles
+5. **`AI/collaboration-rules.md`** - Role boundaries
+6. **`AI/session-startup.md`** - Context recovery
+
+**Accessing Plan 1:**
+```sql
+-- Get the full knowledge base
+SELECT description FROM api_wf.plans WHERE id = 1;
+
+-- Get latest guidance/techniques
+SELECT subject, message, created_at
+FROM api_wf.plan_communications
+WHERE plan_id = 1 AND type IN ('guidance', 'analysis')
+ORDER BY created_at DESC LIMIT 10;
+```
 
 ## Config-Driven Development Standards
 

@@ -103,7 +103,7 @@ export const loadPageForEditing = async (pageID) => {
           pageID: cleanComp.pageID,
           title: cleanComp.title,
           description: cleanComp.description,
-          style: cleanComp.style,
+          style: cleanComp.override_styles || cleanComp.style,
           level: cleanComp.level,
           _dmlMethod: null
         });

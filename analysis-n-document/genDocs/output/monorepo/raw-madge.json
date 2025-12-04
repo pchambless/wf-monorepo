@@ -10,11 +10,9 @@
   "apps/admin/craco.config.js": [],
   "apps/admin/scripts/sync-rendering.js": [],
   "apps/admin/src/App.jsx": [
-    "apps/admin/src/components/DirectRenderer.jsx",
     "apps/admin/src/layouts/AppLayout.jsx",
     "apps/admin/src/utils/fetchConfig.js"
   ],
-  "apps/admin/src/components/DirectRenderer.jsx": [],
   "apps/admin/src/index.js": [
     "apps/admin/src/App.jsx",
     "apps/admin/src/styles/global.css"
@@ -144,30 +142,15 @@
     "apps/server/server/utils/logger.js",
     "apps/server/server/utils/queryResolver.js"
   ],
-  "apps/server/server/controller/fetchEventType.js": [
-    "apps/server/server/utils/dbUtils.js",
-    "apps/server/server/utils/logger.js"
-  ],
   "apps/server/server/controller/genFields.js": [
     "apps/server/server/events/index.js",
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/logger.js"
   ],
-  "apps/server/server/controller/genPageConfigController.js": [
-    "apps/server/server/utils/logger.js"
-  ],
   "apps/server/server/controller/getDoc.js": [
     "apps/server/server/utils/logger.js"
   ],
-  "apps/server/server/controller/getEventTypes.js": [
-    "apps/server/server/utils/dbUtils.js",
-    "apps/server/server/utils/logger.js"
-  ],
   "apps/server/server/controller/getMigrationStatus.js": [
-    "apps/server/server/utils/logger.js"
-  ],
-  "apps/server/server/controller/getTriggers.js": [
-    "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/controller/getVal.js": [
@@ -180,11 +163,12 @@
   ],
   "apps/server/server/controller/initialize.js": [],
   "apps/server/server/controller/listRegisteredRoutes.js": [],
-  "apps/server/server/controller/logImpact.js": [
-    "apps/server/server/utils/impactLogger.js",
+  "apps/server/server/controller/openTerminal.js": [
     "apps/server/server/utils/logger.js"
   ],
-  "apps/server/server/controller/openTerminal.js": [
+  "apps/server/server/controller/populateModules.js": [
+    "apps/server/server/utils/dbUtils.js",
+    "apps/server/server/utils/getUserEmail.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/controller/restartServer.js": [
@@ -193,37 +177,11 @@
   "apps/server/server/controller/runMigration.js": [
     "apps/server/server/utils/logger.js"
   ],
-  "apps/server/server/controller/savePageConfig.js": [],
   "apps/server/server/controller/setVals.js": [
     "apps/server/server/controller/getVal.js",
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/getUserEmail.js",
     "apps/server/server/utils/logger.js"
-  ],
-  "apps/server/server/controller/studioDiscovery.js": [
-    "apps/server/server/controller/getVal.js",
-    "apps/server/server/utils/logger.js",
-    "apps/server/server/utils/pageConfig/index.js"
-  ],
-  "apps/server/server/controller/studioDiscovery/discoverApps.js": [
-    "apps/server/server/utils/logger.js"
-  ],
-  "apps/server/server/controller/studioDiscovery/discoverEventTypes.js": [
-    "apps/server/server/utils/logger.js",
-    "apps/server/server/utils/pageConfig/astParser.js"
-  ],
-  "apps/server/server/controller/studioDiscovery/discoverPages.js": [
-    "apps/server/server/utils/logger.js"
-  ],
-  "apps/server/server/controller/studioDiscovery/discoverTemplates.js": [
-    "apps/server/server/utils/logger.js"
-  ],
-  "apps/server/server/controller/studioDiscovery/index.js": [
-    "apps/server/server/controller/studioDiscovery.js",
-    "apps/server/server/controller/studioDiscovery/discoverApps.js",
-    "apps/server/server/controller/studioDiscovery/discoverEventTypes.js",
-    "apps/server/server/controller/studioDiscovery/discoverPages.js",
-    "apps/server/server/controller/studioDiscovery/discoverTemplates.js"
   ],
   "apps/server/server/controller/userLogin.js": [
     "apps/server/server/events/index.js",
@@ -317,19 +275,15 @@
     "apps/server/server/controller/execCreateDoc.js",
     "apps/server/server/controller/execDML.js",
     "apps/server/server/controller/execEvent.js",
-    "apps/server/server/controller/fetchEventType.js",
     "apps/server/server/controller/genFields.js",
-    "apps/server/server/controller/genPageConfigController.js",
     "apps/server/server/controller/getDoc.js",
-    "apps/server/server/controller/getEventTypes.js",
     "apps/server/server/controller/getMigrationStatus.js",
-    "apps/server/server/controller/getTriggers.js",
     "apps/server/server/controller/getVal.js",
     "apps/server/server/controller/githubController.js",
     "apps/server/server/controller/initialize.js",
     "apps/server/server/controller/listRegisteredRoutes.js",
-    "apps/server/server/controller/logImpact.js",
     "apps/server/server/controller/openTerminal.js",
+    "apps/server/server/controller/populateModules.js",
     "apps/server/server/controller/restartServer.js",
     "apps/server/server/controller/runMigration.js",
     "apps/server/server/controller/setVals.js",
@@ -463,7 +417,6 @@
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/utils/templateRegistry.js": [
-    "apps/server/server/controller/studioDiscovery/discoverTemplates.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/workflows/impact-tracking/DatabaseWriter.js": [
@@ -490,20 +443,6 @@
   "apps/server/tailwind.config.js": [],
   "apps/studio/craco.config.js": [],
   "apps/studio/scripts/architecture/generate-grid-docs.js": [],
-  "apps/studio/scripts/old-pages/forms/formPlan.js": [],
-  "apps/studio/scripts/old-pages/forms/formPlanComm.js": [],
-  "apps/studio/scripts/old-pages/forms/formPlanImpact.js": [],
-  "apps/studio/scripts/old-pages/grids/gridPlanComms.js": [],
-  "apps/studio/scripts/old-pages/grids/gridPlanImpacts.js": [],
-  "apps/studio/scripts/old-pages/grids/gridPlans.js": [],
-  "apps/studio/scripts/old-pages/index.jsx": [],
-  "apps/studio/scripts/old-pages/page/pagePlanManager.js": [],
-  "apps/studio/scripts/old-pages/tabs/tabPlan.js": [],
-  "apps/studio/scripts/old-pages/tabs/tabPlanComms.js": [],
-  "apps/studio/scripts/old-pages/tabs/tabPlanImpacts.js": [],
-  "apps/studio/scripts/old-pages/tabs/tabsPlanTabs.js": [],
-  "apps/studio/scripts/old-pages/widgets/btnCreate.js": [],
-  "apps/studio/scripts/old-pages/widgets/selectPlanStatus.js": [],
   "apps/studio/scripts/sync-rendering.js": [],
   "apps/studio/scripts/utils/targetedAnalysis.js": [
     "apps/studio/scripts/utils/writeSchema.js"
@@ -518,17 +457,6 @@
     "apps/studio/src/db/operations/lifecycleOps.js",
     "apps/studio/src/layouts/SimpleLayout.jsx"
   ],
-  "apps/studio/src/apps/plans/layout/appbar.js": [],
-  "apps/studio/src/apps/plans/layout/sidebar.js": [],
-  "apps/studio/src/apps/plans/pages/Dashboard/index.jsx": [
-    "apps/studio/src/apps/plans/pages/Dashboard/page/pageDashboard.js"
-  ],
-  "apps/studio/src/apps/plans/pages/Dashboard/page/pageDashboard.js": [],
-  "apps/studio/src/apps/plans/pages/SketchPad/index.jsx": [
-    "apps/studio/src/apps/plans/pages/SketchPad/page/pageSketchPad.js"
-  ],
-  "apps/studio/src/apps/plans/pages/SketchPad/page/pageSketchPad.js": [],
-  "apps/studio/src/apps/shared/page/pageLogin.js": [],
   "apps/studio/src/components/ComponentPropertiesPanel.jsx": [
     "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx",
     "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx",
@@ -612,7 +540,8 @@
   "apps/studio/src/components/StudioCanvasWrapper.jsx": [
     "apps/studio/src/components/ComponentPropertiesPanel.jsx",
     "apps/studio/src/components/PageFlowCanvas.jsx",
-    "apps/studio/src/utils/api.js"
+    "apps/studio/src/utils/api.js",
+    "apps/studio/src/utils/pageConfigBuilder/index.js"
   ],
   "apps/studio/src/components/StudioLayout.jsx": [
     "apps/studio/src/components/ComponentPropertiesPanel.jsx",
@@ -792,21 +721,6 @@
   "apps/studio/src/layouts/SimpleLayout.jsx": [
     "apps/studio/src/config/api.js"
   ],
-  "apps/studio/src/preview/login/loginPage/index.jsx": [
-    "apps/studio/src/config/api.js",
-    "apps/studio/src/preview/login/loginPage/pageConfig.json"
-  ],
-  "apps/studio/src/preview/login/loginPage/pageConfig.json": [],
-  "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx": [
-    "apps/studio/src/config/api.js",
-    "apps/studio/src/preview/whatsfresh/ingrPage/pageConfig.json"
-  ],
-  "apps/studio/src/preview/whatsfresh/ingrPage/pageConfig.json": [],
-  "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx": [
-    "apps/studio/src/config/api.js",
-    "apps/studio/src/preview/whatsfresh/ingrTypePage/pageConfig.json"
-  ],
-  "apps/studio/src/preview/whatsfresh/ingrTypePage/pageConfig.json": [],
   "apps/studio/src/rendering/PageRenderer.jsx": [
     "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
     "apps/studio/src/rendering/hooks/useModalManager.js",
@@ -850,7 +764,9 @@
     "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
-  "apps/studio/src/rendering/WorkflowEngine/triggers/action/openModal.js": [],
+  "apps/studio/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
+    "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
   "apps/studio/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
     "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
   ],
@@ -942,11 +858,10 @@
   ],
   "apps/templates/app-boilerplate/craco.config.js": [],
   "apps/templates/app-boilerplate/src/App.jsx": [
-    "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx",
     "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
+    "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
     "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
   ],
-  "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx": [],
   "apps/templates/app-boilerplate/src/index.js": [
     "apps/templates/app-boilerplate/src/App.jsx",
     "apps/templates/app-boilerplate/src/styles/global.css"
@@ -1001,7 +916,9 @@
     "apps/templates/app-boilerplate/src/utils/api.js"
   ],
   "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/openModal.js": [],
+  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
+    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
   "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
     "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
   ],
@@ -1040,11 +957,9 @@
   "apps/whatsfresh/craco.config.js": [],
   "apps/whatsfresh/scripts/sync-rendering.js": [],
   "apps/whatsfresh/src/App.jsx": [
-    "apps/whatsfresh/src/components/DirectRenderer.jsx",
     "apps/whatsfresh/src/layouts/AppLayout.jsx",
     "apps/whatsfresh/src/utils/fetchConfig.js"
   ],
-  "apps/whatsfresh/src/components/DirectRenderer.jsx": [],
   "apps/whatsfresh/src/index.js": [
     "apps/whatsfresh/src/App.jsx",
     "apps/whatsfresh/src/styles/global.css"

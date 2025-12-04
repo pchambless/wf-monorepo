@@ -34,9 +34,6 @@
       "file_path": "apps/admin/src/App.jsx"
     },
     {
-      "file_path": "apps/admin/src/components/DirectRenderer.jsx"
-    },
-    {
       "file_path": "apps/admin/src/index.js"
     },
     {
@@ -184,25 +181,13 @@
       "file_path": "apps/server/server/controller/execEvent.js"
     },
     {
-      "file_path": "apps/server/server/controller/fetchEventType.js"
-    },
-    {
       "file_path": "apps/server/server/controller/genFields.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/genPageConfigController.js"
     },
     {
       "file_path": "apps/server/server/controller/getDoc.js"
     },
     {
-      "file_path": "apps/server/server/controller/getEventTypes.js"
-    },
-    {
       "file_path": "apps/server/server/controller/getMigrationStatus.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/getTriggers.js"
     },
     {
       "file_path": "apps/server/server/controller/getVal.js"
@@ -217,10 +202,10 @@
       "file_path": "apps/server/server/controller/listRegisteredRoutes.js"
     },
     {
-      "file_path": "apps/server/server/controller/logImpact.js"
+      "file_path": "apps/server/server/controller/openTerminal.js"
     },
     {
-      "file_path": "apps/server/server/controller/openTerminal.js"
+      "file_path": "apps/server/server/controller/populateModules.js"
     },
     {
       "file_path": "apps/server/server/controller/restartServer.js"
@@ -229,28 +214,7 @@
       "file_path": "apps/server/server/controller/runMigration.js"
     },
     {
-      "file_path": "apps/server/server/controller/savePageConfig.js"
-    },
-    {
       "file_path": "apps/server/server/controller/setVals.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/studioDiscovery.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/studioDiscovery/discoverApps.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/studioDiscovery/discoverEventTypes.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/studioDiscovery/discoverPages.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/studioDiscovery/discoverTemplates.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/studioDiscovery/index.js"
     },
     {
       "file_path": "apps/server/server/controller/userLogin.js"
@@ -496,48 +460,6 @@
       "file_path": "apps/studio/scripts/architecture/generate-grid-docs.js"
     },
     {
-      "file_path": "apps/studio/scripts/old-pages/forms/formPlan.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/forms/formPlanComm.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/forms/formPlanImpact.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/grids/gridPlanComms.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/grids/gridPlanImpacts.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/grids/gridPlans.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/index.jsx"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/page/pagePlanManager.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/tabs/tabPlan.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/tabs/tabPlanComms.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/tabs/tabPlanImpacts.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/tabs/tabsPlanTabs.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/widgets/btnCreate.js"
-    },
-    {
-      "file_path": "apps/studio/scripts/old-pages/widgets/selectPlanStatus.js"
-    },
-    {
       "file_path": "apps/studio/scripts/sync-rendering.js"
     },
     {
@@ -554,27 +476,6 @@
     },
     {
       "file_path": "apps/studio/src/App.jsx"
-    },
-    {
-      "file_path": "apps/studio/src/apps/plans/layout/appbar.js"
-    },
-    {
-      "file_path": "apps/studio/src/apps/plans/layout/sidebar.js"
-    },
-    {
-      "file_path": "apps/studio/src/apps/plans/pages/Dashboard/index.jsx"
-    },
-    {
-      "file_path": "apps/studio/src/apps/plans/pages/Dashboard/page/pageDashboard.js"
-    },
-    {
-      "file_path": "apps/studio/src/apps/plans/pages/SketchPad/index.jsx"
-    },
-    {
-      "file_path": "apps/studio/src/apps/plans/pages/SketchPad/page/pageSketchPad.js"
-    },
-    {
-      "file_path": "apps/studio/src/apps/shared/page/pageLogin.js"
     },
     {
       "file_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx"
@@ -868,24 +769,6 @@
       "file_path": "apps/studio/src/layouts/SimpleLayout.jsx"
     },
     {
-      "file_path": "apps/studio/src/preview/login/loginPage/index.jsx"
-    },
-    {
-      "file_path": "apps/studio/src/preview/login/loginPage/pageConfig.json"
-    },
-    {
-      "file_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx"
-    },
-    {
-      "file_path": "apps/studio/src/preview/whatsfresh/ingrPage/pageConfig.json"
-    },
-    {
-      "file_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx"
-    },
-    {
-      "file_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/pageConfig.json"
-    },
-    {
       "file_path": "apps/studio/src/rendering/PageRenderer.jsx"
     },
     {
@@ -1072,9 +955,6 @@
       "file_path": "apps/templates/app-boilerplate/src/App.jsx"
     },
     {
-      "file_path": "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx"
-    },
-    {
       "file_path": "apps/templates/app-boilerplate/src/index.js"
     },
     {
@@ -1205,9 +1085,6 @@
     },
     {
       "file_path": "apps/whatsfresh/src/App.jsx"
-    },
-    {
-      "file_path": "apps/whatsfresh/src/components/DirectRenderer.jsx"
     },
     {
       "file_path": "apps/whatsfresh/src/index.js"
@@ -1540,10 +1417,6 @@
   "dependencies": [
     {
       "from_path": "apps/admin/src/App.jsx",
-      "to_path": "apps/admin/src/components/DirectRenderer.jsx"
-    },
-    {
-      "from_path": "apps/admin/src/App.jsx",
       "to_path": "apps/admin/src/layouts/AppLayout.jsx"
     },
     {
@@ -1783,14 +1656,6 @@
       "to_path": "apps/server/server/utils/queryResolver.js"
     },
     {
-      "from_path": "apps/server/server/controller/fetchEventType.js",
-      "to_path": "apps/server/server/utils/dbUtils.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/fetchEventType.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
       "from_path": "apps/server/server/controller/genFields.js",
       "to_path": "apps/server/server/events/index.js"
     },
@@ -1803,31 +1668,11 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/controller/genPageConfigController.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
       "from_path": "apps/server/server/controller/getDoc.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/controller/getEventTypes.js",
-      "to_path": "apps/server/server/utils/dbUtils.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/getEventTypes.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
       "from_path": "apps/server/server/controller/getMigrationStatus.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/getTriggers.js",
-      "to_path": "apps/server/server/utils/dbUtils.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/getTriggers.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1847,15 +1692,19 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/controller/logImpact.js",
-      "to_path": "apps/server/server/utils/impactLogger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/logImpact.js",
+      "from_path": "apps/server/server/controller/openTerminal.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/controller/openTerminal.js",
+      "from_path": "apps/server/server/controller/populateModules.js",
+      "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/populateModules.js",
+      "to_path": "apps/server/server/utils/getUserEmail.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/populateModules.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1881,58 +1730,6 @@
     {
       "from_path": "apps/server/server/controller/setVals.js",
       "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery.js",
-      "to_path": "apps/server/server/controller/getVal.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery.js",
-      "to_path": "apps/server/server/utils/pageConfig/index.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/discoverApps.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/discoverEventTypes.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/discoverEventTypes.js",
-      "to_path": "apps/server/server/utils/pageConfig/astParser.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/discoverPages.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/discoverTemplates.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/index.js",
-      "to_path": "apps/server/server/controller/studioDiscovery.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/index.js",
-      "to_path": "apps/server/server/controller/studioDiscovery/discoverApps.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/index.js",
-      "to_path": "apps/server/server/controller/studioDiscovery/discoverEventTypes.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/index.js",
-      "to_path": "apps/server/server/controller/studioDiscovery/discoverPages.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/studioDiscovery/index.js",
-      "to_path": "apps/server/server/controller/studioDiscovery/discoverTemplates.js"
     },
     {
       "from_path": "apps/server/server/controller/userLogin.js",
@@ -2112,15 +1909,7 @@
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/fetchEventType.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/genFields.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/genPageConfigController.js"
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
@@ -2128,15 +1917,7 @@
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/getEventTypes.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/getMigrationStatus.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/getTriggers.js"
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
@@ -2156,11 +1937,11 @@
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/logImpact.js"
+      "to_path": "apps/server/server/controller/openTerminal.js"
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/openTerminal.js"
+      "to_path": "apps/server/server/controller/populateModules.js"
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
@@ -2472,10 +2253,6 @@
     },
     {
       "from_path": "apps/server/server/utils/templateRegistry.js",
-      "to_path": "apps/server/server/controller/studioDiscovery/discoverTemplates.js"
-    },
-    {
-      "from_path": "apps/server/server/utils/templateRegistry.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -2545,14 +2322,6 @@
     {
       "from_path": "apps/studio/src/App.jsx",
       "to_path": "apps/studio/src/layouts/SimpleLayout.jsx"
-    },
-    {
-      "from_path": "apps/studio/src/apps/plans/pages/Dashboard/index.jsx",
-      "to_path": "apps/studio/src/apps/plans/pages/Dashboard/page/pageDashboard.js"
-    },
-    {
-      "from_path": "apps/studio/src/apps/plans/pages/SketchPad/index.jsx",
-      "to_path": "apps/studio/src/apps/plans/pages/SketchPad/page/pageSketchPad.js"
     },
     {
       "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
@@ -2725,6 +2494,10 @@
     {
       "from_path": "apps/studio/src/components/StudioCanvasWrapper.jsx",
       "to_path": "apps/studio/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioCanvasWrapper.jsx",
+      "to_path": "apps/studio/src/utils/pageConfigBuilder/index.js"
     },
     {
       "from_path": "apps/studio/src/components/StudioLayout.jsx",
@@ -3023,30 +2796,6 @@
       "to_path": "apps/studio/src/config/api.js"
     },
     {
-      "from_path": "apps/studio/src/preview/login/loginPage/index.jsx",
-      "to_path": "apps/studio/src/config/api.js"
-    },
-    {
-      "from_path": "apps/studio/src/preview/login/loginPage/index.jsx",
-      "to_path": "apps/studio/src/preview/login/loginPage/pageConfig.json"
-    },
-    {
-      "from_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
-      "to_path": "apps/studio/src/config/api.js"
-    },
-    {
-      "from_path": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
-      "to_path": "apps/studio/src/preview/whatsfresh/ingrPage/pageConfig.json"
-    },
-    {
-      "from_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
-      "to_path": "apps/studio/src/config/api.js"
-    },
-    {
-      "from_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
-      "to_path": "apps/studio/src/preview/whatsfresh/ingrTypePage/pageConfig.json"
-    },
-    {
       "from_path": "apps/studio/src/rendering/PageRenderer.jsx",
       "to_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
@@ -3133,6 +2882,10 @@
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/getVal.js",
       "to_path": "apps/studio/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/openModal.js",
+      "to_path": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/refresh.js",
@@ -3248,11 +3001,11 @@
     },
     {
       "from_path": "apps/templates/app-boilerplate/src/App.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx"
+      "to_path": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx"
     },
     {
       "from_path": "apps/templates/app-boilerplate/src/App.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx"
+      "to_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
     },
     {
       "from_path": "apps/templates/app-boilerplate/src/App.jsx",
@@ -3363,6 +3116,10 @@
       "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
     },
     {
+      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/openModal.js",
+      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
       "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/refresh.js",
       "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
@@ -3389,10 +3146,6 @@
     {
       "from_path": "apps/templates/app-boilerplate/src/utils/fetchConfig.js",
       "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/whatsfresh/src/App.jsx",
-      "to_path": "apps/whatsfresh/src/components/DirectRenderer.jsx"
     },
     {
       "from_path": "apps/whatsfresh/src/App.jsx",

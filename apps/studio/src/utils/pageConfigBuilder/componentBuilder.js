@@ -74,11 +74,23 @@ export const buildComponentConfig = async (component, level = 0) => {
     children = [...generatedChildren, ...children];
   }
 
+  // Parse component style from database
+  let override_styles = {};
+  if (component.style) {
+    try {
+      override_styles = typeof component.style === 'string' ? JSON.parse(component.style) : component.style;
+      console.log(`✨ Parsed override_styles for ${component.comp_name}:`, override_styles);
+    } catch (e) {
+      console.warn(`Failed to parse style for ${component.comp_name}:`, e);
+    }
+  }
+
   const config = {
     id: component.comp_name,
     comp_type: component.comp_type,
     xref_id: component.id,
     ...(position.row > 0 && { position }),
+    ...(Object.keys(override_styles).length > 0 && { override_styles }),
     props: { ...props },
     ...(workflowTriggers && { workflowTriggers }),
     ...(children.length > 0 && { components: children })

@@ -116,16 +116,6 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving admin."
     },
     {
-      "file": "apps/admin/src/components/DirectRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "admin"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving admin."
-    },
-    {
       "file": "apps/admin/src/index.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
@@ -626,29 +616,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/fetchEventType.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
       "file": "apps/server/server/controller/genFields.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/genPageConfigController.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "server",
@@ -670,17 +638,6 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/getEventTypes.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
       "file": "apps/server/server/controller/getMigrationStatus.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -692,19 +649,8 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/getTriggers.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
       "file": "apps/server/server/controller/getVal.js",
-      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
       "tags": [
         "server",
         "controller"
@@ -747,7 +693,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/logImpact.js",
+      "file": "apps/server/server/controller/openTerminal.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "server",
@@ -758,7 +704,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/openTerminal.js",
+      "file": "apps/server/server/controller/populateModules.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "server",
@@ -791,17 +737,6 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/savePageConfig.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
       "file": "apps/server/server/controller/setVals.js",
       "purpose": "Auto-inferred from dependency graph. 8 dependents.",
       "tags": [
@@ -810,72 +745,6 @@
       ],
       "critical": true,
       "blastRadius": "high",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/studioDiscovery.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/studioDiscovery/discoverApps.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/studioDiscovery/discoverEventTypes.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/studioDiscovery/discoverPages.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/studioDiscovery/discoverTemplates.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/studioDiscovery/index.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
@@ -1424,7 +1293,7 @@
     },
     {
       "file": "apps/server/server/utils/dbUtils.js",
-      "purpose": "Auto-inferred from dependency graph. 18 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 16 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1479,7 +1348,7 @@
     },
     {
       "file": "apps/server/server/utils/getUserEmail.js",
-      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1490,7 +1359,7 @@
     },
     {
       "file": "apps/server/server/utils/impactLogger.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1501,7 +1370,7 @@
     },
     {
       "file": "apps/server/server/utils/logger.js",
-      "purpose": "Auto-inferred from dependency graph. 52 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 43 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1512,7 +1381,7 @@
     },
     {
       "file": "apps/server/server/utils/pageConfig/astParser.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1545,7 +1414,7 @@
     },
     {
       "file": "apps/server/server/utils/pageConfig/index.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1722,146 +1591,6 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
-      "file": "apps/studio/scripts/old-pages/forms/formPlan.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/forms/formPlanComm.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/forms/formPlanImpact.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/grids/gridPlanComms.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/grids/gridPlanImpacts.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/grids/gridPlans.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/page/pagePlanManager.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/tabs/tabPlan.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/tabs/tabPlanComms.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/tabs/tabPlanImpacts.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/tabs/tabsPlanTabs.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/widgets/btnCreate.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/scripts/old-pages/widgets/selectPlanStatus.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
       "file": "apps/studio/scripts/sync-rendering.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
@@ -1916,76 +1645,6 @@
     {
       "file": "apps/studio/src/App.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/apps/plans/layout/appbar.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/apps/plans/layout/sidebar.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/apps/plans/pages/Dashboard/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/apps/plans/pages/Dashboard/page/pageDashboard.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/apps/plans/pages/SketchPad/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/apps/plans/pages/SketchPad/page/pageSketchPad.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/apps/shared/page/pageLogin.js",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "studio"
       ],
@@ -2295,12 +1954,12 @@
     },
     {
       "file": "apps/studio/src/config/api.js",
-      "purpose": "Auto-inferred from dependency graph. 8 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
       "tags": [
         "studio"
       ],
       "critical": true,
-      "blastRadius": "high",
+      "blastRadius": "medium",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
@@ -2966,66 +2625,6 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
-      "file": "apps/studio/src/preview/login/loginPage/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/preview/login/loginPage/pageConfig.json",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/preview/whatsfresh/ingrPage/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/preview/whatsfresh/ingrPage/pageConfig.json",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/preview/whatsfresh/ingrTypePage/index.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
-      "file": "apps/studio/src/preview/whatsfresh/ingrTypePage/pageConfig.json",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "studio"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
-    },
-    {
       "file": "apps/studio/src/rendering/PageRenderer.jsx",
       "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
@@ -3037,7 +2636,7 @@
     },
     {
       "file": "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
-      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
       "tags": [
         "studio"
       ],
@@ -3534,12 +3133,12 @@
     },
     {
       "file": "apps/studio/src/utils/pageConfigBuilder/index.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
       "tags": [
         "studio",
         "utility"
       ],
-      "critical": false,
+      "critical": true,
       "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
@@ -3672,16 +3271,6 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving templates."
     },
     {
-      "file": "apps/templates/app-boilerplate/src/components/DirectRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "templates"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving templates."
-    },
-    {
       "file": "apps/templates/app-boilerplate/src/index.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
@@ -3733,7 +3322,7 @@
     },
     {
       "file": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "templates"
       ],
@@ -3743,7 +3332,7 @@
     },
     {
       "file": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js",
-      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
       "tags": [
         "templates"
       ],
@@ -4118,16 +3707,6 @@
     },
     {
       "file": "apps/whatsfresh/src/App.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "whatsfresh"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
-    },
-    {
-      "file": "apps/whatsfresh/src/components/DirectRenderer.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "whatsfresh"
