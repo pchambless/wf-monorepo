@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { execEvent } from '../utils/api';
+import { upsertProp } from '../utils/propHelpers';
 import { formatPropsForDisplay, parseProps } from '../utils/formatProps';
 import ColumnSelector from './PropertyEditors/ColumnSelector';
 import PreviewPane from './PropertyEditors/PreviewPane';
 import OverrideEditor from './PropertyEditors/OverrideEditor';
 import QuerySetup from './PropertyEditors/QuerySetup';
 import TriggerBuilder from './PropertyEditors/TriggerBuilder';
-import { upsertPropByName } from '../db/operations/eventProps/update';
-import { syncToMySQL } from '../db/operations';
 import { db } from '../db/studioDb';
 import { createComponent } from '../db/operations';
 
@@ -269,10 +268,10 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
         const currentProps = JSON.parse(editedProps);
         currentProps.columnOverrides = updated;
 
-        await upsertPropByName(selectedComponent.xref_id, 'columnOverrides', updated);
+        await upsertProp(selectedComponent.xref_id, 'columnOverrides', updated);
 
         setEditedProps(JSON.stringify(currentProps, null, 2));
-        console.log('✅ Column override marked with _dmlMethod in IndexedDB');
+        console.log('✅ Column override saved to MySQL');
       } catch (error) {
         console.error('❌ Failed to save column override:', error);
       }
@@ -400,10 +399,10 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       throw new Error('No component selected');
     }
 
-    console.log('Generating fields for xref_id:', xref_id);
+    console.log('Generating fields for xref_id:');
 
     try {
-      const result = await execEvent('studio-xrefFieldGen', { xref_id });
+      const result = await execEvent('xrefFieldGen', { xrefID: xref_id });
 
       if (!result.data) {
         throw new Error('No data returned from field generation');
@@ -433,14 +432,18 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
 
   const loadExistingFields = async (xref_id) => {
     try {
-      const propsArray = await db.eventProps.where('xref_id').equals(xref_id).toArray();
+      const result = await execEvent('pageProps', { xrefID: xref_id });
+
+      if (!result.data || result.data.length === 0) {
+        return null;
+      }
+
       const props = {};
-      propsArray.forEach(p => {
+      result.data.forEach(p => {
         try { props[p.paramName] = JSON.parse(p.paramVal); }
         catch { props[p.paramName] = p.paramVal; }
       });
 
-      // Ensure columns is actually an array
       if (props.columns && Array.isArray(props.columns)) {
         return props.columns;
       }
@@ -490,8 +493,8 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
     }
 
     try {
-      await upsertPropByName(xref_id, 'columns', fields);
-      console.log('✅ columns marked with _dmlMethod in IndexedDB');
+      await upsertProp(xref_id, 'columns', fields);
+      console.log('✅ columns saved to MySQL');
 
       await loadComponentData(xref_id);
       console.log('✅ Component data reloaded');
@@ -555,8 +558,8 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       // Update props
       setEditedProps(JSON.stringify(props, null, 2));
 
-      // Save to IndexedDB
-      await upsertPropByName(xref_id, 'rowActions', rowActions);
+      // Save to MySQL
+      await upsertProp(xref_id, 'rowActions', rowActions);
 
       console.log('✅ Delete action added to rowActions');
       setHasChanges(true);
@@ -584,8 +587,8 @@ const ComponentPropertiesPanel = ({ selectedComponent, pageID, onSave }) => {
       // Update props
       setEditedProps(JSON.stringify(props, null, 2));
 
-      // Save to IndexedDB
-      await upsertPropByName(xref_id, 'rowActions', rowActions);
+      // Save to MySQL
+      await upsertProp(xref_id, 'rowActions', rowActions);
 
       console.log('✅ Row action removed');
       setHasChanges(true);

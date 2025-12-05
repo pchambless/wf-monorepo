@@ -205,7 +205,9 @@ export class TriggerEngine {
     const resolved = {};
     for (const [key, value] of Object.entries(content)) {
       console.log(`🔧 Resolving key "${key}" with value:`, value);
-      resolved[key] = await this.resolveTemplates(value, context);
+      const resolvedKey = await this.resolveString(key, context);
+      console.log(`🔧 Resolved key "${key}" => "${resolvedKey}"`);
+      resolved[resolvedKey] = await this.resolveTemplates(value, context);
     }
     return resolved;
   }

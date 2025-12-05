@@ -735,7 +735,6 @@
   ],
   "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js": [],
   "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": [
-    "apps/studio/src/db/studioDb.js",
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
     "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
@@ -752,7 +751,6 @@
   "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js": [],
   "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js": [],
   "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js": [
-    "apps/studio/src/db/studioDb.js",
     "apps/studio/src/rendering/WorkflowEngine/TriggerEngine.js",
     "apps/studio/src/utils/api.js"
   ],
@@ -958,6 +956,7 @@
   "apps/whatsfresh/scripts/sync-rendering.js": [],
   "apps/whatsfresh/src/App.jsx": [
     "apps/whatsfresh/src/layouts/AppLayout.jsx",
+    "apps/whatsfresh/src/rendering/PageRenderer.jsx",
     "apps/whatsfresh/src/utils/fetchConfig.js"
   ],
   "apps/whatsfresh/src/index.js": [
@@ -1014,7 +1013,9 @@
     "apps/whatsfresh/src/utils/api.js"
   ],
   "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/openModal.js": [],
+  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
+    "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
   "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
     "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
   ],

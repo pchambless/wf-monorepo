@@ -38,16 +38,21 @@ export const loadAllPageRegistry = async (forceReload = false) => {
 
   if (result.data && result.data.length > 0) {
     for (const pageReg of result.data) {
+      // Parse props JSON if it exists
+      let props = {};
+      if (pageReg.props) {
+        try {
+          props = typeof pageReg.props === 'string' ? JSON.parse(pageReg.props) : pageReg.props;
+        } catch (err) {
+          console.warn(`⚠️ Failed to parse props for ${pageReg.pageName}:`, err);
+        }
+      }
+
       await db.page_registry.add({
         id: pageReg.id,
         pageName: pageReg.pageName,
         appName: pageReg.appName,
-        pageTitle: pageReg.pageTitle,
-        tableName: pageReg.tableName,
-        contextKey: pageReg.contextKey,
-        routePath: pageReg.routePath,
-        tableID: pageReg.tableID,
-        parentID: pageReg.parentID
+        props: props
       });
     }
     console.log(`✅ Loaded ${result.data.length} pages into page_registry`);

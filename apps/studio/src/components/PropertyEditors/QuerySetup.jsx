@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { execEvent } from '../../utils/api';
-import { db } from '../../db/studioDb';
 
 const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
   const [queryName, setQueryName] = useState('');
@@ -9,39 +8,31 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
   const [generating, setGenerating] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showHelp, setShowHelp] = useState(false);
-  const [availableQueries, setAvailableQueries] = useState([]);
-
-  // Load available queries from eventSQL (master table)
-  useEffect(() => {
-    const loadQueries = async () => {
-      try {
-        const queries = await db.eventSQL
-          .orderBy('qryName')
-          .toArray();
-        setAvailableQueries(queries);
-      } catch (error) {
-        console.error('Failed to load queries:', error);
-      }
-    };
-
-    loadQueries();
-  }, []);
 
   // Fetch existing query on mount
   useEffect(() => {
     const fetchExistingQuery = async () => {
       try {
-        // Query vw_eventSQL to find associated query
-        const result = await execEvent('getEventSQL', { xrefID: component.xref_id });
+        // Use getEventSQL query to get resolved query info from vw_eventSQL
+        const result = await execEvent('getEventSQL', { xrefID: component.xref_id || component.id });
+        
+        console.log('🔍 QuerySetup: getEventSQL result:', result);
+        
         if (result.data && result.data.length > 0) {
           const eventSQL = result.data[0];
+          console.log('✅ QuerySetup: Found query info:', eventSQL);
+          
+          // Show the resolved query name (e.g., "testCloneGrid")
           setQueryName(eventSQL.qryName || '');
           setQuerySQL(eventSQL.qrySQL || '');
+          
           // Try to detect table name from SQL
           const tableMatch = eventSQL.qrySQL?.match(/FROM\s+(\w+\.\w+|\w+)/i);
           if (tableMatch) {
             setTableName(tableMatch[1]);
           }
+        } else {
+          console.warn('⚠️ QuerySetup: No query found for this component');
         }
       } catch (error) {
         console.error('Failed to fetch existing query:', error);
@@ -51,7 +42,7 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
     };
 
     fetchExistingQuery();
-  }, [component.xref_id]);
+  }, [component.xref_id, component.id]);
 
   const handleGenerate = async () => {
     setGenerating(true);
@@ -124,26 +115,18 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
         <div style={styles.field}>
           <label style={styles.label}>Query Name</label>
           <div style={styles.inputRow}>
-            <select
+            <input
+              type="text"
               value={queryName}
-              onChange={(e) => setQueryName(e.target.value)}
-              style={{ ...styles.input, flex: 1 }}
-            >
-              <option value="">Select a query...</option>
-              {availableQueries.map((query) => (
-                <option key={query.qryName} value={query.qryName}>
-                  {query.qryName}
-                </option>
-              ))}
-            </select>
-            {!hasExistingQuery && (
-              <button style={styles.newButton}>+ New</button>
-            )}
+              readOnly
+              style={styles.inputDisabled}
+              placeholder="No query configured"
+            />
           </div>
           <div style={styles.hint}>
-            {hasExistingQuery
-              ? 'Query detected from onRefresh trigger'
-              : 'Select from existing queries or create new'}
+            {queryName 
+              ? `Query from onRefresh trigger: ${queryName}` 
+              : 'No query configured. Add an onRefresh→execEvent trigger in the Triggers tab.'}
           </div>
         </div>
 

@@ -37,3 +37,30 @@ export const fetchLayoutConfig = async (appName) => {
     throw error;
   }
 };
+
+export const fetchEventTypeConfig = async () => {
+  try {
+    const response = await execEvent('fetchEventTypeConfig');
+    console.log('📦 fetchEventTypeConfig response:', response);
+
+    if (response.data && response.data.length > 0) {
+      // Convert array to lookup object: { Modal: {styles, config}, Button: {styles, config} }
+      const eventTypeMap = {};
+      response.data.forEach(row => {
+        console.log(`📦 Processing eventType: ${row.eventType}`, row);
+        eventTypeMap[row.eventType] = {
+          styles: row.styles ? JSON.parse(row.styles) : {},
+          config: row.config ? JSON.parse(row.config) : {}
+        };
+      });
+      console.log('📦 Final eventTypeMap:', eventTypeMap);
+      return eventTypeMap;
+    }
+
+    console.warn('⚠️ No eventType data returned');
+    return {}; // Return empty object if no eventTypes found
+  } catch (error) {
+    console.error('❌ Error fetching eventType config:', error);
+    return {}; // Return empty object on error to prevent app crash
+  }
+};

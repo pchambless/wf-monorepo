@@ -9,7 +9,6 @@ import { buildDeleteData } from './dmlBuilders/buildDeleteData.js';
 
 export async function buildDMLData(params, context) {
   const { getVal } = await import('../../../../utils/api.js');
-  const { db } = await import('../../../../db/studioDb.js');
 
   // Get method from context_store
   const methodResult = await getVal('method', 'raw');
@@ -19,17 +18,11 @@ export async function buildDMLData(params, context) {
     throw new Error('buildDMLData: method not found in context_store');
   }
 
-  // Get pageID and load page_registry
-  const pageIDResult = await getVal('pageID', 'raw');
-  const pageID = pageIDResult?.resolvedValue || pageIDResult;
+  // Get page_registry metadata from pageConfig.props
+  const pageRegistry = context.pageConfig?.props;
 
-  if (!pageID) {
-    throw new Error('buildDMLData: pageID not found in context_store');
-  }
-
-  const pageRegistry = await db.page_registry.where('id').equals(parseInt(pageID)).first();
   if (!pageRegistry) {
-    throw new Error(`buildDMLData: page_registry not found for pageID ${pageID}`);
+    throw new Error('buildDMLData: pageConfig.props not found in context');
   }
 
   console.log(`🔨 Building ${method} data for ${pageRegistry.tableName}`);

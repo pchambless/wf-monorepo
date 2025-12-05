@@ -1,27 +1,78 @@
 import React, { useState, useRef } from "react";
 import StudioSidebar from "./StudioSidebar";
-import PageFlowCanvas from "./PageFlowCanvas";
+import ComponentTree from "./ComponentTree";
+import ComponentTreeDirect from "./ComponentTreeDirect";
+import DiagramView from "./DiagramView";
 import ComponentPropertiesPanel from "./ComponentPropertiesPanel";
+import ComponentPropertiesDirect from "./ComponentPropertiesDirect";
 import PageDraftControls from "./PageDraftControls";
 import FloatingActionButton from "./FloatingActionButton";
 import IssuesModal from "./IssuesModal";
 
 const StudioLayout = () => {
-  const [pageConfig, setPageConfig] = useState(null);
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [currentPageID, setCurrentPageID] = useState(null);
   const [isIssuesModalOpen, setIsIssuesModalOpen] = useState(false);
   const [propertiesWidth, setPropertiesWidth] = useState(400);
   const [isResizing, setIsResizing] = useState(false);
+  const [activeTab, setActiveTab] = useState('tree'); // 'tree' or 'diagram'
   const containerRef = useRef(null);
 
+  // Reference data loaded once at startup
+  const [eventTypes, setEventTypes] = useState([]);
+  const [triggers, setTriggers] = useState([]);
+  const [referenceDataLoaded, setReferenceDataLoaded] = useState(false);
+
+  // Load reference data once at startup
+  React.useEffect(() => {
+    const loadReferenceData = async () => {
+      try {
+        console.log('📚 Loading reference data...');
+
+        // Load eventTypes
+        const eventTypesResponse = await fetch('http://localhost:3002/api/execEvent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            eventSQLId: 'eventTypeList',
+            params: {}
+          })
+        });
+        const eventTypesResult = await eventTypesResponse.json();
+        setEventTypes(eventTypesResult.data || []);
+        console.log('✅ Loaded eventTypes:', eventTypesResult.data?.length);
+
+        // Load triggers
+        const triggersResponse = await fetch('http://localhost:3002/api/execEvent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            eventSQLId: 'fetchTriggers',
+            params: {}
+          })
+        });
+        const triggersResult = await triggersResponse.json();
+        setTriggers(triggersResult.data || []);
+        console.log('✅ Loaded triggers:', triggersResult.data?.length);
+
+        setReferenceDataLoaded(true);
+      } catch (error) {
+        console.error('❌ Error loading reference data:', error);
+      }
+    };
+
+    loadReferenceData();
+  }, []);
+
   const handlePageConfigLoaded = (config, pageID) => {
-    setPageConfig(config);
     setSelectedComponent(null);
     setCurrentPageID(pageID);
   };
 
   const handleNodeSelect = (component) => {
+    console.log('🎯 StudioLayout: Component selected:', component);
     setSelectedComponent(component);
   };
 
@@ -130,11 +181,39 @@ const StudioLayout = () => {
 
       <div style={styles.canvas}>
         <PageDraftControls pageID={currentPageID} />
-        {pageConfig ? (
-          <PageFlowCanvas
-            pageConfig={pageConfig}
-            onNodeSelect={handleNodeSelect}
-          />
+        
+        {/* Tab Navigation */}
+        {currentPageID && (
+          <div style={styles.tabBar}>
+            <button
+              style={activeTab === 'tree' ? styles.tabActive : styles.tab}
+              onClick={() => setActiveTab('tree')}
+            >
+              🌲 Tree View
+            </button>
+            <button
+              style={activeTab === 'diagram' ? styles.tabActive : styles.tab}
+              onClick={() => setActiveTab('diagram')}
+            >
+              📊 Diagram
+            </button>
+          </div>
+        )}
+
+        {/* Tab Content */}
+        {currentPageID ? (
+          <div style={styles.tabContent}>
+            {activeTab === 'tree' && (
+              <ComponentTreeDirect
+                pageID={currentPageID}
+                selectedComponent={selectedComponent}
+                onComponentSelect={handleNodeSelect}
+              />
+            )}
+            {activeTab === 'diagram' && (
+              <DiagramView pageID={currentPageID} />
+            )}
+          </div>
         ) : (
           <div style={styles.emptyState}>
             <div style={styles.emptyIcon}>🎨</div>
@@ -155,10 +234,11 @@ const StudioLayout = () => {
       </div>
 
       <div style={{ ...styles.properties, width: `${propertiesWidth}px` }}>
-        <ComponentPropertiesPanel
+        <ComponentPropertiesDirect
           selectedComponent={selectedComponent}
           pageID={currentPageID}
-          onSave={handleSaveComponent}
+          eventTypes={eventTypes}
+          triggers={triggers}
         />
       </div>
 
@@ -238,6 +318,37 @@ const styles = {
   emptyText: {
     fontSize: "18px",
     fontWeight: 500,
+  },
+  tabBar: {
+    display: "flex",
+    gap: "8px",
+    padding: "12px 16px",
+    borderBottom: "1px solid #e0e0e0",
+    backgroundColor: "#f5f5f5",
+  },
+  tab: {
+    padding: "8px 16px",
+    border: "1px solid #ddd",
+    backgroundColor: "#fff",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "500",
+    transition: "all 0.2s",
+  },
+  tabActive: {
+    padding: "8px 16px",
+    border: "1px solid #1976d2",
+    backgroundColor: "#e3f2fd",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "600",
+    color: "#1976d2",
+  },
+  tabContent: {
+    flex: 1,
+    overflow: "hidden",
   },
 };
 

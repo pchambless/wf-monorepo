@@ -8,19 +8,19 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
     textContent: action.icon || action.label || action.id,
     style: {
       padding: '4px 8px',
-      marginRight: '4px',
       border: 'none',
       borderRadius: '4px',
       cursor: 'pointer',
       backgroundColor: action.color === 'error' ? '#dc3545' : '#007bff',
       color: '#fff',
-      fontSize: '12px'
+      fontSize: '12px',
+      whiteSpace: 'nowrap'
     },
     props: {
       title: action.tooltip,
       _onClick: async (e) => {
-        e.stopPropagation();
-
+        // Don't stop propagation - let row onClick fire first to set context
+        
         if (action.confirmMessage) {
           if (!window.confirm(action.confirmMessage)) {
             return;
@@ -83,11 +83,21 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
       textAlign: 'center',
       width: '120px'
     },
-    components: actionButtons
+    components: [{
+      id: `actions_container_${idx}`,
+      type: 'div',
+      style: {
+        display: 'flex',
+        gap: '4px',
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
+      components: actionButtons
+    }]
   };
 }
 
-export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 'id', renderComponentFn, config, setData, rowActions = null, gridProps = null) {
+export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 'id', renderComponentFn, config, setData, rowActions = null, gridProps = null, selectedRowId = null, setSelectedRowId = null, expansionStyles = null) {
   const cloneWithData = (comp) => {
     let textContent = comp.textContent;
 
@@ -107,18 +117,29 @@ export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 
 
     if (comp.type === 'tr' && onChangeTriggers) {
       const rowValue = rowData[rowKey];
+      const isSelected = selectedRowId === rowValue;
+
+      const baseStyle = isSelected && expansionStyles?.trSelected
+        ? expansionStyles.trSelected
+        : {
+            backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f5f5f5',
+            cursor: 'pointer',
+            transition: 'background-color 0.15s ease'
+          };
 
       clonedComp.style = {
         ...(comp.style || {}),
-        backgroundColor: idx % 2 === 0 ? '#ffffff' : '#f5f5f5',
-        cursor: 'pointer',
-        transition: 'background-color 0.15s ease'
+        ...baseStyle
       };
 
       clonedComp.props = {
         ...(comp.props || {}),
         _onClick: async (e) => {
           console.log(`🎯 Row clicked: ${rowValue}`, rowData);
+
+          if (setSelectedRowId) {
+            setSelectedRowId(rowValue);
+          }
 
           const context = {
             event: e,

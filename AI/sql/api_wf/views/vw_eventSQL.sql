@@ -5,6 +5,7 @@ select
     a.comp_name, 
     a.comp_type,
     c.qryName, 
+    b.qryName qryTrigger,
     c.qrySQL,
     a.pageID
 from
@@ -19,7 +20,7 @@ left join
     ) b
     on a.xref_id = b.xref_id 
 left join api_wf.eventSQL c 
-on  b.qryName = c.qryName
+on replace (b.qryName, '{{pageConfig.pageName}}', a.pageName) = c.qryName
 where c.id is not null;
 
 

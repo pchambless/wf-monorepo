@@ -69,12 +69,7 @@ export const buildPageConfig = async (pageID) => {
       },
       props: {
         pageID: effectivePageID,
-        title: pageRegistry.pageTitle,
-        routePath: pageRegistry.routePath,
-        tableName: pageRegistry.tableName,
-        tableID: pageRegistry.tableID,
-        contextKey: pageRegistry.contextKey,
-        parentID: pageRegistry.parentID
+        ...pageRegistry.props
       },
       components: allTopLevelComponents
     };

@@ -26,7 +26,7 @@ export function renderTextComponent(component, getHtmlElement, buildEventHandler
   // Get text content from props or textContent
   let text = props.text || props.textContent || component.textContent || '';
 
-  // Resolve template tokens like {{pageConfig.props.title}}, {{dataStore.X.Y}}, {{contextStore.X}}
+  // Resolve template tokens like {{pageConfig.props.pageTitle}}, {{dataStore.X.Y}}, {{contextStore.X}}
   if (text && text.includes('{{')) {
     const { pageConfig, contextStore, formData, dataStore } = context;
 

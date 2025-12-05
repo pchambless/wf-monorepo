@@ -47,7 +47,8 @@ export async function refresh(content, context) {
         // Grid: Store array data in dataStore
         context.setData(prev => ({ ...prev, [componentId]: data }));
       } else if (compType === 'Form' && context.setFormData && data[0]) {
-        // Form: Populate formData with first row
+        // Form: Replace formData completely with new data (not merge)
+        console.log('🔄 Replacing formData with fresh data:', data[0]);
         context.setFormData(data[0]);
       }
     }

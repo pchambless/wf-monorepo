@@ -227,7 +227,7 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
           <option value="">Select a page...</option>
           {pages.map(page => (
             <option key={page.id} value={page.id}>
-              {page.pageTitle}
+              {page.props.pageTitle}
             </option>
           ))}
         </select>

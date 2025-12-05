@@ -2837,10 +2837,6 @@
     },
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "apps/studio/src/db/studioDb.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
       "to_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js"
     },
     {
@@ -2862,10 +2858,6 @@
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
       "to_path": "apps/studio/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
-      "to_path": "apps/studio/src/db/studioDb.js"
     },
     {
       "from_path": "apps/studio/src/rendering/WorkflowEngine/triggers/action/execDML.js",
@@ -3153,6 +3145,10 @@
     },
     {
       "from_path": "apps/whatsfresh/src/App.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/App.jsx",
       "to_path": "apps/whatsfresh/src/utils/fetchConfig.js"
     },
     {
@@ -3258,6 +3254,10 @@
     {
       "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/getVal.js",
       "to_path": "apps/whatsfresh/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/openModal.js",
+      "to_path": "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
     {
       "from_path": "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/refresh.js",

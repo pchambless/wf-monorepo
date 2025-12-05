@@ -2256,7 +2256,7 @@
     },
     {
       "file": "apps/studio/src/db/studioDb.js",
-      "purpose": "Auto-inferred from dependency graph. 35 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 33 dependents.",
       "tags": [
         "studio"
       ],
@@ -3767,7 +3767,7 @@
     },
     {
       "file": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "whatsfresh"
       ],
@@ -3777,7 +3777,7 @@
     },
     {
       "file": "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js",
-      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
       "tags": [
         "whatsfresh"
       ],

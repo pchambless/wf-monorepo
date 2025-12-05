@@ -4,7 +4,6 @@
  */
 export async function execDML(content, context) {
   const { execDml, getVal } = await import('../../../../utils/api.js');
-  const { db } = await import('../../../../db/studioDb.js');
 
   console.log('💾 execDML triggered with context:', {
     hasPageConfig: !!context.pageConfig,
@@ -14,22 +13,20 @@ export async function execDML(content, context) {
     rowData: context.rowData
   });
 
-  const pageID = context.pageConfig?.meta?.pageID;
-  if (!pageID) {
-    throw new Error('execDML requires pageID in context.pageConfig.meta.pageID');
+  // Get page_registry metadata from pageConfig.props
+  const pageRegistry = context.pageConfig?.props;
+
+  if (!pageRegistry) {
+    throw new Error('execDML: pageConfig.props not found in context');
   }
 
-  const pageRegistry = await db.page_registry.where('id').equals(parseInt(pageID)).first();
-  if (!pageRegistry) {
-    throw new Error(`Page registry not found for pageID: ${pageID}`);
-  }
+  const { tableName, tableID, contextKey, parentID } = pageRegistry;
 
   console.log('📋 Page registry loaded:', {
-    pageName: pageRegistry.pageName,
-    tableName: pageRegistry.tableName,
-    tableID: pageRegistry.tableID,
-    contextKey: pageRegistry.contextKey,
-    parentID: pageRegistry.parentID
+    tableName,
+    tableID,
+    contextKey,
+    parentID
   });
 
   // Get method from content (for rowActions) or context_store (for form operations)
@@ -48,14 +45,14 @@ export async function execDML(content, context) {
 
   // For DELETE, only include the primary key (no need for other fields)
   if (method === 'DELETE') {
-    const pkValue = formData[pageRegistry.tableID];
-    formData = pkValue ? { [pageRegistry.tableID]: pkValue } : formData;
+    const pkValue = formData[tableID];
+    formData = pkValue ? { [tableID]: pkValue } : formData;
   }
 
   // Handle parentID for INSERT operations (e.g., account_id)
-  if (method === 'INSERT' && pageRegistry.parentID) {
-    const parentKey = pageRegistry.parentID.replace(/[\[\]]/g, ''); // Remove brackets: [account_id] -> account_id
-    console.log(`🔍 Looking for parentID: ${parentKey} (from ${pageRegistry.parentID})`);
+  if (method === 'INSERT' && parentID) {
+    const parentKey = parentID.replace(/[\[\]]/g, ''); // Remove brackets: [account_id] -> account_id
+    console.log(`🔍 Looking for parentID: ${parentKey} (from ${parentID})`);
 
     const parentValueResult = await getVal(parentKey, 'raw');
     console.log(`🔍 getVal result:`, parentValueResult);
@@ -74,27 +71,27 @@ export async function execDML(content, context) {
   let primaryKeyValue = null;
   if (method === 'UPDATE' || method === 'DELETE') {
     // Try to get primary key from rowData first (for grid rowActions)
-    primaryKeyValue = context.rowData?.[pageRegistry.tableID] || formData[pageRegistry.tableID];
+    primaryKeyValue = context.rowData?.[tableID] || formData[tableID];
     
     // Fallback to context_store (for form operations)
     if (!primaryKeyValue) {
-      const contextKeyResult = await getVal(pageRegistry.contextKey, 'raw');
+      const contextKeyResult = await getVal(contextKey, 'raw');
       primaryKeyValue = contextKeyResult?.resolvedValue || contextKeyResult;
     }
 
     if (!primaryKeyValue) {
-      throw new Error(`${method} requires ${pageRegistry.tableID} in rowData, formData, or ${pageRegistry.contextKey} in context_store`);
+      throw new Error(`${method} requires ${tableID} in rowData, formData, or ${contextKey} in context_store`);
     }
 
-    formData[pageRegistry.tableID] = primaryKeyValue;
+    formData[tableID] = primaryKeyValue;
   }
 
   const dmlRequest = {
     method,
-    table: pageRegistry.tableName,
-    primaryKey: pageRegistry.tableID,
+    table: tableName,
+    primaryKey: tableID,
     data: formData,
-    parentID: pageRegistry.parentID  // Send parentID to server for INSERT injection
+    parentID: parentID  // Send parentID to server for INSERT injection
   };
 
   console.log('💾 execDML request built:', dmlRequest);
@@ -106,11 +103,17 @@ export async function execDML(content, context) {
 
     // Handle INSERT: set contextKey with new insertId
     if (method === 'INSERT' && result.insertId) {
-      console.log(`✅ INSERT successful, setting ${pageRegistry.contextKey} = ${result.insertId}`);
+      console.log(`✅ INSERT successful, setting ${contextKey} = ${result.insertId}`);
       const { setVals } = await import('../../../../utils/api.js');
       await setVals([
-        { paramName: pageRegistry.contextKey, paramVal: result.insertId }
+        { paramName: contextKey, paramVal: result.insertId }
       ]);
+    }
+
+    // Clear formData after successful DML to prevent stale values
+    if (context.setFormData) {
+      console.log('🧹 Clearing formData after successful DML');
+      context.setFormData({});
     }
 
     // Execute onSuccess workflow triggers if defined

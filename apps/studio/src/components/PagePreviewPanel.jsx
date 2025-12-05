@@ -91,6 +91,7 @@ const PagePreviewPanel = ({ pageID }) => {
       const response = await fetch('http://localhost:3002/api/execDML', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({
           method: 'UPDATE',
           table: 'api_wf.page_registry',

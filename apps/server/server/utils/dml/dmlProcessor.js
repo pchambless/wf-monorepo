@@ -103,7 +103,28 @@ export const processDML = async (requestBody, userEmail) => {
       break;
 
     case "UPDATE":
-      sql = buildUpdateSQL(table, data, "id", userID);
+      // Determine primary key column name
+      let pkColumn = "id"; // default
+      
+      // If primaryKey is an object {id: 126}, extract key name and inject value into data
+      if (primaryKey && typeof primaryKey === 'object') {
+        const pkEntries = Object.entries(primaryKey);
+        if (pkEntries.length > 0) {
+          pkColumn = pkEntries[0][0]; // Get the key name (e.g., "id")
+          const pkValue = pkEntries[0][1]; // Get the value (e.g., 126)
+          
+          if (!data[pkColumn]) {
+            data[pkColumn] = pkValue;
+            logger.debug(`${codeName} Injected primary key ${pkColumn} = ${pkValue} into data for UPDATE`);
+          }
+        }
+      }
+      // If primaryKey is a string 'id', use it as column name (value should already be in data)
+      else if (primaryKey && typeof primaryKey === 'string') {
+        pkColumn = primaryKey;
+      }
+      
+      sql = buildUpdateSQL(table, data, pkColumn, userID);
       httpMethod = "PATCH";
       break;
 

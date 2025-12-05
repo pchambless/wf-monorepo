@@ -11,12 +11,13 @@ import { renderModal } from "./renderers/ModalRenderer.js";
 import { renderContainer } from "./renderers/ContainerRenderer.js";
 import { renderRow } from "./renderers/GridRenderer.js";
 
-const PageRenderer = ({ config, customComponents = {} }) => {
+const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) => {
   if (!config) {
     return <div>No config provided</div>;
   }
 
   const [dataStore, setDataStore] = React.useState({});
+  const [selectedRows, setSelectedRows] = React.useState({});
   const { openModals } = useModalManager();
 
   const componentMap = React.useMemo(() => {
@@ -48,18 +49,31 @@ const PageRenderer = ({ config, customComponents = {} }) => {
   }, []);
 
   React.useEffect(() => {
-    if (config.workflowTriggers?.onLoad) {
+    const executeOnLoad = async () => {
       const context = {
         pageConfig: config,
         setData,
-        workflowTriggers: config.workflowTriggers,
+        setFormData,
         contextStore: contextStore,
       };
-      triggerEngine.executeTriggers(config.workflowTriggers.onLoad, context);
-    }
-  }, [config, setData, contextStore]);
 
-  const renderComponent = (component) => {
+      // Execute page-level onLoad triggers
+      if (config.workflowTriggers?.onLoad) {
+        await triggerEngine.executeTriggers(config.workflowTriggers.onLoad, context);
+      }
+
+      // Execute Container component's onLoad triggers
+      const containerComponent = config.components?.find(c => c.comp_type === 'Container');
+      if (containerComponent?.workflowTriggers?.onLoad) {
+        console.log('🔄 Executing Container onLoad triggers');
+        await triggerEngine.executeTriggers(containerComponent.workflowTriggers.onLoad, context);
+      }
+    };
+
+    executeOnLoad();
+  }, [config, setData, setFormData, contextStore]);
+
+  const renderComponent = (component, parentFormId = null) => {
     const {
       comp_type,
       type: legacyType,
@@ -72,6 +86,9 @@ const PageRenderer = ({ config, customComponents = {} }) => {
       components = [],
       textContent,
     } = component;
+
+    // Track if this is a Form component to pass formId to children
+    const currentFormId = comp_type === 'Form' ? id : parentFormId;
 
     const visibilityKey = `${id}_visible`;
     if (contextStore[visibilityKey] === false) {
@@ -101,8 +118,11 @@ const PageRenderer = ({ config, customComponents = {} }) => {
       return <CustomComponent key={id} id={id} {...props} />;
     }
 
-    // Styles come from pageConfig - no template loading needed
+    // Apply eventType styles from database, then override with component styles
+    const eventTypeStyles = eventTypeConfig[comp_type]?.styles || {};
+
     const style = {
+      ...eventTypeStyles,
       ...override_styles,
       ...legacyStyle,
     };
@@ -113,7 +133,8 @@ const PageRenderer = ({ config, customComponents = {} }) => {
       workflowTriggers,
       config,
       setData,
-      contextStore
+      contextStore,
+      setFormData
     );
 
     const {
@@ -156,24 +177,35 @@ const PageRenderer = ({ config, customComponents = {} }) => {
             config,
             setData,
             rowActions,
-            gridProps
+            gridProps,
+            selectedRows[gridId],
+            (rowId) => setSelectedRows(prev => ({ ...prev, [gridId]: rowId })),
+            eventTypeConfig.Grid?.config?.expansionStyles
           )
         );
       } else {
-        children = components.map((child) => renderComponent(child));
+        children = components.map((child) => renderComponent(child, currentFormId));
       }
     } else if (comp_type === "Container" && components.length > 0) {
-      children = renderContainer(component, renderComponent);
+      children = renderContainer(component, (child) => renderComponent(child, currentFormId));
     } else {
       children =
         textContent ||
         (components.length > 0
-          ? components.map((child) => renderComponent(child))
+          ? components.map((child) => renderComponent(child, currentFormId))
           : props.label || props.title || null);
     }
 
     if ((type === "input" || type === "textarea") && domProps.name) {
-      domProps.value = formData[domProps.name] || "";
+      // Unified data architecture: All components read from dataStore
+      // Priority: user edits (formData) > loaded data (dataStore[currentFormId]) > empty
+      const loadedValue = currentFormId && dataStore[currentFormId] 
+        ? (Array.isArray(dataStore[currentFormId]) ? dataStore[currentFormId][0]?.[domProps.name] : dataStore[currentFormId]?.[domProps.name])
+        : undefined;
+      
+      console.log(`📝 Input ${domProps.name}: currentFormId=${currentFormId}, formData=${formData[domProps.name]}, loadedValue=${loadedValue}, dataStore[${currentFormId}]=`, dataStore[currentFormId]);
+      
+      domProps.value = formData[domProps.name] ?? loadedValue ?? "";
       domProps.onChange = (e) => {
         setFormData((prev) => ({
           ...prev,
@@ -261,7 +293,7 @@ const PageRenderer = ({ config, customComponents = {} }) => {
       )}
 
       {modalComponents.map((modalComp) =>
-        renderModal(modalComp, openModals, renderComponent)
+        renderModal(modalComp, openModals, renderComponent, eventTypeConfig)
       )}
     </>
   );
