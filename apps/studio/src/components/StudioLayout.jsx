@@ -13,9 +13,11 @@ const StudioLayout = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [currentPageID, setCurrentPageID] = useState(null);
   const [isIssuesModalOpen, setIsIssuesModalOpen] = useState(false);
-  const [propertiesWidth, setPropertiesWidth] = useState(400);
+  const [propertiesWidth, setPropertiesWidth] = useState(550);
   const [isResizing, setIsResizing] = useState(false);
   const [activeTab, setActiveTab] = useState('tree'); // 'tree' or 'diagram'
+  const [componentTreeData, setComponentTreeData] = useState([]);
+  const [triggerData, setTriggerData] = useState([]);
   const containerRef = useRef(null);
 
   // Reference data loaded once at startup
@@ -66,9 +68,57 @@ const StudioLayout = () => {
     loadReferenceData();
   }, []);
 
-  const handlePageConfigLoaded = (config, pageID) => {
+  const handlePageConfigLoaded = async (config, pageID) => {
     setSelectedComponent(null);
     setCurrentPageID(pageID);
+    
+    // Load component tree data for this page
+    await loadComponentTree(pageID);
+  };
+
+  const loadComponentTree = async (pageID) => {
+    try {
+      console.log('🌳 StudioLayout: Loading component tree and triggers for pageID:', pageID);
+      
+      // Fetch components and triggers in parallel
+      const [compResponse, triggerResponse] = await Promise.all([
+        fetch('http://localhost:3002/api/execEvent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            eventSQLId: 'xrefHierarchy',
+            params: { pageID }
+          })
+        }),
+        fetch('http://localhost:3002/api/execEvent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({
+            eventSQLId: 'pageTriggers',
+            params: { pageID }
+          })
+        })
+      ]);
+      
+      const compResult = await compResponse.json();
+      const triggerResult = await triggerResponse.json();
+      
+      // Stored procedures return data as [results_array, metadata_object]
+      const componentsData = compResult.data?.[0] || [];
+      const triggersData = triggerResult.data || [];
+      
+      console.log('✅ StudioLayout: Component tree loaded:', componentsData.length);
+      console.log('✅ StudioLayout: Triggers loaded:', triggersData.length);
+      
+      setComponentTreeData(componentsData);
+      setTriggerData(triggersData);
+    } catch (error) {
+      console.error('❌ StudioLayout: Error loading component tree:', error);
+      setComponentTreeData([]);
+      setTriggerData([]);
+    }
   };
 
   const handleNodeSelect = (component) => {
@@ -87,8 +137,8 @@ const StudioLayout = () => {
     const containerRect = containerRef.current.getBoundingClientRect();
     const newWidth = containerRect.right - e.clientX;
 
-    // Min width 300px, max width 700px (increased for better properties editing)
-    if (newWidth >= 300 && newWidth <= 700) {
+    // Min width 300px, max width 900px (increased for better properties editing with tree view)
+    if (newWidth >= 300 && newWidth <= 900) {
       setPropertiesWidth(newWidth);
     }
   };
@@ -206,12 +256,19 @@ const StudioLayout = () => {
             {activeTab === 'tree' && (
               <ComponentTreeDirect
                 pageID={currentPageID}
+                componentTreeData={componentTreeData}
+                triggerData={triggerData}
                 selectedComponent={selectedComponent}
                 onComponentSelect={handleNodeSelect}
+                onTreeUpdate={loadComponentTree}
               />
             )}
             {activeTab === 'diagram' && (
-              <DiagramView pageID={currentPageID} />
+              <DiagramView 
+                pageID={currentPageID}
+                componentTreeData={componentTreeData}
+                triggerData={triggerData}
+              />
             )}
           </div>
         ) : (
@@ -268,7 +325,8 @@ const styles = {
     flexDirection: "column",
   },
   canvas: {
-    flex: 1,
+    width: "400px",
+    flexShrink: 0,
     minWidth: 0,
     backgroundColor: "#ffffff",
     position: "relative",

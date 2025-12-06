@@ -17,7 +17,7 @@ export const upsertProp = async (xref_id, paramName, paramVal) => {
           id: existing.prop_id,
           paramVal: serializedVal
         },
-        primaryKey: { id: existing.prop_id }
+        primaryKey: 'id'  // Just pass the column name, value is in data
       });
       console.log(`✅ Updated prop ${paramName} for component ${xref_id}`);
     } else {

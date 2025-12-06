@@ -1,20 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { execEvent } from '../../utils/api';
+import { execEvent, setVals } from '../../utils/api';
+import ColumnSelector from './ColumnSelector';
+import OverrideEditor from './OverrideEditor';
 
 const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
   const [queryName, setQueryName] = useState('');
+  const [queryTrigger, setQueryTrigger] = useState('');
   const [querySQL, setQuerySQL] = useState('');
+  const [originalSQL, setOriginalSQL] = useState('');
   const [tableName, setTableName] = useState('');
   const [generating, setGenerating] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showHelp, setShowHelp] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState(false);
+  const [testResults, setTestResults] = useState(null);
+  const [showTestModal, setShowTestModal] = useState(false);
 
   // Fetch existing query on mount
   useEffect(() => {
     const fetchExistingQuery = async () => {
       try {
+        const xrefID = component.xref_id || component.id;
+        
+        // Set xrefID in context_store first so the query can resolve it
+        await setVals([{ paramName: 'xrefID', paramVal: xrefID }]);
+        
         // Use getEventSQL query to get resolved query info from vw_eventSQL
-        const result = await execEvent('getEventSQL', { xrefID: component.xref_id || component.id });
+        const result = await execEvent('getEventSQL', { xrefID });
         
         console.log('🔍 QuerySetup: getEventSQL result:', result);
         
@@ -22,9 +36,11 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
           const eventSQL = result.data[0];
           console.log('✅ QuerySetup: Found query info:', eventSQL);
           
-          // Show the resolved query name (e.g., "testCloneGrid")
+          // Show both resolved and template query names
           setQueryName(eventSQL.qryName || '');
+          setQueryTrigger(eventSQL.qryTrigger || '');
           setQuerySQL(eventSQL.qrySQL || '');
+          setOriginalSQL(eventSQL.qrySQL || '');
           
           // Try to detect table name from SQL
           const tableMatch = eventSQL.qrySQL?.match(/FROM\s+(\w+\.\w+|\w+)/i);
@@ -70,9 +86,77 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
     }
   };
 
-  const handleTestQuery = () => {
-    console.log('Testing query:', queryName);
-    alert('Query test functionality coming soon...');
+  const handleEditSQL = () => {
+    setEditing(true);
+  };
+
+  const handleCancelEdit = () => {
+    setQuerySQL(originalSQL);
+    setEditing(false);
+  };
+
+  const handleSaveSQL = async () => {
+    try {
+      setSaving(true);
+      
+      // Update the eventSQL table with new qrySQL
+      const response = await fetch('http://localhost:3002/api/execDML', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          method: 'UPDATE',
+          table: 'api_wf.eventSQL',
+          data: {
+            qryName: queryName,
+            qrySQL: querySQL
+          },
+          primaryKey: { qryName: queryName }
+        })
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setOriginalSQL(querySQL);
+        setEditing(false);
+        alert('✅ Query updated successfully!');
+      } else {
+        throw new Error(result.error || 'Failed to update query');
+      }
+    } catch (error) {
+      console.error('Failed to save query:', error);
+      alert('Failed to save query: ' + error.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleTestQuery = async () => {
+    try {
+      setTesting(true);
+      
+      // Execute the query using execEvent
+      const response = await fetch('http://localhost:3002/api/execEvent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          eventSQLId: queryName,
+          params: {}
+        })
+      });
+
+      const result = await response.json();
+      
+      setTestResults(result);
+      setShowTestModal(true);
+    } catch (error) {
+      console.error('Failed to test query:', error);
+      alert('Failed to test query: ' + error.message);
+    } finally {
+      setTesting(false);
+    }
   };
 
   if (loading) {
@@ -113,7 +197,7 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
         <h3 style={styles.sectionTitle}>📋 Database Query Setup</h3>
 
         <div style={styles.field}>
-          <label style={styles.label}>Query Name</label>
+          <label style={styles.label}>Resolved Query Name (Runtime)</label>
           <div style={styles.inputRow}>
             <input
               type="text"
@@ -125,20 +209,66 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
           </div>
           <div style={styles.hint}>
             {queryName 
-              ? `Query from onRefresh trigger: ${queryName}` 
+              ? `This is the actual query that executes at runtime` 
               : 'No query configured. Add an onRefresh→execEvent trigger in the Triggers tab.'}
           </div>
         </div>
 
+        {queryTrigger && (
+          <div style={styles.field}>
+            <label style={styles.label}>Template Query Name (Trigger)</label>
+            <input
+              type="text"
+              value={queryTrigger}
+              readOnly
+              style={styles.inputDisabled}
+            />
+            <div style={styles.hint}>
+              Template stored in trigger - resolves to "{queryName}" at runtime
+            </div>
+          </div>
+        )}
+
         {querySQL && (
           <div style={styles.field}>
-            <label style={styles.label}>Current SQL</label>
+            <div style={styles.sqlHeader}>
+              <label style={styles.label}>Current SQL</label>
+              {!editing && (
+                <button style={styles.editSQLButton} onClick={handleEditSQL}>
+                  ✏️ Edit SQL
+                </button>
+              )}
+            </div>
             <textarea
               value={querySQL}
-              readOnly
-              style={styles.sqlDisplay}
+              onChange={(e) => setQuerySQL(e.target.value)}
+              readOnly={!editing}
+              style={editing ? styles.sqlEdit : styles.sqlDisplay}
               rows={10}
             />
+            {editing && (
+              <div style={styles.sqlActions}>
+                <button
+                  style={styles.saveSQLButton}
+                  onClick={handleSaveSQL}
+                  disabled={saving}
+                >
+                  {saving ? '⏳ Saving...' : '💾 Save SQL'}
+                </button>
+                <button
+                  style={styles.cancelSQLButton}
+                  onClick={handleCancelEdit}
+                  disabled={saving}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+            {querySQL !== originalSQL && !editing && (
+              <div style={styles.unsavedWarning}>
+                ⚠️ You have unsaved changes
+              </div>
+            )}
           </div>
         )}
 
@@ -168,11 +298,44 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
           <button
             style={styles.secondaryButton}
             onClick={handleTestQuery}
+            disabled={testing || !queryName}
           >
-            🧪 Test Query
+            {testing ? '⏳ Testing...' : '🧪 Test Query'}
           </button>
         </div>
       </div>
+
+      {/* Test Results Modal */}
+      {showTestModal && (
+        <div style={styles.modalOverlay} onClick={() => setShowTestModal(false)}>
+          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div style={styles.modalHeader}>
+              <h3 style={styles.modalTitle}>🧪 Query Test Results</h3>
+              <button style={styles.modalClose} onClick={() => setShowTestModal(false)}>
+                ✕
+              </button>
+            </div>
+            <div style={styles.modalBody}>
+              {testResults?.data ? (
+                <>
+                  <div style={styles.resultsSummary}>
+                    ✅ Query executed successfully - {testResults.data.length} row(s) returned
+                  </div>
+                  <div style={styles.resultsTable}>
+                    <pre style={styles.resultsJSON}>
+                      {JSON.stringify(testResults.data, null, 2)}
+                    </pre>
+                  </div>
+                </>
+              ) : (
+                <div style={styles.resultsError}>
+                  ❌ Query failed: {testResults?.error || 'Unknown error'}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -241,6 +404,22 @@ const styles = {
     cursor: 'pointer',
     whiteSpace: 'nowrap',
   },
+  sqlHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '6px',
+  },
+  editSQLButton: {
+    padding: '4px 12px',
+    backgroundColor: '#3b82f6',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '12px',
+    fontWeight: 600,
+    cursor: 'pointer',
+  },
   sqlDisplay: {
     width: '100%',
     padding: '8px 12px',
@@ -251,6 +430,131 @@ const styles = {
     color: '#1e293b',
     backgroundColor: '#f8fafc',
     resize: 'vertical',
+  },
+  sqlEdit: {
+    width: '100%',
+    padding: '8px 12px',
+    border: '2px solid #3b82f6',
+    borderRadius: '4px',
+    fontSize: '12px',
+    fontFamily: 'monospace',
+    color: '#1e293b',
+    backgroundColor: '#ffffff',
+    resize: 'vertical',
+  },
+  sqlActions: {
+    display: 'flex',
+    gap: '8px',
+    marginTop: '8px',
+  },
+  saveSQLButton: {
+    padding: '8px 16px',
+    backgroundColor: '#10b981',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '13px',
+    fontWeight: 600,
+    cursor: 'pointer',
+  },
+  cancelSQLButton: {
+    padding: '8px 16px',
+    backgroundColor: '#6b7280',
+    color: '#ffffff',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '13px',
+    fontWeight: 600,
+    cursor: 'pointer',
+  },
+  unsavedWarning: {
+    marginTop: '8px',
+    padding: '8px 12px',
+    backgroundColor: '#fef3c7',
+    color: '#92400e',
+    borderRadius: '4px',
+    fontSize: '12px',
+    fontWeight: 600,
+  },
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+  },
+  modalContent: {
+    backgroundColor: '#ffffff',
+    borderRadius: '8px',
+    width: '90%',
+    maxWidth: '800px',
+    maxHeight: '80vh',
+    display: 'flex',
+    flexDirection: 'column',
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+  },
+  modalHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px 20px',
+    borderBottom: '1px solid #e2e8f0',
+  },
+  modalTitle: {
+    margin: 0,
+    fontSize: '18px',
+    fontWeight: 600,
+    color: '#1e293b',
+  },
+  modalClose: {
+    padding: '4px 8px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontSize: '20px',
+    color: '#64748b',
+    cursor: 'pointer',
+  },
+  modalBody: {
+    padding: '20px',
+    overflow: 'auto',
+    flex: 1,
+  },
+  resultsSummary: {
+    padding: '12px 16px',
+    backgroundColor: '#dcfce7',
+    color: '#166534',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 600,
+    marginBottom: '16px',
+  },
+  resultsError: {
+    padding: '12px 16px',
+    backgroundColor: '#fee2e2',
+    color: '#991b1b',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: 600,
+  },
+  resultsTable: {
+    border: '1px solid #e2e8f0',
+    borderRadius: '6px',
+    overflow: 'auto',
+    maxHeight: '400px',
+  },
+  resultsJSON: {
+    margin: 0,
+    padding: '16px',
+    fontSize: '12px',
+    fontFamily: 'monospace',
+    color: '#1e293b',
+    backgroundColor: '#f8fafc',
+    overflow: 'auto',
   },
   section: {
     padding: '16px',

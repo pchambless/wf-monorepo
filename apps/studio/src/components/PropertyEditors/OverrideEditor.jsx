@@ -108,14 +108,16 @@ const OverrideEditor = ({ column, override, onSave, onReset, componentType = 'Gr
             <span>Hidden</span>
           </label>
 
-          <label style={styles.checkbox}>
-            <input
-              type="checkbox"
-              checked={editedOverride.required || false}
-              onChange={() => handleCheckbox('required')}
-            />
-            <span>Required</span>
-          </label>
+          {componentType === 'Form' && (
+            <label style={styles.checkbox}>
+              <input
+                type="checkbox"
+                checked={editedOverride.required || false}
+                onChange={() => handleCheckbox('required')}
+              />
+              <span>Required</span>
+            </label>
+          )}
 
           {componentType === 'Grid' && (
             <label style={styles.checkbox}>

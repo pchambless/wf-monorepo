@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import mermaid from 'mermaid';
-import { buildPageConfig } from '../utils/pageConfigBuilder';
+import { buildComponentTree } from '../utils/buildComponentTree';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
-const DiagramView = ({ pageID }) => {
+const DiagramView = ({ pageID, componentTreeData, triggerData }) => {
   const [activeSubTab, setActiveSubTab] = useState('structure');
   const [orientation, setOrientation] = useState('TD');
   const [structureDiagram, setStructureDiagram] = useState(null);
   const [workflowDiagram, setWorkflowDiagram] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [showFullscreen, setShowFullscreen] = useState(false);
   const mermaidRef = useRef(null);
+  const fullscreenMermaidRef = useRef(null);
 
   useEffect(() => {
     mermaid.initialize({
@@ -23,115 +24,200 @@ const DiagramView = ({ pageID }) => {
   }, []);
 
   useEffect(() => {
-    if (pageID) {
-      loadDiagrams();
+    if (componentTreeData && componentTreeData.length > 0) {
+      enrichAndGenerateDiagrams();
     }
-  }, [pageID]);
+  }, [componentTreeData, triggerData]);
+
+  const enrichAndGenerateDiagrams = () => {
+    console.log('📊 DiagramView: Enriching data with triggers:', triggerData?.length);
+    
+    // Merge trigger counts into component data
+    const triggerCounts = {};
+    (triggerData || []).forEach(t => {
+      triggerCounts[t.xref_id] = (triggerCounts[t.xref_id] || 0) + 1;
+    });
+    
+    const enrichedData = componentTreeData.map(comp => ({
+      ...comp,
+      triggerCount: triggerCounts[comp.id] || 0
+    }));
+    
+    console.log('📊 DiagramView: Enriched data with trigger counts:', enrichedData);
+    
+    generateDiagrams(enrichedData);
+  };
 
   useEffect(() => {
     renderMermaid();
   }, [structureDiagram, workflowDiagram, activeSubTab, orientation]);
 
-  const loadDiagrams = async () => {
-    try {
-      setLoading(true);
-      const pageConfig = await buildPageConfig(pageID);
-      
-      if (pageConfig) {
-        // Generate structure diagram
-        const structure = generateStructureDiagram(pageConfig);
-        setStructureDiagram(structure);
+  useEffect(() => {
+    if (showFullscreen) {
+      renderFullscreenMermaid();
+    }
+  }, [showFullscreen, structureDiagram, workflowDiagram, activeSubTab, orientation]);
 
-        // Generate workflow diagram
-        const workflow = generateWorkflowDiagram(pageConfig);
-        setWorkflowDiagram(workflow);
-      }
-    } catch (error) {
-      console.error('Error loading diagrams:', error);
-    } finally {
-      setLoading(false);
+  const generateDiagrams = (enrichedData) => {
+    console.log('📊 DiagramView: Generating diagrams from enrichedData:', enrichedData);
+    
+    // Build tree structure
+    const treeData = buildComponentTree(enrichedData);
+    
+    console.log('📊 DiagramView: Tree data built:', treeData);
+    
+    if (treeData && treeData.length > 0) {
+      // Generate structure diagram
+      const structure = generateStructureDiagram(treeData);
+      console.log('📊 DiagramView: Structure diagram:', structure);
+      setStructureDiagram(structure);
+
+      // Generate workflow diagram  
+      const workflow = generateWorkflowDiagram(treeData);
+      console.log('📊 DiagramView: Workflow diagram:', workflow);
+      setWorkflowDiagram(workflow);
+    } else {
+      console.warn('⚠️ DiagramView: No tree data built');
     }
   };
 
   const renderMermaid = async () => {
-    if (!mermaidRef.current) return;
+    if (!mermaidRef.current) {
+      console.log('⚠️ DiagramView: mermaidRef not ready');
+      return;
+    }
 
     const currentDiagram = activeSubTab === 'structure' ? structureDiagram : workflowDiagram;
+    
+    console.log('📊 DiagramView: Rendering mermaid, activeSubTab:', activeSubTab, 'diagram:', currentDiagram);
     
     if (currentDiagram) {
       try {
         mermaidRef.current.innerHTML = '';
         const orientedDiagram = currentDiagram.replace(/graph (TD|LR)/, `graph ${orientation}`);
+        console.log('📊 DiagramView: Oriented diagram:', orientedDiagram);
         const { svg } = await mermaid.render('mermaid-diagram-' + Date.now(), orientedDiagram);
         mermaidRef.current.innerHTML = svg;
+        console.log('✅ DiagramView: Mermaid rendered successfully');
       } catch (err) {
-        console.error('Mermaid render error:', err);
+        console.error('❌ DiagramView: Mermaid render error:', err);
         mermaidRef.current.innerHTML = `<pre style="color: red;">Mermaid Error: ${err.message}</pre>`;
+      }
+    } else {
+      console.log('⚠️ DiagramView: No diagram to render');
+    }
+  };
+
+  const renderFullscreenMermaid = async () => {
+    if (!fullscreenMermaidRef.current) return;
+
+    const currentDiagram = activeSubTab === 'structure' ? structureDiagram : workflowDiagram;
+    
+    if (currentDiagram) {
+      try {
+        fullscreenMermaidRef.current.innerHTML = '';
+        const orientedDiagram = currentDiagram.replace(/graph (TD|LR)/, `graph ${orientation}`);
+        const { svg } = await mermaid.render('mermaid-fullscreen-' + Date.now(), orientedDiagram);
+        fullscreenMermaidRef.current.innerHTML = svg;
+      } catch (err) {
+        console.error('❌ DiagramView: Fullscreen mermaid render error:', err);
+        fullscreenMermaidRef.current.innerHTML = `<pre style="color: red;">Mermaid Error: ${err.message}</pre>`;
       }
     }
   };
 
-  const generateStructureDiagram = (pageConfig) => {
+  const generateStructureDiagram = (treeData) => {
     let diagram = 'graph TD\n';
     
     const traverse = (components, parentId = null) => {
       components.forEach(comp => {
+        console.log('📊 DiagramView: Processing component:', comp);
         const nodeId = `node${comp.id}`;
-        const label = `${comp.comp_name}[${comp.comp_type}]`;
+        const compName = comp.comp_name || comp.name || 'Unknown';
+        const compType = comp.comp_type || comp.type || 'Unknown';
+        const label = `${compName}[${compType}]`;
         diagram += `  ${nodeId}["${label}"]\n`;
         
         if (parentId) {
           diagram += `  ${parentId} --> ${nodeId}\n`;
         }
         
-        if (comp.components && comp.components.length > 0) {
-          traverse(comp.components, nodeId);
+        if (comp.children && comp.children.length > 0) {
+          traverse(comp.children, nodeId);
         }
       });
     };
     
-    if (pageConfig.components) {
-      traverse(pageConfig.components);
-    }
+    traverse(treeData);
     
     return diagram;
   };
 
-  const generateWorkflowDiagram = (pageConfig) => {
+  const generateWorkflowDiagram = (treeData) => {
     let diagram = 'graph TD\n';
-    let nodeCount = 0;
+    let hasWorkflows = false;
     
-    const traverse = (components) => {
+    // Build component map for lookups
+    const compMap = {};
+    const flattenComponents = (components) => {
       components.forEach(comp => {
-        if (comp.workflowTriggers) {
-          Object.entries(comp.workflowTriggers).forEach(([eventClass, triggers]) => {
-            const compNode = `comp${comp.id}`;
-            diagram += `  ${compNode}["${comp.comp_name} (${eventClass})"]\n`;
-            
-            triggers.forEach((trigger, idx) => {
-              const actionNode = `action${nodeCount++}`;
-              diagram += `  ${actionNode}["${trigger.action}"]\n`;
-              diagram += `  ${compNode} --> ${actionNode}\n`;
-            });
-          });
-        }
-        
-        if (comp.components && comp.components.length > 0) {
-          traverse(comp.components);
+        compMap[comp.id] = comp;
+        if (comp.children && comp.children.length > 0) {
+          flattenComponents(comp.children);
         }
       });
     };
+    flattenComponents(treeData);
     
-    if (pageConfig.components) {
-      traverse(pageConfig.components);
-    }
+    // Group triggers by component
+    const triggersByComp = {};
+    (triggerData || []).forEach(trigger => {
+      if (!triggersByComp[trigger.xref_id]) {
+        triggersByComp[trigger.xref_id] = [];
+      }
+      triggersByComp[trigger.xref_id].push(trigger);
+    });
     
-    return diagram || 'graph TD\n  empty["No workflow triggers found"]';
+    // Generate diagram with trigger flows
+    Object.entries(triggersByComp).forEach(([xref_id, triggers]) => {
+      const comp = compMap[xref_id];
+      if (!comp) return;
+      
+      hasWorkflows = true;
+      const compNode = `comp${xref_id}`;
+      const compName = comp.comp_name || 'Unknown';
+      
+      diagram += `  ${compNode}["${compName}"]\n`;
+      
+      // Show trigger actions
+      triggers.forEach((trigger, idx) => {
+        const actionNode = `action${xref_id}_${idx}`;
+        const actionLabel = `${trigger.class}→${trigger.action}`;
+        diagram += `  ${actionNode}["${actionLabel}"]\n`;
+        diagram += `  ${compNode} --> ${actionNode}\n`;
+        
+        // Try to parse content for target component references
+        try {
+          const content = JSON.parse(trigger.content || '{}');
+          // Look for common patterns like refresh, navigate, etc.
+          if (content.target || content.componentId) {
+            const targetId = content.target || content.componentId;
+            const targetComp = compMap[targetId];
+            if (targetComp) {
+              const targetNode = `comp${targetId}`;
+              diagram += `  ${actionNode} -.-> ${targetNode}\n`;
+            }
+          }
+        } catch (e) {
+          // Content not JSON or no target
+        }
+      });
+    });
+    
+    console.log('📊 Workflow: hasWorkflows:', hasWorkflows);
+    
+    return hasWorkflows ? diagram : 'graph TD\n  empty["No workflow triggers found"]';
   };
-
-  if (loading) {
-    return <div style={styles.loading}>Loading diagrams...</div>;
-  }
 
   return (
     <div style={styles.container}>
@@ -163,6 +249,12 @@ const DiagramView = ({ pageID }) => {
           >
             ➡️ LR
           </button>
+          <button
+            style={styles.control}
+            onClick={() => setShowFullscreen(true)}
+          >
+            ⛶ Fullscreen
+          </button>
         </div>
       </div>
       <div style={styles.diagramContainer}>
@@ -176,6 +268,33 @@ const DiagramView = ({ pageID }) => {
           </TransformComponent>
         </TransformWrapper>
       </div>
+
+      {/* Fullscreen Modal */}
+      {showFullscreen && (
+        <div style={styles.modalOverlay} onClick={() => setShowFullscreen(false)}>
+          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div style={styles.modalHeader}>
+              <h3 style={styles.modalTitle}>
+                {activeSubTab === 'structure' ? '🏗️ Structure Diagram' : '🔄 Workflow Diagram'}
+              </h3>
+              <button style={styles.modalClose} onClick={() => setShowFullscreen(false)}>
+                ✕
+              </button>
+            </div>
+            <div style={styles.modalBody}>
+              <TransformWrapper
+                initialScale={0.8}
+                minScale={0.3}
+                maxScale={3}
+              >
+                <TransformComponent>
+                  <div ref={fullscreenMermaidRef} style={styles.fullscreenMermaid}></div>
+                </TransformComponent>
+              </TransformWrapper>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -251,6 +370,59 @@ const styles = {
     padding: '20px',
     textAlign: 'center',
     color: '#666',
+  },
+  modalOverlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10000,
+  },
+  modalContent: {
+    backgroundColor: '#ffffff',
+    borderRadius: '8px',
+    width: '95vw',
+    height: '95vh',
+    display: 'flex',
+    flexDirection: 'column',
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.3)',
+  },
+  modalHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '16px 20px',
+    borderBottom: '1px solid #e0e0e0',
+    backgroundColor: '#f5f5f5',
+  },
+  modalTitle: {
+    margin: 0,
+    fontSize: '18px',
+    fontWeight: '600',
+    color: '#333',
+  },
+  modalClose: {
+    padding: '4px 8px',
+    backgroundColor: 'transparent',
+    border: 'none',
+    fontSize: '24px',
+    color: '#666',
+    cursor: 'pointer',
+  },
+  modalBody: {
+    flex: 1,
+    overflow: 'hidden',
+    backgroundColor: '#fafafa',
+  },
+  fullscreenMermaid: {
+    padding: '40px',
+    minWidth: '100%',
+    minHeight: '100%',
   },
 };
 

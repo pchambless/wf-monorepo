@@ -14,8 +14,8 @@ export function buildComponentTree(components) {
     map.set(comp.id, { 
       ...comp, 
       children: [],
-      propCount: 0,
-      triggerCount: 0
+      propCount: comp.propCount || 0,
+      triggerCount: comp.triggerCount || 0
     });
   });
 
