@@ -5,15 +5,6 @@ allowed-tools: []
 
 # Session Summary Generator
 
-## Fetch Instructions from Database
+**⚡ Both Claude and Kiro: See `.shared/commands/summary.md` for complete instructions.**
 
-```javascript
-mcp_mysql_sql_query({
-  sql: "SELECT qrySQL FROM api_wf.AISql WHERE id = 42"
-})
-// Then execute the returned qrySQL to get the full instructions
-```
-
-**Follow the instructions returned from the database query above.**
-
-For complete documentation, see `.shared/commands/summary.md`
+**CRITICAL: Use MCP MySQL tool for all database operations, NOT HTTP endpoints.**

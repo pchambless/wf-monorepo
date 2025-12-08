@@ -186,7 +186,7 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
       } else {
         children = components.map((child) => renderComponent(child, currentFormId));
       }
-    } else if (comp_type === "Container" && components.length > 0) {
+    } else if ((comp_type === "Container" || comp_type === "Form") && components.length > 0) {
       children = renderContainer(component, (child) => renderComponent(child, currentFormId));
     } else {
       children =

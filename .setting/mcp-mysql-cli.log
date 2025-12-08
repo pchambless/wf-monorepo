@@ -297,3 +297,59 @@
 2025-12-06T00:13:59.838Z | INFO | MCP MySQL server process started with PID: 3350418
 2025-12-06T00:13:59.839Z | INFO | Signal handlers registered for SIGINT and SIGTERM
 2025-12-06T00:13:59.839Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-06T01:12:29.718Z | INFO | Received SIGTERM, shutting down server...
+2025-12-06T01:12:29.724Z | INFO | Received SIGTERM, shutting down server...
+2025-12-06T01:12:29.732Z | INFO | Sent SIGTERM signal to server process 3350418
+2025-12-06T01:12:29.732Z | INFO | Received SIGTERM, shutting down server...
+2025-12-06T01:12:29.733Z | INFO | Sent SIGTERM signal to server process 1808589
+2025-12-06T01:12:29.741Z | INFO | Received SIGTERM, shutting down server...
+2025-12-06T01:12:29.743Z | INFO | MCP MySQL server exited with code: 0
+2025-12-06T01:12:29.745Z | INFO | Server requested restart, restarting...
+2025-12-06T01:12:29.746Z | INFO | Received SIGTERM, shutting down server...
+2025-12-06T01:12:29.754Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-06T01:12:29.755Z | INFO | Received SIGTERM, shutting down server...
+2025-12-06T01:12:29.757Z | INFO | CLI process exiting with code: 1
+2025-12-06T01:12:29.766Z | INFO | Sent SIGTERM signal to server process 842760
+2025-12-06T01:12:29.771Z | INFO | Sent SIGTERM signal to server process 844430
+2025-12-06T01:12:29.775Z | INFO | MCP MySQL server exited with code: 0
+2025-12-06T01:12:29.777Z | INFO | Server requested restart, restarting...
+2025-12-06T01:12:29.782Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-06T01:12:29.784Z | INFO | CLI process exiting with code: 1
+2025-12-06T01:12:29.789Z | INFO | Sent SIGTERM signal to server process 888309
+2025-12-06T01:12:29.794Z | INFO | Sent SIGTERM signal to server process 869563
+2025-12-06T01:12:29.797Z | INFO | MCP MySQL server exited with code: 0
+2025-12-06T01:12:29.799Z | INFO | Server requested restart, restarting...
+2025-12-06T01:12:29.800Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-06T01:12:29.804Z | INFO | CLI process exiting with code: 1
+2025-12-06T01:12:29.810Z | INFO | MCP MySQL server exited with code: 0
+2025-12-06T01:12:29.813Z | INFO | Server requested restart, restarting...
+2025-12-06T01:12:29.814Z | INFO | MCP MySQL server exited with code: 0
+2025-12-06T01:12:29.814Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-06T01:12:29.816Z | INFO | Server requested restart, restarting...
+2025-12-06T01:12:29.816Z | INFO | MCP MySQL server exited with code: 0
+2025-12-06T01:12:29.816Z | INFO | CLI process exiting with code: 1
+2025-12-06T01:12:29.817Z | INFO | Server requested restart, restarting...
+2025-12-06T01:12:29.818Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-06T01:12:29.819Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-06T01:12:29.823Z | INFO | CLI process exiting with code: 1
+2025-12-06T01:12:29.824Z | INFO | CLI process exiting with code: 1
+2025-12-06T01:21:20.820Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-06T01:21:20.823Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-06T01:21:20.825Z | INFO | MCP MySQL server process started with PID: 9924
+2025-12-06T01:21:20.825Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-06T01:21:20.826Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-06T01:40:08.978Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-06T01:40:08.980Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-06T01:40:08.982Z | INFO | MCP MySQL server process started with PID: 17710
+2025-12-06T01:40:08.982Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-06T01:40:08.983Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-07T21:43:23.773Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-07T21:43:23.775Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-07T21:43:23.777Z | INFO | MCP MySQL server process started with PID: 875136
+2025-12-07T21:43:23.777Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-07T21:43:23.777Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-08T04:19:29.324Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-08T04:19:29.327Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-08T04:19:29.330Z | INFO | MCP MySQL server process started with PID: 1053276
+2025-12-08T04:19:29.330Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-08T04:19:29.330Z | INFO | Press Ctrl+C to gracefully shutdown the server

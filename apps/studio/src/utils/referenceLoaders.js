@@ -38,7 +38,7 @@ export const loadEventTypes = async () => {
 
 export const loadEventSQL = async () => {
   try {
-    const result = await execEvent('eventSqlList', {});
+    const result = await execEvent('fetchEventSQL', {});
     const eventSQL = (result.data || []).map(cleanRecord);
 
     await db.eventSQL.clear();

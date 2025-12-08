@@ -6,7 +6,6 @@
   "workspaces": [
     "apps/whatsfresh",
     "apps/server",
-    "apps/planner",
     "apps/studio",
     "apps/admin",
     "apps/login",

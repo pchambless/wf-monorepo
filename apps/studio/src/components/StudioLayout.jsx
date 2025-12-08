@@ -15,7 +15,7 @@ const StudioLayout = () => {
   const [isIssuesModalOpen, setIsIssuesModalOpen] = useState(false);
   const [propertiesWidth, setPropertiesWidth] = useState(550);
   const [isResizing, setIsResizing] = useState(false);
-  const [activeTab, setActiveTab] = useState('tree'); // 'tree' or 'diagram'
+  const [showDiagramModal, setShowDiagramModal] = useState(false);
   const [componentTreeData, setComponentTreeData] = useState([]);
   const [triggerData, setTriggerData] = useState([]);
   const containerRef = useRef(null);
@@ -232,44 +232,29 @@ const StudioLayout = () => {
       <div style={styles.canvas}>
         <PageDraftControls pageID={currentPageID} />
         
-        {/* Tab Navigation */}
+        {/* Action Bar */}
         {currentPageID && (
-          <div style={styles.tabBar}>
+          <div style={styles.actionBar}>
             <button
-              style={activeTab === 'tree' ? styles.tabActive : styles.tab}
-              onClick={() => setActiveTab('tree')}
+              style={styles.diagramButton}
+              onClick={() => setShowDiagramModal(true)}
             >
-              🌲 Tree View
-            </button>
-            <button
-              style={activeTab === 'diagram' ? styles.tabActive : styles.tab}
-              onClick={() => setActiveTab('diagram')}
-            >
-              📊 Diagram
+              📊 View Diagrams
             </button>
           </div>
         )}
 
-        {/* Tab Content */}
+        {/* Tree View Content */}
         {currentPageID ? (
           <div style={styles.tabContent}>
-            {activeTab === 'tree' && (
-              <ComponentTreeDirect
-                pageID={currentPageID}
-                componentTreeData={componentTreeData}
-                triggerData={triggerData}
-                selectedComponent={selectedComponent}
-                onComponentSelect={handleNodeSelect}
-                onTreeUpdate={loadComponentTree}
-              />
-            )}
-            {activeTab === 'diagram' && (
-              <DiagramView 
-                pageID={currentPageID}
-                componentTreeData={componentTreeData}
-                triggerData={triggerData}
-              />
-            )}
+            <ComponentTreeDirect
+              pageID={currentPageID}
+              componentTreeData={componentTreeData}
+              triggerData={triggerData}
+              selectedComponent={selectedComponent}
+              onComponentSelect={handleNodeSelect}
+              onTreeUpdate={loadComponentTree}
+            />
           </div>
         ) : (
           <div style={styles.emptyState}>
@@ -304,6 +289,27 @@ const StudioLayout = () => {
         isOpen={isIssuesModalOpen}
         onClose={() => setIsIssuesModalOpen(false)}
       />
+
+      {/* Diagram Modal */}
+      {showDiagramModal && (
+        <div style={styles.modalOverlay} onClick={() => setShowDiagramModal(false)}>
+          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div style={styles.modalHeader}>
+              <h2 style={styles.modalTitle}>Page Diagrams</h2>
+              <button style={styles.modalClose} onClick={() => setShowDiagramModal(false)}>
+                ✕
+              </button>
+            </div>
+            <div style={styles.modalBody}>
+              <DiagramView 
+                pageID={currentPageID}
+                componentTreeData={componentTreeData}
+                triggerData={triggerData}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -407,6 +413,82 @@ const styles = {
   tabContent: {
     flex: 1,
     overflow: "hidden",
+  },
+  actionBar: {
+    display: "flex",
+    gap: "8px",
+    padding: "12px 16px",
+    borderBottom: "1px solid #e0e0e0",
+    backgroundColor: "#f5f5f5",
+  },
+  diagramButton: {
+    padding: "8px 16px",
+    border: "1px solid #1976d2",
+    backgroundColor: "#fff",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "500",
+    color: "#1976d2",
+    transition: "all 0.2s",
+  },
+  modalOverlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 9999,
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    borderRadius: "8px",
+    width: "90vw",
+    height: "90vh",
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+  },
+  modalHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "16px 24px",
+    borderBottom: "1px solid #e0e0e0",
+    backgroundColor: "#f5f5f5",
+  },
+  modalTitle: {
+    margin: 0,
+    fontSize: "20px",
+    fontWeight: "600",
+    color: "#333",
+  },
+  modalClose: {
+    background: "none",
+    border: "none",
+    fontSize: "24px",
+    cursor: "pointer",
+    color: "#666",
+    padding: "0",
+    width: "32px",
+    height: "32px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "4px",
+    transition: "background-color 0.2s",
+  },
+  modalBody: {
+    flex: 1,
+    overflow: "auto",
+    padding: "0",
+    display: "flex",
+    flexDirection: "column",
   },
 };
 

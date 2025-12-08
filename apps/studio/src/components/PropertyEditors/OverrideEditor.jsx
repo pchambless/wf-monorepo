@@ -95,6 +95,16 @@ const OverrideEditor = ({ column, override, onSave, onReset, componentType = 'Gr
                 style={styles.compactInput}
               />
             </div>
+            <div style={styles.compactField}>
+              <label style={styles.compactLabel}>Col Span</label>
+              <input
+                type="number"
+                value={editedOverride.colSpan || ''}
+                onChange={(e) => handleChange('colSpan', e.target.value)}
+                placeholder="1"
+                style={styles.compactInput}
+              />
+            </div>
           </>
         )}
 

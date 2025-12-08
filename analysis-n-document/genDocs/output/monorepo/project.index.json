@@ -167,7 +167,7 @@
     },
     {
       "file": "apps/admin/src/rendering/PageRenderer.jsx",
-      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "admin"
       ],
@@ -177,7 +177,7 @@
     },
     {
       "file": "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js",
-      "purpose": "Auto-inferred from dependency graph. 5 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
       "tags": [
         "admin"
       ],
@@ -1653,6 +1653,16 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
+      "file": "apps/studio/src/components/ComponentPropertiesDirect.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
       "file": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
       "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
@@ -1663,7 +1673,37 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
+      "file": "apps/studio/src/components/ComponentTree.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/components/ComponentTreeDirect.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
       "file": "apps/studio/src/components/DBBrowserModal.jsx",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/components/DiagramView.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
@@ -1784,7 +1824,7 @@
     },
     {
       "file": "apps/studio/src/components/PageFlowCanvas.jsx",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -1843,7 +1883,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
-      "file": "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx",
+      "file": "apps/studio/src/components/PropertyEditors/ColumnManager.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
@@ -1853,12 +1893,22 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
-      "file": "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "file": "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx",
+      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
       "tags": [
         "studio"
       ],
-      "critical": false,
+      "critical": true,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx",
+      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": true,
       "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
@@ -1884,7 +1934,7 @@
     },
     {
       "file": "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio"
       ],
@@ -1945,6 +1995,16 @@
     {
       "file": "apps/studio/src/components/SyncControls.jsx",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "studio"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/components/TreeNode.jsx",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio"
       ],
@@ -2116,7 +2176,7 @@
     },
     {
       "file": "apps/studio/src/db/operations/eventProps/update.js",
-      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "studio"
       ],
@@ -2256,7 +2316,7 @@
     },
     {
       "file": "apps/studio/src/db/studioDb.js",
-      "purpose": "Auto-inferred from dependency graph. 33 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 32 dependents.",
       "tags": [
         "studio"
       ],
@@ -2990,13 +3050,24 @@
     },
     {
       "file": "apps/studio/src/utils/api.js",
-      "purpose": "Auto-inferred from dependency graph. 21 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 23 dependents.",
       "tags": [
         "studio",
         "utility"
       ],
       "critical": true,
       "blastRadius": "high",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/utils/buildComponentTree.js",
+      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
+      "tags": [
+        "studio",
+        "utility"
+      ],
+      "critical": true,
+      "blastRadius": "medium",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
@@ -3133,13 +3204,13 @@
     },
     {
       "file": "apps/studio/src/utils/pageConfigBuilder/index.js",
-      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
       "tags": [
         "studio",
         "utility"
       ],
       "critical": true,
-      "blastRadius": "low",
+      "blastRadius": "medium",
       "contextHint": "Use when an AI agent is orchestrating flows involving studio."
     },
     {
@@ -3189,6 +3260,17 @@
     {
       "file": "apps/studio/src/utils/parseTableSchema.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "studio",
+        "utility"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving studio."
+    },
+    {
+      "file": "apps/studio/src/utils/propHelpers.js",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
       "tags": [
         "studio",
         "utility"
@@ -4047,6 +4129,16 @@
     },
     {
       "file": "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "whatsfresh"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving whatsfresh."
+    },
+    {
+      "file": "apps/whatsfresh/src/rendering/renderers/SelectRenderer.jsx",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "whatsfresh"

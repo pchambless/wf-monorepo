@@ -11,6 +11,7 @@
   "apps/admin/scripts/sync-rendering.js": [],
   "apps/admin/src/App.jsx": [
     "apps/admin/src/layouts/AppLayout.jsx",
+    "apps/admin/src/rendering/PageRenderer.jsx",
     "apps/admin/src/utils/fetchConfig.js"
   ],
   "apps/admin/src/index.js": [
@@ -67,7 +68,9 @@
     "apps/admin/src/utils/api.js"
   ],
   "apps/admin/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/openModal.js": [],
+  "apps/admin/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
+    "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
   "apps/admin/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
     "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
   ],
@@ -457,6 +460,14 @@
     "apps/studio/src/db/operations/lifecycleOps.js",
     "apps/studio/src/layouts/SimpleLayout.jsx"
   ],
+  "apps/studio/src/components/ComponentPropertiesDirect.jsx": [
+    "apps/studio/src/components/PropertyEditors/ColumnManager.jsx",
+    "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx",
+    "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx",
+    "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
+    "apps/studio/src/utils/api.js",
+    "apps/studio/src/utils/propHelpers.js"
+  ],
   "apps/studio/src/components/ComponentPropertiesPanel.jsx": [
     "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx",
     "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx",
@@ -465,14 +476,26 @@
     "apps/studio/src/components/PropertyEditors/TriggerBuilder.jsx",
     "apps/studio/src/db/operations/eventComp_xref/index.js",
     "apps/studio/src/db/operations/eventProps/index.js",
-    "apps/studio/src/db/operations/eventProps/update.js",
     "apps/studio/src/db/operations/index.js",
     "apps/studio/src/db/studioDb.js",
     "apps/studio/src/utils/api.js",
-    "apps/studio/src/utils/formatProps.js"
+    "apps/studio/src/utils/formatProps.js",
+    "apps/studio/src/utils/propHelpers.js"
+  ],
+  "apps/studio/src/components/ComponentTree.jsx": [
+    "apps/studio/src/components/TreeNode.jsx",
+    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/buildComponentTree.js"
+  ],
+  "apps/studio/src/components/ComponentTreeDirect.jsx": [
+    "apps/studio/src/components/TreeNode.jsx",
+    "apps/studio/src/utils/buildComponentTree.js"
   ],
   "apps/studio/src/components/DBBrowserModal.jsx": [
     "apps/studio/src/db/studioDb.js"
+  ],
+  "apps/studio/src/components/DiagramView.jsx": [
+    "apps/studio/src/utils/buildComponentTree.js"
   ],
   "apps/studio/src/components/EventPreviewView.jsx": [],
   "apps/studio/src/components/FloatingActionButton.jsx": [],
@@ -498,6 +521,7 @@
     "apps/studio/src/components/PagePreviewPanel.jsx",
     "apps/studio/src/db/operations/index.js",
     "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/pageConfigBuilder/index.js",
     "apps/studio/src/utils/pageLoader.js"
   ],
   "apps/studio/src/components/PageFlowCanvas.jsx": [
@@ -520,6 +544,7 @@
   ],
   "apps/studio/src/components/PropertyEditors/ColumnEditor.jsx": [],
   "apps/studio/src/components/PropertyEditors/ColumnList.jsx": [],
+  "apps/studio/src/components/PropertyEditors/ColumnManager.jsx": [],
   "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx": [],
   "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx": [],
   "apps/studio/src/components/PropertyEditors/ParamEditor.jsx": [
@@ -527,7 +552,8 @@
   ],
   "apps/studio/src/components/PropertyEditors/PreviewPane.jsx": [],
   "apps/studio/src/components/PropertyEditors/QuerySetup.jsx": [
-    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx",
+    "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx",
     "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/components/PropertyEditors/SchemaViewer.jsx": [],
@@ -544,24 +570,29 @@
     "apps/studio/src/utils/pageConfigBuilder/index.js"
   ],
   "apps/studio/src/components/StudioLayout.jsx": [
+    "apps/studio/src/components/ComponentPropertiesDirect.jsx",
     "apps/studio/src/components/ComponentPropertiesPanel.jsx",
+    "apps/studio/src/components/ComponentTree.jsx",
+    "apps/studio/src/components/ComponentTreeDirect.jsx",
+    "apps/studio/src/components/DiagramView.jsx",
     "apps/studio/src/components/FloatingActionButton.jsx",
     "apps/studio/src/components/IssuesModal.jsx",
     "apps/studio/src/components/PageDraftControls.jsx",
-    "apps/studio/src/components/PageFlowCanvas.jsx",
     "apps/studio/src/components/StudioSidebar.jsx"
   ],
   "apps/studio/src/components/StudioSidebar.jsx": [
     "apps/studio/src/components/DBBrowserModal.jsx",
     "apps/studio/src/components/PreviewModal.jsx",
     "apps/studio/src/db/operations/index.js",
-    "apps/studio/src/db/studioDb.js",
     "apps/studio/src/utils/api.js",
     "apps/studio/src/utils/pageConfigBuilder/index.js",
     "apps/studio/src/utils/pageLoader.js"
   ],
   "apps/studio/src/components/SyncControls.jsx": [
     "apps/studio/src/db/operations/index.js"
+  ],
+  "apps/studio/src/components/TreeNode.jsx": [
+    "apps/studio/src/utils/buildComponentTree.js"
   ],
   "apps/studio/src/config/api.js": [],
   "apps/studio/src/config/navigation.js": [],
@@ -801,6 +832,7 @@
   "apps/studio/src/styles/global.css": [],
   "apps/studio/src/utils/addFieldAttributes.js": [],
   "apps/studio/src/utils/api.js": [],
+  "apps/studio/src/utils/buildComponentTree.js": [],
   "apps/studio/src/utils/componentConfigBuilder.js": [
     "apps/studio/src/db/studioDb.js"
   ],
@@ -844,6 +876,9 @@
     "apps/studio/src/utils/api.js"
   ],
   "apps/studio/src/utils/parseTableSchema.js": [],
+  "apps/studio/src/utils/propHelpers.js": [
+    "apps/studio/src/utils/api.js"
+  ],
   "apps/studio/src/utils/queryDiscovery.js": [],
   "apps/studio/src/utils/referenceLoaders.js": [
     "apps/studio/src/db/studioDb.js",
@@ -979,6 +1014,7 @@
     "apps/whatsfresh/src/rendering/renderers/ContainerRenderer.js",
     "apps/whatsfresh/src/rendering/renderers/GridRenderer.js",
     "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js",
+    "apps/whatsfresh/src/rendering/renderers/SelectRenderer.jsx",
     "apps/whatsfresh/src/rendering/renderers/TextRenderer.js",
     "apps/whatsfresh/src/rendering/utils/eventHandlerBuilder.js",
     "apps/whatsfresh/src/rendering/utils/layoutUtils.js",
@@ -1040,6 +1076,7 @@
     "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
   ],
   "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js": [],
+  "apps/whatsfresh/src/rendering/renderers/SelectRenderer.jsx": [],
   "apps/whatsfresh/src/rendering/renderers/TextRenderer.js": [],
   "apps/whatsfresh/src/rendering/utils/eventHandlerBuilder.js": [
     "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"

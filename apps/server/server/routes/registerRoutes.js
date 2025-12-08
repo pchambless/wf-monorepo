@@ -17,6 +17,7 @@ import getMigrationStatus from "../controller/getMigrationStatus.js";
 import openTerminal from "../controller/openTerminal.js";
 import cloneStep from "../controller/cloneStep.js";
 import populateModules from "../controller/populateModules.js";
+import copilotQuery from "../controller/copilotQuery.js";
 import logger from "../utils/logger.js";
 
 const codeName = `[registerRoutes.js]`;
@@ -49,6 +50,9 @@ const registerRoutes = (app) => {
 
   // === System Maintenance APIs ===
   registerRoute("post", "/api/populateModules", populateModules);
+
+  // === GitHub Copilot Query API ===
+  registerRoute("post", "/api/copilot/query", copilotQuery);
 
   // === Studio Development APIs ===
   registerRoute("post", "/api/studio/genFields", genFields);

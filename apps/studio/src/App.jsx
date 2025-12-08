@@ -33,7 +33,7 @@ const App = () => {
         // Load eventTypeConfig at startup
         await loadEventTypeConfig();
 
-        await initializeApp();
+        // initializeApp() removed - no longer preload IndexedDB
         console.log('✅ Studio App: Startup complete');
       } catch (error) {
         console.error('❌ App startup failed:', error);

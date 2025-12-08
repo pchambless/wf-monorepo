@@ -3,6 +3,7 @@ import { syncToMySQL, hasPendingChanges } from '../db/operations';
 import { clearPageData } from '../utils/pageLoader';
 import { getPendingSyncs } from '../db/studioDb';
 import PagePreviewPanel from './PagePreviewPanel';
+import { buildPageConfig } from '../utils/pageConfigBuilder';
 
 const styles = {
   container: {
@@ -52,6 +53,11 @@ const styles = {
     backgroundColor: '#10b981',
     color: '#fff',
     border: '1px solid #059669'
+  },
+  generateButton: {
+    backgroundColor: '#8b5cf6',
+    color: '#fff',
+    border: '1px solid #7c3aed'
   },
   message: {
     fontSize: '12px',
@@ -113,6 +119,7 @@ const PageDraftControls = ({ pageID }) => {
   const [lastSaveMessage, setLastSaveMessage] = useState('');
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [isMigrating, setIsMigrating] = useState(false);
+  const [generating, setGenerating] = useState(false);
 
   useEffect(() => {
     if (!pageID) {
@@ -177,6 +184,59 @@ const PageDraftControls = ({ pageID }) => {
     }
   };
 
+  const handleGeneratePageConfig = async () => {
+    if (!pageID || generating) return;
+
+    setGenerating(true);
+    setLastSaveMessage('');
+
+    try {
+      console.log('🔧 Generating page config for pageID:', pageID);
+      
+      // Build the page config from database components
+      const result = await buildPageConfig(pageID);
+      
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to build page config');
+      }
+
+      const pageConfig = result.pageConfig;
+      console.log('✅ Page config generated:', pageConfig);
+
+      // Save to page_registry
+      const response = await fetch('http://localhost:3002/api/execDML', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({
+          method: 'UPDATE',
+          table: 'api_wf.page_registry',
+          data: {
+            id: pageID,
+            pageConfig: JSON.stringify(pageConfig)
+          },
+          primaryKey: 'id'
+        })
+      });
+
+      const saveResult = await response.json();
+      
+      if (!saveResult.success) {
+        throw new Error('Failed to save page config to database');
+      }
+
+      setLastSaveMessage('✅ Page config generated and saved!');
+      setTimeout(() => setLastSaveMessage(''), 3000);
+      
+      console.log('✅ Page config saved to page_registry');
+    } catch (error) {
+      console.error('❌ Generate page config error:', error);
+      alert(`Failed to generate page config: ${error.message}`);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   if (!pageID) {
     return null;
   }
@@ -211,6 +271,14 @@ const PageDraftControls = ({ pageID }) => {
             </button>
           </>
         )}
+
+        <button
+          style={{ ...styles.button, ...styles.generateButton }}
+          onClick={handleGeneratePageConfig}
+          disabled={!pageID || generating}
+        >
+          {generating ? 'Generating...' : '⚡ Generate Page Config'}
+        </button>
 
         <button
           style={{ ...styles.button, ...styles.previewButton }}

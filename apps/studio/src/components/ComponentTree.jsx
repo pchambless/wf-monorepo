@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TreeNode from './TreeNode';
 import { buildComponentTree } from '../utils/buildComponentTree';
-import { db } from '../db/studioDb';
+import { execEvent } from '../utils/api';
 
 const ComponentTree = ({ pageID, selectedComponent, onComponentSelect }) => {
   const [treeData, setTreeData] = useState([]);
@@ -16,32 +16,31 @@ const ComponentTree = ({ pageID, selectedComponent, onComponentSelect }) => {
   const loadComponents = async () => {
     try {
       setLoading(true);
-      console.log('🌲 ComponentTree: Loading components for pageID:', pageID);
+      console.log('🌲 ComponentTree: Loading components from MySQL for pageID:', pageID);
 
-      // Load components from IndexedDB
-      const components = await db.eventComp_xref
-        .where('pageID')
-        .equals(pageID)
-        .toArray();
+      // Load components directly from MySQL
+      const compResponse = await execEvent('getPageComponents', { pageID });
+      const components = compResponse.data || [];
 
       console.log('🌲 ComponentTree: Found components:', components.length);
       if (components.length > 0) {
         console.log('🌲 ComponentTree: First component:', JSON.stringify(components[0], null, 2));
-        console.log('🌲 ComponentTree: All fields:', Object.keys(components[0]));
       }
 
-      // Load props counts
-      const props = await db.eventProps.toArray();
+      // Load props counts from MySQL
+      const propsCountResponse = await execEvent('getPagePropsCounts', { pageID });
+      const propCountsArray = propsCountResponse.data || [];
       const propCounts = {};
-      props.forEach(prop => {
-        propCounts[prop.xref_id] = (propCounts[prop.xref_id] || 0) + 1;
+      propCountsArray.forEach(item => {
+        propCounts[item.xref_id] = item.prop_count;
       });
 
-      // Load trigger counts
-      const triggers = await db.eventTrigger.toArray();
+      // Load trigger counts from MySQL
+      const triggerCountResponse = await execEvent('getPageTriggerCounts', { pageID });
+      const triggerCountsArray = triggerCountResponse.data || [];
       const triggerCounts = {};
-      triggers.forEach(trigger => {
-        triggerCounts[trigger.xref_id] = (triggerCounts[trigger.xref_id] || 0) + 1;
+      triggerCountsArray.forEach(item => {
+        triggerCounts[item.xref_id] = item.trigger_count;
       });
 
       // Add counts to components
@@ -51,14 +50,14 @@ const ComponentTree = ({ pageID, selectedComponent, onComponentSelect }) => {
         triggerCount: triggerCounts[comp.id] || 0,
       }));
 
-      console.log('🌲 ComponentTree: Components with counts:', componentsWithCounts);
+      console.log('🌲 ComponentTree: Components with counts from MySQL:', componentsWithCounts);
 
       // Build tree structure
       const tree = buildComponentTree(componentsWithCounts);
       console.log('🌲 ComponentTree: Built tree:', tree);
       setTreeData(tree);
     } catch (error) {
-      console.error('❌ ComponentTree: Error loading components:', error);
+      console.error('❌ ComponentTree: Error loading components from MySQL:', error);
     } finally {
       setLoading(false);
     }

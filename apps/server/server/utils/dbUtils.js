@@ -1,19 +1,13 @@
 import logger from './logger.js';
-import mysql from 'mysql2/promise';
 
 const fileName = '[dbUtils.js]';
 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'your_db_user',
-    password: process.env.DB_PASSWORD || 'your_db_password',
-    database: process.env.DB_NAME || 'your_db_name',
-    port: process.env.DB_PORT || 3306,
-    charset: process.env.DB_CHARSET || 'utf8mb4',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+function getPool() {
+    if (!global.pool) {
+        throw new Error('Database pool not initialized. Server startup incomplete.');
+    }
+    return global.pool;
+}
 
 /**
  * Sanitizes SQL queries for logging
@@ -46,6 +40,7 @@ async function executeQuery(query, method = 'GET', params = []) {
     const start = process.hrtime();
 
     try {
+        const pool = getPool();
         connection = await pool.getConnection();
 
         // Log sanitized query

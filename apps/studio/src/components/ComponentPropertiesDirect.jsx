@@ -404,6 +404,9 @@ const ComponentPropertiesDirect = ({ selectedComponent, pageID, eventTypes, trig
       throw new Error('No component selected');
     }
 
+    console.log('💾 handleSaveFields called with fields:', fields);
+    console.log('💾 Number of fields to save:', fields.length);
+
     try {
       await upsertProp(xref_id, 'columns', fields);
       console.log('✅ columns saved to MySQL');

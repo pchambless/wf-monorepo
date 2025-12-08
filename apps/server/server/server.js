@@ -1,17 +1,19 @@
 // ES module imports
 import dotenv from 'dotenv';
-import { app } from './app.js';
-import logger from './utils/logger.js';
-import initializeRoutes from './routes/index.js';
-import dbManager from './utils/dbManager.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configure environment variables from monorepo root
-dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
+// Configure environment variables FIRST before any other imports
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+// Import other modules AFTER env is configured
+import { app } from './app.js';
+import logger from './utils/logger.js';
+import initializeRoutes from './routes/index.js';
+import dbManager from './utils/dbManager.js';
 const codeName = '[server.js]';
 
 // Simple test route to verify routing

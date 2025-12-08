@@ -5,21 +5,13 @@ allowed-tools: []
 
 # Session Summary Generator (Shared Claude/Kiro)
 
-## Fetch Instructions from Database
+## ⚡ CRITICAL: Always Use MCP for Database Operations
 
-Both Claude and Kiro should execute this query to get the latest summary instructions:
+**DO NOT use HTTP endpoints - use MCP MySQL tool directly for all database operations.**
 
-```javascript
-// Step 1: Get the query
-mcp_mysql_sql_query({
-  sql: "SELECT qrySQL FROM api_wf.AISql WHERE id = 42"
-})
+## Instructions
 
-// Step 2: Execute the returned qrySQL to get full instructions
-// The query will return 4 records with subjects: AI-summary, AI-milestone-pattern, AI-guidance-pattern, AI-impact-pattern
-```
-
-**Follow the instructions returned from the database query above.**
+Follow the template below to create session summaries and store them in the database using MCP.
 
 ---
 
@@ -174,30 +166,11 @@ curl -X POST http://localhost:3001/api/execEventType \
 
 ## Step 1: Create Next Steps Plan in Database
 
-Use MCP MySQL tool:
+✅ **Use MCP MySQL tool** (NOT curl/HTTP):
 
 ```javascript
 mcp__mysql__sql_query({
-  sql: `INSERT INTO api_wf.plans (name, status, priority, description, comments, assigned_to, created_by)
-  VALUES (
-    'Session Next Steps - [Brief Topic]',
-    'pending',
-    'medium',
-    '# Next Steps
-
-## Immediate (Priority: high)
-- Step 1
-- Step 2
-
-## Short Term (Priority: medium)
-- Step 3
-
-## Future (Priority: low)
-- Step 4',
-    '',
-    '',
-    'claude'
-  )`
+  sql: "INSERT INTO api_wf.plans (name, status, priority, description, created_by) VALUES ('Session Next Steps - [Brief Topic]', 'pending', 'medium', '# Next Steps\n\n## Immediate (Priority: high)\n- Step 1\n- Step 2\n\n## Short Term (Priority: medium)\n- Step 3\n\n## Future (Priority: low)\n- Step 4', 'claude')"
 })
 ```
 
@@ -205,22 +178,11 @@ mcp__mysql__sql_query({
 
 ## Step 2: Store Summary in Database
 
-Use MCP MySQL tool:
+✅ **Use MCP MySQL tool** (NOT curl/HTTP):
 
 ```javascript
 mcp__mysql__sql_query({
-  sql: `INSERT INTO api_wf.plan_communications (plan_id, from_agent, to_agent, type, subject, message, created_by)
-  VALUES (
-    0,
-    'claude',
-    'any',
-    'summary',
-    'Brief session topic here',
-    '# Full markdown summary here
-
-Use proper line breaks and formatting',
-    'claude'
-  )`
+  sql: "INSERT INTO api_wf.plan_communications (plan_id, from_agent, to_agent, type, subject, message, created_by) VALUES (0, 'claude', 'any', 'summary', 'Brief session topic here', '# Full markdown summary here\n\nUse proper line breaks and formatting', 'claude')"
 })
 ```
 
@@ -261,19 +223,12 @@ npm run analyze:populate-db
 
 ## Step 3: Log File Impacts
 
-After completing work, log all file changes to `plan_impacts` using MCP MySQL tool:
+✅ **Use MCP MySQL tool** (NOT curl/HTTP):
 
 ```javascript
 mcp__mysql__sql_query({
-  sql: `INSERT INTO api_wf.plan_impacts (plan_id, file_path, change_type, description, created_by)
-  VALUES
-    (0, 'path/to/file1.js', 'MODIFY', 'Brief summary of modifications
-- Specific change 1
-- Specific change 2', 'claude'),
-    (0, 'path/to/file2.js', 'CREATE', 'Created new module
-- Purpose and functionality', 'claude'),
-    (0, 'path/to/file3.js', 'DELETE', 'Removed obsolete module - reason', 'claude')`
-})
+  sql: "INSERT INTO api_wf.plan_impacts (plan_id, file_path, change_type, description, created_by) VALUES (0, 'path/to/file1.js', 'MODIFY', 'Brief summary of modifications\n- Specific change 1\n- Specific change 2', 'claude'), (0, 'path/to/file2.js', 'CREATE', 'Created new module\n- Purpose and functionality', 'claude'), (0, 'path/to/file3.js', 'DELETE', 'Removed obsolete module - reason', 'claude')"
+}
 ```
 
 **Important:**

@@ -1,13 +1,20 @@
 import { execEvent, execDml } from './api';
 
 export const upsertProp = async (xref_id, paramName, paramVal) => {
+  console.log('🔧 upsertProp called:', { xref_id, paramName, paramVal });
+  console.log('🔧 paramVal type:', typeof paramVal);
+  console.log('🔧 paramVal length:', Array.isArray(paramVal) ? paramVal.length : 'N/A');
+  
   const serializedVal = typeof paramVal === 'object'
     ? JSON.stringify(paramVal)
     : String(paramVal);
 
+  console.log('🔧 serializedVal length:', serializedVal.length);
+
   try {
     const result = await execEvent('pageProps', { xrefID: xref_id });
-    const existing = result.data?.find(p => p.paramName === paramName);
+    // CRITICAL: Filter by xref_id to get props for THIS component only
+    const existing = result.data?.find(p => p.xref_id === xref_id && p.paramName === paramName);
 
     if (existing) {
       await execDml({

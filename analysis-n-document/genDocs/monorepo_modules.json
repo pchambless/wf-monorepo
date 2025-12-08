@@ -478,10 +478,22 @@
       "file_path": "apps/studio/src/App.jsx"
     },
     {
+      "file_path": "apps/studio/src/components/ComponentPropertiesDirect.jsx"
+    },
+    {
       "file_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx"
     },
     {
+      "file_path": "apps/studio/src/components/ComponentTree.jsx"
+    },
+    {
+      "file_path": "apps/studio/src/components/ComponentTreeDirect.jsx"
+    },
+    {
       "file_path": "apps/studio/src/components/DBBrowserModal.jsx"
+    },
+    {
+      "file_path": "apps/studio/src/components/DiagramView.jsx"
     },
     {
       "file_path": "apps/studio/src/components/EventPreviewView.jsx"
@@ -535,6 +547,9 @@
       "file_path": "apps/studio/src/components/PropertyEditors/ColumnList.jsx"
     },
     {
+      "file_path": "apps/studio/src/components/PropertyEditors/ColumnManager.jsx"
+    },
+    {
       "file_path": "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx"
     },
     {
@@ -566,6 +581,9 @@
     },
     {
       "file_path": "apps/studio/src/components/SyncControls.jsx"
+    },
+    {
+      "file_path": "apps/studio/src/components/TreeNode.jsx"
     },
     {
       "file_path": "apps/studio/src/config/api.js"
@@ -880,6 +898,9 @@
       "file_path": "apps/studio/src/utils/api.js"
     },
     {
+      "file_path": "apps/studio/src/utils/buildComponentTree.js"
+    },
+    {
       "file_path": "apps/studio/src/utils/componentConfigBuilder.js"
     },
     {
@@ -932,6 +953,9 @@
     },
     {
       "file_path": "apps/studio/src/utils/parseTableSchema.js"
+    },
+    {
+      "file_path": "apps/studio/src/utils/propHelpers.js"
     },
     {
       "file_path": "apps/studio/src/utils/queryDiscovery.js"
@@ -1189,6 +1213,9 @@
       "file_path": "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js"
     },
     {
+      "file_path": "apps/whatsfresh/src/rendering/renderers/SelectRenderer.jsx"
+    },
+    {
       "file_path": "apps/whatsfresh/src/rendering/renderers/TextRenderer.js"
     },
     {
@@ -1421,6 +1448,10 @@
     },
     {
       "from_path": "apps/admin/src/App.jsx",
+      "to_path": "apps/admin/src/rendering/PageRenderer.jsx"
+    },
+    {
+      "from_path": "apps/admin/src/App.jsx",
       "to_path": "apps/admin/src/utils/fetchConfig.js"
     },
     {
@@ -1526,6 +1557,10 @@
     {
       "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/getVal.js",
       "to_path": "apps/admin/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/openModal.js",
+      "to_path": "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
     },
     {
       "from_path": "apps/admin/src/rendering/WorkflowEngine/triggers/action/refresh.js",
@@ -2324,6 +2359,30 @@
       "to_path": "apps/studio/src/layouts/SimpleLayout.jsx"
     },
     {
+      "from_path": "apps/studio/src/components/ComponentPropertiesDirect.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/ColumnManager.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesDirect.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesDirect.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesDirect.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/QuerySetup.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesDirect.jsx",
+      "to_path": "apps/studio/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentPropertiesDirect.jsx",
+      "to_path": "apps/studio/src/utils/propHelpers.js"
+    },
+    {
       "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
       "to_path": "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx"
     },
@@ -2353,10 +2412,6 @@
     },
     {
       "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
-      "to_path": "apps/studio/src/db/operations/eventProps/update.js"
-    },
-    {
-      "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
       "to_path": "apps/studio/src/db/operations/index.js"
     },
     {
@@ -2372,8 +2427,36 @@
       "to_path": "apps/studio/src/utils/formatProps.js"
     },
     {
+      "from_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx",
+      "to_path": "apps/studio/src/utils/propHelpers.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentTree.jsx",
+      "to_path": "apps/studio/src/components/TreeNode.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentTree.jsx",
+      "to_path": "apps/studio/src/db/studioDb.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentTree.jsx",
+      "to_path": "apps/studio/src/utils/buildComponentTree.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentTreeDirect.jsx",
+      "to_path": "apps/studio/src/components/TreeNode.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/ComponentTreeDirect.jsx",
+      "to_path": "apps/studio/src/utils/buildComponentTree.js"
+    },
+    {
       "from_path": "apps/studio/src/components/DBBrowserModal.jsx",
       "to_path": "apps/studio/src/db/studioDb.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/DiagramView.jsx",
+      "to_path": "apps/studio/src/utils/buildComponentTree.js"
     },
     {
       "from_path": "apps/studio/src/components/FlowNodes/ContainerNode.jsx",
@@ -2406,6 +2489,10 @@
     {
       "from_path": "apps/studio/src/components/PageDraftControls.jsx",
       "to_path": "apps/studio/src/db/studioDb.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/PageDraftControls.jsx",
+      "to_path": "apps/studio/src/utils/pageConfigBuilder/index.js"
     },
     {
       "from_path": "apps/studio/src/components/PageDraftControls.jsx",
@@ -2461,7 +2548,11 @@
     },
     {
       "from_path": "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
-      "to_path": "apps/studio/src/db/studioDb.js"
+      "to_path": "apps/studio/src/components/PropertyEditors/ColumnSelector.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
+      "to_path": "apps/studio/src/components/PropertyEditors/OverrideEditor.jsx"
     },
     {
       "from_path": "apps/studio/src/components/PropertyEditors/QuerySetup.jsx",
@@ -2501,7 +2592,23 @@
     },
     {
       "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/ComponentPropertiesDirect.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
       "to_path": "apps/studio/src/components/ComponentPropertiesPanel.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/ComponentTree.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/ComponentTreeDirect.jsx"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioLayout.jsx",
+      "to_path": "apps/studio/src/components/DiagramView.jsx"
     },
     {
       "from_path": "apps/studio/src/components/StudioLayout.jsx",
@@ -2514,10 +2621,6 @@
     {
       "from_path": "apps/studio/src/components/StudioLayout.jsx",
       "to_path": "apps/studio/src/components/PageDraftControls.jsx"
-    },
-    {
-      "from_path": "apps/studio/src/components/StudioLayout.jsx",
-      "to_path": "apps/studio/src/components/PageFlowCanvas.jsx"
     },
     {
       "from_path": "apps/studio/src/components/StudioLayout.jsx",
@@ -2537,10 +2640,6 @@
     },
     {
       "from_path": "apps/studio/src/components/StudioSidebar.jsx",
-      "to_path": "apps/studio/src/db/studioDb.js"
-    },
-    {
-      "from_path": "apps/studio/src/components/StudioSidebar.jsx",
       "to_path": "apps/studio/src/utils/api.js"
     },
     {
@@ -2554,6 +2653,10 @@
     {
       "from_path": "apps/studio/src/components/SyncControls.jsx",
       "to_path": "apps/studio/src/db/operations/index.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/TreeNode.jsx",
+      "to_path": "apps/studio/src/utils/buildComponentTree.js"
     },
     {
       "from_path": "apps/studio/src/db/operations/componentOps.js",
@@ -2980,6 +3083,10 @@
       "to_path": "apps/studio/src/utils/api.js"
     },
     {
+      "from_path": "apps/studio/src/utils/propHelpers.js",
+      "to_path": "apps/studio/src/utils/api.js"
+    },
+    {
       "from_path": "apps/studio/src/utils/referenceLoaders.js",
       "to_path": "apps/studio/src/db/studioDb.js"
     },
@@ -3198,6 +3305,10 @@
     {
       "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
       "to_path": "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js"
+    },
+    {
+      "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",
+      "to_path": "apps/whatsfresh/src/rendering/renderers/SelectRenderer.jsx"
     },
     {
       "from_path": "apps/whatsfresh/src/rendering/PageRenderer.jsx",

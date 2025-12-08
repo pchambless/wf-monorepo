@@ -26,11 +26,11 @@ echo "⚡ Executing eventType $1 with auto-context resolution..."
 if [ -n "$2" ]; then
   # Parse additional parameters (simple key=value format)
   EXTRA_PARAMS=$(echo "$2" | sed 's/=/": "/g' | sed 's/^/"/' | sed 's/$/"/')
-  curl -s "http://localhost:3001/api/execEventType" \
+  curl -s "http://localhost:3001/api/execEvent" \
     -H "Content-Type: application/json" \
     -d "{\"eventTypeID\": $1, $EXTRA_PARAMS}" | jq '.'
 else
-  curl -s "http://localhost:3001/api/execEventType" \
+  curl -s "http://localhost:3001/api/execEvent" \
     -H "Content-Type: application/json" \
     -d "{\"eventTypeID\": $1}" | jq '.'
 fi

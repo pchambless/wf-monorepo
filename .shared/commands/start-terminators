@@ -1,0 +1,1 @@
+./start-servers.sh && ./start-apps.sh && ./start-claude.sh

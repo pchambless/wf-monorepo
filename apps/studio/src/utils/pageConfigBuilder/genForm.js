@@ -15,10 +15,14 @@ export const generateFormComponents = (props, componentId, existingChildren = []
 
     const htmlInputType = inputType === 'textarea' ? 'text' : inputType;
 
+    const row = col.row ? parseInt(col.row) : 0;
+    const order = col.col ? parseInt(col.col) : 0;
+
     return {
       id: col.name,
       type: 'div',
       style: { marginBottom: '16px' },
+      ...(row > 0 && { position: { row, order } }),
       components: [
         {
           id: `label_${col.name}`,

@@ -9,6 +9,27 @@ allowed-tools: []
 
 Both Claude and Kiro execute the same startup queries from `api_wf.AISql` table.
 
+## ⚡ CRITICAL: Always Use MCP for Database Operations
+
+**DO NOT use HTTP endpoints (execDML, execEvent, setVals) - use MCP directly:**
+
+✅ **Correct** - MCP MySQL tool:
+```javascript
+mcp__mysql__sql_query({ sql: "SELECT * FROM api_wf.plans WHERE id = 45" })
+```
+
+❌ **Wrong** - HTTP endpoints (requires login, adds complexity):
+```bash
+curl -X POST http://localhost:3001/api/execDML ...
+```
+
+**Why MCP?**
+- No login required
+- Direct database access
+- Faster (no HTTP overhead)
+- Simpler (no session management)
+- Use SELECT * without guessing columns (see Plan 1 guidance id=151)
+
 ## Quick Start: Execute Startup Queries
 
 ```javascript
@@ -105,21 +126,9 @@ Both agents need MCP MySQL access configured once. After setup, verify with:
 claude mcp list  # Should show: mysql: ✓ Connected
 ```
 
-## Login (Only for Testing Apps)
+## Login (ONLY for UI Testing - NOT for Database Operations)
 
-**For investigation, use MCP database queries. Only login when testing UI.**
-
-```bash
-# Claude agents:
-curl -X POST http://localhost:3001/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"userEmail": "claude.ai-agent@test.com", "password": "aiagent123"}'
-
-# Kiro agents:
-curl -X POST http://localhost:3001/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"userEmail": "kiro.ai-agent@test.com", "password": "aiagent123"}'
-```
+**For database operations, ALWAYS use MCP. Only login when manually testing the UI in a browser.**
 
 ## Adding New Startup Queries
 

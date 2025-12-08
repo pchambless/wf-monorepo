@@ -5,7 +5,6 @@ import DBBrowserModal from './DBBrowserModal';
 import { loadPageForEditing } from '../utils/pageLoader';
 import { buildPageConfig } from '../utils/pageConfigBuilder';
 import { initializeApp, navigateToPage, warnBeforeNavigation, clearWorkingData, syncToMySQL, hasPendingChanges } from '../db/operations';
-import { db } from '../db/studioDb';
 
 const StudioSidebar = ({ onPageConfigLoaded }) => {
   const [apps, setApps] = useState([]);
@@ -21,7 +20,7 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
 
   useEffect(() => {
     loadApps();
-    initializeApp();
+    // initializeApp() removed - no longer need to preload IndexedDB
   }, []);
 
   useEffect(() => {
@@ -36,31 +35,33 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
 
   const loadApps = async () => {
     try {
-      const uniqueApps = await db.page_registry
-        .orderBy('appName')
-        .uniqueKeys();
+      const response = await execEvent('fetchApps');
 
-      const appsData = uniqueApps.map(appName => ({
-        id: appName,
-        appName: appName
+      const appsData = response.data.map(app => ({
+        id: app.id,
+        appName: app.name
       }));
 
       setApps(appsData);
-      console.log(`📱 Loaded ${appsData.length} apps from page_registry`);
+      console.log(`📱 Loaded ${appsData.length} apps from MySQL`);
     } catch (error) {
       console.error('Failed to load apps:', error);
     }
   };
 
-  const loadPages = async (appName) => {
+  const loadPages = async (appID) => {
     try {
-      const pagesData = await db.page_registry
-        .where('appName')
-        .equals(appName)
-        .toArray();
+      await setVals([{ paramName: 'appID', paramVal: appID }]);
+      const response = await execEvent('fetchAppPages');
+
+      const pagesData = response.data.map(page => ({
+        id: page.pageID,
+        pageName: page.pageName,
+        label: page.label
+      }));
 
       setPages(pagesData);
-      console.log(`📄 Loaded ${pagesData.length} pages for ${appName}`);
+      console.log(`📄 Loaded ${pagesData.length} pages from MySQL`);
     } catch (error) {
       console.error('Failed to load pages:', error);
     }
@@ -95,15 +96,16 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
 
   const handlePageChange = async (e) => {
     const pageID = e.target.value;
-    const pageName = e.target.options[e.target.selectedIndex]?.text;
+    const selectedPageData = pages.find(p => p.id === parseInt(pageID));
+    const pageName = selectedPageData?.pageName || '';
 
     setSelectedPage(pageID);
 
     if (pageID) {
       await setVals([
         { paramName: 'pageID', paramVal: pageID },
-        { paramName: 'pageName', paramVal: pageName },
-        { paramName: 'xrefID', paramVal: pageID }  // Set xrefID for triggers
+        { paramName: 'pageName', paramVal: pageName }
+        // Note: xrefID should be set when selecting a component, not a page
       ]);
       await loadPageConfig(pageID);
     } else {
@@ -227,7 +229,7 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
           <option value="">Select a page...</option>
           {pages.map(page => (
             <option key={page.id} value={page.id}>
-              {page.props.pageTitle}
+              {page.label}
             </option>
           ))}
         </select>

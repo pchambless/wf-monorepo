@@ -155,6 +155,9 @@ const DiagramView = ({ pageID, componentTreeData, triggerData }) => {
 
   const generateWorkflowDiagram = (treeData) => {
     let diagram = 'graph TD\n';
+    let componentsSection = '%% Components and Actions\n';
+    let flowsSection = '%% Workflow Flows\n';
+    let stylingSection = '%% Styling\nclassDef actionNode fill:#f59e0b,stroke:#d97706,color:#fff\nclassDef modalNode fill:#8b5cf6,stroke:#6d28d9,color:#fff\n';
     let hasWorkflows = false;
     
     // Build component map for lookups
@@ -178,45 +181,175 @@ const DiagramView = ({ pageID, componentTreeData, triggerData }) => {
       triggersByComp[trigger.xref_id].push(trigger);
     });
     
-    // Generate diagram with trigger flows
+    // Generate detailed workflow diagram
     Object.entries(triggersByComp).forEach(([xref_id, triggers]) => {
       const comp = compMap[xref_id];
       if (!comp) return;
       
       hasWorkflows = true;
-      const compNode = `comp${xref_id}`;
       const compName = comp.comp_name || 'Unknown';
+      const compType = comp.comp_type || 'Unknown';
+      const compNode = sanitizeId(compName);
       
-      diagram += `  ${compNode}["${compName}"]\n`;
+      // Component node with type - use special syntax for modals
+      if (compType === 'Modal') {
+        componentsSection += `${compNode}[["${compType}: ${compName}"]]\n`;
+      } else {
+        componentsSection += `${compNode}["${compType}: ${compName}"]\n`;
+      }
       
-      // Show trigger actions
-      triggers.forEach((trigger, idx) => {
-        const actionNode = `action${xref_id}_${idx}`;
-        const actionLabel = `${trigger.class}→${trigger.action}`;
-        diagram += `  ${actionNode}["${actionLabel}"]\n`;
-        diagram += `  ${compNode} --> ${actionNode}\n`;
-        
-        // Try to parse content for target component references
-        try {
-          const content = JSON.parse(trigger.content || '{}');
-          // Look for common patterns like refresh, navigate, etc.
-          if (content.target || content.componentId) {
-            const targetId = content.target || content.componentId;
-            const targetComp = compMap[targetId];
-            if (targetComp) {
-              const targetNode = `comp${targetId}`;
-              diagram += `  ${actionNode} -.-> ${targetNode}\n`;
-            }
-          }
-        } catch (e) {
-          // Content not JSON or no target
+      // Group triggers by event class
+      const triggersByClass = {};
+      triggers.forEach(trigger => {
+        const eventClass = trigger.class || 'unknown';
+        if (!triggersByClass[eventClass]) {
+          triggersByClass[eventClass] = [];
         }
+        triggersByClass[eventClass].push(trigger);
       });
+      
+      // Process each trigger class
+      Object.entries(triggersByClass).forEach(([eventClass, classTriggers]) => {
+        classTriggers.forEach((trigger, idx) => {
+          try {
+            const content = trigger.content || '{}';
+            let parsedContent;
+            
+            try {
+              parsedContent = JSON.parse(content);
+            } catch (e) {
+              parsedContent = { raw: content };
+            }
+            
+            // Handle different action types
+            const action = trigger.action || 'unknown';
+            const actionNode = `${compNode}_${eventClass}_${action}_${idx}`;
+            
+            // Parse action details based on type
+            if (action === 'setVals' && Array.isArray(parsedContent)) {
+              // setVals with array of params
+              const paramStr = JSON.stringify(parsedContent).replace(/"/g, '#quot;').replace(/\n/g, '#10;').replace(/\[/g, '#91;').replace(/\]/g, '#93;').replace(/{/g, '#123;').replace(/}/g, '#125;');
+              componentsSection += `${actionNode}{{${action}#10;${paramStr}}}\n`;
+              flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+            } else if (action === 'execEvent') {
+              // execEvent - show the event name (could be string or object)
+              let eventName = 'unknown';
+              if (typeof parsedContent === 'string') {
+                eventName = parsedContent;
+              } else if (parsedContent.eventName || parsedContent.eventSQLId) {
+                eventName = parsedContent.eventName || parsedContent.eventSQLId;
+              }
+              componentsSection += `${actionNode}{{${action}#10;${eventName}}}\n`;
+              flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+            } else if (action === 'execDML') {
+              // execDML - show method
+              const method = parsedContent.method || 'unknown';
+              componentsSection += `${actionNode}{{${action}#10;${method}}}\n`;
+              flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+            } else if (action === 'openModal') {
+              // openModal action
+              const modalId = parsedContent.modalId || parsedContent.componentId || '';
+              const label = modalId ? `${action}#10;modalId: ${modalId}` : action;
+              componentsSection += `${actionNode}{{${label}}}\n`;
+              flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+              
+              // Link to modal if it exists
+              if (modalId) {
+                const modalComp = Object.values(compMap).find(c => c.comp_name === modalId);
+                if (modalComp) {
+                  const modalNode = sanitizeId(modalId);
+                  flowsSection += `${actionNode} -->|openModal| ${modalNode}\n`;
+                }
+              }
+            } else if (action === 'closeModal') {
+              // closeModal action
+              const modalId = parsedContent.modalId || '';
+              const label = modalId ? `${action}#10;${modalId}` : action;
+              componentsSection += `${actionNode}{{${label}}}\n`;
+              flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+            } else if (action === 'refresh') {
+              // refresh action - array of component names to refresh
+              if (Array.isArray(parsedContent)) {
+                componentsSection += `${actionNode}{{${action}}}\n`;
+                flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+                
+                // Link to each component being refreshed
+                parsedContent.forEach(targetName => {
+                  const targetComp = Object.values(compMap).find(c => c.comp_name === targetName);
+                  if (targetComp) {
+                    const targetNode = sanitizeId(targetName);
+                    flowsSection += `${actionNode} -->|refresh| ${targetNode}\n`;
+                  }
+                });
+              }
+            } else if (action === 'buildDMLData') {
+              // buildDMLData action
+              componentsSection += `${actionNode}{{${action}}}\n`;
+              flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+            } else if (action === 'getVal') {
+              // getVal - show the field/key being retrieved
+              let detail = '';
+              if (typeof parsedContent === 'string') {
+                detail = parsedContent;
+              } else {
+                detail = parsedContent.field || parsedContent.key || '';
+              }
+              const label = detail ? `${action}#10;${detail}` : action;
+              componentsSection += `${actionNode}{{${label}}}\n`;
+              flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+            } else {
+              // Generic action
+              componentsSection += `${actionNode}{{${action}}}\n`;
+              flowsSection += `${compNode} -->|${eventClass}| ${actionNode}\n`;
+            }
+            
+          } catch (e) {
+            console.error('Error parsing trigger:', e, trigger);
+          }
+        });
+      });
+      
+      // Handle row actions (edit/delete buttons in grids)
+      if (compType === 'Grid') {
+        // Check for rowActions in component props
+        // This would need to be passed in from the component data
+        // For now, we'll detect them from trigger patterns
+        const rowActionTriggers = triggers.filter(t => 
+          t.class && (t.class.includes('rowAction') || t.class.includes('edit') || t.class.includes('delete'))
+        );
+        
+        rowActionTriggers.forEach((trigger, idx) => {
+          const actionName = trigger.class.replace('rowAction_', '');
+          const rowActionNode = `${compNode}_rowAction_${actionName}`;
+          componentsSection += `${rowActionNode}(("Row: ${actionName}"))\n`;
+          flowsSection += `${compNode} -.->|rowAction| ${rowActionNode}\n`;
+          
+          // Parse row action triggers
+          try {
+            const content = JSON.parse(trigger.content || '{}');
+            if (content.action) {
+              const subActionNode = `${compNode}_${actionName}_${content.action}_${idx}`;
+              flowsSection += `${rowActionNode} --> ${subActionNode}\n`;
+            }
+          } catch (e) {
+            // Ignore parse errors
+          }
+        });
+      }
     });
     
     console.log('📊 Workflow: hasWorkflows:', hasWorkflows);
     
-    return hasWorkflows ? diagram : 'graph TD\n  empty["No workflow triggers found"]';
+    if (!hasWorkflows) {
+      return 'graph TD\n  empty["No workflow triggers found"]';
+    }
+    
+    return diagram + componentsSection + flowsSection + stylingSection;
+  };
+  
+  // Helper function to sanitize component names for mermaid IDs
+  const sanitizeId = (name) => {
+    return (name || 'unknown').replace(/[^a-zA-Z0-9_]/g, '_');
   };
 
   return (
@@ -262,8 +395,10 @@ const DiagramView = ({ pageID, componentTreeData, triggerData }) => {
           initialScale={1}
           minScale={0.5}
           maxScale={3}
+          wrapperStyle={{ width: '100%', height: '100%' }}
+          contentStyle={{ width: '100%', height: '100%' }}
         >
-          <TransformComponent>
+          <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }}>
             <div ref={mermaidRef} style={styles.mermaid}></div>
           </TransformComponent>
         </TransformWrapper>
@@ -358,13 +493,18 @@ const styles = {
   },
   diagramContainer: {
     flex: 1,
-    overflow: 'hidden',
+    overflow: 'auto',
     backgroundColor: '#fafafa',
+    minHeight: 0,
   },
   mermaid: {
     padding: '20px',
-    minWidth: '100%',
-    minHeight: '100%',
+    width: '100%',
+    height: '100%',
+    minHeight: '600px',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
   loading: {
     padding: '20px',
