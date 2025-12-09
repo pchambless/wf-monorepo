@@ -129,6 +129,11 @@
     "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
     "apps/server/server/utils/logger.js"
   ],
+  "apps/server/server/controller/copilotQuery.js": [
+    "apps/server/server/utils/dbUtils.js",
+    "apps/server/server/utils/getUserEmail.js",
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/controller/execCreateDoc.js": [
     "apps/server/server/utils/logger.js",
     "apps/server/server/utils/queryResolver.js"
@@ -275,6 +280,7 @@
   "apps/server/server/routes/registerRoutes.js": [
     "apps/server/server/controller/clearVals.js",
     "apps/server/server/controller/cloneStep.js",
+    "apps/server/server/controller/copilotQuery.js",
     "apps/server/server/controller/execCreateDoc.js",
     "apps/server/server/controller/execDML.js",
     "apps/server/server/controller/execEvent.js",
@@ -484,7 +490,7 @@
   ],
   "apps/studio/src/components/ComponentTree.jsx": [
     "apps/studio/src/components/TreeNode.jsx",
-    "apps/studio/src/db/studioDb.js",
+    "apps/studio/src/utils/api.js",
     "apps/studio/src/utils/buildComponentTree.js"
   ],
   "apps/studio/src/components/ComponentTreeDirect.jsx": [
@@ -987,6 +993,113 @@
   "apps/templates/app-boilerplate/src/utils/fetchConfig.js": [
     "apps/templates/app-boilerplate/src/utils/api.js"
   ],
+  "apps/universal-app/craco.config.js": [],
+  "apps/universal-app/scripts/sync-rendering.js": [],
+  "apps/universal-app/src/App.jsx": [
+    "apps/universal-app/src/layouts/AppLayout.jsx",
+    "apps/universal-app/src/rendering/PageRenderer.jsx",
+    "apps/universal-app/src/utils/fetchConfig.js"
+  ],
+  "apps/universal-app/src/index.js": [
+    "apps/universal-app/src/App.jsx",
+    "apps/universal-app/src/styles/global.css"
+  ],
+  "apps/universal-app/src/layouts/AppLayout.jsx": [
+    "apps/universal-app/src/layouts/Appbar.jsx",
+    "apps/universal-app/src/layouts/Footer.jsx",
+    "apps/universal-app/src/layouts/Sidebar.jsx",
+    "apps/universal-app/src/utils/fetchConfig.js"
+  ],
+  "apps/universal-app/src/layouts/Appbar.jsx": [],
+  "apps/universal-app/src/layouts/Footer.jsx": [],
+  "apps/universal-app/src/layouts/Sidebar.jsx": [],
+  "apps/universal-app/src/rendering/CrudTemplateMerge.jsx": [
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/PageRenderer.jsx": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+    "apps/universal-app/src/rendering/hooks/useModalManager.js",
+    "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.js",
+    "apps/universal-app/src/rendering/renderers/ContainerRenderer.js",
+    "apps/universal-app/src/rendering/renderers/GridRenderer.js",
+    "apps/universal-app/src/rendering/renderers/ModalRenderer.js",
+    "apps/universal-app/src/rendering/renderers/TextRenderer.js",
+    "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js",
+    "apps/universal-app/src/rendering/utils/layoutUtils.js",
+    "apps/universal-app/src/rendering/utils/styleUtils.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": [
+    "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
+    "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
+    "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/captureFormData.js": [
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/clearVals.js": [
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/closeModal.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execDML.js": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execEvent.js": [
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/getVal.js": [
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/reload.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/setVals.js": [
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/showNotification.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/userLogin.js": [
+    "apps/universal-app/src/utils/api.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/visible.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/class/onLoad.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/class/onRefresh.js": [],
+  "apps/universal-app/src/rendering/hooks/useModalManager.js": [],
+  "apps/universal-app/src/rendering/hooks/useTemplateLoader.js": [],
+  "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.js": [],
+  "apps/universal-app/src/rendering/renderers/ContainerRenderer.js": [
+    "apps/universal-app/src/rendering/utils/layoutUtils.js"
+  ],
+  "apps/universal-app/src/rendering/renderers/GridRenderer.js": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
+  "apps/universal-app/src/rendering/renderers/ModalRenderer.js": [],
+  "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx": [],
+  "apps/universal-app/src/rendering/renderers/TextRenderer.js": [],
+  "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+  ],
+  "apps/universal-app/src/rendering/utils/layoutUtils.js": [],
+  "apps/universal-app/src/rendering/utils/styleUtils.js": [],
+  "apps/universal-app/src/styles/global.css": [],
+  "apps/universal-app/src/templates/BatchMappingTemplate.jsx": [],
+  "apps/universal-app/src/templates/CrudTemplate.jsx": [],
+  "apps/universal-app/src/templates/RecipeBuilderTemplate.jsx": [],
+  "apps/universal-app/src/templates/TemplateRenderer.jsx": [],
+  "apps/universal-app/src/utils/api.js": [],
+  "apps/universal-app/src/utils/fetchConfig.js": [
+    "apps/universal-app/src/utils/api.js"
+  ],
   "apps/whatsfresh/craco.config.js": [],
   "apps/whatsfresh/scripts/sync-rendering.js": [],
   "apps/whatsfresh/src/App.jsx": [
@@ -1014,7 +1127,6 @@
     "apps/whatsfresh/src/rendering/renderers/ContainerRenderer.js",
     "apps/whatsfresh/src/rendering/renderers/GridRenderer.js",
     "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js",
-    "apps/whatsfresh/src/rendering/renderers/SelectRenderer.jsx",
     "apps/whatsfresh/src/rendering/renderers/TextRenderer.js",
     "apps/whatsfresh/src/rendering/utils/eventHandlerBuilder.js",
     "apps/whatsfresh/src/rendering/utils/layoutUtils.js",
