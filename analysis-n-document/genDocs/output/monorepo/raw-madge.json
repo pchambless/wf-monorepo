@@ -7,105 +7,6 @@
   "analysis-n-document/genDocs/enhance-madge.js": [],
   "analysis-n-document/genDocs/populate-modules-db.js": [],
   "analysis-n-document/genDocs/test-transform.js": [],
-  "apps/admin/craco.config.js": [],
-  "apps/admin/scripts/sync-rendering.js": [],
-  "apps/admin/src/App.jsx": [
-    "apps/admin/src/layouts/AppLayout.jsx",
-    "apps/admin/src/rendering/PageRenderer.jsx",
-    "apps/admin/src/utils/fetchConfig.js"
-  ],
-  "apps/admin/src/index.js": [
-    "apps/admin/src/App.jsx",
-    "apps/admin/src/styles/global.css"
-  ],
-  "apps/admin/src/layouts/AppLayout.jsx": [
-    "apps/admin/src/layouts/Appbar.jsx",
-    "apps/admin/src/layouts/Footer.jsx",
-    "apps/admin/src/layouts/Sidebar.jsx",
-    "apps/admin/src/utils/fetchConfig.js"
-  ],
-  "apps/admin/src/layouts/Appbar.jsx": [],
-  "apps/admin/src/layouts/Footer.jsx": [],
-  "apps/admin/src/layouts/Sidebar.jsx": [],
-  "apps/admin/src/rendering/PageRenderer.jsx": [
-    "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js",
-    "apps/admin/src/rendering/hooks/useModalManager.js",
-    "apps/admin/src/rendering/renderers/AppLayoutRenderer.js",
-    "apps/admin/src/rendering/renderers/ContainerRenderer.js",
-    "apps/admin/src/rendering/renderers/GridRenderer.js",
-    "apps/admin/src/rendering/renderers/ModalRenderer.js",
-    "apps/admin/src/rendering/renderers/TextRenderer.js",
-    "apps/admin/src/rendering/utils/eventHandlerBuilder.js",
-    "apps/admin/src/rendering/utils/layoutUtils.js",
-    "apps/admin/src/rendering/utils/styleUtils.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": [
-    "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
-    "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
-    "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
-    "apps/admin/src/utils/api.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/captureFormData.js": [
-    "apps/admin/src/utils/api.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/clearVals.js": [
-    "apps/admin/src/utils/api.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/closeModal.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/execDML.js": [
-    "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js",
-    "apps/admin/src/utils/api.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/execEvent.js": [
-    "apps/admin/src/utils/api.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/getVal.js": [
-    "apps/admin/src/utils/api.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
-    "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
-    "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/reload.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/setVals.js": [
-    "apps/admin/src/utils/api.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/showNotification.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/userLogin.js": [
-    "apps/admin/src/utils/api.js"
-  ],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/action/visible.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/class/onLoad.js": [],
-  "apps/admin/src/rendering/WorkflowEngine/triggers/class/onRefresh.js": [],
-  "apps/admin/src/rendering/hooks/useModalManager.js": [],
-  "apps/admin/src/rendering/hooks/useTemplateLoader.js": [],
-  "apps/admin/src/rendering/renderers/AppLayoutRenderer.js": [],
-  "apps/admin/src/rendering/renderers/ContainerRenderer.js": [
-    "apps/admin/src/rendering/utils/layoutUtils.js"
-  ],
-  "apps/admin/src/rendering/renderers/GridRenderer.js": [
-    "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/admin/src/rendering/renderers/ModalRenderer.js": [],
-  "apps/admin/src/rendering/renderers/TextRenderer.js": [],
-  "apps/admin/src/rendering/utils/eventHandlerBuilder.js": [
-    "apps/admin/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/admin/src/rendering/utils/layoutUtils.js": [],
-  "apps/admin/src/rendering/utils/styleUtils.js": [],
-  "apps/admin/src/styles/global.css": [],
-  "apps/admin/src/utils/api.js": [],
-  "apps/admin/src/utils/fetchConfig.js": [
-    "apps/admin/src/utils/api.js"
-  ],
   "apps/api-gateway/server.js": [],
   "apps/server/postcss.config.js": [],
   "apps/server/server/app.js": [
@@ -1013,20 +914,21 @@
   "apps/universal-app/src/layouts/Appbar.jsx": [],
   "apps/universal-app/src/layouts/Footer.jsx": [],
   "apps/universal-app/src/layouts/Sidebar.jsx": [],
-  "apps/universal-app/src/rendering/CrudTemplateMerge.jsx": [
-    "apps/universal-app/src/utils/api.js"
-  ],
   "apps/universal-app/src/rendering/PageRenderer.jsx": [
     "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
     "apps/universal-app/src/rendering/hooks/useModalManager.js",
     "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.js",
     "apps/universal-app/src/rendering/renderers/ContainerRenderer.js",
+    "apps/universal-app/src/rendering/renderers/FormRenderer.js",
     "apps/universal-app/src/rendering/renderers/GridRenderer.js",
     "apps/universal-app/src/rendering/renderers/ModalRenderer.js",
     "apps/universal-app/src/rendering/renderers/TextRenderer.js",
     "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js",
     "apps/universal-app/src/rendering/utils/layoutUtils.js",
     "apps/universal-app/src/rendering/utils/styleUtils.js"
+  ],
+  "apps/universal-app/src/rendering/PageStructureRenderer.jsx": [
+    "apps/universal-app/src/utils/api.js"
   ],
   "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js": [],
   "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": [
@@ -1080,6 +982,9 @@
   "apps/universal-app/src/rendering/renderers/ContainerRenderer.js": [
     "apps/universal-app/src/rendering/utils/layoutUtils.js"
   ],
+  "apps/universal-app/src/rendering/renderers/FormRenderer.js": [
+    "apps/universal-app/src/rendering/renderers/ContainerRenderer.js"
+  ],
   "apps/universal-app/src/rendering/renderers/GridRenderer.js": [
     "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
   ],
@@ -1099,106 +1004,6 @@
   "apps/universal-app/src/utils/api.js": [],
   "apps/universal-app/src/utils/fetchConfig.js": [
     "apps/universal-app/src/utils/api.js"
-  ],
-  "apps/whatsfresh/craco.config.js": [],
-  "apps/whatsfresh/scripts/sync-rendering.js": [],
-  "apps/whatsfresh/src/App.jsx": [
-    "apps/whatsfresh/src/layouts/AppLayout.jsx",
-    "apps/whatsfresh/src/rendering/PageRenderer.jsx",
-    "apps/whatsfresh/src/utils/fetchConfig.js"
-  ],
-  "apps/whatsfresh/src/index.js": [
-    "apps/whatsfresh/src/App.jsx",
-    "apps/whatsfresh/src/styles/global.css"
-  ],
-  "apps/whatsfresh/src/layouts/AppLayout.jsx": [
-    "apps/whatsfresh/src/layouts/Appbar.jsx",
-    "apps/whatsfresh/src/layouts/Footer.jsx",
-    "apps/whatsfresh/src/layouts/Sidebar.jsx",
-    "apps/whatsfresh/src/utils/fetchConfig.js"
-  ],
-  "apps/whatsfresh/src/layouts/Appbar.jsx": [],
-  "apps/whatsfresh/src/layouts/Footer.jsx": [],
-  "apps/whatsfresh/src/layouts/Sidebar.jsx": [],
-  "apps/whatsfresh/src/rendering/PageRenderer.jsx": [
-    "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js",
-    "apps/whatsfresh/src/rendering/hooks/useModalManager.js",
-    "apps/whatsfresh/src/rendering/renderers/AppLayoutRenderer.js",
-    "apps/whatsfresh/src/rendering/renderers/ContainerRenderer.js",
-    "apps/whatsfresh/src/rendering/renderers/GridRenderer.js",
-    "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js",
-    "apps/whatsfresh/src/rendering/renderers/TextRenderer.js",
-    "apps/whatsfresh/src/rendering/utils/eventHandlerBuilder.js",
-    "apps/whatsfresh/src/rendering/utils/layoutUtils.js",
-    "apps/whatsfresh/src/rendering/utils/styleUtils.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": [
-    "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
-    "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
-    "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
-    "apps/whatsfresh/src/utils/api.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/captureFormData.js": [
-    "apps/whatsfresh/src/utils/api.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/clearVals.js": [
-    "apps/whatsfresh/src/utils/api.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/closeModal.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/execDML.js": [
-    "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js",
-    "apps/whatsfresh/src/utils/api.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/execEvent.js": [
-    "apps/whatsfresh/src/utils/api.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/getVal.js": [
-    "apps/whatsfresh/src/utils/api.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
-    "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
-    "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/reload.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/setVals.js": [
-    "apps/whatsfresh/src/utils/api.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/showNotification.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/userLogin.js": [
-    "apps/whatsfresh/src/utils/api.js"
-  ],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/action/visible.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/class/onLoad.js": [],
-  "apps/whatsfresh/src/rendering/WorkflowEngine/triggers/class/onRefresh.js": [],
-  "apps/whatsfresh/src/rendering/hooks/useModalManager.js": [],
-  "apps/whatsfresh/src/rendering/hooks/useTemplateLoader.js": [],
-  "apps/whatsfresh/src/rendering/renderers/AppLayoutRenderer.js": [],
-  "apps/whatsfresh/src/rendering/renderers/ContainerRenderer.js": [
-    "apps/whatsfresh/src/rendering/utils/layoutUtils.js"
-  ],
-  "apps/whatsfresh/src/rendering/renderers/GridRenderer.js": [
-    "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/whatsfresh/src/rendering/renderers/ModalRenderer.js": [],
-  "apps/whatsfresh/src/rendering/renderers/SelectRenderer.jsx": [],
-  "apps/whatsfresh/src/rendering/renderers/TextRenderer.js": [],
-  "apps/whatsfresh/src/rendering/utils/eventHandlerBuilder.js": [
-    "apps/whatsfresh/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/whatsfresh/src/rendering/utils/layoutUtils.js": [],
-  "apps/whatsfresh/src/rendering/utils/styleUtils.js": [],
-  "apps/whatsfresh/src/styles/global.css": [],
-  "apps/whatsfresh/src/utils/api.js": [],
-  "apps/whatsfresh/src/utils/fetchConfig.js": [
-    "apps/whatsfresh/src/utils/api.js"
   ],
   "cli/ModelExecutor.js": [
     "cli/services/ModelService.js"

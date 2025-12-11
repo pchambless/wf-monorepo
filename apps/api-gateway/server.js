@@ -11,12 +11,16 @@ const TARGET_SERVER = process.env.TARGET_SERVER || 'http://localhost:3001';
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'http://localhost:3003',
-    'http://localhost:3004',
-    'http://localhost:3005'  // Admin app
+    'http://localhost:3004',  // Studio
+    'http://localhost:3006'   // Universal-app (admin, whatsfresh, testing)
   ],
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-user-email']
 }));
+
+// Handle preflight requests explicitly
+app.options('*', cors());
 
 app.use(express.json());
 

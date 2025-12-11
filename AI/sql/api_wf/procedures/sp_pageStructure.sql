@@ -1,12 +1,4 @@
--- sp_pageStructure: Enhanced hierarchy with props and triggers
--- Returns complete page structure in one call for PageRenderer
--- Handles template system: CRUD pages use template (11), custom pages use own components
-
-DROP PROCEDURE IF EXISTS api_wf.sp_pageStructure;
-
-DELIMITER $$
-
-CREATE PROCEDURE api_wf.sp_pageStructure(IN requestedPageID INT)
+CREATE DEFINER=`wf_admin`@`%` PROCEDURE `api_wf`.`sp_pageStructure`(IN requestedPageID INT)
 BEGIN
     DECLARE templateType VARCHAR(20);
     DECLARE effectivePageID INT;
@@ -98,19 +90,49 @@ BEGIN
         CASE WHEN ct.comp_type = 'Modal' THEN 0 ELSE ct.level END AS level,
         ct.id_path,
         
-        -- Props: Aggregate all props for this component as JSON object
-        -- Uses vw_eventProps which handles template merging
-        (SELECT JSON_OBJECTAGG(p.paramName, p.paramVal)
-         FROM api_wf.vw_eventProps p
-         WHERE p.xref_id = ct.xref_id 
-           AND p.pageID = requestedPageID
-        ) AS props,
+        (SELECT JSON_OBJECTAGG(p.paramName,
+                      api_wf.f_resolvePageTokens(p.paramVal, requestedPageID))
+               FROM (
+                   -- For CRUD: Get page-specific props first (higher priority)
+                   SELECT paramName, paramVal
+                   FROM api_wf.vw_eventProps
+                   WHERE xref_id = ct.xref_id
+                     AND pageID = requestedPageID
+                     AND templateType = 'crud'
+
+                   UNION
+
+                   -- For CRUD: Get template props that don't exist in page-specific
+                   SELECT t.paramName, t.paramVal
+                   FROM api_wf.vw_eventProps t
+                   WHERE t.xref_id = ct.xref_id
+                     AND t.pageID = 11
+                     AND templateType = 'crud'
+                     AND NOT EXISTS (
+                         SELECT 1 FROM api_wf.vw_eventProps ps
+                         WHERE ps.xref_id = ct.xref_id
+                           AND ps.pageID = requestedPageID
+                           AND ps.paramName = t.paramName
+                     )
+
+                   UNION
+
+                   -- For custom pages: Just get own props
+                   SELECT paramName, paramVal
+                   FROM api_wf.vw_eventProps
+                   WHERE xref_id = ct.xref_id
+                     AND pageID = requestedPageID
+                     AND (templateType IS NULL OR templateType != 'crud')
+               ) p
+              ) AS props,
+
+
         
         -- Triggers: Aggregate all triggers for this component as JSON array
         -- For CRUD pages: get triggers from template (11)
         -- For custom pages: get triggers from requested page
         -- Note: Using CONCAT to build JSON array manually to preserve ORDER BY
-        (SELECT CONCAT('[',
+                (SELECT CONCAT('[',
              GROUP_CONCAT(
                  JSON_OBJECT(
                      'trigger_id', t.trigger_id,
@@ -118,18 +140,15 @@ BEGIN
                      'class', t.class,
                      'action', t.action,
                      'is_dom_event', t.is_dom_event,
-                     'content', t.content,
-                     'api_id', t.api_id,
-                     'wrkFlow_id', t.wrkFlow_id,
-                     'controller_id', t.controller_id
+                     'content', api_wf.f_resolvePageTokens(t.content, requestedPageID)
                  )
                  ORDER BY t.ordr
                  SEPARATOR ','
              ),
          ']')
          FROM api_wf.vw_eventTrigger t
-         WHERE t.xref_id = ct.xref_id 
-           AND t.pageID = CASE 
+         WHERE t.xref_id = ct.xref_id
+           AND t.pageID = CASE
                WHEN templateType = 'crud' THEN 11  -- Template triggers
                ELSE requestedPageID                 -- Own triggers
            END
@@ -140,15 +159,4 @@ BEGIN
         CASE WHEN ct.comp_type = 'Modal' THEN 0 ELSE ct.level END,
         ct.posOrder;
         
-END$$
-
-DELIMITER ;
-
--- Example usage:
--- CALL api_wf.sp_pageStructure(1);  -- ingrType page (CRUD, uses template 11)
--- CALL api_wf.sp_pageStructure(12); -- login page (custom, uses own components)
-
--- Result includes:
--- - All component hierarchy columns (xref_id, comp_name, comp_type, etc.)
--- - props: JSON object with all props for that component
--- - triggers: JSON array with all triggers for that component
+END

@@ -10,7 +10,7 @@
   },
   "scripts": {
     "prestart": "node scripts/sync-rendering.js --quiet",
-    "start": "PORT=3003 BROWSER=none REACT_APP_NAME=whatsfresh REACT_APP_API_BASE_URL=http://localhost:3002 craco start",
+    "start": "PORT=3006 BROWSER=none REACT_APP_API_BASE_URL=http://localhost:3002 craco start",
     "build": "craco build",
     "test": "craco test"
   },

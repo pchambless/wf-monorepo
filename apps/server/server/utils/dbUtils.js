@@ -58,8 +58,15 @@ async function executeQuery(query, method = 'GET', params = []) {
         } else if (method === 'GET') {
 //            logger.debug(`${fileName} Handling GET-specific logic`);
             const [rows] = await connection.execute(query, params);
-            logger.info(`${fileName} Query executed, rows fetched: ${rows.length}`);
-            results = rows;
+
+            // Handle stored procedure results (CALL returns [[data], metadata])
+            if (Array.isArray(rows) && rows.length > 0 && Array.isArray(rows[0])) {
+                results = rows[0]; // Extract first result set from stored procedure
+                logger.info(`${fileName} Stored procedure executed, rows fetched: ${results.length}`);
+            } else {
+                results = rows;
+                logger.info(`${fileName} Query executed, rows fetched: ${rows.length}`);
+            }
         } else {
             throw new Error(`Unsupported method: ${method}`);
         }

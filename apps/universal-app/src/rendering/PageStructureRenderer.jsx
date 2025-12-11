@@ -158,18 +158,18 @@ export default function PageStructureRenderer({ pageConfig, ComponentRenderer })
    * Build hierarchical component structure from flat array with parent_id relationships
    */
   const buildHierarchy = (flatComponents) => {
-    // Create a map for quick lookups
+    // Create a map for quick lookups (use xref_id as the key)
     const componentMap = {};
     flatComponents.forEach(comp => {
-      componentMap[comp.id] = { ...comp, components: [] };
+      componentMap[comp.xref_id] = { ...comp, id: comp.xref_id, components: [] };
     });
 
     // Build hierarchy
     const rootComponents = [];
     flatComponents.forEach(comp => {
-      const component = componentMap[comp.id];
+      const component = componentMap[comp.xref_id];
       
-      if (comp.parent_id === comp.id) {
+      if (comp.parent_id === comp.xref_id) {
         // Root component (self-referencing parent_id)
         rootComponents.push(component);
       } else if (componentMap[comp.parent_id]) {

@@ -10,6 +10,179 @@ import { renderAppBar, renderSidebar } from "./renderers/AppLayoutRenderer.js";
 import { renderModal } from "./renderers/ModalRenderer.js";
 import { renderContainer } from "./renderers/ContainerRenderer.js";
 import { renderRow } from "./renderers/GridRenderer.js";
+import { FormComponent } from "./renderers/FormRenderer.js";
+
+const renderGrid = (component, dataStore, setData, config, eventHandlers, renderComponent) => {
+  const { id, props = {}, workflowTriggers } = component;
+
+  // Parse columns and columnOverrides
+  let columns = [];
+  let columnOverrides = {};
+  let rowActions = [];
+
+  try {
+    columns = typeof props.columns === 'string' ? JSON.parse(props.columns) : (props.columns || []);
+    columnOverrides = typeof props.columnOverrides === 'string' ? JSON.parse(props.columnOverrides) : (props.columnOverrides || {});
+    rowActions = typeof props.rowActions === 'string' ? JSON.parse(props.rowActions) : (props.rowActions || []);
+  } catch (e) {
+    console.error('Failed to parse Grid props:', e);
+  }
+
+  // Get data for this grid
+  const gridData = dataStore[id] || [];
+
+  // Track selected row
+  const [selectedRowId, setSelectedRowId] = React.useState(null);
+  
+  // Filter visible columns
+  const visibleColumns = columns.filter(col => !columnOverrides[col.name]?.hidden);
+  
+  // Execute onRefresh triggers when component mounts
+  React.useEffect(() => {
+    if (workflowTriggers?.onRefresh) {
+      const context = {
+        pageConfig: config,
+        setData,
+        componentId: id
+      };
+      triggerEngine.executeTriggers(workflowTriggers.onRefresh, context);
+    }
+  }, [id]);
+
+  const tableStyle = {
+    width: '100%',
+    borderCollapse: 'collapse',
+    border: '1px solid #e1e4e8',
+    backgroundColor: '#fff'
+  };
+
+  const headerStyle = {
+    backgroundColor: '#f6f8fa',
+    padding: '8px 12px',
+    borderBottom: '1px solid #e1e4e8',
+    textAlign: 'left',
+    fontWeight: '600'
+  };
+
+  const cellStyle = {
+    padding: '8px 12px',
+    borderBottom: '1px solid #e1e4e8'
+  };
+
+  return (
+    <div key={id} style={{ width: '100%' }}>
+      <table style={tableStyle}>
+        <thead>
+          <tr>
+            {visibleColumns.map(col => (
+              <th key={col.name} style={headerStyle}>
+                {columnOverrides[col.name]?.label || col.name}
+              </th>
+            ))}
+            {props.rowActions && <th style={headerStyle}>Actions</th>}
+          </tr>
+        </thead>
+        <tbody>
+          {gridData.length > 0 ? (
+            gridData.map((row, idx) => {
+              const rowId = row[props.tableID || 'id'];
+              const isSelected = selectedRowId === rowId;
+
+              return (
+                <tr
+                  key={idx}
+                  onClick={async () => {
+                    console.log(`🎯 Row clicked: ${rowId}`, row);
+                    setSelectedRowId(rowId);
+
+                    // Execute onChange triggers
+                    if (workflowTriggers?.onChange) {
+                      const context = {
+                        pageConfig: config,
+                        setData,
+                        componentId: id,
+                        selected: row,
+                        rowData: row
+                      };
+                      await triggerEngine.executeTriggers(workflowTriggers.onChange, context);
+                    }
+                  }}
+                  style={{
+                    backgroundColor: isSelected ? '#e3f2fd' : (idx % 2 === 0 ? '#fff' : '#f9f9f9'),
+                    cursor: 'pointer'
+                  }}
+                >
+                  {visibleColumns.map(col => (
+                    <td key={col.name} style={cellStyle}>
+                      {row[col.name]}
+                    </td>
+                  ))}
+                  {rowActions.length > 0 && (
+                    <td style={cellStyle}>
+                      <div style={{ display: 'flex', gap: '4px' }}>
+                        {rowActions.map((action) => (
+                          <button
+                            key={action.id}
+                            title={action.tooltip}
+                            onClick={async (e) => {
+                              e.stopPropagation();
+
+                              if (action.confirmMessage) {
+                                if (!window.confirm(action.confirmMessage)) {
+                                  return;
+                                }
+                              }
+
+                              console.log(`🔘 Action clicked: ${action.id}`, row);
+
+                              const context = {
+                                pageConfig: config,
+                                setData,
+                                componentId: id,
+                                rowData: row,
+                                row: row
+                              };
+
+                              if (action.trigger) {
+                                const triggers = Array.isArray(action.trigger) ? action.trigger : [action.trigger];
+                                await triggerEngine.executeTriggers(triggers, context);
+
+                                if (action.onSuccess) {
+                                  await triggerEngine.executeTriggers(action.onSuccess, context);
+                                }
+                              }
+                            }}
+                            style={{
+                              padding: '4px 8px',
+                              fontSize: '12px',
+                              border: 'none',
+                              borderRadius: '4px',
+                              cursor: 'pointer',
+                              backgroundColor: action.color === 'error' ? '#dc3545' : '#007bff',
+                              color: '#fff'
+                            }}
+                          >
+                            {action.icon || action.label || action.id}
+                          </button>
+                        ))}
+                      </div>
+                    </td>
+                  )}
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan={visibleColumns.length + (props.rowActions ? 1 : 0)} style={{ ...cellStyle, textAlign: 'center', color: '#666' }}>
+                No data available
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) => {
   if (!config) {
@@ -137,6 +310,21 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
       setFormData
     );
 
+    if (comp_type === "Grid") {
+      return renderGrid(component, dataStore, setData, config, eventHandlers, renderComponent);
+    }
+
+    if (comp_type === "Form") {
+      return <FormComponent
+        key={id}
+        component={component}
+        renderComponent={renderComponent}
+        contextStore={contextStore}
+        config={config}
+        setData={setData}
+      />;
+    }
+
     const {
       workflowTriggers: _wt,
       components: _c,
@@ -145,6 +333,8 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
       rowKey: _rk,
       selectable: _sel,
       columns: _cols,
+      rowActions: _ra,
+      columnOverrides: _co,
       _onClick,
       ...domProps
     } = props;
@@ -155,7 +345,12 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
     };
 
     let children;
-    if (type === "tbody" && props.dataSource) {
+    // Input and textarea elements cannot have children
+    const isVoidElement = type === "input" || comp_type === "input";
+
+    if (isVoidElement) {
+      children = null;
+    } else if (type === "tbody" && props.dataSource) {
       const gridId = props.dataSource;
       const data = dataStore[gridId];
 

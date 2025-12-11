@@ -45,15 +45,18 @@ export const separateComponentsByType = (components) => {
     return found;
   };
 
-  // Recursively remove modals from the tree
+  // Recursively remove modals from the tree (immutable - creates new objects)
   const removeModals = (comps) => {
-    return comps?.filter(c => {
-      if (c.comp_type === "Modal") return false;
+    return comps?.map(c => {
+      if (c.comp_type === "Modal") return null;
       if (c.components) {
-        c.components = removeModals(c.components);
+        return {
+          ...c,
+          components: removeModals(c.components)
+        };
       }
-      return true;
-    });
+      return c;
+    }).filter(c => c !== null);
   };
 
   const appBarComponent = components?.find((c) => c.comp_type === "AppBar");
