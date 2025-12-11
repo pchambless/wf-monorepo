@@ -4,6 +4,7 @@ import AppLayout from './layouts/AppLayout';
 import PageRenderer from './rendering/PageRenderer';
 import { fetchPageStructure, fetchEventTypeConfig } from './utils/fetchConfig';
 import { setVals, execEvent } from '@whatsfresh/shared-imports';
+import { runHealthChecks, validatePageStructure } from './utils/healthCheck';
 
 const PageWrapper = ({ pageID, eventTypeConfig }) => {
   const [pageConfig, setPageConfig] = useState(null);
@@ -14,9 +15,17 @@ const PageWrapper = ({ pageID, eventTypeConfig }) => {
     const loadPageStructure = async () => {
       try {
         const structure = await fetchPageStructure(pageID);
+        
+        // Validate page structure integrity
+        const validationIssues = validatePageStructure(structure);
+        if (validationIssues.length > 0) {
+          console.warn(`⚠️ Page ${pageID} validation issues:`, validationIssues);
+          // Continue anyway but log issues
+        }
+        
         setPageConfig(structure);
       } catch (err) {
-        console.error(`Failed to load page structure for pageID ${pageID}:`, err);
+        console.error(`❌ Failed to load page structure for pageID ${pageID}:`, err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -54,6 +63,15 @@ const App = () => {
   useEffect(() => {
     const loadAppConfig = async () => {
       try {
+        // Run health checks first
+        console.log('🏥 Running Universal App health checks...');
+        const healthResults = await runHealthChecks();
+        
+        if (healthResults.failed > 0) {
+          console.error('🚨 Health checks failed - app may not function properly');
+          // Continue anyway but with warnings
+        }
+
         const sessionCheck = await fetch('http://localhost:3002/api/auth/session', {
           credentials: 'include'
         });
@@ -71,8 +89,10 @@ const App = () => {
         const eventTypes = await fetchEventTypeConfig();
         console.log('✅ Loaded eventTypeConfig:', Object.keys(eventTypes).length, 'types');
         setEventTypeConfig(eventTypes);
+        
+        console.log('🎉 Universal App startup complete!');
       } catch (err) {
-        console.error('Failed to load app config:', err);
+        console.error('❌ Failed to load app config:', err);
         window.location.href = 'http://localhost:3002/login.html';
       } finally {
         setLoading(false);

@@ -1,6 +1,135 @@
 import { triggerEngine } from '../WorkflowEngine/TriggerEngine.js';
 import React from 'react';
 
+export const GridComponent = ({ component, renderComponent, contextStore, config, setData }) => {
+  const { id, props = {}, workflowTriggers } = component;
+
+  React.useEffect(() => {
+    if (workflowTriggers?.onRefresh) {
+      console.log(`🔄 Grid ${id} executing onRefresh triggers`);
+      const context = {
+        pageConfig: config,
+        setData,
+        componentId: id,
+        contextStore
+      };
+      triggerEngine.executeTriggers(workflowTriggers.onRefresh, context);
+    }
+  }, [id]);
+
+  return renderGridContent(component, renderComponent, contextStore, id);
+};
+
+const renderGridContent = (component, renderComponent, contextStore, gridId) => {
+  const { props = {}, id } = component;
+
+  console.log(`📊 GridRenderer: Rendering Grid ${id}`);
+
+  let columns = props.columns;
+  if (typeof columns === 'string') {
+    try {
+      columns = JSON.parse(columns);
+    } catch (e) {
+      console.warn('Failed to parse Grid columns:', e);
+      columns = [];
+    }
+  }
+
+  let columnOverrides = props.columnOverrides || {};
+  if (typeof columnOverrides === 'string') {
+    try {
+      columnOverrides = JSON.parse(columnOverrides);
+    } catch (e) {
+      console.warn('Failed to parse Grid columnOverrides:', e);
+      columnOverrides = {};
+    }
+  }
+
+  const visibleColumns = columns
+    .map(col => ({
+      ...col,
+      ...(columnOverrides[col.name] || {})
+    }))
+    .filter(col => !col.hidden);
+
+  console.log(`📊 GridRenderer: ${visibleColumns.length} visible columns:`, visibleColumns.map(c => c.name));
+
+  const tableComponent = {
+    id: 'table',
+    type: 'table',
+    comp_type: 'table',
+    style: {
+      width: '100%',
+      borderCollapse: 'collapse',
+      border: '1px solid #e0e0e0'
+    },
+    components: [
+      {
+        id: 'thead',
+        type: 'thead',
+        comp_type: 'thead',
+        style: {
+          backgroundColor: '#f5f5f5'
+        },
+        components: [
+          {
+            id: 'headerRow',
+            type: 'tr',
+            comp_type: 'tr',
+            components: visibleColumns.map(col => ({
+              id: `header_${col.name}`,
+              type: 'th',
+              comp_type: 'th',
+              textContent: col.label || col.name,
+              style: {
+                padding: '12px 8px',
+                textAlign: 'left',
+                borderBottom: '1px solid #e0e0e0',
+                fontWeight: '600',
+                width: col.width || 'auto'
+              }
+            }))
+          }
+        ]
+      },
+      {
+        id: 'tbody',
+        type: 'tbody',
+        comp_type: 'tbody',
+        props: {
+          dataSource: id,
+          rowKey: 'id',
+          selectable: props.selectable || false,
+          columns: visibleColumns
+        },
+        components: [
+          {
+            id: 'placeholderRow',
+            type: 'tr',
+            comp_type: 'tr',
+            style: {},
+            components: visibleColumns.map(col => ({
+              id: `placeholder_${col.name}`,
+              type: 'td',
+              comp_type: 'td',
+              textContent: `{${col.name}}`,
+              style: {
+                padding: '6px 12px',
+                borderBottom: '1px solid #e1e4e8',
+                fontSize: '14px',
+                cursor: 'pointer'
+              }
+            }))
+          }
+        ]
+      }
+    ]
+  };
+
+  console.log(`📊 GridRenderer: Generated table structure for Grid ${id}`);
+  return renderComponent(tableComponent);
+};
+
 function createActionsCell(rowActions, rowData, idx, config, setData, gridProps) {
   const actionButtons = rowActions.map((action) => ({
     id: `${action.id}_${idx}`,

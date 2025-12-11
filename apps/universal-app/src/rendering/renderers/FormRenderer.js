@@ -22,7 +22,7 @@ const FormComponent = ({ component, renderComponent, contextStore, config, setDa
     }
   }, [id]);
 
-  return renderFormContent(component, renderComponent, contextStore);
+  return renderFormContent(component, renderComponent, contextStore, id);
 };
 
 /**
@@ -31,8 +31,10 @@ const FormComponent = ({ component, renderComponent, contextStore, config, setDa
  * Forms in the CRUD template have a columns prop that defines the fields.
  * This renderer generates input components from that schema before rendering children.
  */
-const renderFormContent = (component, renderComponent, contextStore) => {
+const renderFormContent = (component, renderComponent, contextStore, formId) => {
   const { props = {}, components = [], id } = component;
+
+  console.log(`📋 FormRenderer: Rendering form ${id}, passing formId=${formId || id} to children`);
   
   // Parse columns if it's a JSON string
   let columns = props.columns;
@@ -154,7 +156,9 @@ const renderFormContent = (component, renderComponent, contextStore) => {
   };
 
   // Use ContainerRenderer to render the form with all children
-  return renderContainer(enhancedComponent, renderComponent);
+  // Pass formId to children so inputs can read from dataStore[formId]
+  const renderChildWithFormId = (child) => renderComponent(child, formId || id);
+  return renderContainer(enhancedComponent, renderChildWithFormId);
 };
 
 export { FormComponent, renderFormContent as renderForm };
