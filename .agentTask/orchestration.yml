@@ -1,0 +1,44 @@
+version: 1.0
+plan_id: 74
+sprint: s1
+
+workflow:
+  - stage: 1
+    parallel: false
+    tasks:
+      - id: db-setup
+        capability: database-operations
+        pattern: eventSQL_insert, page_registry_insert
+        assigned_to: kiro
+        estimated_tokens: 3500
+  - stage: 2
+    parallel: false
+    depends_on: [db-setup]
+    tasks:
+      - id: config-update
+        capability: file-modifications
+        pattern: sidebar_config_update
+        assigned_to: claude
+        estimated_tokens: 800
+  - stage: 3
+    parallel: false
+    depends_on: [db-setup, config-update]
+    tasks:
+      - id: component-clone
+        capability: component-cloning
+        pattern: crud_template_clone
+        assigned_to: vscode-copilot
+        fallback: [claude, github-copilot]
+        estimated_tokens: 3000
+
+agent_selection_policy: capability-first-with-optimization
+selection_algorithm:
+  1. Identify task capability requirement
+  2. Check compatible_agents from capability YAML
+  3. Filter by can_execute vs can_coordinate
+  4. Optimize for:
+     - Direct execution (fewer handoffs preferred)
+     - Token efficiency
+     - Agent availability
+  5. Assign task
+  6. If coordination needed, assign orchestrator (github-copilot)
