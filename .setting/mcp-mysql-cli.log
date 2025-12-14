@@ -406,3 +406,18 @@
 2025-12-11T16:07:05.088Z | INFO | MCP MySQL server process started with PID: 44724
 2025-12-11T16:07:05.088Z | INFO | Signal handlers registered for SIGINT and SIGTERM
 2025-12-11T16:07:05.088Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-12T13:37:21.638Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-12T13:37:21.642Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-12T13:37:21.645Z | INFO | MCP MySQL server process started with PID: 697912
+2025-12-12T13:37:21.646Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-12T13:37:21.646Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-13T00:01:21.498Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-13T00:01:21.501Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-13T00:01:21.504Z | INFO | MCP MySQL server process started with PID: 1019236
+2025-12-13T00:01:21.504Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-13T00:01:21.504Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-13T11:46:54.783Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-13T11:46:54.787Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-13T11:46:54.790Z | INFO | MCP MySQL server process started with PID: 1363856
+2025-12-13T11:46:54.791Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-13T11:46:54.791Z | INFO | Press Ctrl+C to gracefully shutdown the server

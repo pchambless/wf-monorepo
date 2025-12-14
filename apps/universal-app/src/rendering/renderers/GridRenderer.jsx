@@ -1,12 +1,20 @@
 import { triggerEngine } from '../WorkflowEngine/TriggerEngine.js';
 import React from 'react';
+import { createLogger } from '../../utils/logger.js';
+
+const log = createLogger('GridRenderer', 'info');
 
 export const GridComponent = ({ component, renderComponent, contextStore, config, setData }) => {
   const { id, props = {}, workflowTriggers } = component;
+  
+  // Memoize the onRefresh triggers to prevent unnecessary re-executions
+  const onRefreshTriggersRef = React.useRef();
+  const hasExecutedRef = React.useRef(false);
 
   React.useEffect(() => {
-    if (workflowTriggers?.onRefresh) {
-      console.log(`🔄 Grid ${id} executing onRefresh triggers`);
+    // Only execute onRefresh once per component mount, not on every contextStore change
+    if (workflowTriggers?.onRefresh && !hasExecutedRef.current) {
+      log.info(`Grid ${id} executing onRefresh triggers (initial load)`);
       const context = {
         pageConfig: config,
         setData,
@@ -14,8 +22,10 @@ export const GridComponent = ({ component, renderComponent, contextStore, config
         contextStore
       };
       triggerEngine.executeTriggers(workflowTriggers.onRefresh, context);
+      hasExecutedRef.current = true;
+      onRefreshTriggersRef.current = workflowTriggers.onRefresh;
     }
-  }, [id]);
+  }, [id]); // Only depend on id, not contextStore
 
   return renderGridContent(component, renderComponent, contextStore, id);
 };
@@ -23,14 +33,14 @@ export const GridComponent = ({ component, renderComponent, contextStore, config
 const renderGridContent = (component, renderComponent, contextStore, gridId) => {
   const { props = {}, id } = component;
 
-  console.log(`📊 GridRenderer: Rendering Grid ${id}`);
+  log.debug(`Rendering Grid ${id}`);
 
   let columns = props.columns;
   if (typeof columns === 'string') {
     try {
       columns = JSON.parse(columns);
     } catch (e) {
-      console.warn('Failed to parse Grid columns:', e);
+      log.warn('Failed to parse Grid columns:', e);
       columns = [];
     }
   }
@@ -40,7 +50,7 @@ const renderGridContent = (component, renderComponent, contextStore, gridId) => 
     try {
       columnOverrides = JSON.parse(columnOverrides);
     } catch (e) {
-      console.warn('Failed to parse Grid columnOverrides:', e);
+      log.warn('Failed to parse Grid columnOverrides:', e);
       columnOverrides = {};
     }
   }
@@ -52,7 +62,7 @@ const renderGridContent = (component, renderComponent, contextStore, gridId) => 
     }))
     .filter(col => !col.hidden);
 
-  console.log(`📊 GridRenderer: ${visibleColumns.length} visible columns:`, visibleColumns.map(c => c.name));
+  log.debug(`GridRenderer: ${visibleColumns.length} visible columns:`, visibleColumns.map(c => c.name));
 
   const tableComponent = {
     id: 'table',
@@ -126,7 +136,7 @@ const renderGridContent = (component, renderComponent, contextStore, gridId) => 
     ]
   };
 
-  console.log(`📊 GridRenderer: Generated table structure for Grid ${id}`);
+  log.debug(`GridRenderer: Generated table structure for Grid ${id}`);
   return renderComponent(tableComponent);
 };
 
@@ -156,7 +166,7 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
           }
         }
 
-        console.log(`🔘 Action clicked: ${action.id}`, rowData);
+        log.debug(`Action clicked: ${action.id}`, rowData);
 
         const context = {
           event: e,
@@ -197,7 +207,7 @@ function createActionsCell(rowActions, rowData, idx, config, setData, gridProps)
 
           await triggerEngine.executeTriggers(processedTriggers, enhancedContext);
 
-          console.log(`✅ Action ${action.id} completed`);
+          log.debug(`Action ${action.id} completed`);
         }
       }
     }
@@ -264,7 +274,7 @@ export function renderRow(placeholder, rowData, idx, onChangeTriggers, rowKey = 
       clonedComp.props = {
         ...(comp.props || {}),
         _onClick: async (e) => {
-          console.log(`🎯 Row clicked: ${rowValue}`, rowData);
+          log.debug(`Row clicked: ${rowValue}`, rowData);
 
           if (setSelectedRowId) {
             setSelectedRowId(rowValue);

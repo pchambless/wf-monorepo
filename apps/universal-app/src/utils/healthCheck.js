@@ -3,6 +3,8 @@
  * Validates dependencies and system integrity on startup
  */
 
+import { execEvent, setVals } from './api';
+
 export const runHealthChecks = async () => {
   const results = {
     passed: 0,
@@ -15,14 +17,9 @@ export const runHealthChecks = async () => {
 
   // Check 1: Database Connection
   try {
-    const response = await fetch('http://localhost:3002/api/execEvent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ qryName: 'fetchEventTypeConfig' })
-    });
+    const response = await execEvent('fetchEventTypeConfig');
     
-    if (response.ok) {
+    if (response.data) {
       results.passed++;
       results.details.push('✅ Database connection: OK');
     } else {
@@ -36,28 +33,15 @@ export const runHealthChecks = async () => {
 
   // Check 2: Template System (sp_pageStructure)
   try {
-    const response = await fetch('http://localhost:3002/api/execEvent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ 
-        qryName: 'fetchPageStructure',
-        params: [{ paramName: 'pageID', paramVal: 1 }]
-      })
-    });
+    await setVals([{ paramName: 'pageID', paramVal: 1 }]);
+    const response = await execEvent('fetchPageStructure');
     
-    if (response.ok) {
-      const data = await response.json();
-      if (data.data && data.data.length >= 10) {
-        results.passed++;
-        results.details.push(`✅ Template system: OK (${data.data.length} components)`);
-      } else {
-        results.warnings++;
-        results.details.push(`⚠️ Template system: WARNING (${data.data?.length || 0} components, expected 10+)`);
-      }
+    if (response.data && response.data.length >= 10) {
+      results.passed++;
+      results.details.push(`✅ Template system: OK (${response.data.length} components)`);
     } else {
-      results.failed++;
-      results.details.push('❌ Template system: FAILED');
+      results.warnings++;
+      results.details.push(`⚠️ Template system: WARNING (${response.data?.length || 0} components, expected 10+)`);
     }
   } catch (e) {
     results.failed++;
@@ -93,7 +77,7 @@ export const runHealthChecks = async () => {
 
   try {
     // These should be available if imports worked
-    const { GridComponent } = await import('../rendering/renderers/GridRenderer.js');
+    const { GridComponent } = await import('../rendering/renderers/GridRenderer.jsx');
     const { triggerEngine } = await import('../rendering/WorkflowEngine/TriggerEngine.js');
     const { fetchPageStructure } = await import('./fetchConfig.js');
     
@@ -109,27 +93,32 @@ export const runHealthChecks = async () => {
     results.details.push(`❌ Required components: ERROR - ${e.message}`);
   }
 
-  // Check 5: EventType Configuration
+  // Check 5: Page Registry Cache
   try {
-    const response = await fetch('http://localhost:3002/api/execEvent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ qryName: 'fetchEventTypeConfig' })
-    });
+    const response = await execEvent('fetchPageAnalysis');
     
-    if (response.ok) {
-      const data = await response.json();
-      if (data.data && data.data.length > 0) {
-        results.passed++;
-        results.details.push(`✅ EventType config: OK (${data.data.length} types)`);
-      } else {
-        results.warnings++;
-        results.details.push('⚠️ EventType config: WARNING (no types found)');
-      }
+    if (response.data && response.data.length > 0) {
+      results.passed++;
+      results.details.push(`✅ Page registry: OK (${response.data.length} pages)`);
     } else {
-      results.failed++;
-      results.details.push('❌ EventType config: FAILED');
+      results.warnings++;
+      results.details.push('⚠️ Page registry: WARNING (no pages found)');
+    }
+  } catch (e) {
+    results.failed++;
+    results.details.push(`❌ Page registry: ERROR - ${e.message}`);
+  }
+
+  // Check 6: EventType Configuration
+  try {
+    const response = await execEvent('fetchEventTypeConfig');
+    
+    if (response.data && response.data.length > 0) {
+      results.passed++;
+      results.details.push(`✅ EventType config: OK (${response.data.length} types)`);
+    } else {
+      results.warnings++;
+      results.details.push('⚠️ EventType config: WARNING (no types found)');
     }
   } catch (e) {
     results.failed++;

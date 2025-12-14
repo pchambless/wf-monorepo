@@ -24,12 +24,13 @@ export const setValsDirect = async (userEmail, values) => {
       // Use INSERT ... ON DUPLICATE KEY UPDATE for upsert functionality
       const sql = `
         INSERT INTO api_wf.context_store
-        (email, paramName, paramVal, created_by)
-        VALUES ('${userEmail}', '${paramName}', ${paramVal === null ? 'NULL' : `'${paramVal}'`}, '${firstName}')
+        (email, paramName, paramVal, created_by, updates)
+        VALUES ('${userEmail}', '${paramName}', ${paramVal === null ? 'NULL' : `'${paramVal}'`}, '${firstName}', 1)
         ON DUPLICATE KEY UPDATE
         paramVal = ${paramVal === null ? 'NULL' : `'${paramVal}'`},
         updated_by = '${firstName}',
-        updated_at = CURRENT_TIMESTAMP
+        updated_at = CURRENT_TIMESTAMP,
+        updates = updates + 1
       `;
 
       const result = await executeQuery(sql, 'POST');

@@ -1,26 +1,20 @@
 create or replace view vw_eventSQL as
-select
-    a.xref_id,
-    a.pageName, 
-    a.comp_name, 
-    a.comp_type,
-    c.qryName, 
-    b.qryName qryTrigger,
-    c.qrySQL,
-    a.pageID
-from
-    api_wf.vw_hier_components a
+select a.xref_id,
+a.pageName,
+a.comp_name,
+a.comp_type,
+c.qryName,
+b.qryName AS qryTrigger,
+c.qrySQL,
+a.pageID
+from api_wf.vw_eventProps a 
 left join 
-    (select
-        xref_id,
-        content qryName
-    from
-        api_wf.eventTrigger
-    where action = 'execEvent'
-    ) b
-    on a.xref_id = b.xref_id 
-left join api_wf.eventSQL c 
-on replace (b.qryName, '{{pageConfig.pageName}}', a.pageName) = c.qryName
-where c.id is not null;
-
-
+ (select eventTrigger.xref_id AS xref_id,
+  eventTrigger.content AS qryName 
+  from api_wf.eventTrigger 
+  where eventTrigger.action = 'execEvent') b 
+on a.xref_id = b.xref_id 
+left join api_wf.eventSQL c on 
+replace(b.qryName,'{{pageConfig.pageName}}',a.pageName) = c.qryName
+where c.id is not NULL
+AND a.comp_name IN ('Grid', 'Form');

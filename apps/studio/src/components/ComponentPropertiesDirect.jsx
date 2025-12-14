@@ -71,7 +71,7 @@ const ComponentPropertiesDirect = ({ selectedComponent, pageID, eventTypes, trig
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
-          eventSQLId: 'xrefHierarchy',
+          eventSQLId: 'fetchPageStructure',
           params: { pageID }
         })
       });
@@ -437,7 +437,7 @@ const ComponentPropertiesDirect = ({ selectedComponent, pageID, eventTypes, trig
     <div style={styles.container}>
       <div style={styles.header}>
         <h3 style={styles.title}>{selectedComponent.comp_name}</h3>
-        <span style={styles.subtitle}>({selectedComponent.comp_type})</span>
+        <span style={styles.subtitle}>({selectedComponent.comp_type}) - xref_id: {selectedComponent.id}</span>
       </div>
 
       {/* Tabs */}

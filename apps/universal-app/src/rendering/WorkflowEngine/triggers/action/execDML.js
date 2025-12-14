@@ -13,15 +13,40 @@ export async function execDML(content, context) {
     rowData: context.rowData
   });
 
-  // Get page_registry metadata from pageConfig.props
-  const pageRegistry = context.pageConfig?.props;
+  // Get page_registry metadata from context_store (set by buildDMLData) or fallback to pageConfig.props
+  let tableName, tableID, contextKey, parentID;
 
-  if (!pageRegistry) {
-    throw new Error('execDML: pageConfig.props not found in context');
+  // Try to get from context_store first (set by buildDMLData)
+  const tableNameResult = await getVal('tableName', 'raw');
+  tableName = tableNameResult?.resolvedValue || tableNameResult;
+
+  const tableIDResult = await getVal('tableID', 'raw');
+  tableID = tableIDResult?.resolvedValue || tableIDResult;
+
+  const contextKeyResult = await getVal('contextKey', 'raw');
+  contextKey = contextKeyResult?.resolvedValue || contextKeyResult;
+
+  // Always get parentID from pageConfig.props (it's a field name like "[account_id]", not a value)
+  const pageRegistry = context.pageConfig?.props;
+  if (pageRegistry?.parentID) {
+    parentID = pageRegistry.parentID;
   }
 
-  const { tableName, tableID, contextKey, parentID } = pageRegistry;
+  // If not in context_store, fallback to pageConfig.props for other metadata
+  if (!tableName || !tableID || !contextKey) {
+    console.log('🔄 Falling back to pageConfig.props for metadata');
+    
+    if (!pageRegistry) {
+      throw new Error('execDML: No table metadata found in context_store or pageConfig.props');
+    }
 
+    tableName = tableName || pageRegistry.tableName;
+    tableID = tableID || pageRegistry.tableID;
+    contextKey = contextKey || pageRegistry.contextKey;
+  }
+
+  console.log('📋 Full pageConfig:', context.pageConfig);
+  console.log('📋 pageRegistry object:', pageRegistry);
   console.log('📋 Page registry loaded:', {
     tableName,
     tableID,
@@ -40,8 +65,21 @@ export async function execDML(content, context) {
     throw new Error('Method not found in content or context_store. Set method via setVals or provide in trigger content.');
   }
 
-  // Get form data from content.data (for rowActions) or context.formData (for form operations)
-  let formData = content?.data || context.formData || context.rowData || {};
+  // Get form data from buildDMLData output in context_store
+  const dmlDataResult = await getVal('dmlData', 'raw');
+  const dmlDataString = dmlDataResult?.resolvedValue || dmlDataResult;
+
+  if (!dmlDataString) {
+    throw new Error('execDML: dmlData not found in context_store. Run buildDMLData before execDML.');
+  }
+
+  let formData;
+  try {
+    formData = JSON.parse(dmlDataString);
+    console.log('✅ Using dmlData from buildDMLData:', formData);
+  } catch (e) {
+    throw new Error('execDML: Failed to parse dmlData from context_store: ' + e.message);
+  }
 
   // For DELETE, only include the primary key (no need for other fields)
   if (method === 'DELETE') {
@@ -49,24 +87,8 @@ export async function execDML(content, context) {
     formData = pkValue ? { [tableID]: pkValue } : formData;
   }
 
-  // Handle parentID for INSERT operations (e.g., account_id)
-  if (method === 'INSERT' && parentID) {
-    const parentKey = parentID.replace(/[\[\]]/g, ''); // Remove brackets: [account_id] -> account_id
-    console.log(`🔍 Looking for parentID: ${parentKey} (from ${parentID})`);
-
-    const parentValueResult = await getVal(parentKey, 'raw');
-    console.log(`🔍 getVal result:`, parentValueResult);
-
-    const parentValue = parentValueResult?.resolvedValue || parentValueResult;
-    console.log(`🔍 Resolved parentValue:`, parentValue);
-
-    if (parentValue) {
-      formData[parentKey] = parentValue;
-      console.log(`✅ Injected ${parentKey} = ${parentValue} for INSERT`);
-    } else {
-      console.warn(`⚠️ No value found for ${parentKey} in context_store`);
-    }
-  }
+  // buildDMLData already handles all data collection including account_id from contextStore
+  // No additional injection needed here
 
   let primaryKeyValue = null;
   if (method === 'UPDATE' || method === 'DELETE') {

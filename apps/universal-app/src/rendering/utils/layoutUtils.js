@@ -32,14 +32,23 @@ export const getRowAlignment = (components) => {
 };
 
 export const separateComponentsByType = (components) => {
+  // console.debug('🔍 separateComponentsByType input:', components?.map(c => ({
+  //   id: c.id,
+  //   comp_type: c.comp_type,
+  //   hasChildren: !!c.components,
+  //   childCount: c.components?.length || 0
+  // })));
+
   // Recursively find all modals in the component tree
-  const findModals = (comps, found = []) => {
+  const findModals = (comps, found = [], depth = 0) => {
     comps?.forEach(c => {
+      // console.debug(`${'  '.repeat(depth)}Checking: ${c.id} (${c.comp_type})`); // Commented out to reduce noise
       if (c.comp_type === "Modal") {
+        console.debug(`${'  '.repeat(depth)}✅ Found modal: ${c.id}`);
         found.push(c);
       }
       if (c.components) {
-        findModals(c.components, found);
+        findModals(c.components, found, depth + 1);
       }
     });
     return found;
@@ -65,11 +74,11 @@ export const separateComponentsByType = (components) => {
     )
   ) || [];
 
-  console.log('🔍 separateComponentsByType:', {
-    modalCount: modalComponents.length,
-    modalIds: modalComponents.map(m => m.id),
-    regularCount: regularComponents.length
-  });
+  // console.debug('🔍 separateComponentsByType:', {
+  //   modalCount: modalComponents.length,
+  //   modalIds: modalComponents.map(m => m.id),
+  //   regularCount: regularComponents.length
+  // });
 
   return {
     appBarComponent,

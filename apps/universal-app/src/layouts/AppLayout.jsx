@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchLayoutConfig } from '../utils/fetchConfig';
+import { navigationEfficiency } from '../rendering/utils/NavigationEfficiency.js';
 import Appbar from './Appbar';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
@@ -8,12 +8,15 @@ const AppLayout = ({ children, appName }) => {
   const [layoutConfig, setLayoutConfig] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentApp, setCurrentApp] = useState(null);
 
   useEffect(() => {
     const loadLayoutConfig = async () => {
       try {
-        const config = await fetchLayoutConfig(appName);
+        // NavigationEfficiency: Use smart layout loading to avoid redundant appName updates
+        const config = await navigationEfficiency.getLayoutConfig(appName, currentApp);
         setLayoutConfig(config);
+        setCurrentApp(appName);
       } catch (err) {
         console.error('Failed to load layout config:', err);
         setError(err.message);
@@ -27,7 +30,7 @@ const AppLayout = ({ children, appName }) => {
     } else {
       setLoading(false);
     }
-  }, [appName]);
+  }, [appName, currentApp]);
 
   const handleLogout = () => {
     console.log('Logout clicked');

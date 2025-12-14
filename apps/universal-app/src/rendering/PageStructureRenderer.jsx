@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { execEvent } from '../utils/api';
+import { createLogger } from '../utils/logger.js';
+
+const log = createLogger('PageStructureRenderer', 'info');
 
 /**
  * PageStructureRenderer Component
@@ -29,7 +32,7 @@ export default function PageStructureRenderer({ pageConfig, ComponentRenderer })
    */
   const loadAndMergeTemplate = async () => {
     try {
-      console.log('🔧 PageStructureRenderer: Loading page structure for:', pageConfig.pageName);
+      log.info('Loading page structure for:', pageConfig.pageName);
 
       // Load complete page structure (components + props + triggers) in one call
       const structureResult = await execEvent('storedProc', { 
@@ -43,7 +46,7 @@ export default function PageStructureRenderer({ pageConfig, ComponentRenderer })
 
       // sp_pageStructure returns [components_array_with_props_and_triggers, mysql_metadata]
       const pageComponents = structureResult.data[0];
-      console.log('📋 Page structure loaded:', pageComponents.length, 'components with props/triggers');
+      log.info('Page structure loaded:', pageComponents.length, 'components with props/triggers');
 
       // Load page-specific metadata from vw_page_analysis
       const pageAnalysisResult = await execEvent('viewData', {
@@ -62,18 +65,18 @@ export default function PageStructureRenderer({ pageConfig, ComponentRenderer })
             ...pageProps
           }
         };
-        console.log('📊 Enhanced with props from vw_page_analysis:', pageProps);
+        log.debug('Enhanced with props from vw_page_analysis:', pageProps);
       }
 
       // Process and build hierarchy
       const mergedComponents = processPageStructure(pageComponents, enhancedPageConfig);
-      console.log('✅ Processed components:', mergedComponents.length);
+      log.info('Processed components:', mergedComponents.length);
 
       setMergedConfig(mergedComponents);
       setLoading(false);
 
     } catch (err) {
-      console.error('❌ PageStructureRenderer error:', err);
+      log.error('PageStructureRenderer error:', err);
       setError(err.message);
       setLoading(false);
     }
@@ -83,7 +86,7 @@ export default function PageStructureRenderer({ pageConfig, ComponentRenderer })
    * Process page structure from sp_pageStructure (already has props and triggers attached)
    */
   const processPageStructure = (components, pageData) => {
-    console.log('🔀 Processing page structure...');
+    log.debug('Processing page structure...');
 
     // Parse and replace placeholders in each component
     const processedComponents = components.map(comp => {
@@ -93,7 +96,7 @@ export default function PageStructureRenderer({ pageConfig, ComponentRenderer })
         try {
           parsedProps = JSON.parse(comp.props);
         } catch (e) {
-          console.warn('Failed to parse props for', comp.comp_name, e);
+          log.warn('Failed to parse props for', comp.comp_name, e);
         }
       }
 
@@ -103,7 +106,7 @@ export default function PageStructureRenderer({ pageConfig, ComponentRenderer })
         try {
           parsedTriggers = JSON.parse(comp.triggers);
         } catch (e) {
-          console.warn('Failed to parse triggers for', comp.comp_name, e);
+          log.warn('Failed to parse triggers for', comp.comp_name, e);
         }
       }
 
@@ -143,13 +146,13 @@ export default function PageStructureRenderer({ pageConfig, ComponentRenderer })
         delete processedComp.triggers;
       }
 
-      console.log(`  ✓ Processed ${processedComp.comp_type} (${processedComp.comp_name})`);
+      log.debug(`  ✓ Processed ${processedComp.comp_type} (${processedComp.comp_name})`);
       return processedComp;
     });
 
     // Build hierarchy from flat array
     const hierarchy = buildHierarchy(processedComponents);
-    console.log('✓ Built hierarchical structure:', hierarchy.length, 'root components');
+    log.info('Built hierarchical structure:', hierarchy.length, 'root components');
     
     return hierarchy;
   };

@@ -22,6 +22,14 @@ export const getValDirect = async (userEmail, paramName, format = 'raw') => {
 
     const rawValue = result[0].paramVal;
 
+    // Increment reads counter for performance tracking
+    const updateReadsSql = `
+      UPDATE api_wf.context_store
+      SET getVals = getVals + 1
+      WHERE email = '${userEmail}' AND paramName = '${paramName}'
+    `;
+    await executeQuery(updateReadsSql, 'PATCH');
+
     // Format for different use cases
     if (format === 'sql') {
       // For SQL replacement - quote strings, leave numbers unquoted

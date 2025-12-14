@@ -1,9 +1,19 @@
 import React from "react";
+import { createLogger } from "../../utils/logger.js";
+
+const log = createLogger('ModalRenderer', 'info');
 
 export const renderModal = (modalComp, openModals, renderComponent, eventTypeConfig = {}) => {
+  log.debug(`renderModal called for ${modalComp.id}:`, {
+    isOpen: openModals.has(modalComp.id),
+    openModals: Array.from(openModals)
+  });
+
   if (!openModals.has(modalComp.id)) {
     return null;
   }
+
+  log.info(`Rendering modal: ${modalComp.id}`);
 
   // Get Modal styles from eventTypeConfig (database-driven)
   const eventTypeStyles = eventTypeConfig.Modal?.styles || {};

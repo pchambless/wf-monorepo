@@ -3,6 +3,11 @@
  * Simple, clean architecture for executing database-defined triggers
  */
 
+import { createLogger } from "../../utils/logger.js";
+import { sessionCache } from "../utils/SessionCache.js";
+
+const log = createLogger('TriggerEngine', 'info');
+
 export class TriggerEngine {
   constructor() {
     this.contextStore = null;
@@ -31,14 +36,14 @@ export class TriggerEngine {
    */
   async execute(trigType, actionName, content, context = {}) {
     try {
-      console.log(`🎯 Executing ${trigType}/${actionName}:`, content);
+      log.info(`Executing ${trigType}/${actionName}:`, content);
 
       // Add contextStore to context
       const fullContext = { ...context, contextStore: this.contextStore };
 
       // Resolve template tokens in content
       const resolvedContent = await this.resolveTemplates(content, fullContext);
-      console.log(`📝 Template resolution:`, { original: content, resolved: resolvedContent });
+      log.debug(`Template resolution:`, { original: content, resolved: resolvedContent });
 
       // Dynamic import with explicit path context for webpack
       let module;
@@ -65,11 +70,11 @@ export class TriggerEngine {
       // Execute with standard signature: (resolvedContent, context)
       const result = await triggerFunction(resolvedContent, fullContext);
 
-      console.log(`✅ ${trigType}/${actionName} completed`);
+      log.info(`${trigType}/${actionName} completed`);
       return result;
 
     } catch (error) {
-      console.error(`❌ ${trigType}/${actionName} failed:`, error);
+      log.error(`${trigType}/${actionName} failed:`, error);
       throw error;
     }
   }
@@ -81,7 +86,7 @@ export class TriggerEngine {
    */
   async executeTriggers(triggers, context = {}) {
     if (!Array.isArray(triggers)) {
-      console.warn('⚠️ executeTriggers: triggers must be an array');
+      log.warn('executeTriggers: triggers must be an array');
       return;
     }
 
@@ -95,6 +100,8 @@ export class TriggerEngine {
     let lastResult = null;
     for (const trigger of sortedTriggers) {
       try {
+        log.debug(`Processing trigger:`, { action: trigger.action, content: trigger.content, params: trigger.params });
+
         // Determine trigType based on trigger data
         const trigType = this.getTriggerType(trigger);
         const actionName = trigger.action;
@@ -106,14 +113,14 @@ export class TriggerEngine {
 
         // If execEvent returned data, store it in DirectRenderer
         if (result?.componentId && result?.data && context.setData) {
-          console.log(`💾 Storing data for ${result.componentId}:`, result.data);
+          log.debug(`Storing data for ${result.componentId}:`, result.data);
           context.setData(result.componentId, result.data);
         } else if (result?.componentId && result?.data) {
-          console.warn(`⚠️ Cannot store data - context.setData not available. ComponentId: ${result.componentId}`);
+          log.warn(`Cannot store data - context.setData not available. ComponentId: ${result.componentId}`);
         }
 
       } catch (error) {
-        console.error('❌ Trigger execution failed:', trigger, error);
+        log.error('Trigger execution failed:', trigger, error);
         results.push({ trigger, error: error.message, success: false });
         overallSuccess = false;
         lastError = error;
@@ -125,7 +132,7 @@ export class TriggerEngine {
     if (workflowTriggers) {
       try {
         if (overallSuccess && workflowTriggers.onSuccess) {
-          console.log('🎉 Executing onSuccess callbacks:', workflowTriggers.onSuccess);
+          log.debug('Executing onSuccess callbacks:', workflowTriggers.onSuccess);
           // Add response to context for template resolution
           // Remove workflowTriggers to prevent infinite recursion
           const successContext = {
@@ -135,7 +142,7 @@ export class TriggerEngine {
           };
           await this.executeTriggers(workflowTriggers.onSuccess, successContext);
         } else if (!overallSuccess && workflowTriggers.onError) {
-          console.log('💥 Executing onError callbacks:', workflowTriggers.onError);
+          log.debug('Executing onError callbacks:', workflowTriggers.onError);
           const errorContext = {
             ...context,
             error: lastError,
@@ -144,7 +151,7 @@ export class TriggerEngine {
           await this.executeTriggers(workflowTriggers.onError, errorContext);
         }
       } catch (callbackError) {
-        console.error('❌ Callback execution failed:', callbackError);
+        log.error('Callback execution failed:', callbackError);
       }
     }
 
@@ -185,11 +192,11 @@ export class TriggerEngine {
    * Supports: {{getVal:paramName}}, {{pageConfig.prop}}, {{selected.field}}, {{row.field}}
    */
   async resolveTemplates(content, context) {
-    console.log(`🔧 resolveTemplates called with type:`, typeof content, content);
+    log.debug(`resolveTemplates called with type:`, typeof content, content);
 
     if (!content || typeof content !== 'object') {
       if (typeof content === 'string') {
-        console.log(`🔧 Calling resolveString for:`, content);
+        log.debug(`Calling resolveString for:`, content);
         return await this.resolveString(content, context);
       }
       return content;
@@ -197,16 +204,16 @@ export class TriggerEngine {
 
     // Recursively resolve templates in objects and arrays
     if (Array.isArray(content)) {
-      console.log(`🔧 Resolving array of length:`, content.length);
+      log.debug(`Resolving array of length:`, content.length);
       return await Promise.all(content.map(item => this.resolveTemplates(item, context)));
     }
 
-    console.log(`🔧 Resolving object with keys:`, Object.keys(content));
+    log.debug(`Resolving object with keys:`, Object.keys(content));
     const resolved = {};
     for (const [key, value] of Object.entries(content)) {
-      console.log(`🔧 Resolving key "${key}" with value:`, value);
+      log.debug(`Resolving key "${key}" with value:`, value);
       const resolvedKey = await this.resolveString(key, context);
-      console.log(`🔧 Resolved key "${key}" => "${resolvedKey}"`);
+      log.debug(`Resolved key "${key}" => "${resolvedKey}"`);
       resolved[resolvedKey] = await this.resolveTemplates(value, context);
     }
     return resolved;
@@ -216,7 +223,7 @@ export class TriggerEngine {
    * Resolve template tokens in a string
    */
   async resolveString(str, context) {
-    console.log(`🔍 resolveString called with:`, str);
+    log.debug(`resolveString called with:`, str);
     if (!str.includes('{{')) return str;
 
     let resolved = str;
@@ -226,13 +233,22 @@ export class TriggerEngine {
     for (const match of getValMatches) {
       const [token, paramName] = match;
       try {
-        const { getVal } = await import('@whatsfresh/shared-imports');
-        const result = await getVal(paramName, 'raw');
-        const value = result.resolvedValue ?? result ?? '';
-        console.log(`🔍 Resolved {{getVal:${paramName}}} =>`, value);
+        // Try SessionCache first for session parameters
+        let value;
+        const sessionValue = sessionCache.getSessionParam(paramName);
+        if (sessionValue !== null) {
+          value = sessionValue;
+          log.debug(`Resolved {{getVal:${paramName}}} from SessionCache =>`, value);
+        } else {
+          // Fall back to getVal for non-session parameters
+          const { getVal } = await import('@whatsfresh/shared-imports');
+          const result = await getVal(paramName, 'raw');
+          value = result.resolvedValue ?? result ?? '';
+          log.debug(`Resolved {{getVal:${paramName}}} from getVal =>`, value);
+        }
         resolved = resolved.replace(token, String(value));
       } catch (error) {
-        console.warn(`⚠️ Failed to resolve {{getVal:${paramName}}}:`, error);
+        log.warn(`Failed to resolve {{getVal:${paramName}}}:`, error);
         // Leave token as-is if resolution fails
       }
     }

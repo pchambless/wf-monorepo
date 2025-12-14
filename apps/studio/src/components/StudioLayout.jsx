@@ -79,7 +79,7 @@ const StudioLayout = () => {
   const loadComponentTree = async (pageID) => {
     try {
       console.log('🌳 StudioLayout: Loading component tree and triggers for pageID:', pageID);
-      
+
       // Fetch components and triggers in parallel
       const [compResponse, triggerResponse] = await Promise.all([
         fetch('http://localhost:3002/api/execEvent', {
@@ -87,7 +87,7 @@ const StudioLayout = () => {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify({
-            eventSQLId: 'xrefHierarchy',
+            eventSQLId: 'fetchPageStructure',
             params: { pageID }
           })
         }),

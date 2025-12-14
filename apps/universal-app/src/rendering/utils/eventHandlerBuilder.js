@@ -40,7 +40,7 @@ export function buildEventHandlers(workflowTriggers, config, setData, contextSto
       };
 
       const domTriggers = triggers.filter(trigger => trigger.is_dom_event);
-      console.log(`🔄 Executing DOM triggers:`, domTriggers, context);
+      console.log(`🔄 Executing ${domTriggers.length} DOM triggers:`, domTriggers.map(t => `${t.action}(${JSON.stringify(t.content || t.params || {})})`));
       await triggerEngine.executeTriggers(domTriggers, context);
     };
   });

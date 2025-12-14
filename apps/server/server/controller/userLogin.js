@@ -3,6 +3,7 @@ import { createRequestBody } from '../utils/queryResolver.js';
 import { executeQuery } from '../utils/dbUtils.js';
 import logger from '../utils/logger.js';
 import { getEventType } from '../events/index.js';
+import { resetSessionCounters } from './resetSessionCounters.js';
 
 const codeName = '[userLogin.js]';
 
@@ -102,6 +103,15 @@ async function login(req, res) {
                 dfltAcctID: user.dfltAcctID || null
             }
         };
+
+        // Reset session update counters for fresh tracking
+        try {
+            await resetSessionCounters(userEmail);
+            logger.debug(`${codeName} Session counters reset for ${userEmail}`);
+        } catch (resetError) {
+            logger.warn(`${codeName} Failed to reset session counters:`, resetError);
+            // Don't fail login if counter reset fails
+        }
 
         logger.info(`${codeName} Login successful`, { userEmail });
         res.json(response);

@@ -17,24 +17,24 @@ const ComponentTreeDirect = ({ pageID, selectedComponent, onComponentSelect }) =
       setLoading(true);
       console.log('🌲 ComponentTreeDirect: Loading from MySQL for pageID:', pageID);
 
-      // Query 1: Get hierarchical components using xrefHierarchy stored procedure
+      // Query 1: Get hierarchical components using fetchPageStructure (sp_pageStructure)
       const compResponse = await fetch('http://localhost:3002/api/execEvent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({
-          eventSQLId: 'xrefHierarchy',
+          eventSQLId: 'fetchPageStructure',
           params: { pageID }
         })
       });
 
       const compResult = await compResponse.json();
       console.log('🌲 ComponentTreeDirect: Raw API response:', compResult);
-      // Stored procedures return data as [results_array, metadata_object]
-      const componentsData = compResult.data?.[0] || [];
+      // fetchPageStructure returns array directly
+      const componentsData = compResult.data || [];
       console.log('🌲 ComponentTreeDirect: Components data:', componentsData);
       const components = componentsData.map(comp => ({
-        id: comp.id,
+        id: comp.xref_id || comp.id,
         comp_name: comp.comp_name,
         comp_type: comp.comp_type,
         parent_id: comp.parent_id,

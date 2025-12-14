@@ -66,7 +66,7 @@ export const loadPageForEditing = async (pageID) => {
     await clearPageData(pageID);
     await loadAllPageRegistry();
 
-    const hierarchyResult = await execEvent('xrefHierarchy', { pageID });
+    const hierarchyResult = await execEvent('fetchPageStructure', { pageID });
     const hierarchyData = Array.isArray(hierarchyResult.data?.[0])
       ? hierarchyResult.data[0]
       : hierarchyResult.data;

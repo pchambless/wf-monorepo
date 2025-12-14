@@ -79,6 +79,9 @@
       "file_path": "apps/server/server/controller/populateModules.js"
     },
     {
+      "file_path": "apps/server/server/controller/resetSessionCounters.js"
+    },
+    {
       "file_path": "apps/server/server/controller/restartServer.js"
     },
     {
@@ -844,139 +847,7 @@
       "file_path": "apps/studio/src/workflows/unifiedGenFields.js"
     },
     {
-      "file_path": "apps/templates/app-boilerplate/craco.config.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/App.jsx"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/index.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/layouts/Appbar.jsx"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/layouts/Footer.jsx"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/captureFormData.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/clearVals.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/closeModal.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execDML.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execEvent.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getVal.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/navigate.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/openModal.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/refresh.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/reload.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/setVals.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/showNotification.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/userLogin.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/visible.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/class/onLoad.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/class/onRefresh.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/hooks/useModalManager.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/hooks/useTemplateLoader.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/renderers/AppLayoutRenderer.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/renderers/ModalRenderer.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/renderers/TextRenderer.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/rendering/utils/styleUtils.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/styles/global.css"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "file_path": "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
-    },
-    {
       "file_path": "apps/universal-app/craco.config.js"
-    },
-    {
-      "file_path": "apps/universal-app/scripts/sync-rendering.js"
     },
     {
       "file_path": "apps/universal-app/src/App.jsx"
@@ -1009,6 +880,9 @@
       "file_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js"
     },
     {
+      "file_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData_v2.js"
+    },
+    {
       "file_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/captureFormData.js"
     },
     {
@@ -1028,6 +902,9 @@
     },
     {
       "file_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execDML.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execDML_v2.js"
     },
     {
       "file_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execEvent.js"
@@ -1075,25 +952,49 @@
       "file_path": "apps/universal-app/src/rendering/hooks/useTemplateLoader.js"
     },
     {
-      "file_path": "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.js"
+      "file_path": "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.jsx"
     },
     {
-      "file_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.js"
+      "file_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/renderers/DataGridRenderer.jsx"
     },
     {
       "file_path": "apps/universal-app/src/rendering/renderers/FormRenderer.js"
     },
     {
-      "file_path": "apps/universal-app/src/rendering/renderers/GridRenderer.js"
+      "file_path": "apps/universal-app/src/rendering/renderers/FormRenderer.jsx"
     },
     {
-      "file_path": "apps/universal-app/src/rendering/renderers/ModalRenderer.js"
+      "file_path": "apps/universal-app/src/rendering/renderers/GridRenderer.jsx"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/renderers/ModalRenderer.jsx"
     },
     {
       "file_path": "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx"
     },
     {
-      "file_path": "apps/universal-app/src/rendering/renderers/TextRenderer.js"
+      "file_path": "apps/universal-app/src/rendering/renderers/TextRenderer.jsx"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/utils/FormDataResolver.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/utils/NavigationEfficiency.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/utils/OptionsCache.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/utils/SessionCache.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/rendering/utils/colPosParser.js"
     },
     {
       "file_path": "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js"
@@ -1124,6 +1025,15 @@
     },
     {
       "file_path": "apps/universal-app/src/utils/fetchConfig.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/utils/healthCheck.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "file_path": "apps/universal-app/src/utils/pageRegistry.js"
     },
     {
       "file_path": "cli/ModelExecutor.js"
@@ -1496,6 +1406,14 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
+      "from_path": "apps/server/server/controller/resetSessionCounters.js",
+      "to_path": "apps/server/server/utils/dbUtils.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/resetSessionCounters.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/controller/restartServer.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
@@ -1518,6 +1436,10 @@
     {
       "from_path": "apps/server/server/controller/setVals.js",
       "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/userLogin.js",
+      "to_path": "apps/server/server/controller/resetSessionCounters.js"
     },
     {
       "from_path": "apps/server/server/controller/userLogin.js",
@@ -2856,154 +2778,6 @@
       "to_path": "apps/studio/src/config/api.js"
     },
     {
-      "from_path": "apps/templates/app-boilerplate/src/App.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/App.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/App.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/index.js",
-      "to_path": "apps/templates/app-boilerplate/src/App.jsx"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/index.js",
-      "to_path": "apps/templates/app-boilerplate/src/styles/global.css"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/layouts/Appbar.jsx"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/layouts/Footer.jsx"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/hooks/useModalManager.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/renderers/AppLayoutRenderer.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/renderers/ModalRenderer.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/renderers/TextRenderer.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/utils/styleUtils.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/clearVals.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execDML.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execDML.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getVal.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/openModal.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/refresh.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/setVals.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/userLogin.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js",
-      "to_path": "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-    },
-    {
-      "from_path": "apps/templates/app-boilerplate/src/utils/fetchConfig.js",
-      "to_path": "apps/templates/app-boilerplate/src/utils/api.js"
-    },
-    {
       "from_path": "apps/universal-app/src/App.jsx",
       "to_path": "apps/universal-app/src/layouts/AppLayout.jsx"
     },
@@ -3013,7 +2787,27 @@
     },
     {
       "from_path": "apps/universal-app/src/App.jsx",
+      "to_path": "apps/universal-app/src/rendering/utils/NavigationEfficiency.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/App.jsx",
+      "to_path": "apps/universal-app/src/rendering/utils/SessionCache.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/App.jsx",
+      "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/App.jsx",
       "to_path": "apps/universal-app/src/utils/fetchConfig.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/App.jsx",
+      "to_path": "apps/universal-app/src/utils/healthCheck.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/App.jsx",
+      "to_path": "apps/universal-app/src/utils/pageRegistry.js"
     },
     {
       "from_path": "apps/universal-app/src/index.js",
@@ -3037,7 +2831,7 @@
     },
     {
       "from_path": "apps/universal-app/src/layouts/AppLayout.jsx",
-      "to_path": "apps/universal-app/src/utils/fetchConfig.js"
+      "to_path": "apps/universal-app/src/rendering/utils/NavigationEfficiency.js"
     },
     {
       "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
@@ -3049,31 +2843,11 @@
     },
     {
       "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.js"
+      "to_path": "apps/universal-app/src/rendering/renderers/ModalRenderer.jsx"
     },
     {
       "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.js"
-    },
-    {
-      "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/universal-app/src/rendering/renderers/FormRenderer.js"
-    },
-    {
-      "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/universal-app/src/rendering/renderers/GridRenderer.js"
-    },
-    {
-      "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/universal-app/src/rendering/renderers/ModalRenderer.js"
-    },
-    {
-      "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/universal-app/src/rendering/renderers/TextRenderer.js"
-    },
-    {
-      "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js"
+      "to_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js"
     },
     {
       "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
@@ -3081,27 +2855,43 @@
     },
     {
       "from_path": "apps/universal-app/src/rendering/PageRenderer.jsx",
-      "to_path": "apps/universal-app/src/rendering/utils/styleUtils.js"
+      "to_path": "apps/universal-app/src/utils/logger.js"
     },
     {
       "from_path": "apps/universal-app/src/rendering/PageStructureRenderer.jsx",
       "to_path": "apps/universal-app/src/utils/api.js"
     },
     {
-      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js"
+      "from_path": "apps/universal-app/src/rendering/PageStructureRenderer.jsx",
+      "to_path": "apps/universal-app/src/utils/logger.js"
     },
     {
-      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js"
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+      "to_path": "apps/universal-app/src/rendering/utils/SessionCache.js"
     },
     {
-      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
-      "to_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js"
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
     },
     {
       "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
       "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js",
+      "to_path": "apps/universal-app/src/utils/pageRegistry.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData_v2.js",
+      "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData_v2.js",
+      "to_path": "apps/universal-app/src/utils/pageRegistry.js"
     },
     {
       "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/captureFormData.js",
@@ -3120,6 +2910,14 @@
       "to_path": "apps/universal-app/src/utils/api.js"
     },
     {
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execDML_v2.js",
+      "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execDML_v2.js",
+      "to_path": "apps/universal-app/src/utils/pageRegistry.js"
+    },
+    {
       "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execEvent.js",
       "to_path": "apps/universal-app/src/utils/api.js"
     },
@@ -3130,6 +2928,10 @@
     {
       "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/openModal.js",
       "to_path": "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/openModal.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
     },
     {
       "from_path": "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/refresh.js",
@@ -3144,16 +2946,160 @@
       "to_path": "apps/universal-app/src/utils/api.js"
     },
     {
-      "from_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.js",
+      "from_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx",
       "to_path": "apps/universal-app/src/rendering/utils/layoutUtils.js"
     },
     {
-      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.js",
-      "to_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.js"
+      "from_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx",
+      "to_path": "apps/universal-app/src/utils/logger.js"
     },
     {
-      "from_path": "apps/universal-app/src/rendering/renderers/GridRenderer.js",
+      "from_path": "apps/universal-app/src/rendering/renderers/DataGridRenderer.jsx",
       "to_path": "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.js",
+      "to_path": "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.js",
+      "to_path": "apps/universal-app/src/rendering/utils/colPosParser.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.jsx",
+      "to_path": "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.jsx",
+      "to_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.jsx",
+      "to_path": "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.jsx",
+      "to_path": "apps/universal-app/src/rendering/utils/colPosParser.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/FormRenderer.jsx",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/GridRenderer.jsx",
+      "to_path": "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/GridRenderer.jsx",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/ModalRenderer.jsx",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx",
+      "to_path": "apps/universal-app/src/rendering/utils/FormDataResolver.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx",
+      "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/FormRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/GridRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/TextRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/utils/FormDataResolver.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/rendering/utils/styleUtils.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/ComponentFactory.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/FormDataResolver.js",
+      "to_path": "apps/universal-app/src/rendering/utils/OptionsCache.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/FormDataResolver.js",
+      "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/FormDataResolver.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/NavigationEfficiency.js",
+      "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/NavigationEfficiency.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/NavigationEfficiency.js",
+      "to_path": "apps/universal-app/src/utils/pageRegistry.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/OptionsCache.js",
+      "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/OptionsCache.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/SessionCache.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/rendering/utils/colPosParser.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
     },
     {
       "from_path": "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js",
@@ -3161,7 +3107,35 @@
     },
     {
       "from_path": "apps/universal-app/src/utils/fetchConfig.js",
+      "to_path": "apps/universal-app/src/rendering/utils/NavigationEfficiency.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/utils/fetchConfig.js",
       "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/utils/fetchConfig.js",
+      "to_path": "apps/universal-app/src/utils/logger.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/utils/fetchConfig.js",
+      "to_path": "apps/universal-app/src/utils/pageRegistry.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/utils/healthCheck.js",
+      "to_path": "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/utils/healthCheck.js",
+      "to_path": "apps/universal-app/src/rendering/renderers/GridRenderer.jsx"
+    },
+    {
+      "from_path": "apps/universal-app/src/utils/healthCheck.js",
+      "to_path": "apps/universal-app/src/utils/api.js"
+    },
+    {
+      "from_path": "apps/universal-app/src/utils/healthCheck.js",
+      "to_path": "apps/universal-app/src/utils/fetchConfig.js"
     },
     {
       "from_path": "cli/ModelExecutor.js",

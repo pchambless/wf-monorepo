@@ -23,12 +23,16 @@ const QuerySetup = ({ component, onGenerateFields, onSaveFields }) => {
     const fetchExistingQuery = async () => {
       try {
         const xrefID = component.xref_id || component.id;
-        
-        // Set xrefID in context_store first so the query can resolve it
-        await setVals([{ paramName: 'xrefID', paramVal: xrefID }]);
-        
+        const pageID = component.pageID;
+
+        // Set both xrefID and pageID in context_store
+        await setVals([
+          { paramName: 'xrefID', paramVal: xrefID },
+          { paramName: 'pageID', paramVal: pageID }
+        ]);
+
         // Use getEventSQL query to get resolved query info from vw_eventSQL
-        const result = await execEvent('getEventSQL', { xrefID });
+        const result = await execEvent('getEventSQL', { xrefID, pageID });
         
         console.log('🔍 QuerySetup: getEventSQL result:', result);
         

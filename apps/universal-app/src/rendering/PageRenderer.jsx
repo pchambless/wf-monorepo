@@ -1,15 +1,13 @@
 import React from "react";
 import { triggerEngine } from "./WorkflowEngine/TriggerEngine.js";
 import { useModalManager } from "./hooks/useModalManager.js";
+import { createLogger } from "../utils/logger.js";
+import { componentFactory } from "./utils/ComponentFactory.js";
 
-import { getFlexPosition, getHtmlElement } from "./utils/styleUtils.js";
-import { buildEventHandlers } from "./utils/eventHandlerBuilder.js";
+const log = createLogger('PageRenderer', 'info');
+
 import { groupByRow, getRowAlignment, separateComponentsByType } from "./utils/layoutUtils.js";
-import { renderTextComponent, isTextComponent } from "./renderers/TextRenderer.js";
-import { renderAppBar, renderSidebar } from "./renderers/AppLayoutRenderer.js";
-import { renderModal } from "./renderers/ModalRenderer.js";
-import { renderContainer } from "./renderers/ContainerRenderer.js";
-import { renderRow, GridComponent } from "./renderers/GridRenderer.js";
+import { renderModal } from "./renderers/ModalRenderer.jsx";
 
 const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) => {
   if (!config) {
@@ -65,7 +63,7 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
       // Execute Container component's onLoad triggers
       const containerComponent = config.components?.find(c => c.comp_type === 'Container');
       if (containerComponent?.workflowTriggers?.onLoad) {
-        console.log('🔄 Executing Container onLoad triggers');
+        log.info('Executing Container onLoad triggers');
         await triggerEngine.executeTriggers(containerComponent.workflowTriggers.onLoad, context);
       }
     };
@@ -73,185 +71,37 @@ const PageRenderer = ({ config, eventTypeConfig = {}, customComponents = {} }) =
     executeOnLoad();
   }, [config, setData, setFormData, contextStore]);
 
-  const renderComponent = (component, parentFormId = null) => {
-    const {
-      comp_type,
-      type: legacyType,
-      id,
-      props = {},
-      style: legacyStyle = {},
-      override_styles = {},
-      position,
-      workflowTriggers,
-      components = [],
-      textContent,
-    } = component;
-
-    console.log(`🎨 renderComponent: ${comp_type} "${id}"`);
-
-    // Track if this is a Form component to pass formId to children
-    const currentFormId = comp_type === 'Form' ? id : parentFormId;
-
-    const visibilityKey = `${id}_visible`;
-    if (contextStore[visibilityKey] === false) {
-      console.log(`👻 Component ${id} hidden by visibility key`);
-      return null;
-    }
-
-    if (comp_type === "AppBar") {
-      return renderAppBar(component, config, renderComponent);
-    }
-
-    if (comp_type === "Sidebar") {
-      return renderSidebar(component, config, renderComponent);
-    }
-
-    if (comp_type === "Grid") {
-      console.log(`📊 Rendering Grid component: ${id}`);
-      return <GridComponent
-        key={id}
-        component={component}
-        renderComponent={renderComponent}
-        contextStore={contextStore}
-        config={config}
-        setData={setData}
-      />;
-    }
-
-    if (isTextComponent(comp_type)) {
-      console.log(`📝 Rendering as text component: ${comp_type} "${id}"`);
-      return renderTextComponent(component, getHtmlElement, buildEventHandlers, {
-        pageConfig: config,
-        setData,
-        contextStore,
-        formData,
-        dataStore
+  const renderComponent = React.useCallback((component, parentFormId = null) => {
+    log.debug(`renderComponent: ${component.comp_type} "${component.id}"`);
+    
+    // Special logging for select components and their parents
+    if (component.comp_type === "select" || component.components?.some(c => c.comp_type === "select")) {
+      log.info(`🎯 Component ${component.comp_type} "${component.id}" has select children or is select:`, {
+        comp_type: component.comp_type,
+        hasSelectChildren: component.components?.some(c => c.comp_type === "select"),
+        childrenTypes: component.components?.map(c => c.comp_type),
+        props: Object.keys(component.props || {})
       });
     }
 
-    if (comp_type && customComponents[comp_type]) {
-      console.log(`🔌 Rendering as custom component: ${comp_type} "${id}"`);
-      const CustomComponent = customComponents[comp_type];
-      return <CustomComponent key={id} id={id} {...props} />;
-    }
-
-    // Apply eventType styles from database, then override with component styles
-    const eventTypeStyles = eventTypeConfig[comp_type]?.styles || {};
-
-    const style = {
-      ...eventTypeStyles,
-      ...override_styles,
-      ...legacyStyle,
-    };
-
-    const type = (comp_type || legacyType || "div").toLowerCase();
-    console.log(`🏗️ Rendering as HTML element: ${comp_type} → "${type}" (id="${id}")`);
-    console.log(`   - Has ${components.length} children, dataSource: ${props.dataSource}`);
-    const htmlElement = getHtmlElement(type);
-    const eventHandlers = buildEventHandlers(
-      workflowTriggers,
+    // Create rendering context with the current renderComponent function
+    const renderingContext = {
       config,
-      setData,
+      eventTypeConfig,
+      customComponents,
       contextStore,
-      setFormData
-    );
-
-    const {
-      workflowTriggers: _wt,
-      components: _c,
-      textContent: _tc,
-      dataSource: _ds,
-      rowKey: _rk,
-      selectable: _sel,
-      columns: _cols,
-      _onClick,
-      ...domProps
-    } = props;
-
-    const finalEventHandlers = {
-      ...eventHandlers,
-      ...(_onClick && { onClick: _onClick }),
+      formData,
+      dataStore,
+      setData,
+      setFormData,
+      findComponentById,
+      selectedRows,
+      setSelectedRows,
+      renderComponent
     };
 
-    let children;
-    if (type === "tbody" && props.dataSource) {
-      const gridId = props.dataSource;
-      const data = dataStore[gridId];
-
-      const gridComponent = findComponentById(gridId);
-      const gridOnChangeTriggers = gridComponent?.workflowTriggers?.onChange;
-      const rowActions = gridComponent?.props?.rowActions;
-      const gridProps = gridComponent?.props;
-
-      if (data && data.length > 0 && components.length > 0) {
-        const placeholder = components[0];
-        children = data.map((row, idx) =>
-          renderRow(
-            placeholder,
-            row,
-            idx,
-            gridOnChangeTriggers,
-            props.rowKey,
-            renderComponent,
-            config,
-            setData,
-            rowActions,
-            gridProps,
-            selectedRows[gridId],
-            (rowId) => setSelectedRows(prev => ({ ...prev, [gridId]: rowId })),
-            eventTypeConfig.Grid?.config?.expansionStyles
-          )
-        );
-      } else {
-        children = components.map((child) => renderComponent(child, currentFormId));
-      }
-    } else if ((comp_type === "Container" || comp_type === "Form") && components.length > 0) {
-      children = renderContainer(component, (child) => renderComponent(child, currentFormId));
-    } else {
-      children =
-        textContent ||
-        (components.length > 0
-          ? components.map((child) => renderComponent(child, currentFormId))
-          : props.label || props.title || null);
-    }
-
-    if ((type === "input" || type === "textarea") && domProps.name) {
-      // Unified data architecture: All components read from dataStore
-      // Priority: user edits (formData) > loaded data (dataStore[currentFormId]) > empty
-      const loadedValue = currentFormId && dataStore[currentFormId] 
-        ? (Array.isArray(dataStore[currentFormId]) ? dataStore[currentFormId][0]?.[domProps.name] : dataStore[currentFormId]?.[domProps.name])
-        : undefined;
-      
-      console.log(`📝 Input ${domProps.name}: currentFormId=${currentFormId}, formData=${formData[domProps.name]}, loadedValue=${loadedValue}, dataStore[${currentFormId}]=`, dataStore[currentFormId]);
-      
-      domProps.value = formData[domProps.name] ?? loadedValue ?? "";
-      domProps.onChange = (e) => {
-        setFormData((prev) => ({
-          ...prev,
-          [domProps.name]: e.target.value,
-        }));
-      };
-    }
-
-    const flexPosition = getFlexPosition(position);
-    const mergedStyle = { ...style, ...flexPosition };
-
-    if (type === "textarea") {
-      children = undefined;
-    }
-
-    return React.createElement(
-      htmlElement,
-      {
-        key: id,
-        id: id,
-        style: mergedStyle,
-        ...domProps,
-        ...finalEventHandlers,
-      },
-      children
-    );
-  };
+    return componentFactory.createComponent(component, renderingContext, parentFormId);
+  }, [config, eventTypeConfig, customComponents, contextStore, formData, dataStore, setData, setFormData, findComponentById, selectedRows, setSelectedRows]);
 
   const containerStyle = {
     fontFamily: "system-ui, sans-serif",

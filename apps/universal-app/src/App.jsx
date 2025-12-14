@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Routes, Route, useParams } from 'react-router-dom';
 import AppLayout from './layouts/AppLayout';
 import PageRenderer from './rendering/PageRenderer';
-import { fetchPageStructure, fetchEventTypeConfig } from './utils/fetchConfig';
-import { setVals, execEvent } from '@whatsfresh/shared-imports';
+import { fetchEventTypeConfig } from './utils/fetchConfig';
+import { setVals, execEvent } from './utils/api';
 import { runHealthChecks, validatePageStructure } from './utils/healthCheck';
+import { initializePageRegistry, getPageByID, getPageByRoute, getPageByAppAndName } from './utils/pageRegistry';
+import { navigationEfficiency } from './rendering/utils/NavigationEfficiency.js';
+import { sessionCache } from './rendering/utils/SessionCache.js';
 
 const PageWrapper = ({ pageID, eventTypeConfig }) => {
   const [pageConfig, setPageConfig] = useState(null);
@@ -14,16 +17,36 @@ const PageWrapper = ({ pageID, eventTypeConfig }) => {
   useEffect(() => {
     const loadPageStructure = async () => {
       try {
-        const structure = await fetchPageStructure(pageID);
+        // NavigationEfficiency LUOW: Efficient page navigation with single context update
+        const structure = await navigationEfficiency.navigateToPage(pageID);
+        
+        // Get page registry metadata for buildDMLData and execDML actions
+        // NavigationEfficiency: pageID already set by navigateToPage, fetch without redundant setVals
+        const pageRegistryResult = await execEvent('fetchPageByID');
+        
+        let enhancedConfig = structure;
+        if (pageRegistryResult?.data?.[0]) {
+          const pageRegistry = pageRegistryResult.data[0];
+          enhancedConfig = {
+            ...structure,
+            props: {
+              tableName: pageRegistry.tableName,
+              contextKey: pageRegistry.contextKey,
+              tableID: pageRegistry.tableID || 'id',
+              title: pageRegistry.title || pageRegistry.pageName,
+              pageName: pageRegistry.pageName
+            }
+          };
+        }
         
         // Validate page structure integrity
-        const validationIssues = validatePageStructure(structure);
+        const validationIssues = validatePageStructure(enhancedConfig);
         if (validationIssues.length > 0) {
           console.warn(`⚠️ Page ${pageID} validation issues:`, validationIssues);
           // Continue anyway but log issues
         }
         
-        setPageConfig(structure);
+        setPageConfig(enhancedConfig);
       } catch (err) {
         console.error(`❌ Failed to load page structure for pageID ${pageID}:`, err);
         setError(err.message);
@@ -85,6 +108,29 @@ const App = () => {
         const sessionData = await sessionCheck.json();
         console.log('✅ Session valid:', sessionData.email);
 
+        // Initialize SessionCache LUOW with user session data
+        console.log('💾 Initializing SessionCache with user session data...');
+        sessionCache.setSessionData({
+          userEmail: sessionData.email,
+          userName: sessionData.name || sessionData.userName,
+          firstName: sessionData.firstName || sessionData.name?.split(' ')[0],
+          lastName: sessionData.lastName || sessionData.name?.split(' ')[1],
+          user_id: sessionData.user_id || sessionData.userId,
+          account_id: sessionData.account_id || sessionData.accountId,
+          role_id: sessionData.role_id || sessionData.roleId
+        });
+        console.log('✅ SessionCache initialized:', sessionCache.getStats());
+
+        // Set appName in context store ONCE during app initialization
+        // This eliminates the need to set it on every page navigation
+        console.log('🏷️  Setting appName in context store:', appName);
+        await setVals([{ paramName: 'appName', paramVal: appName }]);
+
+        // Initialize page registry cache
+        console.log('📚 Loading page registry cache...');
+        await initializePageRegistry();
+        console.log('✅ Page registry cache loaded');
+
         console.log('📦 Loading eventTypeConfig at startup...');
         const eventTypes = await fetchEventTypeConfig();
         console.log('✅ Loaded eventTypeConfig:', Object.keys(eventTypes).length, 'types');
@@ -141,25 +187,18 @@ const PageWrapperByName = ({ appName, pageName, eventTypeConfig }) => {
       try {
         setLoading(true);
         setError(null);
-        const routePath = `/${appName}/${pageName}`;
-        console.log(`🔍 Looking up pageID for routePath: ${routePath}`);
+        
+        console.log(`🔍 Looking up pageID for app: ${appName}, page: ${pageName}`);
 
-        // First set routePath in session context using shared API
-        await setVals([
-          { paramName: 'routePath', paramVal: routePath }
-        ]);
-        console.log('✅ setVals successful');
-
-        // Query vw_routePath to get pageID from routePath using shared API
-        const data = await execEvent('fetchPageByRoutePath');
-        console.log('📦 execEvent response:', data);
-        if (!data.data || data.data.length === 0) {
-          throw new Error(`Page not found: ${routePath}`);
+        // Use cached page registry for instant lookup
+        const page = getPageByAppAndName(appName, pageName);
+        
+        if (!page) {
+          throw new Error(`Page not found: ${appName}/${pageName}`);
         }
 
-        const foundPageID = data.data[0].pageID;
-        console.log(`✅ Found pageID: ${foundPageID} for ${routePath}`);
-        setPageID(foundPageID);
+        console.log(`✅ Found pageID: ${page.pageID} for ${appName}/${pageName} (cached)`);
+        setPageID(page.pageID);
         setLoading(false);
       } catch (err) {
         console.error('❌ Failed to lookup page:', err);

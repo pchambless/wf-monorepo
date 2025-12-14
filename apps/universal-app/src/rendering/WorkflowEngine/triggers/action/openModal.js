@@ -2,6 +2,11 @@
  * Open a modal by ID and execute its onLoad triggers
  * Content should be: {"modalId": "componentId"}
  */
+
+import { createLogger } from '../../../../utils/logger.js';
+
+const log = createLogger('openModal', 'info');
+
 export async function openModal(content, context) {
   const { triggerEngine } = await import('../../TriggerEngine.js');
   
@@ -9,15 +14,15 @@ export async function openModal(content, context) {
   const { modalId } = config;
 
   if (!modalId) {
-    console.error('openModal: modalId is required');
+    log.error('openModal: modalId is required');
     return;
   }
 
-  console.log(`🔓 Opening modal: ${modalId}`);
+  log.info(`Opening modal: ${modalId}`);
 
   // Clear form data when opening modal (to remove ghost values from previous edits)
   if (context.setFormData) {
-    console.log('🧹 Clearing formData');
+    log.debug('Clearing formData');
     context.setFormData({});
   } else {
     console.warn('⚠️ setFormData not available in context');
@@ -42,7 +47,7 @@ export async function openModal(content, context) {
   const modalComponent = findModalComponent(context.pageConfig?.components, modalId);
   
   if (modalComponent?.workflowTriggers?.onLoad) {
-    console.log(`🔄 Executing modal ${modalId} onLoad triggers`);
+    log.info(`Executing modal ${modalId} onLoad triggers`);
     await triggerEngine.executeTriggers(modalComponent.workflowTriggers.onLoad, context);
   }
 }

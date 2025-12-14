@@ -1,50 +1,68 @@
 import React, { useState, useEffect } from 'react';
-import { execEvent } from '@whatsfresh/shared-imports';
+import { execEvent } from '../../utils/api';
+import { createLogger } from '../../utils/logger.js';
+import { selectFieldResolver } from '../utils/FormDataResolver.js';
+
+const log = createLogger('SelectRenderer', 'info');
 
 export const renderSelect = (component, eventTypeConfig, formData, setFormData, dataStore, currentFormId) => {
   const { id, comp_type, props = {} } = component;
-  const config = eventTypeConfig[comp_type]?.config || {};
   
-  // Get configuration from eventType config
-  const qryName = config.qryName;
-  const placeholder = config.placeholder || 'Select...';
-  
-  // Standardized column names: all select queries return 'value' and 'label'
-  const valueKey = 'value';
-  const labelKey = 'label';
+  // Get query configuration from component props  
+  const {
+    qryName,
+    contextKey,
+    name,
+    placeholder = 'Select...',
+    valueKey = 'value',
+    labelKey = 'label',
+    cacheTTL = null,  // Allow custom cache TTL per component
+    fetchParams = {}  // Allow custom parameters for queries
+  } = props;
   
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // Load options from eventSQL query
+  // Load options using enhanced OptionsCache LUOW
   useEffect(() => {
     const loadOptions = async () => {
       try {
         setLoading(true);
-        const result = await execEvent(qryName, {});
-        setOptions(result.data || []);
+        if (qryName) {
+          // Use enhanced OptionsCache LUOW with TTL and parameters
+          const options = await selectFieldResolver.loadOptions(qryName, id, cacheTTL, fetchParams);
+          setOptions(options);
+          
+          // Log cache stats for debugging in development
+          if (process.env.NODE_ENV === 'development') {
+            const stats = selectFieldResolver.getCacheStats();
+            log.debug(`Select ${id} cache stats:`, stats);
+          }
+        } else {
+          log.warn(`Select ${id} has no qryName or eventType specified`);
+          setOptions([]);
+        }
       } catch (error) {
-        console.error(`Failed to load options for ${comp_type}:`, error);
+        log.error(`Failed to load options for ${comp_type}:`, error);
         setOptions([]);
       } finally {
         setLoading(false);
       }
     };
     
-    if (qryName) {
-      loadOptions();
-    }
-  }, [qryName, comp_type]);
+    loadOptions();
+  }, [qryName, comp_type, id, cacheTTL, JSON.stringify(fetchParams)]);  // Enhanced dependencies including cache config
   
-  // Get current value from formData or dataStore
-  const fieldName = props.name || comp_type.toLowerCase();
-  const loadedValue = currentFormId && dataStore[currentFormId]
-    ? (Array.isArray(dataStore[currentFormId]) 
-        ? dataStore[currentFormId][0]?.[fieldName] 
-        : dataStore[currentFormId]?.[fieldName])
-    : undefined;
-  
-  const currentValue = formData[fieldName] ?? loadedValue ?? '';
+  // Use SelectFieldResolver LUOW for value resolution
+  const fieldName = name || comp_type.toLowerCase();
+  const currentValue = selectFieldResolver.resolveValue(
+    fieldName, 
+    formData, 
+    dataStore, 
+    {}, // contextStore not available in this API
+    currentFormId, 
+    contextKey // use contextKey from props
+  );
   
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -83,4 +101,9 @@ export const renderSelect = (component, eventTypeConfig, formData, setFormData, 
 
 export const isSelectComponent = (comp_type) => {
   return ['SelBrand', 'SelVendor', 'SelMeasure'].includes(comp_type);
+};
+
+// Export SelectComponent for compatibility with existing imports
+export const SelectComponent = ({ component, formData, setFormData, dataStore, currentFormId }) => {
+  return renderSelect(component, {}, formData, setFormData, dataStore, currentFormId);
 };

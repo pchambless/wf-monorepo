@@ -1,11 +1,37 @@
 import React, { useState, useEffect } from 'react';
 
+// Common component types for forms
+const COMPONENT_TYPES = [
+  { value: 'text', label: 'Text Input' },
+  { value: 'textarea', label: 'Text Area' },
+  { value: 'number', label: 'Number' },
+  { value: 'email', label: 'Email' },
+  { value: 'date', label: 'Date' },
+  { value: 'MultiLine', label: 'Multi-line (textarea)' },
+  { value: 'H4', label: 'H4 Header' },
+  { value: 'H3', label: 'H3 Header' },
+  { value: 'SelBrand', label: 'Brand Selector' },
+  { value: 'SelVendor', label: 'Vendor Selector' },
+  { value: 'SelMeasure', label: 'Measure Selector' },
+];
+
 const OverrideEditor = ({ column, override, onSave, onReset, componentType = 'Grid' }) => {
   const [editedOverride, setEditedOverride] = useState({});
 
   useEffect(() => {
-    setEditedOverride(override || {});
-  }, [column, override]);
+    let parsedOverride = { ...(override || {}) };
+
+    // Parse colPos back into individual fields for editing
+    if (parsedOverride.colPos && componentType === 'Form') {
+      const [row, col, colSpan, compType] = parsedOverride.colPos.split(',');
+      parsedOverride.row = row;
+      parsedOverride.col = col;
+      parsedOverride.colSpan = colSpan;
+      parsedOverride.componentType = compType?.trim();
+    }
+
+    setEditedOverride(parsedOverride);
+  }, [column, override, componentType]);
 
   const handleChange = (field, value) => {
     setEditedOverride(prev => ({
@@ -23,7 +49,25 @@ const OverrideEditor = ({ column, override, onSave, onReset, componentType = 'Gr
 
   const handleSave = () => {
     const fieldName = column.name;
-    onSave(fieldName, editedOverride);
+
+    // Build colPos from individual fields if this is a Form override
+    let finalOverride = { ...editedOverride };
+    if (componentType === 'Form' && (editedOverride.row || editedOverride.col || editedOverride.colSpan || editedOverride.componentType)) {
+      const row = editedOverride.row || '1';
+      const col = editedOverride.col || '1';
+      const colSpan = editedOverride.colSpan || '1';
+      const compType = editedOverride.componentType || 'text';
+
+      finalOverride.colPos = `${row},${col},${colSpan},${compType}`;
+
+      // Remove individual fields since colPos replaces them
+      delete finalOverride.row;
+      delete finalOverride.col;
+      delete finalOverride.colSpan;
+      delete finalOverride.componentType;
+    }
+
+    onSave(fieldName, finalOverride);
   };
 
   const handleReset = () => {
@@ -104,6 +148,20 @@ const OverrideEditor = ({ column, override, onSave, onReset, componentType = 'Gr
                 placeholder="1"
                 style={styles.compactInput}
               />
+            </div>
+            <div style={styles.compactField}>
+              <label style={styles.compactLabel}>Component Type</label>
+              <select
+                value={editedOverride.componentType || 'text'}
+                onChange={(e) => handleChange('componentType', e.target.value)}
+                style={styles.compactInput}
+              >
+                {COMPONENT_TYPES.map(type => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
+              </select>
             </div>
           </>
         )}

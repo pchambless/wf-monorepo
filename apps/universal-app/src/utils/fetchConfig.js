@@ -1,24 +1,29 @@
 import { execEvent, setVals } from './api';
+import { createLogger } from './logger.js';
+import { navigationEfficiency } from '../rendering/utils/NavigationEfficiency.js';
+
+const log = createLogger('FetchConfig', 'info');
 
 /**
  * Fetch page structure using sp_pageStructure stored procedure
  * Returns components, props, and triggers in one call
+ * NavigationEfficiency LUOW: Moved setVals call out to eliminate redundant context updates
  */
 export const fetchPageStructure = async (pageID) => {
   try {
-    console.log(`📦 Fetching page structure for pageID: ${pageID} (timestamp: ${Date.now()})`);
+    log.info(`Fetching page structure for pageID: ${pageID} (timestamp: ${Date.now()})`);
 
-    // Call sp_pageStructure stored procedure via eventSQL
-    await setVals([{ paramName: 'pageID', paramVal: pageID }]);
+    // NavigationEfficiency: pageID should already be set by navigation LUOW
+    // Only set if not already set (defensive check for direct calls)
     const response = await execEvent('fetchPageStructure');
 
     if (response.data && response.data.length > 0) {
-      console.log(`✅ Loaded ${response.data.length} components for page ${pageID}`);
+      log.info(`Loaded ${response.data.length} components for page ${pageID}`);
 
       // Debug: Check Grid in raw data
       const gridData = response.data.find(c => c.comp_name === 'Grid');
       if (gridData) {
-        console.log('📦 Raw Grid data from database:', {
+        log.debug('Raw Grid data from database:', {
           comp_name: gridData.comp_name,
           hasTriggers: !!gridData.triggers,
           triggers: gridData.triggers?.substring(0, 100) + '...'
@@ -27,23 +32,40 @@ export const fetchPageStructure = async (pageID) => {
 
       // Transform flat component list into hierarchical structure
       const components = buildComponentHierarchy(response.data);
-      
+
       // Get page metadata from first component
       const firstComp = response.data[0];
-      
+
+      // Get page props from cached page registry (no database call needed!)
+      const { getPageByID } = await import('./pageRegistry.js');
+      const pageData = getPageByID(pageID);
+
+      // Build props object from cached page registry data
+      const pageProps = {
+        tableName: pageData?.tableName,
+        tableID: pageData?.tableID || 'id',
+        contextKey: pageData?.contextKey,
+        parentID: pageData?.parentID,
+        pageTitle: pageData?.pageTitle,
+        formHeadCol: pageData?.formHeadCol
+      };
+
+      log.info('Loaded page props:', pageProps);
+
       return {
         pageID: firstComp.pageID,
         pageName: firstComp.pageName,
         appName: firstComp.appName,
         template_type: firstComp.template_type,
         components: components,
-        layout: 'flex'
+        layout: 'flex',
+        props: pageProps  // Use the full props object from page_registry
       };
     }
 
     throw new Error(`Page structure not found for pageID: ${pageID}`);
   } catch (error) {
-    console.error(`Error fetching page structure for pageID ${pageID}:`, error);
+    log.error(`Error fetching page structure for pageID ${pageID}:`, error);
     throw error;
   }
 };
@@ -52,7 +74,7 @@ export const fetchPageStructure = async (pageID) => {
  * Build hierarchical component tree from flat list
  */
 function buildComponentHierarchy(flatComponents) {
-  console.log(`🏗️ buildComponentHierarchy: Processing ${flatComponents.length} components`);
+  log.debug(`buildComponentHierarchy: Processing ${flatComponents.length} components`);
 
   // Create lookup map
   const componentMap = new Map();
@@ -65,7 +87,7 @@ function buildComponentHierarchy(flatComponents) {
         try {
           override_styles = JSON.parse(comp.override_styles);
         } catch (e) {
-          console.error(`Failed to parse override_styles for ${comp.comp_name}:`, comp.override_styles, e);
+          log.error(`Failed to parse override_styles for ${comp.comp_name}:`, comp.override_styles, e);
         }
       }
 
@@ -77,7 +99,7 @@ function buildComponentHierarchy(flatComponents) {
           try {
             props = JSON.parse(comp.props);
           } catch (e) {
-            console.error(`Failed to parse props for ${comp.comp_name}:`, comp.props, e);
+            log.error(`Failed to parse props for ${comp.comp_name}:`, comp.props, e);
           }
         } else {
           props = comp.props;
@@ -87,19 +109,19 @@ function buildComponentHierarchy(flatComponents) {
       let workflowTriggers = null;
       if (comp.triggers) {
         if (comp.comp_name === 'Grid') {
-          console.log(`🔍 Grid triggers raw:`, comp.triggers);
+          log.debug(`Grid triggers raw:`, comp.triggers);
         }
         try {
           workflowTriggers = parseTriggersToWorkflowFormat(comp.triggers);
           if (comp.comp_name === 'Grid') {
-            console.log(`✅ Parsed Grid triggers result:`, workflowTriggers);
-            console.log(`✅ Parsed Grid triggers keys:`, workflowTriggers ? Object.keys(workflowTriggers) : 'null');
+            log.debug(`Parsed Grid triggers result:`, workflowTriggers);
+            log.debug(`Parsed Grid triggers keys:`, workflowTriggers ? Object.keys(workflowTriggers) : 'null');
           }
         } catch (e) {
-          console.error(`❌ Failed to parse triggers for ${comp.comp_name}:`, comp.triggers, e);
+          log.error(`Failed to parse triggers for ${comp.comp_name}:`, comp.triggers, e);
         }
       } else if (comp.comp_name === 'Grid') {
-        console.warn(`⚠️ Grid component has no triggers in database`);
+        log.warn(`Grid component has no triggers in database`);
       }
 
       componentMap.set(comp.xref_id, {
@@ -118,15 +140,17 @@ function buildComponentHierarchy(flatComponents) {
         components: []
       });
     } catch (e) {
-      console.error(`Failed to process component ${comp.comp_name}:`, e);
+      log.error(`Failed to process component ${comp.comp_name}:`, e);
     }
   });
 
   // Build hierarchy
   const rootComponents = [];
   componentMap.forEach(comp => {
-    if (comp.parent_id === comp.xref_id) {
+    // Root components: parent_id === xref_id OR level === 0 (for Modals)
+    if (comp.parent_id === comp.xref_id || comp.level === 0) {
       // Root component
+      log.debug(`Root component: ${comp.id} (level=${comp.level}, parent_id=${comp.parent_id})`);
       rootComponents.push(comp);
     } else {
       // Child component - add to parent
@@ -141,7 +165,7 @@ function buildComponentHierarchy(flatComponents) {
   const checkGridInTree = (components, depth = 0) => {
     components.forEach(c => {
       if (c.id === 'Grid') {
-        console.log(`${'  '.repeat(depth)}✅ Found Grid in tree:`, {
+        log.debug(`${'  '.repeat(depth)}Found Grid in tree:`, {
           id: c.id,
           comp_type: c.comp_type,
           hasWorkflowTriggers: !!c.workflowTriggers,
@@ -189,11 +213,11 @@ function parseTriggersToWorkflowFormat(triggersJson) {
 
     const triggers = JSON.parse(triggersJson);
     if (!Array.isArray(triggers) || triggers.length === 0) {
-      console.warn('⚠️ Triggers not an array or empty:', triggers);
+      log.warn('Triggers not an array or empty:', triggers);
       return null;
     }
 
-    console.log('🔍 parseTriggersToWorkflowFormat: Input array (FULL objects):', triggers);
+    log.debug('parseTriggersToWorkflowFormat: Input array (FULL objects):', triggers);
 
     // Group by class (onClick, onLoad, etc.)
     const grouped = {};
@@ -211,7 +235,7 @@ function parseTriggersToWorkflowFormat(triggersJson) {
             try {
               content = JSON.parse(trigger.content);
             } catch (e) {
-              console.warn(`⚠️ Failed to parse content as JSON for ${trigger.action}, keeping as string:`, trigger.content);
+              log.warn(`Failed to parse content as JSON for ${trigger.action}, keeping as string:`, trigger.content);
             }
           }
         }
@@ -225,15 +249,15 @@ function parseTriggersToWorkflowFormat(triggersJson) {
           is_dom_event: trigger.is_dom_event
         });
       } catch (innerE) {
-        console.error(`❌ Failed to parse trigger[${idx}]:`, innerE, trigger);
+        log.error(`Failed to parse trigger[${idx}]:`, innerE, trigger);
       }
     });
 
-    console.log('🔍 parseTriggersToWorkflowFormat: Grouped result:', Object.keys(grouped).map(k => ({ class: k, count: grouped[k].length, actions: grouped[k].map(t => t.action) })));
+    log.debug('parseTriggersToWorkflowFormat: Grouped result:', Object.keys(grouped).map(k => ({ class: k, count: grouped[k].length, actions: grouped[k].map(t => t.action) })));
 
     return Object.keys(grouped).length > 0 ? grouped : null;
   } catch (e) {
-    console.error('❌ parseTriggersToWorkflowFormat failed:', e.message, 'Input:', triggersJson?.substring(0, 200));
+    log.error('parseTriggersToWorkflowFormat failed:', e.message, 'Input:', triggersJson?.substring(0, 200));
     return null;
   }
 }
@@ -254,7 +278,7 @@ export const fetchLayoutConfig = async (appName) => {
 
     throw new Error(`Layout config not found for app: ${appName}`);
   } catch (error) {
-    console.error(`Error fetching layout config for ${appName}:`, error);
+    log.error(`Error fetching layout config for ${appName}:`, error);
     throw error;
   }
 };
@@ -262,26 +286,27 @@ export const fetchLayoutConfig = async (appName) => {
 export const fetchEventTypeConfig = async () => {
   try {
     const response = await execEvent('fetchEventTypeConfig');
-    console.log('📦 fetchEventTypeConfig response:', response);
+    log.debug('fetchEventTypeConfig response:', response);
 
     if (response.data && response.data.length > 0) {
       // Convert array to lookup object: { Modal: {styles, config}, Button: {styles, config} }
       const eventTypeMap = {};
       response.data.forEach(row => {
-        console.log(`📦 Processing eventType: ${row.eventType}`, row);
+        log.debug(`Processing eventType: ${row.eventType}`, row);
         eventTypeMap[row.eventType] = {
+          category: row.category,
           styles: row.styles ? JSON.parse(row.styles) : {},
           config: row.config ? JSON.parse(row.config) : {}
         };
       });
-      console.log('📦 Final eventTypeMap:', eventTypeMap);
+      log.debug('Final eventTypeMap:', eventTypeMap);
       return eventTypeMap;
     }
 
-    console.warn('⚠️ No eventType data returned');
+    log.warn('No eventType data returned');
     return {}; // Return empty object if no eventTypes found
   } catch (error) {
-    console.error('❌ Error fetching eventType config:', error);
+    log.error('Error fetching eventType config:', error);
     return {}; // Return empty object on error to prevent app crash
   }
 };

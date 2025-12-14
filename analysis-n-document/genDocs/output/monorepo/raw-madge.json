@@ -80,6 +80,10 @@
     "apps/server/server/utils/getUserEmail.js",
     "apps/server/server/utils/logger.js"
   ],
+  "apps/server/server/controller/resetSessionCounters.js": [
+    "apps/server/server/utils/dbUtils.js",
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/controller/restartServer.js": [
     "apps/server/server/utils/logger.js"
   ],
@@ -93,6 +97,7 @@
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/controller/userLogin.js": [
+    "apps/server/server/controller/resetSessionCounters.js",
     "apps/server/server/events/index.js",
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/logger.js",
@@ -796,110 +801,16 @@
   "apps/studio/src/workflows/unifiedGenFields.js": [
     "apps/studio/src/config/api.js"
   ],
-  "apps/templates/app-boilerplate/craco.config.js": [],
-  "apps/templates/app-boilerplate/src/App.jsx": [
-    "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx",
-    "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx",
-    "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
-  ],
-  "apps/templates/app-boilerplate/src/index.js": [
-    "apps/templates/app-boilerplate/src/App.jsx",
-    "apps/templates/app-boilerplate/src/styles/global.css"
-  ],
-  "apps/templates/app-boilerplate/src/layouts/AppLayout.jsx": [
-    "apps/templates/app-boilerplate/src/layouts/Appbar.jsx",
-    "apps/templates/app-boilerplate/src/layouts/Footer.jsx",
-    "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx",
-    "apps/templates/app-boilerplate/src/utils/fetchConfig.js"
-  ],
-  "apps/templates/app-boilerplate/src/layouts/Appbar.jsx": [],
-  "apps/templates/app-boilerplate/src/layouts/Footer.jsx": [],
-  "apps/templates/app-boilerplate/src/layouts/Sidebar.jsx": [],
-  "apps/templates/app-boilerplate/src/rendering/PageRenderer.jsx": [
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js",
-    "apps/templates/app-boilerplate/src/rendering/hooks/useModalManager.js",
-    "apps/templates/app-boilerplate/src/rendering/renderers/AppLayoutRenderer.js",
-    "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js",
-    "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js",
-    "apps/templates/app-boilerplate/src/rendering/renderers/ModalRenderer.js",
-    "apps/templates/app-boilerplate/src/rendering/renderers/TextRenderer.js",
-    "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js",
-    "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js",
-    "apps/templates/app-boilerplate/src/rendering/utils/styleUtils.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": [
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/captureFormData.js": [
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/clearVals.js": [
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/closeModal.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execDML.js": [
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js",
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/execEvent.js": [
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getMermaidContent.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/getVal.js": [
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/reload.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/setVals.js": [
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/showNotification.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/userLogin.js": [
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/action/visible.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/class/onLoad.js": [],
-  "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/triggers/class/onRefresh.js": [],
-  "apps/templates/app-boilerplate/src/rendering/hooks/useModalManager.js": [],
-  "apps/templates/app-boilerplate/src/rendering/hooks/useTemplateLoader.js": [],
-  "apps/templates/app-boilerplate/src/rendering/renderers/AppLayoutRenderer.js": [],
-  "apps/templates/app-boilerplate/src/rendering/renderers/ContainerRenderer.js": [
-    "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/renderers/GridRenderer.js": [
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/renderers/ModalRenderer.js": [],
-  "apps/templates/app-boilerplate/src/rendering/renderers/TextRenderer.js": [],
-  "apps/templates/app-boilerplate/src/rendering/utils/eventHandlerBuilder.js": [
-    "apps/templates/app-boilerplate/src/rendering/WorkflowEngine/TriggerEngine.js"
-  ],
-  "apps/templates/app-boilerplate/src/rendering/utils/layoutUtils.js": [],
-  "apps/templates/app-boilerplate/src/rendering/utils/styleUtils.js": [],
-  "apps/templates/app-boilerplate/src/styles/global.css": [],
-  "apps/templates/app-boilerplate/src/utils/api.js": [],
-  "apps/templates/app-boilerplate/src/utils/fetchConfig.js": [
-    "apps/templates/app-boilerplate/src/utils/api.js"
-  ],
   "apps/universal-app/craco.config.js": [],
-  "apps/universal-app/scripts/sync-rendering.js": [],
   "apps/universal-app/src/App.jsx": [
     "apps/universal-app/src/layouts/AppLayout.jsx",
     "apps/universal-app/src/rendering/PageRenderer.jsx",
-    "apps/universal-app/src/utils/fetchConfig.js"
+    "apps/universal-app/src/rendering/utils/NavigationEfficiency.js",
+    "apps/universal-app/src/rendering/utils/SessionCache.js",
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/fetchConfig.js",
+    "apps/universal-app/src/utils/healthCheck.js",
+    "apps/universal-app/src/utils/pageRegistry.js"
   ],
   "apps/universal-app/src/index.js": [
     "apps/universal-app/src/App.jsx",
@@ -909,7 +820,7 @@
     "apps/universal-app/src/layouts/Appbar.jsx",
     "apps/universal-app/src/layouts/Footer.jsx",
     "apps/universal-app/src/layouts/Sidebar.jsx",
-    "apps/universal-app/src/utils/fetchConfig.js"
+    "apps/universal-app/src/rendering/utils/NavigationEfficiency.js"
   ],
   "apps/universal-app/src/layouts/Appbar.jsx": [],
   "apps/universal-app/src/layouts/Footer.jsx": [],
@@ -917,25 +828,27 @@
   "apps/universal-app/src/rendering/PageRenderer.jsx": [
     "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
     "apps/universal-app/src/rendering/hooks/useModalManager.js",
-    "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.js",
-    "apps/universal-app/src/rendering/renderers/ContainerRenderer.js",
-    "apps/universal-app/src/rendering/renderers/FormRenderer.js",
-    "apps/universal-app/src/rendering/renderers/GridRenderer.js",
-    "apps/universal-app/src/rendering/renderers/ModalRenderer.js",
-    "apps/universal-app/src/rendering/renderers/TextRenderer.js",
-    "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js",
+    "apps/universal-app/src/rendering/renderers/ModalRenderer.jsx",
+    "apps/universal-app/src/rendering/utils/ComponentFactory.js",
     "apps/universal-app/src/rendering/utils/layoutUtils.js",
-    "apps/universal-app/src/rendering/utils/styleUtils.js"
+    "apps/universal-app/src/utils/logger.js"
   ],
   "apps/universal-app/src/rendering/PageStructureRenderer.jsx": [
-    "apps/universal-app/src/utils/api.js"
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/logger.js"
   ],
-  "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js": [],
+  "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js": [
+    "apps/universal-app/src/rendering/utils/SessionCache.js",
+    "apps/universal-app/src/utils/logger.js"
+  ],
   "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData.js": [
-    "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildDeleteData.js",
-    "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildInsertData.js",
-    "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/dmlBuilders/buildUpdateData.js",
-    "apps/universal-app/src/utils/api.js"
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/logger.js",
+    "apps/universal-app/src/utils/pageRegistry.js"
+  ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/buildDMLData_v2.js": [
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/pageRegistry.js"
   ],
   "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/captureFormData.js": [
     "apps/universal-app/src/utils/api.js"
@@ -951,6 +864,10 @@
     "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
     "apps/universal-app/src/utils/api.js"
   ],
+  "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execDML_v2.js": [
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/pageRegistry.js"
+  ],
   "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/execEvent.js": [
     "apps/universal-app/src/utils/api.js"
   ],
@@ -960,7 +877,8 @@
   ],
   "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/navigate.js": [],
   "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/openModal.js": [
-    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+    "apps/universal-app/src/utils/logger.js"
   ],
   "apps/universal-app/src/rendering/WorkflowEngine/triggers/action/refresh.js": [
     "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
@@ -978,19 +896,73 @@
   "apps/universal-app/src/rendering/WorkflowEngine/triggers/class/onRefresh.js": [],
   "apps/universal-app/src/rendering/hooks/useModalManager.js": [],
   "apps/universal-app/src/rendering/hooks/useTemplateLoader.js": [],
-  "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.js": [],
-  "apps/universal-app/src/rendering/renderers/ContainerRenderer.js": [
-    "apps/universal-app/src/rendering/utils/layoutUtils.js"
+  "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.jsx": [],
+  "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx": [
+    "apps/universal-app/src/rendering/utils/layoutUtils.js",
+    "apps/universal-app/src/utils/logger.js"
   ],
-  "apps/universal-app/src/rendering/renderers/FormRenderer.js": [
-    "apps/universal-app/src/rendering/renderers/ContainerRenderer.js"
-  ],
-  "apps/universal-app/src/rendering/renderers/GridRenderer.js": [
+  "apps/universal-app/src/rendering/renderers/DataGridRenderer.jsx": [
     "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
   ],
-  "apps/universal-app/src/rendering/renderers/ModalRenderer.js": [],
-  "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx": [],
-  "apps/universal-app/src/rendering/renderers/TextRenderer.js": [],
+  "apps/universal-app/src/rendering/renderers/FormRenderer.js": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+    "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx",
+    "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx",
+    "apps/universal-app/src/rendering/utils/colPosParser.js",
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/renderers/FormRenderer.jsx": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+    "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx",
+    "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx",
+    "apps/universal-app/src/rendering/utils/colPosParser.js",
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/renderers/GridRenderer.jsx": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/renderers/ModalRenderer.jsx": [
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx": [
+    "apps/universal-app/src/rendering/utils/FormDataResolver.js",
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/renderers/TextRenderer.jsx": [],
+  "apps/universal-app/src/rendering/utils/ComponentFactory.js": [
+    "apps/universal-app/src/rendering/renderers/AppLayoutRenderer.jsx",
+    "apps/universal-app/src/rendering/renderers/ContainerRenderer.jsx",
+    "apps/universal-app/src/rendering/renderers/FormRenderer.jsx",
+    "apps/universal-app/src/rendering/renderers/GridRenderer.jsx",
+    "apps/universal-app/src/rendering/renderers/SelectRenderer.jsx",
+    "apps/universal-app/src/rendering/renderers/TextRenderer.jsx",
+    "apps/universal-app/src/rendering/utils/FormDataResolver.js",
+    "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js",
+    "apps/universal-app/src/rendering/utils/styleUtils.js",
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/utils/FormDataResolver.js": [
+    "apps/universal-app/src/rendering/utils/OptionsCache.js",
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/utils/NavigationEfficiency.js": [
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/logger.js",
+    "apps/universal-app/src/utils/pageRegistry.js"
+  ],
+  "apps/universal-app/src/rendering/utils/OptionsCache.js": [
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/utils/SessionCache.js": [
+    "apps/universal-app/src/utils/logger.js"
+  ],
+  "apps/universal-app/src/rendering/utils/colPosParser.js": [
+    "apps/universal-app/src/utils/logger.js"
+  ],
   "apps/universal-app/src/rendering/utils/eventHandlerBuilder.js": [
     "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js"
   ],
@@ -1003,8 +975,19 @@
   "apps/universal-app/src/templates/TemplateRenderer.jsx": [],
   "apps/universal-app/src/utils/api.js": [],
   "apps/universal-app/src/utils/fetchConfig.js": [
-    "apps/universal-app/src/utils/api.js"
+    "apps/universal-app/src/rendering/utils/NavigationEfficiency.js",
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/logger.js",
+    "apps/universal-app/src/utils/pageRegistry.js"
   ],
+  "apps/universal-app/src/utils/healthCheck.js": [
+    "apps/universal-app/src/rendering/WorkflowEngine/TriggerEngine.js",
+    "apps/universal-app/src/rendering/renderers/GridRenderer.jsx",
+    "apps/universal-app/src/utils/api.js",
+    "apps/universal-app/src/utils/fetchConfig.js"
+  ],
+  "apps/universal-app/src/utils/logger.js": [],
+  "apps/universal-app/src/utils/pageRegistry.js": [],
   "cli/ModelExecutor.js": [
     "cli/services/ModelService.js"
   ],

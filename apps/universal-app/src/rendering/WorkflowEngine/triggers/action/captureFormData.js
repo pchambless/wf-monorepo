@@ -7,21 +7,32 @@
  * @returns {Object} The captured form data
  */
 export async function captureFormData(params, context) {
+  console.log('📋 captureFormData called with params:', params);
   const { comp_name } = params;
 
   if (!comp_name) {
     throw new Error('captureFormData: comp_name is required');
   }
 
-  // Get form element from DOM (comp_name is the DOM id)
-  const form = document.getElementById(comp_name);
-  if (!form) {
-    throw new Error(`captureFormData: Form not found with id "${comp_name}"`);
+  console.log('📋 Looking for form with id:', comp_name);
+  // Get form container from DOM (might be a div with Form id, not an actual <form> element)
+  let formContainer = document.getElementById(comp_name);
+
+  console.log('📋 Step 1: getElementById result:', formContainer);
+
+  if (!formContainer) {
+    console.error(`❌ Form container not found with id "${comp_name}"`);
+    console.error('Available elements with id:', Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+    throw new Error(`captureFormData: Form container not found with id "${comp_name}"`);
   }
 
-  // Scrape all input/select/textarea elements
+  console.log('✅ Found form container:', formContainer.tagName);
+
+  // Scrape all input/select/textarea elements within the container
   const formData = {};
-  const inputs = form.querySelectorAll('input, select, textarea');
+  const inputs = formContainer.querySelectorAll('input, select, textarea');
+
+  console.log('📋 Found inputs:', inputs.length);
 
   inputs.forEach(input => {
     const fieldName = input.name || input.id;

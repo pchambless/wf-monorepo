@@ -15,7 +15,7 @@ export async function refresh(content, context) {
     throw new Error(`refresh: content must be string or array, got ${typeof content}`);
   }
 
-  console.log('🔄 refresh: Looking for components:', componentIds);
+  console.debug('🔄 refresh: Looking for components:', componentIds);
 
   // Execute onRefresh for each target component
   for (const componentId of componentIds) {
@@ -31,7 +31,7 @@ export async function refresh(content, context) {
       continue;
     }
 
-    console.log(`🔄 refresh: Executing onRefresh for ${componentId}`, component.workflowTriggers.onRefresh);
+    console.debug(`🔄 refresh: Executing onRefresh for ${componentId}`, component.workflowTriggers.onRefresh);
 
     // Pass componentId so execEvent knows where to store data
     const refreshContext = { ...context, componentId };

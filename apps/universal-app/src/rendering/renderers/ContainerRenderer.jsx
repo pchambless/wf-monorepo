@@ -1,13 +1,16 @@
 import React from "react";
 import { groupByRow, getRowAlignment } from "../utils/layoutUtils.js";
+import { createLogger } from "../../utils/logger.js";
+
+const log = createLogger('ContainerRenderer', 'info');
 
 export const renderContainer = (component, renderComponent) => {
   const { id, components = [], comp_type } = component;
 
-  console.log(`📦 ContainerRenderer: Rendering ${comp_type} "${id}" with ${components.length} children:`, components.map(c => `${c.comp_type}:${c.id}`));
+  log.debug(`ContainerRenderer: Rendering ${comp_type} "${id}" with ${components.length} children:`, components.map(c => `${c.comp_type}:${c.id}`));
 
   if (components.length === 0) {
-    console.warn(`⚠️ Container "${id}" has no children`);
+    log.warn(`Container "${id}" has no children`);
     return null;
   }
 
