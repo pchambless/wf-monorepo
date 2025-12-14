@@ -1,0 +1,37 @@
+capability: database-operations
+description:  Patterns and procedures for database modifications
+compatible_agents: [kiro, claude, github-copilot, vscode-copilot]
+estimated_tokens: 1000-3000
+
+patterns:
+  eventSQL_insert:
+    description: Create new eventSQL query entries
+    template: |
+      INSERT INTO api_wf.eventSQL (grp, qryName, qrySQL, qryDescription, qryType, created_by) VALUES (?, ?, ?, ?, ?, ?);
+    reference_query: "SELECT * FROM api_wf.eventSQL WHERE qryName LIKE 'ingrType%' LIMIT 3"
+    validation:  "Check for duplicate qryName before inserting"
+
+  page_registry_insert:
+    description: Register new pages in page_registry
+    template: |
+      INSERT INTO api_wf.page_registry (parentApp, pageName, pageUrl, pageType, eventSQL_id, created_by) VALUES (?, ?, ?, ?, ?, ?);
+    auto_increment_note: "ID auto-increments, check LAST_INSERT_ID()"
+
+  eventComp_xref_clone:
+    description: Clone component sets for new pages
+    reference_template: "SELECT * FROM api_wf.eventComp_xref WHERE page_id = 11"
+    clone_strategy: "Copy all components, update page_id and eventType_id"
+
+impact_logging:
+  procedure: sp_logPlanImpact
+  default_params:
+    change_type: feature
+    phase: sprint-s1
+
+agent_selection:
+  prefer:  kiro
+  fallback: [claude, github-copilot]
+  criteria:
+    - "Use kiro if available (database specialist)"
+    - "Use claude if >5000 tokens or complex JSON updates"
+    - "Use any agent for simple INSERTs"
