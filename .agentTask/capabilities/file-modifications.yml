@@ -1,0 +1,44 @@
+capability: file-modifications
+description: Patterns for updating config files, JSON, code files
+compatible_agents: [claude, github-copilot, vscode-copilot, kiro]
+estimated_tokens:  800-2000
+
+patterns:
+  sidebar_config_update:
+    description: Update app.sidebarConfig JSON column
+    file:  api_wf.app.sidebarConfig
+    method: SQL UPDATE with JSON modification
+    template: |
+      UPDATE api_wf.app 
+      SET sidebarConfig = JSON_SET(
+        sidebarConfig,
+        '$.sections[{index}]',
+        JSON_OBJECT(...)
+      )
+      WHERE app_id = ?;
+    validation: "Validate JSON structure before UPDATE"
+  react_component_update:
+    description:  Modify React component files
+    file_pattern: "apps/*/src/**/*.jsx"
+    method: Direct file edit via git
+    best_practices:
+      - "Preserve existing imports"
+      - "Maintain code style (indentation, quotes)"
+      - "Add comments for complex changes"
+  package_json_update:
+    description: Add dependencies or scripts
+    file_pattern: "package.json, apps/*/package.json"
+    validation: "Run npm install after changes"
+
+impact_logging:
+  procedure: sp_logPlanImpact
+  auto_detect_blast_radius: true
+  query_modules_table: true
+
+agent_selection:
+  prefer:  claude
+  fallback: [github-copilot, vscode-copilot]
+  criteria:
+    - "Use claude for JSON/config modifications"
+    - "Use vscode-copilot for component files"
+    - "Use any agent for simple text updates"
