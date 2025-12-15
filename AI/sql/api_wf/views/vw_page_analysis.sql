@@ -4,6 +4,7 @@ SELECT
   pageName,
   appName,
   appID,
+  status,
   JSON_UNQUOTE(JSON_EXTRACT(props, '$.tableName')) as tableName,
   JSON_UNQUOTE(JSON_EXTRACT(props, '$.template_type')) as template_type,
   JSON_EXTRACT(props, '$.parentID') as parentID,

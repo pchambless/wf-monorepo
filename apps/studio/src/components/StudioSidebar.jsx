@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { execEvent, setVals } from '../utils/api';
 import PreviewModal from './PreviewModal';
 import DBBrowserModal from './DBBrowserModal';
-import { loadPageForEditing } from '../utils/pageLoader';
+import { loadPageForEditing, loadAllPageRegistry } from '../utils/pageLoader';
 import { buildPageConfig } from '../utils/pageConfigBuilder';
 import { initializeApp, navigateToPage, warnBeforeNavigation, clearWorkingData, syncToMySQL, hasPendingChanges } from '../db/operations';
+import { db } from '../db/studioDb';
 
 const StudioSidebar = ({ onPageConfigLoaded }) => {
   const [apps, setApps] = useState([]);
@@ -196,6 +197,24 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
     }
   };
 
+  const handleRefreshPages = async () => {
+    try {
+      console.log('🔄 Refreshing page data...');
+      
+      // Clear IndexedDB cache
+      await db.page_registry.clear();
+      
+      // Force reload from MySQL
+      await loadAllPageRegistry(true);
+      
+      // Refresh the page to reload everything
+      window.location.reload();
+    } catch (error) {
+      console.error('❌ Failed to refresh:', error);
+      alert('Failed to refresh data: ' + error.message);
+    }
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.header}>
@@ -268,6 +287,12 @@ const StudioSidebar = ({ onPageConfigLoaded }) => {
       <div style={styles.divider} />
 
       <div style={styles.section}>
+        <button
+          onClick={handleRefreshPages}
+          style={{...styles.dbBrowserButton, backgroundColor: '#10b981', marginBottom: '8px'}}
+        >
+          🔄 Refresh Pages
+        </button>
         <button
           onClick={() => setShowDBBrowser(true)}
           style={styles.dbBrowserButton}

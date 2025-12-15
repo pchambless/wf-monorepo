@@ -1893,7 +1893,7 @@
     },
     {
       "file": "apps/studio/src/db/studioDb.js",
-      "purpose": "Auto-inferred from dependency graph. 31 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 32 dependents.",
       "tags": [
         "studio"
       ],

@@ -2319,6 +2319,10 @@
     },
     {
       "from_path": "apps/studio/src/components/StudioSidebar.jsx",
+      "to_path": "apps/studio/src/db/studioDb.js"
+    },
+    {
+      "from_path": "apps/studio/src/components/StudioSidebar.jsx",
       "to_path": "apps/studio/src/utils/api.js"
     },
     {

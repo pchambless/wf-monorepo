@@ -496,6 +496,7 @@
     "apps/studio/src/components/DBBrowserModal.jsx",
     "apps/studio/src/components/PreviewModal.jsx",
     "apps/studio/src/db/operations/index.js",
+    "apps/studio/src/db/studioDb.js",
     "apps/studio/src/utils/api.js",
     "apps/studio/src/utils/pageConfigBuilder/index.js",
     "apps/studio/src/utils/pageLoader.js"

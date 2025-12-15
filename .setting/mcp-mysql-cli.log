@@ -421,3 +421,12 @@
 2025-12-13T11:46:54.790Z | INFO | MCP MySQL server process started with PID: 1363856
 2025-12-13T11:46:54.791Z | INFO | Signal handlers registered for SIGINT and SIGTERM
 2025-12-13T11:46:54.791Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-15T00:27:38.830Z | INFO | MCP MySQL server exited with code: 1
+2025-12-15T00:27:39.836Z | INFO | CLI process exiting after server shutdown
+2025-12-15T00:27:39.837Z | INFO | CLI process exiting with code: 1
+2025-12-15T00:28:38.591Z | INFO | MCP MySQL server exited with code: 1
+2025-12-15T00:28:39.592Z | INFO | CLI process exiting after server shutdown
+2025-12-15T00:28:39.593Z | INFO | CLI process exiting with code: 1
+2025-12-15T00:28:51.075Z | INFO | MCP MySQL server exited with code: 1
+2025-12-15T00:28:52.077Z | INFO | CLI process exiting after server shutdown
+2025-12-15T00:28:52.078Z | INFO | CLI process exiting with code: 1
