@@ -90,71 +90,13 @@ BEGIN
         CASE WHEN ct.comp_type = 'Modal' THEN 0 ELSE ct.level END AS level,
         ct.id_path,
         
-        (SELECT JSON_OBJECTAGG(p.paramName,
-                      api_wf.f_resolvePageTokens(p.paramVal, requestedPageID))
-               FROM (
-                   -- For CRUD: Get page-specific props first (higher priority)
-                   SELECT paramName, paramVal
-                   FROM api_wf.vw_eventProps
-                   WHERE xref_id = ct.xref_id
-                     AND pageID = requestedPageID
-                     AND templateType = 'crud'
-
-                   UNION
-
-                   -- For CRUD: Get template props that don't exist in page-specific
-                   SELECT t.paramName, t.paramVal
-                   FROM api_wf.vw_eventProps t
-                   WHERE t.xref_id = ct.xref_id
-                     AND t.pageID = 11
-                     AND templateType = 'crud'
-                     AND NOT EXISTS (
-                         SELECT 1 FROM api_wf.vw_eventProps ps
-                         WHERE ps.xref_id = ct.xref_id
-                           AND ps.pageID = requestedPageID
-                           AND ps.paramName = t.paramName
-                     )
-
-                   UNION
-
-                   -- For custom pages: Just get own props
-                   SELECT paramName, paramVal
-                   FROM api_wf.vw_eventProps
-                   WHERE xref_id = ct.xref_id
-                     AND pageID = requestedPageID
-                     AND (templateType IS NULL OR templateType != 'crud')
-               ) p
-              ) AS props,
-
-
-        
-        -- Triggers: Aggregate all triggers for this component as JSON array
-        -- For CRUD pages: get triggers from template (11)
-        -- For custom pages: get triggers from requested page
-        -- Note: Using CONCAT to build JSON array manually to preserve ORDER BY
-                (SELECT CONCAT('[',
-             GROUP_CONCAT(
-                 JSON_OBJECT(
-                     'trigger_id', t.trigger_id,
-                     'ordr', t.ordr,
-                     'class', t.class,
-                     'action', t.action,
-                     'is_dom_event', t.is_dom_event,
-                     'content', api_wf.f_resolvePageTokens(t.content, requestedPageID)
-                 )
-                 ORDER BY t.ordr
-                 SEPARATOR ','
-             ),
-         ']')
-         FROM api_wf.vw_eventTrigger t
-         WHERE t.xref_id = ct.xref_id
-           AND t.pageID = CASE
-               WHEN templateType = 'crud' THEN 11  -- Template triggers
-               ELSE requestedPageID                 -- Own triggers
-           END
-        ) AS triggers
+        -- Props and triggers from vw_pageComponents view
+        vc.props,
+        vc.triggers
         
     FROM component_tree ct
+    LEFT JOIN api_wf.vw_pageComponents vc ON ct.xref_id = vc.xref_id 
+        AND vc.pageID = requestedPageID
     ORDER BY 
         CASE WHEN ct.comp_type = 'Modal' THEN 0 ELSE ct.level END,
         ct.posOrder;

@@ -55,6 +55,12 @@ const renderGridContent = (component, renderComponent, contextStore, gridId) => 
     }
   }
 
+  // Safety check for columns
+  if (!columns || !Array.isArray(columns)) {
+    log.warn(`Grid ${id} has no columns configured or columns is not an array:`, columns);
+    return <div>Grid {id}: No columns configured</div>;
+  }
+
   const visibleColumns = columns
     .map(col => ({
       ...col,

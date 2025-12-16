@@ -39,7 +39,7 @@ export class ComponentFactory {
     const componentSignature = `${comp_type}-${id}-${parentFormId || 'root'}`;
     
     // For select components, include query name to ensure cache invalidation
-    if (comp_type === "select" && props.qryName) {
+    if ((comp_type === "select" || comp_type === "Select") && props.qryName) {
       return `${componentSignature}-${props.qryName}`;
     }
     
@@ -106,6 +106,8 @@ export class ComponentFactory {
       return renderSidebar(component, config, renderComponent);
     }
 
+    // AppNavigation is now handled as a regular container with child Select components
+
     if (comp_type === "Grid") {
       log.debug(`Rendering Grid component: ${id}`);
       return React.createElement(GridComponent, {
@@ -131,7 +133,7 @@ export class ComponentFactory {
       });
     }
 
-    if (comp_type === "select") {
+    if (comp_type === "select" || comp_type === "Select") {
       log.info(`🎯 ComponentFactory creating SELECT: ${id} with stable key: ${stableKey}`);
       const handleChange = (fieldName, value) => {
         log.debug(`Select ${id} onChange: ${fieldName} = ${value}`);
@@ -143,7 +145,7 @@ export class ComponentFactory {
         component,
         contextStore,
         formData,
-        onChange: handleChange,
+        setFormData,
         currentFormId,
         dataStore
       });

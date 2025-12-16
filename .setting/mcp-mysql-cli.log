@@ -430,3 +430,8 @@
 2025-12-15T00:28:51.075Z | INFO | MCP MySQL server exited with code: 1
 2025-12-15T00:28:52.077Z | INFO | CLI process exiting after server shutdown
 2025-12-15T00:28:52.078Z | INFO | CLI process exiting with code: 1
+2025-12-16T12:32:05.405Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-16T12:32:05.407Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-16T12:32:05.409Z | INFO | MCP MySQL server process started with PID: 3309385
+2025-12-16T12:32:05.409Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-16T12:32:05.409Z | INFO | Press Ctrl+C to gracefully shutdown the server
