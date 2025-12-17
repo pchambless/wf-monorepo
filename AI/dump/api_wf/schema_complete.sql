@@ -290,6 +290,7 @@ CREATE TABLE `eventComposite` (
   `layout` text COLLATE utf8mb4_general_ci,
   `dependencies` text COLLATE utf8mb4_general_ci,
   `props` json DEFAULT NULL,
+  `eventSQL` json DEFAULT NULL,
   `triggers` json DEFAULT NULL,
   `style` text COLLATE utf8mb4_general_ci,
   `purpose` text COLLATE utf8mb4_general_ci,
@@ -302,7 +303,7 @@ CREATE TABLE `eventComposite` (
   `active` tinyint(1) GENERATED ALWAYS AS ((case when (`deleted_at` is null) then 1 else 0 end)) STORED,
   PRIMARY KEY (`id`),
   UNIQUE KEY `usi_composite_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -318,7 +319,7 @@ CREATE TABLE `eventPageConfig` (
   `xref_id` int NOT NULL,
   `props` json DEFAULT NULL,
   `triggers` json DEFAULT NULL,
-  `qryData` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `eventSQL` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `created_by` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'Paul',
@@ -626,6 +627,42 @@ CREATE TABLE `modules` (
   KEY `modules_last_detected_at_IDX` (`last_detected_at`) USING BTREE,
   KEY `modules_fileName_IDX` (`fileName`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=813 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `pageComponents`
+--
+
+DROP TABLE IF EXISTS `pageComponents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pageComponents` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `pageID` int NOT NULL,
+  `comp_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Unique name on this page',
+  `composite_id` int NOT NULL COMMENT 'References eventComposite.id',
+  `parent_id` int DEFAULT NULL COMMENT 'References pageComponents.id (self)',
+  `posOrder` varchar(25) COLLATE utf8mb4_general_ci DEFAULT '00,00,00,left' COMMENT 'Row, column, order, alignment',
+  `title` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'Display title override',
+  `style` text COLLATE utf8mb4_general_ci COMMENT 'Component-specific style overrides',
+  `description` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'system',
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `active` tinyint(1) GENERATED ALWAYS AS ((case when (`deleted_at` is null) then 1 else 0 end)) STORED,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usi_page_component` (`pageID`,`comp_name`),
+  KEY `idx_pageID` (`pageID`),
+  KEY `idx_composite_id` (`composite_id`),
+  KEY `idx_parent_id` (`parent_id`),
+  KEY `idx_active` (`active`),
+  CONSTRAINT `fk_pageComponents_composite` FOREIGN KEY (`composite_id`) REFERENCES `eventComposite` (`id`),
+  CONSTRAINT `fk_pageComponents_page` FOREIGN KEY (`pageID`) REFERENCES `page_registry` (`id`),
+  CONSTRAINT `fk_pageComponents_parent` FOREIGN KEY (`parent_id`) REFERENCES `pageComponents` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Component instances on pages - replaces eventComp_xref';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1147,6 +1184,22 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `controller_id`,
  1 AS `is_dom_event`,
  1 AS `content`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `vw_execEvents`
+--
+
+DROP TABLE IF EXISTS `vw_execEvents`;
+/*!50001 DROP VIEW IF EXISTS `vw_execEvents`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `vw_execEvents` AS SELECT 
+ 1 AS `qryName`,
+ 1 AS `qrySQL`,
+ 1 AS `source`,
+ 1 AS `composite_id`,
+ 1 AS `composite_name`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -3497,6 +3550,24 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `vw_execEvents`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vw_execEvents`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`wf_admin`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `vw_execEvents` AS select json_unquote(json_extract(`jt`.`value`,'$.qryName')) AS `qryName`,json_unquote(json_extract(`jt`.`value`,'$.qrySQL')) AS `qrySQL`,'composite' AS `source`,`ec`.`id` AS `composite_id`,`ec`.`name` AS `composite_name` from (`eventComposite` `ec` join json_table(`ec`.`eventSQL`, '$.*' columns (`value` json path '$')) `jt`) where ((`ec`.`active` = 1) and (`ec`.`eventSQL` is not null)) union all select json_unquote(json_extract(`jt`.`value`,'$.qryName')) AS `qryName`,json_unquote(json_extract(`jt`.`value`,'$.qrySQL')) AS `qrySQL`,'pageConfig' AS `source`,`epc`.`id` AS `pageConfig_id`,concat('page_',`epc`.`pageID`,'_comp_',`epc`.`xref_id`) AS `composite_name` from (`eventPageConfig` `epc` join json_table(`epc`.`eventSQL`, '$.*' columns (`value` json path '$')) `jt`) where ((`epc`.`active` = 1) and (`epc`.`eventSQL` is not null)) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `vw_hier_components`
 --
 
@@ -4063,4 +4134,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-16 12:43:57
+-- Dump completed on 2025-12-16 19:00:46
