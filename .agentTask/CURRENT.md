@@ -15,18 +15,32 @@ Deliver a universal login, app selection, and shell rendering flow based entirel
 ## Checklist & Agent Assignments
 
 ### Database Setup
-- [ ] **1.1** Create or enhance login form composite — *Agent: kiro*
-- [ ] **1.2** Create Admin/Studio2/Whatsfresh shell composites — *Agent: kiro*
-- [ ] **1.3** Wire pageComponents entries in page_registry — *Agent: kiro*
+- [x] **1.1** Create or enhance login form composite — *Agent: kiro*
+  **Status:** ✅ complete — @kiro — 2024-12-17
+  Notes: Enhanced authAppList composite (id: 38) with structured login form and app selection redirect
+- [x] **1.2** Create Admin/Studio2/Whatsfresh shell composites — *Agent: kiro + claude*
+  **Status:** ✅ complete — @kiro — 2024-12-17, refined @claude — 2025-12-17
+  Notes: Initially created 3 app-specific shells (39, 40, 41). Refactored to single reusable AppShell composite (id: 39) with page-specific overrides via eventPageConfig. This demonstrates the template + override pattern.
+- [x] **1.3** Wire pageComponents entries in page_registry — *Agent: kiro + claude*
+  **Status:** ✅ complete — @kiro — 2024-12-17, enhanced @claude — 2025-12-17
+  Notes: Wired shells to pages: admin(13), studio2(19), whatsfresh(1). Added eventPageConfig overrides for app-specific titles and menu items. Fixed eventPageConfig FK to reference pageComponents.id instead of eventComp_xref.id.
 
 ### sp_pageStructure Redesign
-- [ ] **2.1** Output hierarchical JSON — *Agent: kiro*
-- [ ] **2.2** Merge composite + page overrides — *Agent: kiro*
-- [ ] **2.3** Group by (appBar/sidebar/modals/content) — *Agent: kiro*
+- [x] **2.1** Output hierarchical JSON — *Agent: kiro*
+  **Status:** ✅ complete — @kiro — 2024-12-17
+- [x] **2.2** Merge composite + page overrides — *Agent: kiro*
+  **Status:** ✅ complete — @kiro — 2024-12-17
+- [x] **2.3** Group by (appBar/sidebar/modals/content) — *Agent: kiro*
+  **Status:** ✅ complete — @kiro — 2024-12-17
+  Notes: Completely rewritten sp_pageStructure for composite architecture, tested successfully
 
 ### Frontend/Router
 - [ ] **3.1** Update frontend routes — *Agent: claude / vscode-copilot*
+  **Status:** ⏳ next — @claude — 2025-12-17
+  Notes: Need to update universal-app router to handle composite-based pages. Verify route mapping for admin(13), studio2(19), whatsfresh(1).
 - [ ] **4.1** PageRenderer simplification (`fetchConfig.js`) — *Agent: claude / vscode-copilot*
+  **Status:** ⏳ next — @claude — 2025-12-17
+  Notes: Update fetchConfig to handle new sp_pageStructure output format. Remove client-side transformation if DB returns structured JSON. Target: <100 lines (currently 313).
 
 ### Manual/QA Validation
 - [ ] **5.1** Login form loads from eventComposite — *Agent: QA/Human*
