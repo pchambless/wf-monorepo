@@ -1,0 +1,16 @@
+{
+  "name": "n8n-dev-tools",
+  "version": "1.0.0",
+  "description": "n8n development tools for WhatsFresh",
+  "main": "dev-sync.js",
+  "scripts": {
+    "dev": "node dev-sync.js"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": ["n8n", "workflows", "automation"],
+  "author": "WhatsFresh Team",
+  "license": "MIT"
+}

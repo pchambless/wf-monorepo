@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n-whatsfresh
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      # Basic n8n configuration
+      - N8N_BASIC_AUTH_ACTIVE=false
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=development
+      
+      # Install community packages (MySQL should be built-in)
+      - N8N_COMMUNITY_PACKAGES=@n8n/n8n-nodes-langchain
+      
+      # Enable API access
+      - N8N_API_KEY_AUTH_HEADER=X-N8N-API-KEY
+      
+      # Workflow execution settings
+      - EXECUTIONS_PROCESS=main
+      - EXECUTIONS_MODE=regular
+      
+      # Security settings
+      - N8N_SECURE_COOKIE=false
+      - N8N_METRICS=true
+      
+      # Logging
+      - N8N_LOG_LEVEL=info
+      - N8N_LOG_OUTPUT=console
+      
+    volumes:
+      # Persistent n8n data
+      - n8n_data:/home/node/.n8n
+      
+    networks:
+      - whatsfresh-network
+    
+    # Add extra hosts for database connection
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  n8n_data:
+    driver: local
+
+networks:
+  whatsfresh-network:
+    external: true

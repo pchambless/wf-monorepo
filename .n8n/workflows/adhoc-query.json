@@ -1,0 +1,116 @@
+{
+  "name": "Adhoc Query",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "adhoc-query",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 300],
+      "webhookId": "adhoc-query"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract query and parameters from request\nconst body = $input.item.json.body || $input.item.json;\nconst { query, params = {}, agent = 'unknown', description = 'Adhoc query execution' } = body;\n\nif (!query) {\n  throw new Error('Query is required');\n}\n\n// Simple parameter substitution\nlet processedQuery = query;\nObject.keys(params).forEach(key => {\n  const value = params[key];\n  const paramPattern = new RegExp(`:${key}\\\\b`, 'g');\n  \n  if (typeof value === 'string') {\n    processedQuery = processedQuery.replace(paramPattern, `'${value.replace(/'/g, \"''\")}'`);\n  } else if (typeof value === 'number') {\n    processedQuery = processedQuery.replace(paramPattern, value.toString());\n  } else if (Array.isArray(value)) {\n    const arrayValues = value.map(v => \n      typeof v === 'string' ? `'${v.replace(/'/g, \"''\")}'` : v\n    ).join(', ');\n    processedQuery = processedQuery.replace(paramPattern, `(${arrayValues})`);\n  }\n});\n\n// Basic safety check\nconst dangerousPatterns = [\n  /DROP\\s+TABLE/i,\n  /DROP\\s+DATABASE/i,\n  /TRUNCATE/i\n];\n\nconst isDangerous = dangerousPatterns.some(pattern => pattern.test(processedQuery));\nif (isDangerous) {\n  throw new Error('Query contains potentially dangerous operations');\n}\n\nreturn {\n  json: {\n    query: processedQuery,\n    agent: agent,\n    description: description,\n    timestamp: new Date().toISOString()\n  }\n};"
+      },
+      "id": "process-query",
+      "name": "Process Query",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "={{ $('Process Query').item.json.query }}",
+        "options": {}
+      },
+      "id": "execute-query",
+      "name": "Execute Query",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [680, 300],
+      "credentials": {
+        "mySql": {
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const queryInfo = $('Process Query').item.json;\nconst queryResults = $input.all();\n\nconst resultCount = queryResults.length;\nconst hasResults = resultCount > 0;\n\nreturn [{\n  json: {\n    success: true,\n    query: queryInfo.query,\n    agent: queryInfo.agent,\n    description: queryInfo.description,\n    results: {\n      count: resultCount,\n      data: queryResults.map(item => item.json)\n    },\n    timestamp: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Process Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process Query": {
+      "main": [
+        [
+          {
+            "node": "Execute Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Query": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

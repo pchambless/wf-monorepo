@@ -107,6 +107,14 @@ curl -s -X POST http://localhost:3001/api/copilot/query \
 -d '{"sql": "SELECT category, qryName, description FROM api_wf.AISql WHERE active = 1 AND category = \"investigation\"", "userEmail": "claude@whatsfresh.ai"}' | jq .
 ```
 
+#### Quick Query Script
+For convenience, use the `copilot-db.sh` script in the repo root to run quick queries:
+
+```bash
+./copilot-db.sh "SELECT message FROM api_wf.plan_communications WHERE id = 256"
+```
+This wraps the Copilot API and prints results in a readable format. See the script for more usage examples.
+
 **Required Pattern:**
 - **Controller:** `/apps/server/server/controller/copilotQuery.js`
 - **Email Required:** Always include `"userEmail": "claude@whatsfresh.ai"` in request body

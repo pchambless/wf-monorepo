@@ -4233,6 +4233,16 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving shared-imports."
     },
     {
+      "file": "scripts/parse-dump.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
       "file": "test-ccflare.ts",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [

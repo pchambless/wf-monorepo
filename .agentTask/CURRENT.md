@@ -3,6 +3,7 @@
 > See the checklist below.
 > **Context:**  
 > This status and checklist refer to plan_communication id = 250 (see .agentTask/currentPlanUpdates.md or plan_communications table for the record of decisions and technical accomplishments for Plan 75, Sprint S1).
+> Also, see plan_communication = 254.  
 ---
 
 # Sprint S1: Plan 75, Phase 0 – Composite Architecture Infrastructure

@@ -1,20 +1,34 @@
 ---
-description: "Session startup - see shared documentation"
+description: "Session startup - optimized via n8n workflow"
 ---
 
 # Session Startup
 
-**Both Claude and Kiro use the same startup process.**
+**Claude, Kiro and Copilot use the same startup process.**
 
-See: `.shared/commands/startSession.md`
+Call the n8n session startup webhook to get pre-aggregated session context:
 
-## Quick Start
-
-```javascript
-// Get startup queries from database
-mcp_mysql_sql_query({
-  sql: "SELECT qryName, description, qrySQL FROM api_wf.AISql WHERE category = 'startup' AND active = 1 ORDER BY id"
-})
+```bash
+curl -s http://localhost:5678/webhook/session-startup | jq .
 ```
 
-Execute each qrySQL returned to get session context.
+This returns:
+- Active plans (top 5)
+- Recent communications (top 5)
+- System health metrics
+- Investigation tools count
+
+**Token savings: ~75% vs individual MCP queries**
+
+## What's Included
+
+The n8n workflow queries and formats:
+- `api_wf.plans` - Active development plans
+- `api_wf.plan_communications` - Recent agent coordination
+- `api_wf.plan_impacts` - Recent file changes
+- System health counters (plans, queries, composites, pages)
+- Available investigation tools count
+
+## Evolution
+
+Modify the n8n workflow (Agent Session Startup) to add/remove queries as needed. The workflow handles aggregation and formatting automatically.

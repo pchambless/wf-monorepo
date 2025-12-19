@@ -1,0 +1,242 @@
+{
+  "name": "Agent Session Startup",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "session-startup",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -448,
+        -16
+      ],
+      "id": "3b1a2e9d-7539-4c97-86f7-1cb317a48ec2",
+      "name": "Webhook",
+      "webhookId": "c2868de5-e792-45b6-a1a9-9537695ecd94"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM api_wf.plans\n  WHERE deleted_at IS NULL\n  AND status IN ('pending', 'in_progress')\n  ORDER BY CASE status WHEN 'in_progress' THEN 1 WHEN 'pending' THEN 2 END, id DESC\n  LIMIT 10;",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -224,
+        -304
+      ],
+      "id": "aa53a9b9-6a79-4f6d-bcfc-6841585ce26a",
+      "name": "Active Plans",
+      "credentials": {
+        "mySql": {
+          "id": "b3RbGefMUYnTWuuA",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT\n    (SELECT COUNT(*) FROM api_wf.plans WHERE active = 1) as active_plans,\n    (SELECT COUNT(*) FROM api_wf.vw_execEvents) as execEvents,\n    (SELECT COUNT(*) FROM api_wf.composites WHERE active = 1) as active_composites,\n    (SELECT COUNT(*) FROM api_wf.page_registry WHERE active = 1) as active_pages\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -224,
+        -112
+      ],
+      "id": "0c30b460-b204-4ad3-af14-4bec21c083cd",
+      "name": "Table Counts",
+      "credentials": {
+        "mySql": {
+          "id": "b3RbGefMUYnTWuuA",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT plan_id, from_agent, to_agent, type, subject, created_at\n  FROM api_wf.plan_communications\n  ORDER BY created_at DESC\n  LIMIT 10\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -224,
+        80
+      ],
+      "id": "dfb1d5ca-0e63-4e24-ba08-d40fa538715d",
+      "name": "Communications",
+      "credentials": {
+        "mySql": {
+          "id": "b3RbGefMUYnTWuuA",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT COUNT(*) as investigation_tools_count\n  FROM api_wf.AISql\n  WHERE active = 1 AND category = 'investigation'",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -224,
+        272
+      ],
+      "id": "ef0f2a88-a8fa-482b-93d3-ce6093da8f77",
+      "name": "Investigative Queries",
+      "credentials": {
+        "mySql": {
+          "id": "b3RbGefMUYnTWuuA",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all input items from the MySQL queries\n  const items = $input.all();\n\n  console.log('Total items:', items.length);\n\n  // Initialize results\n  let activePlans = [];\n  let systemHealth = {};\n  let recentComms = [];\n  let investigationToolsCount = 0;\n\n  // Each item is a single row from MySQL\n  for (const item of items) {\n    const data = item.json;\n\n    console.log('Processing item with keys:', Object.keys(data));\n\n    // Check what kind of data this is by field names\n    if (data.name !== undefined && data.status !== undefined && data.priority !== undefined) {\n      console.log('Found Active Plan:', data.name);\n      activePlans.push(data);\n    } else if (data.active_plans !== undefined && data.execEvents !== undefined) {\n      console.log('Found System Health');\n      systemHealth = data;\n    } else if (data.from_agent !== undefined) {\n      console.log('Found Communication:', data.subject);\n      recentComms.push(data);\n    } else if (data.investigation_tools_count !== undefined) {\n      console.log('Found Investigation Count:', data.investigation_tools_count);\n      investigationToolsCount = data.investigation_tools_count;\n    } else {\n      console.log('UNMATCHED item with keys:', Object.keys(data));\n    }\n  }\n\n  console.log('Final counts - Plans:', activePlans.length, 'Comms:', recentComms.length, 'Health:', Object.keys(systemHealth).length);\n\n  // Return formatted response\n  return [{\n    json: {\n      session_context: {\n        active_plans: activePlans.slice(0, 5).map(p => ({\n          id: p.id,\n          name: p.name,\n          status: p.status,\n          priority: p.priority\n        })),\n        recent_communications: recentComms.slice(0, 5).map(c => ({\n          plan_id: c.plan_id,\n          from_agent: c.from_agent,\n          to_agent: c.to_agent,\n          subject: c.subject\n        })),\n        system_health: systemHealth,\n        investigation_tools_available: investigationToolsCount\n      },\n      timestamp: new Date().toISOString(),\n      summary: {\n        total_active_plans: activePlans.length,\n        total_recent_comms: recentComms.length\n      }\n    }\n  }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        -16
+      ],
+      "id": "c6ca1887-518b-4272-8253-ea2c0354af05",
+      "name": "start-session-out"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        240,
+        -16
+      ],
+      "id": "f0494c94-8fc1-4c58-817c-42b6e9b1d1b1",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "numberInputs": 4
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -48,
+        -32
+      ],
+      "id": "d3163914-a87f-4d1e-9e27-73232d865fef",
+      "name": "Merge"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Active Plans",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Table Counts",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Communications",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Investigative Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Table Counts": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Active Plans": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Communications": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Investigative Queries": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "start-session-out": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "start-session-out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

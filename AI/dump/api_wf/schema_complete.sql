@@ -3561,9 +3561,9 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`wf_admin`@`%` SQL SECURITY DEFINER */
+//*!50013 DEFINER=`wf_admin`@`%` SQL SECURITY DEFINER */
 /*!50001 VIEW `vw_execEvents` AS select json_unquote(json_extract(`jt`.`value`,'$.qryName')) AS `qryName`,json_unquote(json_extract(`jt`.`value`,'$.qrySQL')) AS `qrySQL`,'composite' AS `source`,`ec`.`id` AS `composite_id`,`ec`.`name` AS `composite_name` from (`eventComposite` `ec` join json_table(`ec`.`eventSQL`, '$.*' columns (`value` json path '$')) `jt`) where ((`ec`.`active` = 1) and (`ec`.`eventSQL` is not null)) union all select json_unquote(json_extract(`jt`.`value`,'$.qryName')) AS `qryName`,json_unquote(json_extract(`jt`.`value`,'$.qrySQL')) AS `qrySQL`,'pageConfig' AS `source`,`epc`.`id` AS `pageConfig_id`,concat('page_',`epc`.`pageID`,'_comp_',`epc`.`xref_id`) AS `composite_name` from (`eventPageConfig` `epc` join json_table(`epc`.`eventSQL`, '$.*' columns (`value` json path '$')) `jt`) where ((`epc`.`active` = 1) and (`epc`.`eventSQL` is not null)) */;
-/*!50001 SET character_set_client      = @saved_cs_client */;
+*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 

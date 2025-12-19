@@ -1,0 +1,117 @@
+{
+  "name": "Log Impact",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "log-impact",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 300],
+      "webhookId": "log-impact"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst { \n  plan_id = 0, \n  file_path, \n  change_type, \n  description, \n  phase = 'adhoc',\n  status = 'completed',\n  created_by = 'claude'\n} = body;\n\nif (!file_path) {\n  throw new Error('file_path is required');\n}\n\nif (!change_type) {\n  throw new Error('change_type is required');\n}\n\nif (!description) {\n  throw new Error('description is required');\n}\n\nconst validChangeTypes = ['CREATE', 'MODIFY', 'DELETE', 'ANALYZE', 'DISCOVER', 'COMMUNICATE', 'PLAN'];\nif (!validChangeTypes.includes(change_type)) {\n  throw new Error(`Invalid change_type. Must be one of: ${validChangeTypes.join(', ')}`);\n}\n\nreturn {\n  json: {\n    plan_id,\n    file_path,\n    change_type,\n    description,\n    phase,\n    status,\n    created_by\n  }\n};"
+      },
+      "id": "validate-impact",
+      "name": "Validate Impact",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "plan_impacts",
+        "columns": "plan_id, file_path, change_type, description, phase, status, created_by",
+        "options": {}
+      },
+      "id": "insert-impact",
+      "name": "Insert Impact",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [680, 300],
+      "credentials": {
+        "mySql": {
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const impact = $('Validate Impact').item.json;\nconst insertResult = $input.item.json;\n\nreturn [{\n  json: {\n    success: true,\n    impact_id: insertResult.insertId || insertResult.id,\n    impact: {\n      plan_id: impact.plan_id,\n      file_path: impact.file_path,\n      change_type: impact.change_type,\n      description: impact.description\n    },\n    timestamp: impact.timestamp\n  }\n}];"
+      },
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate Impact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Impact": {
+      "main": [
+        [
+          {
+            "node": "Insert Impact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Impact": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

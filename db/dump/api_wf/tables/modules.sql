@@ -1,0 +1,22 @@
+CREATE TABLE `modules` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `file_path` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `blast_radius` enum('low','medium','high') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fileName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (substring_index(`file_path`,_utf8mb4'/',-(1))) STORED,
+  `fileFolder` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (substr(`file_path`,1,((length(`file_path`) - length(substring_index(`file_path`,_utf8mb4'/',-(1)))) - 1))) STORED,
+  `package` varchar(50) COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (substring_index(substring_index(`file_path`,_utf8mb4'/',2),_utf8mb4'/',-(1))) STORED,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_detected_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `active` tinyint(1) GENERATED ALWAYS AS ((case when (`last_detected_at` = `updated_at`) then 1 else 0 end)) STORED,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `file_path` (`file_path`),
+  KEY `module_idx_path` (`file_path`),
+  KEY `modules_package_IDX` (`package`) USING BTREE,
+  KEY `modules_last_detected_at_IDX` (`last_detected_at`) USING BTREE,
+  KEY `modules_fileName_IDX` (`fileName`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=813 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

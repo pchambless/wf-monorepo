@@ -6,14 +6,14 @@
     "auditLog": "/home/paul/Projects/wf-monorepo/apps/server/server/logs/.48e82f2173bfbea45de92a53a94bc888ed68c3a1-audit.json",
     "files": [
         {
-            "date": 1765867375217,
-            "name": "/home/paul/Projects/wf-monorepo/apps/server/server/logs/application-2025-12-16.log",
-            "hash": "762c2172e39ff38cf85bc9193115ee2ad54799317911d209f9ac59d9453ec858"
-        },
-        {
             "date": 1765953776282,
             "name": "/home/paul/Projects/wf-monorepo/apps/server/server/logs/application-2025-12-17.log",
             "hash": "7035fb0eb611ba2bf1f0f78e4170846083b216b09944225f43cb4857803bba3c"
+        },
+        {
+            "date": 1766040177400,
+            "name": "/home/paul/Projects/wf-monorepo/apps/server/server/logs/application-2025-12-18.log",
+            "hash": "c372b5c3de55e6871b2e6e5b76bfb92c948eb1231ccd5df27b3e02af6a7e26ad"
         }
     ],
     "hashType": "sha256"

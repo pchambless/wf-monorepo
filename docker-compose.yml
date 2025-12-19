@@ -1,70 +1,14 @@
+version: "3.1"
+
 services:
-  wf-server:
-    build: 
-      context: .
-      dockerfile: apps/wf-server/Dockerfile
+  n8n:
+    image: n8nio/n8n:latest
     ports:
-      - "3001:3001"
+      - "5678:5678"
     volumes:
-      # Mount packages for live development
-      - ./packages:/app/packages
-      # Mount server source for live development  
-      - ./apps/wf-server:/app
-      - /app/node_modules  # Prevent overwriting container's node_modules
+      - ~/.n8n:/home/node/.n8n
     environment:
-      - NODE_ENV=development
-    # Restart container if it crashes
+      - GENERIC_TIMEZONE=America/Chicago
+      - GENERIC_LOCALE=en
+      - N8N_COMMUNITY_PACKAGES_ENABLED=true
     restart: unless-stopped
-
-  wf-client:
-    build: 
-      context: .
-      dockerfile: Dockerfile.react-app
-      args:
-        APP_NAME: client
-        APP_DIR: apps/wf-client
-    ports:
-      - "3000:3000"
-    volumes:
-      # Mount source code for live development  
-      - ./apps/wf-client/src:/app/src
-      - ./apps/wf-client/public:/app/public
-      # Mount packages for live development
-      - ./packages:/app/packages
-      # Preserve container's node_modules and package.json
-      - wf_client_node_modules:/app/node_modules
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true  # For hot reload in Docker
-    # Restart container if it crashes
-    restart: unless-stopped
-    depends_on:
-      - wf-server
-
-  wf-admin:
-    build: 
-      context: .
-      dockerfile: Dockerfile.react-app
-      args:
-        APP_NAME: admin
-        APP_DIR: apps/wf-admin
-    ports:
-      - "3002:3000"
-    volumes:
-      # Mount only source code for live development
-      - ./apps/wf-admin/src:/app/src
-      - ./apps/wf-admin/public:/app/public
-      # Preserve container's node_modules and package.json
-      - wf_admin_node_modules:/app/node_modules
-    environment:
-      - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true  # For hot reload in Docker
-      - APP_NAME=admin
-    # Restart container if it crashes
-    restart: unless-stopped
-    depends_on:
-      - wf-server
-
-volumes:
-  wf_client_node_modules:
-  wf_admin_node_modules:
