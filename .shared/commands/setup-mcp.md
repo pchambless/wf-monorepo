@@ -14,11 +14,11 @@ Database credentials are stored in `~/.wf-db-credentials` (outside the git repo)
 
 ```bash
 cat > ~/.wf-db-credentials << 'EOF'
-export MYSQL_HOST=159.223.104.19
+export MYSQL_HOST=your_mysql_host
 export MYSQL_PORT=3306
-export MYSQL_USER=wf_admin
-export MYSQL_PASSWORD=Nothing123
-export MYSQL_DATABASE=whatsfresh
+export MYSQL_USER=your_mysql_user
+export MYSQL_PASSWORD=your_mysql_password
+export MYSQL_DATABASE=your_database_name
 EOF
 
 chmod 600 ~/.wf-db-credentials
@@ -88,4 +88,4 @@ The `start-server.sh` script:
 
 **Environment variables not loading:**
 - Test manually: `source ~/.wf-db-credentials && echo $MYSQL_HOST`
-- Should output: `159.223.104.19`
+- Should output: `your_mysql_host`

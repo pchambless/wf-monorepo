@@ -15,11 +15,11 @@ This file is used by:
 
 ```bash
 cat > ~/.wf-db-credentials << 'EOF'
-export MYSQL_HOST=159.223.104.19
+export MYSQL_HOST=your_mysql_host
 export MYSQL_PORT=3306
-export MYSQL_USER=wf_admin
-export MYSQL_PASSWORD=Nothing123
-export MYSQL_DATABASE=whatsfresh
+export MYSQL_USER=your_mysql_user
+export MYSQL_PASSWORD=your_mysql_password
+export MYSQL_DATABASE=your_database_name
 EOF
 
 chmod 600 ~/.wf-db-credentials
@@ -43,7 +43,7 @@ cp .claude/mcp.json.example .claude/mcp.json
 # Test credentials file
 source ~/.wf-db-credentials && echo "Host: $MYSQL_HOST, User: $MYSQL_USER"
 
-# Should output: Host: 159.223.104.19, User: wf_admin
+# Should output: Host: your_mysql_host, User: your_mysql_user
 ```
 
 ## Usage
@@ -141,8 +141,8 @@ chmod +x apps/server/start-server.sh
 # Verify file format (no spaces around =)
 cat ~/.wf-db-credentials
 
-# Should be: export MYSQL_HOST=159.223.104.19
-# NOT: export MYSQL_HOST = 159.223.104.19
+# Should be: export MYSQL_HOST=your_mysql_host
+# NOT: export MYSQL_HOST = your_mysql_host
 ```
 
 ## Migration from Old Setup
