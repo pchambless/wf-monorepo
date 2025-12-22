@@ -1,0 +1,133 @@
+{
+  "name": "Create Discussion",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "create-discussion",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 300],
+      "webhookId": "create-discussion"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst { topic, context = '', plan_id = 1, agent = 'unknown' } = body;\n\nif (!topic) {\n  throw new Error('topic is required');\n}\n\nconst timestamp = new Date().toISOString();\nconst date = timestamp.split('T')[0];\n\nconst template = `### Discussion Point\n[ ] This discussion has been addressed\n\n**Topic:** ${topic}\n**Started by:** ${agent}\n**Date:** ${date}\n**Related to:** Plan ${plan_id}\n\n## Context\n${context || 'No additional context provided'}\n\n---\n\n## Discussion Thread\n\n**${agent}** - ${timestamp}\n> Started discussion: ${topic}\n\n---\n\n## Resolution\n[To be filled when discussion is resolved]\n`;\n\nreturn {\n  json: {\n    fileContent: template,\n    topic,\n    agent,\n    timestamp\n  }\n};"
+      },
+      "id": "format-discussion",
+      "name": "Format Discussion",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:3010/api/file/write",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "filePath",
+              "value": "/home/paul/Projects/wf-monorepo/.agentTask/discussion.md"
+            },
+            {
+              "name": "content",
+              "value": "={{ $json.fileContent }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "write-file",
+      "name": "Write File",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  json: {\n    success: true,\n    message: 'Discussion created successfully',\n    topic: $input.item.json.topic\n  }\n};"
+      },
+      "id": "format-response",
+      "name": "Format Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Discussion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Discussion": {
+      "main": [
+        [
+          {
+            "node": "Write File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write File": {
+      "main": [
+        [
+          {
+            "node": "Format Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Response": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -108,36 +108,49 @@ class N8nDevSync {
     try {
       const filePath = path.join(WORKFLOW_DIR, filename);
       const workflowData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-      
+
       const existingId = this.workflowMap.get(filename);
-      
+
       if (existingId) {
         // Update existing workflow
         await this.apiCall('PUT', `/workflows/${existingId}`, workflowData);
         console.log(`✅ Updated: ${workflowData.name}`);
-        
+
         // Activate the workflow
         await this.apiCall('POST', `/workflows/${existingId}/activate`);
         console.log(`🟢 Activated: ${workflowData.name}`);
-        
+
       } else {
         // Create new workflow
         const response = await this.apiCall('POST', '/workflows', workflowData);
         const newId = response.id;
-        
+
         this.workflowMap.set(filename, newId);
         console.log(`✅ Created: ${workflowData.name} (${newId})`);
-        
+
         // Activate the new workflow
         await this.apiCall('POST', `/workflows/${newId}/activate`);
         console.log(`🟢 Activated: ${workflowData.name}`);
       }
-      
+
       // Test the webhook endpoint if it exists
       await this.testWebhook(workflowData);
-      
+
+      // Regenerate workflow registry
+      await this.regenerateWorkflowRegistry();
+
     } catch (error) {
       console.error(`❌ Error syncing ${filename}:`, error.message);
+    }
+  }
+
+  async regenerateWorkflowRegistry() {
+    try {
+      const { execSync } = require('child_process');
+      execSync('node generate-workflow-registry.js', { cwd: __dirname });
+      console.log('📋 Workflow registry updated');
+    } catch (error) {
+      console.error('⚠️  Failed to update workflow registry:', error.message);
     }
   }
 

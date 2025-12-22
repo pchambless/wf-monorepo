@@ -1,0 +1,88 @@
+{
+  "name": "Add Discussion Comment",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "add-discussion-comment",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 300],
+      "webhookId": "add-discussion-comment"
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst path = '/home/paul/Projects/wf-monorepo/.agentTask/discussion.md';\n\n// Read current discussion file\nlet currentContent = '';\ntry {\n  currentContent = fs.readFileSync(path, 'utf8');\n} catch (error) {\n  throw new Error('No active discussion found. Create a discussion first.');\n}\n\n// Check if discussion is already resolved\nif (currentContent.includes('[x]') || currentContent.includes('[X]')) {\n  throw new Error('Discussion is already resolved. Create a new discussion instead.');\n}\n\nconst body = $input.item.json.body || $input.item.json;\nconst { comment, agent = 'unknown' } = body;\n\nif (!comment) {\n  throw new Error('comment is required');\n}\n\nconst timestamp = new Date().toISOString();\n\nreturn {\n  json: {\n    currentContent,\n    comment,\n    agent,\n    timestamp\n  }\n};"
+      },
+      "id": "validate-comment",
+      "name": "Validate Comment",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst data = $input.item.json;\n\nconst newComment = `\\n**${data.agent}** - ${data.timestamp}\\n> ${data.comment}\\n`;\n\n// Find the Resolution section and insert before it\nconst resolutionIndex = data.currentContent.indexOf('## Resolution');\n\nlet updatedContent;\nif (resolutionIndex !== -1) {\n  updatedContent = \n    data.currentContent.substring(0, resolutionIndex) +\n    newComment +\n    '\\n---\\n\\n' +\n    data.currentContent.substring(resolutionIndex);\n} else {\n  // If no Resolution section found, append to end\n  updatedContent = data.currentContent + '\\n---\\n' + newComment;\n}\n\nconst discussionPath = '/home/paul/Projects/wf-monorepo/.agentTask/discussion.md';\n\ntry {\n  fs.writeFileSync(discussionPath, updatedContent, 'utf8');\n  return {\n    json: {\n      success: true,\n      message: 'Comment added to discussion',\n      agent: data.agent,\n      timestamp: data.timestamp\n    }\n  };\n} catch (error) {\n  throw new Error(`Failed to update discussion file: ${error.message}`);\n}"
+      },
+      "id": "append-comment",
+      "name": "Append Comment",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate Comment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Comment": {
+      "main": [
+        [
+          {
+            "node": "Append Comment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Comment": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

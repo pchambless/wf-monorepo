@@ -1,41 +1,58 @@
-version: '3.8'
-
 services:
   n8n:
     image: n8nio/n8n:latest
+
     container_name: n8n-whatsfresh
     restart: unless-stopped
+    init: true
     ports:
       - "5678:5678"
     environment:
+          # Install community packages (MySQL should be built-in)
+      - N8N_COMMUNITY_PACKAGES="@n8n/n8n-nodes-langchain,@n8n/n8n-nodes-execute-command"
+      # Enable Execute Command node (disabled by default for security)
+      - N8N_NODES_INCLUDE=n8n-nodes-base.executeCommand
+      - N8N_NODES_EXCLUDE=""
+      - N8N_DISABLE_PRODUCTION_MAIN_PROCESS=false
+      
+      # Enable MCP Server functionality
+      - N8N_MCP_ENABLED=true
+      - N8N_MCP_SERVER_PORT=5678
+      - N8N_MCP_SERVER_HOST=0.0.0.0
       # Basic n8n configuration
       - N8N_BASIC_AUTH_ACTIVE=false
-      - N8N_HOST=localhost
+      - N8N_HOST=0.0.0.0
+      - N8N_LISTEN_ADDRESS=0.0.0.0
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
-      - NODE_ENV=development
-      
-      # Install community packages (MySQL should be built-in)
-      - N8N_COMMUNITY_PACKAGES=@n8n/n8n-nodes-langchain
-      
+      - DB_SQLITE_POOL_SIZE=5
+
       # Enable API access
-      - N8N_API_KEY_AUTH_HEADER=X-N8N-API-KEY
-      
-      # Workflow execution settings
-      - EXECUTIONS_PROCESS=main
-      - EXECUTIONS_MODE=regular
+      - N8N_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZThiZGY5YS03MWFhLTQ3YmYtYWEyYS1kZjE1MDcyNzJhZDciLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzY2MjY5NDY0fQ.94YOL4eFnRdRTZWyW05buufHIZ-ykxvPqeBEX7SXDes
+
+      # Modern execution settings
+      - N8N_RUNNERS_ENABLED=true
       
       # Security settings
       - N8N_SECURE_COOKIE=false
+      - N8N_ENABLE_COMMANDS=true
       - N8N_METRICS=true
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
+      - N8N_GIT_NODE_DISABLE_BARE_REPOS=true
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
       
       # Logging
       - N8N_LOG_LEVEL=info
       - N8N_LOG_OUTPUT=console
-      
+
+      # Filesystem-based workflow import
+      - N8N_EXPORT_WORKFLOW_FILES_ON_CHANGE=true
+      - N8N_WORKFLOWS_FOLDER=/home/node/.n8n/workflows
+
     volumes:
       # Persistent n8n data
-      - n8n_data:/home/node/.n8n
+      - /home/paul/Projects/wf-monorepo/.n8n:/home/node/.n8n
+
       
     networks:
       - whatsfresh-network
@@ -44,17 +61,44 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     
-    # Health check
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5678/healthz"]
+      test: ["CMD", "curl", "-f", "http://localhost:5678/healthz/liveness"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  command-service:
+    build:
+      context: ../command-service
+      dockerfile: Dockerfile
+    container_name: n8n-command-service
+    restart: unless-stopped
+    ports:
+      - "3010:3010"
+    environment:
+      - NODE_ENV=production
+      - PORT=3010
+      - DB_HOST=159.223.104.19
+      - DB_PORT=3306
+      - DB_USER=wf_admin
+      - DB_PASS=Nothing123
+    volumes:
+      # Mount the monorepo for git operations
+      - /home/paul/Projects/wf-monorepo:/workspace
+      # Mount temp directory for file operations
+      - /tmp:/tmp
+      # Mount database credentials
+      - /home/paul/.wf-db-credentials:/root/.wf-db-credentials:ro
+    networks:
+      - whatsfresh-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3010/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 40s
-
-volumes:
-  n8n_data:
-    driver: local
+      start_period: 10s
+  
 
 networks:
   whatsfresh-network:

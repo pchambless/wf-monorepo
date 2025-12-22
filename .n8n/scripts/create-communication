@@ -1,0 +1,20 @@
+#!/bin/bash
+# Simple wrapper for create-communication n8n workflow
+# Usage: create-communication PLAN_ID TYPE SUBJECT MESSAGE [FROM_AGENT] [TO_AGENT]
+
+PLAN_ID="$1"
+TYPE="$2"
+SUBJECT="$3"
+MESSAGE="$4"
+FROM_AGENT="${5:-claude}"
+TO_AGENT="${6:-any}"
+
+if [ -z "$PLAN_ID" ] || [ -z "$TYPE" ] || [ -z "$SUBJECT" ] || [ -z "$MESSAGE" ]; then
+    echo "Usage: create-communication PLAN_ID TYPE SUBJECT MESSAGE [FROM_AGENT] [TO_AGENT]"
+    echo "Valid types: guidance, question, response, decision, status, analysis, technique, milestone"
+    exit 1
+fi
+
+curl -s -X POST http://localhost:5678/webhook/create-communication \
+  -H "Content-Type: application/json" \
+  -d "{\"plan_id\": $PLAN_ID, \"type\": \"$TYPE\", \"subject\": $(echo "$SUBJECT" | jq -Rs .), \"message\": $(echo "$MESSAGE" | jq -Rs .), \"from_agent\": \"$FROM_AGENT\", \"to_agent\": \"$TO_AGENT\"}"

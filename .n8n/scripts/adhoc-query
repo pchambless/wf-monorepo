@@ -1,0 +1,15 @@
+#!/bin/bash
+# Simple wrapper for adhoc-query n8n workflow
+# Usage: adhoc-query "SELECT * FROM table" [agent_name]
+
+QUERY="$1"
+AGENT="${2:-claude}"
+
+if [ -z "$QUERY" ]; then
+    echo "Usage: adhoc-query \"SQL query here\" [agent_name]"
+    exit 1
+fi
+
+curl -s -X POST http://localhost:5678/webhook/adhoc-query \
+  -H "Content-Type: application/json" \
+  -d "{\"query\": $(echo "$QUERY" | jq -Rs .), \"params\": {}, \"agent\": \"$AGENT\"}"

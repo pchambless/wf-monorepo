@@ -1,0 +1,18 @@
+#!/bin/bash
+# Simple wrapper for log-impact n8n workflow
+# Usage: log-impact PLAN_ID FILE_PATH CHANGE_TYPE DESCRIPTION
+
+PLAN_ID="$1"
+FILE_PATH="$2"
+CHANGE_TYPE="$3"
+DESCRIPTION="$4"
+
+if [ -z "$PLAN_ID" ] || [ -z "$FILE_PATH" ] || [ -z "$CHANGE_TYPE" ] || [ -z "$DESCRIPTION" ]; then
+    echo "Usage: log-impact PLAN_ID FILE_PATH CHANGE_TYPE DESCRIPTION"
+    echo "Example: log-impact 75 \"src/file.js\" \"CREATE\" \"Added new feature\""
+    exit 1
+fi
+
+curl -s -X POST http://localhost:5678/webhook/log-impact \
+  -H "Content-Type: application/json" \
+  -d "{\"plan_id\": $PLAN_ID, \"file_path\": $(echo "$FILE_PATH" | jq -Rs .), \"change_type\": \"$CHANGE_TYPE\", \"description\": $(echo "$DESCRIPTION" | jq -Rs .)}"

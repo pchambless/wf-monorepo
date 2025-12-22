@@ -10,6 +10,9 @@ coverage
 build
 dist
 
+# database
+db/dump/api_wf/schema_complete.sql
+
 # Devtools output
 docs/*.componentInventory.csv
 /docs/graph/out/*.json

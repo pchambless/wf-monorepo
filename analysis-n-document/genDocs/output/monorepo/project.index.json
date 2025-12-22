@@ -26,6 +26,36 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
+      "file": ".n8n/command-service/server.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/dev-sync.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/generate-workflow-registry.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
       "file": "analysis-n-document/genDocs/analyze-app.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [

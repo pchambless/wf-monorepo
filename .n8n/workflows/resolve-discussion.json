@@ -1,0 +1,138 @@
+{
+  "name": "Resolve Discussion",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "resolve-discussion",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 300],
+      "webhookId": "resolve-discussion"
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst path = '/home/paul/Projects/wf-monorepo/.agentTask/discussion.md';\n\n// Read current discussion file\nlet currentContent = '';\ntry {\n  currentContent = fs.readFileSync(path, 'utf8');\n} catch (error) {\n  throw new Error('No active discussion found.');\n}\n\n// Check if discussion is already resolved\nif (currentContent.includes('[x]') || currentContent.includes('[X]')) {\n  throw new Error('Discussion is already resolved.');\n}\n\n// Check if checkbox is checked (user must manually check it first)\nif (!currentContent.includes('[x]') && !currentContent.includes('[X]')) {\n  // For now, we'll allow resolution and mark the checkbox\n  // In future, could require manual checkbox marking\n}\n\nconst body = $input.item.json.body || $input.item.json;\nconst { resolution, plan_id = 1, agent = 'unknown' } = body;\n\nif (!resolution) {\n  throw new Error('resolution is required');\n}\n\n// Extract topic from discussion\nconst topicMatch = currentContent.match(/\\*\\*Topic:\\*\\*\\s*(.+)/);\nconst topic = topicMatch ? topicMatch[1].trim() : 'Discussion Resolution';\n\nconst timestamp = new Date().toISOString();\n\nreturn {\n  json: {\n    currentContent,\n    resolution,\n    topic,\n    plan_id,\n    agent,\n    timestamp\n  }\n};"
+      },
+      "id": "validate-resolution",
+      "name": "Validate Resolution",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.item.json;\n\n// Update discussion file with resolution and mark as resolved\nconst updatedContent = data.currentContent\n  .replace('[ ] This discussion has been addressed', '[x] This discussion has been addressed')\n  .replace('## Resolution\\n[To be filled when discussion is resolved]', \n    `## Resolution\\n\\n**Resolved by:** ${data.agent}\\n**Date:** ${data.timestamp}\\n\\n${data.resolution}`);\n\nconst fs = require('fs');\nconst discussionPath = '/home/paul/Projects/wf-monorepo/.agentTask/discussion.md';\n\ntry {\n  fs.writeFileSync(discussionPath, updatedContent, 'utf8');\n} catch (error) {\n  throw new Error(`Failed to update discussion file: ${error.message}`);\n}\n\n// Prepare communication message (full discussion thread)\nconst communicationMessage = `DISCUSSION RESOLVED\\n\\n${updatedContent}`;\n\nreturn {\n  json: {\n    plan_id: data.plan_id,\n    from_agent: data.agent,\n    to_agent: 'any',\n    type: 'decision',\n    subject: `Discussion Resolved: ${data.topic}`,\n    message: communicationMessage,\n    created_by: data.agent\n  }\n};"
+      },
+      "id": "update-discussion",
+      "name": "Update Discussion File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "plan_communications",
+        "columns": "plan_id, from_agent, to_agent, type, subject, message, created_by",
+        "options": {}
+      },
+      "id": "create-communication",
+      "name": "Create Communication",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [900, 200],
+      "credentials": {
+        "mySql": {
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst discussionPath = '/home/paul/Projects/wf-monorepo/.agentTask/discussion.md';\n\nconst emptyTemplate = `### Discussion Point\n[ ] This discussion has been addressed\n\n**No active discussion**\n\nUse the create-discussion webhook to start a new discussion.\n`;\n\ntry {\n  fs.writeFileSync(discussionPath, emptyTemplate, 'utf8');\n  return {\n    json: {\n      success: true,\n      message: 'Discussion resolved, communication created, discussion.md reset',\n      comm_id: $input.item.json.insertId || $input.item.json.id\n    }\n  };\n} catch (error) {\n  throw new Error(`Failed to reset discussion file: ${error.message}`);\n}"
+      },
+      "id": "reset-discussion",
+      "name": "Reset Discussion File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "webhook-response",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [1340, 200]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate Resolution",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Resolution": {
+      "main": [
+        [
+          {
+            "node": "Update Discussion File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Discussion File": {
+      "main": [
+        [
+          {
+            "node": "Create Communication",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Communication": {
+      "main": [
+        [
+          {
+            "node": "Reset Discussion File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reset Discussion File": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

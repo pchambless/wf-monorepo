@@ -7,6 +7,15 @@
       "file_path": ".kiro/workflows/createRoadmap.js"
     },
     {
+      "file_path": ".n8n/command-service/server.js"
+    },
+    {
+      "file_path": ".n8n/scripts/dev-sync.js"
+    },
+    {
+      "file_path": ".n8n/scripts/generate-workflow-registry.js"
+    },
+    {
       "file_path": "analysis-n-document/genDocs/analyze-app.js"
     },
     {

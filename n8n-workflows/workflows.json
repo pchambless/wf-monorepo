@@ -1,0 +1,18 @@
+{
+  "adhoc-query": {
+    "url": "http://localhost:5678/webhook/adhoc-query",
+    "description": ""
+  },
+  "agent-session-startup": {
+    "url": "http://localhost:5678/webhook/agent-session-startup",
+    "description": ""
+  },
+  "create-communication": {
+    "url": "http://localhost:5678/webhook/create-communication",
+    "description": ""
+  },
+  "log-impact": {
+    "url": "http://localhost:5678/webhook/log-impact",
+    "description": ""
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "add-discussion-comment": {
+    "url": "http://localhost:5678/webhook/add-discussion-comment",
+    "description": ""
+  },
+  "adhoc-query": {
+    "url": "http://localhost:5678/webhook/adhoc-query",
+    "description": ""
+  },
+  "agent-session-startup": {
+    "url": "http://localhost:5678/webhook/agent-session-startup",
+    "description": ""
+  },
+  "create-communication": {
+    "url": "http://localhost:5678/webhook/create-communication",
+    "description": ""
+  },
+  "create-discussion": {
+    "url": "http://localhost:5678/webhook/create-discussion",
+    "description": ""
+  },
+  "log-impact": {
+    "url": "http://localhost:5678/webhook/log-impact",
+    "description": ""
+  },
+  "process-mysqldump": {
+    "url": "http://localhost:5678/webhook/process-mysqldump",
+    "description": ""
+  },
+  "resolve-discussion": {
+    "url": "http://localhost:5678/webhook/resolve-discussion",
+    "description": ""
+  }
+}

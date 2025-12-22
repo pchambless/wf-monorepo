@@ -2,6 +2,36 @@
 
 _Working documentation - stays current because Claude depends on it daily_
 
+## ⚠️ CRITICAL: Follow Agent Protocol FIRST
+
+**BEFORE starting ANY work, read:** `.agentTask/PROTOCOL.md`
+
+This is the **mandatory protocol** all agents follow for:
+- n8n workflow usage (required for all DB operations)
+- Plan management rules
+- Logging requirements (impacts, communications)
+- Session startup/end procedures
+
+## 🔧 n8n Workflow Helper Scripts
+
+**Simple command wrappers** for n8n workflows. Use these instead of curl:
+
+```bash
+# Session startup
+bash /home/paul/Projects/wf-monorepo/.n8n/scripts/session-startup | jq .
+
+# Database queries
+bash /home/paul/Projects/wf-monorepo/.n8n/scripts/adhoc-query "SELECT * FROM api_wf.plans WHERE id = 75"
+
+# Log impacts
+bash /home/paul/Projects/wf-monorepo/.n8n/scripts/log-impact 75 "path/to/file.js" "CREATE" "Description"
+
+# Create communications
+bash /home/paul/Projects/wf-monorepo/.n8n/scripts/create-communication 75 "milestone" "Subject" "Message"
+```
+
+**Full documentation:** `.n8n/scripts/README.md`
+
 ## 🧠 Core Behavior
 
 - **Tone**: Concise, technical, respectful, minimally verbose

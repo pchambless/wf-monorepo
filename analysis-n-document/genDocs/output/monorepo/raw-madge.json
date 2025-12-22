@@ -1,6 +1,9 @@
 {
   ".dependency-cruiser.js": [],
   ".kiro/workflows/createRoadmap.js": [],
+  ".n8n/command-service/server.js": [],
+  ".n8n/scripts/dev-sync.js": [],
+  ".n8n/scripts/generate-workflow-registry.js": [],
   "analysis-n-document/genDocs/analyze-app.js": [],
   "analysis-n-document/genDocs/analyze-dead-code.js": [],
   "analysis-n-document/genDocs/create-load-files.js": [],

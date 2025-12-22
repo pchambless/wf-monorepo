@@ -1,0 +1,3 @@
+#!/bin/bash
+# Simple wrapper for session-startup n8n workflow
+curl -s http://localhost:5678/webhook/session-startup
