@@ -126,27 +126,39 @@ app.post('/api/file/append', async (req, res) => {
 app.post('/api/git/commit-push', async (req, res) => {
   try {
     const { 
-      repoPath = '/home/paul/Projects/wf-monorepo',
+      repoPath = '/workspace',
       message = 'Automated commit',
       addPaths = ['sql/database']
     } = req.body;
 
+    // Fix git permissions and ownership issues in Docker
     const commands = [
       `cd ${repoPath}`,
       `git config --global --add safe.directory ${repoPath}`,
+      `git config --global user.name "n8n-automation"`,
+      `git config --global user.email "automation@localhost"`,
+      `chown -R $(whoami):$(whoami) .git || true`,
+      `chmod -R 755 .git || true`,
       `git add ${addPaths.join(' ')}`,
       `git commit -m "${message}" || echo "No changes to commit"`
     ];
 
     const fullCommand = commands.join(' && ');
     
-    exec(fullCommand, { timeout: 60000 }, (error, stdout, stderr) => {
+    console.log(`Executing git commands: ${fullCommand}`);
+    
+    exec(fullCommand, { 
+      timeout: 60000,
+      cwd: repoPath 
+    }, (error, stdout, stderr) => {
       if (error) {
         console.error(`Git error: ${error.message}`);
+        console.error(`Git stderr: ${stderr}`);
         return res.status(500).json({
           success: false,
           error: error.message,
-          stderr: stderr
+          stderr: stderr,
+          command: fullCommand
         });
       }
 
@@ -155,6 +167,7 @@ app.post('/api/git/commit-push', async (req, res) => {
         message: message,
         stdout: stdout,
         stderr: stderr,
+        repoPath: repoPath,
         timestamp: new Date().toISOString()
       });
     });
