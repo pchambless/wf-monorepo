@@ -1,0 +1,20 @@
+CREATE TABLE `plan_communications` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `plan_id` int unsigned NOT NULL,
+  `from_agent` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `to_agent` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'created',
+  `created_at` timestamp NULL DEFAULT (now()),
+  `created_by` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_plan_comm_plan_id` (`plan_id`),
+  KEY `idx_plan_comm_status` (`status`),
+  CONSTRAINT `plan_communications_ibfk_1` FOREIGN KEY (`plan_id`) REFERENCES `plans` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=257 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

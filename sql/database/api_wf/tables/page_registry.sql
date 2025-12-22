@@ -1,0 +1,22 @@
+CREATE TABLE `page_registry` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `appID` int DEFAULT NULL,
+  `appName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pageName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT 'New',
+  `props` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `routePath` varchar(200) COLLATE utf8mb4_unicode_ci GENERATED ALWAYS AS (concat(_utf8mb4'/',`appName`,_utf8mb4'/',`pageName`)) STORED,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `dmlConfig` text COLLATE utf8mb4_unicode_ci,
+  `pageConfig` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `active` tinyint(1) GENERATED ALWAYS AS ((case when (`deleted_at` is null) then 1 else 0 end)) STORED,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_app_page` (`appName`,`pageName`),
+  KEY `idx_appName` (`appName`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

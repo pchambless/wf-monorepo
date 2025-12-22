@@ -1,60 +1,22 @@
--- Modules table for dependency tracking
--- Stores file metadata with generated columns for parsing
-
-CREATE TABLE IF NOT EXISTS api_wf.modules (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    file_path VARCHAR(500) NOT NULL UNIQUE,
-    blast_radius ENUM('low', 'medium', 'high', 'critical') DEFAULT 'low',
-
--- Generated columns for file parsing
-fileName VARCHAR(255) GENERATED ALWAYS AS (
-    SUBSTRING_INDEX(file_path, '/', -1)
-) STORED,
-fileFolder VARCHAR(400) GENERATED ALWAYS AS (
-    CASE
-        WHEN file_path LIKE '%/%' THEN SUBSTRING(
-            file_path,
-            1,
-            LENGTH(file_path) - LENGTH(
-                SUBSTRING_INDEX(file_path, '/', -1)
-            ) - 1
-        )
-        ELSE ''
-    END
-) STORED,
-package VARCHAR(100) GENERATED ALWAYS AS (
-    CASE
-        WHEN file_path LIKE 'apps/%' THEN SUBSTRING_INDEX(
-            SUBSTRING_INDEX(file_path, '/', 2),
-            '/',
-            -1
-        )
-        WHEN file_path LIKE 'packages/%' THEN SUBSTRING_INDEX(
-            SUBSTRING_INDEX(file_path, '/', 2),
-            '/',
-            -1
-        )
-        ELSE 'monorepo'
-    END
-) STORED,
-
--- Virtual column for active status (soft delete pattern)
-active BOOLEAN GENERATED ALWAYS AS (deleted_at IS NULL) VIRTUAL,
-
--- Audit fields
-created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-created_by VARCHAR(50) DEFAULT 'system',
-updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-updated_by VARCHAR(50) DEFAULT 'system',
-deleted_at TIMESTAMP NULL,
-deleted_by VARCHAR(50) NULL,
-last_detected_at TIMESTAMP NULL COMMENT 'Last time this file was detected during filesystem scan',
-
--- Indexes
-INDEX idx_file_path (file_path),
-    INDEX idx_package (package),
-    INDEX idx_blast_radius (blast_radius),
-    INDEX idx_active (active),
-    INDEX idx_created_at (created_at),
-    INDEX idx_last_detected_at (last_detected_at)
-);
+CREATE TABLE `modules` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `file_path` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `blast_radius` enum('low','medium','high') COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fileName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (substring_index(`file_path`,_utf8mb4'/',-(1))) STORED,
+  `fileFolder` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (substr(`file_path`,1,((length(`file_path`) - length(substring_index(`file_path`,_utf8mb4'/',-(1)))) - 1))) STORED,
+  `package` varchar(50) COLLATE utf8mb4_general_ci GENERATED ALWAYS AS (substring_index(substring_index(`file_path`,_utf8mb4'/',2),_utf8mb4'/',-(1))) STORED,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `last_detected_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `deleted_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `active` tinyint(1) GENERATED ALWAYS AS ((case when (`last_detected_at` = `updated_at`) then 1 else 0 end)) STORED,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `file_path` (`file_path`),
+  KEY `module_idx_path` (`file_path`),
+  KEY `modules_package_IDX` (`package`) USING BTREE,
+  KEY `modules_last_detected_at_IDX` (`last_detected_at`) USING BTREE,
+  KEY `modules_fileName_IDX` (`fileName`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=813 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
