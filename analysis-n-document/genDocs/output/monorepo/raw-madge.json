@@ -12,6 +12,10 @@
   "analysis-n-document/genDocs/test-transform.js": [],
   "apps/api-gateway/server.js": [],
   "apps/server/postcss.config.js": [],
+  "apps/server/server/app-htmx.js": [
+    "apps/server/server/routes/htmxRoutes.js",
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/app.js": [
     "apps/server/server/controller/execEvent.js",
     "apps/server/server/controller/userLogin.js",
@@ -176,12 +180,55 @@
   "apps/server/server/events/plans/planImpactDtl.js": [],
   "apps/server/server/events/plans/planImpactList.js": [],
   "apps/server/server/events/plans/planList.js": [],
+  "apps/server/server/loaders/actionsLoader.js": [
+    "apps/server/server/utils/dbManager.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/loaders/compositeLoader.js": [
+    "apps/server/server/utils/dbManager.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/loaders/pageConfigLoader.js": [
+    "apps/server/server/utils/dbManager.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/loaders/renderRegistry.js": [
+    "apps/server/server/renderers/index.js",
+    "apps/server/server/utils/dbManager.js",
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/middleware/errorHandler.js": [],
   "apps/server/server/middleware/security.js": [],
   "apps/server/server/middleware/userEmailInjection.js": [
     "apps/server/server/utils/logger.js"
   ],
+  "apps/server/server/renderers/index.js": [
+    "apps/server/server/renderers/renderButton.js",
+    "apps/server/server/renderers/renderContainer.js",
+    "apps/server/server/renderers/renderForm.js",
+    "apps/server/server/renderers/renderGrid.js",
+    "apps/server/server/renderers/renderModal.js",
+    "apps/server/server/renderers/renderPage.js",
+    "apps/server/server/renderers/renderSelect.js",
+    "apps/server/server/renderers/renderText.js"
+  ],
+  "apps/server/server/renderers/renderButton.js": [],
+  "apps/server/server/renderers/renderContainer.js": [],
+  "apps/server/server/renderers/renderForm.js": [],
+  "apps/server/server/renderers/renderGrid.js": [],
+  "apps/server/server/renderers/renderModal.js": [],
+  "apps/server/server/renderers/renderPage.js": [],
+  "apps/server/server/renderers/renderSelect.js": [],
+  "apps/server/server/renderers/renderText.js": [],
   "apps/server/server/resetAgentPassword.js": [],
+  "apps/server/server/routes/htmxRoutes.js": [
+    "apps/server/server/loaders/actionsLoader.js",
+    "apps/server/server/loaders/compositeLoader.js",
+    "apps/server/server/loaders/pageConfigLoader.js",
+    "apps/server/server/loaders/renderRegistry.js",
+    "apps/server/server/utils/dbManager.js",
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/routes/index.js": [
     "apps/server/server/routes/registerRoutes.js",
     "apps/server/server/utils/logger.js"
@@ -210,6 +257,7 @@
   ],
   "apps/server/server/server.js": [
     "apps/server/server/app.js",
+    "apps/server/server/routes/htmxRoutes.js",
     "apps/server/server/routes/index.js",
     "apps/server/server/utils/dbManager.js",
     "apps/server/server/utils/logger.js"
@@ -265,6 +313,7 @@
   "apps/server/server/utils/cloneTemplate/testSession.js": [
     "apps/server/server/utils/cloneTemplate/sessionManager.js"
   ],
+  "apps/server/server/utils/db.js": [],
   "apps/server/server/utils/dbManager.js": [
     "apps/server/server/utils/logger.js"
   ],

@@ -14,6 +14,7 @@ import { app } from './app.js';
 import logger from './utils/logger.js';
 import initializeRoutes from './routes/index.js';
 import dbManager from './utils/dbManager.js';
+import htmxRoutes from './routes/htmxRoutes.js';
 const codeName = '[server.js]';
 
 // Simple test route to verify routing
@@ -40,7 +41,12 @@ async function startServer() {
             res.json(dbManager.getStatus());
         });
 
-        // Initialize routes before starting the server
+        // Register HTMX routes FIRST (on root path: /:appName/:pageName)
+        logger.info(`${codeName} Registering HTMX routes`);
+        app.use('/', htmxRoutes);
+        logger.info(`${codeName} HTMX routes registered`);
+
+        // Initialize API routes (on /api path)
         logger.info(`${codeName} Initializing routes`);
         initializeRoutes(app);
         logger.info(`${codeName} Routes initialized`);
@@ -60,15 +66,15 @@ async function startServer() {
                 status: 'error',
                 message: 'Route not found',
                 availableEndpoints: {
-                    auth: {
-                        login: '/api/auth/login'
+                    controllers: {
+                        execEvent: '/controller/execEvent',
+                        execDML: '/controller/execDML',
+                        userLogin: '/controller/userLogin'
                     },
-                    events: {
-                        execute: '/api/execEvent'
-                    },
-                    status: {
+                    utilities: {
                         health: '/health',
-                        database: '/api/status/database'
+                        database: '/api/status/database',
+                        routes: '/api/util/list-routes'
                     }
                 },
                 documentation: 'Visit / for API documentation'

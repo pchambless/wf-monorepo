@@ -136,6 +136,16 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/app-htmx.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/app.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -706,6 +716,46 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/loaders/actionsLoader.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/loaders/compositeLoader.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/loaders/pageConfigLoader.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/loaders/renderRegistry.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/middleware/errorHandler.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -736,10 +786,111 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
+      "file": "apps/server/server/renderers/index.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/renderers/renderButton.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/renderers/renderContainer.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/renderers/renderForm.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/renderers/renderGrid.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/renderers/renderModal.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/renderers/renderPage.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/renderers/renderSelect.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/renderers/renderText.js",
+      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "tags": [
+        "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
       "file": "apps/server/server/resetAgentPassword.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/routes/htmxRoutes.js",
+      "purpose": "Auto-inferred from dependency graph. 2 dependents.",
+      "tags": [
+        "server",
+        "routing"
       ],
       "critical": false,
       "blastRadius": "low",
@@ -888,14 +1039,25 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/utils/dbManager.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "file": "apps/server/server/utils/db.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "utility"
       ],
       "critical": false,
       "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/dbManager.js",
+      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": true,
+      "blastRadius": "medium",
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
@@ -977,7 +1139,7 @@
     },
     {
       "file": "apps/server/server/utils/logger.js",
-      "purpose": "Auto-inferred from dependency graph. 45 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 51 dependents.",
       "tags": [
         "server",
         "utility"

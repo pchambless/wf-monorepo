@@ -40,6 +40,9 @@
       "file_path": "apps/server/postcss.config.js"
     },
     {
+      "file_path": "apps/server/server/app-htmx.js"
+    },
+    {
       "file_path": "apps/server/server/app.js"
     },
     {
@@ -205,6 +208,18 @@
       "file_path": "apps/server/server/events/plans/planList.js"
     },
     {
+      "file_path": "apps/server/server/loaders/actionsLoader.js"
+    },
+    {
+      "file_path": "apps/server/server/loaders/compositeLoader.js"
+    },
+    {
+      "file_path": "apps/server/server/loaders/pageConfigLoader.js"
+    },
+    {
+      "file_path": "apps/server/server/loaders/renderRegistry.js"
+    },
+    {
       "file_path": "apps/server/server/middleware/errorHandler.js"
     },
     {
@@ -214,7 +229,37 @@
       "file_path": "apps/server/server/middleware/userEmailInjection.js"
     },
     {
+      "file_path": "apps/server/server/renderers/index.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderButton.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderContainer.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderForm.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderGrid.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderModal.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderPage.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderSelect.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderText.js"
+    },
+    {
       "file_path": "apps/server/server/resetAgentPassword.js"
+    },
+    {
+      "file_path": "apps/server/server/routes/htmxRoutes.js"
     },
     {
       "file_path": "apps/server/server/routes/index.js"
@@ -254,6 +299,9 @@
     },
     {
       "file_path": "apps/server/server/utils/cloneTemplate/testSession.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/db.js"
     },
     {
       "file_path": "apps/server/server/utils/dbManager.js"
@@ -1254,6 +1302,14 @@
   ],
   "dependencies": [
     {
+      "from_path": "apps/server/server/app-htmx.js",
+      "to_path": "apps/server/server/routes/htmxRoutes.js"
+    },
+    {
+      "from_path": "apps/server/server/app-htmx.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/app.js",
       "to_path": "apps/server/server/controller/execEvent.js"
     },
@@ -1598,7 +1654,99 @@
       "to_path": "apps/server/server/events/plans/planList.js"
     },
     {
+      "from_path": "apps/server/server/loaders/actionsLoader.js",
+      "to_path": "apps/server/server/utils/dbManager.js"
+    },
+    {
+      "from_path": "apps/server/server/loaders/actionsLoader.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/loaders/compositeLoader.js",
+      "to_path": "apps/server/server/utils/dbManager.js"
+    },
+    {
+      "from_path": "apps/server/server/loaders/compositeLoader.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/loaders/pageConfigLoader.js",
+      "to_path": "apps/server/server/utils/dbManager.js"
+    },
+    {
+      "from_path": "apps/server/server/loaders/pageConfigLoader.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/loaders/renderRegistry.js",
+      "to_path": "apps/server/server/renderers/index.js"
+    },
+    {
+      "from_path": "apps/server/server/loaders/renderRegistry.js",
+      "to_path": "apps/server/server/utils/dbManager.js"
+    },
+    {
+      "from_path": "apps/server/server/loaders/renderRegistry.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/middleware/userEmailInjection.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderButton.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderContainer.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderForm.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderGrid.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderModal.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderPage.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderSelect.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderText.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/htmxRoutes.js",
+      "to_path": "apps/server/server/loaders/actionsLoader.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/htmxRoutes.js",
+      "to_path": "apps/server/server/loaders/compositeLoader.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/htmxRoutes.js",
+      "to_path": "apps/server/server/loaders/pageConfigLoader.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/htmxRoutes.js",
+      "to_path": "apps/server/server/loaders/renderRegistry.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/htmxRoutes.js",
+      "to_path": "apps/server/server/utils/dbManager.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/htmxRoutes.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1692,6 +1840,10 @@
     {
       "from_path": "apps/server/server/server.js",
       "to_path": "apps/server/server/app.js"
+    },
+    {
+      "from_path": "apps/server/server/server.js",
+      "to_path": "apps/server/server/routes/htmxRoutes.js"
     },
     {
       "from_path": "apps/server/server/server.js",

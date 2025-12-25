@@ -12,9 +12,7 @@ CREATE OR REPLACE VIEW vw_execEvents AS
   ) AS qry_keys
   WHERE c.active = 1
     AND c.eventSQL IS NOT NULL
-
   UNION ALL
-
   SELECT
     qry_keys.key_name AS qryName,
     JSON_UNQUOTE(JSON_EXTRACT(pc.eventSQL, CONCAT('$.', qry_keys.key_name))) AS qrySQL,

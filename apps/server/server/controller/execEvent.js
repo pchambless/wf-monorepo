@@ -13,46 +13,43 @@ const codeName = `[execEvent.js]`;
 const execEvent = async (req, res) => {
   logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
-  const { eventSQLId, params } = req.body;
+  // Only handle GET requests (SELECT queries)
+  const { qryName, eventSQLId, params } = req.query;
+  const queryName = qryName || eventSQLId;
 
-  if (!eventSQLId) {
+  if (!queryName) {
     return res.status(400).json({
-      error: "MISSING_EVENTSQL_ID",
-      message: "eventSQLId is required",
+      error: "MISSING_QUERY_NAME",
+      message: "qryName is required",
     });
   }
 
   try {
-    // Determine if eventSQLId is a name (string) or ID (number)
-    const isName = isNaN(eventSQLId);
-    const lookupField = isName ? "qryName" : "id";
-    const lookupValue = isName ? `'${eventSQLId}'` : eventSQLId;
-
-    // Fetch SQL query from eventSQL table
+    // Lookup by qryName only (HTMX architecture uses names like "ingrTypeGrid")
     const fetchSQL = `
-      SELECT id, qryName, qrySQL, description
-      FROM api_wf.eventSQL
-      WHERE ${lookupField} = ${lookupValue} AND active = 1
+      SELECT qryName, qrySQL
+      FROM api_wf.vw_execEvents
+      WHERE qryName = ? 
     `;
 
     logger.debug(
-      `${codeName} Fetching eventSQL by ${lookupField}: ${eventSQLId}`
+      `${codeName} Fetching eventSQL by qryName: ${queryName}`
     );
 
     // Execute query to get the SQL from eventSQL table
-    const fetchResult = await executeQuery(fetchSQL, "GET");
+    const fetchResult = await executeQuery(fetchSQL, "GET", [queryName]);
 
     if (!fetchResult || fetchResult.length === 0) {
       return res.status(404).json({
         error: "EVENTSQL_NOT_FOUND",
-        message: `No active eventSQL found with ID: ${eventSQLId}`,
+        message: `No active eventSQL found with qryName: ${queryName}`,
       });
     }
 
     const eventSQLData = fetchResult[0];
-    const { id, qryName, qrySQL } = eventSQLData;
+    const { qryName, qrySQL } = eventSQLData;
 
-    logger.debug(`${codeName} Found eventSQL: ${qryName} (ID: ${id})`);
+    logger.debug(`${codeName} Found eventSQL: ${qryName}`);
 
     // Auto-resolve context parameters
     let finalSQL = qrySQL;
@@ -99,17 +96,36 @@ const execEvent = async (req, res) => {
     const result = await executeQuery(finalSQL, "GET");
 
     logger.info(
-      `${codeName} EventSQL executed successfully: ${qryName} (ID: ${id})`
+      `${codeName} EventSQL executed successfully: ${qryName}`
     );
 
-    res.json({
-      qryName: qryName,
-      eventSQLId: id,
-      data: result,
-    });
+    // Check if this is an HTMX request
+    const isHTMX = req.headers['hx-request'] === 'true';
+
+    if (isHTMX) {
+      // Return HTML table rows for HTMX
+      const rows = result.map(row => {
+        const cells = Object.values(row).map(val =>
+          `<td style="padding: 8px; border: 1px solid #ddd;">${val || ''}</td>`
+        ).join('');
+
+        return `<tr>${cells}<td style="padding: 8px; border: 1px solid #ddd;">
+          <button style="margin: 2px; padding: 4px 8px;">Edit</button>
+          <button style="margin: 2px; padding: 4px 8px;">Delete</button>
+        </td></tr>`;
+      }).join('');
+
+      res.send(rows);
+    } else {
+      // Return JSON for API calls
+      res.json({
+        qryName: qryName,
+        data: result,
+      });
+    }
   } catch (error) {
     logger.error(
-      `${codeName} EventSQL execution failed for ID ${eventSQLId}:`,
+      `${codeName} EventSQL execution failed for qryName ${queryName}:`,
       error
     );
 
@@ -118,7 +134,7 @@ const execEvent = async (req, res) => {
     res.status(status).json({
       error: error.code || "EVENTSQL_EXECUTION_FAILED",
       message: error.message,
-      eventSQLId: eventSQLId,
+      qryName: queryName,
     });
   }
 };

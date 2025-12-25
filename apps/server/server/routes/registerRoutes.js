@@ -34,32 +34,34 @@ const registerRoutes = (app) => {
     routes.push(`${method.toUpperCase()} ${path}`);
   };
 
-  // === Core Runtime APIs ===
-  registerRoute("post", "/api/execEvent", execEvent);
-  registerRoute("post", "/api/execDML", execDML);
-  registerRoute("post", "/api/execCreateDoc", execCreateDoc);
-  registerRoute("get", "/api/getDoc", getDoc);
+  // === Core Runtime Controllers ===
+  registerRoute("get", "/controller/execEvent", execEvent);  // SELECT queries only (HTMX GET)
+  registerRoute("post", "/controller/execDML", execDML);     // INSERT (HTMX POST)
+  registerRoute("put", "/controller/execDML", execDML);      // UPDATE (HTMX PUT)
+  registerRoute("delete", "/controller/execDML", execDML);   // DELETE (HTMX DELETE)
+  registerRoute("post", "/controller/execCreateDoc", execCreateDoc);
+  registerRoute("get", "/controller/getDoc", getDoc);
 
-  // === Context Store APIs ===
-  registerRoute("get", "/api/getVal", getVal);
-  registerRoute("post", "/api/setVals", setVals);
-  registerRoute("post", "/api/clearVals", clearVals);
+  // === Context Store Controllers ===
+  registerRoute("get", "/controller/getVal", getVal);
+  registerRoute("post", "/controller/setVals", setVals);
+  registerRoute("post", "/controller/clearVals", clearVals);
 
   // === Template Cloning ===
-  registerRoute("post", "/api/cloneStep", cloneStep);
+  registerRoute("post", "/controller/cloneStep", cloneStep);
 
-  // === System Maintenance APIs ===
-  registerRoute("post", "/api/populateModules", populateModules);
+  // === System Maintenance Controllers ===
+  registerRoute("post", "/controller/populateModules", populateModules);
 
-  // === GitHub Copilot Query API ===
-  registerRoute("post", "/api/copilot/query", copilotQuery);
+  // === GitHub Copilot Query Controller ===
+  registerRoute("post", "/controller/copilot/query", copilotQuery);
 
-  // === Studio Development APIs ===
-  registerRoute("post", "/api/studio/genFields", genFields);
+  // === Studio Development Controllers ===
+  registerRoute("post", "/controller/studio/genFields", genFields);
 
-  // === Application APIs ===
-  registerRoute("post", "/api/initialize", initializeController.initialize);
-  registerRoute("post", "/api/auth/login", userLogin);
+  // === Application Controllers ===
+  registerRoute("post", "/controller/initialize", initializeController.initialize);
+  registerRoute("post", "/controller/userLogin", userLogin);
   // === Utility / Development APIs ===
   registerRoute("get", "/api/util/list-routes", (req, res) => {
     logger.debug(`${codeName} Entering /util/list-routes`);

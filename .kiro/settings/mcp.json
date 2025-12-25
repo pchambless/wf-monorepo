@@ -23,6 +23,16 @@
       ],
       "disabled": false,
       "autoApprove": []
+    },
+    "docker-toolkit": {
+      "command": "docker",
+      "args": [
+        "mcp",
+        "gateway",
+        "run"
+      ],
+      "disabled": false,
+      "autoApprove": []
     }
   }
 }
