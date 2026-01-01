@@ -4,9 +4,12 @@ const bodyParser = require('body-parser');
 const { exec, spawn } = require('child_process');
 const fs = require('fs').promises;
 const path = require('path');
+// const N8nWorkflowSync = require('./n8n-workflow-sync'); // DISABLED - using Auto-Export Workflows instead
 
 const app = express();
 const PORT = process.env.PORT || 3010;
+
+// let workflowSync = null; // DISABLED
 
 // Middleware
 app.use(cors());
@@ -179,16 +182,20 @@ app.post('/api/git/commit-push', async (req, res) => {
 });
 
 // MySQL dump operation using existing script
+// NOTE: DEPRECATED - Being replaced by "Export Database DDL" n8n workflow
+// New workflow is cleaner, uses n8n MCP toolkit, and has better error handling
+// See: .n8n/workflows/export-database-ddl.json
+// Keeping this endpoint for backward compatibility during transition
 app.post('/api/mysqldump', async (req, res) => {
   try {
-    const { 
+    const {
       schema = 'api_wf'
     } = req.body;
 
     // Use the existing working script (no copy needed - parse script will read from original location)
     const command = `SCHEMA=${schema} /workspace/scripts/dump_api_wf_schema.sh`;
-    
-    exec(command, { 
+
+    exec(command, {
       timeout: 120000,
       cwd: '/workspace'
     }, (error, stdout, stderr) => {
@@ -224,7 +231,24 @@ app.use((error, req, res, next) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`Command service running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/health`);
+
+  // NOTE: Workflow sync disabled - now handled by "Auto-Export Workflows" n8n workflow
+  // which runs every 5 minutes and uses the n8n MCP toolkit
+  // See: .n8n/workflows/auto-export-workflows.json
+
+  // try {
+  //   workflowSync = new N8nWorkflowSync();
+  //   await workflowSync.init();
+  // } catch (error) {
+  //   console.error('⚠️  Failed to start workflow sync:', error.message);
+  // }
+});
+
+process.on('SIGTERM', () => {
+  console.log('Shutting down gracefully...');
+  // No cleanup needed - workflow sync disabled
+  process.exit(0);
 });

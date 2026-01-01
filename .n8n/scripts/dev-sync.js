@@ -20,6 +20,8 @@ try {
 
 const N8N_URL = process.env.N8N_URL || 'http://localhost:5678';
 const N8N_API_KEY = process.env.N8N_API_KEY || '';
+const N8N_BASIC_AUTH_USER = process.env.N8N_BASIC_AUTH_USER || 'admin';
+const N8N_BASIC_AUTH_PASSWORD = process.env.N8N_BASIC_AUTH_PASSWORD || 'admin123';
 const WORKFLOW_DIR = path.join(__dirname, '../workflows'); // Point to workflows folder
 
 class N8nDevSync {
@@ -184,11 +186,16 @@ class N8nDevSync {
       const baseUrl = isWebhook ? N8N_URL : `${N8N_URL}/api/v1`;
       const url = new URL(baseUrl + endpoint);
       
+      // Use Basic Auth if API key not available
+      const authHeader = N8N_API_KEY
+        ? { 'X-N8N-API-KEY': N8N_API_KEY }
+        : { 'Authorization': 'Basic ' + Buffer.from(`${N8N_BASIC_AUTH_USER}:${N8N_BASIC_AUTH_PASSWORD}`).toString('base64') };
+
       const options = {
         method,
         headers: {
           'Content-Type': 'application/json',
-          ...(N8N_API_KEY && { 'X-N8N-API-KEY': N8N_API_KEY })
+          ...authHeader
         },
         timeout: 5000
       };

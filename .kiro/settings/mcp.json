@@ -12,14 +12,10 @@
       ]
     },
     "n8n-workflows": {
-      "command": "npx",
+      "command": "bash",
       "args": [
-        "-y",
-        "supergateway",
-        "--streamableHttp",
-        "http://0.0.0.0:5678/mcp-server/http",
-        "--header",
-        "authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZThiZGY5YS03MWFhLTQ3YmYtYWEyYS1kZjE1MDcyNzJhZDciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6ImY5MjkzYmIzLTI1MzctNDI0NS1hYjViLWU0MTAzZmYwNDg5MSIsImlhdCI6MTc2NjMyNDI5OX0.Molr3zLb4sgfZgzfFrJ4oRRtGWbWopkL6X2Qmmw5xvI"
+        "-c",
+        "source /home/paul/Projects/wf-monorepo/.env && exec npx -y supergateway --streamableHttp http://0.0.0.0:5678/mcp-server/http --header \"authorization:Bearer $N8N_API_KEY\""
       ],
       "disabled": false,
       "autoApprove": []

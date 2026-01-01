@@ -1,0 +1,291 @@
+{
+  "name": "Module Dependency Analysis",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "module-analysis",
+        "httpMethod": "POST",
+        "authentication": "none",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 300],
+      "webhookId": "module-analysis"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 2
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 500]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:3010/api/execute",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "command",
+              "value": "cd /workspace && npx depcruise --output-type json ."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "run-depcruise",
+      "name": "Run Dependency Cruiser",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse dependency-cruiser output and build enhanced analysis\nconst response = $input.item.json;\nconst rawData = JSON.parse(response.stdout);\n\nconst modules = {};\nconst dependencies = [];\nconst dependents = {};\n\n// Helper: Get package from path\nfunction getPackage(filePath) {\n  if (filePath.startsWith('apps/whatsfresh/')) return 'whatsfresh';\n  if (filePath.startsWith('apps/server/')) return 'server';\n  if (filePath.startsWith('apps/admin/')) return 'admin';\n  if (filePath.startsWith('apps/studio/')) return 'studio';\n  if (filePath.startsWith('apps/login/')) return 'login';\n  if (filePath.startsWith('packages/shared-imports/')) return 'shared-imports';\n  if (filePath.startsWith('packages/db-connect/')) return 'db-connect';\n  return 'other';\n}\n\n// Helper: Get module type from path\nfunction getModuleType(filePath) {\n  if (filePath.includes('/controller/')) return 'controller';\n  if (filePath.includes('/component/') || filePath.includes('/components/')) return 'component';\n  if (filePath.includes('/util/') || filePath.includes('/utils/')) return 'utility';\n  if (filePath.includes('/route/') || filePath.includes('/routes/')) return 'routing';\n  if (filePath.includes('.config.')) return 'config';\n  if (filePath.includes('.test.') || filePath.includes('.spec.')) return 'test';\n  return 'module';\n}\n\n// Process dependency-cruiser data - format is: { modules: [{source: \"file.js\", dependencies: [{resolved: \"dep.js\"}]}] }\nfor (const module of rawData.modules || []) {\n  const filePath = module.source;\n  const pkg = getPackage(filePath);\n  const moduleType = getModuleType(filePath);\n  \n  // Extract dependency paths (only local files, exclude node_modules)\n  const deps = (module.dependencies || [])\n    .map(d => d.resolved)\n    .filter(d => d && !d.includes('node_modules') && (d.startsWith('apps/') || d.startsWith('packages/')));\n\n  modules[filePath] = {\n    file_path: filePath,\n    package: pkg,\n    module_type: moduleType,\n    dependencies: deps,\n    dependency_count: deps.length\n  };\n\n  // Build dependencies and reverse map\n  for (const depPath of deps) {\n    dependencies.push({\n      from_path: filePath,\n      to_path: depPath\n    });\n\n    // Build reverse dependency map\n    if (!dependents[depPath]) {\n      dependents[depPath] = [];\n    }\n    dependents[depPath].push(filePath);\n  }\n}\n\n// Calculate dependent counts and blast radius\nfor (const [filePath, moduleData] of Object.entries(modules)) {\n  const dependentCount = (dependents[filePath] || []).length;\n  \n  moduleData.dependent_count = dependentCount;\n  \n  // Calculate blast radius\n  if (dependentCount >= 8) {\n    moduleData.blast_radius = 'high';\n  } else if (dependentCount >= 4) {\n    moduleData.blast_radius = 'medium';\n  } else {\n    moduleData.blast_radius = 'low';\n  }\n}\n\n// Batch modules (100 per batch)\nconst BATCH_SIZE = 100;\nconst moduleArray = Object.values(modules);\nconst moduleBatches = [];\nfor (let i = 0; i < moduleArray.length; i += BATCH_SIZE) {\n  moduleBatches.push(moduleArray.slice(i, i + BATCH_SIZE));\n}\n\n// Batch dependencies\nconst depBatches = [];\nfor (let i = 0; i < dependencies.length; i += BATCH_SIZE) {\n  depBatches.push(dependencies.slice(i, i + BATCH_SIZE));\n}\n\nconsole.log(`Processed ${moduleArray.length} modules in ${moduleBatches.length} batches`);\nconsole.log(`Processed ${dependencies.length} dependencies in ${depBatches.length} batches`);\n\nreturn {\n  json: {\n    moduleBatches,\n    depBatches,\n    totalModules: moduleArray.length,\n    totalDependencies: dependencies.length\n  }\n};"
+      },
+      "id": "analyze-dependencies",
+      "name": "Analyze Dependencies",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "batchSize": 100,
+        "options": {}
+      },
+      "id": "split-module-batches",
+      "name": "Split Module Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Split In Batches already grouped items - just serialize them\nconst allItems = $input.all();\nconst batch = allItems.map(item => item.json);\n\nreturn {\n  json: {\n    modulesJson: JSON.stringify(batch),\n    batchSize: batch.length\n  }\n};"
+      },
+      "id": "prepare-module-batch",
+      "name": "Prepare Module Batch",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CALL api_wf.sp_module_load(?, 'n8n-automation')",
+        "options": {
+          "queryParameters": "={{ $json.modulesJson }}"
+        }
+      },
+      "id": "load-modules",
+      "name": "Load Modules",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [1340, 300],
+      "credentials": {
+        "mySql": {
+          "id": "b3RbGefMUYnTWuuA",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 100,
+        "options": {}
+      },
+      "id": "split-dep-batches",
+      "name": "Split Dependency Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [900, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Split In Batches already grouped items - just serialize them\nconst allItems = $input.all();\nconst batch = allItems.map(item => item.json);\n\nreturn {\n  json: {\n    depsJson: JSON.stringify(batch),\n    batchSize: batch.length\n  }\n};"
+      },
+      "id": "prepare-dep-batch",
+      "name": "Prepare Dependency Batch",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 500]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CALL api_wf.sp_module_map(?, 'n8n-automation')",
+        "options": {
+          "queryParameters": "={{ $json.depsJson }}"
+        }
+      },
+      "id": "map-dependencies",
+      "name": "Map Dependencies",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [1340, 500],
+      "credentials": {
+        "mySql": {
+          "id": "b3RbGefMUYnTWuuA",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Module analysis complete. Processed modules and dependencies.",
+        "options": {}
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [1560, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Run Madge Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Run Madge Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Madge Analysis": {
+      "main": [
+        [
+          {
+            "node": "Analyze Dependencies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze Dependencies": {
+      "main": [
+        [
+          {
+            "node": "Split Module Batches",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Split Dependency Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Module Batches": {
+      "main": [
+        [
+          {
+            "node": "Prepare Module Batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Module Batch": {
+      "main": [
+        [
+          {
+            "node": "Load Modules",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Modules": {
+      "main": [
+        [
+          {
+            "node": "Split Module Batches",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        null,
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Dependency Batches": {
+      "main": [
+        [
+          {
+            "node": "Prepare Dependency Batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Dependency Batch": {
+      "main": [
+        [
+          {
+            "node": "Map Dependencies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Dependencies": {
+      "main": [
+        [
+          {
+            "node": "Split Dependency Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

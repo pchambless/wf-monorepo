@@ -1,0 +1,108 @@
+{
+  "name": "Sub-Adhoc Query",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "executeWorkflowTrigger",
+      "name": "When Called by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Transform sub-workflow input to adhoc-query webhook format\nconst input = $input.item.json;\n\n// Support both formats:\n// 1. { body: { query: \"...\", params: {} } }\n// 2. { query: \"...\", params: {} }\nconst query = input.body?.query || input.query;\nconst params = input.body?.params || input.params || {};\nconst agent = input.agent || 'sub-workflow';\nconst description = input.description || 'Sub-workflow query execution';\n\nif (!query) {\n  throw new Error('Query is required. Received: ' + JSON.stringify(input));\n}\n\nreturn [{\n  json: {\n    query: query,\n    params: params,\n    agent: agent,\n    description: description\n  }\n}];"
+      },
+      "id": "prepare-request",
+      "name": "Prepare HTTP Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "ssu8GdKQEJM3KbGx",
+          "mode": "id"
+        },
+        "workflowInputs": {
+          "mappingMode": "passthrough"
+        },
+        "options": {}
+      },
+      "id": "call-adhoc-query",
+      "name": "Call Adhoc Query Sub-Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// When adhoc-query is called as sub-workflow via executeWorkflow,\n// it returns: { success, results, ... } directly (already normalized by Format Response node)\n// Just pass it through - no extraction needed\nreturn [$input.item];"
+      },
+      "id": "extract-response",
+      "name": "Pass Through Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "When Called by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Prepare HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Call Adhoc Query Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call Adhoc Query Sub-Workflow": {
+      "main": [
+        [
+          {
+            "node": "Pass Through Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "pinData": null,
+  "tags": []
+}

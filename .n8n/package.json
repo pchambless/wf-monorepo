@@ -1,0 +1,14 @@
+{
+  "name": "session-startup-mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MCP server that exposes session-startup as auto-fetchable resource",
+  "main": "mcp-session-server.js",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "node-fetch": "^3.3.2"
+  },
+  "bin": {
+    "session-startup-mcp": "./mcp-session-server.js"
+  }
+}

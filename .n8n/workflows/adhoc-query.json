@@ -1,5 +1,9 @@
 {
+  "id": "ssu8GdKQEJM3KbGx",
   "name": "Adhoc Query",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -13,8 +17,24 @@
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
-      "position": [240, 300],
+      "position": [
+        240,
+        300
+      ],
       "webhookId": "adhoc-query"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "id": "sub-workflow-trigger",
+      "name": "When Called by Another Workflow",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        480
+      ]
     },
     {
       "parameters": {
@@ -24,35 +44,44 @@
       "name": "Process Query",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [
+        460,
+        300
+      ]
     },
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "={{ $('Process Query').item.json.query }}",
+        "query": "={{ $('Process Query').item.json.query }}; SHOW WARNINGS",
         "options": {}
       },
       "id": "execute-query",
       "name": "Execute Query",
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
-      "position": [680, 300],
+      "position": [
+        680,
+        300
+      ],
       "credentials": {
         "mySql": {
-          "id": "b3RbGefMUYnTWuuA",
+          "id": "ooSthvBoqus6O1FZ",
           "name": "MySQL api_wf"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "const queryInfo = $('Process Query').item.json;\nconst queryResults = $input.all();\n\nconst resultCount = queryResults.length;\nconst hasResults = resultCount > 0;\n\nreturn [{\n  json: {\n    success: true,\n    query: queryInfo.query,\n    agent: queryInfo.agent,\n    description: queryInfo.description,\n    results: {\n      count: resultCount,\n      data: queryResults.map(item => item.json)\n    },\n    timestamp: new Date().toISOString()\n  }\n}];"
+        "jsCode": "const queryInfo = $('Process Query').item.json;\nconst queryResults = $input.all();\n\n// Check if first result has error object\nif (queryResults.length > 0 && queryResults[0].json.error) {\n  return [{\n    json: {\n      success: false,\n      query: queryInfo.query,\n      error: queryResults[0].json.message,\n      errorCode: queryResults[0].json.error.description?.match(/code: (\\w+)/)?.[1],\n      timestamp: new Date().toISOString()\n    }\n  }];\n}\n\n// Separate main results from warnings\n// Last N items might be warnings (they have Level, Code, Message fields)\nconst warnings = [];\nconst data = [];\n\nqueryResults.forEach(item => {\n  if (item.json.Level && item.json.Message) {\n    warnings.push(item.json);\n  } else {\n    data.push(item.json);\n  }\n});\n\nreturn [{\n  json: {\n    success: true,\n    query: queryInfo.query,\n    agent: queryInfo.agent,\n    description: queryInfo.description,\n    results: {\n      count: data.length,\n      data: data\n    },\n    warnings: warnings.length > 0 ? warnings : undefined,\n    timestamp: new Date().toISOString()\n  }\n}];"
       },
       "id": "format-response",
       "name": "Format Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 300]
+      "position": [
+        900,
+        300
+      ]
     },
     {
       "parameters": {
@@ -63,11 +92,25 @@
       "name": "Respond to Webhook",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
-      "position": [1120, 300]
+      "position": [
+        1120,
+        300
+      ]
     }
   ],
   "connections": {
     "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Process Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Called by Another Workflow": {
       "main": [
         [
           {
@@ -113,6 +156,15 @@
     }
   },
   "settings": {
-    "executionOrder": "v1"
-  }
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "timezone": "America/Chicago"
+  },
+  "staticData": null,
+  "pinData": null,
+  "versionId": "b209db9f-1c17-438b-abef-74a8a7a9504b",
+  "createdAt": "2025-12-21 02:17:16.081",
+  "updatedAt": "2025-12-25 19:16:11.611"
 }

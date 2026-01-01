@@ -1,9 +1,19 @@
 {
-  ".dependency-cruiser.js": [],
   ".kiro/workflows/createRoadmap.js": [],
+  ".n8n/command-service/n8n-workflow-sync.js": [],
   ".n8n/command-service/server.js": [],
+  ".n8n/mcp-session-server.js": [],
+  ".n8n/scripts/delete-duplicate-workflows.js": [],
+  ".n8n/scripts/delete-duplicates-container.js": [],
   ".n8n/scripts/dev-sync.js": [],
+  ".n8n/scripts/export-active-workflows.js": [],
+  ".n8n/scripts/export-changed-workflows.js": [],
+  ".n8n/scripts/export-single-workflow.js": [],
+  ".n8n/scripts/export-with-webhook-names.js": [],
   ".n8n/scripts/generate-workflow-registry.js": [],
+  ".n8n/scripts/inspect-workflow-table.js": [],
+  ".n8n/scripts/inspect-workflow.js": [],
+  ".n8n/scripts/query-workflows.js": [],
   "analysis-n-document/genDocs/analyze-app.js": [],
   "analysis-n-document/genDocs/analyze-dead-code.js": [],
   "analysis-n-document/genDocs/create-load-files.js": [],
@@ -28,24 +38,6 @@
     "apps/server/server/controller/setVals.js",
     "apps/server/server/utils/logger.js"
   ],
-  "apps/server/server/controller/cloneStep.js": [
-    "apps/server/server/utils/cloneTemplate/sessionManager.js",
-    "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
-    "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
-    "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
-    "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
-    "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
-    "apps/server/server/utils/logger.js"
-  ],
-  "apps/server/server/controller/copilotQuery.js": [
-    "apps/server/server/utils/dbUtils.js",
-    "apps/server/server/utils/getUserEmail.js",
-    "apps/server/server/utils/logger.js"
-  ],
-  "apps/server/server/controller/execCreateDoc.js": [
-    "apps/server/server/utils/logger.js",
-    "apps/server/server/utils/queryResolver.js"
-  ],
   "apps/server/server/controller/execDML.js": [
     "apps/server/server/utils/dml/dmlProcessor.js",
     "apps/server/server/utils/getUserEmail.js",
@@ -63,9 +55,6 @@
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/logger.js"
   ],
-  "apps/server/server/controller/getDoc.js": [
-    "apps/server/server/utils/logger.js"
-  ],
   "apps/server/server/controller/getMigrationStatus.js": [
     "apps/server/server/utils/logger.js"
   ],
@@ -79,14 +68,6 @@
   ],
   "apps/server/server/controller/initialize.js": [],
   "apps/server/server/controller/listRegisteredRoutes.js": [],
-  "apps/server/server/controller/openTerminal.js": [
-    "apps/server/server/utils/logger.js"
-  ],
-  "apps/server/server/controller/populateModules.js": [
-    "apps/server/server/utils/dbUtils.js",
-    "apps/server/server/utils/getUserEmail.js",
-    "apps/server/server/utils/logger.js"
-  ],
   "apps/server/server/controller/resetSessionCounters.js": [
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/logger.js"
@@ -105,6 +86,7 @@
   ],
   "apps/server/server/controller/userLogin.js": [
     "apps/server/server/controller/resetSessionCounters.js",
+    "apps/server/server/controller/setVals.js",
     "apps/server/server/events/index.js",
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/logger.js",
@@ -212,14 +194,32 @@
     "apps/server/server/renderers/renderSelect.js",
     "apps/server/server/renderers/renderText.js"
   ],
-  "apps/server/server/renderers/renderButton.js": [],
-  "apps/server/server/renderers/renderContainer.js": [],
-  "apps/server/server/renderers/renderForm.js": [],
-  "apps/server/server/renderers/renderGrid.js": [],
-  "apps/server/server/renderers/renderModal.js": [],
+  "apps/server/server/renderers/renderButton.js": [
+    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderContainer.js": [
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderForm.js": [
+    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderGrid.js": [
+    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderModal.js": [
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/renderers/renderPage.js": [],
-  "apps/server/server/renderers/renderSelect.js": [],
-  "apps/server/server/renderers/renderText.js": [],
+  "apps/server/server/renderers/renderSelect.js": [
+    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderText.js": [
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/resetAgentPassword.js": [],
   "apps/server/server/routes/htmxRoutes.js": [
     "apps/server/server/loaders/actionsLoader.js",
@@ -235,20 +235,14 @@
   ],
   "apps/server/server/routes/registerRoutes.js": [
     "apps/server/server/controller/clearVals.js",
-    "apps/server/server/controller/cloneStep.js",
-    "apps/server/server/controller/copilotQuery.js",
-    "apps/server/server/controller/execCreateDoc.js",
     "apps/server/server/controller/execDML.js",
     "apps/server/server/controller/execEvent.js",
     "apps/server/server/controller/genFields.js",
-    "apps/server/server/controller/getDoc.js",
     "apps/server/server/controller/getMigrationStatus.js",
     "apps/server/server/controller/getVal.js",
     "apps/server/server/controller/githubController.js",
     "apps/server/server/controller/initialize.js",
     "apps/server/server/controller/listRegisteredRoutes.js",
-    "apps/server/server/controller/openTerminal.js",
-    "apps/server/server/controller/populateModules.js",
     "apps/server/server/controller/restartServer.js",
     "apps/server/server/controller/runMigration.js",
     "apps/server/server/controller/setVals.js",
@@ -339,6 +333,9 @@
     "apps/server/server/utils/queryResolver.js"
   ],
   "apps/server/server/utils/getUserEmail.js": [],
+  "apps/server/server/utils/htmxBuilder.js": [
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/utils/impactLogger.js": [
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/logger.js"

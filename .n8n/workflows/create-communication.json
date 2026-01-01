@@ -1,5 +1,9 @@
 {
+  "id": "whO4Gv3i9lHJweWY",
   "name": "Create Communication",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -12,18 +16,24 @@
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
-      "position": [240, 300],
+      "position": [
+        240,
+        300
+      ],
       "webhookId": "create-communication"
     },
     {
       "parameters": {
-        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst { \n  plan_id, \n  from_agent = 'claude',\n  to_agent = 'any',\n  type,\n  subject,\n  message,\n  created_by = 'claude'\n} = body;\n\nif (!plan_id) {\n  throw new Error('plan_id is required');\n}\n\nif (!type) {\n  throw new Error('type is required');\n}\n\nif (!subject) {\n  throw new Error('subject is required');\n}\n\nif (!message) {\n  throw new Error('message is required');\n}\n\nconst validTypes = ['guidance', 'question', 'response', 'decision', 'status', 'analysis', 'technique'];\nif (!validTypes.includes(type)) {\n  throw new Error(`Invalid type. Must be one of: ${validTypes.join(', ')}`);\n}\n\nreturn {\n  json: {\n    plan_id,\n    from_agent,\n    to_agent,\n    type,\n    subject,\n    message,\n    created_by\n  }\n};"
+        "jsCode": "const body = $input.item.json.body || $input.item.json;\nconst { \n  plan_id, \n  from_agent = 'claude',\n  to_agent = 'any',\n  type,\n  subject,\n  message,\n  created_by\n} = body;\n\n// Default created_by to from_agent if not provided\nconst finalCreatedBy = created_by || from_agent;\n\nif (!plan_id) {\n  throw new Error('plan_id is required');\n}\n\nif (!type) {\n  throw new Error('type is required');\n}\n\nif (!subject) {\n  throw new Error('subject is required');\n}\n\nif (!message) {\n  throw new Error('message is required');\n}\n\nconst validTypes = ['guidance', 'status', 'analysis', 'technique', 'discussion', 'decision'];\nif (!validTypes.includes(type)) {\n  throw new Error(`Invalid type. Must be one of: ${validTypes.join(', ')}`);\n}\n\nreturn {\n  json: {\n    plan_id,\n    from_agent,\n    to_agent,\n    type,\n    subject,\n    message,\n    created_by: finalCreatedBy\n  }\n};"
       },
       "id": "validate-comm",
       "name": "Validate Communication",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [
+        460,
+        300
+      ]
     },
     {
       "parameters": {
@@ -36,9 +46,13 @@
       "name": "Insert Communication",
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
-      "position": [680, 300],
+      "position": [
+        680,
+        300
+      ],
       "credentials": {
         "mySql": {
+          "id": "ooSthvBoqus6O1FZ",
           "name": "MySQL api_wf"
         }
       }
@@ -51,7 +65,10 @@
       "name": "Format Response",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [900, 300]
+      "position": [
+        900,
+        300
+      ]
     },
     {
       "parameters": {
@@ -62,7 +79,10 @@
       "name": "Respond to Webhook",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
-      "position": [1120, 300]
+      "position": [
+        1120,
+        300
+      ]
     }
   ],
   "connections": {
@@ -112,6 +132,13 @@
     }
   },
   "settings": {
-    "executionOrder": "v1"
-  }
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
+  },
+  "staticData": null,
+  "pinData": null,
+  "versionId": "3b20caf0-c92b-4f85-b876-dd8f59a39344",
+  "createdAt": "2025-12-21 02:18:02.404",
+  "updatedAt": "2025-12-25 19:16:13.961"
 }

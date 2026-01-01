@@ -1,7 +1,16 @@
 #!/usr/bin/env node
 /**
- * Populate modules and module_xref tables from analysis JSON files
- * Usage: node populate-modules-db.js [server|studio|all]
+ * DEPRECATED: This script has been replaced by n8n workflow
+ *
+ * The module dependency analysis is now handled by:
+ * .n8n/workflows/module-dependency-analysis.json
+ *
+ * Schedule: Daily at 2:00 AM via n8n Schedule Trigger
+ *
+ * This file is kept for reference only.
+ * ---
+ *
+ * OLD USAGE: node populate-modules-db.js [server|studio|all]
  */
 
 import fs from "fs";
@@ -65,7 +74,7 @@ async function callModuleLoad(modules, userId) {
       userEmail: "system@whatsfresh.ai",
     };
 
-    const execResponse = await fetch(`${API_URL}/api/populateModules`, {
+    const execResponse = await fetch(`${API_URL}/controller/populateModules`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
@@ -109,7 +118,7 @@ async function callModuleMap(dependencies, userId) {
       userEmail: "system@whatsfresh.ai",
     };
 
-    const response = await fetch(`${API_URL}/api/populateModules`, {
+    const response = await fetch(`${API_URL}/controller/populateModules`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),

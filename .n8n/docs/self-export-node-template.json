@@ -1,0 +1,44 @@
+{
+  "name": "Self-Export Node Template",
+  "description": "Add this node to any workflow to enable self-export on execution",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:3010/api/execute",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "command",
+              "value": "docker exec n8n-whatsfresh node /home/node/export-single.js {{ $workflow.id }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "name": "Export This Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1000, 500],
+      "notes": "Exports this workflow to filesystem after execution"
+    }
+  ],
+  "instructions": [
+    "1. Copy the node configuration above",
+    "2. Add it to any workflow (usually at the end)",
+    "3. Connect it to your workflow's final node",
+    "4. The workflow will auto-export after each execution",
+    "5. Exported file: /home/paul/Projects/wf-monorepo/.n8n/workflows/<workflow-id>.json"
+  ],
+  "alternative_simple_version": {
+    "note": "For workflows with Execute Command node available",
+    "command": "docker exec n8n-whatsfresh node /home/node/export-single.js $workflow.id"
+  }
+}

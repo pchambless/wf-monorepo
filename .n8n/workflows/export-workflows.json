@@ -1,0 +1,169 @@
+{
+  "id": "fedNcuBOEGj93xle",
+  "name": "Export Workflows",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "export-workflows",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "bedc2102-50fd-4a3a-9cfd-34d720c55581",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "export-workflows"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 3
+            }
+          ]
+        }
+      },
+      "id": "b2b55b83-bbe8-434e-bc80-2d97e4995c78",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:3010/api/execute",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "command",
+              "value": "docker exec n8n-whatsfresh n8n export:workflow --backup --output=/home/node/.n8n/workflows/"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b2544906-0871-4b24-8664-ec77f77aa1cd",
+      "name": "Export All Workflows",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:3010/api/execute",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "command",
+              "value": "cd /home/node/.n8n/workflows && for file in *.json; do if [[ ! \"$file\" =~ ^[a-z0-9-]+\\.json$ ]]; then name=$(jq -r '.name // empty' \"$file\" 2>/dev/null); if [ -n \"$name\" ]; then newname=$(echo \"$name\" | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr -cd 'a-z0-9-' | sed 's/--*/-/g').json; if [ \"$file\" != \"$newname\" ] && [ ! -f \"$newname\" ]; then mv \"$file\" \"$newname\"; fi; fi; fi; done"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "39852bf5-4289-4116-9683-e0b7adcbc1e2",
+      "name": "Rename to Human Names",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        448,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Workflow export complete. Exported and renamed all workflows to /home/node/.n8n/workflows/",
+        "options": {}
+      },
+      "id": "4a3122e1-5152-4707-84d8-785e7ebc280a",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        672,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Export All Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Export All Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Export All Workflows": {
+      "main": [
+        [
+          {
+            "node": "Rename to Human Names",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rename to Human Names": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "pinData": {},
+  "versionId": "b580fd0b-c84e-49ba-ba4e-e332746ab47e",
+  "createdAt": "2025-12-28 14:21:07.175",
+  "updatedAt": "2025-12-28 14:21:24.707"
+}

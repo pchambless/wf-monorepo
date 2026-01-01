@@ -521,3 +521,156 @@
 2025-12-25T19:18:31.410Z | INFO | MCP MySQL server process started with PID: 4084667
 2025-12-25T19:18:31.410Z | INFO | Signal handlers registered for SIGINT and SIGTERM
 2025-12-25T19:18:31.410Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-26T12:01:00.879Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-26T12:01:00.882Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-26T12:01:00.886Z | INFO | MCP MySQL server process started with PID: 755797
+2025-12-26T12:01:00.887Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-26T12:01:00.887Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-27T14:19:43.689Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-27T14:19:43.692Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-27T14:19:43.694Z | INFO | MCP MySQL server process started with PID: 2103323
+2025-12-27T14:19:43.694Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-27T14:19:43.694Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-28T14:44:19.652Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-28T14:44:19.659Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-28T14:44:19.663Z | INFO | MCP MySQL server process started with PID: 3334467
+2025-12-28T14:44:19.664Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-28T14:44:19.664Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-28T14:47:10.635Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-28T14:47:10.638Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-28T14:47:10.641Z | INFO | MCP MySQL server process started with PID: 3337804
+2025-12-28T14:47:10.641Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-28T14:47:10.641Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-29T15:18:55.800Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-29T15:18:55.802Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-29T15:18:55.805Z | INFO | MCP MySQL server process started with PID: 476975
+2025-12-29T15:18:55.805Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-29T15:18:55.805Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-29T21:32:32.907Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-29T21:32:32.911Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-29T21:32:32.913Z | INFO | MCP MySQL server process started with PID: 818837
+2025-12-29T21:32:32.913Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-29T21:32:32.913Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-29T21:54:39.466Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-29T21:54:39.469Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-29T21:54:39.472Z | INFO | MCP MySQL server process started with PID: 840635
+2025-12-29T21:54:39.472Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-29T21:54:39.472Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-29T21:59:05.650Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-29T21:59:05.658Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-29T21:59:05.662Z | INFO | MCP MySQL server process started with PID: 845056
+2025-12-29T21:59:05.663Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-29T21:59:05.663Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-29T22:14:20.641Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-29T22:14:20.647Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-29T22:14:20.651Z | INFO | MCP MySQL server process started with PID: 859043
+2025-12-29T22:14:20.652Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-29T22:14:20.652Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-30T16:23:56.827Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-30T16:23:56.834Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-30T16:23:56.839Z | INFO | MCP MySQL server process started with PID: 1809745
+2025-12-30T16:23:56.840Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-30T16:23:56.841Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-30T16:25:32.415Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-30T16:25:32.421Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-30T16:25:32.426Z | INFO | MCP MySQL server process started with PID: 1811970
+2025-12-30T16:25:32.427Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-30T16:25:32.427Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-30T18:40:57.076Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-30T18:40:57.079Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-30T18:40:57.082Z | INFO | MCP MySQL server process started with PID: 1934552
+2025-12-30T18:40:57.082Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-30T18:40:57.082Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T03:49:26.606Z | INFO | Received SIGTERM, shutting down server...
+2025-12-31T03:49:26.608Z | INFO | Received SIGTERM, shutting down server...
+2025-12-31T03:49:26.611Z | INFO | Sent SIGTERM signal to server process 1811970
+2025-12-31T03:49:26.606Z | INFO | Received SIGTERM, shutting down server...
+2025-12-31T03:49:26.610Z | INFO | Received SIGTERM, shutting down server...
+2025-12-31T03:49:26.615Z | INFO | Sent SIGTERM signal to server process 1865896
+2025-12-31T03:49:26.616Z | INFO | Sent SIGTERM signal to server process 811394
+2025-12-31T03:49:26.619Z | INFO | MCP MySQL server exited with code: 0
+2025-12-31T03:49:26.619Z | INFO | MCP MySQL server exited with code: 0
+2025-12-31T03:49:26.620Z | INFO | Server requested restart, restarting...
+2025-12-31T03:49:26.621Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-31T03:49:26.621Z | INFO | CLI process exiting with code: 1
+2025-12-31T03:49:26.623Z | INFO | Sent SIGTERM signal to server process 1809745
+2025-12-31T03:49:26.625Z | INFO | Server requested restart, restarting...
+2025-12-31T03:49:26.626Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-31T03:49:26.627Z | INFO | CLI process exiting with code: 1
+2025-12-31T03:49:26.628Z | INFO | MCP MySQL server exited with code: 0
+2025-12-31T03:49:26.628Z | INFO | MCP MySQL server exited with code: 0
+2025-12-31T03:49:26.629Z | INFO | Server requested restart, restarting...
+2025-12-31T03:49:26.630Z | INFO | Server requested restart, restarting...
+2025-12-31T03:49:26.630Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-31T03:49:26.631Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-31T03:49:26.632Z | INFO | CLI process exiting with code: 1
+2025-12-31T03:49:26.633Z | INFO | CLI process exiting with code: 1
+2025-12-31T03:49:26.625Z | INFO | Received SIGTERM, shutting down server...
+2025-12-31T03:49:26.654Z | INFO | Sent SIGTERM signal to server process 3153592
+2025-12-31T03:49:26.655Z | INFO | MCP MySQL server exited with code: 0
+2025-12-31T03:49:26.656Z | INFO | Server requested restart, restarting...
+2025-12-31T03:49:26.656Z | ERROR | Uncaught exception in CLI: | {"error":"write EPIPE","stack":"Error: write EPIPE\n    at afterWriteDispatched (node:internal/stream_base_commons:160:15)\n    at writeGeneric (node:internal/stream_base_commons:151:3)\n    at Socket._writeGeneric (node:net:963:11)\n    at Socket._write (node:net:975:8)\n    at writeOrBuffer (node:internal/streams/writable:392:12)\n    at _write (node:internal/streams/writable:333:10)\n    at Writable.write (node:internal/streams/writable:337:10)\n    at console.value (node:internal/console/constructor:305:16)\n    at console.warn (node:internal/console/constructor:385:26)\n    at writeLog (/home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/bin/cli.js:55:11)"}
+2025-12-31T03:49:26.658Z | INFO | CLI process exiting with code: 1
+2025-12-31T05:04:12.013Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T05:04:12.016Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T05:04:12.018Z | INFO | MCP MySQL server process started with PID: 15591
+2025-12-31T05:04:12.018Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T05:04:12.018Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T13:16:28.684Z | INFO | MCP MySQL server exited with code: 1
+2025-12-31T13:16:29.688Z | INFO | CLI process exiting after server shutdown
+2025-12-31T13:16:29.690Z | INFO | CLI process exiting with code: 1
+2025-12-31T13:29:33.298Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T13:29:33.310Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T13:29:33.316Z | INFO | MCP MySQL server process started with PID: 429896
+2025-12-31T13:29:33.317Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T13:29:33.317Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T13:44:47.177Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T13:44:47.185Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T13:44:47.189Z | INFO | MCP MySQL server process started with PID: 443225
+2025-12-31T13:44:47.189Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T13:44:47.189Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T14:41:37.620Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T14:41:37.626Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T14:41:37.631Z | INFO | MCP MySQL server process started with PID: 503694
+2025-12-31T14:41:37.631Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T14:41:37.632Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T15:15:52.062Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T15:15:52.068Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T15:15:52.074Z | INFO | MCP MySQL server process started with PID: 536351
+2025-12-31T15:15:52.075Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T15:15:52.075Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T15:19:15.150Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T15:19:15.155Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T15:19:15.159Z | INFO | MCP MySQL server process started with PID: 540431
+2025-12-31T15:19:15.159Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T15:19:15.162Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T15:22:24.581Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T15:22:24.584Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T15:22:24.588Z | INFO | MCP MySQL server process started with PID: 543420
+2025-12-31T15:22:24.588Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T15:22:24.589Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T16:57:19.097Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T16:57:19.104Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T16:57:19.110Z | INFO | MCP MySQL server process started with PID: 626026
+2025-12-31T16:57:19.112Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T16:57:19.113Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2025-12-31T16:59:21.416Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2025-12-31T16:59:21.419Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2025-12-31T16:59:21.421Z | INFO | MCP MySQL server process started with PID: 628296
+2025-12-31T16:59:21.421Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2025-12-31T16:59:21.421Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2026-01-01T14:50:46.469Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2026-01-01T14:50:46.475Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2026-01-01T14:50:46.480Z | INFO | MCP MySQL server process started with PID: 2102309
+2026-01-01T14:50:46.482Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2026-01-01T14:50:46.483Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2026-01-01T21:15:25.770Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2026-01-01T21:15:25.775Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2026-01-01T21:15:25.778Z | INFO | MCP MySQL server process started with PID: 2561465
+2026-01-01T21:15:25.778Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2026-01-01T21:15:25.778Z | INFO | Press Ctrl+C to gracefully shutdown the server
+2026-01-01T22:16:39.354Z | INFO | Starting MCP MySQL server from: /home/paul/.npm/_npx/080bc9f59514dad9/node_modules/@liangshanli/mcp-server-mysql/src/server-final.js
+2026-01-01T22:16:39.361Z | INFO | Starting MCP MySQL server with environment: | {"MYSQL_HOST":"159.223.104.19","MYSQL_PORT":"3306","MYSQL_USER":"wf_admin","MYSQL_DATABASE":"whatsfresh","READONLY":"false","ALLOW_DDL":"false","ALLOW_DROP":"false","ALLOW_DELETE":"false","TOOL_PREFIX":"(not set)","PROJECT_NAME":"(not set)","MCP_LOG_DIR":"./.setting","MCP_DDL_LOG_FILE":"ddl.sql"}
+2026-01-01T22:16:39.366Z | INFO | MCP MySQL server process started with PID: 2636113
+2026-01-01T22:16:39.367Z | INFO | Signal handlers registered for SIGINT and SIGTERM
+2026-01-01T22:16:39.367Z | INFO | Press Ctrl+C to gracefully shutdown the server

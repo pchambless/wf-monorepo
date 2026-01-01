@@ -12,9 +12,21 @@ This is the **mandatory protocol** all agents follow for:
 - Logging requirements (impacts, communications)
 - Session startup/end procedures
 
-## 🔧 n8n Workflow Helper Scripts
+## 🔧 n8n Workflows & Scripts
 
-**Simple command wrappers** for n8n workflows. Use these instead of curl:
+### **Active n8n Workflows:**
+
+**Auto-Export Workflows** (every 5 min)
+- Syncs n8n workflows → `.n8n/workflows/` folder
+- Uses webhookPath for filenames
+- Git-ready version control
+
+**Export Database DDL** (under construction)
+- Replaces old mysqldump bash script
+- Cleaner, uses n8n MCP toolkit
+- Better error handling
+
+### **Helper Scripts:**
 
 ```bash
 # Session startup
@@ -31,6 +43,45 @@ bash /home/paul/Projects/wf-monorepo/.n8n/scripts/create-communication 75 "miles
 ```
 
 **Full documentation:** `.n8n/scripts/README.md`
+
+### **Deprecated (Being Phased Out):**
+- ~~`n8n-workflow-sync.js`~~ → Replaced by Auto-Export Workflows
+- ~~`/api/mysqldump`~~ → Being replaced by Export Database DDL workflow
+
+## 🔐 API Keys & Credentials
+
+**Central Configuration:** All API keys stored in `.env` at repo root
+
+```bash
+# Location
+/home/paul/Projects/wf-monorepo/.env
+```
+
+**Master n8n API Key:** Single key used everywhere (scripts, MCP, workflows)
+- Variable: `N8N_API_KEY`
+- Used by: MCP servers, dev-sync.js, n8n workflows, Docker MCP toolkit
+- ⚠️ Never commit .env to git (already in .gitignore)
+
+**Key Storage Locations:**
+1. **`.env` file** - Source of truth for scripts and MCP servers
+2. **Docker MCP secrets** - Separate secret store for Docker MCP toolkit
+   - Secret name: `n8n.api_key`
+   - Update: `echo "$N8N_API_KEY" | docker mcp secret set n8n.api_key`
+
+**Usage in scripts:**
+```bash
+source /home/paul/Projects/wf-monorepo/.env
+# Now $N8N_API_KEY available
+```
+
+**Updating the master key everywhere:**
+```bash
+# 1. Update .env file manually
+# 2. Update Docker MCP secret:
+source /home/paul/Projects/wf-monorepo/.env
+echo "$N8N_API_KEY" | docker mcp secret set n8n.api_key
+# 3. Restart Claude Code/Desktop Commander
+```
 
 ## 🧠 Core Behavior
 

@@ -1,5 +1,9 @@
 {
+  "id": "nMUEaRTRmjunc9ml",
   "name": "Resolve Discussion",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -12,7 +16,10 @@
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
-      "position": [240, 300],
+      "position": [
+        240,
+        300
+      ],
       "webhookId": "resolve-discussion"
     },
     {
@@ -23,7 +30,10 @@
       "name": "Validate Resolution",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 200]
+      "position": [
+        460,
+        200
+      ]
     },
     {
       "parameters": {
@@ -33,7 +43,10 @@
       "name": "Update Discussion File",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [680, 200]
+      "position": [
+        680,
+        200
+      ]
     },
     {
       "parameters": {
@@ -46,9 +59,13 @@
       "name": "Create Communication",
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
-      "position": [900, 200],
+      "position": [
+        900,
+        200
+      ],
       "credentials": {
         "mySql": {
+          "id": "ooSthvBoqus6O1FZ",
           "name": "MySQL api_wf"
         }
       }
@@ -61,7 +78,10 @@
       "name": "Reset Discussion File",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1120, 200]
+      "position": [
+        1120,
+        200
+      ]
     },
     {
       "parameters": {
@@ -72,7 +92,10 @@
       "name": "Respond to Webhook",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
-      "position": [1340, 200]
+      "position": [
+        1340,
+        200
+      ]
     }
   ],
   "connections": {
@@ -133,6 +156,13 @@
     }
   },
   "settings": {
-    "executionOrder": "v1"
-  }
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
+  },
+  "staticData": null,
+  "pinData": null,
+  "versionId": "364a31e0-4b78-40d8-b7a8-45d96403709e",
+  "createdAt": "2025-12-21 02:31:52.708",
+  "updatedAt": "2025-12-25 19:16:19.397"
 }

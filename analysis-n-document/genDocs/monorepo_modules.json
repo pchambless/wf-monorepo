@@ -1,19 +1,49 @@
 {
   "modules": [
     {
-      "file_path": ".dependency-cruiser.js"
+      "file_path": ".kiro/workflows/createRoadmap.js"
     },
     {
-      "file_path": ".kiro/workflows/createRoadmap.js"
+      "file_path": ".n8n/command-service/n8n-workflow-sync.js"
     },
     {
       "file_path": ".n8n/command-service/server.js"
     },
     {
+      "file_path": ".n8n/mcp-session-server.js"
+    },
+    {
+      "file_path": ".n8n/scripts/delete-duplicate-workflows.js"
+    },
+    {
+      "file_path": ".n8n/scripts/delete-duplicates-container.js"
+    },
+    {
       "file_path": ".n8n/scripts/dev-sync.js"
     },
     {
+      "file_path": ".n8n/scripts/export-active-workflows.js"
+    },
+    {
+      "file_path": ".n8n/scripts/export-changed-workflows.js"
+    },
+    {
+      "file_path": ".n8n/scripts/export-single-workflow.js"
+    },
+    {
+      "file_path": ".n8n/scripts/export-with-webhook-names.js"
+    },
+    {
       "file_path": ".n8n/scripts/generate-workflow-registry.js"
+    },
+    {
+      "file_path": ".n8n/scripts/inspect-workflow-table.js"
+    },
+    {
+      "file_path": ".n8n/scripts/inspect-workflow.js"
+    },
+    {
+      "file_path": ".n8n/scripts/query-workflows.js"
     },
     {
       "file_path": "analysis-n-document/genDocs/analyze-app.js"
@@ -49,15 +79,6 @@
       "file_path": "apps/server/server/controller/clearVals.js"
     },
     {
-      "file_path": "apps/server/server/controller/cloneStep.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/copilotQuery.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/execCreateDoc.js"
-    },
-    {
       "file_path": "apps/server/server/controller/execDML.js"
     },
     {
@@ -65,9 +86,6 @@
     },
     {
       "file_path": "apps/server/server/controller/genFields.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/getDoc.js"
     },
     {
       "file_path": "apps/server/server/controller/getMigrationStatus.js"
@@ -83,12 +101,6 @@
     },
     {
       "file_path": "apps/server/server/controller/listRegisteredRoutes.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/openTerminal.js"
-    },
-    {
-      "file_path": "apps/server/server/controller/populateModules.js"
     },
     {
       "file_path": "apps/server/server/controller/resetSessionCounters.js"
@@ -323,6 +335,9 @@
     },
     {
       "file_path": "apps/server/server/utils/getUserEmail.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/htmxBuilder.js"
     },
     {
       "file_path": "apps/server/server/utils/impactLogger.js"
@@ -1342,54 +1357,6 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/controller/cloneStep.js",
-      "to_path": "apps/server/server/utils/cloneTemplate/sessionManager.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/cloneStep.js",
-      "to_path": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/cloneStep.js",
-      "to_path": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/cloneStep.js",
-      "to_path": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/cloneStep.js",
-      "to_path": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/cloneStep.js",
-      "to_path": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/cloneStep.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/copilotQuery.js",
-      "to_path": "apps/server/server/utils/dbUtils.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/copilotQuery.js",
-      "to_path": "apps/server/server/utils/getUserEmail.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/copilotQuery.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/execCreateDoc.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/execCreateDoc.js",
-      "to_path": "apps/server/server/utils/queryResolver.js"
-    },
-    {
       "from_path": "apps/server/server/controller/execDML.js",
       "to_path": "apps/server/server/utils/dml/dmlProcessor.js"
     },
@@ -1434,10 +1401,6 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/controller/getDoc.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
       "from_path": "apps/server/server/controller/getMigrationStatus.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
@@ -1455,22 +1418,6 @@
     },
     {
       "from_path": "apps/server/server/controller/githubController.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/openTerminal.js",
-      "to_path": "apps/server/server/utils/logger.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/populateModules.js",
-      "to_path": "apps/server/server/utils/dbUtils.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/populateModules.js",
-      "to_path": "apps/server/server/utils/getUserEmail.js"
-    },
-    {
-      "from_path": "apps/server/server/controller/populateModules.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1508,6 +1455,10 @@
     {
       "from_path": "apps/server/server/controller/userLogin.js",
       "to_path": "apps/server/server/controller/resetSessionCounters.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/userLogin.js",
+      "to_path": "apps/server/server/controller/setVals.js"
     },
     {
       "from_path": "apps/server/server/controller/userLogin.js",
@@ -1726,6 +1677,50 @@
       "to_path": "apps/server/server/renderers/renderText.js"
     },
     {
+      "from_path": "apps/server/server/renderers/renderButton.js",
+      "to_path": "apps/server/server/utils/htmxBuilder.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderButton.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderContainer.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderForm.js",
+      "to_path": "apps/server/server/utils/htmxBuilder.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderForm.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderGrid.js",
+      "to_path": "apps/server/server/utils/htmxBuilder.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderGrid.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderModal.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderSelect.js",
+      "to_path": "apps/server/server/utils/htmxBuilder.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderSelect.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderText.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/routes/htmxRoutes.js",
       "to_path": "apps/server/server/loaders/actionsLoader.js"
     },
@@ -1763,18 +1758,6 @@
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/cloneStep.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/copilotQuery.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/execCreateDoc.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/execDML.js"
     },
     {
@@ -1784,10 +1767,6 @@
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/genFields.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/getDoc.js"
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
@@ -1808,14 +1787,6 @@
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/listRegisteredRoutes.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/openTerminal.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/registerRoutes.js",
-      "to_path": "apps/server/server/controller/populateModules.js"
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
@@ -2040,6 +2011,10 @@
     {
       "from_path": "apps/server/server/utils/executeEventType.js",
       "to_path": "apps/server/server/utils/queryResolver.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/htmxBuilder.js",
+      "to_path": "apps/server/server/utils/logger.js"
     },
     {
       "from_path": "apps/server/server/utils/impactLogger.js",

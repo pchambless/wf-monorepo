@@ -4,13 +4,20 @@
   "description": "n8n development tools for WhatsFresh",
   "main": "dev-sync.js",
   "scripts": {
-    "dev": "node dev-sync.js"
+    "dev": "node dev-sync.js",
+    "restart": "bash restart-n8n.sh",
+    "n8n:restart": "bash restart-n8n.sh"
   },
   "dependencies": {
     "chokidar": "^3.5.3",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "sqlite3": "^5.1.7"
   },
-  "keywords": ["n8n", "workflows", "automation"],
+  "keywords": [
+    "n8n",
+    "workflows",
+    "automation"
+  ],
   "author": "WhatsFresh Team",
   "license": "MIT"
 }

@@ -1,0 +1,202 @@
+{
+  "id": "kel0reJmMnMRsfFO",
+  "name": "Agent Session Startup",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "path": "session-startup",
+        "httpMethod": "GET",
+        "responseMode": "responseNode",
+        "authentication": "none",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -448,
+        -16
+      ],
+      "id": "webhook-1",
+      "name": "Webhook",
+      "webhookId": "session-startup"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT qryName, qrySQL FROM api_wf.AISql WHERE category = 'n8n-startup' ORDER BY qryName",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        -224,
+        -304
+      ],
+      "id": "load-queries",
+      "name": "Load Startup Queries",
+      "credentials": {
+        "mySql": {
+          "id": "ooSthvBoqus6O1FZ",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get all query items from the database\nconst queries = $input.all();\n\n// Log for debugging\nconsole.log('Input queries:', queries.length);\n\n// Return each query as a separate item for processing\nconst result = [];\nfor (let i = 0; i < queries.length; i++) {\n  const item = queries[i];\n  result.push({\n    json: {\n      query: item.json.qrySQL,\n      queryName: item.json.qryName,\n      index: i + 1,\n      agent: 'session-startup',\n      params: {}\n    }\n  });\n}\n\nconsole.log('Returning items:', result.length);\nreturn result;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -304
+      ],
+      "id": "prepare-queries",
+      "name": "Prepare Queries"
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:5678/webhook/adhoc-query",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.query }}"
+            },
+            {
+              "name": "agent",
+              "value": "={{ $json.agent }}"
+            },
+            {
+              "name": "params",
+              "value": "{}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        -304
+      ],
+      "id": "run-queries",
+      "name": "Run Queries"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Handle the HTTP response data safely\nconst results = $input.all();\nconsole.log('Format Output received:', results.length, 'items');\n\n// Extract query results, handling errors gracefully\nconst queryResults = results.map((item, index) => {\n  console.log(`Item ${index}:`, Object.keys(item.json || {}));\n  \n  if (item.json && item.json.results && item.json.results.data) {\n    return {\n      queryName: `query${index + 1}`,\n      success: true,\n      data: item.json.results.data\n    };\n  } else {\n    return {\n      queryName: `query${index + 1}`,\n      success: false,\n      error: item.json ? (item.json.error || 'No results') : 'No response',\n      data: []\n    };\n  }\n});\n\nreturn [{ \n  json: { \n    session_context: {\n      queries: queryResults,\n      timestamp: new Date().toISOString(),\n      total_queries: queryResults.length,\n      successful_queries: queryResults.filter(q => q.success).length\n    }\n  } \n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        -304
+      ],
+      "id": "format-output",
+      "name": "Format Output"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems"
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        672,
+        -304
+      ],
+      "id": "respond",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Load Startup Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Startup Queries": {
+      "main": [
+        [
+          {
+            "node": "Prepare Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Queries": {
+      "main": [
+        [
+          {
+            "node": "Run Queries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run Queries": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Output": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
+  },
+  "staticData": null,
+  "pinData": {},
+  "versionId": "2dbfbfd5-9806-48b6-906e-e62e6c41af83",
+  "createdAt": "2025-12-21 02:17:38.266",
+  "updatedAt": "2025-12-25 19:16:08.723"
+}

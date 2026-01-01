@@ -1,0 +1,73 @@
+{
+  "name": "New Workflow Template (Auto-Export)",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "your-webhook-path",
+        "httpMethod": "POST",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [240, 300],
+      "webhookId": "your-webhook-path",
+      "notes": "SETUP: Change 'path' and 'webhookId' to your workflow name"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.all();"
+      },
+      "id": "main-logic",
+      "name": "Main Logic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:3010/api/execute",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "command",
+              "value": "docker exec n8n-whatsfresh node /home/node/export-single.js {{ $workflow.id }}"
+            }
+          ]
+        }
+      },
+      "id": "auto-export",
+      "name": "Auto-Export Workflow",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300],
+      "notes": "Auto-exports after execution"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems"
+      },
+      "id": "webhook-response",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Main Logic", "type": "main", "index": 0}]]
+    },
+    "Main Logic": {
+      "main": [[{"node": "Auto-Export Workflow", "type": "main", "index": 0}]]
+    },
+    "Auto-Export Workflow": {
+      "main": [[{"node": "Respond to Webhook", "type": "main", "index": 0}]]
+    }
+  },
+  "active": false
+}

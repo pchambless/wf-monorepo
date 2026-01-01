@@ -1,5 +1,9 @@
 {
+  "id": "BMqI4wb9boKML4Ix",
   "name": "Add Discussion Comment",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -12,7 +16,10 @@
       "name": "Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
-      "position": [240, 300],
+      "position": [
+        240,
+        300
+      ],
       "webhookId": "add-discussion-comment"
     },
     {
@@ -23,7 +30,10 @@
       "name": "Validate Comment",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300]
+      "position": [
+        460,
+        300
+      ]
     },
     {
       "parameters": {
@@ -33,7 +43,10 @@
       "name": "Append Comment",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [680, 300]
+      "position": [
+        680,
+        300
+      ]
     },
     {
       "parameters": {
@@ -44,7 +57,10 @@
       "name": "Respond to Webhook",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
-      "position": [900, 300]
+      "position": [
+        900,
+        300
+      ]
     }
   ],
   "connections": {
@@ -83,6 +99,13 @@
     }
   },
   "settings": {
-    "executionOrder": "v1"
-  }
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
+  },
+  "staticData": null,
+  "pinData": null,
+  "versionId": "b13ea6c0-a892-472e-9a4f-be1f09523eaa",
+  "createdAt": "2025-12-21 02:31:52.700",
+  "updatedAt": "2025-12-26 13:28:07.619"
 }

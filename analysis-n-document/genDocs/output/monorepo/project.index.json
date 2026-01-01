@@ -6,7 +6,7 @@
   },
   "modules": [
     {
-      "file": ".dependency-cruiser.js",
+      "file": ".kiro/workflows/createRoadmap.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "other"
@@ -16,7 +16,7 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
-      "file": ".kiro/workflows/createRoadmap.js",
+      "file": ".n8n/command-service/n8n-workflow-sync.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "other"
@@ -36,6 +36,36 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
+      "file": ".n8n/mcp-session-server.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/delete-duplicate-workflows.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/delete-duplicates-container.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
       "file": ".n8n/scripts/dev-sync.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
@@ -46,7 +76,77 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving other."
     },
     {
+      "file": ".n8n/scripts/export-active-workflows.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/export-changed-workflows.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/export-single-workflow.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/export-with-webhook-names.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
       "file": ".n8n/scripts/generate-workflow-registry.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/inspect-workflow-table.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/inspect-workflow.js",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
+      "tags": [
+        "other"
+      ],
+      "critical": false,
+      "blastRadius": "low",
+      "contextHint": "Use when an AI agent is orchestrating flows involving other."
+    },
+    {
+      "file": ".n8n/scripts/query-workflows.js",
       "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "other"
@@ -167,39 +267,6 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/cloneStep.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/copilotQuery.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/execCreateDoc.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
       "file": "apps/server/server/controller/execDML.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -223,17 +290,6 @@
     },
     {
       "file": "apps/server/server/controller/genFields.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/getDoc.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
         "server",
@@ -299,28 +355,6 @@
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {
-      "file": "apps/server/server/controller/openTerminal.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
-      "file": "apps/server/server/controller/populateModules.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
-      "tags": [
-        "server",
-        "controller"
-      ],
-      "critical": false,
-      "blastRadius": "low",
-      "contextHint": "Use when an AI agent is orchestrating flows involving server."
-    },
-    {
       "file": "apps/server/server/controller/resetSessionCounters.js",
       "purpose": "Auto-inferred from dependency graph. 1 dependents.",
       "tags": [
@@ -355,7 +389,7 @@
     },
     {
       "file": "apps/server/server/controller/setVals.js",
-      "purpose": "Auto-inferred from dependency graph. 8 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 9 dependents.",
       "tags": [
         "server",
         "controller"
@@ -963,7 +997,7 @@
     },
     {
       "file": "apps/server/server/utils/cloneTemplate/sessionManager.js",
-      "purpose": "Auto-inferred from dependency graph. 7 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
       "tags": [
         "server",
         "utility"
@@ -974,7 +1008,7 @@
     },
     {
       "file": "apps/server/server/utils/cloneTemplate/steps/cloneComponents.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "utility"
@@ -985,7 +1019,7 @@
     },
     {
       "file": "apps/server/server/utils/cloneTemplate/steps/cloneEventSQL.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "utility"
@@ -996,7 +1030,7 @@
     },
     {
       "file": "apps/server/server/utils/cloneTemplate/steps/cloneProps.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1007,7 +1041,7 @@
     },
     {
       "file": "apps/server/server/utils/cloneTemplate/steps/cloneTriggers.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1018,7 +1052,7 @@
     },
     {
       "file": "apps/server/server/utils/cloneTemplate/steps/loadHierarchy.js",
-      "purpose": "Auto-inferred from dependency graph. 1 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 0 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1062,7 +1096,7 @@
     },
     {
       "file": "apps/server/server/utils/dbUtils.js",
-      "purpose": "Auto-inferred from dependency graph. 18 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 16 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1117,7 +1151,18 @@
     },
     {
       "file": "apps/server/server/utils/getUserEmail.js",
-      "purpose": "Auto-inferred from dependency graph. 6 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
+      "tags": [
+        "server",
+        "utility"
+      ],
+      "critical": true,
+      "blastRadius": "medium",
+      "contextHint": "Use when an AI agent is orchestrating flows involving server."
+    },
+    {
+      "file": "apps/server/server/utils/htmxBuilder.js",
+      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1139,7 +1184,7 @@
     },
     {
       "file": "apps/server/server/utils/logger.js",
-      "purpose": "Auto-inferred from dependency graph. 51 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 53 dependents.",
       "tags": [
         "server",
         "utility"
@@ -1249,13 +1294,13 @@
     },
     {
       "file": "apps/server/server/utils/queryResolver.js",
-      "purpose": "Auto-inferred from dependency graph. 4 dependents.",
+      "purpose": "Auto-inferred from dependency graph. 3 dependents.",
       "tags": [
         "server",
         "utility"
       ],
       "critical": true,
-      "blastRadius": "medium",
+      "blastRadius": "low",
       "contextHint": "Use when an AI agent is orchestrating flows involving server."
     },
     {

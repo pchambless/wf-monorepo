@@ -37,6 +37,8 @@ done
 
 # Dump everything (tables, views, procedures), skipping broken views
 eval mysqldump $MYSQL_OPTS \
+  --skip-ssl \
+  --default-auth=mysql_native_password \
   --no-data \
   --routines \
   --triggers \

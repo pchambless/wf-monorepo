@@ -4,49 +4,55 @@ MCP (Model Context Protocol) access to n8n workflows allows agents to read and m
 
 ## Configuration
 
-**Server URL:** `http://0.0.0.0:5678/mcp-server/http`
+**REST API URL:** `http://localhost:5678/api/v1`
 
-**Access Token:**
+**API Key (Header: X-N8N-API-KEY):**
 ```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZThiZGY5YS03MWFhLTQ3YmYtYWEyYS1kZjE1MDcyNzJhZDciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6ImY5MjkzYmIzLTI1MzctNDI0NS1hYjViLWU0MTAzZmYwNDg5MSIsImlhdCI6MTc2NjMyNDI5OX0.Molr3zLb4sgfZgzfFrJ4oRRtGWbWopkL6X2Qmmw5xvI
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZThiZGY5YS03MWFhLTQ3YmYtYWEyYS1kZjE1MDcyNzJhZDciLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzY3MTU4OTcxfQ.CWFhyU2K_2r-aapinXqmj4H-43GrH557KOGR3Ku2dnY
 ```
+
+**Expiration:** Never (permanent key)
 
 ## Agent Configuration
+
+### Claude
+Status: Configured (2025-12-30)
+Access: Full n8n REST API
 
 ### Kiro
 Status: In progress
 
-### Claude
-Status: Pending setup
-
 ## Usage
 
-With MCP access, agents can:
-- Read workflow definitions
-- Update workflow nodes
-- Modify workflow connections
-- Deploy workflow changes
+With API access, agents can:
+- List all workflows: `GET /api/v1/workflows`
+- Get workflow details: `GET /api/v1/workflows/:id`
+- Update workflows: `PUT /api/v1/workflows/:id`
+- Activate/deactivate: `POST /api/v1/workflows/:id/activate`
+- Execute workflows: `POST /api/v1/workflows/:id/execute`
 
-This enables programmatic workflow updates without manual UI editing.
+## Examples
 
-## Example: Update Session-Startup Workflow
+### List All Workflows
+```bash
+curl -H "X-N8N-API-KEY: <key>" http://localhost:5678/api/v1/workflows | jq '.data[] | {id, name, active}'
+```
 
-Instead of manually editing in n8n UI, agents can now:
+### Get Workflow Details
+```bash
+curl -H "X-N8N-API-KEY: <key>" http://localhost:5678/api/v1/workflows/<id> | jq '.nodes[] | {name, type}'
+```
 
-```javascript
-// Pseudo-code - actual MCP API calls
-const workflow = mcp.getWorkflow('Agent Session Startup');
-workflow.updateNode('Active Plans', {
-  query: 'SELECT * FROM vw_sprint_outline WHERE status = "current"'
-});
-workflow.save();
+### View Specific Workflow
+```bash
+curl -H "X-N8N-API-KEY: <key>" http://localhost:5678/api/v1/workflows | jq '.data[] | select(.name == "Export Database DDL")'
 ```
 
 ## Security Note
 
-This token provides full access to n8n workflows. Store securely and rotate periodically.
+This key provides full access to n8n workflows and data. Never commit to git or share publicly.
 
 ---
 
 **Created:** 2025-12-20
-**Last Updated:** 2025-12-20
+**Last Updated:** 2025-12-30

@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "clear": "bash scripts/clear-cache.sh",
+    "n8n:restart": "bash .n8n/scripts/restart-n8n.sh",
     "analyze:dead-code": "node analysis-n-document/genDocs/analyze-dead-code.js",
     "analyze:config": "node analysis-n-document/genDocs/analyze-config-flows.js",
     "analyze:events": "node analysis-n-document/genDocs/genEventTypes.js",

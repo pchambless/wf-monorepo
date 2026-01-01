@@ -23,6 +23,7 @@ Last Updated: 2025-12-19
 ## 📋 Available n8n Workflows
 
 **Reference:** `.agentTask/n8n-workflows/workflows.json` (auto-updated)
+:**DevNote:** I'm wondering if we can somehow utilize the sqlite table, specifically the workflow_entity table.  I'm not sure this is better or not, but its a thought.  It would simplify (eliminate the auto-updated script.)
 
 ### Session Management
 - **session-startup**: `http://localhost:5678/webhook/session-startup`
@@ -54,9 +55,7 @@ Last Updated: 2025-12-19
 ```bash
 curl -s http://localhost:5678/webhook/session-startup | jq .
 ```
-
-This replaces individual MCP queries. Returns current plan, communications, and system health.
-
+configurable AISql queries with category = 'n8n-startup'
 ---
 
 ## 📊 Plan Management Rules
@@ -120,7 +119,7 @@ possible, we might create a create-milestone workflow (name of workflow up for d
 ### Example Communication:
 ```json
 {
-  "plan_id": 75,
+  "plan_id": 77,
   "type": "status",
   "subject": "Session Summary: n8n Workflow Infrastructure",
   "message": "Built 4 n8n workflows (session-startup, adhoc-query, log-impact, create-communication). Auto-sync system operational. 75% token savings achieved."
@@ -175,4 +174,4 @@ When this protocol changes, all agents are notified via plan_communications.
 
 ---
 
-**Questions or conflicts?** Create a communication with type="question" to discuss with team.
+**Questions or conflicts?** Create a communication with type="discussion" to discuss with team. 

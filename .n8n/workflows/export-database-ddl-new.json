@@ -1,0 +1,267 @@
+{
+  "name": "Export Database DDL",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "export-database-ddl",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "0dd8d1fb-24d3-4613-abc8-11818f95f640",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -32,
+        -48
+      ],
+      "webhookId": "export-database-ddl"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "120ef36b-0978-4ebc-8de0-e826e1d5c29e",
+      "name": "Loop Over Views",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        608,
+        32
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const viewName = $('Loop Over Views').item.json.TABLE_NAME;\nconst response = $input.item.json;\n\n// Check if query failed\nif (!response.success) {\n  return [{\n    json: {\n      viewName: viewName,\n      status: 'error',\n      error: response.error,\n      filePath: `/home/node/.n8n/db/api_wf/views/${viewName}.sql`,\n      content: `-- ERROR: Could not export view ${viewName}\\n-- ${response.error}\\n`\n    }\n  }];\n}\n\nconst viewData = response.results.data[0];\nconst rawDDL = viewData['Create View'];\nconst warnings = response.warnings || [];\n\n// Clean up DDL: Remove DEFINER and ALGORITHM clauses\nconst cleanDDL = rawDDL.replace(\n  /^CREATE\\s+ALGORITHM=\\w+\\s+DEFINER=`[^`]+`@`[^`]+`\\s+SQL\\s+SECURITY\\s+\\w+\\s+VIEW/i,\n  'CREATE OR REPLACE VIEW'\n);\n\n// Format SQL with proper line breaks\nlet formattedDDL = cleanDDL\n  .replace(/\\s+AS\\s+select\\s+/i, ' AS\\n  SELECT\\n    ')\n  .replace(/,\\s+/g, ',\\n    ')\n  .replace(/\\s+from\\s+/i, '\\n  FROM ')\n  .replace(/\\s+join\\s+/gi, '\\n    JOIN ')\n  .replace(/\\s+left\\s+join\\s+/gi, '\\n    LEFT JOIN ')\n  .replace(/\\s+where\\s+/i, '\\n  WHERE ')\n  .replace(/\\s+and\\s+/gi, '\\n    AND ')\n  .replace(/\\s+or\\s+/gi, '\\n    OR ')\n  .replace(/\\s+group\\s+by\\s+/i, '\\n  GROUP BY ')\n  .replace(/\\s+order\\s+by\\s+/i, '\\n  ORDER BY ')\n  .replace(/\\s+union\\s+all\\s+/gi, '\\n\\nUNION ALL\\n\\n')\n  .replace(/\\s+union\\s+/gi, '\\n\\nUNION\\n\\n');\n\n// Check for warnings\nif (warnings.length > 0) {\n  const warningMessages = warnings.map(w => `-- ${w.Level} ${w.Code}: ${w.Message}`).join('\\n');\n  return [{\n    json: {\n      viewName: viewName,\n      status: 'broken',\n      warnings: warnings,\n      filePath: `/workspace/db/dump/api_wf/views/${viewName}.sql`,\n      content: `-- BROKEN VIEW\\n${warningMessages}\\n\\n-- Original DDL (commented out):\\n/*\\n${formattedDDL};\\n*/\\n`\n    }\n  }];\n}\n\n// Healthy view\nreturn [{\n  json: {\n    viewName: viewName,\n    status: 'success',\n    filePath: `/workspace/db/dump/api_wf/views/${viewName}.sql`,\n    content: formattedDDL + ';\\n'\n  }\n}];"
+      },
+      "id": "6f6294e5-6368-4263-80b9-43f37c5bbb2a",
+      "name": "Format DDL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        912,
+        32
+      ],
+      "notesInFlow": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "id": "a2268656-0197-489f-a75f-e6b6940cd437",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1040,
+        224
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "viewList = $input.item.json.view_list;\n  return [{\n    json: {\n      body: {\n      query: `SELECT table_name FROM information_schema.views WHERE table_schema = 'api_wf' ORDER BY table_name`\n      }\n    }\n  }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        128
+      ],
+      "id": "6fcf7332-14d4-4534-8ea5-637b90b046ac",
+      "name": "Fetch View SQL"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract view names from adhoc-query response\n  const response = $input.first().json;\n  const views = response.results.data;\n\n  // Prepare input for adhoc-query Execute Sub-workflow\n  return views.map(v => ({\n    json: {\n      TABLE_NAME: v.TABLE_NAME,\n      body: {\n        query: `SHOW CREATE VIEW api_wf.${v.TABLE_NAME}`\n      }\n    }\n  }));\n"
+      },
+      "id": "73bd4870-7c72-4d75-afb7-f9f5cfc1ca49",
+      "name": "Create Show View SQL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "LVNm5RBSDkt51vG0",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/LVNm5RBSDkt51vG0",
+          "cachedResultName": "Adhoc Query"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        752,
+        32
+      ],
+      "name": "Sub-Create DDL",
+      "id": "04774729-cdb1-47c7-82c7-30856dbca75a",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "LVNm5RBSDkt51vG0",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/LVNm5RBSDkt51vG0",
+          "cachedResultName": "Adhoc Query"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        256,
+        128
+      ],
+      "name": "Get View List",
+      "id": "0e2713b2-a8b7-4426-bd0d-a3d0841845fd"
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\nconst path = require('path');\n\nconst data = $input.item.json;\nconst { viewName, filePath, content, status } = data;\n\n// Ensure directory exists\nconst dir = path.dirname(filePath);\nfs.mkdirSync(dir, { recursive: true });\n\n// Write file\ntry {\n  fs.writeFileSync(filePath, content, 'utf8');\n  console.log(`Wrote ${viewName}.sql (${status})`);\n} catch (error) {\n  console.error(`Failed to write ${viewName}:`, error.message);\n}\n\n// CRITICAL: Return the same data for Loop Over Views to continue\nreturn [{\n  json: data\n}];"
+      },
+      "id": "write-files-code-node",
+      "name": "Write Files",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Fetch View SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Views": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Sub-Create DDL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format DDL": {
+      "main": [
+        [
+          {
+            "node": "Write Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch View SQL": {
+      "main": [
+        [
+          {
+            "node": "Get View List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Show View SQL": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Views",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sub-Create DDL": {
+      "main": [
+        [
+          {
+            "node": "Format DDL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get View List": {
+      "main": [
+        [
+          {
+            "node": "Create Show View SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Files": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Views",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "timezone": "America/Chicago",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "pinData": {}
+}

@@ -6,7 +6,8 @@ RUN apk add --no-cache \
     mysql-client \
     bash \
     curl \
-    openssh-client
+    openssh-client \
+    docker-cli
 
 WORKDIR /app
 

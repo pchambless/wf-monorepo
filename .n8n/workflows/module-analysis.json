@@ -1,0 +1,345 @@
+{
+  "id": "XspQfnwYpWM0xZbs",
+  "name": "Module Dependency Analysis",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "module-analysis",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "1618f709-74bb-4176-a21c-eb025a4a80a0",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        336
+      ],
+      "webhookId": "module-analysis"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 2
+            }
+          ]
+        }
+      },
+      "id": "89cad40a-f4b1-4d95-8a8f-2d7a6caf2929",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        528
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CALL api_wf.sp_module_load('{{ $json.modulesJson }}', 'n8n-automation', '{{ $json.runTimestamp }}')\n",
+        "options": {
+          "queryReplacement": "="
+        }
+      },
+      "id": "e1358a46-1c8e-42af-918b-569d33eb26af",
+      "name": "Load Modules",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1120,
+        240
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "ooSthvBoqus6O1FZ",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CALL api_wf.sp_module_map(CAST('{{ $json.depsJson }}' AS JSON), 'n8n-automation')",
+        "options": {}
+      },
+      "id": "f383f8d6-3f72-4c7d-8a2d-cdcd1c4ea526",
+      "name": "Map Dependencies",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1120,
+        456
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "ooSthvBoqus6O1FZ",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "=Module analysis complete. Processed {{ $('Analyze').item.json.totalModules }} modules and {{ $('Analyze').item.json.totalDependencies }} dependencies.",
+        "options": {}
+      },
+      "id": "77df85f8-d4b2-479c-8f04-d22f4c91c387",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        672,
+        528
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:3010/api/execute",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "command",
+              "value": "cd /workspace && depcruise --config .dependency-cruiser.cjs --output-type json ."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "33294a2f-ac0d-4184-8337-f5f32bd94dcb",
+      "name": "Dependancy Cruise",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        224,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse dependency-cruiser output\n  const response = $input.item.json;\n  const depData = JSON.parse(response.stdout);\n\n  const modules = [];\n  const dependencies = [];\n\n  // Helper: Get module type from path\n  function getModuleType(filePath) {\n    if (filePath.includes('/controller/')) return 'controller';\n    if (filePath.includes('/component/') || filePath.includes('/components/')) return 'component';\n    if (filePath.includes('/util/') || filePath.includes('/utils/')) return 'utility';\n    if (filePath.includes('/route/') || filePath.includes('/routes/')) return 'routing';\n    if (filePath.includes('.config.')) return 'config';\n    if (filePath.includes('.test.') || filePath.includes('.spec.')) return 'test';\n    return 'module';\n  }\n\n  // Process dependency-cruiser data\n  for (const module of depData.modules) {\n    const filePath = module.source;\n\n    modules.push({\n      file_path: filePath,\n      module_type: getModuleType(filePath)\n    });\n\n    // Build dependencies - use resolved paths\n    if (module.dependencies) {\n      for (const dep of module.dependencies) {\n        dependencies.push({\n          from_path: filePath,\n          to_path: dep.resolved\n        });\n      }\n    }\n  }\n\n  console.log(`Analyzed ${modules.length} modules and ${dependencies.length} dependencies`);\n\n  return [{\n    json: {\n      modules: modules,\n      dependencies: dependencies,\n      totalModules: modules.length,\n      totalDependencies: dependencies.length\n    }\n  }];\n"
+      },
+      "id": "abd53c6b-71f8-4507-916a-73e173047fd0",
+      "name": "Analyze",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        432
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const runTimestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');\n  return [{ json: {\n    ...$input.item.json,\n    runTimestamp: runTimestamp\n  }}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        336
+      ],
+      "id": "fe139fc1-a8fb-4978-b092-946f4a57a577",
+      "name": "Gen Timestamp"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CALL api_wf.sp_module_cleanup('n8n-automation', '{{ $('Gen Timestamp').item.json.runTimestamp }}')",
+        "options": {
+          "queryReplacement": "="
+        }
+      },
+      "id": "e0329f83-9267-4902-8cff-7da717601d10",
+      "name": "Set deleted_at Col",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1568,
+        336
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "ooSthvBoqus6O1FZ",
+          "name": "MySQL api_wf"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare ALL modules at once (no splitting)\n  const modules = $input.item.json.modules;\n\n  // Serialize to JSON string with SQL escaping\n  const modulesJson = JSON.stringify(modules).replace(/'/g, \"''\");\n\n  return [{\n    json: {\n      modulesJson: modulesJson,\n      totalModules: modules.length,\n      runTimestamp: $input.item.json.runTimestamp  // Pass through!\n    }\n  }];\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        240
+      ],
+      "id": "0f2598e4-cbc6-48a4-98f9-7efa318db64a",
+      "name": "Prep Modules"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare ALL dependencies at once\n  const dependencies = $input.item.json.dependencies;\n  const depsJson = JSON.stringify(dependencies);\n\n  return [{\n    json: {\n      depsJson: depsJson,\n      totalDeps: dependencies.length,\n      runTimestamp: $input.item.json.runTimestamp  // Pass through!\n    }\n  }];\n\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        456
+      ],
+      "id": "b1527186-72d0-49d8-b721-205546f135b0",
+      "name": "Prep Dependancies"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1344,
+        352
+      ],
+      "id": "7b864218-18e7-4500-a56b-3d2d33cff692",
+      "name": "Merge"
+    }
+  ],
+  "connections": {
+    "Load Modules": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map Dependencies": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Dependancy Cruise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Dependancy Cruise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dependancy Cruise": {
+      "main": [
+        [
+          {
+            "node": "Analyze",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Gen Timestamp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prep Modules": {
+      "main": [
+        [
+          {
+            "node": "Load Modules",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prep Dependancies": {
+      "main": [
+        [
+          {
+            "node": "Map Dependencies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gen Timestamp": {
+      "main": [
+        [
+          {
+            "node": "Prep Modules",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prep Dependancies",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Set deleted_at Col",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": true,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "pinData": {},
+  "versionId": "573ff32c-ed98-4f2e-a8e8-e15345e22f90",
+  "createdAt": "2025-12-27 05:03:26.789",
+  "updatedAt": "2025-12-28 13:11:55.534"
+}

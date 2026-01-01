@@ -20,15 +20,14 @@ services:
       - N8N_MCP_SERVER_PORT=5678
       - N8N_MCP_SERVER_HOST=0.0.0.0
       # Basic n8n configuration
-      - N8N_BASIC_AUTH_ACTIVE=false
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=pc7900@gmail.com
+      - N8N_BASIC_AUTH_PASSWORD=M!ghtyQua!l707
       - N8N_HOST=0.0.0.0
       - N8N_LISTEN_ADDRESS=0.0.0.0
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - DB_SQLITE_POOL_SIZE=5
-
-      # Enable API access
-      - N8N_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwYjg0YmM5Zi1lMTQxLTQ2ZDAtYmFiMy03NjU4OGY5ZWQ2MWYiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzY2NjEyODE1fQ.Hx9E5zN6VAHGVQtm1u30IfNaUbmbZ4jKnhsKVI748rA
 
       # Modern execution settings
       - N8N_RUNNERS_ENABLED=true
@@ -45,15 +44,17 @@ services:
       - N8N_LOG_LEVEL=info
       - N8N_LOG_OUTPUT=console
 
-      # Filesystem-based workflow import
-      - N8N_EXPORT_WORKFLOW_FILES_ON_CHANGE=true
+      # Filesystem-based workflow import (DISABLED - using command-service sync)
+      - N8N_EXPORT_WORKFLOW_FILES_ON_CHANGE=false
       - N8N_WORKFLOWS_FOLDER=/home/node/.n8n/workflows
 
     volumes:
       # Persistent n8n data
       - /home/paul/Projects/wf-monorepo/.n8n:/home/node/.n8n
+      # Mount monorepo for database dump output
+      - /home/paul/Projects/wf-monorepo:/workspace
 
-      
+
     networks:
       - whatsfresh-network
     
@@ -83,13 +84,14 @@ services:
       - DB_PORT=3306
       - DB_USER=wf_admin
       - DB_PASS=Nothing123
+      - N8N_URL=http://n8n-whatsfresh:5678
     volumes:
       # Mount the monorepo for git operations
       - /home/paul/Projects/wf-monorepo:/workspace
-      # Mount temp directory for file operations
-      - /tmp:/tmp
       # Mount database credentials
       - /home/paul/.wf-db-credentials:/root/.wf-db-credentials:ro
+      # Mount Docker socket for docker exec commands
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - whatsfresh-network
     healthcheck:

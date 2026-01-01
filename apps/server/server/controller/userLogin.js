@@ -4,6 +4,7 @@ import { executeQuery } from '../utils/dbUtils.js';
 import logger from '../utils/logger.js';
 import { getEventType } from '../events/index.js';
 import { resetSessionCounters } from './resetSessionCounters.js';
+import { setValsDirect } from './setVals.js';
 
 const codeName = '[userLogin.js]';
 
@@ -30,7 +31,8 @@ async function login(req, res) {
     logger.info(`${codeName} Login attempt started`);
 
     try {
-        const { userEmail, password } = req.body;
+        const { userEmail, enteredPassword } = req.body;
+        const password = enteredPassword; // Support both field names
 
         // Get login event from shared-events
         const loginEvent = getEventType('userLogin');
@@ -54,7 +56,6 @@ async function login(req, res) {
         }
 
         const user = users[0];
-        const enteredPassword = password; // Use password from request body
 
         logger.debug(`${codeName} User found`, {
             userEmail: user.userEmail,
@@ -113,8 +114,35 @@ async function login(req, res) {
             // Don't fail login if counter reset fails
         }
 
+        // Populate context_store with user data
+        try {
+            await setValsDirect(userEmail, [
+                { paramName: 'userEmail', paramVal: user.userEmail },
+                { paramName: 'userID', paramVal: user.userID.toString() },
+                { paramName: 'account_id', paramVal: user.dfltAcctID ? user.dfltAcctID.toString() : '1' },
+                { paramName: 'firstName', paramVal: user.firstName || user.userEmail.split('@')[0] },
+                { paramName: 'lastName', paramVal: user.lastName || '' },
+                { paramName: 'userRole', paramVal: user.roleID ? user.roleID.toString() : '1' }
+            ]);
+            logger.info(`${codeName} Context store populated for ${userEmail}`);
+        } catch (contextError) {
+            logger.error(`${codeName} Failed to populate context_store:`, contextError);
+            // Don't fail login if context population fails
+        }
+
         logger.info(`${codeName} Login successful`, { userEmail });
-        res.json(response);
+
+        // Check if HTMX request - redirect to ingrType page for testing
+        const isHTMX = req.headers['hx-request'] === 'true';
+        if (isHTMX) {
+            const redirectPath = '/whatsfresh/ingrType';
+            logger.debug(`${codeName} Redirecting to: ${redirectPath}`);
+            res.setHeader('HX-Redirect', redirectPath);
+            res.send('');
+        } else {
+            // API response for non-HTMX clients
+            res.json(response);
+        }
 
     } catch (error) {
         logger.error(`${codeName} Login error:`, error);
