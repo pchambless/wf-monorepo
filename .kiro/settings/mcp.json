@@ -1,5 +1,13 @@
 {
   "mcpServers": {
+    "session-startup": {
+      "command": "node",
+      "args": [
+        "/home/paul/Projects/wf-monorepo/.n8n/mcp-session-server.js"
+      ],
+      "disabled": false,
+      "autoApprove": []
+    },
     "mysql": {
       "command": "bash",
       "args": [
@@ -10,15 +18,6 @@
       "autoApprove": [
         "sql_query"
       ]
-    },
-    "n8n-workflows": {
-      "command": "bash",
-      "args": [
-        "-c",
-        "source /home/paul/Projects/wf-monorepo/.env && exec npx -y supergateway --streamableHttp http://0.0.0.0:5678/mcp-server/http --header \"authorization:Bearer $N8N_API_KEY\""
-      ],
-      "disabled": false,
-      "autoApprove": []
     },
     "docker-toolkit": {
       "command": "docker",

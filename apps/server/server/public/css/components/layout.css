@@ -1,0 +1,23 @@
+/* Layout Components */
+.layout-flex, .wf-layout-flex {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.column, .wf-column {
+  padding: 16px;
+  overflow: auto;
+}
+
+/* Sidebar variant */
+.column.sidebar, .wf-column.wf-sidebar {
+  background-color: #f5f5f5;
+  border-right: 1px solid #e0e0e0;
+}
+
+/* Standard column variant */
+.column.standard, .wf-column.wf-standard {
+  background-color: #fafafa;
+  border-right: 1px solid #e0e0e0;
+}

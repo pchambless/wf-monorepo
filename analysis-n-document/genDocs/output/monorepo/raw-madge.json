@@ -2,6 +2,7 @@
   ".kiro/workflows/createRoadmap.js": [],
   ".n8n/command-service/n8n-workflow-sync.js": [],
   ".n8n/command-service/server.js": [],
+  ".n8n/custom-nodes/n8n-nodes-whatsfresh/nodes/WfDbQuery/WfDbQuery.node.ts": [],
   ".n8n/mcp-session-server.js": [],
   ".n8n/scripts/delete-duplicate-workflows.js": [],
   ".n8n/scripts/delete-duplicates-container.js": [],
@@ -82,6 +83,9 @@
     "apps/server/server/controller/getVal.js",
     "apps/server/server/utils/dbUtils.js",
     "apps/server/server/utils/getUserEmail.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/controller/studioWorkflow.js": [
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/controller/userLogin.js": [
@@ -185,14 +189,20 @@
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/index.js": [
+    "apps/server/server/renderers/renderAppBar.js",
     "apps/server/server/renderers/renderButton.js",
     "apps/server/server/renderers/renderContainer.js",
     "apps/server/server/renderers/renderForm.js",
     "apps/server/server/renderers/renderGrid.js",
+    "apps/server/server/renderers/renderMenu.js",
     "apps/server/server/renderers/renderModal.js",
     "apps/server/server/renderers/renderPage.js",
     "apps/server/server/renderers/renderSelect.js",
+    "apps/server/server/renderers/renderSidebar.js",
     "apps/server/server/renderers/renderText.js"
+  ],
+  "apps/server/server/renderers/renderAppBar.js": [
+    "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderButton.js": [
     "apps/server/server/utils/htmxBuilder.js",
@@ -209,12 +219,20 @@
     "apps/server/server/utils/htmxBuilder.js",
     "apps/server/server/utils/logger.js"
   ],
+  "apps/server/server/renderers/renderMenu.js": [
+    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/renderers/renderModal.js": [
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderPage.js": [],
   "apps/server/server/renderers/renderSelect.js": [
     "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderSidebar.js": [
+    "apps/server/server/renderers/renderMenu.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderText.js": [
@@ -246,6 +264,7 @@
     "apps/server/server/controller/restartServer.js",
     "apps/server/server/controller/runMigration.js",
     "apps/server/server/controller/setVals.js",
+    "apps/server/server/controller/studioWorkflow.js",
     "apps/server/server/controller/userLogin.js",
     "apps/server/server/utils/logger.js"
   ],

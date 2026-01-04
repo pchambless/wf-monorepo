@@ -158,29 +158,78 @@ router.get('/:appName/:pageName', async (req, res, next) => {
 
     logger.debug(`[htmxRoutes.js] Found pageID=${route.pageID} for ${routePath}`);
 
-    // Get page structure via sp_pageStructure
-    // Stored proc returns: [[rows], metadata] so we need [0][0] to get first row
-    const [results] = await db.pool.query('CALL api_wf.sp_pageStructure(?)', [route.pageID]);
 
+    // Get app-level shell configs
+    const [[app]] = await db.pool.query(
+      `SELECT appbarConfig, sidebarConfig, footerConfig FROM api_wf.app WHERE id = ?`,
+      [route.appID]
+    );
+
+    // Get page structure via sp_pageStructure
+    const [results] = await db.pool.query('CALL api_wf.sp_pageStructure(?)', [route.pageID]);
     if (!results || !results[0] || !results[0][0]) {
       logger.error(`[htmxRoutes.js] sp_pageStructure returned no data for pageID=${route.pageID}`);
       return res.status(500).send('Page configuration error');
     }
-
     const pageData = results[0][0];
     const pageConfig = pageData.pageConfig;
-
     if (!pageConfig || !pageConfig.components) {
       logger.error(`[htmxRoutes.js] pageConfig invalid:`, pageData);
       return res.status(500).send('Page configuration invalid');
     }
-
     logger.debug(`[htmxRoutes.js] Rendering ${pageConfig.components.length} components`);
 
-    // Render component tree with pageName
-    const html = renderComponentTree(pageConfig.components, 0, pageName);
+    // Render shell components
+    const appBarHTML = render('AppBar', app?.appbarConfig ? JSON.parse(app.appbarConfig) : {});
+    const sidebarHTML = render('Sidebar', app?.sidebarConfig ? JSON.parse(app.sidebarConfig) : {});
+    const footerHTML = render('Footer', app?.footerConfig ? JSON.parse(app.footerConfig) : {});
 
-    res.send(html);
+    // Render page-specific content
+    const pageContentHTML = renderComponentTree(pageConfig.components, 0, pageName);
+
+    // Collect unique composites used for CSS loading
+    const usedComposites = new Set();
+    usedComposites.add('AppBar');
+    usedComposites.add('Sidebar');
+    if (pageConfig.components) {
+      pageConfig.components.forEach(component => {
+        if (component.composite_name) {
+          usedComposites.add(component.composite_name);
+        }
+      });
+    }
+
+    // Generate CSS links from composites.style column
+    const cssLinks = Array.from(usedComposites)
+      .map(name => composites[name]?.style)
+      .filter(styleClass => styleClass)
+      .map(styleClass => `<link rel="stylesheet" href="/css/components/${styleClass}.css">`)
+      .join('\n    ');
+
+    // Wrap in full HTML document with CSS
+    const fullHTML = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${pageName} - ${appName}</title>
+    ${cssLinks}
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  </head>
+  <body>
+    ${appBarHTML}
+    <div class="layout">
+      ${sidebarHTML}
+      <main class="page-content">
+        ${pageContentHTML}
+      </main>
+    </div>
+    ${footerHTML}
+  </body>
+</html>
+    `;
+    res.send(fullHTML);
 
   } catch (error) {
     logger.error('[htmxRoutes.js] Error:', error);

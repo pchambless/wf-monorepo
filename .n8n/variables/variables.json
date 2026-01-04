@@ -1,0 +1,4 @@
+{
+  "studio_datatype_mapping": "{\"text\":\"textarea\",\"longtext\":\"textarea\",\"datetime\":\"datetime-local\",\"timestamp\":\"datetime-local\",\"date\":\"date\",\"int\":\"number\",\"bigint\":\"number\",\"decimal\":\"number\",\"float\":\"number\",\"double\":\"number\",\"tinyint\":\"checkbox\",\"varchar\":\"text\"}",
+  "studio_test-vars": "{\":appID\":\"2\",\":pageID\":\"1\",\":qryName\":\"ingrTypeGrid\",\":account_id\":\"3\"}"
+}

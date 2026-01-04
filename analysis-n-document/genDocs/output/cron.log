@@ -2498,3 +2498,151 @@ TypeError: fetch failed
     at async processAnalysisFile (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:177:24)
     at async main (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:203:18)
 Dead code analysis and DB population completed at Thu Jan  1 02:00:04 AM CST 2026
+
+> analyze:all
+> npm run analyze-deps && npm run analyze:dead-code
+
+
+> analyze-deps
+> madge . --json > analysis-n-document/genDocs/output/monorepo/raw-madge.json && node analysis-n-document/genDocs/enhance-madge.js
+
+✅ Enhanced analysis written to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/output/monorepo/madge-analysis.json
+📁 Project index written to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/output/monorepo/project.index.json
+📊 Analyzed 438 files
+🔥 Found 18 hotspots
+
+> analyze:dead-code
+> node analysis-n-document/genDocs/analyze-dead-code.js
+
+🔍 Starting dead code analysis...
+📊 Using existing dependency graph...
+📊 Enhancing madge data for AI consumption...
+✅ Dead code analysis complete!
+📁 JSON output: /home/paul/Projects/wf-monorepo/analysis-n-document/output/json/dead-code-analysis.json
+📊 Summary:
+   💀 Dead code candidates: 205
+   🔥 Critical dependencies: 15
+   ✅ Safe removals: 19
+   ⚠️  Risky removals: 0
+
+> analyze:populate-db
+> node analysis-n-document/genDocs/populate-modules-db.js
+
+🚀 Starting module database population...
+🔌 API: http://localhost:3001
+📂 Reading from: ./output/monorepo/madge-analysis.json
+
+📊 Processing monorepo...
+   📁 Files in analysis: 438
+   🔄 Transforming to lean format...
+   📄 Saved JSON payload to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/monorepo_modules.json
+   📦 Modules: 438, Dependencies: 556
+   📤 Executing two-phase population...
+   📦 Phase 1: Loading 438 modules in 9 batches...
+   🚀 Batch 1/9: 50 modules (2893 chars)
+❌ Fatal error: fetch failed
+TypeError: fetch failed
+    at Object.fetch (node:internal/deps/undici/undici:11360:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async callModuleLoad (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:77:26)
+    at async processAnalysisFile (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:177:24)
+    at async main (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:203:18)
+Dead code analysis and DB population completed at Fri Jan  2 02:00:04 AM CST 2026
+
+> analyze:all
+> npm run analyze-deps && npm run analyze:dead-code
+
+
+> analyze-deps
+> madge . --json > analysis-n-document/genDocs/output/monorepo/raw-madge.json && node analysis-n-document/genDocs/enhance-madge.js
+
+✅ Enhanced analysis written to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/output/monorepo/madge-analysis.json
+📁 Project index written to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/output/monorepo/project.index.json
+📊 Analyzed 441 files
+🔥 Found 18 hotspots
+
+> analyze:dead-code
+> node analysis-n-document/genDocs/analyze-dead-code.js
+
+🔍 Starting dead code analysis...
+📊 Using existing dependency graph...
+📊 Enhancing madge data for AI consumption...
+✅ Dead code analysis complete!
+📁 JSON output: /home/paul/Projects/wf-monorepo/analysis-n-document/output/json/dead-code-analysis.json
+📊 Summary:
+   💀 Dead code candidates: 205
+   🔥 Critical dependencies: 15
+   ✅ Safe removals: 19
+   ⚠️  Risky removals: 0
+
+> analyze:populate-db
+> node analysis-n-document/genDocs/populate-modules-db.js
+
+🚀 Starting module database population...
+🔌 API: http://localhost:3001
+📂 Reading from: ./output/monorepo/madge-analysis.json
+
+📊 Processing monorepo...
+   📁 Files in analysis: 441
+   🔄 Transforming to lean format...
+   📄 Saved JSON payload to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/monorepo_modules.json
+   📦 Modules: 441, Dependencies: 560
+   📤 Executing two-phase population...
+   📦 Phase 1: Loading 441 modules in 9 batches...
+   🚀 Batch 1/9: 50 modules (2917 chars)
+❌ Fatal error: Module load failed (batch 1): Route not found
+Error: Module load failed (batch 1): Route not found
+    at callModuleLoad (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:85:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processAnalysisFile (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:177:24)
+    at async main (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:203:18)
+Dead code analysis and DB population completed at Sat Jan  3 02:00:04 AM CST 2026
+
+> analyze:all
+> npm run analyze-deps && npm run analyze:dead-code
+
+
+> analyze-deps
+> madge . --json > analysis-n-document/genDocs/output/monorepo/raw-madge.json && node analysis-n-document/genDocs/enhance-madge.js
+
+✅ Enhanced analysis written to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/output/monorepo/madge-analysis.json
+📁 Project index written to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/output/monorepo/project.index.json
+📊 Analyzed 443 files
+🔥 Found 19 hotspots
+
+> analyze:dead-code
+> node analysis-n-document/genDocs/analyze-dead-code.js
+
+🔍 Starting dead code analysis...
+📊 Using existing dependency graph...
+📊 Enhancing madge data for AI consumption...
+✅ Dead code analysis complete!
+📁 JSON output: /home/paul/Projects/wf-monorepo/analysis-n-document/output/json/dead-code-analysis.json
+📊 Summary:
+   💀 Dead code candidates: 205
+   🔥 Critical dependencies: 15
+   ✅ Safe removals: 19
+   ⚠️  Risky removals: 0
+
+> analyze:populate-db
+> node analysis-n-document/genDocs/populate-modules-db.js
+
+🚀 Starting module database population...
+🔌 API: http://localhost:3001
+📂 Reading from: ./output/monorepo/madge-analysis.json
+
+📊 Processing monorepo...
+   📁 Files in analysis: 443
+   🔄 Transforming to lean format...
+   📄 Saved JSON payload to /home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/monorepo_modules.json
+   📦 Modules: 443, Dependencies: 566
+   📤 Executing two-phase population...
+   📦 Phase 1: Loading 443 modules in 9 batches...
+   🚀 Batch 1/9: 50 modules (2923 chars)
+❌ Fatal error: Module load failed (batch 1): Route not found
+Error: Module load failed (batch 1): Route not found
+    at callModuleLoad (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:85:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async processAnalysisFile (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:177:24)
+    at async main (file:///home/paul/Projects/wf-monorepo/analysis-n-document/genDocs/populate-modules-db.js:203:18)
+Dead code analysis and DB population completed at Sun Jan  4 02:00:04 AM CST 2026

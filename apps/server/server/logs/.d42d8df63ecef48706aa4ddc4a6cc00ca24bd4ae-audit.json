@@ -6,9 +6,14 @@
     "auditLog": "/home/paul/Projects/wf-monorepo/apps/server/server/logs/.d42d8df63ecef48706aa4ddc4a6cc00ca24bd4ae-audit.json",
     "files": [
         {
-            "date": 1767153026068,
-            "name": "/home/paul/Projects/wf-monorepo/apps/server/server/logs/error-2025-12-30.log",
-            "hash": "9599d58655cc971bf2463684bd353c11b21ed0572ce577c1afbc1d913d6e381e"
+            "date": 1767402685700,
+            "name": "/home/paul/Projects/wf-monorepo/apps/server/server/logs/error-2026-01-02.log",
+            "hash": "12e6c9a92cb5eb44f618157dfd8ff6ccefc4e69021075516276fdb9bdad405a4"
+        },
+        {
+            "date": 1767447643545,
+            "name": "/home/paul/Projects/wf-monorepo/apps/server/server/logs/error-2026-01-03.log",
+            "hash": "b673701cb6fdf7ed2fa5f078268d5e146675e23ffd8a494e2cb7fd94399e8d70"
         }
     ],
     "hashType": "sha256"

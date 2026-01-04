@@ -1,0 +1,130 @@
+{
+  "name": "studio-gengridfields",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "studio-gengridfields",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "studio-gengridfields"
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT qrySQL FROM api_wf.vw_execEvents WHERE pageID = {{ $json.body.pageID }} AND qryName = '{{ $json.body.qryName }}' LIMIT 1"
+      },
+      "id": "get-query-sql",
+      "name": "Get Query SQL",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.2,
+      "position": [450, 300],
+      "credentials": {
+        "mySql": {
+          "id": "1",
+          "name": "MySQL wf_admin"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "CALL api_wf.sp_genFields('{{ $json.qrySQL }}')"
+      },
+      "id": "call-sp-genfields",
+      "name": "Call sp_genFields",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.2,
+      "position": [650, 300],
+      "credentials": {
+        "mySql": {
+          "id": "1",
+          "name": "MySQL wf_admin"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Transform raw column metadata into grid columns\nconst columns = [];\n\nfor (const col of $input.all()) {\n  const field = col.json;\n  \n  // Generate label from name (camelCase -> Title Case)\n  const label = field.name\n    .replace(/([A-Z])/g, ' $1')\n    .replace(/^./, str => str.toUpperCase())\n    .trim();\n  \n  // Determine width based on dataType\n  let width = 150;\n  if (field.dataType === 'int' || field.dataType === 'bigint') {\n    width = 80;\n  } else if (field.dataType === 'text' || field.dataType === 'longtext') {\n    width = 250;\n  } else if (field.dataType === 'date' || field.dataType === 'datetime') {\n    width = 120;\n  } else if (field.maxLength && field.maxLength < 50) {\n    width = 100;\n  }\n  \n  // Determine alignment\n  let align = 'left';\n  if (field.dataType === 'int' || field.dataType === 'bigint' || field.dataType === 'decimal' || field.dataType === 'float') {\n    align = 'right';\n  } else if (field.dataType === 'date' || field.dataType === 'datetime') {\n    align = 'center';\n  }\n  \n  // Build column config\n  const column = {\n    name: field.name,\n    label: label,\n    field: field.name,\n    width: width,\n    align: align,\n    sortable: true,\n    filterable: field.columnKey !== 'PRI'\n  };\n  \n  // Add formatter hints for special types\n  if (field.dataType === 'date') {\n    column.format = 'date';\n  } else if (field.dataType === 'datetime' || field.dataType === 'timestamp') {\n    column.format = 'datetime';\n  } else if (field.name.includes('email')) {\n    column.format = 'email';\n  } else if (field.name.includes('url') || field.name.includes('link')) {\n    column.format = 'url';\n  }\n  \n  columns.push(column);\n}\n\nreturn [{ json: { columns } }];"
+      },
+      "id": "transform-to-grid",
+      "name": "Transform to Grid Columns",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "respond-to-webhook",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1050, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get Query SQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Query SQL": {
+      "main": [
+        [
+          {
+            "node": "Call sp_genFields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call sp_genFields": {
+      "main": [
+        [
+          {
+            "node": "Transform to Grid Columns",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transform to Grid Columns": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2026-01-02T15:10:00.000Z",
+  "versionId": "1"
+}

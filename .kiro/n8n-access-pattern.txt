@@ -1,0 +1,18 @@
+# n8n Workflow Access Pattern (All Agents)
+
+## MCP Resource (Auto-loads at startup)
+- session-startup → MCP resource "session://startup" 
+  - Provides: protocol, active plans, recent activity
+  - Access via: MCP resource tools
+
+## Direct Webhook Calls (Use Bash tool)
+- adhoc-query → POST http://localhost:5678/webhook/adhoc-query
+- log-impact → POST http://localhost:5678/webhook/log-impact  
+- create-communication → POST http://localhost:5678/webhook/create-communication
+
+## Why Not MCP for n8n Workflows?
+- n8n doesn't expose native MCP endpoint
+- Direct HTTP is simpler, faster, more reliable
+- Only session-startup needs MCP wrapper (for auto-load)
+
+## Updated: 2026-01-02

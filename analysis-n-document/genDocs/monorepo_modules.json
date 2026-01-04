@@ -10,6 +10,9 @@
       "file_path": ".n8n/command-service/server.js"
     },
     {
+      "file_path": ".n8n/custom-nodes/n8n-nodes-whatsfresh/nodes/WfDbQuery/WfDbQuery.node.ts"
+    },
+    {
       "file_path": ".n8n/mcp-session-server.js"
     },
     {
@@ -113,6 +116,9 @@
     },
     {
       "file_path": "apps/server/server/controller/setVals.js"
+    },
+    {
+      "file_path": "apps/server/server/controller/studioWorkflow.js"
     },
     {
       "file_path": "apps/server/server/controller/userLogin.js"
@@ -244,6 +250,9 @@
       "file_path": "apps/server/server/renderers/index.js"
     },
     {
+      "file_path": "apps/server/server/renderers/renderAppBar.js"
+    },
+    {
       "file_path": "apps/server/server/renderers/renderButton.js"
     },
     {
@@ -256,6 +265,9 @@
       "file_path": "apps/server/server/renderers/renderGrid.js"
     },
     {
+      "file_path": "apps/server/server/renderers/renderMenu.js"
+    },
+    {
       "file_path": "apps/server/server/renderers/renderModal.js"
     },
     {
@@ -263,6 +275,9 @@
     },
     {
       "file_path": "apps/server/server/renderers/renderSelect.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderSidebar.js"
     },
     {
       "file_path": "apps/server/server/renderers/renderText.js"
@@ -1453,6 +1468,10 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
+      "from_path": "apps/server/server/controller/studioWorkflow.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/controller/userLogin.js",
       "to_path": "apps/server/server/controller/resetSessionCounters.js"
     },
@@ -1646,6 +1665,10 @@
     },
     {
       "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderAppBar.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
       "to_path": "apps/server/server/renderers/renderButton.js"
     },
     {
@@ -1662,6 +1685,10 @@
     },
     {
       "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderMenu.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
       "to_path": "apps/server/server/renderers/renderModal.js"
     },
     {
@@ -1674,7 +1701,15 @@
     },
     {
       "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderSidebar.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
       "to_path": "apps/server/server/renderers/renderText.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderAppBar.js",
+      "to_path": "apps/server/server/utils/logger.js"
     },
     {
       "from_path": "apps/server/server/renderers/renderButton.js",
@@ -1705,6 +1740,14 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
+      "from_path": "apps/server/server/renderers/renderMenu.js",
+      "to_path": "apps/server/server/utils/htmxBuilder.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderMenu.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/renderers/renderModal.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
@@ -1714,6 +1757,14 @@
     },
     {
       "from_path": "apps/server/server/renderers/renderSelect.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderSidebar.js",
+      "to_path": "apps/server/server/renderers/renderMenu.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderSidebar.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1799,6 +1850,10 @@
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",
       "to_path": "apps/server/server/controller/setVals.js"
+    },
+    {
+      "from_path": "apps/server/server/routes/registerRoutes.js",
+      "to_path": "apps/server/server/controller/studioWorkflow.js"
     },
     {
       "from_path": "apps/server/server/routes/registerRoutes.js",

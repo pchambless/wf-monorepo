@@ -1,0 +1,92 @@
+/* Base Menu Styles */
+.menu {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  font: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.menu-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.menu-item.active {
+  background: rgba(0, 120, 180, 0.1);
+  border-left: 3px solid #0078b4;
+}
+
+/* Vertical Menu (Sidebar) */
+.menu-vertical {
+  flex-direction: column;
+}
+
+.menu-vertical .menu-item {
+  border-radius: 0;
+}
+
+/* Horizontal Menu (Tabs) */
+.menu-horizontal {
+  flex-direction: row;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.menu-horizontal .menu-item {
+  border-bottom: 3px solid transparent;
+  border-left: none;
+}
+
+.menu-horizontal .menu-item.active {
+  border-bottom-color: #0078b4;
+  border-left: none;
+  background: transparent;
+}
+
+/* Dropdown Menu */
+.menu-dropdown {
+  position: absolute;
+  flex-direction: column;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  min-width: 180px;
+  z-index: 1000;
+}
+
+.menu-dropdown .menu-item {
+  padding: 0.5rem 1rem;
+}
+
+/* Menu Icons */
+.menu-icon {
+  display: inline-flex;
+  width: 1.25rem;
+  justify-content: center;
+}
+
+/* Submenu */
+.has-submenu {
+  position: relative;
+}
+
+.submenu {
+  display: none;
+  margin-left: 1rem;
+}
+
+.has-submenu:hover .submenu {
+  display: flex;
+}

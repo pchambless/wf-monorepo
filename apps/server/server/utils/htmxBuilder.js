@@ -12,13 +12,14 @@ export function buildHTMXAttributes(triggers = [], actions = {}, componentType =
     return '';
   }
 
-  logger.debug(`${codeName} Building HTMX for ${componentType} with ${triggers.length} trigger(s): ${triggers.map(t => t.class).join(', ')}`);
+  logger.debug(`${codeName} Building HTMX for ${componentType} with ${triggers.length} trigger(s): ${triggers.map(t => t.class || t.event).join(', ')}`);
 
   const triggersByClass = {};
   triggers.forEach((trigger, index) => {
-    const trigClass = trigger.class;
+    // Map 'event' to 'class' for compatibility with pageStructure output
+    const trigClass = trigger.class || trigger.event;
     if (!trigClass) {
-      logger.warn(`${codeName} Trigger missing 'class' property at index ${index}`);
+      logger.warn(`${codeName} Trigger missing 'class' or 'event' property at index ${index}`);
       return;
     }
 
@@ -65,7 +66,19 @@ export function buildHTMXAttributes(triggers = [], actions = {}, componentType =
     logger.debug(`${codeName} [${trigClass}] → hx-trigger="${trigClass}"`);
     htmxParts.push(`hx-trigger="${trigClass}"`);
 
-    if (firstTrigger.params && Object.keys(firstTrigger.params).length > 0) {
+    // For execN8N and other actions, include action-specific parameters
+    if (firstTrigger.action === 'execN8N' || firstTrigger.action === 'execDML' || firstTrigger.action === 'execEvent') {
+      const bodyData = {};
+      if (firstTrigger.workflowName) bodyData.workflowName = firstTrigger.workflowName;
+      if (firstTrigger.method) bodyData.method = firstTrigger.method;
+      if (firstTrigger.params) bodyData.params = firstTrigger.params;
+      if (firstTrigger.eventSQLId) bodyData.eventSQLId = firstTrigger.eventSQLId;
+      if (firstTrigger.table) bodyData.table = firstTrigger.table;
+
+      const hxVals = JSON.stringify(bodyData).replace(/"/g, '&quot;');
+      logger.debug(`${codeName} [${trigClass}] → hx-vals="${hxVals}"`);
+      htmxParts.push(`hx-vals="${hxVals}"`);
+    } else if (firstTrigger.params && Object.keys(firstTrigger.params).length > 0) {
       const hxVals = JSON.stringify(firstTrigger.params).replace(/"/g, '&quot;');
       logger.debug(`${codeName} [${trigClass}] → hx-vals="${hxVals}"`);
       htmxParts.push(`hx-vals="${hxVals}"`);

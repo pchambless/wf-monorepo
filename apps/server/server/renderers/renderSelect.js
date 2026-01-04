@@ -6,7 +6,7 @@ function renderSelect(composite, instanceProps = {}, actions = {}) {
 
   const props = { ...composite.props, ...instanceProps };
   const triggers = instanceProps.triggers || [];
-  const className = props.className || '';
+  const className = props.className || 'select';
 
   let htmxAttrs = '';
 

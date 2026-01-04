@@ -12,6 +12,7 @@ import setVals from "../controller/setVals.js";
 import clearVals from "../controller/clearVals.js";
 import runMigration from "../controller/runMigration.js";
 import getMigrationStatus from "../controller/getMigrationStatus.js";
+import studioWorkflow from "../controller/studioWorkflow.js";
 import logger from "../utils/logger.js";
 
 const codeName = `[registerRoutes.js]`;
@@ -41,6 +42,7 @@ const registerRoutes = (app) => {
 
   // === Studio Development Controllers ===
   registerRoute("post", "/controller/studio/genFields", genFields);
+  registerRoute("post", "/controller/studio/execWorkflow", studioWorkflow);
 
   // === Application Controllers ===
   registerRoute("post", "/controller/initialize", initializeController.initialize);

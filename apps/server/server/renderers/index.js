@@ -7,3 +7,7 @@ export { default as renderButton } from './renderButton.js';
 export { default as renderSelect } from './renderSelect.js';
 export { default as renderModal } from './renderModal.js';
 export { default as renderPage } from './renderPage.js';
+export { default as renderAppBar } from './renderAppBar.js';
+export { default as renderSidebar } from './renderSidebar.js';
+
+export { default as renderMenu } from './renderMenu.js';

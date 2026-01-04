@@ -1,0 +1,14 @@
+/* Form Label and Container */
+.label, .wf-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.form, .wf-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}

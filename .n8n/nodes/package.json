@@ -1,5 +1,10 @@
 {
   "name": "installed-nodes",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "n8n-nodes-flowengine": "1.10.22",
+    "n8n-nodes-globals": "1.1.0",
+    "n8n-nodes-variables-store": "1.1.2",
+    "n8n-nodes-whatsfresh": "file:../custom-nodes/n8n-nodes-whatsfresh"
+  }
 }
