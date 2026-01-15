@@ -1,4 +1,6 @@
 import logger from "../utils/logger.js";
+import { getValDirect } from "./getVal.js";
+import { getUserEmail } from "../utils/getUserEmail.js";
 
 const codeName = `[studioWorkflow.js]`;
 const N8N_BASE_URL = process.env.N8N_BASE_URL || "http://localhost:5678";
@@ -6,7 +8,7 @@ const N8N_BASE_URL = process.env.N8N_BASE_URL || "http://localhost:5678";
 const execWorkflow = async (req, res) => {
   logger.http(`${codeName} ${req.method} ${req.originalUrl}`);
 
-  let { workflowName, method, params } = req.body;
+  let { workflowName, method, params, contextParams } = req.body;
 
   // Parse params if it's a string (from HTMX form data)
   if (typeof params === 'string') {
@@ -14,6 +16,35 @@ const execWorkflow = async (req, res) => {
       params = JSON.parse(params);
     } catch (e) {
       params = {};
+    }
+  }
+
+  // Handle contextParams - fetch from context_store and merge with params
+  if (contextParams && Array.isArray(contextParams) && contextParams.length > 0) {
+    try {
+      const userEmail = getUserEmail(req);
+      const contextValues = {};
+
+      for (const paramName of contextParams) {
+        const value = await getValDirect(userEmail, paramName, 'raw');
+        if (value !== null) {
+          contextValues[paramName] = value;
+          logger.debug(`${codeName} Resolved context param ${paramName} = ${value}`);
+        } else {
+          logger.warn(`${codeName} Context param not found: ${paramName}`);
+        }
+      }
+
+      // Merge context values with explicit params (explicit params take precedence)
+      params = { ...contextValues, ...params };
+      logger.debug(`${codeName} Merged contextParams with params:`, params);
+    } catch (error) {
+      logger.error(`${codeName} Error resolving contextParams:`, error);
+      return res.status(500).json({
+        error: "CONTEXT_PARAMS_RESOLUTION_FAILED",
+        message: error.message,
+        workflowName
+      });
     }
   }
 

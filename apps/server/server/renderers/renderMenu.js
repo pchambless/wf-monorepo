@@ -1,5 +1,5 @@
 import logger from '../utils/logger.js';
-import { buildHTMXAttributes } from '../utils/htmxBuilder.js';
+import { buildHTMXAttributes } from '../utils/htmxBuilders/index.js';
 
 function renderMenu(composite, instanceProps = {}, actions = {}) {
   logger.debug(`[renderMenu] Rendering: ${instanceProps.id || composite.name}`);

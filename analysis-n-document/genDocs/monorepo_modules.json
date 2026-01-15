@@ -256,6 +256,12 @@
       "file_path": "apps/server/server/renderers/renderButton.js"
     },
     {
+      "file_path": "apps/server/server/renderers/renderCRUDGrid.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderChart.js"
+    },
+    {
       "file_path": "apps/server/server/renderers/renderContainer.js"
     },
     {
@@ -265,10 +271,19 @@
       "file_path": "apps/server/server/renderers/renderGrid.js"
     },
     {
+      "file_path": "apps/server/server/renderers/renderIframe.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderLogin.js"
+    },
+    {
       "file_path": "apps/server/server/renderers/renderMenu.js"
     },
     {
       "file_path": "apps/server/server/renderers/renderModal.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderModalForm.js"
     },
     {
       "file_path": "apps/server/server/renderers/renderPage.js"
@@ -278,6 +293,9 @@
     },
     {
       "file_path": "apps/server/server/renderers/renderSidebar.js"
+    },
+    {
+      "file_path": "apps/server/server/renderers/renderTabs.js"
     },
     {
       "file_path": "apps/server/server/renderers/renderText.js"
@@ -352,7 +370,16 @@
       "file_path": "apps/server/server/utils/getUserEmail.js"
     },
     {
-      "file_path": "apps/server/server/utils/htmxBuilder.js"
+      "file_path": "apps/server/server/utils/htmxBuilders/execN8NBuilder.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/htmxBuilders/index.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/htmxBuilders/setValsBuilder.js"
+    },
+    {
+      "file_path": "apps/server/server/utils/htmxBuilders/triggerEventBuilder.js"
     },
     {
       "file_path": "apps/server/server/utils/impactLogger.js"
@@ -1469,6 +1496,14 @@
     },
     {
       "from_path": "apps/server/server/controller/studioWorkflow.js",
+      "to_path": "apps/server/server/controller/getVal.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/studioWorkflow.js",
+      "to_path": "apps/server/server/utils/getUserEmail.js"
+    },
+    {
+      "from_path": "apps/server/server/controller/studioWorkflow.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1673,6 +1708,14 @@
     },
     {
       "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderCRUDGrid.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderChart.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
       "to_path": "apps/server/server/renderers/renderContainer.js"
     },
     {
@@ -1685,11 +1728,23 @@
     },
     {
       "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderIframe.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderLogin.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
       "to_path": "apps/server/server/renderers/renderMenu.js"
     },
     {
       "from_path": "apps/server/server/renderers/index.js",
       "to_path": "apps/server/server/renderers/renderModal.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderModalForm.js"
     },
     {
       "from_path": "apps/server/server/renderers/index.js",
@@ -1705,6 +1760,10 @@
     },
     {
       "from_path": "apps/server/server/renderers/index.js",
+      "to_path": "apps/server/server/renderers/renderTabs.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/index.js",
       "to_path": "apps/server/server/renderers/renderText.js"
     },
     {
@@ -1713,10 +1772,18 @@
     },
     {
       "from_path": "apps/server/server/renderers/renderButton.js",
-      "to_path": "apps/server/server/utils/htmxBuilder.js"
+      "to_path": "apps/server/server/utils/htmxBuilders/index.js"
     },
     {
       "from_path": "apps/server/server/renderers/renderButton.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderCRUDGrid.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderChart.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
@@ -1725,7 +1792,7 @@
     },
     {
       "from_path": "apps/server/server/renderers/renderForm.js",
-      "to_path": "apps/server/server/utils/htmxBuilder.js"
+      "to_path": "apps/server/server/utils/htmxBuilders/index.js"
     },
     {
       "from_path": "apps/server/server/renderers/renderForm.js",
@@ -1733,15 +1800,27 @@
     },
     {
       "from_path": "apps/server/server/renderers/renderGrid.js",
-      "to_path": "apps/server/server/utils/htmxBuilder.js"
+      "to_path": "apps/server/server/utils/htmxBuilders/index.js"
     },
     {
       "from_path": "apps/server/server/renderers/renderGrid.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
+      "from_path": "apps/server/server/renderers/renderIframe.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderLogin.js",
+      "to_path": "apps/server/server/utils/htmxBuilders/index.js"
+    },
+    {
+      "from_path": "apps/server/server/renderers/renderLogin.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/renderers/renderMenu.js",
-      "to_path": "apps/server/server/utils/htmxBuilder.js"
+      "to_path": "apps/server/server/utils/htmxBuilders/index.js"
     },
     {
       "from_path": "apps/server/server/renderers/renderMenu.js",
@@ -1752,8 +1831,12 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
+      "from_path": "apps/server/server/renderers/renderModalForm.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
       "from_path": "apps/server/server/renderers/renderSelect.js",
-      "to_path": "apps/server/server/utils/htmxBuilder.js"
+      "to_path": "apps/server/server/utils/htmxBuilders/index.js"
     },
     {
       "from_path": "apps/server/server/renderers/renderSelect.js",
@@ -1768,20 +1851,12 @@
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/renderers/renderText.js",
+      "from_path": "apps/server/server/renderers/renderTabs.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {
-      "from_path": "apps/server/server/routes/htmxRoutes.js",
-      "to_path": "apps/server/server/loaders/actionsLoader.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/htmxRoutes.js",
-      "to_path": "apps/server/server/loaders/compositeLoader.js"
-    },
-    {
-      "from_path": "apps/server/server/routes/htmxRoutes.js",
-      "to_path": "apps/server/server/loaders/pageConfigLoader.js"
+      "from_path": "apps/server/server/renderers/renderText.js",
+      "to_path": "apps/server/server/utils/logger.js"
     },
     {
       "from_path": "apps/server/server/routes/htmxRoutes.js",
@@ -2068,7 +2143,31 @@
       "to_path": "apps/server/server/utils/queryResolver.js"
     },
     {
-      "from_path": "apps/server/server/utils/htmxBuilder.js",
+      "from_path": "apps/server/server/utils/htmxBuilders/execN8NBuilder.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/htmxBuilders/index.js",
+      "to_path": "apps/server/server/utils/htmxBuilders/execN8NBuilder.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/htmxBuilders/index.js",
+      "to_path": "apps/server/server/utils/htmxBuilders/setValsBuilder.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/htmxBuilders/index.js",
+      "to_path": "apps/server/server/utils/htmxBuilders/triggerEventBuilder.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/htmxBuilders/index.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/htmxBuilders/setValsBuilder.js",
+      "to_path": "apps/server/server/utils/logger.js"
+    },
+    {
+      "from_path": "apps/server/server/utils/htmxBuilders/triggerEventBuilder.js",
       "to_path": "apps/server/server/utils/logger.js"
     },
     {

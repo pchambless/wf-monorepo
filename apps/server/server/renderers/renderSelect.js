@@ -1,5 +1,5 @@
 import logger from '../utils/logger.js';
-import { buildHTMXAttributes, buildHTMXAttributesFromObject } from '../utils/htmxBuilder.js';
+import { buildHTMXAttributes, buildHTMXAttributesFromObject } from '../utils/htmxBuilders/index.js';
 
 function renderSelect(composite, instanceProps = {}, actions = {}) {
   logger.debug(`[renderSelect] Rendering: ${instanceProps.id || composite.name}`);
@@ -20,6 +20,7 @@ function renderSelect(composite, instanceProps = {}, actions = {}) {
     `<option value="${opt.value}">${opt.label}</option>`
   ).join('');
 
-  return `<select class="${className}" ${htmxAttrs}>${options || '<option>Loading...</option>'}</select>`;
+  const idAttr = instanceProps.id ? `id="${instanceProps.id}"` : '';
+  return `<select ${idAttr} class="${className}" ${htmxAttrs}>${options || '<option>Loading...</option>'}</select>`;
 }
 export default renderSelect;

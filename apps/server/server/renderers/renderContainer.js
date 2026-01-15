@@ -1,11 +1,11 @@
 import logger from '../utils/logger.js';
 
-function renderContainer(composite, instanceProps = {}, actions = {}) {
-  logger.debug(`[renderContainer] Rendering: ${instanceProps.id || composite.name}`);
+function renderContainer(component) {
+  logger.debug(`[renderContainer] Rendering: ${component.id}`);
 
-  const props = { ...composite.props, ...instanceProps };
-  const className = props.className || '';
-  const children = instanceProps.children || '';
+  const { props, css_style } = component;
+  const className = css_style || 'container';
+  const children = component.children || '';
 
   return `<div class="${className}">${children}</div>`;
 }

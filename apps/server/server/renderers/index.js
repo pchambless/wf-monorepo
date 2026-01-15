@@ -11,3 +11,9 @@ export { default as renderAppBar } from './renderAppBar.js';
 export { default as renderSidebar } from './renderSidebar.js';
 
 export { default as renderMenu } from './renderMenu.js';
+export { default as renderLogin } from './renderLogin.js';
+export { default as renderCRUDGrid } from './renderCRUDGrid.js';
+export { default as renderModalForm } from './renderModalForm.js';
+export { default as renderTabs } from './renderTabs.js';
+export { default as renderChart } from './renderChart.js';
+export { default as renderIframe } from './renderIframe.js';

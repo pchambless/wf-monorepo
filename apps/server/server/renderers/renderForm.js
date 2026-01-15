@@ -1,13 +1,12 @@
 import logger from '../utils/logger.js';
-import { buildHTMXAttributes, buildHTMXAttributesFromObject } from '../utils/htmxBuilder.js';
+import { buildHTMXAttributesFromObject } from '../utils/htmxBuilders/index.js';
 
-function renderForm(composite, instanceProps = {}, actions = {}) {
-  logger.debug(`[renderForm] Rendering: ${instanceProps.id || composite.name}`);
+function renderForm(component) {
+  logger.debug(`[renderForm] Rendering: ${component.id}`);
 
-  const props = { ...composite.props, ...instanceProps };
-  const triggers = instanceProps.triggers || [];
-  const className = props.className || 'form';
-  let children = instanceProps.children || '';
+  const { props, triggers, css_style } = component;
+  const className = css_style || 'form';
+  let children = '';
 
   // Generate form fields if formFields prop exists
   if (props.formFields && Array.isArray(props.formFields)) {
@@ -19,15 +18,15 @@ function renderForm(composite, instanceProps = {}, actions = {}) {
       const required = field.required ? 'required' : '';
 
       return `
-        <div style="margin-bottom: 16px;">
-          <label for="${fieldName}" style="display: block; margin-bottom: 6px; font-weight: 500;">${fieldLabel}</label>
+        <div class="login-field">
+          <label for="${fieldName}" class="login-field-label">${fieldLabel}</label>
           <input
             type="${fieldType}"
             id="${fieldName}"
             name="${fieldName}"
             placeholder="${placeholder}"
             ${required}
-            style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px;"
+            class="login-field-input"
           />
         </div>
       `;
@@ -35,7 +34,7 @@ function renderForm(composite, instanceProps = {}, actions = {}) {
 
     const submitText = props.submitText || 'Submit';
     const submitButton = `
-      <button type="submit" style="width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 600; cursor: pointer;">
+      <button type="submit" class="login-submit-btn">
         ${submitText}
       </button>
     `;
@@ -43,18 +42,14 @@ function renderForm(composite, instanceProps = {}, actions = {}) {
     children = fieldsHTML + submitButton;
   }
 
+  // Build HTMX attributes from pageStructure triggers
   let htmxAttrs = '';
-
-  if (Array.isArray(triggers) && triggers.length > 0) {
-    htmxAttrs = buildHTMXAttributes(triggers, actions, 'Form');
-  } else if (typeof triggers === 'object' && !Array.isArray(triggers)) {
+  if (triggers && Object.keys(triggers).length > 0) {
     htmxAttrs = buildHTMXAttributesFromObject(triggers);
-  }
-
-  if (htmxAttrs) {
     htmxAttrs += ' hx-target="this" hx-swap="outerHTML"';
   }
 
   return `<form class="${className}" ${htmxAttrs}>${children}</form>`;
 }
+
 export default renderForm;

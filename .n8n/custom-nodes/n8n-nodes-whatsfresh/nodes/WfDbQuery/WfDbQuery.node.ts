@@ -63,6 +63,13 @@ export class WfDbQuery implements INodeType {
 								placeholder: '75',
 								description: 'Parameter value',
 							},
+							{
+								displayName: 'unQuoted',
+								name: 'rawSql',
+								type: 'boolean',
+								default: false,
+								description: 'If checked, value is inserted without quotes. Use for SQL fragments like SELECT clauses.',
+							},
 						],
 					},
 				],
@@ -90,10 +97,14 @@ export class WfDbQuery implements INodeType {
 
 				// Build params object from fixedCollection
 				const params: any = {};
+				const rawSqlParams: any = {};
 				if (paramsData.parameter && Array.isArray(paramsData.parameter)) {
 					paramsData.parameter.forEach((p: any) => {
 						if (p.name && p.value !== undefined) {
 							params[p.name] = p.value;
+							if (p.rawSql) {
+								rawSqlParams[p.name] = true;
+							}
 						}
 					});
 				}
@@ -108,6 +119,7 @@ export class WfDbQuery implements INodeType {
 					body: {
 						query,
 						params,
+						rawSqlParams,
 						agent,
 					},
 					json: true,

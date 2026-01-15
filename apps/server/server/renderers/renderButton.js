@@ -1,5 +1,5 @@
 import logger from '../utils/logger.js';
-import { buildHTMXAttributes, buildHTMXAttributesFromObject } from '../utils/htmxBuilder.js';
+import { buildHTMXAttributes, buildHTMXAttributesFromObject } from '../utils/htmxBuilders/index.js';
 
 function renderButton(composite, instanceProps = {}, actions = {}) {
   logger.debug(`[renderButton] Rendering: ${instanceProps.id || composite.name}`);

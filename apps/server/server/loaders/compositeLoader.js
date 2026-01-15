@@ -5,7 +5,7 @@ import logger from '../utils/logger.js';
 
 // Loads all composites from vw_Composites and keys by name
 export default async function loadComposites() {
-  const [composites] = await dbManager.pool.query('SELECT * FROM api_wf.vw_Composites');
+  const [composites] = await dbManager.pool.query('SELECT * FROM api_wf.vw_composites');
   const byName = {};
   for (const comp of composites) {
     // Parse JSON columns

@@ -1,18 +1,14 @@
 import logger from '../utils/logger.js';
-import { buildHTMXAttributes, buildHTMXAttributesFromObject } from '../utils/htmxBuilder.js';
+import { buildHTMXAttributesFromObject } from '../utils/htmxBuilders/index.js';
 
-function renderGrid(composite, instanceProps = {}, actions = {}) {
-  logger.debug(`[renderGrid] Rendering: ${instanceProps.id || composite.name}`);
+function renderGrid(component) {
+  logger.debug(`[renderGrid] Rendering: ${component.id}`);
 
-  const props = { ...composite.props, ...instanceProps };
-  const triggers = instanceProps.triggers || [];
-  const className = props.className || 'grid';
+  const { props, triggers, css_style } = component;
+  const className = css_style || 'grid';
 
   let htmxAttrs = '';
-
-  if (Array.isArray(triggers) && triggers.length > 0) {
-    htmxAttrs = buildHTMXAttributes(triggers, actions, 'Grid');
-  } else if (typeof triggers === 'object' && !Array.isArray(triggers)) {
+  if (triggers && Object.keys(triggers).length > 0) {
     htmxAttrs = buildHTMXAttributesFromObject(triggers);
   }
 

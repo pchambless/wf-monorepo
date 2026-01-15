@@ -2,32 +2,17 @@
 
 import express from 'express';
 import loadRenderRegistry from '../loaders/renderRegistry.js';
-import loadComposites from '../loaders/compositeLoader.js';
-import loadPageConfigs from '../loaders/pageConfigLoader.js';
-import loadActions from '../loaders/actionsLoader.js';
 import db from '../utils/dbManager.js';
 import logger from '../utils/logger.js';
 
 const router = express.Router();
 
-// Loaders are async, so we cache after first load
-let renderRegistry, composites, pageConfigs, actions;
+// Only need render registry - everything else comes from pageStructure
+let renderRegistry;
 async function ensureLoaded() {
   if (!renderRegistry) {
     renderRegistry = await loadRenderRegistry();
     logger.debug('[htmxRoutes.js] renderRegistry loaded');
-  }
-  if (!composites) {
-    composites = await loadComposites();
-    logger.debug('[htmxRoutes.js] composites loaded');
-  }
-  if (!pageConfigs) {
-    pageConfigs = await loadPageConfigs();
-    logger.debug('[htmxRoutes.js] pageConfigs loaded');
-  }
-  if (!actions) {
-    actions = await loadActions();
-    logger.debug('[htmxRoutes.js] actions loaded');
   }
 }
 
@@ -76,32 +61,23 @@ router.get('/api/simple-ingredient-types', async (req, res) => {
 
 // ===== PAGE ROUTES (after API routes) =====
 
-// Recursive render function
-function render(compositeName, instanceProps = {}) {
-  const composite = composites[compositeName];
-  if (!composite) {
-    logger.warn(`[htmxRoutes.js] Composite not found: ${compositeName}`);
-    return `<!-- Composite not found: ${compositeName} -->`;
+// Render function for pageStructure components
+function renderComponent(component) {
+  const compositeName = component.css_style === 'form' ? 'Form' : 
+                       component.css_style === 'grid' ? 'Grid' :
+                       component.css_style === 'button' ? 'Button' :
+                       component.css_style === 'select' ? 'Select' :
+                       component.css_style === 'container' ? 'Container' :
+                       component.css_style;
+
+  const renderer = renderRegistry[compositeName];
+  if (!renderer) {
+    logger.warn(`[htmxRoutes.js] Renderer not found: ${compositeName} (css_style: ${component.css_style})`);
+    return `<!-- Renderer not found: ${compositeName} -->`;
   }
-  if (composite.category === 'base-component') {
-    const renderer = renderRegistry[compositeName];
-    if (!renderer) {
-      logger.warn(`[htmxRoutes.js] Renderer not found: ${compositeName}`);
-      return `<!-- Renderer not found: ${compositeName} -->`;
-    }
-    logger.debug(`[htmxRoutes.js] Rendering base-component: ${compositeName}`);
-    return renderer.fn(composite, instanceProps, actions);
-  }
-  // Configured composite: render children
-  logger.debug(`[htmxRoutes.js] Rendering composite: ${compositeName}`);
-  const childHTML = (composite.components || []).map(childName => {
-    const childProps = {
-      ...composite.props?.[childName],
-      ...instanceProps
-    };
-    return render(childName, childProps);
-  });
-  return childHTML.join('\n');
+
+  logger.debug(`[htmxRoutes.js] Rendering component: ${component.id} (${compositeName})`);
+  return renderer.fn(component);
 }
 
 // Render component tree from sp_pageStructure output
@@ -109,22 +85,15 @@ function renderComponentTree(components, level = 0, pageName = null, parentId = 
   return components
     .filter(c => c.level === level && (parentId === null || c.parent_id === parentId))
     .map(component => {
-      const compositeName = component.composite_name;
-      const instanceProps = {
-        ...component.props,
-        id: component.id,
-        title: component.title,
-        triggers: component.triggers,
-        pageName: pageName  // Pass pageName to all renderers
-      };
-
       // Find children of THIS component specifically
       const children = renderComponentTree(components, level + 1, pageName, component.pageComponent_id);
+      
+      // Add children to component if they exist
       if (children) {
-        instanceProps.children = children;
+        component.children = children;
       }
 
-      return render(compositeName, instanceProps);
+      return renderComponent(component);
     })
     .join('\n');
 }
@@ -179,34 +148,27 @@ router.get('/:appName/:pageName', async (req, res, next) => {
     }
     logger.debug(`[htmxRoutes.js] Rendering ${pageConfig.components.length} components`);
 
-    // Render shell components
-    const appBarHTML = render('AppBar', app?.appbarConfig ? JSON.parse(app.appbarConfig) : {});
-    const sidebarHTML = render('Sidebar', app?.sidebarConfig ? JSON.parse(app.sidebarConfig) : {});
-    const footerHTML = render('Footer', app?.footerConfig ? JSON.parse(app.footerConfig) : {});
-
-    // Render page-specific content
+    // Render page-specific content using pageStructure
     const pageContentHTML = renderComponentTree(pageConfig.components, 0, pageName);
 
-    // Collect unique composites used for CSS loading
-    const usedComposites = new Set();
-    usedComposites.add('AppBar');
-    usedComposites.add('Sidebar');
+    // Collect unique css_styles used for CSS loading
+    const usedStyles = new Set();
     if (pageConfig.components) {
       pageConfig.components.forEach(component => {
-        if (component.composite_name) {
-          usedComposites.add(component.composite_name);
+        if (component.css_style) {
+          usedStyles.add(component.css_style);
         }
       });
     }
 
-    // Generate CSS links from composites.style column
-    const cssLinks = Array.from(usedComposites)
-      .map(name => composites[name]?.style)
-      .filter(styleClass => styleClass)
+    // Generate CSS links from css_style
+    const baseTheme = `<link rel="stylesheet" href="/css/theme.css">`;
+    const componentCss = Array.from(usedStyles)
       .map(styleClass => `<link rel="stylesheet" href="/css/components/${styleClass}.css">`)
       .join('\n    ');
+    const cssLinks = `${baseTheme}\n    ${componentCss}`;
 
-    // Wrap in full HTML document with CSS
+    // Wrap in full HTML document with CSS - no shell components, just page content
     const fullHTML = `
 <!DOCTYPE html>
 <html>
@@ -216,16 +178,44 @@ router.get('/:appName/:pageName', async (req, res, next) => {
     <title>${pageName} - ${appName}</title>
     ${cssLinks}
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script>
+      // Minimal HTMX logging for Studio2 debugging
+      document.addEventListener('htmx:beforeRequest', function(evt) {
+        const method = evt.detail.requestConfig.verb.toUpperCase();
+        const url = evt.detail.pathInfo.requestPath;
+        console.log('HTMX Request: ' + method + ' ' + url);
+        
+        if (evt.detail.requestConfig.body) {
+          try {
+            const body = JSON.parse(evt.detail.requestConfig.body);
+            if (body.workflowName) {
+              console.log('Workflow: ' + body.workflowName + ' (' + (body.method || 'POST') + ')');
+            }
+          } catch (e) {
+            console.log('Body:', evt.detail.requestConfig.body.substring(0, 100));
+          }
+        }
+      });
+      
+      document.addEventListener('htmx:afterRequest', function(evt) {
+        const status = evt.detail.xhr.status;
+        const url = evt.detail.pathInfo.requestPath;
+        const statusIcon = status === 200 ? 'SUCCESS' : 'ERROR';
+        console.log('HTMX Response: ' + statusIcon + ' ' + status + ' ' + url);
+        
+        if (evt.detail.xhr.responseText && evt.detail.xhr.responseText.includes('<option')) {
+          const optionCount = (evt.detail.xhr.responseText.match(/<option/g) || []).length;
+          console.log('Response: ' + optionCount + ' options loaded');
+        }
+      });
+      
+      document.addEventListener('htmx:responseError', function(evt) {
+        console.error('HTMX Error: ' + evt.detail.xhr.status + ' ' + evt.detail.pathInfo.requestPath);
+      });
+    </script>
   </head>
   <body>
-    ${appBarHTML}
-    <div class="layout">
-      ${sidebarHTML}
-      <main class="page-content">
-        ${pageContentHTML}
-      </main>
-    </div>
-    ${footerHTML}
+    ${pageContentHTML}
   </body>
 </html>
     `;

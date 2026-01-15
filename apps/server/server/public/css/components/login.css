@@ -1,9 +1,88 @@
-/* Login Component (stub) */
-.login {
-  max-width: 400px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+/* Login Page Styling */
+
+/* Full-page container */
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e3f2fd 0%, #b2ebf2 100%);
+  margin: 0;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Login box */
+.login-box {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+}
+
+/* Title */
+.login-title {
+  text-align: center;
+  color: #0078b4;
+  margin: 0 0 32px 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Form */
+.login-form {
+  width: 100%;
+}
+
+/* Form field */
+.login-field {
+  margin-bottom: 16px;
+}
+
+.login-field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.login-field-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login-field-input:focus {
+  outline: none;
+  border-color: #0078b4;
+  box-shadow: 0 0 0 3px rgba(0, 120, 180, 0.1);
+}
+
+/* Submit button */
+.login-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0078b4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.login-submit-btn:hover {
+  background: #005a8d;
+}
+
+.login-submit-btn:active {
+  transform: scale(0.98);
 }

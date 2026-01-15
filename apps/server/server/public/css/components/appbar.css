@@ -1,6 +1,6 @@
 .appbar {
-  background: #2c3e50;
-  color: white;
+  background: var(--appbar-bg);
+  color: var(--appbar-color);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -13,9 +13,9 @@
 }
 
 .user-menu-button {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
+  background: rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color);
+  color: var(--appbar-color);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;

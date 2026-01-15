@@ -132,13 +132,12 @@ async function login(req, res) {
 
         logger.info(`${codeName} Login successful`, { userEmail });
 
-        // Check if HTMX request - redirect to ingrType page for testing
+        // Check if HTMX request - use HX-Trigger header for cross-component communication
         const isHTMX = req.headers['hx-request'] === 'true';
         if (isHTMX) {
-            const redirectPath = '/whatsfresh/ingrType';
-            logger.debug(`${codeName} Redirecting to: ${redirectPath}`);
-            res.setHeader('HX-Redirect', redirectPath);
-            res.send('');
+            // HTMX-native pattern: Send HX-Trigger header to trigger grid refresh
+            res.setHeader('HX-Trigger', 'loginSuccess');
+            res.status(200).send(''); // Empty response, grid will load via trigger
         } else {
             // API response for non-HTMX clients
             res.json(response);

@@ -8,8 +8,11 @@ services:
     ports:
       - "5678:5678"
     environment:
-          # Install community packages (MySQL should be built-in)
+      - N8N_FEATURE_FLAGS={"showLegacyNodes":true}
+      - N8N_EDITOR_BASE_URL=http://localhost:5678
+      # Install community packages (MySQL should be built-in)
       - N8N_COMMUNITY_PACKAGES="@n8n/n8n-nodes-langchain,@n8n/n8n-nodes-execute-command"
+
       # Enable Execute Command node (disabled by default for security)
       - N8N_NODES_INCLUDE=n8n-nodes-base.executeCommand
       - N8N_NODES_EXCLUDE=""
@@ -43,6 +46,12 @@ services:
       # Logging
       - N8N_LOG_LEVEL=info
       - N8N_LOG_OUTPUT=console
+      
+      # Disable telemetry/analytics
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_VERSION_NOTIFICATIONS_ENABLED=false
+      - N8N_TEMPLATES_ENABLED=false
+      - N8N_PERSONALIZATION_ENABLED=false
 
       # Filesystem-based workflow import (DISABLED - using command-service sync)
       - N8N_EXPORT_WORKFLOW_FILES_ON_CHANGE=false

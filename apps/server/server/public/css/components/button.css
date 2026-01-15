@@ -2,14 +2,14 @@
 .button {
   padding: 8px 16px;
   border: none;
-  border-radius: 4px;
-  background: #0078b4;
-  color: #fff;
+  border-radius: var(--radius-sm);
+  background: var(--button-primary-bg);
+  color: var(--text-inverse);
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background var(--transition-fast);
 }
 
 .button:hover {
-  background: #005f8a;
+  background: var(--button-primary-hover);
 }

@@ -86,6 +86,8 @@
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/controller/studioWorkflow.js": [
+    "apps/server/server/controller/getVal.js",
+    "apps/server/server/utils/getUserEmail.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/controller/userLogin.js": [
@@ -191,48 +193,73 @@
   "apps/server/server/renderers/index.js": [
     "apps/server/server/renderers/renderAppBar.js",
     "apps/server/server/renderers/renderButton.js",
+    "apps/server/server/renderers/renderCRUDGrid.js",
+    "apps/server/server/renderers/renderChart.js",
     "apps/server/server/renderers/renderContainer.js",
     "apps/server/server/renderers/renderForm.js",
     "apps/server/server/renderers/renderGrid.js",
+    "apps/server/server/renderers/renderIframe.js",
+    "apps/server/server/renderers/renderLogin.js",
     "apps/server/server/renderers/renderMenu.js",
     "apps/server/server/renderers/renderModal.js",
+    "apps/server/server/renderers/renderModalForm.js",
     "apps/server/server/renderers/renderPage.js",
     "apps/server/server/renderers/renderSelect.js",
     "apps/server/server/renderers/renderSidebar.js",
+    "apps/server/server/renderers/renderTabs.js",
     "apps/server/server/renderers/renderText.js"
   ],
   "apps/server/server/renderers/renderAppBar.js": [
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderButton.js": [
-    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/htmxBuilders/index.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderCRUDGrid.js": [
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderChart.js": [
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderContainer.js": [
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderForm.js": [
-    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/htmxBuilders/index.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderGrid.js": [
-    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/htmxBuilders/index.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderIframe.js": [
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderLogin.js": [
+    "apps/server/server/utils/htmxBuilders/index.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderMenu.js": [
-    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/htmxBuilders/index.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderModal.js": [
     "apps/server/server/utils/logger.js"
   ],
+  "apps/server/server/renderers/renderModalForm.js": [
+    "apps/server/server/utils/logger.js"
+  ],
   "apps/server/server/renderers/renderPage.js": [],
   "apps/server/server/renderers/renderSelect.js": [
-    "apps/server/server/utils/htmxBuilder.js",
+    "apps/server/server/utils/htmxBuilders/index.js",
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderSidebar.js": [
     "apps/server/server/renderers/renderMenu.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/renderers/renderTabs.js": [
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/renderers/renderText.js": [
@@ -240,9 +267,6 @@
   ],
   "apps/server/server/resetAgentPassword.js": [],
   "apps/server/server/routes/htmxRoutes.js": [
-    "apps/server/server/loaders/actionsLoader.js",
-    "apps/server/server/loaders/compositeLoader.js",
-    "apps/server/server/loaders/pageConfigLoader.js",
     "apps/server/server/loaders/renderRegistry.js",
     "apps/server/server/utils/dbManager.js",
     "apps/server/server/utils/logger.js"
@@ -352,7 +376,19 @@
     "apps/server/server/utils/queryResolver.js"
   ],
   "apps/server/server/utils/getUserEmail.js": [],
-  "apps/server/server/utils/htmxBuilder.js": [
+  "apps/server/server/utils/htmxBuilders/execN8NBuilder.js": [
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/utils/htmxBuilders/index.js": [
+    "apps/server/server/utils/htmxBuilders/execN8NBuilder.js",
+    "apps/server/server/utils/htmxBuilders/setValsBuilder.js",
+    "apps/server/server/utils/htmxBuilders/triggerEventBuilder.js",
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/utils/htmxBuilders/setValsBuilder.js": [
+    "apps/server/server/utils/logger.js"
+  ],
+  "apps/server/server/utils/htmxBuilders/triggerEventBuilder.js": [
     "apps/server/server/utils/logger.js"
   ],
   "apps/server/server/utils/impactLogger.js": [

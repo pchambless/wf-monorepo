@@ -12,6 +12,10 @@ dist
 
 # database
 db/dump/api_wf/schema_complete.sql
+.n8n/database.sqlite*
+.n8n/database.sqlite-shm
+.n8n/database.sqlite-wal
+
 
 # Devtools output
 docs/*.componentInventory.csv
